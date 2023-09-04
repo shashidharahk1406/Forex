@@ -1,0 +1,3 @@
+<mat-nav-list *ngFor="let nav of fillerNav">
+  <a mat-list-item [routerLink]="nav.path" > <i [class]="nav.icon"></i>{{nav.page}}</a>
+</mat-nav-list>
