@@ -1,0 +1,171 @@
+<form [formGroup]="filterForm">
+    <div class="row ">
+        <div class="col-6 col-md-6">
+            <h2 mat-dialog-title>Filter Users</h2>
+        </div>
+        <div class="col-6 col-md-6 text-end">
+            <h2 mat-dialog-title><mat-icon  mat-button mat-dialog-close aria-hidden="false" aria-label="Example home icon">close</mat-icon></h2>
+        </div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="row">
+            <div class="col-6 col-md-6">
+                <h3><b>Filter by Users</b></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>User Role</mat-label>
+                    <mat-select  formControlName="role">
+                      <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>User Status</mat-label>
+                    <mat-select formControlName="status"  >
+                      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>Designation</mat-label>
+                    <mat-select formControlName="designation" >
+                      <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>Select Reporting to User</mat-label>
+                    <mat-select formControlName="reportingTo" >
+                      <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>Level of Program</mat-label>
+                    <mat-select  formControlName="program">
+                      <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>Department</mat-label>
+                    <mat-select  formControlName="department">
+                      <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <h3><b>Filter by Dates</b></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="m-2" for="">Creation Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>From Date</mat-label>
+                            <input formControlName="creationFrom" matInput [matDatepicker]="creationFrom">
+                            <mat-datepicker-toggle matSuffix [for]="creationFrom"></mat-datepicker-toggle>
+                            <mat-datepicker #creationFrom></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>To Date</mat-label>
+                            <input formControlName="creationTo" matInput [matDatepicker]="creationTo">
+                            <mat-datepicker-toggle matSuffix [for]="creationTo"></mat-datepicker-toggle>
+                            <mat-datepicker #creationTo></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="m-2" for="">Last Login Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>From Date</mat-label>
+                            <input formControlName="loginFrom" matInput [matDatepicker]="loginFrom">
+                            <mat-datepicker-toggle matSuffix [for]="loginFrom"></mat-datepicker-toggle>
+                            <mat-datepicker #loginFrom></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>To Date</mat-label>
+                            <input formControlName="loginTo" matInput [matDatepicker]="loginTo">
+                            <mat-datepicker-toggle matSuffix [for]="loginTo"></mat-datepicker-toggle>
+                            <mat-datepicker #loginTo></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="m-2" for="">Modification Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>From Date</mat-label>
+                            <input formControlName="modificationFrom" matInput [matDatepicker]="modificationFrom">
+                            <mat-datepicker-toggle matSuffix [for]="modificationFrom"></mat-datepicker-toggle>
+                            <mat-datepicker #modificationFrom></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="fill">
+                            <mat-label>To Date</mat-label>
+                            <input formControlName="modificationTo" matInput [matDatepicker]="modificationTo">
+                            <mat-datepicker-toggle matSuffix [for]="modificationTo"></mat-datepicker-toggle>
+                            <mat-datepicker #modificationTo></mat-datepicker>
+                          </mat-form-field>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+      
+      
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button class="mat-cancel" mat-button mat-dialog-close>RESET</button>
+      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>APPLY</button>
+    </mat-dialog-actions>
+    
+    
+</form>

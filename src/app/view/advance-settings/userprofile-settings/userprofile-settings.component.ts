@@ -7,6 +7,8 @@ import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { DisableChatComponent } from '../disable-chat/disable-chat.component';
+import { UserProfileFilterComponent } from '../user-profile-filter/user-profile-filter.component';
+import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
 
 
 export interface UserData {
@@ -149,11 +151,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource(user);
+
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   applyFilter(event: Event) {
@@ -188,6 +192,26 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DisableChatComponent, {
       width: '450px',
       data: {name:name}
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openFilter(){
+    const dialogRef = this.dialog.open(UserProfileFilterComponent, {
+      width: '50%',
+      height:'90%',
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openAddUser(){
+    const dialogRef = this.dialog.open(AddNewUserComponent, {
+      width: '50%',
+      height:'90%',
     });
   
     dialogRef.afterClosed().subscribe(result => {

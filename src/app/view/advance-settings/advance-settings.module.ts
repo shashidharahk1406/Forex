@@ -8,6 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReplaceUserComponent } from './replace-user/replace-user.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { DisableChatComponent } from './disable-chat/disable-chat.component';
+import { UserProfileFilterComponent } from './user-profile-filter/user-profile-filter.component';
+import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 
 
 
@@ -18,7 +20,9 @@ import { DisableChatComponent } from './disable-chat/disable-chat.component';
     UserprofileSettingsComponent,
     ReplaceUserComponent,
     ResetPasswordComponent,
-    DisableChatComponent
+    DisableChatComponent,
+    UserProfileFilterComponent,
+    AddNewUserComponent
   ],
   imports: [
     CommonModule,

@@ -12,6 +12,7 @@ import { DashboradComponent } from './view/dashborad/dashborad.component';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import { SharedModule } from './shared/shared.module';
   exports:[
     SharedModule
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
