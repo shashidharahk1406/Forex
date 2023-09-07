@@ -15,7 +15,7 @@
                 <mat-form-field>
                     <mat-label>Full Name</mat-label>
                     <input matInput formControlName="fullName" placeholder="Enter Your Full Name" required>
-                    <mat-error *ngIf="quickAddForm.get('fullName').hasError('required')">Full Name is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('fullName')?.hasError('required')">Full Name is Required</mat-error>
                   
                   </mat-form-field>
             </div>
@@ -23,8 +23,8 @@
                 <mat-form-field>
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" required placeholder="Enter Your Email Id">
-                    <mat-error *ngIf="quickAddForm.get('email').hasError('required')">Email is Required</mat-error>
-                    <mat-error *ngIf="quickAddForm.get('email').hasError('email')">Invalid Email Format</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('email')?.hasError('email')">Invalid Email Format</mat-error>
                   </mat-form-field>
             </div>
         </div>
@@ -55,7 +55,7 @@
                     <mat-select formControlName="source" required placeholder="Enter Your Source">
                       <mat-option *ngFor="let source of sources" [value]="source">{{ source }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="quickAddForm.get('source').hasError('required')">Source is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('source')?.hasError('required')">Source is Required</mat-error>
                     <button mat-icon-button matSuffix *ngIf="quickAddForm.get('source')?.value" (click)="clearSource()">
                       <mat-icon>clear</mat-icon>
                     </button>
@@ -92,7 +92,7 @@
                     <mat-select formControlName="level" required>
                       <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="quickAddForm.get('level').hasError('required')">Level of Program is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('level')?.hasError('required')">Level of Program is Required</mat-error>
                     <button mat-icon-button matSuffix *ngIf="quickAddForm.get('level')?.value" (click)="clearLevel()">
                       <mat-icon>clear</mat-icon>
                     </button>
@@ -107,7 +107,7 @@
                     <mat-select formControlName="department" required>
                       <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="quickAddForm.get('department').hasError('required')">Department is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('department')?.hasError('required')">Department is Required</mat-error>
                     <button mat-icon-button matSuffix *ngIf="quickAddForm.get('department')?.value" (click)="clearDepartment()">
                       <mat-icon>clear</mat-icon>
                     </button>
@@ -119,7 +119,7 @@
                     <mat-select formControlName="course" required>
                       <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="quickAddForm.get('course').hasError('required')">Course is Required</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('course')?.hasError('required')">Course is Required</mat-error>
                     <button mat-icon-button matSuffix *ngIf="quickAddForm.get('course')?.value" (click)="clearCourse()">
                       <mat-icon>clear</mat-icon>
                     </button>
