@@ -1,0 +1,17 @@
+
+<div>
+    <div class="row">
+        <div class="col"><h1 mat-dialog-title>Disable chat for {{data.name}}</h1></div>
+        <div class="col-1">
+            <mat-icon mat-dialog-close>close</mat-icon>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-content>
+  <p>Do you want to disable this user?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
+  <button mat-button [mat-dialog-close]="data" class="mat-disable" cdkFocusInitial>DISABLE</button>
+</div>

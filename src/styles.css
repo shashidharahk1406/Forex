@@ -1,15 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import "bootstrap-icons/font/bootstrap-icons.css";
+@import "./assets/global.css";
+@import "./assets/table.css";
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+
 
 html, body {
  height: 100%;
+ color:#393939;
 }
-
 body {
   margin: 0;
   font-family: "Open Sans", sans-serif;
+}
+.z-s{
+  zoom: 85%;
+}
+.mat-list-base,.mat-list-item:focus {
+  -webkit-tap-highlight-color:white !important;
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  -webkit-tap-highlight-color:white !important;
 }
 @media(max-width:767px){
   mat-sidenav {
@@ -21,6 +33,9 @@ body {
   h1.e-app-name {
     color: #f44336;
     font-size: 17px;
+    margin: 20px 10px;
+    border:3px solid #f44336;
+    padding: 10px;
   }
 }
 @media(min-width:767px) and (max-width:1023px){
@@ -34,10 +49,14 @@ body {
   h1.e-app-name {
     color: #f44336;
     font-size: 17px;
-  }
+    margin: 20px 10px;
+    border:3px solid #f44336;
+    padding: 10px;
+ }
   
 }
 @media(min-width:1024px){
+  
   .mat-drawer-backdrop.mat-drawer-shown {
     visibility: hidden !important;
   }
@@ -46,7 +65,7 @@ body {
     z-index: -1;
   }
   mat-sidenav-content,.container-withmenu{
-    width:82.9%;
+    width:82.7%;
     margin-left: 17% !important;
     margin-right: 0 ;
   }
@@ -67,9 +86,11 @@ body {
   overflow-x: hidden !important;
 }
 h1.e-app-name {
+  width: 212px;
   color: #f44336;
   font-size: 13px;
   border: 3px solid;
+  text-align: center;
   padding: 0px 2px;
   border-radius: 3px;
 }
@@ -96,8 +117,18 @@ mat-sidenav:hover ::-webkit-scrollbar-thumb{
 mat-sidenav-content::-webkit-scrollbar-thumb{
   background: rgb(172, 172, 172); 
 }
-mat-sidenav-content:hover ::-webkit-scrollbar-thumb:h {
+mat-sidenav-content:hover ::-webkit-scrollbar-thumb {
   background: rgb(172, 172, 172);
 }
-}
 
+}
+.mat-drawer:not(.mat-drawer-side) {
+  box-shadow: 0px 30px 0 0 rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 9px 1px rgba(0, 0, 0, 0.12);
+}
+.mat-tab-body-content {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+}
+mat-form-field{
+  width: 100%;
+}

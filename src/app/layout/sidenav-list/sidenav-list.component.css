@@ -1,12 +1,8 @@
 a {
-  text-decoration: none;
-  color: white;
+  text-decoration: none !important;
 }
 
-a:hover,
-a:active {
-  color: lightgray;
-}
+
 i{
   margin-right: 10px;
   color:orangered;
@@ -17,4 +13,10 @@ i{
   font-size: 13px;
   color: rgb(102 102 102);
   text-shadow: 0px 0px #6c757d;
+  background: none ;
 }
+.active{
+  background: #e4e4e4 !important;
+  color:black !important;
+}
+

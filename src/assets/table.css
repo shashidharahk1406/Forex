@@ -1,0 +1,32 @@
+:root {
+    --appColor:#f44336 ;
+    --lightHeader:#7D7D7D;
+    --allFontColor:#393939;
+    --appLightColor:#FFF2EB;
+}
+tr.mat-header-row {
+    height: 40px !important;
+    background:var(--appLightColor) ;
+}
+.mat-header-cell {
+    color:var(--allFontColor) !important;
+    text-transform: uppercase;
+    font-weight: 600 !important;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color:var(--appColor) !important;;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color:var(--appLightColor) !important;
+}
+tr.mat-row, tr.mat-footer-row {
+    height: 40px !important;
+}
+.genericTable{
+    height: 60% !important;
+    width: 100% !important;
+    position: relative;
+    overflow-x: auto;
+    overflow-y: auto;
+    zoom: 90%;
+}

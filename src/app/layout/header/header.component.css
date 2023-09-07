@@ -1,0 +1,17 @@
+h1.e-app-name {
+  color: #f44336;
+}
+
+.mat-toolbar.mat-primary {
+  background: #484848;
+}
+
+.ico-d-w{
+  display: inline-flex;
+  margin:0px 15px;
+}
+.ico-d-m{
+  display: inline-flex;
+  margin:0px 5px;
+}
+

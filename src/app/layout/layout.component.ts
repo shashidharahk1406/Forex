@@ -10,7 +10,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 export class LayoutComponent implements OnInit {
   mobileQuery: MediaQueryList;
   
-  @ViewChild('snav')snav?:MatSidenav
+  @ViewChild('snav')snav!:MatSidenav
   private _mobileQueryListener: () => void;
   sideBarState = false;
   menuState = false;

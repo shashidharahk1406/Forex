@@ -1,0 +1,58 @@
+:root {
+    --appColor:#f44336 ;
+    --lightHeader:#7D7D7D;
+    --allFontColor:#393939;
+    --appLightColor:#FFF2EB;
+    --appWhite:#FFF;
+}
+.bi-funnel-fill,.bi-person-plus-fill,.mat-cancel{
+   color:var(--appColor) !important;
+}
+.mat-cancel{
+    color:var(--appColor) !important;
+    border:1px solid var(--appColor) !important;
+}
+.mat-disable{
+    background: var(--appColor) !important;
+    color:var(--appWhite) !important;
+}
+.h1-set-header{
+ color:var(--lightHeader)
+}
+.h1-set-header:hover{
+    color: var(--allFontColor);
+}
+.h-90{
+height: 90%;
+}
+.more-inner-icon,.more-icon{
+    color:var(--appColor);
+}
+.dropdown-menu.show {
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    border: none;
+}
+.dropdown-menu {
+    --bs-dropdown-font-size: 15px;
+}
+.app-list:hover{
+    background:var(--appLightColor) ;
+}
+.app-list:active{
+    background:var(--appLightColor) ;
+}
+.dropdown-toggle::after {
+    border-top: 0; 
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+  }
+  .mat-dialog-actions {
+    justify-content: end !important;
+  }
+  .mandatory-symbol{
+    color:red;
+  }
+  mat-tab{
+   overflow-y: hidden !important;
+  }

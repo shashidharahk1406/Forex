@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboradComponent } from './view/dashborad/dashborad.component';
 import { LayoutComponent } from './layout/layout.component';
 
 const routes: Routes = [
+  {
+    path: '', 
+    redirectTo: 'analytics', 
+    pathMatch: 'full', 
+  },
   { path: '', component: LayoutComponent},
   { path: '', component: LayoutComponent,children:[
     {

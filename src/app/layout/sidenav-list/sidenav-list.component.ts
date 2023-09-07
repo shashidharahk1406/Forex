@@ -2,9 +2,10 @@ import {
   Component,
   OnInit,
   EventEmitter,
-  Output
+  Output,
+  ChangeDetectorRef
 } from '@angular/core';
-
+import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -100,7 +101,14 @@ export class SidenavListComponent implements OnInit {
     },
     ]
     
-  constructor() {}
+    mobileQuery: any;
+    _mobileQueryListener: () => void;
+    notification: boolean = false;
+    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+      this.mobileQuery = media.matchMedia('(max-width: 768px)');
+      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener);
+    }
 
   ngOnInit() {
    

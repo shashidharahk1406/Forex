@@ -6,11 +6,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './navigation/header/header.component';
+import { HeaderComponent } from './layout/header/header.component';
 import { SidenavListComponent } from './layout/sidenav-list/sidenav-list.component';
 import { DashboradComponent } from './view/dashborad/dashborad.component';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -30,6 +31,10 @@ import { LayoutComponent } from './layout/layout.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    SharedModule
+  ],
+  exports:[
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

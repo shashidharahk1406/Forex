@@ -30,5 +30,8 @@
   .mat-toolbar.mat-primary {
     background: #484848;
   }
-  
+  .mat-drawer-content {
+    
+    overflow: hidden !important;
+}
   
