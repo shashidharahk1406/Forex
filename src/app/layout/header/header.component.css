@@ -9,9 +9,11 @@ h1.e-app-name {
 .ico-d-w{
   display: inline-flex;
   margin:0px 15px;
+  cursor: pointer;
 }
 .ico-d-m{
   display: inline-flex;
   margin:0px 5px;
+  cursor: pointer;
 }
 

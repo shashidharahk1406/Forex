@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { QuickAddComponent } from 'src/app/shared/quick-add/quick-add.component';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +15,8 @@ export class HeaderComponent implements OnInit {
   mobileQuery: any;
   _mobileQueryListener: () => void;
   notification: boolean = false;
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
+    private dialog: MatDialog) {
     this.mobileQuery = media.matchMedia('(max-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -24,6 +27,14 @@ export class HeaderComponent implements OnInit {
    
   }
 
+  quickAdd(){
+    const dialogRef = this.dialog.open(QuickAddComponent, {
+      width: '60%',
+    });
   
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    }); 
+  }
 
 }

@@ -5,12 +5,14 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationComponent } from './notification/notification.component';
 import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuickAddComponent } from './quick-add/quick-add.component';
 
 
 @NgModule({
   declarations: [
     SearchbarComponent,
-    NotificationComponent
+    NotificationComponent,
+    QuickAddComponent
   ],
   imports: [
     CommonModule,

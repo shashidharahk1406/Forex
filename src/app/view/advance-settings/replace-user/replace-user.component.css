@@ -1,0 +1,29 @@
+.profile-container{
+    height: 75px;
+    width: 75px;
+    background: rgb(97, 205, 187);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    color: white;
+}
+profile-data div{
+    margin: 0;
+    padding: 0;
+}
+mat-dialog-content{
+    font-size: 12px;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+.right-container{
+    border-left:2px dotted #eaeaea;
+}
+.mr-left{
+    margin-left: 21%;
+}

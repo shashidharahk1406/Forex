@@ -5,20 +5,17 @@
     --appLightColor:#FFF2EB;
     --appWhite:#FFF;
 }
+/* .mat-calendar-body-selected {
+  background-color: var(--appColor) !important;
+} */
+
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: var(--appColor) !important;
 }
-/* .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: var(--appColor) !important;
-} */
-/* Border */
-.mat-form-field-appearance-outline .mat-form-field-outline {
-    border-color: red !important;
-  }
-  /* Font color */
-  input.mat-input-element {
-    border-color: red !important;
-  }
+}
+
 app-sidenav-list i{
     color:var(--appColor) !important;
 }
@@ -204,4 +201,10 @@ height: 90%;
 
    .mat-form-field-appearance-fill .mat-form-field-flex {
     background-color:transparent !important;
+   }
+   .mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon, .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 1.5em !important;
+   }
+   .border-bottom{
+    border-bottom:1px solid #eae9e9;
    }

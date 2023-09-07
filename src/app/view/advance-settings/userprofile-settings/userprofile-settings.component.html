@@ -5,8 +5,8 @@
  
  <div class="row m-4">
   <div class="col-sm-12 col-md-6 col-lg-8 text-end">
-    <i class="bi bi-funnel-fill"></i>
-    <i class="bi bi-person-plus-fill"></i>
+    <i class="bi bi-funnel-fill" (click)=" openFilter()"></i>
+    <i class="bi bi-person-plus-fill" (click)="openAddUser()"></i>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="input-group z-s">
@@ -73,7 +73,7 @@
            <div class="app-list"ngbDropdownToggle>
             <mat-icon class="more-inner-icon">pause_circle_filled</mat-icon> Pause User
            </div>
-           <div class="app-list" ngbDropdownToggle (click)="openReplaceUser()">
+           <div class="app-list" ngbDropdownToggle (click)="openReplaceUser(element)">
             <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
            </div>
            <div class="app-list"ngbDropdownToggle (click)="openResetPassword(element)">

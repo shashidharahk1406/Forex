@@ -20,6 +20,7 @@ table {
 }
 .more-icon{
   line-height: 33px !important;
+  cursor: pointer;
 }
 .more-dropdown{
   width: 191px;

@@ -1,8 +1,153 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
+<div>
+  <div class="row ">
+      <div class="col"><h1 mat-dialog-title>Replace User</h1></div>
+      <div class="col-1">
+          <mat-icon mat-dialog-close>close</mat-icon>
+      </div>
+  </div>
+</div>
 <mat-dialog-content>
-  <p>{{ data.message }}</p>
+  <h6 class="mr-left">{{data.userdata['User Name']}}</h6>
+  <div class="profile-data">
+  </div>
+    
+  <div class="row border-bottom mx-1 my-4">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-4">
+          <div class="profile-container">{{data.userdata['User Name'][0]}}</div>
+        </div>
+        <div class="col-8 text-muted mt-2 ps-4">
+              <ul>
+                <li>{{data.userdata['Email']}}{{'@gmail.com'}}</li>
+                <li>User Role : {{data.userdata['User Role']}}</li>
+                <li>User Status : {{data.userdata['User Status']}}</li>
+              </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 right-container text-muted mt-2 ps-4">
+      <ul>
+        <li>
+          Designation : {{data.userdata['Designation']}}</li>
+        <li>Last Login Date : Sep 6, 2023 3:16 PM</li>
+        <li>Created On : Aug 12, 2023 8:27 AM</li>
+      </ul>
+    </div>
+  </div>
+
+  <!----------FORM--------------->
+ <!-----------SECTION-1------------------->
+  <div class="row border-bottom mx-1 my-4">
+    <div class="col-12">
+      <h6>Section 1 : Basic User Details</h6>
+      <form>
+      <div class="row">
+        <div class="col-6">
+        <mat-form-field>
+        <mat-label>First Name <b class="mandatory-symbol">*</b></mat-label>
+        <input matInput placeholder="Enter Your First Name">
+        </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter Your Last Name">
+          </mat-form-field>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Mobile Number</mat-label>
+              <input matInput placeholder="Enter Your Mobile Number">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Employee Key</mat-label>
+              <input matInput placeholder="Enter Your Employee Key">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Target</mat-label>
+              <input matInput placeholder="Enter Your Target">
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Start Date</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="Choose a Date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+       <!--------SECTION-1-ENDS------------>
+      <!---------SECTION-2---------------->
+      
+      <div class="row border-bottom my-4">
+        <div class="col-12">
+          <h6>Section 2 : Access Level Details</h6>
+          <div class="row">
+            <div class="col-6">
+              <mat-form-field>
+                <mat-label>Select Reporting To User <b class="mandatory-symbol">*</b></mat-label>
+                <mat-select [(value)]="selectedUser">
+                  <mat-option *ngFor="let user of users" [value]="user">{{ user }}</mat-option>
+                </mat-select>
+                <button mat-icon-button matSuffix *ngIf="selectedUser" (click)="clearUser()">
+                  <mat-icon>clear</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+          </div>
+       
+        </div>
+      </div>
+     <!---------SECTION-2-Ends--------------->
+     <div class="row">
+      <div class="col-12">
+        <h6>Section 3: Access Level Details</h6>
+
+        <div class="row">
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Select Level of Program</mat-label>
+              <mat-select [(value)]="selectedLevel">
+                <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+              </mat-select>
+              <button mat-icon-button matSuffix *ngIf="selectedLevel" (click)="clearLevel()">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field>
+              <mat-label>Select Department</mat-label>
+              <mat-select [(value)]="selectedDepartment">
+                <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>
+              </mat-select>
+              <button mat-icon-button matSuffix *ngIf="selectedDepartment" (click)="clearDepartment()">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+     </div>
+   
+     
+    </form>
+    </div>
+  </div>
+
+  <!-----------END--------------->
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
-</mat-dialog-actions>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
+  <button mat-button [mat-dialog-close]="data" class="mat-disable" cdkFocusInitial>REPLACE USER</button>
+</div>

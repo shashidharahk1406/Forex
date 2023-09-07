@@ -177,10 +177,11 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
   
-  openReplaceUser(){
+  openReplaceUser(userdata:any){
     const dialogRef = this.dialog.open(ReplaceUserComponent, {
-      width: this.mobileQuery.matches? '100%':'450px',
-      data: { title: 'Dialog Title', message: 'Dialog Message' }
+      width: this.mobileQuery.matches? '100%':'650px',
+      data: { userdata: userdata }
+
     });
   
     dialogRef.afterClosed().subscribe(result => {
