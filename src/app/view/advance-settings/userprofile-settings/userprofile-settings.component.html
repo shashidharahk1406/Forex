@@ -4,11 +4,11 @@
 </div>
  
  <div class="row m-4">
-  <div class="col-8 text-end">
+  <div class="col-sm-12 col-md-6 col-lg-8 text-end">
     <i class="bi bi-funnel-fill"></i>
     <i class="bi bi-person-plus-fill"></i>
   </div>
-  <div class="col-4">
+  <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="input-group z-s">
       <input type="text" class="form-control" placeholder="Search by Name/Mobile/Email">
       <button class="btn btn-outline-secondary" type="button">
@@ -17,6 +17,7 @@
     </div>
   </div>
  </div>
+ 
 <div class="genericTable">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!-- Define User Name column -->
@@ -75,7 +76,7 @@
            <div class="app-list" ngbDropdownToggle (click)="openReplaceUser()">
             <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
            </div>
-           <div class="app-list"ngbDropdownToggle (click)="openResetPassword()">
+           <div class="app-list"ngbDropdownToggle (click)="openResetPassword(element)">
             <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
            </div>
            <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element['User Name'])">
@@ -96,4 +97,5 @@
 </div>
    
   <!-- Add pagination -->
-  <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <mat-paginator  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+ 

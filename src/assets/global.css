@@ -1,9 +1,26 @@
 :root {
-    --appColor:#f44336 ;
+    --appColor:#f17e33;
     --lightHeader:#7D7D7D;
     --allFontColor:#393939;
     --appLightColor:#FFF2EB;
     --appWhite:#FFF;
+}
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: var(--appColor) !important;
+}
+/* .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: var(--appColor) !important;
+} */
+/* Border */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    border-color: red !important;
+  }
+  /* Font color */
+  input.mat-input-element {
+    border-color: red !important;
+  }
+app-sidenav-list i{
+    color:var(--appColor) !important;
 }
 .bi-funnel-fill,.bi-person-plus-fill,.mat-cancel{
    color:var(--appColor) !important;
@@ -56,3 +73,135 @@ height: 90%;
   mat-tab{
    overflow-y: hidden !important;
   }
+
+
+  html, body {
+    height: 100%;
+    color:#393939;
+   }
+   body {
+     margin: 0;
+     font-family: "Open Sans", sans-serif;
+   }
+   .z-s{
+     zoom: 85%;
+   }
+   .mat-list-base,.mat-list-item:focus {
+     -webkit-tap-highlight-color:white !important;
+   }
+   .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+     -webkit-tap-highlight-color:white !important;
+   }
+   @media(max-width:767px){
+     mat-sidenav {
+       width: 70%;
+     }
+     mat-sidenav-content{
+       margin: 10px;
+     }
+     h1.e-app-name {
+       color: var(--appColor);
+       font-size: 17px;
+       margin: 20px 10px;
+       border:3px solid var(--appColor);
+       padding: 10px;
+     }
+     .mat-paginator-container {
+       display: flex;
+       align-items: center;
+       justify-content: center !important;
+       padding: 0 8px;
+       flex-wrap: wrap-reverse;
+       width: 100%;
+   }
+   }
+   @media(min-width:767px) and (max-width:1023px){
+     
+     mat-sidenav {
+       width:27%;
+     }
+     mat-sidenav-content{
+       margin: 10px;
+     }
+     h1.e-app-name {
+       color: var(--appColor);
+       font-size: 17px;
+       margin: 20px 10px;
+       border:3px solid var(--appColor);
+       padding: 10px;
+    }
+    .mat-paginator-container {
+     display: flex;
+     align-items: center;
+     justify-content: center !important;
+     padding: 0 8px;
+     flex-wrap: wrap-reverse;
+     width: 100%;
+   }
+   }
+   @media(min-width:1024px){
+     
+     .mat-drawer-backdrop.mat-drawer-shown {
+       visibility: hidden !important;
+     }
+     mat-sidenav {
+       width: 16%;
+       z-index: -1;
+     }
+     mat-sidenav-content,.container-withmenu{
+       width:82.7%;
+       margin-left: 17% !important;
+       margin-right: 0 ;
+     }
+     
+     mat-sidenav-content,.container-with-out-menu{
+       width: 95%;
+       margin-left: 4rem !important;
+       margin-right: 0 ;
+     }
+    
+     .webMenu{
+       width:16% !important
+     }
+    .iconMenu {
+       width: 3% !important;
+   }
+   .mat-drawer-inner-container {
+     overflow-x: hidden !important;
+   }
+   h1.e-app-name {
+     width: 212px;
+     color: var(--appColor);
+     font-size: 13px;
+     border: 3px solid;
+     text-align: center;
+     padding: 0px 2px;
+     border-radius: 3px;
+   }
+   h1 .bi-fire{
+     color:white !important;
+    }
+    
+   }
+
+
+
+
+
+   .mat-drawer:not(.mat-drawer-side) {
+     box-shadow: 0px 30px 0 0 rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 9px 1px rgba(0, 0, 0, 0.12);
+   }
+   .mat-tab-body-content {
+     overflow-x: hidden !important;
+     overflow-y: hidden !important;
+   }
+   mat-form-field{
+     width: 100%;
+   }
+   .error-msg{
+     color:red;
+   }
+
+   .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color:transparent !important;
+   }
