@@ -34,4 +34,6 @@
     
     overflow: hidden !important;
 }
-  
+mat-icon{
+  color: white;
+}

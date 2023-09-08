@@ -10,10 +10,15 @@ h1.e-app-name {
   display: inline-flex;
   margin:0px 15px;
   cursor: pointer;
+  color:white;
 }
 .ico-d-m{
   display: inline-flex;
   margin:0px 5px;
   cursor: pointer;
+  color:white;
+}
+.mat-button .mat-button-wrapper>*, .mat-flat-button .mat-button-wrapper>*, .mat-stroked-button .mat-button-wrapper>*, .mat-raised-button .mat-button-wrapper>*, .mat-icon-button .mat-button-wrapper>*, .mat-fab .mat-button-wrapper>*, .mat-mini-fab .mat-button-wrapper>* {
+  color: #989898 !important;
 }
 

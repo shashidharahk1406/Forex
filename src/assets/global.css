@@ -8,7 +8,12 @@
 /* .mat-calendar-body-selected {
   background-color: var(--appColor) !important;
 } */
-
+::ng-deep .mdc-text-field-outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+::ng-deep .mdc-text-field-outlined:not(.mdc-text-field--disabled).mdc-noted-outline__notch,
+::ng-deep .mdc-text-field-outlined:not(.mdc-text-field--disabled).mdc-noted-outline__tralling{
+border-color:orangered !important;
+border-width: 3px solid !important;
+}
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: var(--appColor) !important;
 }
