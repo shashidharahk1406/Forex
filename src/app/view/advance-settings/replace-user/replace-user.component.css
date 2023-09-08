@@ -9,13 +9,15 @@
     font-size: 45px;
     color: white;
 }
+.text-muted{
+  font-size: 12px;
+}
+
 profile-data div{
     margin: 0;
     padding: 0;
 }
-mat-dialog-content{
-    font-size: 12px;
-}
+
 
 ul{
     list-style-type: none;
@@ -26,4 +28,22 @@ ul{
 }
 .mr-left{
     margin-left: 21%;
+}
+.mat-dialog-actions {
+    min-height: 83px !important;
+}
+.pencil-edit{
+    position: absolute;
+    bottom: 1px;
+    right: 21px;
+    transform: rotate(1deg);
+    background: white;
+    border-radius: 50%;
+    font-size: 16px;
+    padding: 4px;
+    cursor: pointer;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+}
+.profile-container img{
+ border-radius: 50%;
 }

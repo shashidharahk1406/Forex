@@ -29,7 +29,9 @@ table {
 .more-inner-icon{
   vertical-align: middle !important;
   font-size: 20px;
+  cursor: pointer;
 }
 .app-list{
   padding: 3px;
+  cursor: pointer;
 }

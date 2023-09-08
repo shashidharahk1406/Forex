@@ -201,6 +201,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   openDisableChat(name:string){
     const dialogRef = this.dialog.open(DisableChatComponent, {
       width: this.mobileQuery.matches?'100%':'450px',
+      height:'35%',
       data: {name:name}
     });
   

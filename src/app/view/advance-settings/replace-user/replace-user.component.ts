@@ -11,6 +11,7 @@ export class ReplaceUserComponent implements OnInit {
   selectedUser!: string;
   selectedLevel!: string;
   selectedDepartment!: string;
+  selectedImage:any;
   constructor(
     public dialogRef: MatDialogRef<ReplaceUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -35,4 +36,22 @@ export class ReplaceUserComponent implements OnInit {
   clearDepartment() {
     this.selectedDepartment = '';
   }
+  
+  openFileInput(): void {
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  handleFileChange(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.selectedImage = e.target?.result;
+        console.log(this.selectedImage,"SELECTED IMG")
+      };
+      reader.readAsDataURL(fileInput.files[0]);
+    }
+  }
+
 }

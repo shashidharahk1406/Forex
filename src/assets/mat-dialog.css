@@ -1,0 +1,26 @@
+.mat-dialog-container {
+    padding: 0  !important;
+    overflow-x:hidden !important;
+  }
+  .mat-dialog-header{
+    background: #FEF2EB;
+    height: 58px;
+    padding: 16px 24px 12px
+    }
+  .close-icon{
+    padding-top: 3px;
+    color: #818181 !important;
+  }
+   .close-icon:hover{
+    color: #f17800 !important;
+  }
+  .mat-dialog-actions {
+    padding: 23px !important;
+  }
+  .mat-dialog-content{
+    font-size: 13px;
+    padding: 0 1.5rem;
+  }
+.mat-dialog-content .disable-user {
+  overflow-y: hidden !important;
+}

@@ -1,22 +1,33 @@
-<div>
+<div class="mat-dialog-header">
   <div class="row ">
       <div class="col"><h1 mat-dialog-title>Replace User</h1></div>
-      <div class="col-1">
+      <div class="col-1 close-icon">
           <mat-icon mat-dialog-close>close</mat-icon>
       </div>
   </div>
 </div>
 <mat-dialog-content>
-  <h6 class="mr-left">{{data.userdata['User Name']}}</h6>
+  <h6 class="mr-left mt-3">{{data.userdata['User Name']}}</h6>
   <div class="profile-data">
   </div>
     
-  <div class="row border-bottom mx-1 my-4">
+  <div class="row border-bottom mx-1 my-2 pb-3">
     <div class="col-6">
       <div class="row">
-        <div class="col-4">
+        <!-- <div class="col-4 position-rel">
           <div class="profile-container">{{data.userdata['User Name'][0]}}</div>
+          <mat-icon id="edit-icon"  class="pencil-edit" (click)="openFileInput()">edit</mat-icon>
+          <input type="file" id="file-input" style="display: none;">
+        </div> -->
+        <div class="col-4 position-rel">
+          <div class="profile-container">
+            <img [src]="selectedImage" height="70" width="70"  alt="Profile Image" *ngIf="selectedImage">
+           <span *ngIf="!selectedImage">{{data.userdata['User Name'][0]}}</span> 
+          </div>
+          <mat-icon id="edit-icon" class="pencil-edit" (click)="openFileInput()">edit</mat-icon>
+          <input type="file" id="file-input" style="display: none;" (change)="handleFileChange($event)">
         </div>
+        
         <div class="col-8 text-muted mt-2 ps-4">
               <ul>
                 <li>{{data.userdata['Email']}}{{'@gmail.com'}}</li>
@@ -44,13 +55,13 @@
       <form>
       <div class="row">
         <div class="col-6">
-        <mat-form-field>
+        <mat-form-field appearance="outline">
         <mat-label>First Name <b class="mandatory-symbol">*</b></mat-label>
         <input matInput placeholder="Enter Your First Name">
         </mat-form-field>
         </div>
         <div class="col-6">
-          <mat-form-field>
+          <mat-form-field appearance="outline">
             <mat-label>Last Name</mat-label>
             <input matInput placeholder="Enter Your Last Name">
           </mat-form-field>
@@ -58,13 +69,13 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Mobile Number</mat-label>
               <input matInput placeholder="Enter Your Mobile Number">
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Employee Key</mat-label>
               <input matInput placeholder="Enter Your Employee Key">
             </mat-form-field>
@@ -72,13 +83,13 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Target</mat-label>
               <input matInput placeholder="Enter Your Target">
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Start Date</mat-label>
               <input matInput [matDatepicker]="picker" placeholder="Choose a Date">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -94,7 +105,7 @@
           <h6>Section 2 : Access Level Details</h6>
           <div class="row">
             <div class="col-6">
-              <mat-form-field>
+              <mat-form-field appearance="outline">
                 <mat-label>Select Reporting To User <b class="mandatory-symbol">*</b></mat-label>
                 <mat-select [(value)]="selectedUser">
                   <mat-option *ngFor="let user of users" [value]="user">{{ user }}</mat-option>
@@ -115,7 +126,7 @@
 
         <div class="row">
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Select Level of Program</mat-label>
               <mat-select [(value)]="selectedLevel">
                 <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
@@ -126,7 +137,7 @@
             </mat-form-field>
           </div>
           <div class="col-6">
-            <mat-form-field>
+            <mat-form-field appearance="outline">
               <mat-label>Select Department</mat-label>
               <mat-select [(value)]="selectedDepartment">
                 <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>

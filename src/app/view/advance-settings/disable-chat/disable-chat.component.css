@@ -1,0 +1,8 @@
+.mat-dialog-content{
+    margin: 0 !important;
+    padding: 0 20px !important;
+    overflow-y: hidden !important;
+}
+.mat-dialog-actions {
+    padding: 10px 20px 34px !important;
+}
