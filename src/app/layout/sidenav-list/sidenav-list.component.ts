@@ -102,13 +102,8 @@ export class SidenavListComponent implements OnInit {
     ]
     
     mobileQuery: any;
-    _mobileQueryListener: () => void;
     notification: boolean = false;
-    constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-      this.mobileQuery = media.matchMedia('(max-width: 768px)');
-      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-      this.mobileQuery.addListener(this._mobileQueryListener);
-    }
+   
 
   ngOnInit() {
    

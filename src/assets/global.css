@@ -14,7 +14,9 @@
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: var(--appColor) !important;
 }
-
+.mat-drawer-container {
+  background-color:transparent !important;
+}
 app-sidenav-list i{
     color:var(--appColor) !important;
 }
@@ -104,5 +106,11 @@ height: 90%;
     position: relative;
    }
 
-  
-  
+   h1.app-name {
+    color: var(--appColor);
+    font-size: 13px;
+    text-align: center;
+  }
+  .mat-paginator-container {
+    justify-content: center !important;
+  }

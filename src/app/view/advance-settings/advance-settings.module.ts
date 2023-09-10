@@ -10,6 +10,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DisableChatComponent } from './disable-chat/disable-chat.component';
 import { UserProfileFilterComponent } from './user-profile-filter/user-profile-filter.component';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
+import { WhatsappFilterComponent } from './whatsapp-filter/whatsapp-filter.component';
 
 
 
@@ -22,7 +23,8 @@ import { AddNewUserComponent } from './add-new-user/add-new-user.component';
     ResetPasswordComponent,
     DisableChatComponent,
     UserProfileFilterComponent,
-    AddNewUserComponent
+    AddNewUserComponent,
+    WhatsappFilterComponent
   ],
   imports: [
     CommonModule,

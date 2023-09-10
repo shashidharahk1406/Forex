@@ -1,11 +1,13 @@
-<ng-container *ngIf="!mobileQuery.matches">
+<ng-container>
+  <mat-card>
   <mat-nav-list *ngFor="let nav of fillerNav">
-    <a mat-list-item [routerLink]="nav.path" routerLinkActive="active"> <i [class]="nav.icon"></i>{{nav.page}}</a>
+   <a mat-list-item [routerLink]="nav.path" routerLinkActive="active"> <i [class]="nav.icon"></i>{{nav.page}}</a>
   </mat-nav-list>
+</mat-card>
 </ng-container>
-<ng-container *ngIf="mobileQuery.matches">
+<!-- <ng-container *ngIf="mobileQuery.matches">
   <h1 class="e-app-name" ><i class="bi bi-fire" ></i> First Class Mentor</h1>
   <mat-nav-list *ngFor="let nav of fillerNav">
     <a mat-list-item [routerLink]="nav.path" routerLinkActive="active"> <i [class]="nav.icon"></i>{{nav.page}}</a>
   </mat-nav-list>
-</ng-container>
+</ng-container> -->

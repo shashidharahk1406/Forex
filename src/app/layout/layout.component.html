@@ -1,47 +1,24 @@
-<ng-container *ngIf="!mobileQuery.matches">
-    <div class="e-container" [class.e-is-mobile]="mobileQuery.matches" >
-      <mat-toolbar color="primary" class="e-toolbar">
-          <h1 class="e-app-name" ><i class="bi bi-fire" ></i> First Class Mentor</h1>
-          <button mat-icon-button (click)="sideNavToggle()" ><mat-icon>menu</mat-icon></button>
-      
-          <app-header class="w-100"></app-header>
-        
-      </mat-toolbar>
-    
-      <mat-sidenav-container class="e-sidenav-container"
-          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav [opened] ="mobileQuery.matches ? false : true" [mode]="mobileQuery.matches ? 'over' : 'push'"
-           [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" [ngClass]="!sideBarState ? 'webMenu' : 'iconMenu'">
-          <app-sidenav-list ></app-sidenav-list>
-        </mat-sidenav>
-    
-        <mat-sidenav-content [ngClass]="sideBarState ? 'container-with-out-menu':'container-withmenu'">
-          <router-outlet></router-outlet>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </div>
-  </ng-container>
-  
-  <ng-container *ngIf="mobileQuery.matches">
-    <div class="e-container" [class.e-is-mobile]="mobileQuery.matches" >
-      <mat-toolbar color="primary" class="e-toolbar">
-        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-        <!-- <h1 class="e-app-name text-center"><i class="bi bi-fire" ></i> First Class Mentor</h1> -->
+ <div>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <h1 class="app-name" *ngIf="!mobileView"><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1>
+        <button mat-icon-button class="ms-4" (click)="sidenav.toggle()" ><mat-icon>menu</mat-icon></button>
         <app-header class="w-100"></app-header>
-      </mat-toolbar>
-     
-    
-      <mat-sidenav-container class="e-sidenav-container"
-          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-        <mat-sidenav #snav  [mode]="mobileQuery.matches ? 'over' : 'push'"
-           [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="webMenu">
-          
-          <app-sidenav-list (click)="snav.toggle()"></app-sidenav-list>
-        </mat-sidenav>
-    
-        <mat-sidenav-content >
-          <router-outlet></router-outlet>
-        </mat-sidenav-content>
-      </mat-sidenav-container>
-    </div>
-  </ng-container>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-sidenav-container>
+      <mat-sidenav *ngIf="mobileView"  #sidenav="matSidenav"   class="pb-4" opened="false" [mode]="mobileView ? 'over':'side'">
+        <h1 class="app-name mt-3" ><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1>
+        <app-sidenav-list (click)="sidenav.toggle()"></app-sidenav-list>
+      </mat-sidenav>
+      <mat-sidenav *ngIf="!mobileView" #sidenav  [mode]="mobileView ? 'over':'side'" class="pb-4"  opened="true">
+        <app-sidenav-list ></app-sidenav-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+      <mat-card style="height:88vh;" class="mx-4">
+        <router-outlet></router-outlet>
+      </mat-card>
+   </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+ 

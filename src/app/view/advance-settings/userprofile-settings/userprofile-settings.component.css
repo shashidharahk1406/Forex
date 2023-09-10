@@ -8,10 +8,9 @@ table {
     color:#393939 !important;
 }
 .head-container{
-    padding: 15px 0 10px 0;
-    padding-left: 0px;
-    border-bottom: 1px solid rgb(216, 216, 216);
-    background-color: transparent !important;
+  padding: 15px 15px 11px;
+  border-bottom: 1px solid rgb(216, 216, 216);
+  background-color: transparent !important;
 }
 .bi-funnel-fill,.bi-person-plus-fill{
   margin: 0 10px;

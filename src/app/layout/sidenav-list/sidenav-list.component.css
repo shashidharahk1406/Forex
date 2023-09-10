@@ -18,4 +18,9 @@ i{
   background: #e4e4e4 !important;
   color:black !important;
 }
+mat-card{
+  box-shadow: none !important;
+  margin: 0 0 3px !important;
+  padding: 0 !important;
+}
 

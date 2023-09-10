@@ -5,7 +5,8 @@
  
  <div class="row m-4">
   <div class="col-sm-12 col-md-6 col-lg-8 text-end">
-    <i class="bi bi-funnel-fill" (click)=" openFilter()"></i>
+    <i class="bi bi-funnel-fill" (click)="whatsAppFilter()"></i>
+    <i class="bi bi-funnel-fill" (click)="openFilter()"></i>
     <i class="bi bi-person-plus-fill" (click)="openAddUser()"></i>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4">
@@ -19,7 +20,7 @@
  </div>
  
 <div class="genericTable">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <table mat-table [dataSource]="dataSource"  matSort>
     <!-- Define User Name column -->
     <ng-container matColumnDef="User Name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>

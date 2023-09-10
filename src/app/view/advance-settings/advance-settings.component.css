@@ -31,3 +31,7 @@ mat-card{
 mat-card:hover{
     background: #f6f6f6;
 }
+ .main-container{
+    box-shadow: none !important;
+    margin: 0 10px !important;
+}

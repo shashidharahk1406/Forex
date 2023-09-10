@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,HostListener } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import {MediaMatcher} from '@angular/cdk/layout';
+import { CommonServiceService } from '../service/common-service.service';
+
+
 
 @Component({
   selector: 'app-layout',
@@ -8,25 +10,39 @@ import {MediaMatcher} from '@angular/cdk/layout';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-  mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
-  @ViewChild('snav')snav!:MatSidenav
+ @ViewChild(MatSidenav)sidenav!:MatSidenav;
   sideBarState = false;
   menuState = false;
- 
- 
-  constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
-    this.mobileQuery = media.matchMedia('(max-width: 1023px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
-  }
+  mobileView = false;
+ constructor(private commonService:CommonServiceService){}
   sideNavToggle(){
-   // console.log(this.snav?.toggle(),"SNAV TEMPLATE---------")
     this.sideBarState = !this.sideBarState
     this.menuState = !this.menuState
   }
-  ngOnInit(): void {
-    
+  
+  ngOnInit() {
+    this.checkScreenSize();
+  
   }
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize() {
+      if (window.innerWidth <= 800) {
+       
+        this.mobileView = true;
+      } else {
+
+        this.mobileView = false;
+      }
+  
+  }
+    
+   
+    
+    
 
 }

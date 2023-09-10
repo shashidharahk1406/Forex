@@ -7,9 +7,9 @@ import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { DisableChatComponent } from '../disable-chat/disable-chat.component';
-import {MediaMatcher} from '@angular/cdk/layout';
 import { UserProfileFilterComponent } from '../user-profile-filter/user-profile-filter.component';
 import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
+import { WhatsappFilterComponent } from '../whatsapp-filter/whatsapp-filter.component';
 
 
 export interface UserData {
@@ -46,14 +46,11 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void; 
+  
 
   constructor(private dialog: MatDialog,
-    changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,) {
-      this.mobileQuery = media.matchMedia('(max-width: 1023px)');
-      this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-      this.mobileQuery.addListener(this._mobileQueryListener)
+    ) {
+      
    
       // Create 100 users
    let user:any = [{"User Name":"Ingamar","Email":"Thoughtmix","Mobile":"25-606-2835","User Role":"Staff Scientist","Designation":"Speech Pathologist","Reporting To":"Haggish","User Status":"Hopsage","Action":"Sapien.jpeg"},
@@ -179,33 +176,32 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   
   openReplaceUser(userdata:any){
     const dialogRef = this.dialog.open(ReplaceUserComponent, {
-      width: this.mobileQuery.matches? '100%':'650px',
+      width:'50%',
       data: { userdata: userdata }
 
     });
   
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
   }
   openResetPassword(userdata:any){
     const dialogRef = this.dialog.open(ResetPasswordComponent, {
-      width: this.mobileQuery.matches?'100%':'40%',
+      width: '45%',
       data: { userdata: userdata }
     });
   
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
   }
   openDisableChat(name:string){
     const dialogRef = this.dialog.open(DisableChatComponent, {
-      width: this.mobileQuery.matches?'100%':'450px',
-      height:'35%',
+      width:'35%',
       data: {name:name}
     });
   
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
   }
@@ -225,7 +221,16 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       height:'90%',
     });
   
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  whatsAppFilter(){
+    const dialogRef = this.dialog.open(WhatsappFilterComponent, {
+      width: '50%',
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
   }

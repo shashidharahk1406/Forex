@@ -1,6 +1,6 @@
 .profile-container{
-    height: 75px;
-    width: 75px;
+    height: 85px;
+    width: 90px;
     background: rgb(97, 205, 187);
     border-radius: 50%;
     display: flex;
@@ -31,11 +31,12 @@ ul{
 }
 .mat-dialog-actions {
     min-height: 83px !important;
+    padding: 0 23px 15px !important;
 }
 .pencil-edit{
     position: absolute;
     bottom: 1px;
-    right: 21px;
+    right: 0px;
     transform: rotate(1deg);
     background: white;
     border-radius: 50%;
@@ -46,4 +47,12 @@ ul{
 }
 .profile-container img{
  border-radius: 50%;
+}
+mat-card{
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    margin: 0 5px;
 }

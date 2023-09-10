@@ -1,0 +1,133 @@
+<mat-card>
+<div class="mat-dialog-header">
+    <div class="row r-h">
+        <div class="col"><h1 mat-dialog-title>Filter Users</h1></div>
+        <div class="col-1 close-icon">
+            <mat-icon mat-dialog-close>close</mat-icon>
+        </div>
+    </div>
+</div>
+<mat-dialog-content >
+   
+        <form [formGroup]="filterUser">
+            <div class="container">
+                <div class="row r-h">
+                    <div class="col-12 col-md-12">
+                        <h6>Template Filters</h6>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-12">
+                    <!-- WhatsApp Type Select Field -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>WhatsApp Type</mat-label>
+                      <mat-select>
+                        <!-- Add options for WhatsApp Type here -->
+                        <mat-option value="option1">Option 1</mat-option>
+                        <mat-option value="option2">Option 2</mat-option>
+                        <!-- Add more options as needed -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <!-- Template Status Select Field -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Template Status</mat-label>
+                      <mat-select>
+                        <!-- Add options for Template Status here -->
+                        <mat-option value="status1">Status 1</mat-option>
+                        <mat-option value="status2">Status 2</mat-option>
+                        <!-- Add more options as needed -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <!-- Created By Select Field -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Created By</mat-label>
+                      <mat-select>
+                        <!-- Add options for Created By here -->
+                        <mat-option value="user1">User 1</mat-option>
+                        <mat-option value="user2">User 2</mat-option>
+                        <!-- Add more options as needed -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-6 col-12">
+                    <!-- Updated By Select Field -->
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Updated By</mat-label>
+                      <mat-select>
+                        <!-- Add options for Updated By here -->
+                        <mat-option value="user3">User 3</mat-option>
+                        <mat-option value="user4">User 4</mat-option>
+                        <!-- Add more options as needed -->
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="row r-h">
+                    <div class="col-12 col-md-12">
+                        <h6>Date Filters</h6>
+                    </div>
+                </div>
+             
+                        <div class="row r-h">
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>From Creation Date</mat-label>
+                                    <input formControlName="creationFrom" matInput [matDatepicker]="creationFrom">
+                                    <mat-datepicker-toggle matSuffix [for]="creationFrom"></mat-datepicker-toggle>
+                                    <mat-datepicker #creationFrom></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>To Creation Date</mat-label>
+                                    <input formControlName="creationTo" matInput [matDatepicker]="creationTo">
+                                    <mat-datepicker-toggle matSuffix [for]="creationTo"></mat-datepicker-toggle>
+                                    <mat-datepicker #creationTo></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <!-- <div class="row r-h">
+                            <div class="col-12">
+                                <label class="my-1" for="">Last Login Date</label>
+                            </div>
+                        </div> -->
+                        <div class="row r-h">
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>From Modification Date</mat-label>
+                                    <input formControlName="loginFrom" matInput [matDatepicker]="loginFrom">
+                                    <mat-datepicker-toggle matSuffix [for]="loginFrom"></mat-datepicker-toggle>
+                                    <mat-datepicker #loginFrom></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>To Modification Date</mat-label>
+                                    <input formControlName="loginTo" matInput [matDatepicker]="loginTo">
+                                    <mat-datepicker-toggle matSuffix [for]="loginTo"></mat-datepicker-toggle>
+                                    <mat-datepicker #loginTo></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+                        
+                    </div>
+               
+              </div>
+           
+        
+        </form>
+    
+   
+    
+</mat-dialog-content>
+<div mat-dialog-actions >
+    <button mat-button mat-dialog-close class="mat-cancel mb-3">RESET</button>
+    <button mat-button  class="mat-disable mb-3" cdkFocusInitial>APPLY</button>
+</div>
+</mat-card>

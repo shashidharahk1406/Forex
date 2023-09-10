@@ -6,3 +6,8 @@
 .mat-dialog-actions {
     padding: 10px 20px 34px !important;
 }
+mat-card{
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+}
