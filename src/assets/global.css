@@ -123,3 +123,6 @@ height: 90%;
    .border-bottom{
     border-bottom:1px solid #eae9e9;
    }
+   i:hover,mat-icon:hover{
+    cursor: pointer;
+  }

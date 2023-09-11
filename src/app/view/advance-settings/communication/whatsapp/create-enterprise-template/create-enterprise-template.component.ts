@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-create-non-enterprise-template',
-  templateUrl: './create-non-enterprise-template.component.html',
-  styleUrls: ['./create-non-enterprise-template.component.css']
+  selector: 'app-create-enterprise-template',
+  templateUrl: './create-enterprise-template.component.html',
+  styleUrls: ['./create-enterprise-template.component.css']
 })
-export class CreateNonEnterpriseTemplateComponent implements OnInit {
+export class CreateEnterpriseTemplateComponent implements OnInit {
+
   message:any
   currentTime:any
   constructor() { }
@@ -17,4 +18,5 @@ export class CreateNonEnterpriseTemplateComponent implements OnInit {
   private updateTime() {
     this.currentTime = new Date();
   }
+
 }

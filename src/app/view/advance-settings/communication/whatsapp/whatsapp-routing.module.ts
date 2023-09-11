@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { WhatsappComponent } from './whatsapp.component';
 import { CreateNonEnterpriseTemplateComponent } from './create-non-enterprise-template/create-non-enterprise-template.component';
+import { CreateEnterpriseTemplateComponent } from './create-enterprise-template/create-enterprise-template.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,10 @@ const routes: Routes = [
           },
           { path:'', redirectTo:'whatsappTemplates', pathMatch:'full'},
           {
-            path:'createNonEnterpieseTemplate', component: CreateNonEnterpriseTemplateComponent
+            path:'createNonEnterpriseTemplate', component: CreateNonEnterpriseTemplateComponent
+          },
+          {
+            path:'createEnterpriseTemplate', component:CreateEnterpriseTemplateComponent
           }
         ]
       }

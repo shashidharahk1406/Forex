@@ -34,6 +34,19 @@ textarea{
    border: solid 0.5px rgba(199, 197, 197, 0.977);
    height: 80%;
    border-radius: 5px;
+   overflow: scroll;
+}
+.box{
+    max-height: 425px;
+    /* overflow: hidden; */
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.box-chat{
+
+    /* overflow: hidden; */
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 i{
     font-size: 15px!important;
@@ -41,26 +54,31 @@ i{
 }
 .container *{
     font-size: 13px;
+
 }
 .bg{
     background-image: url(../../../../../../assets/images/whatsapp_bg.jpg);
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
+
 }
 .bg-color{
     background-color: var(--appColor);
     /* height: 100%; */
 }
 .card{
-    width: 90%;
-    min-height: 75%;
-    height: fit-content;
+    /* width: 90%;  */
+    min-height: 50px;
+    overflow: scroll;
     /* justify-content: center; */
 
 }
-i:hover{
-    cursor: pointer;
+.card-body{
+    max-height: 425px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: none;
 }
 .card-footer{
     background-color: inherit;
