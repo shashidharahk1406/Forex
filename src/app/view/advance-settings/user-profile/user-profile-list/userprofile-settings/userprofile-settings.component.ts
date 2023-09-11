@@ -9,6 +9,7 @@ import { DisableChatComponent } from '../disable-chat/disable-chat.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
+import { WhatsappFilterComponent } from '../../../communication/whatsapp/whatsapp-filter/whatsapp-filter.component';
 
 export interface UserData {
   'User Name': string,
@@ -226,10 +227,14 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   //   const dialogRef = this.dialog.open(WhatsappFilterComponent, {
   //     width: '50%',
   //   });
+  whatsAppFilter(){
+    const dialogRef = this.dialog.open(WhatsappFilterComponent, {
+      width: '60%',
+    });
   
   //   dialogRef.afterClosed().subscribe((result:any) => {
   //     console.log('The dialog was closed');
   //   }); 
   // }
-
+  }
 }

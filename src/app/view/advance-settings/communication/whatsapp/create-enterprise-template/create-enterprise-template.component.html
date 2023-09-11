@@ -1,0 +1,215 @@
+<div class="head-container">
+    <h1><span class="h1-set-header" routerLink="/advancesettings">Advance Settings  <i class="bi bi-chevron-right"></i> </span>
+      <span class="h1-set-header">Template Settings  <i class="bi bi-chevron-right"></i></span>
+      <span class="h1-set-header" routerLink="../">Whatsapp Templates<i class="bi bi-chevron-right"></i></span><span>Create Enterprise Template</span>
+    </h1>
+</div>
+    <div class="row">
+        <hr>
+    </div>
+<div class="container">
+    
+    <div class="row h-100 " > 
+        <div  class="col-12 col-md-3 border-end">
+            <div class="row border-bottom">
+                <div class="col-12 col-md-12 mat-dialog-header ">
+                    <h3 ><b>Basic Filelds</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" matInput placeholder="Name">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Visible for</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                        <button mat-icon-button matSuffix  >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Category</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                        <button mat-icon-button matSuffix  >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Language</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                        <button mat-icon-button matSuffix  >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                      </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div  class="col-12 col-md-6 border-end " >
+            <div class="row border-bottom border-end">
+                <div class="col-12 col-md-12 ">
+                    <div class="row mat-dialog-header">
+                        <div class="col-6">
+                            <h3 ><b>Template</b></h3>
+                        </div>
+                        <div class="col-6 text-end">
+                            <h3  ><b><i class="bi bi-patch-question"></i></b></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box">
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h3 class="mt-3"><b>Header</b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p >Add a title or choose which type of media you'll use for this header</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <mat-form-field  appearance="outline" class="w-25">
+                            <mat-label>Type</mat-label>
+                            <mat-select  >
+                              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                            </mat-select>
+                            <button mat-icon-button matSuffix  >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                          </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h3 class="mt-3"><b>Body</b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p >Enter the Text for the message</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 text-end">
+                        <p class="p-color">&#43; Add Token</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <textarea maxlength="3000" [(ngModel)]="message"  name="" id=""  class="w-100" placeholder="Enter Text"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 text-start">
+                        <i class="bi bi-emoji-smile"></i>
+                        <i class="bi bi-type-bold"></i>
+                        <i class="bi bi-type-italic"></i>
+                        <i class="bi bi-fonts"></i>
+                    </div>
+                    <div class="col-12 col-md-6 text-end">
+                        <p>/3000</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h3 class="mt-3"><b>Footer</b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p class="m-0">Add a short line of text to the bottom of your message template.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <mat-form-field class="m-0 w-75" appearance="outline">
+                            <mat-label>Enter Text</mat-label>
+                            <input matInput type="text" matInput placeholder="Name">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 text-end">
+                        <p>/60</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <h3 class="mt-3"><b>Buttons</b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <p class="m-0">Create buttons that let customers respond to your message or take action.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <mat-form-field  appearance="outline" class="w-75">
+                            <mat-label>Select Footer Button</mat-label>
+                            <mat-select  >
+                              <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                            </mat-select>
+                            <button mat-icon-button matSuffix  >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                          </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <div  class="col-12 col-md-3 border-end bg">
+            <div class="row border-bottom border-end">
+                <div class="col-12 col-md-12">
+                    <div class="row mat-dialog-header">
+                        <div class="col-6">
+                            <h3 ><b>Preview</b></h3>
+                        </div>
+                    </div>
+                    <div class="row bg h-100 justify-content-center mt-2">
+                        <div class="col-12 col-md-12">
+                            <div class="card p-0">
+                                <div class="card-body p-1 card-message p-0">
+                                    {{message}}
+                                </div>
+                                <div class="card-footer text-end">
+                                {{currentTime | date:'hh:mm a'}}
+                                </div>
+                               </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-12 col-md-12 mt-1 text-end p-0">
+        <button  mat-button mat-dialog-close class="mat-cancel">CANCEL</button> <span>&nbsp;</span>
+        <button  mat-button type="button"  class="mat-disable" cdkFocusInitial >SUBMIT</button>
+    </div>
+</div>
+
