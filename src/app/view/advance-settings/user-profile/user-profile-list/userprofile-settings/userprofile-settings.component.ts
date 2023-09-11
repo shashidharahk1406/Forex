@@ -9,6 +9,7 @@ import { DisableChatComponent } from '../disable-chat/disable-chat.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
+import { EditUserProfileListComponent } from '../edit-user-profile-list/edit-user-profile-list.component';
 
 export interface UserData {
   'User Name': string,
@@ -39,8 +40,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   ]
   dataSource: MatTableDataSource<UserData>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
-
-  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
@@ -173,7 +172,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   
   openReplaceUser(userdata:any){
     const dialogRef = this.dialog.open(ReplaceUserComponent, {
-      width:'50%',
+      width:'45%',
       data: { userdata: userdata }
 
     });
@@ -205,7 +204,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   openFilter(){
     const dialogRef = this.dialog.open(UserProfileFilterComponent, {
       width: '50%',
-      // height:'90%',
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -215,21 +213,20 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   openAddUser(){
     const dialogRef = this.dialog.open(AddNewUserComponent, {
       width: '50%',
-      // height:'90%',
     })
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
   }
-  // whatsAppFilter(){
-  //   const dialogRef = this.dialog.open(WhatsappFilterComponent, {
-  //     width: '50%',
-  //   });
+  editUserProfile(userdata:any){
+    const dialogRef = this.dialog.open(EditUserProfileListComponent, {
+      width: '45%',
+      data: { userdata: userdata }
+    })
   
-  //   dialogRef.afterClosed().subscribe((result:any) => {
-  //     console.log('The dialog was closed');
-  //   }); 
-  // }
-
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
 }

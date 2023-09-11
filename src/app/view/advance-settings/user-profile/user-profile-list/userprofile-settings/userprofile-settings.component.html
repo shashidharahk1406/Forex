@@ -24,7 +24,7 @@
       <!-- Define User Name column -->
       <ng-container matColumnDef="User Name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
-        <td mat-cell *matCellDef="let element">{{ element['User Name'] }}</td>
+        <td mat-cell *matCellDef="let element" class="user-name" (click)="editUserProfile(element)">{{ element['User Name'] }}</td>
       </ng-container>
     
       <!-- Define Email column -->

@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { LoginComponent } from './auth/login/login.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     HeaderComponent,
     SidenavListComponent,
     DashboradComponent,
-    LayoutComponent
+    LayoutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

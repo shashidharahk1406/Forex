@@ -9,6 +9,7 @@ import { UserprofileSettingsComponent } from './userprofile-settings/userprofile
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/material.module';
 import { UserProfileFilterComponent } from './user-profile-filter/user-profile-filter.component';
+import { EditUserProfileListComponent } from './edit-user-profile-list/edit-user-profile-list.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { UserProfileFilterComponent } from './user-profile-filter/user-profile-f
     AddNewUserComponent,
     UserProfileFilterComponent,
     UserprofileSettingsComponent,
+    EditUserProfileListComponent,
   ],
   imports: [
     CommonModule,

@@ -34,3 +34,7 @@ table {
   padding: 3px;
   cursor: pointer;
 }
+.user-name:hover{
+  cursor:pointer;
+  font-weight: bold;
+}

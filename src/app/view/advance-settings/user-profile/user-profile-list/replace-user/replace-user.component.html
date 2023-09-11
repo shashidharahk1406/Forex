@@ -1,175 +1,184 @@
 <mat-card>
-    <div class="mat-dialog-header">
-      <div class="row">
-          <div class="col"><h1 mat-dialog-title>Replace User</h1></div>
-          <div class="col-1 close-icon">
-              <mat-icon mat-dialog-close>close</mat-icon>
-          </div>
-      </div>
-    </div>
-    <mat-dialog-content>
-      <div class="container">
-        <div class="row border-bottom mx-1 my-2 pb-3">
-          <div class="col-sm-12 col-md-12 col-lg-2 m-auto">
-              <div class="profile-container position-rel">
-                <img [src]="selectedImage" height="70" width="70"  alt="Profile Image" *ngIf="selectedImage">
-               <span *ngIf="!selectedImage">{{data.userdata['User Name'][0]}}</span> 
-               <mat-icon id="edit-icon" class="pencil-edit" (click)="openFileInput()">edit</mat-icon>
-              <input type="file" id="file-input" style="display: none;" (change)="handleFileChange($event)">
-              </div>   
-          </div>
-          <div class="col-10">
-            <div class="row px-3">
-              <div class="col-sm-8 col-md-8 col-lg-10"> <h6 class="mt-3">{{data.userdata['User Name']}}</h6></div>
-              <div class="col-sm-2 col-md-2 col-lg-1 mt-3">
-                <mat-icon class="more-inner-icon" (click)="openResetPassword(data)">autorenew</mat-icon>
-              </div>
-              <div class="col-sm-2 col-md-2 col-lg-1 mt-3">
-                <mat-icon class="more-inner-icon " (click)="openDisableChat(data.userdata['User Name'])">speaker_notes_off</mat-icon>
-              </div>
-            </div>
-          
-            <div class="row">
-              <div class="col-sm-12 col-md-12 col-lg-6 text-muted mt-2 ps-4">
-                <ul>
-                    <li>{{data.userdata['Email']}}{{'@gmail.com'}}</li>
-                    <li>User Role : {{data.userdata['User Role']}}</li>
-                    <li>User Status : {{data.userdata['User Status']}}</li>
-                  </ul>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-6 right-container text-muted mt-2 ps-4">
-              <ul>
-                <li>
-                  Designation : {{data.userdata['Designation']}}</li>
-                <li>Last Login Date : Sep 6, 2023 3:16 PM</li>
-                <li>Created On : Aug 12, 2023 8:27 AM</li>
-              </ul>
-            </div>
-            </div>
-          </div>
-          
+  <div class="mat-dialog-header">
+    <div class="row">
+        <div class="col"><h1 mat-dialog-title>Edit User</h1></div>
+        <div class="col-1 close-icon">
+            <mat-icon mat-dialog-close>close</mat-icon>
         </div>
-      
-       
-      
-        <div class="row mx-1 my-4">
-          <div class="col-12">
-            <h6>Section 1 : Basic User Details</h6>
-            <form [formGroup]="replaceUserForm">
-              <div class="row border-bottom">
-                <div class="col-12">
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>First Name </mat-label>
-                        <input matInput placeholder="Enter Your First Name" formControlName="firstName" >
-                        <mat-error *ngIf="f['firstName'].invalid && f['firstName'].touched">
-                          <span *ngIf="f['firstName'].errors && f['firstName'].errors['required']">First Name is required</span>
-                          <span *ngIf="!f['firstName'].hasError('required') && f['firstName'].hasError('pattern')">Invalid First Name</span>
-                        </mat-error>
-                        
-                        <!-- <mat-error *ngIf="!replaceUserForm.get('firstName')?.hasError('required') && replaceUserForm.get('firstName')?.hasError('pattern')">Invalid First Name</mat-error> -->
-                       
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Enter Your Last Name" formControlName="lastName" (input)="checkValidity(replaceUserForm.get('lastName'))">
-                        <mat-error *ngIf="replaceUserForm.get('lastName')?.hasError('pattern')">Invalid Last Name</mat-error>
-                      </mat-form-field>
-                    </div>
-                    
+    </div>
+  </div>
+  <mat-dialog-content>
+    <div class="container">
+      <div class="row border-bottom mx-1 my-2 pb-3">
+        <div class="col-sm-12 col-md-12 col-lg-2 m-auto">
+            <div class="profile-container position-rel">
+              <img [src]="selectedImage" height="70" width="70"  alt="Profile Image" *ngIf="selectedImage">
+             <span *ngIf="!selectedImage">{{data.userdata['User Name'][0]}}</span> 
+             <div ngbDropdown #myDropdown="ngbDropdown" class="pencil-edit">
+              <mat-icon id="edit-icon"  id="dropdownBasic1" ngbDropdownToggle>edit</mat-icon>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
+                 <div class="app-list"ngbDropdownToggle (click)="openFileInput()">
+                  Edit Image
+                 </div>
+                 <div class="app-list" ngbDropdownToggle >
+                  Remove Image
+                 </div>
+                </div>
+              </div>
+            <input type="file" id="file-input" style="display: none;" (change)="handleFileChange($event)">
+            </div>   
+        </div>
+        <div class="col-10">
+          <div class="row px-2">
+            <div class="col-sm-8 col-md-8 col-lg-10"> <h6 class="mt-3 u-name">{{data.userdata['User Name']}}</h6></div>
+            <div class="col-sm-2 col-md-2 col-lg-1 mt-3">
+              <mat-icon class="more-inner-icon" (click)="openResetPassword(data)">autorenew</mat-icon>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-1 mt-3">
+              <mat-icon class="more-inner-icon " (click)="openDisableChat(data.userdata['User Name'])">speaker_notes_off</mat-icon>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-5 text-muted mt-2 ps-4 pd-r">
+              <ul>
+                  <li>{{data.userdata['Email']}}{{'@gmail.com'}}</li>
+                  <li>User Role : {{data.userdata['User Role']}}</li>
+                  <li>User Status : {{data.userdata['User Status']}}</li>
+                </ul>
+          </div>
+          <div class="col-sm-12 col-md-12 col-lg-7 right-container text-muted mt-2 ps-4">
+            <ul>
+              <li>
+                Designation : {{data.userdata['Designation']}}</li>
+              <li>Last Login Date : Sep 6, 2023 3:16 PM</li>
+              <li>Created On : Aug 12, 2023 8:27 AM</li>
+            </ul>
+          </div>
+          </div>
+        </div>
+        
+      </div>
+    
+     
+    
+      <div class="row mx-1 my-4">
+        <div class="col-12">
+          <h6>Section 1 : Basic User Details</h6>
+          <form [formGroup]="replaceUserForm">
+            <div class="row border-bottom">
+              <div class="col-12">
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>First Name </mat-label>
+                      <input matInput placeholder="Enter Your First Name" formControlName="firstName" >
+                      <mat-error *ngIf="f['firstName'].invalid && f['firstName'].touched">
+                        <span *ngIf="f['firstName'].errors && f['firstName'].errors['required']">First Name is required</span>
+                        <span *ngIf="!f['firstName'].hasError('required') && f['firstName'].hasError('pattern')">Invalid First Name</span>
+                      </mat-error>
+                      
+                      <!-- <mat-error *ngIf="!replaceUserForm.get('firstName')?.hasError('required') && replaceUserForm.get('firstName')?.hasError('pattern')">Invalid First Name</mat-error> -->
+                     
+                    </mat-form-field>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Mobile Number</mat-label>
-                        <input matInput placeholder="Enter Your Mobile Number" formControlName="mobileNumber">
-                        <mat-error *ngIf="replaceUserForm.get('mobileNumber')?.hasError('pattern')">
-                          Invalid Mobile Number
-                        </mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Employee Key</mat-label>
-                        <input matInput placeholder="Enter Your Employee Key" formControlName="employeeKey">
-                      </mat-form-field>
-                    </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput placeholder="Enter Your Last Name" formControlName="lastName" (input)="checkValidity(replaceUserForm.get('lastName'))">
+                      <mat-error *ngIf="replaceUserForm.get('lastName')?.hasError('pattern')">Invalid Last Name</mat-error>
+                    </mat-form-field>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Target</mat-label>
-                        <input matInput placeholder="Enter Your Target" formControlName="target">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Start Date</mat-label>
-                        <input matInput [matDatepicker]="picker" placeholder="Choose a Date" formControlName="startDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                      </mat-form-field>
-                    </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mobile Number</mat-label>
+                      <input matInput placeholder="Enter Your Mobile Number" formControlName="mobileNumber">
+                      <mat-error *ngIf="replaceUserForm.get('mobileNumber')?.hasError('pattern')">
+                        Invalid Mobile Number
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Employee Key</mat-label>
+                      <input matInput placeholder="Enter Your Employee Key" formControlName="employeeKey">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Target</mat-label>
+                      <input matInput placeholder="Enter Your Target" formControlName="target">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Start Date</mat-label>
+                      <input matInput [matDatepicker]="picker" placeholder="Choose A Date" formControlName="startDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
                   </div>
                 </div>
               </div>
-        
-              <h6 class="mt-2">Section 2 : Access Level Details</h6>
-              <div class="row border-bottom mb-4">
-                <div class="col-sm-12 col-md-12 col-lg-6">
+            </div>
+      
+            <h6 class="mt-4">Section 2 : Access Level Details</h6>
+            <div class="row border-bottom mb-4">
+              <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
                   <mat-form-field appearance="outline">
                     <mat-label>Reporting To User </mat-label>
-                    <mat-select formControlName="selectedUser">
+                    <mat-select formControlName="reportingUser" required>
                       <mat-option *ngFor="let user of users" [value]="user">{{ user }}</mat-option>
                     </mat-select>
-                    <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('selectedUser')?.value" >
+                    <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('reportingUser')?.value" >
                       <mat-icon>clear</mat-icon>
                     </button>
-                    <mat-error *ngIf="replaceUserForm?.get('selectedUser')?.hasError('required')">Reporting To User Is Required</mat-error>
+                    <mat-error *ngIf="replaceUserForm?.get('reportingUser')?.hasError('required')">Reporting To User Is Required</mat-error>
                   </mat-form-field>
                 </div>
+            </div>
+      
+            <h6>Section 3: Access Level Details</h6>
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Level Of Program</mat-label>
+                  <mat-select formControlName="selectedLevel">
+                    <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+                  </mat-select>
+                  <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('selectedLevel')?.value">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </mat-form-field>
               </div>
-        
-              <h6>Section 3: Access Level Details</h6>
-              <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Level of Program</mat-label>
-                    <mat-select formControlName="selectedLevel">
-                      <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
-                    </mat-select>
-                    <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('selectedLevel')?.value">
-                      <mat-icon>clear</mat-icon>
-                    </button>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                    <mat-label>Department</mat-label>
-                    <mat-select formControlName="selectedDepartment" >
-                      <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>
-                    </mat-select>
-                    <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('selectedDepartment')?.value">
-                      <mat-icon>clear</mat-icon>
-                    </button>
-                  </mat-form-field>
-                </div>
+              <div class="col-sm-12 col-md-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                  <mat-label>Department</mat-label>
+                  <mat-select formControlName="selectedDepartment" >
+                    <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>
+                  </mat-select>
+                  <button mat-icon-button matSuffix *ngIf="replaceUserForm?.get('selectedDepartment')?.value">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </mat-form-field>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-       
-      
-      <!-----------END--------------->
-    </mat-dialog-content>
-    <div mat-dialog-actions>
-      <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
-      <button mat-button type="button"  class="mat-disable" cdkFocusInitial (click)="submit()">REPLACE USER</button>
     </div>
-  </mat-card>
-  
-  
+     
+    
+    <!-----------END--------------->
+  </mat-dialog-content>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
+    <button mat-button type="button"  class="mat-disable" cdkFocusInitial (click)="submit()">REPLACE USER</button>
+  </div>
+</mat-card>
+
