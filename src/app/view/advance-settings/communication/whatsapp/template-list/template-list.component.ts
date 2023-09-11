@@ -5,6 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { WhatsappFilterComponent } from '../whatsapp-filter/whatsapp-filter.component';
 
 export interface UserData {
   'User Name': string,
@@ -166,7 +167,15 @@ export class TemplateListComponent implements AfterViewInit  {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  openFilter(){
+    const dialogRef = this.dialog.open(WhatsappFilterComponent, {
+      width: '50%',
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
 
 
 }

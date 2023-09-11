@@ -8,7 +8,7 @@
    <div class="row m-4">
     <div class="col-sm-12 col-md-8 col-lg-8 text-end">
         <i class="bi bi-arrow-clockwise more-inner-icon"></i>
-      <i  class="bi bi-funnel-fill" ></i>
+      <i  class="bi bi-funnel-fill" (click)="openFilter()"></i>
       <i ngbDropdown #myDropdown="ngbDropdown">
         <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" ngbDropdownToggle >  <i class="bi bi-pencil-square more-inner-icon"></i></mat-icon>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">

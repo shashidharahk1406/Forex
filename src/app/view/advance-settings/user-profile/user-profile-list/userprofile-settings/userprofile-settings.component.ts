@@ -3,14 +3,12 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
-import { DisableChatComponent } from '../disable-chat/disable-chat.component';
 import { UserProfileFilterComponent } from '../user-profile-filter/user-profile-filter.component';
+import { DisableChatComponent } from '../disable-chat/disable-chat.component';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
+import { ReplaceUserComponent } from '../replace-user/replace-user.component';
 import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
-import { WhatsappFilterComponent } from '../whatsapp-filter/whatsapp-filter.component';
-
 
 export interface UserData {
   'User Name': string,
@@ -22,7 +20,6 @@ export interface UserData {
   'User Status':string,
   'Action':string
 }
-
 
 @Component({
   selector: 'app-userprofile-settings',
@@ -211,7 +208,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       // height:'90%',
     });
   
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
   }
@@ -225,15 +222,14 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
-  whatsAppFilter(){
-    const dialogRef = this.dialog.open(WhatsappFilterComponent, {
-      width: '50%',
-    });
+  // whatsAppFilter(){
+  //   const dialogRef = this.dialog.open(WhatsappFilterComponent, {
+  //     width: '50%',
+  //   });
   
-    dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
-    }); 
-  }
+  //   dialogRef.afterClosed().subscribe((result:any) => {
+  //     console.log('The dialog was closed');
+  //   }); 
+  // }
+
 }
-
-

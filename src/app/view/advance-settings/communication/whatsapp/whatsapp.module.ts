@@ -8,13 +8,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/material.module';
 import { CreateNonEnterpriseTemplateComponent } from './create-non-enterprise-template/create-non-enterprise-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { WhatsappFilterComponent } from './whatsapp-filter/whatsapp-filter.component';
 
 
 @NgModule({
   declarations: [
     WhatsappComponent,
     TemplateListComponent,
-    CreateNonEnterpriseTemplateComponent
+    CreateNonEnterpriseTemplateComponent,
+    WhatsappFilterComponent
   ],
   imports: [
     CommonModule,
