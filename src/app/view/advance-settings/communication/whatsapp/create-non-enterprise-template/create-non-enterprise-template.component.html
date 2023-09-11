@@ -1,0 +1,86 @@
+<div class="head-container">
+    <h1><span class="h1-set-header" routerLink="/advancesettings">Advance Settings  <i class="bi bi-chevron-right"></i> </span>
+      <span class="h1-set-header">Template Settings  <i class="bi bi-chevron-right"></i></span>
+      <span class="h1-set-header">Whatsapp Templates<i class="bi bi-chevron-right"></i></span><span>Create Template</span>
+    </h1>
+</div>
+
+<div class="card ">
+    <div class="row h-100" >
+        <div  class="col-12 col-md-3 border-end">
+            <div class="row border-bottom  bg-color">
+                <div class="col-12 col-md-12 ">
+                    <h3 class="m-3"><b>Basic Filelds</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field class="m-3 " appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input  type="text" matInput placeholder="Name">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <mat-form-field class="m-3 ">
+                        <mat-label>Visible for</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div  class="col-12 col-md-6 border-end">
+            <div class="row border-bottom border-end">
+                <div class="col-12 col-md-12 ">
+                    <div class="row bg-color">
+                        <div class="col-6">
+                            <h3 class="m-3"><b>Template</b></h3>
+                        </div>
+                        <div class="col-6 text-end">
+                            <h3 class="m-3"><b><i class="bi bi-patch-question"></i></b></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h3 class="m-3"><b>Body</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <p class="mx-3">Enter the Text for the message</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12 text-end">
+                    <p class="p-color">&#43; Add Token</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <textarea [(ngModel)]="message" class="m-3" name="" id=""  class="w-100" placeholder="Enter Text"></textarea>
+                </div>
+            </div>
+        </div>   
+        <div  class="col-12 col-md-3 border-end bg">
+            <div class="row border-bottom border-end">
+                <div class="col-12 col-md-12">
+                    <div class="row bg-color">
+                        <div class="col-6">
+                            <h3 class="m-3"><b>Preview</b></h3>
+                        </div>
+                    </div>
+                    <div class="row bg h-100 justify-content-center">
+                        <div class="card mt-3 card-message ">
+                            {{message}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>

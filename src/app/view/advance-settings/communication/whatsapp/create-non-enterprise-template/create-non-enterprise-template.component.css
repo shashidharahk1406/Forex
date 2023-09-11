@@ -1,0 +1,47 @@
+.head-container{
+    padding: 15px 0 10px 0;
+    padding-left: 0px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    background-color: transparent !important;
+}
+h1{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 20px;
+    color:#393939 !important;
+}
+.card{
+    height: 75%;
+}
+h3{
+    font-size: 16px;
+}
+.mat-form-field{
+    width: 90%;
+}
+.p-color{
+    color: var(--appColor);
+    font-size: 12px;  
+}
+textarea{
+    background-color: #f2f2f2;
+    height: 150px;
+    border-radius: 8px;
+}
+.bg{
+    background-image: url(../../../../../../assets/images/whatsapp_bg.jpg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-color{
+    background-color: var(--appColor);
+    /* height: 100%; */
+}
+.card-message{
+    width: 90%;
+    min-height: 75%;
+    height: fit-content;
+    /* justify-content: center; */
+
+}

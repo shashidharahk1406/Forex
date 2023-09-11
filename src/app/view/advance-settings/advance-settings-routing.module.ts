@@ -5,9 +5,15 @@ import { AdvanceSettingsComponent } from './advance-settings.component';
 import { UserprofileSettingsComponent } from './userprofile-settings/userprofile-settings.component';
 
 const routes: Routes = [
-  { path: '', component: AdvanceSettingsComponent},
-  { path: 'userProfile',component:UserprofileSettingsComponent}
- ];
+  { path: '', component: AdvanceSettingsComponent },
+  {
+    path: 'communication', loadChildren: () => import('./communication/communication.module').then(m => m.CommunicationModule)
+  },
+  { path: 'userProfile', component: UserprofileSettingsComponent },
+  // {
+  //   path:'communication', loadChildren:()=> import('./communication/communication.module').then(m => m.CommunicationModule)
+  // }
+];
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
