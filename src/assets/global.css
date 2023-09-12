@@ -5,8 +5,14 @@
     --appLightColor:#FFF2EB;
     --appWhite:#FFF;
 }
-.pencil-edit{
-  color:var(--appColor)
+.pencil-edit,.forgot-pass{
+  color:var(--appColor);
+  cursor: pointer;
+}
+.appCoColor{
+  background-color:var(--appColor);
+  cursor: pointer;
+  color:white;
 }
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: var(--appColor) !important;
@@ -126,3 +132,10 @@ height: 90%;
    i:hover,mat-icon:hover{
     cursor: pointer;
   }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+/* .carousel-control-next-icon,.carousel-control-prev-icon{
+  background-image:none !important;
+  }
+  */

@@ -14,6 +14,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoginComponent } from './auth/login/login.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { LoginComponent } from './auth/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    NgbCarouselModule
   ],
   exports:[
     SharedModule

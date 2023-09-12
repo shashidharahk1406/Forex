@@ -13,7 +13,7 @@ export class CommonServiceService {
   readonly mobilePattern = /^[0-9]{10}$/;
 
   // Regular expression for password validation (at least 8 characters with special characters)
-  readonly passwordPattern = /^(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+  readonly passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}$/;
 
   // Common validator function to check if the input value matches the provided pattern
   patternValidator(pattern: RegExp): ValidatorFn {
