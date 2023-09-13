@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   
@@ -12,7 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'login', 
-    component:LoginComponent
+    component:LoginComponent,loadChildren:()=>import('./auth/login/login-template/login-template.module').then(m =>m.LoginTemplateModule)
+  },
+  {
+    path: 'forgotPass', 
+    component:ForgotPasswordComponent
   },
   { path: '', component: LayoutComponent},
   { path: '', component: LayoutComponent,children:[

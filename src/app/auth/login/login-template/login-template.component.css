@@ -1,0 +1,16 @@
+
+  
+  .picsum-img-wrapper{
+    height: 150px;
+  }
+  
+  button{
+    width: 100%;
+  }
+  mat-card{
+    transition:all 5s;
+  }
+  .img-carousel{
+    padding: 0 3rem !important;
+  }
+  

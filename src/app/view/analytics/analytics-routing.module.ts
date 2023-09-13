@@ -4,7 +4,14 @@ import { AnalyticsComponent } from './analytics.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: AnalyticsComponent },
+  {path: '', component: AnalyticsComponent,children:[
+    
+      {path:'filterList',loadChildren:()=>import('./filter-list/filter-list.module').then(m=>m.FilterListModule)},
+      {path:'',pathMatch:'full',redirectTo:'filterList'}
+    
+  ] },
+  
+ 
  ];
 
  @NgModule({

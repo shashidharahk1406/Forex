@@ -9,6 +9,12 @@
   color:var(--appColor);
   cursor: pointer;
 }
+.primaryColor{
+  color:var(--appColor);
+}
+.pointer-set{
+  cursor: pointer;
+}
 .appCoColor{
   background-color:var(--appColor);
   cursor: pointer;
@@ -139,3 +145,13 @@ height: 90%;
   background-image:none !important;
   }
   */
+  .carousel-indicators [data-bs-target] {
+    height: 8px !important;
+    width: 8px !important;
+    border-radius: 50%;
+  } 
+  .carousel-indicators{
+    margin-right: 30% !important;
+    margin-bottom: 0rem !important;
+    margin-left: 15% !important;
+  }

@@ -15,7 +15,7 @@ import { SharedModule } from './shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoginComponent } from './auth/login/login.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     SidenavListComponent,
     DashboradComponent,
     LayoutComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,8 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     CommonModule,
     SharedModule,
-    NgbCarouselModule
+    NgbCarouselModule,
+   
   ],
   exports:[
     SharedModule

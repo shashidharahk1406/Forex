@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+                <mat-card class="formContainer">
+                 <div class="d-flex align-items-center">
+                    <img src="../../../assets/images/logo.png" width="200"  class="logo-tag"/>
+                 </div>
+                 <div class="inner-container ">
+                    <div class="row ">
+                        <div class="col-12 text-center">
+                            <h4 class="">LOG IN</h4>
+                        </div>
+                    </div>
+                   <form [formGroup]="loginForm">
+                    <div class="row">
+                        <div class="col-12 mb-2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>User Name</mat-label>
+                                <input matInput placeholder="Enter Your Name" formControlName="userName" required>
+                                <mat-error *ngIf="f['userName'].invalid && f['userName'].touched">
+                                    <div *ngIf="f['userName'].errors && f['userName'].errors['required']">
+                                        User Name Is Required
+                                    </div>
+                                    <div *ngIf="f['userName'].errors && f['userName'].errors['email']">
+                                        Invalid User Name
+                                    </div>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Password</mat-label>
+                                <input matInput type="password" formControlName="password" placeholder="Enter Your Password" [type]="hidePassword ? 'password' : 'text'" required >
+                                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                                  <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                </button>
+                                <mat-error *ngIf="f['password'].invalid && f['password'].touched">
+                                    <div *ngIf="f['password'].errors && f['password'].errors['required']">
+                                        Password Is Required
+                                    </div>
+                                    <div *ngIf="f['password'].errors && f['password'].errors['pattern']">
+                                        Password Must Be At Least 8 Characters Long, One Uppercase Letter, One Special Character,One Number
+                                    </div>
+                                </mat-error>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <a><div class="text-end forgot-pass" (click)="goToForgotPassword()">Update/Forgot Password?</div></a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <mat-checkbox>Remember Me</mat-checkbox>
+                    </div>
+
+                    <div class="col-12 my-4">
+                        <button mat-button class="appCoColor" routerLink="/advancesettings">LOGIN</button>
+                    </div>
+                      
+                   </form>    
+                 </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+

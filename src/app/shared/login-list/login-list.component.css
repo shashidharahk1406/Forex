@@ -1,0 +1,29 @@
+ul,li{
+    text-decoration: none;
+    list-style: none;
+    line-height: 21px;
+    text-align: center;
+    padding: 0;
+    margin: 2px;
+}
+
+ul{
+    border-bottom: 1px solid #f6f6f6;
+}
+.notify-popup-title{
+    padding: 10px 10px;
+}
+
+  .notify-popup-title:hover{
+    background-color: #f3f3f3;
+    cursor: pointer;
+  }
+  .notify-container{
+    font-size:16px !important;
+    font-weight: bold;
+    padding: 10px 10px;
+    color:gray;
+  }
+  .mat-mini-fab .mat-button-wrapper {
+    padding: 8px !important;
+}

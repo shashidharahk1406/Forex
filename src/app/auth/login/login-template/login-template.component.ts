@@ -3,13 +3,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  
+  selector: 'app-login-template',
+  templateUrl: './login-template.component.html',
+  styleUrls: ['./login-template.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginTemplateComponent implements OnInit {
   hidePassword = true;
   loginForm!:FormGroup;
   togglePasswordVisibility() {

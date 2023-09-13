@@ -1,0 +1,67 @@
+
+<div class="row my-3">
+    <div class="col-sm-12 col-md-6 col-lg-4">
+        <div ngbDropdown #myDropdown="ngbDropdown" >
+            <mat-card class="filterBy-category" ngbDropdownToggle >
+                <i class="bi bi-funnel-fill" id="dropdownBasic1"></i>
+                <span class="filter-text">Create Filter </span> <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
+                   <div >
+                    <div class="row br-b">
+                        <div class="col"> <i class="bi bi-funnel-fill" id="dropdownBasic1"></i>
+                            <span class="filter-text">Create Filter </span> 
+                        </div>
+                        <div class="col-1 close-icon p-0">
+                            <mat-icon mat-dialog-close ngbDropdownToggle style="font-size:17px;">close</mat-icon>
+                        </div>
+                    </div>
+                    <div class="row br-b">
+                        <div class="col c-h">
+                            <div *ngIf="showHintFilter" class="text-muted">No Filter Is Selected.</div>
+                            <span *ngFor="let items of filterdSnippetList;let i = index;" class="">
+                                <span class="snippets">{{items}}</span><mat-icon class="clear-icon" (click)="removeList(items)">close</mat-icon>
+                            </span>
+                        </div>
+                       </div>
+                    <div class="row body-section px-3 py-2">
+                     <div class="col">
+                       <div *ngFor="let items of categoryFilterArr" (click)="openOptionPanel(items)" class="main-catagory" >
+                            {{items}}
+                       </div>
+                     </div>
+                     <div class="col" [ngClass]="showHint ? 'd-flex align-items-center justify-content-center':''">
+                        <div *ngIf="showHint" class="text-muted">Please Select Filters And Click Apply.</div>
+                        <div *ngFor="let items of filteredArray" >
+                          <mat-checkbox (click)="selectedSnippets(items)">{{items}}</mat-checkbox>
+                       </div>
+                     </div>
+                    </div>
+                    <div class="row footer-section m-0">
+                        <div class="col-12 footer-col">
+                            <button mat-button class="m-2 mat-cancel">RESET</button>
+                            <button mat-button class="m-2 mat-disable">APPLY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </mat-card>  
+        </div>
+        </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 op-m" >
+        <mat-form-field appearance="outline">
+            <mat-label>Select options</mat-label>
+            <mat-select multiple>
+              
+              <mat-option *ngFor="let option of options" [value]="option">
+                {{ option }}
+                <span class="suffix-icon"><i class="bi bi-diagram-3-fill"></i></span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>          
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 ">
+       CALENDER
+    </div>
+</div>
+
+ 

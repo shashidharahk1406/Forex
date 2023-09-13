@@ -2,29 +2,26 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.css']
 })
-export class LoginComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
   hidePassword = true;
   loginForm!:FormGroup;
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
   constructor(private _fb:FormBuilder,
-    private commonService:CommonServiceService,
-	private router:Router){}
+    private commonService:CommonServiceService){}
   ngOnInit(): void {
     this.initForm()
   }
   initForm(){
     this.loginForm = this._fb.group({
-      userName:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required,this.commonService.passwordValidator()]]
+      email:['',[Validators.required,Validators.email]],
     })
   }
   get f() {
@@ -62,7 +59,5 @@ export class LoginComponent implements OnInit {
 			this.togglePaused();
 		}
 	}
-	goToForgotPassword(){
-		this.router.navigate(['/forgotPass'])
-	}
+  submit(){}
 }
