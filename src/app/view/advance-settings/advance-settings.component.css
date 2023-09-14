@@ -30,6 +30,7 @@ mat-card{
 }
 mat-card:hover{
     background: #f6f6f6;
+    cursor: pointer;
 }
  .main-container{
     box-shadow: none !important;

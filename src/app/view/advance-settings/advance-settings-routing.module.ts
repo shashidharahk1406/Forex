@@ -27,8 +27,42 @@ const routes: Routes = [
     path:'channel', loadChildren:()=>import('./setup-dropdown-values/channel/channel.module').then(m=>m.ChannelModule)
   },
   {
+    path:'source', loadChildren:()=> import('./setup-dropdown-values/channel-source/channel-source.module').then(m=>m.ChannelSourceModule)
+  },
+  {
     path:'whatsappTemplate', loadChildren:()=> import('./communication/whatsapp/whatsapp.module').then(m =>m.WhatsappModule)
+  },
+  {
+    path:'newChannel', loadChildren:()=>import('./setup-dropdown-values/new-channel/new-channel.module').then(m=>m.NewChannelModule)
+  },
+  {
+    path:'campaign', loadChildren:()=> import('./setup-dropdown-values/campaign/campaign.module').then(m => m.CampaignModule)
+  },
+  {
+    path:'medium', loadChildren:() => import('./setup-dropdown-values/medium/medium.module').then(m => m.MediumModule)
+  },
+  {
+    path:'levelOfProgram', loadChildren:()=> import('./setup-dropdown-values/level-of-program/level-of-program.module').then(m=>m.LevelOfProgramModule)
+  },
+  {
+    path:'department', loadChildren:()=> import('./setup-dropdown-values/department/department.module').then(m => m.DepartmentModule)
+  },
+  {
+    path:'course', loadChildren:() => import('./setup-dropdown-values/course/course.module').then(m=>m.CourseModule)
+  },
+  {
+    path:'countryId', loadChildren:()=> import('./setup-dropdown-values/country-id/country-id.module').then(m => m.CountryIdModule)
+  },
+  {
+    path:'state', loadChildren:()=>import('./setup-dropdown-values/state/state.module').then(m => m.StateModule)
+  },
+  {
+    path:'city', loadChildren:()=>import('./setup-dropdown-values/city/city.module').then(m=>m.CityModule)
+  },
+  {
+    path:'priorityName', loadChildren:()=>import('./setup-dropdown-values/priority-name/priority-name.module').then(m =>m.PriorityNameModule)
   }
+
 ];
 @NgModule({
   imports: [

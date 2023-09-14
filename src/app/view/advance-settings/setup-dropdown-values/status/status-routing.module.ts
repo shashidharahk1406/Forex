@@ -9,9 +9,9 @@ const routes: Routes = [
       {
         path:'list', component:ListComponent
       },
-      {
-        path:'', redirectTo:'list', pathMatch:'full'
-      }
+      // {
+      //   path:'', redirectTo:'list', pathMatch:'full'
+      // }
     ]
   }
 
