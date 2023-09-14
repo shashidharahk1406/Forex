@@ -28,6 +28,7 @@ import { LoginListComponent } from './login-list/login-list.component';
     SearchbarComponent,
     NotificationComponent,
     NgbDropdownModule,
+    FormsModule,
     ReactiveFormsModule,
     LoginListComponent
   ]

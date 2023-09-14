@@ -5,6 +5,9 @@
     --appLightColor:#FFF2EB;
     --appWhite:#FFF;
 }
+.alightColor{
+  background: var(--appLightColor);
+}
 .pencil-edit,.forgot-pass{
   color:var(--appColor);
   cursor: pointer;

@@ -11,7 +11,6 @@
   }
   .arrow-down{
     vertical-align: middle;
-    margin: 0 5px;
     float: right;
     line-height: 21px;
     color: darkgray;
@@ -43,11 +42,15 @@
     background-color: #f6f6f6;
   }
   .more-dropdown{
-    position: absolute;
-    top: -36px !important;
-    inset: none !important;
+    inset: -36px auto auto -21px !important;
     margin: 0px;
     width: 420px !important;
+    font-size: 13px;
+  }
+  .more-dropdown2{
+    inset: -41px auto auto -7px !important;
+    margin: 5px !important;
+    width: 250px !important;
     font-size: 13px;
   }
   .more-dropdown:hover{
@@ -60,6 +63,7 @@
   .clear-icon{
     font-size: 15px;
     vertical-align: text-top;
+    height: 17px !important;
   }
   .footer-col{
     text-align: end;
@@ -75,6 +79,8 @@
   }
   .body-section{
     line-height: 24px;
+    height: 150px;
+    overflow-y: auto;
   }
  .main-catagory:hover{
   background-color: #f6f6f6;
@@ -88,5 +94,39 @@
   margin-top: -15px;
  }
 
-
-
+li{
+  list-style: none;
+}
+ul{
+  padding-left: 0rem !important;
+}
+.s-p{
+  position: absolute !important;
+  margin-left: 15px;
+}
+.selected-category{
+  background-color: #f6f6f6;
+}
+.list-head{
+  font-weight: bold;
+}
+.col-p{
+  padding-right: 0
+}
+.suffix-icon{
+  float: right;
+}
+.br-b{
+  border-bottom: 1px solid #d5d5d5;
+  padding: 5px 0;
+}
+.filter-type-card{
+  padding: 6px;
+  border-radius: 0;
+  border: 1px solid #d3d3d3;
+  border-right: 0;
+  box-shadow: none;
+}
+select:focus{
+  outline: none;
+}
