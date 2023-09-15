@@ -17,7 +17,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FilterListRoutingModule,
     MaterialModule,
     SharedModule,
+  ],
+  exports:[
+    FilterListComponent
   ]
+
 })
 export class FilterListModule {
   

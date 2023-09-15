@@ -7,9 +7,14 @@ const routes: Routes = [
   {path: '', component: AnalyticsComponent,children:[
     
       {path:'filterList',loadChildren:()=>import('./filter-list/filter-list.module').then(m=>m.FilterListModule)},
-      {path:'',pathMatch:'full',redirectTo:'filterList'}
+      // {path:'',pathMatch:'full',redirectTo:'filterList'},
+
     
   ] },
+  {
+    path:'leadCount', loadChildren:()=> import('./lead-count/lead-count.module').then(m=>m.LeadCountModule)
+  }
+
   
  
  ];
