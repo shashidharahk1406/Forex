@@ -23,7 +23,11 @@ import { DateFilterComponent } from './date-filter/date-filter.component';
     MaterialModule,
     SharedModule,
     NgxDaterangepickerMd.forRoot(),
+  ],
+  exports:[
+    FilterListComponent
   ]
+
 })
 export class FilterListModule {
   
