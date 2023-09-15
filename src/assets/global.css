@@ -158,3 +158,9 @@ height: 90%;
     margin-bottom: 0rem !important;
     margin-left: 15% !important;
   }
+  /* select option:hover{
+    background-color:yellow !important;
+  } */
+  .md-drppicker.drops-down-auto.ltr.shown.double.show-ranges {
+   zoom: 80%;
+  }

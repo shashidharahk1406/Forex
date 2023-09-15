@@ -8,7 +8,7 @@ const routes: Routes = [
     
       {path:'filterList',loadChildren:()=>import('./filter-list/filter-list.module').then(m=>m.FilterListModule)},
       {path:'',pathMatch:'full',redirectTo:'filterList'}
-    
+  
   ] },
   
  

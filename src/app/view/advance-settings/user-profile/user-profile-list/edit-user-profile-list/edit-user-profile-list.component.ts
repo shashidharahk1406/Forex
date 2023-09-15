@@ -38,6 +38,8 @@ export class EditUserProfileListComponent implements OnInit {
       firstName: ['', [Validators.required,this.validationService.nameValidator()]],
       lastName: ['',[this.validationService.nameValidator()]],
       mobileNumber: ['',[this.validationService.mobileNumberValidator()]],
+      email:['',[Validators.required,Validators.email]],
+      designation:[''],
       employeeKey: [''],
       target: [''],
       startDate: [''],

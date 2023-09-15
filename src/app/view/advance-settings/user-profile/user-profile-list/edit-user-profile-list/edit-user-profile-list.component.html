@@ -86,7 +86,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field appearance="outline">
                         <mat-label>Last Name</mat-label>
-                        <input matInput placeholder="Enter Your Last Name" formControlName="lastName" (input)="checkValidity(replaceUserForm.get('lastName'))">
+                        <input matInput placeholder="Enter Your Last Name" formControlName="designation" (input)="checkValidity(replaceUserForm.get('lastName'))">
                         <mat-error *ngIf="replaceUserForm.get('lastName')?.hasError('pattern')">Invalid Last Name</mat-error>
                       </mat-form-field>
                     </div>
@@ -110,13 +110,13 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field appearance="outline">
                         <mat-label>Target</mat-label>
                         <input matInput placeholder="Enter Your Target" formControlName="target">
                       </mat-form-field>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field appearance="outline">
                         <mat-label>Start Date</mat-label>
                         <input matInput [matDatepicker]="picker" placeholder="Choose A Date" formControlName="startDate">
@@ -124,6 +124,29 @@
                         <mat-datepicker #picker></mat-datepicker>
                       </mat-form-field>
                     </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Email Id </mat-label>
+                        <input matInput placeholder="Enter Your Email Id" formControlName="email" >
+                        <mat-error *ngIf="f['email'].invalid && f['email'].touched">
+                          <span *ngIf="f['email'].errors && f['email'].errors['required']">Email Id Is Required</span>
+                          <span *ngIf="!f['email'].hasError('required') && f['email'].hasError('pattern')">Invalid Email Id</span>
+                        </mat-error>
+                        
+                        <!-- <mat-error *ngIf="!replaceUserForm.get('firstName')?.hasError('required') && replaceUserForm.get('firstName')?.hasError('pattern')">Invalid First Name</mat-error> -->
+                       
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Designation</mat-label>
+                        <input matInput placeholder="Enter Your Designation" formControlName="designation" (input)="checkValidity(replaceUserForm.get('designation'))">
+                        <mat-error *ngIf="replaceUserForm.get('designation')?.hasError('pattern')">Invalid Designation</mat-error>
+                      </mat-form-field>
+                    </div>
+                    
                   </div>
                 </div>
               </div>

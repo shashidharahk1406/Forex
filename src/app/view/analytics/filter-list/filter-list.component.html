@@ -1,169 +1,44 @@
 
 <div class="row my-3">
-    <div class="col-sm-12 col-md-6 col-lg-3 col-p" >
-      <div ngbDropdown #myDropdown="ngbDropdown">
-        <mat-card class="filterBy-category">
-          <i class="bi bi-funnel-fill" id="dropdownBasic1"></i>
-          <span class="filter-text" ngbDropdownToggle>Create Filter </span>
-          <ng-container *ngIf="!showHintFilter">
-            <span class="" *ngIf="appliedFilter.length > 0">
-              <span class="snippets">{{appliedFilter[0]['name']}}</span>
-              <span>{{appliedFilter[0]['count']}}</span>
-              <mat-icon class="clear-icon" (click)="removeAllList()">close</mat-icon>
-          </span>
-            <ng-container *ngIf="appliedFilter.length > 1">
-             
-                <span> + {{appliedFilter.length -1}}</span>
-           
-            </ng-container>
-            
-          </ng-container>
-          
-          <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-            <div>
-              <div class="row br-b">
-                <div class="col">
-                  <i class="bi bi-funnel-fill" id="dropdownBasic1"></i>
-                  <span class="filter-text">Create Filter </span>
-                </div>
-                <div class="col-1 close-icon p-0">
-                  <mat-icon mat-dialog-close ngbDropdownToggle style="font-size:17px;" (click)="closePopup()">close</mat-icon>
-                </div>
-              </div>
-              <div class="row br-b">
-                <div class="col c-h">
-                  <div *ngIf="showHintFilter" class="text-muted">No Filter Is Selected.</div>
-                  <ng-container *ngIf="!showHintFilter" >
-                    <span class="" *ngFor="let items of filterdSnippetList">
-                        <span class="snippets">{{items.name}}</span>
-                        <span>{{items.count}}</span>
-                        <mat-icon class="clear-icon" (click)="removeList(items)">close</mat-icon>
-                    </span>
-                  </ng-container>
-                </div>
-              </div>
-  
-              <!-- Body-Section -->
-              <div class="row body-section mx-3 py-2" >
-                <div class="col" >
-                    <div class="row" *ngFor="let task of category">
-                        <span class="example-list-section p-1" [class.selected-category]="selectedCategory === task">
-                            <!-- <mat-checkbox class="example-margin"
-                                [checked]="allComplete"          
-                                [disabled]="true">
-                            </mat-checkbox> -->
-                            <span (click)="openCategoryPanel(task)"> {{ task.name }}</span>
-                          </span>
-                    </div>
-                 
-                </div>
-  
-                <div class="col" [ngClass]="showHint ? 'd-flex align-items-center justify-content-center':''">
-                  <div *ngIf="showHint" class="text-muted">Please Select Filters And Click Apply.</div>
-                  <section class="example-section" *ngFor="let task of selectedArr">
-                    <span class="example-list-section list-head">
-                      <!-- <mat-checkbox class="example-margin"
-                                    [checked]="allComplete"
-                                    [color]="task.color"
-                                    [indeterminate]="someComplete(task)"
-                                    (change)="setAll($event.checked)"
-                                   (click)="selectAllSnippets(task)"
-                                   >
-                        {{ task.name }}
-                      </mat-checkbox> -->
-                      {{ task.name }}
-                    </span>
-                    <span class="example-list-section">
-                      <ul>
-                        <li *ngFor="let subtask of task.subtasks">
-                          <mat-checkbox 
-                          [(ngModel)]="subtask.completed"
-                            (click)="selectedSnippets(task, subtask.completed)">
-                            {{ subtask.name }}
-                          </mat-checkbox>
-                        </li>
-                      </ul>
-                    </span>
-                  </section>
-                </div>
-              </div>
-  
-              <!-- Footer-Section -->
-              <div class="row footer-section m-0">
-                <div class="col-12 footer-col">
-                  <button mat-button class="m-2 mat-cancel">RESET</button>
-                  <button mat-button class="m-2 mat-disable" ngbDropdownToggle (click)="apply()">APPLY</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </mat-card>
-      </div>
-    </div>
-    <div class="col-1"></div>
-    <div class="col-2" style="text-align: right;
-    margin: 0 -24px;">
-   <mat-card class="filter-type-card alightColor">
-    <select style="border: 0;
-    width: 100%;font-size: 13px;" class="alightColor">
-      <option>ALL</option>
-      <option>Inactive</option>
-      <option>Active</option>
-    </select>
-   </mat-card>
-    </div>
-    
-    <div class="col-sm-12 col-md-6 col-lg-3" >   
-        <div ngbDropdown #myDropdown="ngbDropdown">
-          <mat-card class="filterBy-category" ngbDropdownToggle style="border-left: 0;border-radius: 0px 5px 5px 0px;">
-            <span class="filter-text" *ngIf="!selectedAllCounsellar && counselorSelected.length === 0">Select Counselor </span>
-            <span class="filter-text" *ngIf="selectedAllCounsellar">All Counselors </span>
-          
-              <span class="filter-text" *ngIf="counselorSelected.length > 0 && !selectedAllCounsellar">
-                <span>{{"Counselor'(s) Selected"}}</span>
-                <span>{{counselorSelected.length}}</span>
-            </span>
-              
-              
-            <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
-          </mat-card>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic2" class="more-dropdown2">
-              <section class="example-section px-4">
-                <div class="example-list-section br-b">
-                  <mat-checkbox class="example-margin"
-                                [checked]="allComplete"
-                                [indeterminate]="someComplete()"
-                                (change)="setAll($event.checked)"
-                                >
-                    {{cousalerList.name}}
-                  </mat-checkbox>
-                </div>
-                <span class="example-list-section">
-                  <ul>
-                    <li *ngFor="let subtask of cousalerList.subtasks" class="br-b">
-                      <mat-checkbox [(ngModel)]="subtask.completed"     
-                                    (ngModelChange)="updateAllComplete()"
-                                    (click)="checkListCounselar(subtask)">
-                        {{subtask.name}}
-                      </mat-checkbox>
-                      <span class="suffix-icon"><i class="bi bi-diagram-3-fill"></i></span>
-                    </li>
-                  </ul>
-                </span>
-              </section>
-              <!-- Footer-Section -->
-              <div class="row footer-section m-0">
-                <div class="col-12 footer-col">
-                  <button mat-button class="m-1 mat-cancel">RESET</button>
-                  <button mat-button class="m-1 mat-disable" ngbDropdownToggle (click)="applyCounselor()">APPLY</button>
-                </div>
-              </div>
-            </div>
-            
+     <div class="col-sm-12 col-md-6 col-lg-3 col-p mb-2" >
+    <app-create-filter></app-create-filter>
+  </div>
+    <!-- <div class="col-sm-0 col-md-0 col-lg-1"></div> -->
+
+    <div class="col-sm-12 col-md-6 col-lg-2 mb-2" style="margin: 0 -24px;">
+      <mat-card class="filter-type-card alightColor">
         
-     </div>
-     
+        <div ngbDropdown >
+           <div id="dropdownBasic1"  ngbDropdownToggle class="text-start" >
+            {{seletedType}}
+  
+            <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+          </div>
+          
+           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+           <div class="notify-container">
+               <ul>
+                   <li *ngFor="let items of filterType" (click)="getType(items)" [ngClass]="seletedType === items ? 'alightColor':''">
+                       <div class="notify-popup-title  px-4 py-1"> {{items}}</div>
+                     
+                   </li>      
+               </ul>
+           </div>
+        </div>
+        </div>
+
+
+
+
+      </mat-card>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 mb-2" >   
+     <app-select-counselar></app-select-counselar> 
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+    
+       <app-date-filter></app-date-filter>
+  
     </div>
     
   </div>

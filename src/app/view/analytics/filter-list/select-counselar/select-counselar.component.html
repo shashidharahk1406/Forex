@@ -1,0 +1,47 @@
+<div ngbDropdown #myDropdown="ngbDropdown">
+    <mat-card class="filterBy-category" ngbDropdownToggle style="border-left: 0;border-radius: 0px 5px 5px 0px;">
+      <span class="filter-text" *ngIf="!selectedAllCounsellar && counselorSelected.length === 0">Select Counselor </span>
+      <span class="filter-text" *ngIf="selectedAllCounsellar">All Counselors </span>
+    
+        <span class="filter-text" *ngIf="counselorSelected.length > 0 && !selectedAllCounsellar">
+          <span>{{"Counselor'(s) Selected"}}</span>
+          <span>{{counselorSelected.length}}</span>
+      </span>
+      <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+    </mat-card>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2" class="more-dropdown2">
+        <section class="example-section px-4">
+          <div class="example-list-section br-b">
+            <mat-checkbox class="example-margin"
+                          [checked]="allComplete"
+                          [indeterminate]="someComplete()"
+                          (change)="setAll($event)"
+                          >
+              {{cousalerList.name}}
+            </mat-checkbox>
+          </div>
+          <span class="example-list-section">
+            <ul>
+              <li *ngFor="let subtask of cousalerList.subtasks" class="br-b">
+                <mat-checkbox [(ngModel)]="subtask.completed"     
+                              (ngModelChange)="updateAllComplete()"
+                              (click)="checkListCounselar(subtask)">
+                  {{subtask.name}}
+                </mat-checkbox>
+                <span class="suffix-icon"><i class="bi bi-diagram-3-fill"></i></span>
+              </li>
+            </ul>
+          </span>
+        </section>
+        <!-- Footer-Section -->
+        <div class="row footer-section m-0">
+          <div class="col-12 footer-col">
+            <button mat-button class="m-1 mat-cancel">RESET</button>
+            <button mat-button class="m-1 mat-disable" ngbDropdownToggle (click)="applyCounselor()">APPLY</button>
+          </div>
+        </div>
+      </div>
+      
+  
+</div>
+
