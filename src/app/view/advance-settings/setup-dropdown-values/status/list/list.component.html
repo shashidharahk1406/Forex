@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input type="text" class="form-control" placeholder="Search Status Name">
+        <input (keyup)="applyFilter($event)" type="text" class="form-control" placeholder="Search Status Name">
         <button class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>
@@ -21,33 +21,33 @@
   <div class="genericTable">
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
-      <ng-container matColumnDef="User Name">
+      <ng-container matColumnDef="status_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status Name</th>
-        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit()">{{ element['User Name'] }}</td>
+        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit()">{{ element.status_name }}</td>
       </ng-container>
     
       <!-- Define Email column -->
-      <ng-container matColumnDef="Email">
+      <ng-container matColumnDef="is_active">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
-        <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.is_active }}</td>
       </ng-container>
     
       <!-- Define Mobile column -->
-      <ng-container matColumnDef="Mobile">
+      <ng-container matColumnDef="is_system_value">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Sysytem value</th>
-        <td mat-cell *matCellDef="let element">{{ element.Mobile }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.is_system_value }}</td>
       </ng-container>
     
       <!-- Define User Role column -->
-      <ng-container matColumnDef="User Role">
+      <ng-container matColumnDef="status_group_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status Group</th>
-        <td mat-cell *matCellDef="let element">{{ element['User Role'] }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.status_group_id }}</td>
       </ng-container>
     
       <!-- Define Designation column -->
-      <ng-container matColumnDef="Designation">
+      <ng-container matColumnDef="master_status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Master Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.Designation }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.master_status }}</td>
       </ng-container>
     
 
@@ -64,5 +64,5 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
    

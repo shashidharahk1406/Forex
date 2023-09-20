@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/service/API/api.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   }
   constructor(private _fb:FormBuilder,
     private commonService:CommonServiceService,
-	private router:Router){}
+	private router:Router, private api:ApiService){}
   ngOnInit(): void {
     this.initForm()
   }
@@ -31,5 +32,21 @@ export class LoginPageComponent implements OnInit {
   }
   
   goToForgotPassword(){}
+
+  login(){
+    if(this.loginForm.invalid){
+
+    }
+    else{
+      this.api.login(this.loginForm.value).subscribe(
+        (resp:any)=>{
+
+        },
+        (error:any)=>{
+
+        }
+      )
+    }
+  }
 
 }

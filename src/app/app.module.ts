@@ -16,7 +16,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoginComponent } from './auth/login/login.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-
+import { NgChartsModule } from 'ng2-charts';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BasicAuthInterceptor } from './service/Auth-interceptor/auth-interceptor';
+// import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,12 +41,13 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     CommonModule,
     SharedModule,
     NgbCarouselModule,
-   
+    NgChartsModule,
+    // ToastrModule.forRoot()
   ],
   exports:[
     SharedModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
