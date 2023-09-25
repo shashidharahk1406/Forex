@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/service/API/api.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,14 +19,14 @@ export class LoginComponent implements OnInit {
   }
   constructor(private _fb:FormBuilder,
     private commonService:CommonServiceService,
-	private router:Router){}
+	private router:Router,private api:ApiService){}
   ngOnInit(): void {
     this.initForm()
   }
   initForm(){
     this.loginForm = this._fb.group({
-      userName:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required,this.commonService.passwordValidator()]]
+		email:['',[Validators.required,Validators.email]],
+      password:['',[Validators.required]]
     })
   }
   get f() {
@@ -65,4 +67,21 @@ export class LoginComponent implements OnInit {
 	goToForgotPassword(){
 		this.router.navigate(['/forgotPass'])
 	}
+	login(){
+		if(this.loginForm.invalid){
+			console.log("Invalid");	
+		}
+		else{
+		  this.api.login(this.loginForm.value).subscribe(
+			(resp:any)=>{
+				this.loginForm.reset()
+				localStorage.setItem('token',resp.result[0].token)
+				this.router.navigate(['/advancesettings'])
+			},
+			(error:any)=>{
+				console.log("Error", error);	
+			}
+		  )
+		}
+	  }
 }

@@ -1,0 +1,6 @@
+{
+    "/api": {
+      "target": "https://fcmdev.thestorywallcafe.com",
+      "secure": false
+    }
+  }

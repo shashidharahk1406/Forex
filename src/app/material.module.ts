@@ -21,6 +21,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import {MatRadioModule} from '@angular/material/radio';
+import { NgChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -44,7 +47,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatSortModule,
     MatSlideToggleModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule,ReactiveFormsModule,
+    MatRadioModule,
+    NgChartsModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule,
@@ -67,7 +73,10 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatRadioModule,
+    NgChartsModule,
+    HttpClientModule
   ]
 })
 export class MaterialModule {}

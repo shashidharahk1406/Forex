@@ -11,7 +11,7 @@
                             <h4 class="">LOG IN</h4>
                         </div>
                     </div>
-                   <form [formGroup]="loginForm">
+                   <form [formGroup]="loginForm" (ngSubmit)="login()" >
                     <div class="row">
                         <div class="col-12 mb-2">
                             <mat-form-field appearance="outline">
@@ -31,7 +31,7 @@
                             <mat-form-field appearance="outline">
                                 <mat-label>Password</mat-label>
                                 <input matInput type="password" formControlName="password" placeholder="Enter Your Password" [type]="hidePassword ? 'password' : 'text'" required >
-                                <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                                <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility()">
                                   <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                                 </button>
                                 <mat-error *ngIf="f['password'].invalid && f['password'].touched">
@@ -53,7 +53,8 @@
                     </div>
 
                     <div class="col-12 my-4">
-                        <button mat-button class="appCoColor" routerLink="/advancesettings">LOGIN</button>
+                        <button type="submit" mat-button class="appCoColor" >jj</button>
+                        <button type="submit" mat-button class="appCoColor" >LOGIN</button>
                     </div>
                       
                    </form>    
