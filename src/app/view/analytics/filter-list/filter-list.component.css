@@ -1,15 +1,15 @@
-
-
   mat-form-field{
    font-size: 13px;
   }
   .arrow-down{
     vertical-align: middle;
     float: right;
-    line-height: 21px;
+    line-height: 24px;
     color: darkgray;
   }
-  
+  #dropdownBasic1{
+    line-height: 23px;
+  }
   
   .filter-text{
     font-size: 13px;
@@ -29,10 +29,6 @@
   .filterBy-category:hover{
     background-color: #f6f6f6;
   }
-  
-  
-  
-  
   
  .main-catagory:hover{
   background-color: #f6f6f6;
@@ -70,11 +66,10 @@ ul{
 }
 .filter-type-card{
   padding: 6px 6px 5px;
-  border-radius: 0;
+  border-radius: 5px 0 0 5px;
   border: 1px solid #d3d3d3;
   border-right: 0;
   box-shadow: none;
-  /* width: 73%; */
   float: right;
   font-size: 13px;
   text-align: start;
@@ -83,3 +78,14 @@ select:focus{
   outline: none;
 }
 
+.bi-arrow-down-up,.bi-calendar2-week-fill{
+  line-height: 36px;
+  color:gray;
+}
+.date-filter{
+  border-radius: 5px;
+  border: 1px solid #cdc7c7;
+}
+.w-90{
+width: 90%;
+}

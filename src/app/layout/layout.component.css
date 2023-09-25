@@ -5,17 +5,24 @@ mat-icon{
   color: white;
 }
 .img-container{
-  height:110px !important;
-  width: 20%;
-  zoom:85%;
+  width: 17%;
+  height: 100% !important;
   background-image: url(../../assets/images/logo.png);
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: 50%;
-
 }
+
 mat-card{
   box-shadow: none !important;
   margin: 0;
   padding: 0;
+}
+.mat-toolbar-row, .mat-toolbar-single-row {
+  padding: 0 !important;
+}
+@media (max-width: 768px) {
+  .img-container{
+    width: 35% !important;
+  }
 }

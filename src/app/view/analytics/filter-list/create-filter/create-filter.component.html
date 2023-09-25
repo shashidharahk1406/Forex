@@ -1,7 +1,7 @@
 
     <div ngbDropdown #myDropdown="ngbDropdown">
       <mat-card class="filterBy-category">
-        <i class="bi bi-funnel-fill" id="dropdownBasic1"></i>
+        <i class="bi bi-funnel-fill" id="dropdownBasic1" ngbDropdownToggle></i>
         <span class="filter-text" ngbDropdownToggle>Create Filter </span>
         <ng-container *ngIf="!showHintFilter">
           <span class="" *ngIf="appliedFilter.length > 0">
@@ -17,7 +17,7 @@
           
         </ng-container>
         
-        <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+        <mat-icon class="arrow-down" ngbDropdownToggle>keyboard_arrow_down</mat-icon>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
           <div>
             <div class="row br-b">

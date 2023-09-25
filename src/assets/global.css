@@ -19,9 +19,9 @@
   cursor: pointer;
 }
 .appCoColor{
-  background-color:var(--appColor);
-  cursor: pointer;
-  color:white;
+  background-color:var(--appColor) !important;
+  cursor: pointer !important;
+  color:white !important;
 }
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: var(--appColor) !important;
@@ -158,9 +158,9 @@ height: 90%;
     margin-bottom: 0rem !important;
     margin-left: 15% !important;
   }
-  /* select option:hover{
-    background-color:yellow !important;
-  } */
-  .md-drppicker.drops-down-auto.ltr.shown.double.show-ranges {
-   zoom: 80%;
-  }
+  
+  
+  .lead-bottom-sheet{
+    position: absolute !important;
+    right: 0 !important;
+}

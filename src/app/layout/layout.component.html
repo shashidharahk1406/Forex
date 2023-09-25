@@ -1,7 +1,11 @@
  <div>
     <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <h1 class="app-name" *ngIf="!mobileView"><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1>
+        <!-- <h1 class="app-name" *ngIf="!mobileView"><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1> -->
+        <div class="img-container">
+          <!-- <div class="img-inner-container"></div> -->
+        </div>
+        
         <button mat-icon-button class="ms-4" (click)="sidenav.toggle()" ><mat-icon>menu</mat-icon></button>
         <app-header class="w-100"></app-header>
       </mat-toolbar-row>

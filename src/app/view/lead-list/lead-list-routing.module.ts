@@ -4,7 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LeadListComponent } from './lead-list.component';
 
 const routes: Routes = [
-  { path: '', component: LeadListComponent },
+  { path: '', component: LeadListComponent,children:[
+    {path:'leadLayout',loadChildren:()=>import('./lead-layout/lead-layout.module').then(m=>m.LeadLayoutModule)}
+  ]},
+
  ];
 @NgModule({
   imports: [
