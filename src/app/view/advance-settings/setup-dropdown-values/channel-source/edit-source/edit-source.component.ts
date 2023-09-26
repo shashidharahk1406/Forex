@@ -1,37 +1,92 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
 @Component({
   selector: 'app-edit-source',
   templateUrl: './edit-source.component.html',
   styleUrls: ['./edit-source.component.css']
 })
 export class EditSourceComponent implements OnInit {
-  addUserForm!:FormGroup;
+  editForm!:FormGroup;
+  allSource:any=[]
+  allChannel:any=[]
+  id:any;
 
-  constructor(private _fb:FormBuilder) { }
+
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<EditSourceComponent>,
+    @Inject(MAT_DIALOG_DATA) public _id: any) {
+      this.id=_id
+      
+     }
 
   ngOnInit(): void {
     this.initFilter()
   }
-  initFilter(){
-    this.addUserForm = this._fb.group({
-      firstName:['',[Validators.required]],
-      lastName:[''],
-      email:['',[Validators.required]],
-      mobile:[''],
-      key:[''],
-      target:[''],
-      startDate:[''],
-      designation:['',[Validators.required]],
-      role:['',[Validators.required]],
-      reportingTo:['',[Validators.required]],
-      allow:[''],
-      program:['',[Validators.required]],
-      department:['']
-
-    })
+  get f() {
+    return this.editForm.controls;
   }
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  initFilter(){
+    this.editForm = this._fb.group({
+      source_name:['',[Validators.required]],
+      source_id:['',[Validators.required]],
+      channel_id:['',[Validators.required]],
+    })
+    this.getSourcebyId()
+    this.getAllSourceGroup()
+    this.getAllChannel()
+  }
+  getSourcebyId(){
+    this.api.getSourceById(this.id).subscribe(
+      (resp:any)=>{
+        console.log(resp.result[0].source_id);
+        this.editForm.patchValue({source_name:resp.result[0].source_name})
+        this.editForm.patchValue({source_id:resp.result[0].source_id})
+        this.editForm.patchValue({channel_id:resp.result[0].channel_id})
 
+      },
+      (error:any)=>{
 
+      }
+    )
+  }
+  getAllSourceGroup(){
+    this.api.getAllSource().subscribe(
+      (resp:any)=>{
+        this.allSource=resp.results
+      },
+      (error:any)=>{
+
+      }
+      
+    )
+  }
+  getAllChannel(){
+    this.api.getAllChannel().subscribe(
+      (resp:any)=>{
+        this.allChannel=resp.results
+      },
+      (error:any)=>{
+
+      }
+      
+    )
+  }
+  edit(){
+    if(this.editForm.invalid){
+
+    }
+    else{
+      this.api.editSource(this.id,this.editForm.value).subscribe(
+        (resp:any)=>{
+          this.dialogRef.close()
+        },
+        (error:any)=>{
+          console.log("error");
+          
+        }
+      )
+    }
+
+  }
 }

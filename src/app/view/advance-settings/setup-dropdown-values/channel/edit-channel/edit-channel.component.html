@@ -1,5 +1,5 @@
 
-<form [formGroup]="addUserForm">
+<form [formGroup]="editForm">
     <div class="mat-dialog-header">
         <div class="row">
             <div class="col"><h1 mat-dialog-title>Edit Channel</h1></div>
@@ -12,10 +12,15 @@
         <mat-dialog-content class="mat-typography">
             <div class="row">
                 <div class="col-12 col-md-12">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Source</mat-label>
-                        <input formControlName="firstName" type="text" matInput placeholder="First Name">
-                      </mat-form-field>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Channel</mat-label>
+                    <input formControlName="channel_name" type="text" matInput placeholder="First Name">
+                  </mat-form-field>
+                  <mat-error *ngIf="f['channel_name'].invalid && f['channel_name'].touched">
+                    <div *ngIf="f['channel_name'].errors && f['channel_name'].errors['required']">
+                         Channel Name Is Required
+                    </div>
+                </mat-error>
                 </div>
             </div>
 
@@ -24,7 +29,7 @@
       </div>
     <mat-dialog-actions align="end">
       <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>ADD</button>
+      <button class="mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
     </mat-dialog-actions>
     
     

@@ -1,5 +1,5 @@
 
-<form [formGroup]="addUserForm">
+<form [formGroup]="editForm">
     <div class="mat-dialog-header">
         <div class="row">
             <div class="col"><h1 mat-dialog-title>Edit Status Name</h1></div>
@@ -10,39 +10,54 @@
       </div>
       <div class="container">
         <mat-dialog-content class="mat-typography">
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Source</mat-label>
-                        <input formControlName="firstName" type="text" matInput placeholder="Source">
-                      </mat-form-field>
-                </div>
+          <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Source</mat-label>
+                    <input formControlName="source_name" type="text" matInput placeholder="SOurce Name">
+                  </mat-form-field>
+                  <mat-error *ngIf="f['source_name'].invalid && f['source_name'].touched">
+                    <div *ngIf="f['source_name'].errors && f['source_name'].errors['required']">
+                         Source Name Is Required
+                    </div>
+                </mat-error>
             </div>
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <mat-form-field  appearance="outline">
-                        <mat-label>Source</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+              <mat-form-field  appearance="outline">
+                <mat-label>Source</mat-label>
+                <mat-select  formControlName="source_id">
+                  <mat-option *ngFor="let item of allSource" [value]="item.id">{{item.source_name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="f['source_id'].invalid && f['source_id'].touched">
+              <div *ngIf="f['source_id'].errors && f['source_id'].errors['required']">
+                   Source Is Required
+              </div>
+          </mat-error>
             </div>
-            <div class="row">
-                <div class="col-12 col-md-12">
-                    <mat-form-field  appearance="outline">
-                        <mat-label>New Channel</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </div>
-            </div>          
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+              <mat-form-field  appearance="outline">
+                <mat-label>Channel</mat-label>
+                <mat-select  formControlName="channel_id">
+                  <mat-option *ngFor="let item of allChannel" [value]="item.id">{{item.channel_name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="f['channel_id'].invalid && f['channel_id'].touched">
+              <div *ngIf="f['channel_id'].errors && f['channel_id'].errors['required']">
+                   Channel Is Required
+              </div>
+          </mat-error>
+            </div>
+        </div>             
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">
       <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>ADD</button>
+      <button class="mat-disable" mat-button (click)="edit()" cdkFocusInitial>ADD</button>
     </mat-dialog-actions>
     
     
