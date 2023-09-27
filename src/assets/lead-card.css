@@ -1,0 +1,17 @@
+.lead-card-tabs .mat-tab-label {
+    min-width: fit-content !important;
+    padding: 11px !important;
+    margin-top: 10px;
+    color:rgb(75, 75, 75);
+    opacity: 1 !important;
+    font-size: 13px;
+}
+.lead-card-tabs .mat-tab-label-active{
+    background-color: var(--appColor);
+    color:white !important;
+    opacity: 1 !important;
+    border-radius: 5px 5px 0 0 ;
+}
+.lead-card-tabs mat-ink-bar.mat-ink-bar{
+    visibility: hidden !important;
+}
