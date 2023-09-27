@@ -21,27 +21,27 @@
   <div class="genericTable">
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
-      <ng-container matColumnDef="User Name">
+      <ng-container matColumnDef="campaign_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Campaign</th>
-        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit()">{{ element['User Name'] }}</td>
+        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.campaign_name }}</td>
       </ng-container>
     
       <!-- Define Email column -->
-      <ng-container matColumnDef="Email">
+      <ng-container matColumnDef="is_active">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
-        <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.is_active }}</td>
       </ng-container>
     
       <!-- Define Mobile column -->
-      <ng-container matColumnDef="Mobile">
+      <ng-container matColumnDef="is_system_value">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Sysytem value</th>
-        <td mat-cell *matCellDef="let element">{{ element.Mobile }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.is_system_value }}</td>
       </ng-container>
     
       <!-- Define User Role column -->
-      <ng-container matColumnDef="User Role">
+      <ng-container matColumnDef="source_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
-        <td mat-cell *matCellDef="let element">{{ element['User Role'] }}</td>
+        <td mat-cell *matCellDef="let element">{{ element['source_id'] }}</td>
       </ng-container>
 
     

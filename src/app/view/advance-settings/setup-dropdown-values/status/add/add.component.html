@@ -1,5 +1,5 @@
 
-<form [formGroup]="addUserForm">
+<form [formGroup]="addForm">
     <div class="mat-dialog-header">
         <div class="row">
             <div class="col"><h1 mat-dialog-title>Add Status Name</h1></div>
@@ -14,35 +14,50 @@
                 <div class="col-12 col-md-12">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Status Name</mat-label>
-                        <input formControlName="firstName" type="text" matInput placeholder="First Name">
+                        <input formControlName="status_name" type="text" matInput placeholder="Status Name">
                       </mat-form-field>
+                      <mat-error *ngIf="f['status_name'].invalid && f['status_name'].touched">
+                        <div *ngIf="f['status_name'].errors && f['status_name'].errors['required']">
+                             Status Name Is Required
+                        </div>
+                    </mat-error>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-12">
                     <mat-form-field  appearance="outline">
                         <mat-label>Status Group</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select  formControlName="status_group_id">
+                          <mat-option *ngFor="let item of allStatusGroup" [value]="item.id">{{item.name}}</mat-option>
                         </mat-select>
-                      </mat-form-field>
+                    </mat-form-field>
+                    <mat-error *ngIf="f['status_group_id'].invalid && f['status_group_id'].touched">
+                      <div *ngIf="f['status_group_id'].errors && f['status_group_id'].errors['required']">
+                           Status Group Is Required
+                      </div>
+                  </mat-error>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-12">
                     <mat-form-field  appearance="outline">
                         <mat-label>Master Status</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select  formControlName="master_status_id">
+                          <mat-option *ngFor="let item of allMasterStatus" [value]="item.id">{{item.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <mat-error *ngIf="f['master_status_id'].invalid && f['master_status_id'].touched">
+                        <div *ngIf="f['master_status_id'].errors && f['master_status_id'].errors['required']">
+                            Master Status Is Required
+                        </div>
+                    </mat-error>
                 </div>
             </div>          
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">
       <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>ADD</button>
+      <button (click)="submit()" class="mat-disable" mat-button  cdkFocusInitial>ADD</button>
     </mat-dialog-actions>
     
     

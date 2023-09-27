@@ -113,9 +113,10 @@ export class ListComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
-  openEdit(){
+  openEdit(id:any){
     const dialogRef = this.dialog.open(EditComponent, {
-      width:'35%'
+      width:'35%',
+      data:id
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
