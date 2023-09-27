@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
+
 @Component({
   selector: 'app-edit-department',
   templateUrl: './edit-department.component.html',
@@ -7,31 +10,71 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditDepartmentComponent implements OnInit {
 
-  addUserForm!:FormGroup;
-
-  constructor(private _fb:FormBuilder) { }
+  editForm!:FormGroup;
+  allLevel:any=[]
+  id:any;
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<EditDepartmentComponent>,
+    @Inject(MAT_DIALOG_DATA) public _id: any) {
+      this.id=_id
+      
+     }
 
   ngOnInit(): void {
     this.initFilter()
   }
   initFilter(){
-    this.addUserForm = this._fb.group({
-      firstName:['',[Validators.required]],
-      lastName:[''],
-      email:['',[Validators.required]],
-      mobile:[''],
-      key:[''],
-      target:[''],
-      startDate:[''],
-      designation:['',[Validators.required]],
-      role:['',[Validators.required]],
-      reportingTo:['',[Validators.required]],
-      allow:[''],
-      program:['',[Validators.required]],
-      department:['']
+    this.editForm = this._fb.group({
+      name:['',[Validators.required]],
+      level_of_program_id:['',[Validators.required]],
 
     })
-  }
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-}
+    this.getDepartmentbyId()
+  this.getAllLevel();
 
+  }
+  get f() {
+    return this.editForm.controls;
+  }
+  getAllLevel(){
+    this.api.getAllLevelOfProgram().subscribe(
+      (resp:any)=>{
+        this.allLevel=resp.results
+      },
+      (error:any)=>{
+
+      }
+      
+    )
+  }
+  getDepartmentbyId(){
+    this.api.getDepartmentById(this.id).subscribe(
+      (resp:any)=>{
+        console.log(resp.result[0].status_group_id);
+        this.editForm.patchValue({name:resp.result[0].name})
+        this.editForm.patchValue({level_of_program_id:resp.result[0].level_of_program_id})
+
+
+      },
+      (error:any)=>{
+
+      }
+    )
+  }
+  edit(){
+    if(this.editForm.invalid){
+
+    }
+    else{
+      this.api.editDepartment(this.id,this.editForm.value).subscribe(
+        (resp:any)=>{
+          this.dialogRef.close()
+        },
+        (error:any)=>{
+          console.log("error");
+          
+        }
+      )
+    }
+
+  }
+}

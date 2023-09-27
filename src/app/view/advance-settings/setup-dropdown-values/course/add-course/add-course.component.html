@@ -1,5 +1,5 @@
 
-<form [formGroup]="addUserForm">
+<form [formGroup]="addForm">
     <div class="mat-dialog-header">
         <div class="row">
             <div class="col"><h1 mat-dialog-title>Add Course</h1></div>
@@ -14,35 +14,50 @@
                 <div class="col-12 col-md-12">
                     <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Course</mat-label>
-                        <input formControlName="firstName" type="text" matInput placeholder="First Name">
+                        <input formControlName="course_name" type="text" matInput placeholder="Course Name">
                       </mat-form-field>
+                      <mat-error *ngIf="f['course_name'].invalid && f['course_name'].touched">
+                        <div *ngIf="f['course_name'].errors && f['course_name'].errors['required']">
+                             Course Name Is Required
+                        </div>
+                    </mat-error>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-12">
-                    <mat-form-field  appearance="outline">
-                        <mat-label>Level of Program</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Level Of Program</mat-label>
+                    <mat-select  formControlName="level_of_program_id">
+                      <mat-option *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="f['level_of_program_id'].invalid && f['level_of_program_id'].touched">
+                  <div *ngIf="f['level_of_program_id'].errors && f['level_of_program_id'].errors['required']">
+                      Level of program Is Required
+                  </div>
+              </mat-error>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-12">
-                    <mat-form-field  appearance="outline">
-                        <mat-label>Department</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                  <mat-form-field  appearance="outline">
+                    <mat-label>Department</mat-label>
+                    <mat-select  formControlName="department_id">
+                      <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="f['department_id'].invalid && f['department_id'].touched">
+                  <div *ngIf="f['department_id'].errors && f['department_id'].errors['required']">
+                       Department Is Required
+                  </div>
+              </mat-error>
                 </div>
             </div>          
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">
       <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>ADD</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>ADD</button>
     </mat-dialog-actions>
     
     
