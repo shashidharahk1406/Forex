@@ -19,7 +19,7 @@ mat-card{
   padding: 0;
 }
 .mat-toolbar-row, .mat-toolbar-single-row {
-  padding: 0 !important;
+  padding: 0 16px 0 0 !important;
 }
 @media (max-width: 768px) {
   .img-container{

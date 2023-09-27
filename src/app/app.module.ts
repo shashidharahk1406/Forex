@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
@@ -45,9 +45,12 @@ import { BasicAuthInterceptor } from './service/Auth-interceptor/auth-intercepto
     // ToastrModule.forRoot()
   ],
   exports:[
-    SharedModule
+    SharedModule,
+    BrowserAnimationsModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }],
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+  provideAnimations()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
