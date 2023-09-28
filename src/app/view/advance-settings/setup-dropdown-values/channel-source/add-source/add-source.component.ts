@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 @Component({
   selector: 'app-add-source',
   templateUrl: './add-source.component.html',
@@ -11,7 +12,7 @@ export class AddSourceComponent implements OnInit {
   addForm!:FormGroup;
   allSource:any=[]
   allChannel:any=[]
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddSourceComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddSourceComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -60,6 +61,7 @@ export class AddSourceComponent implements OnInit {
     else{
       this.api.postSource(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

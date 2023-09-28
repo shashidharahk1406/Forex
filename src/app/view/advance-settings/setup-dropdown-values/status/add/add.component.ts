@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
   selector: 'app-add',
@@ -13,7 +14,7 @@ export class AddComponent implements OnInit {
   allMasterStatus:any=[]
   allStatusGroup:any=[]
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -61,6 +62,7 @@ export class AddComponent implements OnInit {
     else{
       this.api.postStatus(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

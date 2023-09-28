@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 @Component({
   selector: 'app-add-city',
   templateUrl: './add-city.component.html',
@@ -8,32 +10,64 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddCityComponent implements OnInit {
 
-  addUserForm!:FormGroup;
-
-  constructor(private _fb:FormBuilder) { }
+  addForm!:FormGroup;
+  allState:any=[]
+  is_metropolitan:boolean=false
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddCityComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
+    this.getState()
+
   }
   initFilter(){
-    this.addUserForm = this._fb.group({
-      firstName:['',[Validators.required]],
-      lastName:[''],
-      email:['',[Validators.required]],
-      mobile:[''],
-      key:[''],
-      target:[''],
-      startDate:[''],
-      designation:['',[Validators.required]],
-      role:['',[Validators.required]],
-      reportingTo:['',[Validators.required]],
-      allow:[''],
-      program:['',[Validators.required]],
-      department:['']
+    this.addForm = this._fb.group({
+      name:['',[Validators.required]],
+      is_active:[true,[Validators.required]],
+      is_system_value:[true,[Validators.required]],
+      state_id:['',[Validators.required]],
+      is_metro_politan:['',[Validators.required]],
 
     })
   }
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  get f() {
+    return this.addForm.controls;
+  }
+  onChange(event:any){
+    console.log(event.checked);
+    this.is_metropolitan=event.checked
+    
+  }
+  getState(){
+    this.api.getAllState().subscribe(
+      (resp:any)=>{
+        this.allState=resp.results
+      },
+      (error:any)=>{
+
+      }
+      
+    )
+  }
+  submit(){
+    this.addForm.patchValue({is_metro_politan:this.is_metropolitan})
+    if(this.addForm.invalid){
+
+    }
+    else{
+      this.api.postCity(this.addForm.value).subscribe(
+        (resp:any)=>{
+          this.emit.sendRefresh(true)
+          this.dialogRef.close()
+        },
+        (error:any)=>{
+          console.log("error");
+          
+        }
+      )
+    }
+
+  }
 
 
 }

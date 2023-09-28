@@ -8,6 +8,7 @@ import { AddSourceComponent } from '../add-source/add-source.component';
 import { EditSourceComponent } from '../edit-source/edit-source.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 export interface UserData {
   'User Name': string,
@@ -40,7 +41,7 @@ export class SourceListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
     ) {
       
    
@@ -50,7 +51,13 @@ export class SourceListComponent implements AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getSource(); 
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 
