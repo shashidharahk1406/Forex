@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lead-card-content.component.css']
 })
 export class LeadCardContentComponent implements OnInit {
-
+  expandPanel=false;
+  notification: boolean =false;
   constructor() { }
-
+  
   ngOnInit(): void {
   }
-  
+  openNotification(){
+    this.notification = !this.notification
+  }
 }

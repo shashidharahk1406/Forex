@@ -1,3 +1,5 @@
+<app-lead-toolbar></app-lead-toolbar>
+
 <mat-card class="p-1 lead-card-container">
  <div class="row d-flex align-items-center">
     <div class="col-3">
@@ -71,8 +73,10 @@
             <div class="col p-0">
                 <i class="bi bi-telephone-fill"></i>
             </div>
-            <div class="col  p-0">
+            <div class="col  p-0 position-rel">
+                <i class="bi bi-x-circle-fill msg-close-icon"></i>
                 <i class="bi bi-chat-left-dots-fill"></i>
+                
             </div>
             <div class="col  p-0">
                 <i class="bi bi-envelope-fill"></i>
@@ -84,13 +88,32 @@
                 <i class="bi bi-wechat"></i>
             </div>
             <div class="col  p-0">
-                <i class="bi bi-three-dots-vertical"></i>
+                <div ngbDropdown class="d-inline-block lead-dropdown">
+                    <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openNotification()">more_vert</mat-icon>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                     gdssgs
+                    </div>
+                </div>
+                
             </div>
             <div class="col  p-0">
-                <i class="bi bi-chevron-down"></i>
+                <mat-icon class="common-class" *ngIf="!expandPanel"(click)="expandPanel=!expandPanel">expand_more</mat-icon>
+                <mat-icon class="common-class" *ngIf="expandPanel" (click)="expandPanel=!expandPanel">expand_less</mat-icon>
             </div>
         </div>
-    </div>
-    
+    </div>   
  </div>
+ <!-------------EXPANSION PANNAL------------------>
+ <ng-container *ngIf="expandPanel">
+    <app-lead-bottom-pannel></app-lead-bottom-pannel>
+ </ng-container>
+ 
 </mat-card>
+
+
+
+
+<div class="row">
+	<div class="col">
+		
+	</div>

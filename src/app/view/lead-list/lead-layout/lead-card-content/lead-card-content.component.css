@@ -7,17 +7,21 @@
     vertical-align: middle;
 }
 .lead-card-container{
-    font-size: 12px;
+    font-size: 11px;
     color: black !important;
     border: 1px solid #f3f3f3;
     margin: 10px 2px;
     padding: 10px !important;
-
 }
 
-.stu-close-icon{
+.stu-close-icon,.msg-close-icon{
     vertical-align: text-top;
     color: red;
+}
+.msg-close-icon{
+    position: absolute;
+    top: -6px;
+    right: 11px;
 }
 .status-box{
   border:1px solid #484848;
@@ -74,7 +78,10 @@
 }
 .bi-camera-video-fill,.bi-telephone-fill,.bi-chat-left-dots-fill,.bi-envelope-fill,
 .bi-whatsapp,.bi-wechat{
-    color:var(--appColor)
+    color:var(--appColor);
+    font-size:14px;
 }
-
-
+.common-class{
+    color: gray !important;
+    font-size: 22px;
+}

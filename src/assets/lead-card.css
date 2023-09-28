@@ -15,3 +15,7 @@
 .lead-card-tabs mat-ink-bar.mat-ink-bar{
     visibility: hidden !important;
 }
+
+.dropdown-menu.show, .lead-dropdown {
+    inset: auto auto !important;
+}
