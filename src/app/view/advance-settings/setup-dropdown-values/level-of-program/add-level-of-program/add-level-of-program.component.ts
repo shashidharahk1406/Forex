@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
   selector: 'app-add-level-of-program',
@@ -12,7 +13,7 @@ export class AddLevelOfProgramComponent implements OnInit {
 
   addForm!:FormGroup;
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddLevelOfProgramComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddLevelOfProgramComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -35,6 +36,7 @@ export class AddLevelOfProgramComponent implements OnInit {
     else{
       this.api.postLevelOfProgram(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

@@ -8,6 +8,7 @@ import { AddPriorityNameComponent } from '../add-priority-name/add-priority-name
 import { EditPriorityNameComponent } from '../edit-priority-name/edit-priority-name.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -38,7 +39,7 @@ export class PriorityNameListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService,private emit:EmitService
     ) {
       
    
@@ -48,7 +49,13 @@ export class PriorityNameListComponent implements AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getPriority(); 
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 

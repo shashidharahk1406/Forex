@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
   selector: 'app-add-course',
@@ -13,7 +14,7 @@ export class AddCourseComponent implements OnInit {
   allDepartment:any=[]
   allLevel:any=[]
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddCourseComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddCourseComponent>, private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -61,6 +62,7 @@ export class AddCourseComponent implements OnInit {
     else{
       this.api.postCourse(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

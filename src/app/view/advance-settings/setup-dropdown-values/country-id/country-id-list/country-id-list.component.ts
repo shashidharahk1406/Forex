@@ -8,6 +8,7 @@ import { AddCountryComponent } from '../add-country/add-country.component';
 import { EditCountryIdComponent } from '../edit-country-id/edit-country-id.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -37,12 +38,20 @@ export class CountryIdListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
     ) {
       
 
   }
-
+  ngOnInit(): void {
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getCountry(); 
+        }
+      }
+    )
+  }
   ngAfterViewInit() {
 
     this.getCountry(); 

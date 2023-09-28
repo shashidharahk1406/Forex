@@ -8,6 +8,7 @@ import { AddLevelOfProgramComponent } from '../add-level-of-program/add-level-of
 import { EditLevelOfProgramComponent } from '../edit-level-of-program/edit-level-of-program.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -37,12 +38,20 @@ export class LevelOfProgramListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
     ) {
       
 
   }
-
+  ngOnInit(): void {
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getLevel(); 
+        }
+      }
+    )
+  }
   ngAfterViewInit() {
 
     this.getLevel(); 

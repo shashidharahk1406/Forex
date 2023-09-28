@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 @Component({
   selector: 'app-add-department',
   templateUrl: './add-department.component.html',
@@ -11,7 +12,7 @@ export class AddDepartmentComponent implements OnInit {
   addForm!:FormGroup;
   allLevel:any=[]
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddDepartmentComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddDepartmentComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -48,6 +49,7 @@ export class AddDepartmentComponent implements OnInit {
     else{
       this.api.postDepartment(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

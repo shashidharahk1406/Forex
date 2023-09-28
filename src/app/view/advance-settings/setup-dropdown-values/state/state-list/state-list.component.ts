@@ -8,6 +8,7 @@ import { AddStateComponent } from '../add-state/add-state.component';
 import { EditStateComponent } from '../edit-state/edit-state.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 export interface UserData {
   'User Name': string,
@@ -39,7 +40,7 @@ export class StateListComponent implements  AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
     ) {
       
    
@@ -49,7 +50,13 @@ export class StateListComponent implements  AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getState(); 
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 @Component({
   selector: 'app-add-medium',
   templateUrl: './add-medium.component.html',
@@ -11,7 +12,7 @@ export class AddMediumComponent implements OnInit {
   addForm!:FormGroup;
   allCampaign:any=[]
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddMediumComponent>) { }
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddMediumComponent>,private emit:EmitService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -47,6 +48,7 @@ export class AddMediumComponent implements OnInit {
     else{
       this.api.postMedium(this.addForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

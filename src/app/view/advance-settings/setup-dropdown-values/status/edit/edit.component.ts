@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +16,7 @@ export class EditComponent implements OnInit {
   allStatusGroup:any=[]
   status_id:any;
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<EditComponent>,
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<EditComponent>, private emit:EmitService,
     @Inject(MAT_DIALOG_DATA) public id: any) {
       this.status_id=id
       
@@ -87,6 +88,7 @@ export class EditComponent implements OnInit {
     else{
       this.api.editStatus(this.status_id,this.editForm.value).subscribe(
         (resp:any)=>{
+          this.emit.sendRefresh(true)
           this.dialogRef.close()
         },
         (error:any)=>{

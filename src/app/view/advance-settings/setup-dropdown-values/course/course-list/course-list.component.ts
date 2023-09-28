@@ -8,6 +8,7 @@ import { AddCourseComponent } from '../add-course/add-course.component';
 import { EditCourseComponent } from '../edit-course/edit-course.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 
 export interface UserData {
@@ -42,7 +43,7 @@ export class CourseListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
     ) {
       
    
@@ -52,7 +53,13 @@ export class CourseListComponent implements AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getCourse(); 
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 
