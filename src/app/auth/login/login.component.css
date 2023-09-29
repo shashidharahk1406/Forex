@@ -9,10 +9,10 @@
 
 .container-fluid .container .formContainer {
   background: #fff;
-  margin: 8% 20% 0;
   border-radius: 8px;
-  padding: 30px;
+  padding: 60px 30px;
   width: 65%;
+  margin: auto;
 }
 .logo-tag{
   margin: 0.5em auto 0;
