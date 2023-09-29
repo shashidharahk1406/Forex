@@ -16,6 +16,6 @@
     visibility: hidden !important;
 }
 
-.dropdown-menu.show, .lead-dropdown {
-    inset: auto auto !important;
-}
+/* .dropdown-menu.show, .lead-dropdown {
+    width: 60vw !important;
+} */

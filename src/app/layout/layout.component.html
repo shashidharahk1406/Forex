@@ -1,24 +1,33 @@
  <div>
-    <mat-toolbar color="primary">
+    <!-- <mat-toolbar color="primary">
       <mat-toolbar-row>
-        <!-- <h1 class="app-name" *ngIf="!mobileView"><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1> -->
-        <div class="img-container">
-          <!-- <div class="img-inner-container"></div> -->
+        <!-- <h1 class="app-name" *ngIf="!mobileView"><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1> 
+        <div class="img-container" *ngIf="!mobileView">
+          <!-- <div class="img-inner-container"></div> --
         </div>
         
         <button mat-icon-button class="ms-4" (click)="sidenav.toggle()" ><mat-icon>menu</mat-icon></button>
         <app-header class="w-100"></app-header>
       </mat-toolbar-row>
-    </mat-toolbar>
+    </mat-toolbar> -->
     <mat-sidenav-container>
+      
       <mat-sidenav *ngIf="mobileView"  #sidenav="matSidenav"   class="pb-4" opened="false" [mode]="mobileView ? 'over':'side'">
-        <h1 class="app-name mt-3" ><i class="bi bi-fire"></i> FIRST CLASS MENTOR</h1>
+        <div class="img-container"></div>
         <app-sidenav-list (click)="sidenav.toggle()"></app-sidenav-list>
       </mat-sidenav>
+      
       <mat-sidenav *ngIf="!mobileView" #sidenav  [mode]="mobileView ? 'over':'side'" class="pb-4"  opened="true">
-        <app-sidenav-list ></app-sidenav-list>
+        <div class="img-container" ></div>
+        <app-sidenav-list class="sidenav-list"></app-sidenav-list>
       </mat-sidenav>
       <mat-sidenav-content>
+        <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <button mat-icon-button class="ms-4" (click)="sidenav.toggle()" ><mat-icon>menu</mat-icon></button>
+          <app-header class="w-100"></app-header>
+        </mat-toolbar-row>
+      </mat-toolbar>
       <mat-card style="height:88vh;" class="mx-4">
         <router-outlet></router-outlet>
       </mat-card>

@@ -85,3 +85,13 @@
     color: gray !important;
     font-size: 22px;
 }
+.dropdown-menu.show{
+    width: 50vw !important;
+    position: absolute !important;
+    inset: unset !important;
+    margin: 0px;
+    right: 0 !important;
+    top: -6.5rem !important;
+    font-size: 12px;
+    padding: 0px;
+}

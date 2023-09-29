@@ -9,8 +9,12 @@ import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { LeadCardComponent } from './lead-card/lead-card.component';
 import { LeadCardContentComponent } from './lead-card-content/lead-card-content.component';
 import { LeadToolbarComponent } from './lead-toolbar/lead-toolbar.component';
-import { LeadBottomPannelComponent } from './lead-bottom-pannel/lead-bottom-pannel.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LeadcardMoreComponent } from './leadcard-more/leadcard-more.component';
+import { LeadBottomPannelComponent } from './lead-bottom-pannel/lead-bottom-pannel.component';
+import { LeadSMSComponent } from './lead-sms/lead-sms.component';
+import { LeadCallComponent } from './lead-call/lead-call.component';
+import { LeadWhatsappChatComponent } from './lead-whatsapp-chat/lead-whatsapp-chat.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
     LeadCardComponent,
     LeadCardContentComponent,
     LeadToolbarComponent,
-    LeadBottomPannelComponent
+    LeadBottomPannelComponent,
+    LeadcardMoreComponent,
+    LeadSMSComponent,
+    LeadCallComponent,
+    LeadWhatsappChatComponent
   ],
   imports: [
     CommonModule,

@@ -46,10 +46,6 @@ export class AddLeadComponent implements OnInit {
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     private fb: FormBuilder) {}
 
-  openLink(event: MouseEvent): void {
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
   ngOnInit(): void {
     this.isOpen = !this.isOpen;
     this.initForm()
