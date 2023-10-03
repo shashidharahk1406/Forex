@@ -14,6 +14,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 export class LoginComponent implements OnInit {
   hidePassword = true;
   loginForm!:FormGroup;
+	// show: boolean = false;
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
@@ -33,8 +34,13 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
   
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
-
+ //images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+    //  images = [62, 83, 466, 965, 982, 1043, 738].map((n) =>'../../../assets/images/analyse.pdf');
+  myImages = [
+	'../../../assets/images/img-1.png',
+	'../../../assets/images/img-2.png',
+	'../../../assets/images/img-3.png',
+  ]
 	paused = false;
 	unpauseOnArrow = false;
 	pauseOnIndicator = false;

@@ -28,7 +28,11 @@ export class ForgotPasswordComponent implements OnInit {
     return this.loginForm.controls;
   }
   
-  images = [62, 83, 466, 965, 982, 1043, 738].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  myImages = [
+	'../../../assets/images/img-1.png',
+	'../../../assets/images/img-2.png',
+	'../../../assets/images/img-3.png',
+  ]
 
 	paused = false;
 	unpauseOnArrow = false;

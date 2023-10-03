@@ -15,6 +15,7 @@ import { LeadBottomPannelComponent } from './lead-bottom-pannel/lead-bottom-pann
 import { LeadSMSComponent } from './lead-sms/lead-sms.component';
 import { LeadCallComponent } from './lead-call/lead-call.component';
 import { LeadWhatsappChatComponent } from './lead-whatsapp-chat/lead-whatsapp-chat.component';
+import { LeadEmailComponent } from './lead-email/lead-email.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LeadWhatsappChatComponent } from './lead-whatsapp-chat/lead-whatsapp-ch
     LeadcardMoreComponent,
     LeadSMSComponent,
     LeadCallComponent,
-    LeadWhatsappChatComponent
+    LeadWhatsappChatComponent,
+    LeadEmailComponent
   ],
   imports: [
     CommonModule,

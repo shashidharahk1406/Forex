@@ -1,20 +1,22 @@
-<div class="container-fluid d-flex align-items-center">
-    <div class="row">
-        <div class="col-sm-0 col-md-6 col-lg-6 d-flex justify-content-center align-items-center">
+
+<div class="container-fluid d-flex align-items-center"  ngxUiLoaderBlurred >
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-sm-0 col-md-6 col-lg-6 carousal-col" >
             <ngb-carousel
             #carousel
             [interval]="3000"
             [showNavigationArrows]="false"
-	        width="200"
             (slide)="onSlide($event)"
             class="img-carousel"
-         >
-            <ng-template ngbSlide *ngFor="let img of images; index as i" >
+           >
+          
+            <ng-template ngbSlide *ngFor="let img of myImages; index as i" >      
                 <div class="carousel-caption">
                 </div>
-                <a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">
-                    <div class="picsum-img-wrapper">
-                        <img [src]="img" alt="My image {{i + 1}} description" style="width: 80% !important;"/>
+             
+                <a  target="_blank" rel="nofollow noopener noreferrer">
+                    <div class="picsum-img-wrapper">  
+                        <img [src]="img" alt="" />
                     </div>
                 </a>
             </ng-template>
@@ -22,15 +24,15 @@
         
         <hr />
         </div>
-        <div class="col-sm-12 col-md-6 col-6">
+        <div class="col-sm-12 col-md-6 col-6" >
             <div class="container">
-                <div class="row">
-                    <div class="col-12">
+                <!-- <div class="row">
+                    <div class="col-12"> -->
                             <mat-card class="formContainer">
                              <div class="d-flex align-items-center">
                                 <img src="../../../assets/images/logo.png" width="200"  class="logo-tag"/>
                              </div>
-                             <div class="inner-container ">
+                             <div class="inner-container">
                                 <div class="row ">
                                     <div class="col-12 text-center">
                                         <h4 class="">LOG IN</h4>
@@ -84,10 +86,11 @@
                                </form>    
                              </div>
                         </mat-card>
-                    </div>
-                </div>
+                    <!-- </div>
+                </div> -->
             </div>
            
+       
         </div>
     </div>
   

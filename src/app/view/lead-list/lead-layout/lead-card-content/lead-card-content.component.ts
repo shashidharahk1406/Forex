@@ -4,6 +4,7 @@ import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadCallComponent } from '../lead-call/lead-call.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
+import { LeadEmailComponent } from '../lead-email/lead-email.component';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -45,5 +46,12 @@ export class LeadCardContentComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
+  }
+  openEmailChat(name:any){
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+      data: {name:name}
+    };
+    this._bottomSheet.open(LeadEmailComponent,config);
   }
 }

@@ -10,9 +10,12 @@
 .container-fluid .container .formContainer {
   background: #fff;
   border-radius: 8px;
-  padding: 60px 30px;
-  width: 65%;
+  /* padding: 60px 30px; */
+  /* width: 65%; */
   margin: auto;
+}
+.container{
+  width: 65%;
 }
 .logo-tag{
   margin: 0.5em auto 0;
@@ -23,16 +26,21 @@ h4{
   font-size: 24px !important;
 }
 
-.picsum-img-wrapper{
-  height: 150px;
-}
-
 button{
   width: 100%;
 }
 mat-card{
   transition:all 5s;
 }
+.picsum-img-wrapper{
+  height: 83vh;
+  transform: scale(0.5);
+}
 .img-carousel{
   padding: 0 3rem !important;
+  width: 100% !important;
+}
+.carousal-col{
+ width: 50% !important;
+ height: 100% !important;
 }
