@@ -28,7 +28,7 @@ export class ListComponent implements  AfterViewInit {
     'sub_status_name',
     'is_active',
     'is_system_value',
-    'reason_group_id',
+    'reason_group_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

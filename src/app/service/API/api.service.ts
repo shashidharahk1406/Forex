@@ -99,19 +99,19 @@ export class ApiService {
   //Source
   //New Channel
   getNewChannel(size:any,pageNo:any){
-    return this.http.get(`${this.baseurl}/api/source?page_size=${size}&page=${pageNo}`)
+    return this.http.get(`${this.baseurl}/api/new-channel?page_size=${size}&page=${pageNo}`)
   }
   getAllNewChannel(){
-    return this.http.get(`${this.baseurl}/api/source`)
+    return this.http.get(`${this.baseurl}/api/new-channel`)
   }
   getNewChannelById(id:any){
-    return this.http.get(`${this.baseurl}/api/source/${id}/`)
+    return this.http.get(`${this.baseurl}/api/new-channel/${id}/`)
   }
   editNewChannel(id:any,data:any){
-    return this.http.put(`${this.baseurl}/api/source/${id}/`,data)
+    return this.http.put(`${this.baseurl}/api/new-channel/${id}/`,data)
   }
   postNewChannel(data:any){
-    return this.http.post(`${this.baseurl}/api/source/`,data)
+    return this.http.post(`${this.baseurl}/api/new-channel/`,data)
   }
   //Source
   //Campign
@@ -284,4 +284,22 @@ export class ApiService {
     return this.http.post(`${this.baseurl}/api/priority-group/`,data)
   }
   //Priority
+
+  //Whatsapp Template
+  getWhatsappTemplate(size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}`)
+  }
+  getAllWhatsappTemplate(){
+    return this.http.get(`${this.baseurl}/api/template`)
+  }
+  getWhatsappTemplateById(id:any){
+    return this.http.get(`${this.baseurl}/api/template/${id}/`)
+  }
+  editWhatsappTemplate(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/template/${id}/`,data)
+  }
+  postWhatsappTemplate(data:any){
+    return this.http.post(`${this.baseurl}/api/template/`,data)
+  }
+  //Whatsapp Template
 }

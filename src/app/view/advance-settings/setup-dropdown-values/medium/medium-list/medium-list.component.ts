@@ -28,7 +28,7 @@ export class MediumListComponent implements  AfterViewInit {
     'medium_name',
     'is_active',
     'is_system_value',
-    'campaign_id',
+    'campaign_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

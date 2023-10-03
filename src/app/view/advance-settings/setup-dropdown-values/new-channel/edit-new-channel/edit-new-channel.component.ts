@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 @Component({
   selector: 'app-edit-new-channel',
   templateUrl: './edit-new-channel.component.html',
@@ -7,32 +10,57 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class EditNewChannelComponent implements OnInit {
 
-  addUserForm!:FormGroup;
+  editForm!:FormGroup;
 
-  constructor(private _fb:FormBuilder) { }
+  id:any;
+
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<EditNewChannelComponent>, private emit:EmitService,
+    @Inject(MAT_DIALOG_DATA) public _id: any) {
+      this.id=_id }
 
   ngOnInit(): void {
     this.initFilter()
   }
   initFilter(){
-    this.addUserForm = this._fb.group({
-      firstName:['',[Validators.required]],
-      lastName:[''],
-      email:['',[Validators.required]],
-      mobile:[''],
-      key:[''],
-      target:[''],
-      startDate:[''],
-      designation:['',[Validators.required]],
-      role:['',[Validators.required]],
-      reportingTo:['',[Validators.required]],
-      allow:[''],
-      program:['',[Validators.required]],
-      department:['']
+    this.editForm = this._fb.group({
+      new_channel_name:['',[Validators.required]],
+
 
     })
+    this.getChannelbyId()
   }
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-}
+  getChannelbyId(){
+    this.api.getNewChannelById(this.id).subscribe(
+      (resp:any)=>{
+        console.log(resp.result[0].status_group_id);
+        this.editForm.patchValue({new_channel_name:resp.result[0].new_channel_name})
 
+      },
+      (error:any)=>{
+
+      }
+    )
+  }
+  get f() {
+    return this.editForm.controls;
+  }
+  edit(){
+    if(this.editForm.invalid){
+
+    }
+    else{
+      this.api.editNewChannel(this.id,this.editForm.value).subscribe(
+        (resp:any)=>{
+          this.emit.sendRefresh(true)
+          this.dialogRef.close()
+        },
+        (error:any)=>{
+          console.log("error");
+          
+        }
+      )
+    }
+
+  }
+}
 

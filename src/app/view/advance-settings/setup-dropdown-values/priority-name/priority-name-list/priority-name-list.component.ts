@@ -27,7 +27,7 @@ export class PriorityNameListComponent implements AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
-    'priority_group_id',
+    'priority_group_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

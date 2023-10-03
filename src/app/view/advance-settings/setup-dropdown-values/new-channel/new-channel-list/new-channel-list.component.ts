@@ -9,6 +9,7 @@ import { EditChannelComponent } from '../../channel/edit-channel/edit-channel.co
 import { EditNewChannelComponent } from '../edit-new-channel/edit-new-channel.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 export interface UserData {
   'User Name': string,
@@ -25,7 +26,7 @@ export interface UserData {
 })
 export class NewChannelListComponent implements AfterViewInit {
   displayedColumns: string[] = [
-    'channel_name',
+    'new_channel_name',
     'is_active',
     'is_system_value',
   ]
@@ -39,12 +40,20 @@ export class NewChannelListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService,private emit:EmitService
     ) {
       
 
   }
-
+  ngOnInit(){
+  this.emit.getRefresh.subscribe(
+    (resp:any)=>{
+      if(resp==true){
+        this.getChannel(); 
+      }
+    }
+  )
+}
   ngAfterViewInit() {
 
     this.getChannel(); 
@@ -62,7 +71,7 @@ export class NewChannelListComponent implements AfterViewInit {
     }
   }
   getChannel(){
-    this.api.getChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    this.api.getNewChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allChannel= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allChannel);
@@ -81,7 +90,7 @@ export class NewChannelListComponent implements AfterViewInit {
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
     
-    this.api.getChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    this.api.getNewChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allChannel= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allChannel);

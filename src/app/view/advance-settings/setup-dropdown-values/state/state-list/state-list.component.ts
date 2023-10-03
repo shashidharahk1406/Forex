@@ -28,7 +28,7 @@ export class StateListComponent implements  AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
-    'country_id',
+    'country_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

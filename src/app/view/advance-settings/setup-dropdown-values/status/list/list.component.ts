@@ -29,8 +29,8 @@ export class ListComponent implements AfterViewInit {
     'status_name',
     'is_active',
     'is_system_value',
-    'status_group_id',
-    'master_status',
+    'status_group_name',
+    'master_status_name',
 
   ]
 

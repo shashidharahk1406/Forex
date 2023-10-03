@@ -29,7 +29,7 @@ export class SourceListComponent implements AfterViewInit {
     'is_active',
     'is_system_value',
     'source_id',
-    'channel_id',
+    'channel_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

@@ -27,7 +27,7 @@ export class DepartmentListComponent implements AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
-    'level_of_program_id',
+    'level_of_program_name',
    
 
   ]

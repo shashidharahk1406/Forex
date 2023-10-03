@@ -29,8 +29,8 @@ export class CourseListComponent implements AfterViewInit {
     'course_name',
     'is_active',
     'is_system_value',
-    'department_id',
-    'level_of_program_id',
+    'department_name',
+    'level_of_program_name',
 
   ]
 

@@ -28,7 +28,7 @@ export class CampaignListComponent implements  AfterViewInit {
     'campaign_name',
     'is_active',
     'is_system_value',
-    'source_id',
+    'source_name',
 
   ]
   dataSource = new MatTableDataSource<any>;

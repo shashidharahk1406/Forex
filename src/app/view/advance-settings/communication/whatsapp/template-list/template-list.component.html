@@ -34,27 +34,27 @@
   <div class="genericTable">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <!-- Define User Name column -->
-      <ng-container matColumnDef="User Name">
+      <ng-container matColumnDef="template_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>TEMPLATE NAME</th>
-        <td mat-cell *matCellDef="let element">{{ element['User Name'] }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.template_name }}</td>
       </ng-container>
     
       <!-- Define Email column -->
-      <ng-container matColumnDef="Email">
+      <ng-container matColumnDef="subject">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>SUBJECT</th>
-        <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.subject }}</td>
       </ng-container>
     
       <!-- Define Mobile column -->
-      <ng-container matColumnDef="Mobile">
+      <ng-container matColumnDef="template_type_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>TEMPLATE</th>
-        <td mat-cell *matCellDef="let element">{{ element.Mobile }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.template_type_id }}</td>
       </ng-container>
     
       <!-- Define User Role column -->
-      <ng-container matColumnDef="User Role">
+      <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>STATUS</th>
-        <td mat-cell *matCellDef="let element"> <span class="badge text-bg-success">{{element['User Role']}}</span>  </td>
+        <td mat-cell *matCellDef="let element"> <span class="badge text-bg-success">{{element['status']}}</span>  </td>
       </ng-container>
     
     

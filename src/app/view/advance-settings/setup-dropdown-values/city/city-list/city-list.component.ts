@@ -27,7 +27,7 @@ export class CityListComponent implements AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
-    'state_id',
+    'state_name',
     'is_metro_politan',
 
   ]

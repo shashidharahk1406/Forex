@@ -41,13 +41,13 @@
       <!-- Define User Role column -->
       <ng-container matColumnDef="source_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
-        <td mat-cell *matCellDef="let element">{{ element['source_id'] }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.source_name }}</td>
       </ng-container>
     
       <!-- Define Designation column -->
-      <ng-container matColumnDef="channel_id">
+      <ng-container matColumnDef="channel_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>New Channel</th>
-        <td mat-cell *matCellDef="let element">{{ element.channel_id }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.channel_name }}</td>
       </ng-container>
     
 
