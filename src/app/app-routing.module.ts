@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'login', 
-    component:LoginComponent,loadChildren:()=>import('./auth/login/login-template/login-template.module').then(m =>m.LoginTemplateModule)
+    component:LoginComponent
   },
   {
     path: 'forgotPass', 

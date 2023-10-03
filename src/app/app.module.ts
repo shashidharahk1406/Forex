@@ -19,7 +19,25 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { NgChartsModule } from 'ng2-charts';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './service/Auth-interceptor/auth-interceptor';
+
+import {
+  NgxUiLoaderHttpModule, NgxUiLoaderModule,
+  NgxUiLoaderConfig,
+  SPINNER,
+  POSITION,
+  PB_DIRECTION,
+} from "ngx-ui-loader";
 // import { ToastrModule } from 'ngx-toastr';
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  bgsColor: "red",
+  bgsPosition: POSITION.bottomCenter,
+  bgsSize: 20,
+  bgsType: SPINNER.rectangleBouncePulseOutRapid, // background spinner type
+  fgsType: SPINNER.rectangleBouncePulseOutRapid, // foreground spinner type
+  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
+  pbThickness: 5, // progress bar thickness
+  fgsSize:50
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +60,12 @@ import { BasicAuthInterceptor } from './service/Auth-interceptor/auth-intercepto
     SharedModule,
     NgbCarouselModule,
     NgChartsModule,
-    // ToastrModule.forRoot()
+    // ToastrModule.forRoot(),
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground:true
+    }),
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
   ],
   exports:[
     SharedModule,
