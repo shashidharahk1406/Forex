@@ -38,6 +38,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   pbThickness: 5, // progress bar thickness
   fgsSize:50
 };
+import { QuillModule } from 'ngx-quill'
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     }),
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig)
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    QuillModule
   ],
   exports:[
     SharedModule,

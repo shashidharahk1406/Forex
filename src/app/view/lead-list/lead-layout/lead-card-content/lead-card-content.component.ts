@@ -5,6 +5,7 @@ import { LeadCallComponent } from '../lead-call/lead-call.component';
 import { MatDialog } from '@angular/material/dialog';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
 import { LeadEmailComponent } from '../lead-email/lead-email.component';
+import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.component';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -53,5 +54,14 @@ export class LeadCardContentComponent implements OnInit {
       data: {name:name}
     };
     this._bottomSheet.open(LeadEmailComponent,config);
+  }
+  openVideoCall(){
+    const dialogRef = this.dialog.open(LeadVideoCallComponent, {
+      width:'45%',
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    });
   }
 }
