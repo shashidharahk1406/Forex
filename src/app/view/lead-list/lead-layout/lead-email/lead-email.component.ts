@@ -40,7 +40,7 @@ export class LeadEmailComponent implements OnInit {
       fathersMobile: [false],
       mothersMobile: [false],
       alternateMobile: [false],
-      smsTemplate: [''],
+      emailTemplate: [''],
       selectedTemplate:[''],
       subject: ['', Validators.required],
     });

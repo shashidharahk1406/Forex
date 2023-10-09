@@ -11,13 +11,13 @@
                   </div>
                   <div class="col">
                     <div class="row">
-                      <div class="col-12 c-name">{{ leadData.name }} <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span></div>
+                      <div class="col-12 c-name point-set" (click)="editLead(leadData.name)">{{ leadData.name }} <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span></div>
                       <div class="col-12 text-muted">{{ leadData.id }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-6 col-lg-1">
+              <div class="col-sm-12 col-md-6 col-lg-2">
                 <div class="row status-box">
                   <div class="col-6 top-bar truncate-text">{{ leadData.status }}</div>
                   <div class="col-6 top-bar">
@@ -30,7 +30,7 @@
                   <div class="col-12 text-muted">{{ leadData.leadStatus }}</div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-6 col-lg-2 border-r">
+              <div class="col-sm-12 col-md-6 col-lg-3 border-r">
                 <div class="row">
                   <div class="col p-0 text-center">
                     <i class="bi bi-telephone"></i><span class="ps-1">{{ leadData.phoneNumber }}</span> 
@@ -46,9 +46,9 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-12 col-md-6 col-lg-2">
-                <div class="row">
-                  <div class="col p-0 text-center position-rel">
+              <!-- <div class="col-sm-12 col-md-6 col-lg-1">
+                <div class="row"> -->
+                  <!-- <div class="col p-0 text-center position-rel">
                     <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ leadData.personCounts[0] }}</span>
                   </div>
                   <div class="col p-0 text-center  position-rel">
@@ -56,10 +56,10 @@
                   </div>
                   <div class="col p-0 text-center  position-rel">
                     <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ leadData.personCounts[2] }}</span>
-                  </div>
-                  <div class="col p-0 text-center viewAll m-auto">View All</div>
-                </div>
-              </div>
+                  </div> -->
+                  <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(leadData.name)">View All</div> -->
+                <!-- </div>
+              </div> -->
               <div class="col-sm-0 col-md-0 col-lg-1"></div>
               <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="row">
@@ -69,7 +69,7 @@
                   <div class="col p-0" (click)="openCall(leadData.name)">
                     <i class="bi bi-telephone-fill"></i>
                   </div>
-                  <div class="col  p-0 position-rel" (click)="openSMS()">
+                  <div class="col  p-0 position-rel" (click)="openSMS(leadData.name)">
                     <i class="bi bi-x-circle-fill msg-close-icon"></i>
                     <i class="bi bi-chat-left-dots-fill"></i>
                   </div>
@@ -79,14 +79,14 @@
                   <div class="col  p-0" (click)="openWhatsAppChat()">
                     <i class="bi bi-whatsapp"></i>
                   </div>
-                  <div class="col  p-0">
+                  <!-- <div class="col  p-0">
                     <i class="bi bi-wechat"></i>
-                  </div>
+                  </div> -->
                   <div class="col  p-0">
                     <div ngbDropdown class="d-inline-block lead-dropdown">
                       <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <app-leadcard-more></app-leadcard-more>
+                        <app-leadcard-more [leadName]="leadData.name"></app-leadcard-more>
                       </div>
                     </div>
                   </div>

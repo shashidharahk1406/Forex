@@ -6,6 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
 import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.component';
+import { LeadViewAllComponent } from '../lead-view-all/lead-view-all.component';
+import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -23,12 +25,7 @@ export class LeadCardContentComponent implements OnInit {
   openMorePanel(){
     this.morePanel = !this.morePanel
   }
-  openSMS(): void {
-    const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet'
-    };
-    this._bottomSheet.open(LeadSMSComponent,config);
-  }
+  
   openCall(name:string){
     const dialogRef = this.dialog.open(LeadCallComponent, {
       width:'30%',
@@ -38,6 +35,13 @@ export class LeadCardContentComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
+  }
+  openSMS(name:any): void {
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+      data: {name:name}
+    };
+    this._bottomSheet.open(LeadSMSComponent,config);
   }
   openWhatsAppChat(){
     const dialogRef = this.dialog.open(LeadWhatsappChatComponent, {
@@ -63,5 +67,22 @@ export class LeadCardContentComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
+  }
+  openViewAll(name:any){
+    const dialogRef = this.dialog.open(LeadViewAllComponent, {
+      width:'60%',
+      data: {name:name}
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    });
+  }
+  editLead(name:any){
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+      data: {name:name}
+    };
+    this._bottomSheet.open(LeadEditComponent,config);
   }
 }

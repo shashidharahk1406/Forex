@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -24,6 +24,7 @@ export class LeadSMSComponent implements OnInit {
   isOpen: boolean =false;
   smsForm!: FormGroup;
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder) {}
 
   ngOnInit(): void {

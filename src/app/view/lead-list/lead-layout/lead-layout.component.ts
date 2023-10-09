@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AddLeadComponent } from './add-lead/add-lead.component';
 import { MatBottomSheet,MatBottomSheetConfig  } from '@angular/material/bottom-sheet';
+import { LeadUploadComponent } from './lead-upload/lead-upload.component';
 
 @Component({
   selector: 'app-lead-layout',
@@ -19,7 +20,12 @@ export class LeadLayoutComponent implements OnInit {
       };
       this._bottomSheet.open(AddLeadComponent,config);
     }
-
+    uploadLeads(): void{
+      const config: MatBottomSheetConfig = {
+        panelClass: 'lead-bottom-sheet'
+      };
+      this._bottomSheet.open(LeadUploadComponent,config);
+    }
   ngOnInit(): void {
   }
 

@@ -21,4 +21,5 @@ i,mat-icon{
 }
 .bi-arrow-down-up{
     font-size: x-large;
+    color: var(--appColor);
 }

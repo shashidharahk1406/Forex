@@ -1,0 +1,16 @@
+mat-card{
+    box-shadow: none !important;
+}
+mat-dialog-content{
+    font-size: 12px;
+}
+.container{
+    padding: 0.2rem 3rem;
+    margin: 0;
+}
+.time-label{
+    color: #6c6c6c;
+}
+.time-label-error{
+    color:red;
+}

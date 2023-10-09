@@ -1,0 +1,15 @@
+.quickAdd-container{
+    font-size: 13px;
+    padding: 1rem 20px 0;
+   }
+   mat-card{
+       box-shadow: none !important;
+       margin: 0;
+       padding: 0;
+   }
+   .mat-dialog-content{
+    margin-top: 20px !important;
+   }
+   .mat-dialog-actions {
+    justify-content: center !important;
+}

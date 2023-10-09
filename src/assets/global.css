@@ -4,6 +4,24 @@
     --allFontColor:#393939;
     --appLightColor:#FFF2EB;
     --appWhite:#FFF;
+    --toolBar: rgb(25 24 24 / 71%);
+}
+.btn-link {
+  --bs-btn-color: var(--appColor) !important;
+}
+.btn-link:hover {
+  color: var(--appColor) !important;
+  opacity: 0.9;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--appColor);
+  --bs-btn-border-color: var(--appColor);
+  --bs-btn-hover-bg: var(--appColor);
+  --bs-btn-hover-border-color: var(--appColor);
+  --bs-btn-active-bg: var(--appColor);
+}
+.point-set{
+  cursor: pointer;
 }
 .alightColor{
   background: var(--appLightColor);
@@ -158,6 +176,10 @@ height: 90%;
     margin-bottom: 0rem !important;
     margin-left: 15% !important;
   }
-  
-  
- 
+  .sort-lead-dropdown .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
+    padding-left: 0px !important;
+   }
+   app-lead-card-content{
+    display: block !important;
+    height: 88vh;
+   }

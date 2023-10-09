@@ -7,6 +7,9 @@ import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuickAddComponent } from './quick-add/quick-add.component';
 import { LoginListComponent } from './login-list/login-list.component';
+import { JsonPipe } from '@angular/common';
+import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { GenericDeleteComponent } from './generic-delete/generic-delete.component';
 
 
 @NgModule({
@@ -14,7 +17,8 @@ import { LoginListComponent } from './login-list/login-list.component';
     SearchbarComponent,
     NotificationComponent,
     QuickAddComponent,
-    LoginListComponent
+    LoginListComponent,
+    GenericDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,8 @@ import { LoginListComponent } from './login-list/login-list.component';
     ReactiveFormsModule,
     FormsModule,
     NgbCarouselModule,
+    NgbTimepickerModule,
+    JsonPipe
   ],
   exports:[
     SearchbarComponent,
@@ -30,7 +36,9 @@ import { LoginListComponent } from './login-list/login-list.component';
     NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    LoginListComponent
+    LoginListComponent,
+    NgbTimepickerModule,
+    JsonPipe
   ]
 })
 export class SharedModule { }

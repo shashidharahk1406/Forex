@@ -9,11 +9,13 @@
 .lead-card-container{
     font-size: 11px;
     color: black !important;
-    border: 1px solid #f3f3f3;
+    border: 1px solid #e7e7e7;
     margin: 10px 2px;
     padding: 10px !important;
 }
-
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+}
 .stu-close-icon,.msg-close-icon{
     vertical-align: text-top;
     color: red;
@@ -21,7 +23,7 @@
 .msg-close-icon{
     position: absolute;
     top: -6px;
-    right: 11px;
+    right: 14px;
 }
 .status-box{
   border:1px solid #484848;
@@ -75,6 +77,7 @@
 }
 .viewAll{
     color: var(--appColor);
+    cursor: pointer;
 }
 .bi-camera-video-fill,.bi-telephone-fill,.bi-chat-left-dots-fill,.bi-envelope-fill,
 .bi-whatsapp,.bi-wechat{
@@ -86,14 +89,15 @@
     font-size: 22px;
 }
 .dropdown-menu.show{
-    width: 50vw !important;
+    /* width: 50vw !important;
     position: absolute !important;
     inset: unset !important;
     margin: 0px;
     right: 0 !important;
-    top: -6.5rem !important;
+    top: -6.5rem !important; */
     font-size: 12px;
-    padding: 0px;
+    
+    /* padding: 0px; */
 }
 .badge{
     cursor: pointer;

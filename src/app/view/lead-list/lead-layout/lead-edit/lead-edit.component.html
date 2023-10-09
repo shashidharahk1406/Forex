@@ -1,0 +1,159 @@
+
+
+<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Edit Lead {{data.name}}</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+         <div class="container">
+        <form [formGroup]="editLead">
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="fullName"
+              required
+              placeholder="Enter Your Full Name"
+            />
+            <mat-error *ngIf="f['fullName'].hasError('required')">
+              Full Name Is Required.
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="email"
+              required
+              placeholder="Enter Your Email Id"
+            />
+            <mat-error *ngIf="f['email'].hasError('required')">
+              Email Is Required.
+            </mat-error>
+            <mat-error *ngIf="f['email'].hasError('email')">
+              Invalid Email Id.
+            </mat-error>
+          </mat-form-field>
+         
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Mobile Number</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="mobileNumber"
+              required
+              placeholder="Enter Your Mobile Number"
+            />
+            <mat-error *ngIf="f['mobileNumber'].hasError('required')">
+              Mobile Is Required.
+            </mat-error>
+            <mat-error *ngIf="f['mobileNumber'].hasError('pattern')">Invalid Mobile Number Format.</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Date Of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Choose Date Of Birth" formControlName="dateOfBirth">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Gender</mat-label>
+            <mat-select formControlName="gender" placeholder="Select The Gender">
+              <mat-option *ngFor="let option of genderList" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('gender')"
+              *ngIf="f['gender']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+     
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Alternate Mobile Number</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="alternateMobile"
+              placeholder="Enter Your Alternate Mobile Number"
+            />
+            <mat-error *ngIf="f['alternateMobile'].hasError('pattern')">Invalid Alternate Mobile Number Format.</mat-error>
+          </mat-form-field>
+       
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Alternate Email Address</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="alternateEmail"
+              placeholder="Enter Your Alternate Email Id"
+            />
+            
+            <mat-error *ngIf="f['alternateEmail'].hasError('email')">
+              Invalid Alternate Email Id.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Level Of Program</mat-label>
+            <mat-select formControlName="levelOfProgram" placeholder="Select The Level Of Program">
+              <mat-option *ngFor="let option of programList" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('levelOfProgram')"
+              *ngIf="f['levelOfProgram']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <mat-error *ngIf="f['levelOfProgram'].hasError('required')">
+              Level Of Program Is Required.
+            </mat-error>
+           
+          </mat-form-field>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select formControlName="department" placeholder=" Select The The Department">
+              <mat-option *ngFor="let option of department" [value]="option">{{ option }}</mat-option>
+            </mat-select>
+            <button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('department')"
+              *ngIf="f['department']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <mat-error *ngIf="f['department'].hasError('required')">
+              Department  Is Required.
+            </mat-error>
+            
+          </mat-form-field>
+        </form>
+        </div>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">UPDATE LEAD</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  
+  
