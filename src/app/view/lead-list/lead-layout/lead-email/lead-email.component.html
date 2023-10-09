@@ -10,19 +10,19 @@
       </div>
         <mat-dialog-content class="mat-typography">
         <form [formGroup]="emailForm">
-            <div class="container">
-                <div class="row">
-                  <div class="col"><mat-checkbox>Primary Mobile</mat-checkbox></div>
-                  <div class="col"><mat-checkbox>Father's Mobile</mat-checkbox></div>
-                </div>
-                <div class="row">
-                  <div class="col"><mat-checkbox>Mother's Mobile</mat-checkbox></div>
-                  <div class="col"><mat-checkbox>Alternate Mobile</mat-checkbox></div>
-                </div>
+                  <div class="container">
+                      <div class="row">
+                        <div class="col"><mat-checkbox>Primary Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Father's Email</mat-checkbox></div>
+                      </div>
+                      <div class="row">
+                        <div class="col"><mat-checkbox>Mother's Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Alternate Email</mat-checkbox></div>
+                      </div>
                
                         <mat-form-field class="mb-1" appearance="outline">
-                            <mat-label>Select SMS Template</mat-label>
-                            <mat-select placeholder="Select SMS Template" formControlName="smsTemplate">
+                            <mat-label>Select Email Template</mat-label>
+                            <mat-select placeholder="Select Email Template" formControlName="smsTemplate">
                               <!-- Replace this with your actual SMS template options -->
                               <mat-option value="template1">Address Template </mat-option>
                               <mat-option value="template2">Template 2</mat-option>

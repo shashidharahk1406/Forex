@@ -18,6 +18,11 @@ import { LeadWhatsappChatComponent } from './lead-whatsapp-chat/lead-whatsapp-ch
 import { LeadEmailComponent } from './lead-email/lead-email.component';
 import { LeadViewAllComponent } from './lead-view-all/lead-view-all.component';
 import { LeadVideoCallComponent } from './lead-video-call/lead-video-call.component';
+import { LeadEditComponent } from './lead-edit/lead-edit.component';
+import { LeadBulkSortComponent } from './lead-bulk-sort/lead-bulk-sort.component';
+import { LeadUploadComponent } from './lead-upload/lead-upload.component';
+import { LeadFollowupComponent } from './lead-followup/lead-followup.component';
+import { LeadNoteComponent } from './lead-note/lead-note.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,12 @@ import { LeadVideoCallComponent } from './lead-video-call/lead-video-call.compon
     LeadWhatsappChatComponent,
     LeadEmailComponent,
     LeadViewAllComponent,
-    LeadVideoCallComponent
+    LeadVideoCallComponent,
+    LeadEditComponent,
+    LeadBulkSortComponent,
+    LeadUploadComponent,
+    LeadFollowupComponent,
+    LeadNoteComponent
   ],
   imports: [
     CommonModule,

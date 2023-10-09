@@ -4,7 +4,7 @@
     margin-top: 10px;
     color:rgb(75, 75, 75);
     opacity: 1 !important;
-    font-size: 13px;
+    font-size: 12px;
 }
 .lead-card-tabs .mat-tab-label-active{
     background-color: var(--appColor);
@@ -16,6 +16,6 @@
     visibility: hidden !important;
 }
 
-/* .dropdown-menu.show, .lead-dropdown {
-    width: 60vw !important;
-} */
+.lead-video-tabs .mat-tab-body-content {
+    height: 30vh !important;
+}

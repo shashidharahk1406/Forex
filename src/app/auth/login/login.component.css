@@ -10,7 +10,7 @@
 .container-fluid .container .formContainer {
   background: #fff;
   border-radius: 8px;
-  /* padding: 60px 30px; */
+  padding:30px;
   /* width: 65%; */
   margin: auto;
 }
@@ -34,6 +34,7 @@ mat-card{
 }
 .picsum-img-wrapper{
   height: 83vh;
+  width: 500px;
   transform: scale(0.5);
 }
 .img-carousel{

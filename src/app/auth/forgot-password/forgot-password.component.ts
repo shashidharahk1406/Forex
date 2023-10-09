@@ -10,7 +10,7 @@ import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } fr
 })
 export class ForgotPasswordComponent implements OnInit {
   hidePassword = true;
-  loginForm!:FormGroup;
+  forgotForm!:FormGroup;
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
@@ -20,12 +20,12 @@ export class ForgotPasswordComponent implements OnInit {
     this.initForm()
   }
   initForm(){
-    this.loginForm = this._fb.group({
+    this.forgotForm = this._fb.group({
       email:['',[Validators.required,Validators.email]],
     })
   }
   get f() {
-    return this.loginForm.controls;
+    return this.forgotForm.controls;
   }
   
   myImages = [

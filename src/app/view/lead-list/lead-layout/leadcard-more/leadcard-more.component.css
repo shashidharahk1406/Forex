@@ -10,15 +10,19 @@
 
 .border-cell {
     display: table-cell;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 3px 10px ;
-    font-size: 11px;
+    font-size: 12px;
     cursor: pointer;
     color: gray;
 }
 i{
-    color:#646464;
+    color:var(--appColor);
     margin-right: 10px;  
+}
+.border-cell:hover{
+    background-color: lightgray;
+    color:black;
 }
 
 .position-absol{

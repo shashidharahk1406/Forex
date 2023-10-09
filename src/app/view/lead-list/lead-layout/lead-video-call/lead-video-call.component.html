@@ -1,7 +1,7 @@
 <mat-card>
     <div class="mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Video Call</h1></div>
+            <div class="col"><h1 mat-dialog-title>Send Video Conferencing Invite</h1></div>
             <div class="col-1 close-icon">
                 <mat-icon mat-dialog-close>close</mat-icon>
             </div>
@@ -9,16 +9,42 @@
     </div>
     <mat-dialog-content>
         <div class="container">
-            <mat-tab-group>
+            <form [formGroup]="videoCallForm">
+                <div class="row my-3">
+                    <div class="col-8">
+                        <mat-checkbox formControlName="email" class="m-1">Send Email</mat-checkbox>
+                        <mat-checkbox formControlName="sms" class="m-1">Send SMS</mat-checkbox>
+                        <mat-checkbox formControlName="whatsapp" class="m-1">Send Whats App</mat-checkbox>
+                    </div>
+                    <div class="col-4 text-end appColor">
+                        Copy Invite
+                    </div>
+                </div>
+                
+            </form>
+            <mat-tab-group class="lead-video-tabs">
                 <mat-tab label="SMS">
-                 
+                    <div class="mt-4">
+                       <b>CLICK THE LINK :</b> <a href="https://meet.google.com/qjc-nnqj-myu" target="_blank">https://meet.google.com/qjc-nnqj-myu</a>      
+                     </div>
                 </mat-tab>
-                <mat-tab label="EMAIL">
-                   
+                <mat-tab label="EMAIL" >
+                    <div class="mt-4">
+                        <b>CLICK THE LINK :</b> <a href="https://meet.google.com/qjc-nnqj-myu" target="_blank">https://meet.google.com/qjc-nnqj-myu</a>         
+                    </div>
+                </mat-tab>
+                <mat-tab label="WHATS APP">
+                    <div class="mt-4">
+                        <b>CLICK THE LINK :</b> <a href="https://meet.google.com/qjc-nnqj-myu" target="_blank">https://meet.google.com/qjc-nnqj-myu</a>                 
+                     </div>
                 </mat-tab>
             </mat-tab-group>
         </div>
     </mat-dialog-content>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close class="mat-cancel">START CALL</button>
+        <button mat-button type="button"  class="mat-disable" cdkFocusInitial>SAVE AND INVITE</button>
+    </div>
 </mat-card>
 
 

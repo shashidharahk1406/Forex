@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
 
@@ -9,7 +9,7 @@ import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-c
   styleUrls: ['./lead-video-call.component.css']
 })
 export class LeadVideoCallComponent implements OnInit {
-
+  videoCallForm!:FormGroup;
   constructor(
     public dialogRef: MatDialogRef<LeadWhatsappChatComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -19,6 +19,12 @@ export class LeadVideoCallComponent implements OnInit {
     ngOnInit(): void {
       this.initForm()
     }
-    initForm(){}
+    initForm(){
+      this.videoCallForm = this._fb.group({
+        email:[''],
+        sms:[''],
+        whatsapp:['']
+      })
+    }
     
 }
