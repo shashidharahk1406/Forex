@@ -4,7 +4,7 @@ import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
-
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -82,6 +82,10 @@ export class LoginComponent implements OnInit {
 			(resp:any)=>{
 				this.loginForm.reset()
 				localStorage.setItem('token',resp.result[0].token)
+				const decodedToken:any = jwtDecode(resp.result[0].token);
+				console.log("==userid==",decodedToken);
+				localStorage.setItem('user_id',decodedToken.user_id)
+				
 				this.router.navigate(['/advancesettings'])
 			},
 			(error:any)=>{

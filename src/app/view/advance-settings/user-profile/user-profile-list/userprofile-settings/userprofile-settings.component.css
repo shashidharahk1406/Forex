@@ -24,6 +24,7 @@ table {
 .more-dropdown{
   width: 191px;
   padding: 20px; 
+  /* background-image: url('../../../../../../assets/images/edit-profile.jpg'); */
 }
 .more-inner-icon{
   vertical-align: middle !important;

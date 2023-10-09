@@ -7,6 +7,7 @@ import { MaterialModule } from '../material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuickAddComponent } from './quick-add/quick-add.component';
 import { LoginListComponent } from './login-list/login-list.component';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { LoginListComponent } from './login-list/login-list.component';
     ReactiveFormsModule,
     FormsModule,
     NgbCarouselModule,
+    CKEditorModule 
   ],
   exports:[
     SearchbarComponent,
@@ -30,7 +32,8 @@ import { LoginListComponent } from './login-list/login-list.component';
     NgbDropdownModule,
     FormsModule,
     ReactiveFormsModule,
-    LoginListComponent
+    LoginListComponent,
+    CKEditorModule 
   ]
 })
 export class SharedModule { }

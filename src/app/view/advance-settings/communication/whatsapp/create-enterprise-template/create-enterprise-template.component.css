@@ -84,3 +84,6 @@ i{
     background-color: inherit;
     border: none;
 }
+::ng-deep .cke_bottom{
+display: none!important;
+}

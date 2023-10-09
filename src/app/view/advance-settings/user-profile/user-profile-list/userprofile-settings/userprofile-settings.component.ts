@@ -12,6 +12,8 @@ import { AddNewUserComponent } from '../add-new-user/add-new-user.component';
 import { EditUserProfileListComponent } from '../edit-user-profile-list/edit-user-profile-list.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
+import { EmitService } from 'src/app/service/emit/emit.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -30,11 +32,14 @@ export interface UserData {
 })
 export class UserprofileSettingsComponent implements AfterViewInit {
   displayedColumns: string[] = [
-    'status_name',
-    'is_active',
-    'is_system_value',
-    'status_group_id',
-    'master_status',
+    'first_name',
+    'email',
+    'mobile_number',
+    'role',
+    'designation_id',
+    'reporting_to_ids',
+    'is_allow_for_app',
+    'Action',
 
   ]
 
@@ -42,12 +47,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  allStatus:any=[]
+  allUser:any=[]
   pageSize= 10;
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService,private fb:FormBuilder
     ) {
       
    
@@ -57,11 +62,18 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
   }
   ngOnInit(): void {
-
+    this.initForm()
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          this.getUser(); 
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 
-    this.getStatus(); 
+    this.getUser(); 
     this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
 
@@ -75,11 +87,11 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  getStatus(){
-    this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+  getUser(){
+    this.api.getUser(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
-      this.allStatus= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allStatus);
+      this.allUser= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allUser);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
@@ -95,10 +107,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
     
-    this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    this.api.getUser(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
-      this.allStatus= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allStatus);
+      this.allUser= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allUser);
       this.totalPageLength=resp.total_no_of_record
       console.log(this.dataSource);
       
@@ -169,4 +181,24 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  editForm!:FormGroup
+  initForm(){
+    this.editForm = this.fb.group({
+      is_allow_for_app:["",Validators.required]
+    });}
+  onSlideToggleChange(id:any,event:any){
+    console.log(id,event.checked);
+    this.editForm.patchValue({is_allow_for_app:event.checked})
+    this.api.editUser(id,this.editForm.value).subscribe(
+      (resp:any)=>{
+        this.emit.sendRefresh(true)
+      },
+      (error:any)=>{
+        console.log("error");
+        
+      }
+    )
+  }
+    
+  
 }

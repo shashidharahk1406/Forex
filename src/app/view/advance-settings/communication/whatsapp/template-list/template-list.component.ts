@@ -9,6 +9,7 @@ import { WhatsappFilterComponent } from '../whatsapp-filter/whatsapp-filter.comp
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { CreateTemplateComponent } from '../create-template/create-template.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -116,6 +117,15 @@ export class TemplateListComponent implements AfterViewInit  {
 
   openFilter(){
     const dialogRef = this.dialog.open(WhatsappFilterComponent, {
+      width: '50%',
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openCreateTemplate(){
+    const dialogRef = this.dialog.open(CreateTemplateComponent, {
       width: '50%',
     });
   

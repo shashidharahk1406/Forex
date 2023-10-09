@@ -283,7 +283,59 @@ export class ApiService {
   postPriorityGroup(data:any){
     return this.http.post(`${this.baseurl}/api/priority-group/`,data)
   }
-  //Priority
+  //Priority Group
+  //User
+  getUser(size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}`)
+  }
+  getAllUser(){
+    return this.http.get(`${this.baseurl}/api/user`)
+  }
+  getUserById(id:any){
+    return this.http.get(`${this.baseurl}/api/user/${id}/`)
+  }
+  editUser(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/user/${id}/`,data)
+  }
+  postUser(data:any){
+    return this.http.post(`${this.baseurl}/api/user/`,data)
+  }
+  //User
+  //Role
+  getRole(size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/role?page_size=${size}&page=${pageNo}`)
+  }
+  getAllRole(){
+    return this.http.get(`${this.baseurl}/api/role`)
+  }
+  getRoleById(id:any){
+    return this.http.get(`${this.baseurl}/api/role/${id}/`)
+  }
+  editRole(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/role/${id}/`,data)
+  }
+  postRole(data:any){
+    return this.http.post(`${this.baseurl}/api/role/`,data)
+  }
+  //Role
+  //Designation
+  getDesignation(size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/designation?page_size=${size}&page=${pageNo}`)
+  }
+  getAllDesignation(){
+    return this.http.get(`${this.baseurl}/api/designation`)
+  }
+  getDesignationById(id:any){
+    return this.http.get(`${this.baseurl}/api/designation/${id}/`)
+  }
+  editDesignation(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/designation/${id}/`,data)
+  }
+  postDesignation(data:any){
+    return this.http.post(`${this.baseurl}/api/designation/`,data)
+  }
+  //Role
+
 
   //Whatsapp Template
   getWhatsappTemplate(size:any,pageNo:any){
