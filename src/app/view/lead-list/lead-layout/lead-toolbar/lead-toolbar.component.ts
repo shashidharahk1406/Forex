@@ -6,6 +6,7 @@ import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
 import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { LeadEditComponent } from '../lead-edit/lead-edit.component';
+import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -56,5 +57,14 @@ export class LeadToolbarComponent implements OnInit {
       data: {name:name}
     };
     this._bottomSheet.open(LeadEditComponent,config);
+  }
+  referLead(){
+    const dialogRef = this.dialog.open(ReferLeadComponent, {
+      width:'40%'
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    });
   }
 }

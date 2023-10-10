@@ -23,6 +23,7 @@ import { LeadBulkSortComponent } from './lead-bulk-sort/lead-bulk-sort.component
 import { LeadUploadComponent } from './lead-upload/lead-upload.component';
 import { LeadFollowupComponent } from './lead-followup/lead-followup.component';
 import { LeadNoteComponent } from './lead-note/lead-note.component';
+import { ReferLeadComponent } from './refer-lead/refer-lead.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { LeadNoteComponent } from './lead-note/lead-note.component';
     LeadBulkSortComponent,
     LeadUploadComponent,
     LeadFollowupComponent,
-    LeadNoteComponent
+    LeadNoteComponent,
+    ReferLeadComponent
   ],
   imports: [
     CommonModule,

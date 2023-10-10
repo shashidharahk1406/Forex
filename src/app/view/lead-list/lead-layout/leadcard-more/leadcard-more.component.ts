@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LeadFollowupComponent } from '../lead-followup/lead-followup.component';
 import { LeadNoteComponent } from '../lead-note/lead-note.component';
 import { GenericDeleteComponent } from 'src/app/shared/generic-delete/generic-delete.component';
+import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 
 
 @Component({
@@ -56,6 +57,15 @@ export class LeadcardMoreComponent implements OnInit {
     const dialogRef = this.dialog.open(GenericDeleteComponent, {
       width:'35%',
       data: {name:name}
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    });
+  }
+  referLead(){
+    const dialogRef = this.dialog.open(ReferLeadComponent, {
+      width:'40%'
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
