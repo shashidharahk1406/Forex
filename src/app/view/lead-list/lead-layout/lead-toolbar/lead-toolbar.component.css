@@ -23,3 +23,6 @@ i,mat-icon{
     font-size: x-large;
     color: var(--appColor);
 }
+.p-1{
+ text-align: center;
+}

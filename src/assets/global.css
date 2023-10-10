@@ -179,7 +179,12 @@ height: 90%;
   .sort-lead-dropdown .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
     padding-left: 0px !important;
    }
+   .set-custom{
+    display: block !important;
+    height: 50vh;
+   }
    app-lead-card-content{
     display: block !important;
-    height: 88vh;
+    width: 93% !important;
    }
+   

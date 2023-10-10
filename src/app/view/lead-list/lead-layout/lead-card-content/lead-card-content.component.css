@@ -102,3 +102,7 @@
 .badge{
     cursor: pointer;
 }
+.custom-height-set{
+    height: 68vh;
+    overflow-y: auto !important;
+}
