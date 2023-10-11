@@ -37,3 +37,7 @@ table {
 ::ng-deep .mat-icon {
     overflow: inherit;
 }
+.user-name:hover{
+  cursor:pointer;
+  font-weight: bold;
+}

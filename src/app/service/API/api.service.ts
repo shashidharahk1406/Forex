@@ -354,6 +354,9 @@ export class ApiService {
   postWhatsappTemplate(data:any){
     return this.http.post(`${this.baseurl}/api/template/`,data)
   }
+  getPlaceHolder(){
+    return this.http.get(`${this.baseurl}/api/placeholder/`)
+  }
   //Whatsapp Template
 
   
