@@ -1,0 +1,180 @@
+
+
+<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Filter</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+         <div class="container">
+          <form [formGroup]="filterLead" >
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Counselors</mat-label>
+                        <mat-select placeholder="Select Counselors" formControlName="counselors">
+                          <mat-option *ngFor="let couselor of counselorList" [value]="couselor">{{couselor}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('counselors')"
+                          *ngIf="f['counselors']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field appearance="outline" class="mb-1" >
+                        <mat-label>Lead/Campaign Name</mat-label>
+                        <input
+                          matInput
+                          type="text"
+                          placeholder="Enter Your Lead/Campaign Name"
+                          formControlName="leadNameOrCampaignName"
+                          required
+                        />
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Channel</mat-label>
+                        <mat-select placeholder="Select Channel" formControlName="channel">
+                          <mat-option *ngFor="let channels of channelsList" [value]="channels">{{channels}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('channel')"
+                          *ngIf="f['channel']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Source</mat-label>
+                        <mat-select placeholder="Select Source" formControlName="source">
+                          <mat-option *ngFor="let sources of sourceList" [value]="sources">{{sources}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('source')"
+                          *ngIf="f['source']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Department</mat-label>
+                        <mat-select placeholder="Select Department" formControlName="department">
+                          <mat-option *ngFor="let departments of departmentList" [value]="departments">{{departments}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('department')"
+                          *ngIf="f['department']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Course</mat-label>
+                        <mat-select placeholder="Select Course" formControlName="course">
+                          <mat-option *ngFor="let courses of courseList" [value]="courses">{{courses}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('course')"
+                          *ngIf="f['course']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Location</mat-label>
+                        <mat-select placeholder="Select Location" formControlName="location">
+                          <mat-option *ngFor="let locations of locationList" [value]="locations">{{locations}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('location')"
+                          *ngIf="f['location']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Year Of Passing</mat-label>
+                        <input formControlName="yearOfPassing" matInput [matDatepicker]="yearOfPassing">
+                        <mat-datepicker-toggle matSuffix [for]="yearOfPassing"></mat-datepicker-toggle>
+                        <mat-datepicker #yearOfPassing startView="year"></mat-datepicker>
+                      </mat-form-field>  
+                </div>
+            </div>
+             
+          </form>
+        </div>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close>RESET</button>
+        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>APPLY FILTER</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  
+  

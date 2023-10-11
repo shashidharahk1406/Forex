@@ -7,6 +7,7 @@ import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-c
 import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
+import { LeadFilterComponent } from '../lead-filter/lead-filter.component';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -66,5 +67,11 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
+  }
+  filterLead(){
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+    };
+    this._bottomSheet.open(LeadFilterComponent,config);
   }
 }

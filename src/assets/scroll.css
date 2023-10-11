@@ -12,10 +12,14 @@
   ::-webkit-scrollbar-thumb{
     background: #f1f1f1; 
   }
+  
   mat-sidenav:hover ::-webkit-scrollbar-thumb{
     background: rgb(172, 172, 172); 
   }
   mat-sidenav-content::-webkit-scrollbar-thumb{
+    background: rgb(172, 172, 172); 
+  }
+  .mat-bottom-sheet-container:hover ::-webkit-scrollbar-thumb{
     background: rgb(172, 172, 172); 
   }
   mat-sidenav-content:hover ::-webkit-scrollbar-thumb {

@@ -26,7 +26,7 @@ export class AddLeadComponent implements OnInit {
   addNewLead!: FormGroup;
   seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
   channels = ['Online', 'Offline', 'Social Media', 'Email'];
-  sources = ['Others', 'Source 2', 'Source 3', 'Source 4'];
+  sources = ['Others', 'Application Form', 'Source 3', 'Source 4'];
   priorities = ['3-Hot', 'Medium', 'Low'];
   referredTo = ['Live Chat', 'Option 2', 'Option 3'];
   stat_us = ['Callback','Closed','Enrolled','New'];

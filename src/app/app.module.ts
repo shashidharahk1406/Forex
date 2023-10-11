@@ -27,7 +27,7 @@ import {
   POSITION,
   PB_DIRECTION,
 } from "ngx-ui-loader";
-// import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   bgsColor: "red",
   bgsPosition: POSITION.bottomCenter,
@@ -61,7 +61,12 @@ import { QuillModule } from 'ngx-quill'
     SharedModule,
     NgbCarouselModule,
     NgChartsModule,
-    // ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass:"toast-top-right",
+      preventDuplicates: true,
+      closeButton:true,
+    }),
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true

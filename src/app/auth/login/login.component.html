@@ -1,10 +1,10 @@
 
-<div class="container-fluid d-flex align-items-center"  ngxUiLoaderBlurred >
-    <div class="row d-flex align-items-center justify-content-center">
+<div class="container-fluid"  ngxUiLoaderBlurred >
+    <div class="row h-100">
         <div class="col-sm-0 col-md-6 col-lg-6 carousal-col" >
             <ngb-carousel
             #carousel
-            [interval]="3000"
+            [interval]="1000"
             [showNavigationArrows]="false"
             (slide)="onSlide($event)"
             class="img-carousel"
@@ -24,10 +24,9 @@
         
         <hr />
         </div>
-        <div class="col-sm-12 col-md-6 col-6" >
+        <div class="col-sm-12 col-md-6 col-6 m-auto" >
             <div class="container">
-                <!-- <div class="row">
-                    <div class="col-12"> -->
+                
                             <mat-card class="formContainer">
                              <div class="d-flex align-items-center">
                                 <img src="../../../assets/images/logo.png" width="200"  class="logo-tag"/>
@@ -86,11 +85,9 @@
                                </form>    
                              </div>
                         </mat-card>
-                    <!-- </div>
-                </div> -->
-            </div>
-           
-       
+                    </div>
+                
+            
         </div>
     </div>
   

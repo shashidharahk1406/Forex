@@ -25,12 +25,13 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class LeadEmailComponent implements OnInit {
   // isOpen: boolean = false;
   emailForm!: FormGroup;
+  isOpen: boolean =false;
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // this.isOpen = !this.isOpen;
+    this.isOpen = !this.isOpen;
     this.initForm();
   }
  
@@ -65,6 +66,6 @@ export class LeadEmailComponent implements OnInit {
   }
   closePopup(){
     this._bottomSheetRef.dismiss()
-    // this.isOpen = !this.isOpen;
+    this.isOpen = !this.isOpen;
   }
 }

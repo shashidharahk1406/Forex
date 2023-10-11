@@ -24,6 +24,7 @@ import { LeadUploadComponent } from './lead-upload/lead-upload.component';
 import { LeadFollowupComponent } from './lead-followup/lead-followup.component';
 import { LeadNoteComponent } from './lead-note/lead-note.component';
 import { ReferLeadComponent } from './refer-lead/refer-lead.component';
+import { LeadFilterComponent } from './lead-filter/lead-filter.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ReferLeadComponent } from './refer-lead/refer-lead.component';
     LeadUploadComponent,
     LeadFollowupComponent,
     LeadNoteComponent,
-    ReferLeadComponent
+    ReferLeadComponent,
+    LeadFilterComponent
   ],
   imports: [
     CommonModule,

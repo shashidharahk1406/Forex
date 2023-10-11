@@ -3,6 +3,8 @@ mat-card{
 }
 mat-dialog-content{
     font-size: 12px;
+    height: 68vh;
+    overflow-y: auto;
 }
 .container{
     padding: 0.2rem 3rem;

@@ -85,12 +85,12 @@ export class LoginComponent implements OnInit {
 				const decodedToken:any = jwtDecode(resp.result[0].token);
 				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id)
-				
+				this.api.showSuccess('Login Successfull !!')
 				this.router.navigate(['/advancesettings'])
 			},
-			(error:any)=>{
-				console.log("Error", error);	
-			}
+			(error=>{
+			  this.api.showError(error.error.message)
+			})
 		  )
 		}
 	  }

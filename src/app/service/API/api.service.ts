@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   baseurl= environment.live_url;
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private toastr:ToastrService) { }
 
   
   //Gateway Api
@@ -354,4 +355,19 @@ export class ApiService {
     return this.http.post(`${this.baseurl}/api/template/`,data)
   }
   //Whatsapp Template
+
+  
+  // Success Message
+  showSuccess(message: any) {
+    this.toastr.success(message);
+
+  }
+  // Error Message
+  showError(message: any) {
+    this.toastr.error(message);
+  }
+  // Warning Message
+  showWarning(message: any) {
+    this.toastr.warning(message);
+  }
 }

@@ -21,7 +21,6 @@ export class LeadNoteComponent implements OnInit {
   }
   initForm(){
   this.leadNoteForm = this._fb.group({
-    fullName:['',[Validators.required,this._commonService.nameValidator()]],
     leadNote:['',Validators.required]
   })
   }

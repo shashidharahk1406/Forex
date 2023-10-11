@@ -187,4 +187,7 @@ height: 90%;
     display: block !important;
     width: 93% !important;
    }
-   
+   .mat-dialog-content {
+    max-height: 68vh;
+    overflow-y: auto;
+  }
