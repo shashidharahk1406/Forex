@@ -1,0 +1,238 @@
+<form [formGroup]="addForm">
+    <div class="container">
+        <mat-dialog-content class="mat-typography">
+            <div class="row">
+                <div class="col-6 col-md-6">
+                    <h3><b>Step 1:Select Lead Personal Details</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input formControlName="first_name" type="text" matInput placeholder="First Name">
+                      </mat-form-field>
+                      <mat-error *ngIf="f['first_name'].invalid && f['first_name'].touched">
+                        <div *ngIf="f['first_name'].errors && f['first_name'].errors['required']">
+                            First Name Is Required
+                        </div>
+                    </mat-error>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" type="email" matInput placeholder="Email">
+                      </mat-form-field>
+                      <mat-error *ngIf="f['email'].invalid && f['email'].touched">
+                        <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                            Email Is Required
+                        </div>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Mobile</mat-label>
+                        <input formControlName="mobile_number" type="tel" matInput placeholder="Mobile">
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Date of Birth</mat-label>
+                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date">
+                        <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                        <mat-datepicker #start_date></mat-datepicker>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Gender</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['designation_id'].invalid && f['designation_id'].touched">
+                        <div *ngIf="f['designation_id'].errors && f['designation_id'].errors['required']">
+                            Designation Is Required
+                        </div>
+                    </mat-error>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Alternate Mobile Number</mat-label>
+                        <input formControlName="mobile_number" type="tel" matInput placeholder="Mobile">
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Alternate Email Address</mat-label>
+                        <input formControlName="email" type="email" matInput placeholder="Email">
+                      </mat-form-field>
+                      <mat-error *ngIf="f['email'].invalid && f['email'].touched">
+                        <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                            Email Is Required
+                        </div>
+                    </mat-error>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Level of Program</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Department</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Course</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Medium</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Lead Name</mat-label>
+                        <input formControlName="mobile_number" type="tel" matInput placeholder="Mobile">
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Lead Category</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Status</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Sub Status</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Priority</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Lead Owner</mat-label>
+                        <mat-select  formControlName="designation_id">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <h3><b>Step 2:Permanent Address Details</b></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <mat-select  formControlName="role_id">
+                          <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
+                        <div *ngIf="f['role_id'].errors && f['role_id'].errors['required']">
+                            User Role Is Required
+                        </div>
+                    </mat-error>
+                    
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="reporting_to_ids" multiple>
+                          <mat-option *ngFor="let item of allUser" [value]="item">{{item.first_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched">
+                        <div *ngIf="f['reporting_to_ids'].errors && f['reporting_to_ids'].errors['required']">
+                            Reporting to User Is Required
+                        </div>
+                    </mat-error>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>Country</mat-label>
+                        <mat-select  formControlName="role_id">
+                          <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
+                        <div *ngIf="f['role_id'].errors && f['role_id'].errors['required']">
+                            User Role Is Required
+                        </div>
+                    </mat-error>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <mat-checkbox (change)="onChange($event)"  formControlName="is_allow_for_app" >Send Welcome Mail</mat-checkbox>
+                </div>
+                <div class="col-4">
+                    <mat-checkbox (change)="onChange($event)"  formControlName="is_allow_for_app" >Send Welcome SMS</mat-checkbox>
+                </div>
+            </div>
+          
+        </mat-dialog-content>
+      </div>
+    
+</form>

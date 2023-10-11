@@ -1,0 +1,67 @@
+<ng-container >
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Send Email To {{data.name}}</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography">
+        <form [formGroup]="emailForm">
+                  <div class="container">
+                      <div class="row">
+                        <div class="col"><mat-checkbox>Primary Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Father's Email</mat-checkbox></div>
+                      </div>
+                      <div class="row">
+                        <div class="col"><mat-checkbox>Mother's Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Alternate Email</mat-checkbox></div>
+                      </div>
+               
+                        <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Select Email Template</mat-label>
+                            <mat-select placeholder="Select Email Template" formControlName="smsTemplate">
+                              <!-- Replace this with your actual SMS template options -->
+                              <mat-option value="template1">Address Template </mat-option>
+                              <mat-option value="template2">Template 2</mat-option>
+                              <mat-option value="template3">Template 3</mat-option>
+                            </mat-select>
+                            <button
+                              mat-button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="clearSelectField('smsTemplate')"
+                              *ngIf="f['smsTemplate']?.value"
+                            >
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                          </mat-form-field>
+                 
+               
+                <mat-form-field class="mb-1" appearance="outline">
+                    <!-- <mat-label>Textarea Label</mat-label> -->
+                    <textarea matInput rows="5" placeholder="Enter Your Text Here" formControlName="selectedTemplate"></textarea>
+                </mat-form-field>
+              
+                <mat-form-field  appearance="outline">
+                    <mat-label>Subject</mat-label>
+                    <input matInput placeholder="Enter The Subject" formControlName="subject">
+                    <mat-error *ngIf="f['subject'].hasError('required')"> Subject Is Required</mat-error>
+                    </mat-form-field>
+              </div> 
+            
+        </form>
+        
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
+        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>SEND EMAIL</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  

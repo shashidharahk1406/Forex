@@ -1,0 +1,176 @@
+
+
+<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+    
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Upload Leads</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography">
+          <form [formGroup]="uploadLeadForm"  >
+         <div class="container">
+          <ng-container>
+          <b>Step 1 - Select Appropriate Values to add basic Lead details.</b>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Channel</mat-label>
+            <mat-select placeholder="Select Channel" formControlName="channel">
+              <mat-option *ngFor="let channels of channelList" [value]="channels">{{channels}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('channel')"
+              *ngIf="f['channel']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Source</mat-label>
+            <mat-select placeholder="Select Source" formControlName="source">
+              <mat-option *ngFor="let sources of sourceList" [value]="sources">{{sources}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('source')"
+              *ngIf="f['source']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        
+
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Source</mat-label>
+            <mat-select placeholder="Select Source" formControlName="priority">
+              <mat-option *ngFor="let prioritys of priorityList" [value]="prioritys">{{prioritys}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('priority')"
+              *ngIf="f['priority']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+       
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Substatus</mat-label>
+            <mat-select placeholder="Select Substatus" formControlName="status">
+              <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('status')"
+              *ngIf="f['status']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+        
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Lead Owner</mat-label>
+            <mat-select placeholder="Select Lead Owner" formControlName="leadOwner">
+              <mat-option *ngFor="let leadOwner of leadOwnerList" [value]="leadOwner">{{leadOwner}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('leadOwner')"
+              *ngIf="f['leadOwner']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+            <mat-error *ngIf="f['leadOwner'].hasError('required')">Lead Owner Is Required</mat-error>
+          </mat-form-field>
+         
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Level of Program</mat-label>
+            <mat-select placeholder="Select Level of Program" formControlName="reason">
+              <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('reason')"
+              *ngIf="f['reason']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Select Department</mat-label>
+            <mat-select placeholder="Select Department" formControlName="reason">
+              <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('reason')"
+              *ngIf="f['reason']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="row">
+            <div class="col-12">
+                <mat-checkbox   >Send Welcome Mail</mat-checkbox>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+                <mat-checkbox   >Send Welcome SMS</mat-checkbox>
+            </div>
+          </div>
+          
+          <b>Step 2 - Upload File with prospect Canditate details.</b>
+
+          <div class="row mt-2">
+            <div class="col-12">
+                <input  type="file"  placeholder="file">
+            </div>
+          </div>
+           
+      
+
+     
+        </ng-container>
+
+         
+        </div>
+      </form>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
+        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">UPLOAD</button>
+      </mat-dialog-actions>
+    </mat-card>
+   
+  </ng-container>
+  
+  

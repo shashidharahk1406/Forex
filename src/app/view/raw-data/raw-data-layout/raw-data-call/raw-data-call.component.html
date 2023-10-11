@@ -1,0 +1,39 @@
+<mat-card>
+    <div class="mat-dialog-header">
+      <div class="row">
+          <div class="col"><h1 mat-dialog-title>Call Lead</h1></div>
+          <div class="col-1 close-icon">
+              <mat-icon mat-dialog-close>close</mat-icon>
+          </div>
+      </div>
+  </div>
+  
+  <div mat-dialog-content class="lead-call-content">
+    <form [formGroup]="callLeadForm">
+        <div class="row">
+            <div class="col-12">
+                <p class="pt-3 p-1">Do you want to call {{data.name}} ?</p>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <mat-radio-group formControlName="selection">
+                    <mat-radio-button value="IVR" class="p-1">IVR</mat-radio-button>
+                    <mat-radio-button value="App" class="p-1">App</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-checkbox class="p-1" formControlName="agree">Make as default</mat-checkbox>
+            </div>
+        </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
+    <button mat-button mat-dialog-close class="mat-disable" cdkFocusInitial>Call</button>
+  </div>
+  </mat-card>
+  
+  
