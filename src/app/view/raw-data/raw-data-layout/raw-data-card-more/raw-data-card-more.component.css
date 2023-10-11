@@ -1,0 +1,43 @@
+.border-table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.border-row {
+    display: table-row;
+}
+
+.border-cell {
+    display: table-cell;
+    /* border: 1px solid #ccc; */
+    padding: 3px 10px ;
+    font-size: 12px;
+    cursor: pointer;
+    color: gray;
+}
+i{
+    color:var(--appColor);
+    margin-right: 10px;  
+}
+.border-cell:hover{
+    background-color: lightgray;
+    color:black;
+}
+
+.position-absol{
+    position: absolute;
+    top: 5px;
+    left: 3px;
+}
+.erp-box{
+    color:#646464;
+    font-size: 7px;
+    border:1px solid gray; 
+    margin-right: 10px;
+    vertical-align: middle;
+    padding-bottom:1px ;
+}
+.erp-box i{
+    color:#646464;
+}

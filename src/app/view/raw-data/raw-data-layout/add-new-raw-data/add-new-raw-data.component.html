@@ -1,0 +1,32 @@
+
+<form >
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Add New</h1></div>
+            <div class="col-1 close-icon">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+      </div>
+      <div class="container">
+        <mat-tab-group class="lead-card-tabs">
+            <mat-card class="p-0 m-0">
+            <mat-tab label="Personal Details">
+            <app-add-personal-details class="scroll" ></app-add-personal-details>
+            </mat-tab>
+            <mat-tab label="Parent Details">
+              <app-add-parent-details class="scroll"></app-add-parent-details>
+            </mat-tab>
+            <mat-tab label="GDPI Details">
+              <app-add-gdpi-details class="scroll"></app-add-gdpi-details>
+            </mat-tab>
+          </mat-card>
+          </mat-tab-group>
+      </div>
+    <mat-dialog-actions align="end">
+      <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>ADD</button>
+    </mat-dialog-actions>
+    
+    
+</form>

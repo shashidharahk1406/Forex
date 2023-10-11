@@ -1,0 +1,35 @@
+<form >
+    <div class="container">
+        <mat-dialog-content class="mat-typography">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>GDPI City</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>GDPI Timeslot</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>          
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <mat-form-field  appearance="outline">
+                        <mat-label>GDPI Track</mat-label>
+                        <mat-select  >
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>          
+        </mat-dialog-content>
+      </div>
+    
+</form>

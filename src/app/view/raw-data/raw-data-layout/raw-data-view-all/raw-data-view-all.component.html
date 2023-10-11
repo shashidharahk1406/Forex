@@ -1,0 +1,189 @@
+<mat-card>
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>{{data.name}}</h1></div>
+            <div class="col-1 close-icon text-center">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+    </div>
+    <mat-dialog-content>
+     
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-7 set-static set-bar">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-8 ">
+                    <div>
+                        <mat-form-field appearance="outline" >
+                            <mat-label>Select Activity Type</mat-label>
+                            <mat-select>
+                                <mat-option value="route1">TYPE 1</mat-option>
+                                <mat-option value="route2">TYPE 2</mat-option>
+                                <mat-option value="route3">TYPE 3</mat-option>
+                            </mat-select>
+                        </mat-form-field>   
+                    </div>
+                <div class="pb-2">13 Aug 23  30 Aug 23</div>
+                </div>
+                <div class="col-4">
+                   <p class="appTextClr pointer-set"> SHOW INACTIVE DATES </p>
+                </div>
+            </div>
+            <div class="row br-t">
+                <div class="col-12 first-col-content py-2 my-1">
+                    <div class="row mx-2">
+                        <div class="col-3 d-size"><i class="bi bi-whatsapp ic-bi"></i>01:29 PM</div>
+                        <div class="col-3 d-size"><i class="bi bi-person-fill  ic-bi"></i>05:34 PM</div>
+                     </div>
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><hr/></div>
+                     </div>
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><i class="bi bi-whatsapp  ic-bi"></i>01:29PM</div>
+                     </div>
+                     
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><hr/></div>
+                     </div>
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><i class="bi bi-chat-right-fill  ic-bi"></i>01:29PM</div>
+                     </div>
+                    <div class="row mx-2">
+                        <div class="col-3 d-size"><hr/></div>
+                     </div>
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><i class="bi bi-telephone-fill  ic-bi"></i>01:28PM</div>
+                     </div>
+                     <div class="row mx-2">
+                        <div class="col-3 d-size"><hr/></div>
+                     </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5 set-bar">
+                <div class="row ">
+                <div class="col-12">
+                    <div class="row bg-clr d-flex justify-content-center align-items-center">
+                        <div class="col">Activity Timeline</div>
+                        <div class="col"><mat-checkbox [checked]="true">Counselor(5)</mat-checkbox></div>
+                        <div class="col"><mat-checkbox [checked]="true">Student(0)</mat-checkbox></div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 newest pointer-set">Newest <i  class="bi bi-arrow-down-up"></i></div>
+                </div>
+                <div class="row row-col2">
+                    
+                    <div class="col-12">
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="row">
+                                        <div class="col d-size mt-1"><i class="bi bi-person-fill  ic-bi"></i></div>
+                                     </div>
+                                </div>
+                                <div class="col-11">    
+                                 <div class="row">
+                                    <div class="col-12">
+                                        <mat-card class="view-details-card">
+                                            <b>Lead Referred</b>
+                                           <div class="col-12"><i class="bi bi-clock"></i> Aug 30, 2023 5:34 PM</div>
+                                           <div class="col-12">Comments: The Prospect Candidate Student(0) has been referred to you.</div>
+                                           <div class="col-12 text-end">Created By: Abhijeeth</div>
+                                        </mat-card>
+                                    </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="row">
+                                        <div class="col d-size mt-1"><i class="bi bi-whatsapp  ic-bi"></i></div>
+                                     </div>
+                                </div>
+                                <div class="col-11">    
+                                 <div class="row">
+                                    <div class="col-12">
+                                        <mat-card class="view-details-card">
+                                            <b>Send WhatsApp Failed</b>
+                                           <div class="col-12"><i class="bi bi-clock"></i> Aug 30, 2023 5:34 PM</div>
+                                           <div>Failed</div>
+                                           <div class="col-12">Comments: The Prospect Candidate Student(0) has been referred to you.</div>
+                                           <div class="col-12 text-end">Created By: Abhijeeth</div>
+                                        </mat-card>
+                                    </div>
+                                   
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="row">
+                                        <div class="col d-size mt-1"><i class="bi bi-whatsapp  ic-bi"></i></div>
+                                     </div>
+                                </div>
+                                <div class="col-11">    
+                                 <div class="row">
+                                    <div class="col-12">
+                                        <mat-card class="view-details-card">
+                                            <b>Send WhatsApp</b>:<div>Default Welcome WhatsApp</div>
+                                           <div class="col-12"><i class="bi bi-clock"></i> Aug 30, 2023 5:34 PM</div>
+                                           <div class="col-12 text-end">Created By: Abhijeeth</div>
+                                        </mat-card>
+                                    </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="row">
+                                        <div class="col d-size mt-1"><i class="bi bi-whatsapp  ic-bi"></i></div>
+                                     </div>
+                                </div>
+                                <div class="col-11">    
+                                 <div class="row">
+                                    <div class="col-12">
+                                        <mat-card class="view-details-card">
+                                            <b>Send WhatsApp</b>:<div>Default Welcome WhatsAdivp</div>
+                                           <div class="col-12"><i class="bi bi-clock"></i> Aug 30, 2023 5:34 PM</div>
+                                           <div class="col-12 text-end">Created By: Abhijeeth</div>
+                                        </mat-card>
+                                    </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                
+             
+            </div>
+          </div>
+       
+    </mat-dialog-content>
+   
+    <!-- <mat-dialog-actions > -->
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col-4 s-font">
+                <mat-form-field appearance="outline">
+                    <mat-label>Choose A Date</mat-label>
+                    <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+            </div>
+            <div class="col-1">
+                <i class="bi bi-arrow-clockwise clock-clr"></i>
+            </div>
+        </div>
+      
+<!-- </mat-dialog-actions> -->
+       
+  </mat-card>
+
+
+
