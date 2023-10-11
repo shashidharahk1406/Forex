@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { AddLeadComponent } from '../add-lead/add-lead.component';
 import { LeadUploadComponent } from '../lead-upload/lead-upload.component';
+import { environment } from 'src/environments/environment';
+import { ApiService } from 'src/app/service/API/api.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
 
 @Component({
   selector: 'app-lead-card',
@@ -75,7 +78,7 @@ export class LeadCardComponent implements OnInit {
   ];
 
  
-  constructor(private _bottomSheet:  MatBottomSheet) {}
+  constructor(private _bottomSheet:  MatBottomSheet,private _baseService:BaseServiceService,private api:ApiService) {}
   
    
   openBottomSheet(): void {
@@ -91,9 +94,17 @@ export class LeadCardComponent implements OnInit {
     this._bottomSheet.open(LeadUploadComponent,config);
   }
   ngOnInit(): void {
+    this.getLeadData()
   }
 
-  
+  getLeadData(){
+   this._baseService.getData(environment.lead_list).subscribe(res =>{
+    if(res){
+      console.log(res,"RESPONSE");
+      this.api.showSuccess('Lead Data Available')
+    }
+   })
+  }
    
   
 }
