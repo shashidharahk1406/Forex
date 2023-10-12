@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   live_url: 'https://fcmdev.thestorywallcafe.com',
-  lead_list:'/api/lead-list'
+  lead_list:'/api/lead-list/'
 };

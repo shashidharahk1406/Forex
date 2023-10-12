@@ -94,7 +94,7 @@ export class LeadCardComponent implements OnInit {
     this._bottomSheet.open(LeadUploadComponent,config);
   }
   ngOnInit(): void {
-    this.getLeadData()
+    // this.getLeadData()
   }
 
   getLeadData(){

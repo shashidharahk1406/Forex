@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { trigger, state, style, animate, transition } from '@angular/animations';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { ApiService } from 'src/app/service/API/api.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -25,26 +28,30 @@ export class AddLeadComponent implements OnInit {
   isOpen = false;
   addNewLead!: FormGroup;
   seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
-  channels = ['Online', 'Offline', 'Social Media', 'Email'];
-  sources = ['Others', 'Application Form', 'Source 3', 'Source 4'];
+  countryOptions:any = [];
+  stateOptions:any = [];
+  cityOptions:any = [];
+  newChannelOptions:any = [];
+  channels:any = [];
+  sources:any = [];
   priorities = ['3-Hot', 'Medium', 'Low'];
   referredTo = ['Live Chat', 'Option 2', 'Option 3'];
   stat_us = ['Callback','Closed','Enrolled','New'];
-  departmentOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-  courseOptions = ['Course 1', 'Course 2', 'Course 3', 'Course 4'];
-  locationOptions = ['Location 1', 'Location 2', 'Location 3', 'Location 4'];
+  departmentOptions:any = [];
+  courseOptions:any = [];
+  locationOptions:any = ['Location1','Location2'];
   yearOfPassingOptions = ['2020', '2021', '2022', '2023'];
-  countryOptions = ['Country 1', 'Country 2', 'Country 3', 'Country 4'];
-  stateOptions = ['State 1', 'State 2', 'State 3', 'State 4'];
-  cityOptions = ['City 1', 'City 2', 'City 3', 'City 4'];
-  newChannelOptions = ['Channel 1', 'Channel 2', 'Channel 3', 'Channel 4'];
+
   campaignOptions = ['Campaign 1', 'Campaign 2', 'Campaign 3', 'Campaign 4'];
   mediumOptions = ['Medium 1', 'Medium 2', 'Medium 3', 'Medium 4'];
   levelOfProgramOptions = ['Level 1', 'Level 2', 'Level 3', 'Level 4'];
   time = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder,
+    private _baseService:BaseServiceService,private api:ApiService) {
+      this.dropDownValues()
+    }
 
   ngOnInit(): void {
     this.isOpen = !this.isOpen;
@@ -53,7 +60,7 @@ export class AddLeadComponent implements OnInit {
 
  initForm(){
   this.addNewLead = this.fb.group({
-    fullName: ['', [Validators.required]],
+    firstName: ['', [Validators.required]],
     lastName: [''],
     email: ['', [Validators.required, Validators.email]],
     mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
@@ -81,15 +88,204 @@ export class AddLeadComponent implements OnInit {
 
 
  }
-    
-  
+  dropDownValues(){
+    this.getCountry();
+    this.getState();
+    this.getChannel();
+    this.getSource();
+    this.getCity();
+    this.getCampign();
+    this.getNewChannel();
+    this.getDepartment();
+    this.getCourse();
+    //this.getLocation();
+  }
+  getCountry(){
+    this.api.getAllCountry().subscribe((res:any)=>{
+      if(res){
+      this.countryOptions = res.results
+      console.log(res)
+      }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    })
+  }
+  getState(){
+    this.api.getAllState().subscribe((res:any)=>{
+      if(res){
+        this.stateOptions = res.results
+        console.log(res)
+      }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    })
+  }
+  getChannel(){
+    this.api.getAllChannel().subscribe((resp:any)=>{
+      if(resp.results){
+        this.channels= resp.results;
+        console.log(this.channels,"this.newChannelOptions")
+      }
+      else{
+        this.api.showError('ERROR')
+      }  
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    }
+
+    )
+  }
+  getSource(){
+    this.api.getAllSource().subscribe((res:any)=>{
+     if(res.results){
+      this.sources = res.results
+     }
+     else{
+      this.api.showError('ERROR')
+     }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    })
+  }
+  getCity(){
+    this.api.getAllCity().subscribe((res:any)=>{
+      if(res.results){
+        this.cityOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getCampign(){
+    this.api.getAllCampign().subscribe((res:any)=>{
+      if(res.results){
+        this.cityOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getNewChannel(){
+    this.api.getAllNewChannel().subscribe((res:any)=>{
+      if(res.results){
+        this.newChannelOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getDepartment(){
+    this.api.getAllDepartment().subscribe((res:any)=>{
+      if(res.results){
+        this.departmentOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getCourse(){
+    this.api.getAllCourse().subscribe((res:any)=>{
+      if(res.results){
+        this.courseOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  // getLocation(){
+  //   this.api.getAll().subscribe((res:any)=>{
+  //     if(res.results){
+  //       this.newChannelOptions = res.results;
+  //     }
+  //     else{
+  //       this.api.showError('ERROR')
+  //      }
+  //     },(error:any)=>{
+  //       this.api.showError(error.error.message)
+        
+  //     })
+  // }
   get f() {
     return this.addNewLead.controls;
   }
-clearSelectField(fieldName: string) {
-    this.addNewLead.get(fieldName)?.reset();
+  clearSelectField(fieldName: string) {
+      this.addNewLead.get(fieldName)?.reset();
   }
-  onSubmit(){}
+  onSubmit(){
+    let f = this.addNewLead.value
+   let data:any ={
+      user_data: {
+          first_name: f.firstName,
+          last_name: f.lastName,
+          email: f.email,
+          mobile_number: f.mobile
+      },
+  
+   
+   
+   
+      higest_qualification: f.highestQualification,
+      campaign_name:f.campaignName,
+      season_id:f.season,
+      channel_id:f.channel,
+      source_id:f.source,
+      priority_id:f.priority,
+      refered_to_id:f.referredTo,
+      lead_list_status_id:f.status,
+      department_id:f.department,
+      course_id:f.course,
+      location: f.location,
+      year_of_passing:f.yearOfPassing,
+      best_time_to_call:f.callTime,
+      country_id:f.countryId,
+      state_id:f.state,
+      city_id:f.cityName,
+      new_channel_id:f.newChannel,
+      campaign_id:f.campaign,
+      medium_id:f.medium,
+      level_of_program_id:f.levelOfProgram,
+      // lead_type:"dhf"
+  }
+    if(this.addNewLead.invalid){
+      this.addNewLead.markAllAsTouched()
+    }
+    else{
+      this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
+        if(res){
+          this.api.showSuccess(res.message) 
+        }
+        else{
+          this.api.showError("ERROR !")
+        }
+      },(error=>{
+        this.api.showError(error.error.message)
+      }))
+    }
+  }
   step = 0;
 
   setStep(index: number) {

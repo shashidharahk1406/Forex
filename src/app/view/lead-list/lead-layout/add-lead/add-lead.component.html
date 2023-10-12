@@ -12,7 +12,7 @@
     </div>
       <mat-dialog-content class="mat-typography mx-2">
        <div class="container">
-        <form [formGroup]="addNewLead" (ngSubmit)="onSubmit()" >
+        <form [formGroup]="addNewLead" >
         <mat-accordion class="example-headers-align">
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" >
             <mat-expansion-panel-header>
@@ -33,12 +33,12 @@
                      <input
                        matInput
                        type="text"
-                       placeholder="Enter Your Full Name"
-                       formControlName="fullName"
+                       placeholder="Enter Your First Name"
+                       formControlName="firstName"
                        required
                      />
-                     <mat-error *ngIf="f['fullName'].hasError('required')">
-                       Full Name Is Required.
+                     <mat-error *ngIf="f['firstName'].hasError('required')">
+                      First Name Is Required.
                      </mat-error>
                    </mat-form-field>
                
@@ -119,7 +119,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Channel</mat-label>
                        <mat-select formControlName="channel" placeholder="Channel">
-                         <mat-option *ngFor="let channel of channels" [value]="channel">{{ channel }}</mat-option>
+                         <mat-option *ngFor="let channel of channels" [value]="channel.id">{{ channel.channel_name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -135,7 +135,8 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Source</mat-label>
                        <mat-select formControlName="source" multiple placeholder="Source">
-                         <mat-option *ngFor="let source of sources" [value]="source">{{ source }}</mat-option>
+                         <mat-option *ngFor="let source of sources" [value]="source.id">{{ source.source_name
+                        }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -212,7 +213,8 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Department</mat-label>
                        <mat-select formControlName="department" placeholder="Select Department">
-                         <mat-option *ngFor="let option of departmentOptions" [value]="option">{{ option }}</mat-option>
+                         <mat-option *ngFor="let option of departmentOptions" [value]="option.id">{{ option.name
+                        }}</mat-option>
                        </mat-select>
                        <mat-error *ngIf="f['department'].hasError('required')">Department Is Required.</mat-error>
                        <button
@@ -229,7 +231,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Course</mat-label>
                        <mat-select formControlName="course" placeholder="Select Course">
-                         <mat-option *ngFor="let option of courseOptions" [value]="option">{{ option }}</mat-option>
+                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.course_name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -309,9 +311,9 @@
             </mat-expansion-panel-header>
            
               <mat-form-field class="mb-1" appearance="outline">
-                <mat-label>Country Id</mat-label>
+                <mat-label>Select Country </mat-label>
                 <mat-select formControlName="countryId" placeholder="Select Country">
-                  <mat-option *ngFor="let option of countryOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of countryOptions" [value]="option.id">{{ option.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -327,7 +329,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>State</mat-label>
                 <mat-select formControlName="state" placeholder="Select State">
-                  <mat-option *ngFor="let option of stateOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of stateOptions" [value]="option.id">{{ option.country_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -343,7 +345,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>City Name</mat-label>
                 <mat-select formControlName="cityName" placeholder="Select City">
-                  <mat-option *ngFor="let option of cityOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of cityOptions" [value]="option.id">{{ option.name}}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -368,7 +370,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>New Channel</mat-label>
                 <mat-select formControlName="newChannel" placeholder="Select New Channel">
-                  <mat-option *ngFor="let option of newChannelOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of newChannelOptions" [value]="option.id">{{ option.new_channel_name}}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -437,7 +439,7 @@
    
     <mat-dialog-actions class="d-flex">
       <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial>ADD</button>
+      <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">ADD</button>
     </mat-dialog-actions>
   </mat-card>
    

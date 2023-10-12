@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class ApiService implements OnInit{
   baseurl= environment.live_url;
   constructor(private http:HttpClient,private toastr:ToastrService) { }
 
-  
+  ngOnInit(): void {}
   //Gateway Api
   //Login
   login(data:any){
