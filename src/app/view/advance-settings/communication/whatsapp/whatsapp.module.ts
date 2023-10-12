@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WhatsappFilterComponent } from './whatsapp-filter/whatsapp-filter.component';
 import { CreateEnterpriseTemplateComponent } from './create-enterprise-template/create-enterprise-template.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
+import { EditTemplateComponent } from './edit-template/edit-template.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CreateTemplateComponent } from './create-template/create-template.compo
     CreateNonEnterpriseTemplateComponent,
     WhatsappFilterComponent,
     CreateEnterpriseTemplateComponent,
-    CreateTemplateComponent
+    CreateTemplateComponent,
+    EditTemplateComponent
   ],
   imports: [
     CommonModule,
