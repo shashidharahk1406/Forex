@@ -71,6 +71,9 @@ const routes: Routes = [
     },
     {
       path:'advancesettings',loadChildren:()=>import('./view/advance-settings/advance-settings.module').then(m=>m.AdvanceSettingsModule)
+    },
+    {
+      path:'report', loadChildren:()=>import('./view/report/report.module').then(m =>m.ReportModule)
     }
   ]
   },

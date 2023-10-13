@@ -99,6 +99,11 @@ export class SidenavListComponent implements OnInit {
     path:'/advancesettings',
     icon:'bi bi-gear-wide-connected'
     },
+    {
+      page:'Report',
+      path:'report',
+      icon:'bi bi-graph-up-arrow'
+    }
     ]
     
     mobileQuery: any;
