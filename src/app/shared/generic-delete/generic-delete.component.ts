@@ -14,6 +14,9 @@ export class GenericDeleteComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
+    console.log(this.data,"DATA")
   }
-
+  onSubmit() {
+    this.dialogRef.close('yes'); // This assumes you're using MatDialog to create the dialog.
+  }
 }

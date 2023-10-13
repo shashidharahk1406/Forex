@@ -1,7 +1,7 @@
 <app-lead-toolbar></app-lead-toolbar>
 
-<div class="row d-flex align-items-center custom-height-set">
-    <div class="col-12" *ngFor="let leadData of leadData">
+<div class="row" [ngClass]="leadData.length >5 ? 'custom-height-set':''">
+    <div class="col-12" *ngFor="let item of leadData;let i = index">
         <mat-card class="p-1 lead-card-container">
             <div class="row d-flex align-items-center">
               <div class="col-sm-12 col-md-6 col-lg-3">
@@ -11,15 +11,16 @@
                   </div>
                   <div class="col">
                     <div class="row">
-                      <div class="col-12 c-name point-set" (click)="editLead(leadData.name)">{{ leadData.name }} <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span></div>
-                      <div class="col-12 text-muted">{{ leadData.id }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div>
+                      <div class="col-12 c-name point-set" (click)="editLead(item.first_name)">{{ item.user_data.first_name }} {{ item.user_data.last_name }} <span class="alightColor badge student-badge">{{ item.badgeCount }}</span></div>
+                      <!-- <div class="col-12 text-muted">{{ item.user_data.mobile_number }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div> -->
+                      <div class="col-12 text-muted">{{ item.user_data.mobile_number }} </div>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-sm-12 col-md-6 col-lg-2">
                 <div class="row status-box">
-                  <div class="col-6 top-bar truncate-text">{{ leadData.status }}</div>
+                  <div class="col-6 top-bar truncate-text">{{ item.status }}</div>
                   <div class="col-6 top-bar">
                     <span class="erp-box position-rel">ERP 
                       <div class="position-absol">
@@ -27,37 +28,37 @@
                       </div>
                     </span>
                   </div>
-                  <div class="col-12 text-muted">{{ leadData.leadStatus }}</div>
+                  <div class="col-12 text-muted">{{ item.leadStatus }}</div>
                 </div>
               </div>
               <div class="col-sm-12 col-md-6 col-lg-3 border-r">
                 <div class="row">
                   <div class="col p-0 text-center">
-                    <i class="bi bi-telephone"></i><span class="ps-1">{{ leadData.phoneNumber }}</span> 
+                    <i class="bi bi-telephone"></i><span class="ps-1">{{ item.phoneNumber }}</span> 
                   </div>
                   <div class="col p-0 text-center">
-                    <i class="bi bi-chat-left"></i><span class="ps-1">{{ leadData.chatCount }}</span> 
+                    <i class="bi bi-chat-left"></i><span class="ps-1">{{ item.chatCount }}</span> 
                   </div>
                   <div class="col p-0 text-center">
-                    <i class="bi bi-envelope"></i> <span class="ps-1">{{ leadData.emailCount }}</span> 
+                    <i class="bi bi-envelope"></i> <span class="ps-1">{{ item.emailCount }}</span> 
                   </div>
                   <div class="col p-0 text-center">
-                    <i class="bi bi-chat-left-text"></i><span class="ps-1">{{ leadData.chatTextCount }}</span> 
+                    <i class="bi bi-chat-left-text"></i><span class="ps-1">{{ item.chatTextCount }}</span> 
                   </div>
                 </div>
               </div>
               <!-- <div class="col-sm-12 col-md-6 col-lg-1">
                 <div class="row"> -->
                   <!-- <div class="col p-0 text-center position-rel">
-                    <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ leadData.personCounts[0] }}</span>
+                    <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ item.personCounts[0] }}</span>
                   </div>
                   <div class="col p-0 text-center  position-rel">
-                    <i class="bi bi-person" title="Lead Responses"></i><span class="badge clr-person-2" title="Lead Responses">{{ leadData.personCounts[1] }}</span>
+                    <i class="bi bi-person" title="Lead Responses"></i><span class="badge clr-person-2" title="Lead Responses">{{ item.personCounts[1] }}</span>
                   </div>
                   <div class="col p-0 text-center  position-rel">
-                    <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ leadData.personCounts[2] }}</span>
+                    <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ item.personCounts[2] }}</span>
                   </div> -->
-                  <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(leadData.name)">View All</div> -->
+                  <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(item.first_name)">View All</div> -->
                 <!-- </div>
               </div> -->
               <div class="col-sm-0 col-md-0 col-lg-1"></div>
@@ -66,14 +67,14 @@
                   <div class="col p-0" (click)="openVideoCall()">
                     <i class="bi bi-camera-video-fill"></i>
                   </div>
-                  <div class="col p-0" (click)="openCall(leadData.name)">
+                  <div class="col p-0" (click)="openCall(item.first_name)">
                     <i class="bi bi-telephone-fill"></i>
                   </div>
-                  <div class="col  p-0 position-rel" (click)="openSMS(leadData.name)">
+                  <div class="col  p-0 position-rel" (click)="openSMS(item.first_name)">
                     <i class="bi bi-x-circle-fill msg-close-icon"></i>
                     <i class="bi bi-chat-left-dots-fill"></i>
                   </div>
-                  <div class="col  p-0" (click)="openEmailChat(leadData.name)">
+                  <div class="col  p-0" (click)="openEmailChat(item.first_name)">
                     <i class="bi bi-envelope-fill"></i>
                   </div>
                   <div class="col  p-0" (click)="openWhatsAppChat()">
@@ -82,24 +83,24 @@
                   <!-- <div class="col  p-0">
                     <i class="bi bi-wechat"></i>
                   </div> -->
-                  <div class="col  p-0">
+               <div class="col  p-0">
                     <div ngbDropdown class="d-inline-block lead-dropdown">
                       <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                        <app-leadcard-more [leadName]="leadData.name"></app-leadcard-more>
+                        <app-leadcard-more [leadName]="item.user_data.first_name" [leadId]="item.id" (deleteEvent)="delete($event)"></app-leadcard-more>
                       </div>
                     </div>
                   </div>
-                  <div class="col  p-0">
-                    <mat-icon class="common-class" *ngIf="!expandPanel"(click)="expandPanel=!expandPanel">expand_more</mat-icon>
-                    <mat-icon class="common-class" *ngIf="expandPanel" (click)="expandPanel=!expandPanel">expand_less</mat-icon>
-                  </div>
+                  <div class="col p-0">
+                    <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)">expand_more</mat-icon>
+                    <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)">expand_less</mat-icon>
+                  </div>                  
                 </div>
               </div>
             </div>
             <!-------------EXPANSION PANEL------------------>
-            <ng-container *ngIf="expandPanel">
-              <app-lead-bottom-pannel></app-lead-bottom-pannel>
+            <ng-container *ngIf="expandedCardIndex === i">
+              <app-lead-bottom-pannel  [pannelData]="item"></app-lead-bottom-pannel>
             </ng-container>
           </mat-card>
           

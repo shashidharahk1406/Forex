@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadCallComponent } from '../lead-call/lead-call.component';
@@ -15,17 +15,30 @@ import { LeadEditComponent } from '../lead-edit/lead-edit.component';
   styleUrls: ['./lead-card-content.component.css']
 })
 export class LeadCardContentComponent implements OnInit {
-  @Input() leadData:any;
+  @Input()leadData:any = [];
+  @Output()deleteEvent = new EventEmitter()
   expandPanel=false;
   morePanel: boolean = false;
+  expandedCardIndex: number = -1; 
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
-  
+  delete(event:any){
+    this.deleteEvent.emit(event)
+    // alert("ENABLED")
+  }
   ngOnInit(): void {
   }
   openMorePanel(){
     this.morePanel = !this.morePanel
   }
-  
+ 
+
+  expandCard(index: number) {
+    if (this.expandedCardIndex === index) {
+      this.expandedCardIndex = -1;
+    } else {
+      this.expandedCardIndex = index;
+    }
+  }
   openCall(name:string){
     const dialogRef = this.dialog.open(LeadCallComponent, {
       width:'30%',

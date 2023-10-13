@@ -103,6 +103,6 @@
     cursor: pointer;
 }
 .custom-height-set{
-    height: 68vh;
+    height: 100%;
     overflow-y: auto !important;
 }

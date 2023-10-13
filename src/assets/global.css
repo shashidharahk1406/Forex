@@ -186,8 +186,10 @@ height: 90%;
    app-lead-card-content{
     display: block !important;
     width: 93% !important;
+    height: 68vh !important;
    }
    .mat-dialog-content {
     max-height: 68vh;
-    overflow-y: auto;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
   }

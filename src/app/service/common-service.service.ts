@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommonServiceService {
+export class CommonServiceService implements OnInit {
  
   // Regular expression for name validation (only characters, no leading spaces)
   readonly namePattern = /^[a-zA-Z]+[a-zA-Z\s]*$/;
@@ -14,6 +14,7 @@ export class CommonServiceService {
 
   // Regular expression for password validation (at least 8 characters with special characters)
   readonly passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{7,}$/;
+  yearList: any;
 
   // Common validator function to check if the input value matches the provided pattern
   patternValidator(pattern: RegExp): ValidatorFn {
@@ -50,5 +51,8 @@ export class CommonServiceService {
     return Validators.compose([
       this.patternValidator(this.passwordPattern),
     ]);
+  }
+  ngOnInit(): void {
+   
   }
 }

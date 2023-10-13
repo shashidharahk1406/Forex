@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-lead-bottom-pannel',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lead-bottom-pannel.component.css']
 })
 export class LeadBottomPannelComponent implements OnInit {
-
+ @Input()pannelData:any;
   constructor() { }
 
   ngOnInit(): void {

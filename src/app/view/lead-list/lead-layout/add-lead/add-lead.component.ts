@@ -5,6 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
 import { environment } from 'src/environments/environment';
+import { CommonServiceService } from 'src/app/service/common-service.service';
 
 
 @Component({
@@ -34,22 +35,23 @@ export class AddLeadComponent implements OnInit {
   newChannelOptions:any = [];
   channels:any = [];
   sources:any = [];
-  priorities = ['3-Hot', 'Medium', 'Low'];
+  priorities:any = [];
   referredTo = ['Live Chat', 'Option 2', 'Option 3'];
   stat_us = ['Callback','Closed','Enrolled','New'];
   departmentOptions:any = [];
   courseOptions:any = [];
   locationOptions:any = ['Location1','Location2'];
-  yearOfPassingOptions = ['2020', '2021', '2022', '2023'];
+  yearOfPassingOptions:any = [];
 
-  campaignOptions = ['Campaign 1', 'Campaign 2', 'Campaign 3', 'Campaign 4'];
-  mediumOptions = ['Medium 1', 'Medium 2', 'Medium 3', 'Medium 4'];
-  levelOfProgramOptions = ['Level 1', 'Level 2', 'Level 3', 'Level 4'];
+  campaignOptions:any = [];
+  mediumOptions:any = [];
+  levelOfProgramOptions:any = [];
   time = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     private fb: FormBuilder,
     private _baseService:BaseServiceService,private api:ApiService) {
+      console.log(this.yearOfPassingOptions,"YEAR OF PASSING")
       this.dropDownValues()
     }
 
@@ -64,6 +66,7 @@ export class AddLeadComponent implements OnInit {
     lastName: [''],
     email: ['', [Validators.required, Validators.email]],
     mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+    dateOfBirth:['',[Validators.required]],
     highestQualification: [''],
     callTime:[''],
     campaignName: ['', Validators.required],
@@ -99,6 +102,9 @@ export class AddLeadComponent implements OnInit {
     this.getDepartment();
     this.getCourse();
     //this.getLocation();
+    this.getMedium();
+    this.getLevelOfProgram();
+    this.getPriority();
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
@@ -167,7 +173,7 @@ export class AddLeadComponent implements OnInit {
   getCampign(){
     this.api.getAllCampign().subscribe((res:any)=>{
       if(res.results){
-        this.cityOptions = res.results;
+        this.campaignOptions = res.results;
       }
       else{
         this.api.showError('ERROR')
@@ -229,6 +235,42 @@ export class AddLeadComponent implements OnInit {
         
   //     })
   // }
+  getMedium(){
+    this.api.getAllMedium().subscribe((res:any)=>{
+      if(res.results){
+        this.mediumOptions = res.results
+      } else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+    })
+  }
+  getLevelOfProgram(){
+    this.api.getAllLevelOfProgram().subscribe((res:any)=>{
+      if(res.results){
+        this.levelOfProgramOptions = res.results 
+      } else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+    })
+  }
+  getPriority(){
+    this.api.getAllPriority().subscribe((res:any)=>{
+      if(res.results){
+        this.priorities = res.results
+      } else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+    })
+  }
+  getStatus(){
+  
+  }
   get f() {
     return this.addNewLead.controls;
   }

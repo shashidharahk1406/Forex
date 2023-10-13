@@ -1,5 +1,5 @@
 <mat-card class="inner-expansion" >
-    <div class="row mb-1">
+    <!-- <div class="row mb-1">
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">
@@ -26,30 +26,30 @@
               <div class="col-12">-</div>
           </div>
       </div>
-    </div> 
+    </div>  -->
     <div class="row mb-1">
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Channel</div>
-              <div class="col-12">Offline</div>
+              <div class="col-12">{{pannelData.channel_name}}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Campaign Name</div>
-              <div class="col-12">Missed Call Lead 13/08/2023 01:29:27</div>
+              <div class="col-12">{{pannelData.campaign_name}}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Source</div>
-              <div class="col-12">CAT</div>
+              <div class="col-12">{{pannelData.source_name}}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Department</div>
-              <div class="col-12">-</div>
+              <div class="col-12">{{pannelData.department_id_name}}</div>
           </div>
       </div>
     </div> 
@@ -57,29 +57,30 @@
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Sub Status</div>
-              <div class="col-12">Fresh Lead</div>
+              <div class="col-12">{{'--'}}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Medium</div>
-              <div class="col-12">-</div>
+              <div class="col-12">{{pannelData.medium_name}}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Lead Creation Date</div>
-              <div class="col-12">Aug 13,2023 1:29 PM</div>
+              <div class="col-12">{{pannelData.created_date_time | date }}</div>
           </div>
       </div>
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Lead Modification Date</div>
-              <div class="col-12">Aug 13,2023 1:29 PM</div>
+              <div class="col-12" *ngIf="!pannelData.updated_date_time">{{'--'}}</div>
+              <div class="col-12" *ngIf="pannelData.updated_date_time">{{pannelData.updated_date_time | date}}</div>
           </div>
       </div>
     </div> 
-    <div class="row mb-1">
+    <!-- <div class="row mb-1">
       <div class="col">
           <div class="row">
               <div class="col-12 pannel-label">Push To ERP Update Date</div>
@@ -156,5 +157,5 @@
               <div class="col-12">-</div>
           </div>
       </div>
-    </div>  
+    </div>   -->
   </mat-card> 

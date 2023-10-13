@@ -24,8 +24,6 @@
         
             <ng-container>
               <div class="container">
-            
-             
                  <section>
                    <h5>Step 1 - Enter below details (Either Email Or Mobile Is Mandatory)</h5>
                    <mat-form-field appearance="outline" class="mb-1" >
@@ -59,7 +57,12 @@
                      <mat-error *ngIf="f['email'].hasError('required')">Email Id Is Required.</mat-error>
                      <mat-error *ngIf="f['email'].hasError('email')">Invalid Email Format.</mat-error>
                    </mat-form-field>
-               
+                   <mat-form-field class="mb-1" appearance="outline">
+                    <mat-label>Date Of Birth</mat-label>
+                    <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="MM/DD/YYYY">
+                    <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                    <mat-datepicker #dateOfBirth></mat-datepicker>
+                  </mat-form-field>
                    <mat-form-field appearance="outline" class="mb-1" >
                      <mat-label>Mobile Number</mat-label>
                      <input
@@ -155,7 +158,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Priority</mat-label>
                        <mat-select formControlName="priority" placeholder="Priority">
-                         <mat-option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</mat-option>
+                         <mat-option *ngFor="let priority of priorities" [value]="priority.id">{{ priority.name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -244,7 +247,7 @@
                        </button>
                      </mat-form-field>
                  
-                     <mat-form-field class="mb-1" appearance="outline">
+                     <!-- <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Location</mat-label>
                        <mat-select formControlName="location" placeholder="Select Location">
                          <mat-option *ngFor="let option of locationOptions" [value]="option">{{ option }}</mat-option>
@@ -258,47 +261,47 @@
                        >
                          <mat-icon>clear</mat-icon>
                        </button>
-                     </mat-form-field>
-                 
+                     </mat-form-field> -->
+                     <mat-form-field appearance="outline" class="mb-1" >
+                      <mat-label>Location</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Enter Your Location"
+                        formControlName="location"
+                        required
+                      />
+                      <mat-error *ngIf="f['location'].hasError('required')">
+                        Location Is Required.
+                      </mat-error>
+                    </mat-form-field>
                      <mat-form-field class="mb-1" appearance="outline">
-                       <mat-label>Year Of Passing</mat-label>
-                       <mat-select formControlName="yearOfPassing" placeholder="Select Year Of Passing">
-                         <mat-option *ngFor="let option of yearOfPassingOptions" [value]="option">{{ option }}</mat-option>
-                       </mat-select>
-                       <button
-                         matSuffix
-                         mat-icon-button
-                         aria-label="Clear"
-                         (click)="clearSelectField('yearOfPassing')"
-                         *ngIf="addNewLead.get('yearOfPassing')?.value"
-                       >
-                         <mat-icon>clear</mat-icon>
-                       </button>
-                     </mat-form-field>
-                 
-                    
+                      <mat-label>Year Of Passing</mat-label>
+                      <input formControlName="yearOfPassing" matInput [matDatepicker]="yearOfPassing" placeholder="MM/DD/YYYY">
+                      <mat-datepicker-toggle matSuffix [for]="yearOfPassing"></mat-datepicker-toggle>
+                      <mat-datepicker #yearOfPassing></mat-datepicker>
+                    </mat-form-field>      
                </section>
                <hr/>
-               <section>
-                 <h5>Step 5 - Select Appropriate Details To Communicate With The Lead (Optional).</h5>
-                 <mat-form-field class="mb-1" appearance="outline">
-                  <mat-label>What Is The Best Time To Call?</mat-label>
-                  <mat-select formControlName="callTime" placeholder="What Is The Best Time To Call?">
-                    <mat-option *ngFor="let option of time" [value]="option">{{ option }}</mat-option>
-                  </mat-select>
-                 
-                  <button
-                    matSuffix
-                    mat-icon-button
-                    aria-label="Clear"
-                    (click)="clearSelectField('callTime')"
-                    *ngIf="addNewLead.get('callTime')?.value"
-                  >
-                    <mat-icon>clear</mat-icon>
-                  </button>
-                </mat-form-field>
-                </section>
-              
+                <section>
+                  <h5>Step 5 - Select Appropriate Details To Communicate With The Lead (Optional).</h5>
+                  <mat-form-field class="mb-1" appearance="outline">
+                    <mat-label>What Is The Best Time To Call?</mat-label>
+                    <mat-select formControlName="callTime" placeholder="What Is The Best Time To Call?">
+                      <mat-option *ngFor="let option of time" [value]="option">{{ option }}</mat-option>
+                    </mat-select>
+                  
+                    <button
+                      matSuffix
+                      mat-icon-button
+                      aria-label="Clear"
+                      (click)="clearSelectField('callTime')"
+                      *ngIf="addNewLead.get('callTime')?.value"
+                    >
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </section>             
              </div>
              </ng-container>
           </mat-expansion-panel>
@@ -329,7 +332,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>State</mat-label>
                 <mat-select formControlName="state" placeholder="Select State">
-                  <mat-option *ngFor="let option of stateOptions" [value]="option.id">{{ option.country_name }}</mat-option>
+                  <mat-option *ngFor="let option of stateOptions" [value]="option.id">{{ option.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -386,7 +389,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Campaign</mat-label>
                 <mat-select formControlName="campaign" placeholder="Select Campaign">
-                  <mat-option *ngFor="let option of campaignOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of campaignOptions" [value]="option.id">{{ option.campaign_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -402,7 +405,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Medium</mat-label>
                 <mat-select formControlName="medium" placeholder="Select Medium">
-                  <mat-option *ngFor="let option of mediumOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of mediumOptions" [value]="option.id">{{ option.medium_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -418,7 +421,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Level Of Program</mat-label>
                 <mat-select formControlName="levelOfProgram" placeholder="Select Level Of Program">
-                  <mat-option *ngFor="let option of levelOfProgramOptions" [value]="option">{{ option }}</mat-option>
+                  <mat-option *ngFor="let option of levelOfProgramOptions" [value]="option.id">{{ option.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -430,7 +433,8 @@
                   <mat-icon>clear</mat-icon>
                 </button>
               </mat-form-field>
-          </mat-expansion-panel>
+        
+            </mat-expansion-panel>
         </mat-accordion>
         </form>
       </div>
