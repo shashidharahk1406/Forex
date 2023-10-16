@@ -188,6 +188,11 @@ height: 90%;
     width: 93% !important;
     height: 68vh !important;
    }
+/* app-analytics{
+    display: block !important;
+    width: 99% !important;
+    height: 68vh !important;
+   } */
    .mat-dialog-content {
     max-height: 68vh;
     overflow-y: auto !important;

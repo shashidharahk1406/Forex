@@ -1,0 +1,82 @@
+<div class="head-container">
+    <h1>Total Re-Enquiries List</h1>
+</div>
+<div class="row">
+    <div class="col-12">
+        <app-filter-list></app-filter-list>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-12">
+      <div style="display: block;">
+        <canvas #myChart height="100px" ></canvas>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-12 text-end">
+        <i  (click)="downloadLeadList()" class="bi bi-download more-inner-icon"></i> <span>&nbsp;</span>
+        <i  (click)="downloadLeadList()" class="bi bi-clipboard2-fill more-inner-icon"></i>
+        <i ngbDropdown #myDropdown="ngbDropdown" >
+          <mat-icon title="Create Template" matBadgeColor="warn" id="dropdownBasic1" ngbDropdownToggle >  <i class="bi bi-three-dots-vertical more-inner-icon"></i></mat-icon>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown m-3">
+             <div class="app-list" ngbDropdownToggle (click)="openSMS()">
+              <i class="bi bi-phone more-inner-icon"></i>  SMS
+             </div>
+             <div class="app-list" ngbDropdownToggle (click)="openEmail()">
+              <i class="bi bi-envelope more-inner-icon"></i> E-MAIL
+             </div>
+             <div class="app-list" ngbDropdownToggle (click)="openWhatsapp()">
+              <i class="bi bi-whatsapp  more-inner-icon"></i> Whatsapp
+             </div>
+            </div>
+          </i>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 col-md-12">
+        <div class="genericTable">
+            <table mat-table [dataSource]="dataSource"  matSort>
+              <!-- Define User Name column -->
+              <ng-container matColumnDef="User Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Campaign</th>
+                <td mat-cell *matCellDef="let element" class="user-name">{{ element['User Name'] }}</td>
+              </ng-container>
+            
+              <!-- Define Email column -->
+              <ng-container matColumnDef="Email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
+                <td mat-cell *matCellDef="let element">{{ element.Email }}</td>
+              </ng-container>
+            
+              <!-- Define Mobile column -->
+              <ng-container matColumnDef="Mobile">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Sysytem value</th>
+                <td mat-cell *matCellDef="let element">{{ element.Mobile }}</td>
+              </ng-container>
+            
+              <!-- Define User Role column -->
+              <ng-container matColumnDef="User Role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Source</th>
+                <td mat-cell *matCellDef="let element">{{ element['User Role'] }}</td>
+              </ng-container>
+        
+            
+        
+            
+          
+            
+              <!-- Set the column headers -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            
+              <!-- Define the table rows -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            
+          </div>
+             
+            <!-- Add pagination -->
+            <mat-paginator  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+</div>
+
