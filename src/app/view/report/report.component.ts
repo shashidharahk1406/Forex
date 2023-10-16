@@ -1,4 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -18,57 +19,108 @@ export interface UserData {
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements AfterViewInit {
+  addEmployee!:FormGroup;
+
+
+  hideShow:boolean=false
   displayedColumns: string[] = [
-    'channel_name',
-    'is_active',
-    'is_system_value',
+    'employee_name',
+    'call_target',
+    'message_target',
+    'lead_generation_target',
+    'sales_target',
   ]
   dataSource=new MatTableDataSource<UserData>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  
-  allChannel:any=[]
-  pageSize= 10;
-  currentPage=1;
-  totalPageLength:any;
+  displayedAchievedColumns: string[] = [
+    'employee_name',
+    'call_target',
+    'message_target',
+    'lead_generation_target',
+    'sales_target',
+  ]
+  dataSourceAchieved=new MatTableDataSource<UserData>;
+  displayedReportColumns: string[] = [
+    'employee_name',
+    'call_target',
+    'message_target',
+    'lead_generation_target',
+    'sales_target',
+  ]
+  dataSourceReport=new MatTableDataSource<UserData>;
 
-  constructor( private api:ApiService
-    ) {
+  
+  allTarget:any=[]
+  allAcheived:any=[]
+  allReport:any=[]
+  initFilter(){
+    this.addEmployee = this._fb.group({
+      emp_ids:[''],
+    })
+  }
+  get f() {
+    return this.addEmployee.controls;
+  }
+
+  constructor( private api:ApiService,private _fb:FormBuilder) {
       
 
   }
   ngOnInit(){
-    
+    this.initFilter()
   }
   ngAfterViewInit() {
 
-    this.getChannel(); 
-    this.dataSource.paginator = this.paginator;
+    this.getTarget(); 
+    this.getAcheived(); 
+
+
     // this.dataSource.sort = this.sort;
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  getChannel(){
-    this.api.getChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+  getTarget(){
+    this.api.getTarget().subscribe((resp:any)=>{
       console.log(resp.results);
-      this.allChannel= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allChannel);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
+      this.allTarget= resp;
+      this.dataSource = new MatTableDataSource<any>(this.allTarget);
+    },(error:any)=>{
+      console.log(error);
+      // this.dataSource.sort = this.sort;
+    }
+
+    )
+  }
+  getAcheived(){
+    this.api.getAcheived().subscribe((resp:any)=>{
+      console.log(resp[0]);
+      this.allAcheived= resp;
+      this.dataSourceAchieved = new MatTableDataSource<any>(this.allAcheived);
     },(error:any)=>{
       console.log(error);
       
     }
 
+    )
+  }
+  async onOptionSelected(event: any) {
+    const selectedOptionValue = event.value; // Get the selected option's value
+    console.log('Selected option:', selectedOptionValue);
+    await this.addEmployee.patchValue({emp_ids:selectedOptionValue})
+    this.api.postEmployeeForReport(this.addEmployee.value).subscribe(
+      (resp:any)=>{
+        if(resp.length==0){
+          this.hideShow=false
+        }
+        else{
+          this.hideShow=true
+          this.allReport= resp;
+          this.dataSourceReport = new MatTableDataSource<any>(this.allReport);
+        }
+       
+      },
+      (err:any)=>{
+
+      }
     )
   }
   

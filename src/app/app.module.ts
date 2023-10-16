@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavListComponent } from './layout/sidenav-list/sidenav-list.component';
 import { DashboradComponent } from './view/dashborad/dashborad.component';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -78,7 +78,7 @@ import { QuillModule } from 'ngx-quill'
     SharedModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{provide: LocationStrategy, useClass: HashLocationStrategy},
   {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   provideAnimations()],
   bootstrap: [AppComponent]
