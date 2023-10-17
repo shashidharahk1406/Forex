@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { AddLeadComponent } from '../add-lead/add-lead.component';
 import { LeadUploadComponent } from '../lead-upload/lead-upload.component';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-lead-card',
@@ -12,72 +14,31 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
   styleUrls: ['./lead-card.component.css']
 })
 export class LeadCardComponent implements OnInit {
-  // leadCards = [
-  //   // Define your dummy data here
-  //   {
-  //     name: 'Student 1',
-  //     badgeCount: 16,
-  //     id: '2067638819',
-  //     status: 'Untouched',
-  //     leadStatus:'Fresh Lead',
-  //     erp: true,
-  //     phoneNumber: 1,
-  //     chatCount: 1,
-  //     emailCount: 0,
-  //     personCounts: [5, 4, 2],
-  //   },
-  //   {
-  //     name: 'Student 2',
-  //     badgeCount: 5,
-  //     id: '2067638819',
-  //     status: 'Untouched',
-  //     leadStatus:'Fresh Lead',
-  //     erp: true,
-  //     phoneNumber: 1,
-  //     chatCount: 1,
-  //     emailCount: 0,
-  //     personCounts: [5, 0, 0],
-  //   },
-  //   {
-  //     name: 'Student 3',
-  //     badgeCount: 2,
-  //     id: '2067638819',
-  //     status: 'Untouched',
-  //     leadStatus:'Fresh Lead',
-  //     erp: true,
-  //     phoneNumber: 1,
-  //     chatCount: 1,
-  //     emailCount: 0,
-  //     personCounts: [5, 2, 1],
-  //   },
-  //   {
-  //     name: 'Student 2',
-  //     badgeCount: 5,
-  //     id: '2067638819',
-  //     status: 'Untouched',
-  //     leadStatus:'Fresh Lead',
-  //     erp: true,
-  //     phoneNumber: 1,
-  //     chatCount: 1,
-  //     emailCount: 0,
-  //     personCounts: [5, 0, 0],
-  //   },
-  //   {
-  //     name: 'Student 3',
-  //     badgeCount: 2,
-  //     id: '2067638819',
-  //     status: 'Untouched',
-  //     leadStatus:'Fresh Lead',
-  //     erp: true,
-  //     phoneNumber: 1,
-  //     chatCount: 1,
-  //     emailCount: 0,
-  //     personCounts: [5, 2, 1],
-  //   },
-  //   // Add more dummy data as needed
-  // ];
-  leadCards:any =[]
- 
+  allLeadCardsDataSource = new MatTableDataSource<any>([]);
+  untouchedLeadCardsDataSource = new MatTableDataSource<any>([]);
+  callbackLeadCardsDataSource = new MatTableDataSource<any>([]);
+  campusVisitLeadCardsDataSource = new MatTableDataSource<any>([]);
+  enrolledLeadCardsDataSource = new MatTableDataSource<any>([]);
+  notInterestedLeadCardsDataSource = new MatTableDataSource<any>([]);
+  leadsReferredLeadCardsDataSource = new MatTableDataSource<any>([]);
+  reEnquiredLeadCardsDataSource = new MatTableDataSource<any>([]);
+  onlineLeadCardsDataSource = new MatTableDataSource<any>([]);
+
+  // Define paginator references for all tabs
+  @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  @ViewChild('untouchedPaginator') untouchedPaginator!: MatPaginator;
+  @ViewChild('callbackPaginator') callbackPaginator!: MatPaginator;
+  @ViewChild('campusVisitPaginator') campusVisitPaginator!: MatPaginator;
+  @ViewChild('enrolledPaginator') enrolledPaginator!: MatPaginator;
+  @ViewChild('notInterestedPaginator') notInterestedPaginator!: MatPaginator;
+  @ViewChild('leadsReferredPaginator') leadsReferredPaginator!: MatPaginator;
+  @ViewChild('reEnquiredPaginator') reEnquiredPaginator!: MatPaginator;
+  @ViewChild('onlinePaginator') onlinePaginator!: MatPaginator;
+  leadCards: any;
+  displayedLeadCards!: MatTableDataSource<any>;
+  query!: string;
+  
+  
   constructor(private _bottomSheet:  MatBottomSheet,private _baseService:BaseServiceService,private api:ApiService) {}
   
    
@@ -94,24 +55,97 @@ export class LeadCardComponent implements OnInit {
     this._bottomSheet.open(LeadUploadComponent,config);
   }
   ngOnInit(): void {
-    this.getLeadData()
+    this.getLeadData('tabLabel')
   }
 
-  getLeadData(){
-   this._baseService.getData(environment.lead_list).subscribe((res:any) =>{
-    if(res.results){
-     this.leadCards = res.results
+ 
+  getLeadData(tabLabel: any) {
+    
+    if (tabLabel === 'tabLabel') {
+      // If it's 'All', do not pass any query parameters
+      this._baseService.getData(environment.lead_list).subscribe((res: any) => {
+        if (res.results) {
+          this.leadCards = res.results;
+          this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+          this.allLeadCardsDataSource.paginator = this.allPaginator;
+        }
+      }, (error: any) => {
+        this.api.showError(error.error.message);
+      }); 
+    }else {
+      if(tabLabel.tab.textLabel === 'All' ){
+          // If it's 'All', do not pass any query parameters
+          this._baseService.getData(environment.lead_list).subscribe((res: any) => {
+            if (res.results) {
+              this.leadCards = res.results;
+              this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+              this.allLeadCardsDataSource.paginator = this.allPaginator;
+            }
+          }, (error: any) => {
+            this.api.showError(error.error.message);
+          });
+        }else if(tabLabel.tab.textLabel !== 'All'){
+        this.query = `?leadlist_status_name=${tabLabel.tab.textLabel}`
+        this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
+          if (res.results) {
+            this.leadCards = res.results;
+            // Update the appropriate data source and paginator based on the tab label
+            switch (tabLabel.tab.textLabel) {
+              case 'Untouched':
+                this.untouchedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.untouchedLeadCardsDataSource.paginator = this.untouchedPaginator;
+                break;
+              case 'Callback':
+                this.callbackLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.callbackLeadCardsDataSource.paginator = this.callbackPaginator;
+                break;
+              case 'Campus Visit':
+                this.campusVisitLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.campusVisitLeadCardsDataSource.paginator = this.campusVisitPaginator;
+                break;
+              case 'Enrolled':
+                this.enrolledLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.enrolledLeadCardsDataSource.paginator = this.enrolledPaginator;
+                break;
+              case 'Not Interested':
+                this.notInterestedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                // Handle other cases for different tabs
+                break;
+              case 'Leads Referred':
+                this.leadsReferredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.leadsReferredLeadCardsDataSource.paginator = this.leadsReferredPaginator;
+                break;
+              case 'Re-enquired':
+                this.reEnquiredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.reEnquiredLeadCardsDataSource.paginator = this.reEnquiredPaginator;
+                break;
+              case 'Online':
+                this.onlineLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.onlineLeadCardsDataSource.paginator = this.onlinePaginator;
+                break;
+            }
+          }
+        }, (error: any) => {
+          this.api.showError(error.error.message);
+        });
+      }
+     
     }
-   },(error:any)=>{
-    this.api.showError(error.error.message)
-   })
+  }
+  
+  onPageChange(event: any, dataSource: MatTableDataSource<any>) {
+    const startIndex = event.pageIndex * event.pageSize;
+    dataSource.data = this.leadCards.slice(startIndex, startIndex + event.pageSize);
+  }
+  onChange(event:any){
+    
+    console.log(event,'EVENT')
   }
    delete(event:any){
    if(event){
-    this.getLeadData()
+    this.getLeadData('tabLabel')
    }
-        
    
    }
-  
+   
 }

@@ -43,7 +43,7 @@ export class CommonServiceService implements OnInit {
     ]);
   }
 
-  mobileNumberValidator(){
+  mobileNumberValidator():any{
     return Validators.compose([this.patternValidator(this.mobilePattern)]);
   }
 

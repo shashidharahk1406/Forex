@@ -12,23 +12,10 @@ import { CommonServiceService } from 'src/app/service/common-service.service';
   selector: 'app-add-lead',
   templateUrl: './add-lead.component.html',
   styleUrls: ['./add-lead.component.css'],
-  animations: [
-    trigger('sheetState', [
-      state('open', style({
-        transform: 'translateY(0)'
-      })),
-      state('closed', style({
-        transform: 'translateY(0)'
-      })),
-      transition('closed => open', animate('0.10s ease-in-out')),
-      transition('open => closed', animate('0.10s ease-in-out'))
-    ])
-  ]
 })
 export class AddLeadComponent implements OnInit {
-  isOpen = false;
   addNewLead!: FormGroup;
-  seasons = ['Spring', 'Summer', 'Fall', 'Winter'];
+ 
   countryOptions:any = [];
   stateOptions:any = [];
   cityOptions:any = [];
@@ -36,36 +23,35 @@ export class AddLeadComponent implements OnInit {
   channels:any = [];
   sources:any = [];
   priorities:any = [];
-  referredTo = ['Live Chat', 'Option 2', 'Option 3'];
-  stat_us = ['Callback','Closed','Enrolled','New'];
   departmentOptions:any = [];
   courseOptions:any = [];
-  locationOptions:any = ['Location1','Location2'];
   yearOfPassingOptions:any = [];
-
   campaignOptions:any = [];
   mediumOptions:any = [];
   levelOfProgramOptions:any = [];
-  time = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
-
+  subStatus: any = [];
+  referredTo:any = ['Live Chat', 'Option 2', 'Option 3'];
+  stat_us:any= [];
+  time:any = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
+  seasons:any = [];
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     private fb: FormBuilder,
-    private _baseService:BaseServiceService,private api:ApiService) {
-      console.log(this.yearOfPassingOptions,"YEAR OF PASSING")
+    private _baseService:BaseServiceService,
+    private api:ApiService,
+    private _commonService:CommonServiceService) {
       this.dropDownValues()
     }
 
   ngOnInit(): void {
-    this.isOpen = !this.isOpen;
     this.initForm()
   }
 
  initForm(){
   this.addNewLead = this.fb.group({
-    firstName: ['', [Validators.required]],
-    lastName: [''],
+    firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
+    lastName: ['',[Validators.pattern(this._commonService.namePattern)]],
     email: ['', [Validators.required, Validators.email]],
-    mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+    mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
     dateOfBirth:['',[Validators.required]],
     highestQualification: [''],
     callTime:[''],
@@ -76,10 +62,19 @@ export class AddLeadComponent implements OnInit {
     priority: [''],
     referredTo: [''],
     status:['',Validators.required],
+    subStatus:['',Validators.required],
     department: ['', Validators.required],
     course: [''],
     location: [''],
     yearOfPassing: [''],
+    primaryNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+    fathersNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+    mothersNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+    alternateNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+    primaryEmail:['',[Validators.required,Validators.email]],
+    alternateEmail:['',[Validators.required,Validators.email]],
+    fathersEmail:['',[Validators.required,Validators.email]],
+    mothersEmail:['',[Validators.required,Validators.email]],
     countryId: [''],
     state: [''],
     cityName: [''],
@@ -105,7 +100,11 @@ export class AddLeadComponent implements OnInit {
     this.getMedium();
     this.getLevelOfProgram();
     this.getPriority();
+    this.getStatus();
+    this.getSubStatus();
+    this.getSeason();
   }
+  
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
       if(res){
@@ -210,7 +209,18 @@ export class AddLeadComponent implements OnInit {
       })
   }
   getCourse(){
-    this.api.getAllCourse().subscribe((res:any)=>{
+    // this.api.getAllCourse().subscribe((res:any)=>{
+    //   if(res.results){
+    //     this.courseOptions = res.results;
+    //   }
+    //   else{
+    //     this.api.showError('ERROR')
+    //    }
+    //   },(error:any)=>{
+    //     this.api.showError(error.error.message)
+        
+    //   })
+    this._baseService.getData(environment.lead_course).subscribe((res:any)=>{
       if(res.results){
         this.courseOptions = res.results;
       }
@@ -258,18 +268,44 @@ export class AddLeadComponent implements OnInit {
     })
   }
   getPriority(){
-    this.api.getAllPriority().subscribe((res:any)=>{
+    this._baseService.getData(environment.lead_priority).subscribe((res:any)=>{
+        if(res.results){
+          this.priorities = res.results
+        } else{
+          this.api.showError('ERROR')
+         }
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+      })
+  }
+  getStatus(){
+   this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
+    if(res.results){
+      this.stat_us = res.results;
+    }
+   },(error:any)=>{
+    this.api.showError(error.error.message)
+   })
+  }
+  getSubStatus(){
+    this._baseService.getData(`${environment.lead_subStatus}`).subscribe((res:any)=>{
       if(res.results){
-        this.priorities = res.results
+        this.subStatus = res.results;
+      }
+     },(error:any)=>{
+      this.api.showError(error.error.message)
+     })
+  }
+  getSeason(){
+    this._baseService.getData(environment.lead_season).subscribe((res:any)=>{
+      if(res.results){
+        this.seasons = res.results
       } else{
         this.api.showError('ERROR')
        }
       },(error:any)=>{
         this.api.showError(error.error.message)
     })
-  }
-  getStatus(){
-  
   }
   get f() {
     return this.addNewLead.controls;
@@ -279,7 +315,8 @@ export class AddLeadComponent implements OnInit {
   }
   onSubmit(){
     let f = this.addNewLead.value
-   let data:any ={
+   
+     let data:any ={
       user_data: {
           first_name: f.firstName,
           last_name: f.lastName,
@@ -287,9 +324,6 @@ export class AddLeadComponent implements OnInit {
           mobile_number: f.mobile
       },
   
-   
-   
-   
       higest_qualification: f.highestQualification,
       campaign_name:f.campaignName,
       season_id:f.season,
@@ -310,8 +344,15 @@ export class AddLeadComponent implements OnInit {
       campaign_id:f.campaign,
       medium_id:f.medium,
       level_of_program_id:f.levelOfProgram,
-      // lead_type:"dhf"
-  }
+      alternate_phone_number:f.alternateNumber,
+      primary_phone_number: f.primaryNumber,
+      father_phone_number:f.fathersNumber,
+      mother_phone_number:f.mothersNumber,
+      alternate_email:f.alternateEmail,
+      primary_email:f.primaryEmail,
+      father_email:f.fathersEmail,
+      mother_email:f.mothersEmail
+     }
     if(this.addNewLead.invalid){
       this.addNewLead.markAllAsTouched()
     }
@@ -324,7 +365,7 @@ export class AddLeadComponent implements OnInit {
           this.api.showError("ERROR !")
         }
       },(error=>{
-        this.api.showError(error.error.message)
+        this.api.showError(error.error.error.message)
       }))
     }
   }
@@ -343,6 +384,5 @@ export class AddLeadComponent implements OnInit {
   }
   closePopup(){
     this._bottomSheetRef.dismiss()
-    this.isOpen = !this.isOpen;
   }
 }

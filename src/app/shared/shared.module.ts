@@ -8,9 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuickAddComponent } from './quick-add/quick-add.component';
 import { LoginListComponent } from './login-list/login-list.component';
 import { CKEditorModule } from 'ng2-ckeditor';
-import { JsonPipe } from '@angular/common';
 import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericDeleteComponent } from './generic-delete/generic-delete.component';
+import { NodataComponent } from './nodata/nodata.component';
 
 
 @NgModule({
@@ -19,7 +19,8 @@ import { GenericDeleteComponent } from './generic-delete/generic-delete.componen
     NotificationComponent,
     QuickAddComponent,
     LoginListComponent,
-    GenericDeleteComponent
+    GenericDeleteComponent,
+    NodataComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +31,6 @@ import { GenericDeleteComponent } from './generic-delete/generic-delete.componen
     NgbCarouselModule,
     CKEditorModule ,
     NgbTimepickerModule,
-    JsonPipe
   ],
   exports:[
     SearchbarComponent,
@@ -41,7 +41,7 @@ import { GenericDeleteComponent } from './generic-delete/generic-delete.componen
     LoginListComponent,
     CKEditorModule ,
     NgbTimepickerModule,
-    JsonPipe
+    NodataComponent 
   ]
 })
 export class SharedModule { }

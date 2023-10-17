@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadCallComponent } from '../lead-call/lead-call.component';
@@ -17,10 +17,12 @@ import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
   @Output()deleteEvent = new EventEmitter()
+  
   expandPanel=false;
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
-  constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
+  constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
+    private changeDetectorRef: ChangeDetectorRef) {}
   delete(event:any){
     this.deleteEvent.emit(event)
     // alert("ENABLED")

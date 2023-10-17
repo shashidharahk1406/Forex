@@ -1,0 +1,40 @@
+.nodata{
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 15px;
+}
+.no-data-card{
+    width: fit-content;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 0;
+    background-color: var(--appLightColor);
+}
+p{
+   font-weight: 600;
+   color:var(--appColor) !important;
+   margin-bottom: 10px;
+   font-size: 14px;
+}
+.bi-info-circle-fill{
+    color:red
+}
+
+@keyframes blink {
+    0% { opacity: 1; } 
+    50% { opacity: 0; } 
+    100% { opacity: 1; } 
+}
+
+.blinking-text {
+    animation: blink 1s infinite; /* Apply the "blink" animation infinitely with a 1-second duration */
+}
+.no-data-card:hover{
+   opacity: 0.8;
+   cursor: pointer;
+}
+
+
+
+
+

@@ -1,6 +1,6 @@
 
 
-<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+<ng-container >
   <mat-card class="p-0 m-0">
     <div class="add-users mat-dialog-header">
       <div class="row">
@@ -38,12 +38,18 @@
                      <mat-error *ngIf="f['firstName'].hasError('required')">
                       First Name Is Required.
                      </mat-error>
+                     <mat-error *ngIf="f['firstName'].hasError('pattern')">
+                      Invalid Name Format.Please Enter Characters.
+                     </mat-error>
                    </mat-form-field>
                
                    <mat-form-field appearance="outline" class="mb-1" >
                      <mat-label>Last Name</mat-label>
                      <input matInput type="text" placeholder="Enter Your Last Name" formControlName="lastName" />
-                   </mat-form-field>
+                     <mat-error *ngIf="f['lastName'].hasError('pattern')">
+                      Invalid Name Format.Please Enter Characters.
+                     </mat-error>
+                    </mat-form-field>
                
                    <mat-form-field appearance="outline" class="mb-1" >
                      <mat-label>Email Id</mat-label>
@@ -73,10 +79,10 @@
                        required
                      />
                      <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
-                     <mat-error *ngIf="f['mobile'].hasError('pattern')">Invalid Mobile Number Format.</mat-error>
+                     <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                    </mat-form-field>
                
-                   <mat-form-field appearance="outline" class="mb-1" >
+                   <mat-form-field appearance="outline" class="mb-1">
                      <mat-label>Highest Qualification</mat-label>
                      <input
                        matInput
@@ -106,7 +112,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Season</mat-label>
                        <mat-select formControlName="season" placeholder="Season">
-                         <mat-option *ngFor="let season of seasons" [value]="season">{{ season }}</mat-option>
+                         <mat-option *ngFor="let season of seasons" [value]="season.id">{{ season.name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -137,7 +143,7 @@
                  
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Source</mat-label>
-                       <mat-select formControlName="source" multiple placeholder="Source">
+                       <mat-select formControlName="source"  placeholder="Source">
                          <mat-option *ngFor="let source of sources" [value]="source.id">{{ source.source_name
                         }}</mat-option>
                        </mat-select>
@@ -193,7 +199,7 @@
                  <mat-form-field class="mb-1" appearance="outline">
                    <mat-label>Status</mat-label>
                    <mat-select formControlName="status" placeholder="Status">
-                     <mat-option *ngFor="let status of stat_us" [value]="status">{{ status }}</mat-option>
+                     <mat-option *ngFor="let status of stat_us" [value]="status.id">{{ status.name}}</mat-option>
                    </mat-select>
                    <button
                      matSuffix
@@ -208,6 +214,25 @@
                      Status Is Required.
                    </mat-error>
                  </mat-form-field>
+
+                 <mat-form-field class="mb-1" appearance="outline">
+                  <mat-label>Sub Status</mat-label>
+                  <mat-select formControlName="subStatus" placeholder="Status">
+                    <mat-option *ngFor="let substatus of subStatus" [value]="substatus.id">{{ substatus.name}}</mat-option>
+                  </mat-select>
+                  <button
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="clearSelectField('subStatus')"
+                    *ngIf="addNewLead.get('subStatus')?.value?.length > 0"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  <mat-error *ngIf="f['subStatus'].hasError('required')">
+                    Sub Status Is Required.
+                  </mat-error>
+                </mat-form-field>
                </section>
                <hr/>
                <section>
@@ -234,7 +259,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Course</mat-label>
                        <mat-select formControlName="course" placeholder="Select Course">
-                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.course_name }}</mat-option>
+                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -247,21 +272,7 @@
                        </button>
                      </mat-form-field>
                  
-                     <!-- <mat-form-field class="mb-1" appearance="outline">
-                       <mat-label>Location</mat-label>
-                       <mat-select formControlName="location" placeholder="Select Location">
-                         <mat-option *ngFor="let option of locationOptions" [value]="option">{{ option }}</mat-option>
-                       </mat-select>
-                       <button
-                         matSuffix
-                         mat-icon-button
-                         aria-label="Clear"
-                         (click)="clearSelectField('location')"
-                         *ngIf="addNewLead.get('location')?.value"
-                       >
-                         <mat-icon>clear</mat-icon>
-                       </button>
-                     </mat-form-field> -->
+                    
                      <mat-form-field appearance="outline" class="mb-1" >
                       <mat-label>Location</mat-label>
                       <input
@@ -277,9 +288,8 @@
                     </mat-form-field>
                      <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Year Of Passing</mat-label>
-                      <input formControlName="yearOfPassing" matInput [matDatepicker]="yearOfPassing" placeholder="MM/DD/YYYY">
-                      <mat-datepicker-toggle matSuffix [for]="yearOfPassing"></mat-datepicker-toggle>
-                      <mat-datepicker #yearOfPassing></mat-datepicker>
+                      <input type="number" formControlName="yearOfPassing" matInput  placeholder="Enter Your Year Of Passing">
+                     
                     </mat-form-field>      
                </section>
                <hr/>
@@ -312,7 +322,56 @@
                 Candidate Details
               </mat-panel-title>
             </mat-expansion-panel-header>
-           
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Primary Phone Number</mat-label>
+              <input matInput  formControlName="primaryNumber" placeholder="Enter A 10-Digit Primary Phone Number.">
+              <mat-error *ngIf="f['primaryNumber'].hasError('pattern')">Please Enter A 10-Digit Primary Phone Number.</mat-error>
+              <mat-error *ngIf="f['primaryNumber'].hasError('required')">Primary Phone Number Is Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Alternate Phone Number</mat-label>
+              <input matInput formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+              <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
+              <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
+            </mat-form-field>  
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Father's Phone Number</mat-label>
+              <input matInput formControlName="fathersNumber" placeholder="Enter A 10-Digit Father's Phone Number.">
+              <mat-error *ngIf="f['fathersNumber'].hasError('pattern')">Please Enter A 10-Digit Father's Phone Number.</mat-error>
+              <mat-error *ngIf="f['fathersNumber'].hasError('required')">Father's Phone Number Is Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Mother's Phone Number</mat-label>
+              <input matInput formControlName="mothersNumber" placeholder="Enter A 10-Digit Mother's Phone Number.">
+              <mat-error *ngIf="f['mothersNumber'].hasError('pattern')">Please Enter A 10-Digit Mother's Phone Number.</mat-error>
+              <mat-error *ngIf="f['mothersNumber'].hasError('required')">Mother's Phone Number Is Required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Primary Email Id</mat-label>
+              <input matInput  formControlName="primaryEmail" placeholder="Enter A  Primary Email Id.">
+              <mat-error *ngIf="f['primaryEmail'].hasError('email')">Invalid Email Format.</mat-error>
+              <mat-error *ngIf="f['primaryEmail'].hasError('required')">Primary Email Id Is Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Alternate Email Id</mat-label>
+              <input matInput formControlName="alternateEmail" placeholder="Enter A  Alternate Email Id.">
+              <mat-error *ngIf="f['alternateEmail'].hasError('email')">Invalid Email Format.</mat-error>
+              <mat-error *ngIf="f['alternateEmail'].hasError('required')">Alternate Email Id Is Required.</mat-error>
+            </mat-form-field>  
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Father's Email Id</mat-label>
+              <input matInput formControlName="fathersEmail" placeholder="Enter A  Father's Email Id.">
+              <mat-error *ngIf="f['fathersEmail'].hasError('email')">Invalid Email Format.</mat-error>
+              <mat-error *ngIf="f['fathersEmail'].hasError('required')">Father's Email Id Is Required.</mat-error>
+            </mat-form-field>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Mother's Email Id</mat-label>
+              <input matInput formControlName="mothersEmail" placeholder="Enter A  Mother's Email Id.">
+              <mat-error *ngIf="f['mothersEmail'].hasError('email')">Invalid Email Format.</mat-error>
+              <mat-error *ngIf="f['mothersEmail'].hasError('required')">Mother's Email Id Is Required.</mat-error>
+            </mat-form-field>
+
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Country </mat-label>
                 <mat-select formControlName="countryId" placeholder="Select Country">

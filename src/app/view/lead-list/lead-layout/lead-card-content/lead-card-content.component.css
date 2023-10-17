@@ -103,6 +103,7 @@
     cursor: pointer;
 }
 .custom-height-set{
-    height: 100%;
+    height: 90%;
     overflow-y: auto !important;
+    padding-bottom:30px ;
 }

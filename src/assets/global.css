@@ -193,3 +193,6 @@ height: 90%;
     overflow-y: auto !important;
     overflow-x: hidden !important;
   }
+ app-nodata{
+  height: 66vh !important;
+ }
