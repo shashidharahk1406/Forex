@@ -1,0 +1,29 @@
+<mat-card>
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Download SMS Sent</h1></div>
+            <div class="col-1 close-icon">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <mat-dialog-content class="mat-typography">
+            <div class="row mt-2" >
+                <div class="col-12 col-md-12 text-start">
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button class="m-2" value="1">Download CSV</mat-radio-button>
+                        <br>
+                        <mat-radio-button class="m-2" value="2">Download Excel</mat-radio-button>
+                      </mat-radio-group>
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+    <mat-dialog-actions align="end">
+        <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
+        <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>DOWNLOAD</button>
+      </mat-dialog-actions>
+</mat-card>
+
+

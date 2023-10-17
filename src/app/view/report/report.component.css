@@ -41,3 +41,21 @@ table {
 .more-inner-icon{
     font-size: 25px;
 }
+h4{
+  font-size: 16px;
+}
+.table{
+  width: 100%;
+}
+.card{
+  background-color: #F2F2F2;
+  text-align: center;
+}
+.box{
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+td,th{
+  width: 200px;
+}

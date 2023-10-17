@@ -87,8 +87,8 @@ export class RawDataCardComponent implements OnInit {
   openAddNew(){
     const dialogRef = this.dialog.open(AddNewRawDataComponent, {
       width:'45%',
-      minHeight:'50vh',
-      height:"90%"
+      // minHeight:'50vh',
+      // height:"90%"
 
     });
   

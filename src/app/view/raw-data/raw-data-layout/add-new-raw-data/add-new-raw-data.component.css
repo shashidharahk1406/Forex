@@ -19,6 +19,6 @@
 .lead-video-tabs .mat-tab-body-content {
     height: 30vh !important;
 }
-.scroll{
-    min-height: 100vh;
+::ng-deep .mat-tab-group{
+    height: 65vh;
 }

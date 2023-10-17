@@ -358,6 +358,17 @@ export class ApiService implements OnInit{
     return this.http.get(`${this.baseurl}/api/placeholder/`)
   }
   //Whatsapp Template
+  //Report
+  getTarget(){
+    return this.http.get(`${this.baseurl}/api/employee-target/`)
+  }
+  getAcheived(){
+    return this.http.get(`${this.baseurl}/api/employee-target-achived//`)
+  }
+  postEmployeeForReport(data:any){
+    return this.http.post(`${this.baseurl}/api/employee-target-achived/`,data)
+  }
+  //Report
 
   
   // Success Message
