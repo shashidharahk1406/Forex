@@ -15,6 +15,7 @@ import { EmailSentModule } from './email-sent/email-sent.module';
 import { SmsSentModule } from './sms-sent/sms-sent.module';
 import { CallConnectedModule } from './call-connected/call-connected.module';
 import { MissedFollowupModule } from './missed-followup/missed-followup.module';
+import { GraphModule } from './graph/graph.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MissedFollowupModule } from './missed-followup/missed-followup.module';
     EmailSentModule,
     SmsSentModule,
     CallConnectedModule, 
-    MissedFollowupModule
+    MissedFollowupModule,
+    GraphModule
   ]
 })
 export class AnalyticsModule { }
