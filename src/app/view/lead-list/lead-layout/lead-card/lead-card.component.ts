@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 @Component({
   selector: 'app-lead-card',
@@ -39,7 +40,11 @@ export class LeadCardComponent implements OnInit {
   query!: string;
   
   
-  constructor(private _bottomSheet:  MatBottomSheet,private _baseService:BaseServiceService,private api:ApiService) {}
+  constructor(
+    private _bottomSheet:  MatBottomSheet,
+    private _baseService:BaseServiceService,
+    private api:ApiService,
+    private _addLeadEmitter:AddLeadEmitterService) {}
   
    
   openBottomSheet(): void {
@@ -48,6 +53,7 @@ export class LeadCardComponent implements OnInit {
     };
     this._bottomSheet.open(AddLeadComponent,config);
   }
+  
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet'
@@ -56,9 +62,11 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getLeadData('tabLabel')
+    this._addLeadEmitter.triggerGet$.subscribe(() => {
+      this.getLeadData('tabLabel')
+    });
   }
-
- 
+  
   getLeadData(tabLabel: any) {
     
     if (tabLabel === 'tabLabel') {
@@ -138,7 +146,6 @@ export class LeadCardComponent implements OnInit {
     dataSource.data = this.leadCards.slice(startIndex, startIndex + event.pageSize);
   }
   onChange(event:any){
-    
     console.log(event,'EVENT')
   }
    delete(event:any){

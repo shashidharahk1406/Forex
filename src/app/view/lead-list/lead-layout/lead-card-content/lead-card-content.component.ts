@@ -16,7 +16,7 @@ import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 })
 export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
-  @Output()deleteEvent = new EventEmitter()
+  @Output()deleteLead = new EventEmitter()
   
   expandPanel=false;
   morePanel: boolean = false;
@@ -24,8 +24,8 @@ export class LeadCardContentComponent implements OnInit {
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef) {}
   delete(event:any){
-    this.deleteEvent.emit(event)
-    // alert("ENABLED")
+    this.deleteLead.emit(event)
+     alert("ENABLED")
   }
   ngOnInit(): void {
   }
@@ -96,7 +96,7 @@ export class LeadCardContentComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: name
     };
     this._bottomSheet.open(LeadEditComponent,config);
   }

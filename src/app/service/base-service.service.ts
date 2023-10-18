@@ -10,6 +10,9 @@ export class BaseServiceService {
   getData(params:any){
     return this.http.get(`${environment.live_url}/${params}`)
   }
+  getByID(params:any){
+    return this.http.get(`${environment.live_url}/${params}`)
+  }
   postData(url:any,data:any){
     return this.http.post(`${environment.live_url}/${url}`,data)
   }

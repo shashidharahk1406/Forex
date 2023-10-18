@@ -259,7 +259,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Course</mat-label>
                        <mat-select formControlName="course" placeholder="Select Course">
-                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.name }}</mat-option>
+                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.course_name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix
@@ -502,7 +502,7 @@
    
     <mat-dialog-actions class="d-flex">
       <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">ADD</button>
+      <button class="mat-disable m-1" mat-button mat-dialog-close cdkFocusInitial (click)="onSubmit()">ADD</button>
     </mat-dialog-actions>
   </mat-card>
    

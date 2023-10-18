@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 export class LeadcardMoreComponent implements OnInit {
   @Input()leadName:any;
   @Input()leadId:any;
+  @Input()item:any;
   @Output()deleteEvent = new EventEmitter()
   constructor(
     private _bottomSheet:  MatBottomSheet,
@@ -32,7 +33,7 @@ export class LeadcardMoreComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: this.item
     };
     this._bottomSheet.open(LeadEditComponent,config);
   }
@@ -68,12 +69,12 @@ export class LeadcardMoreComponent implements OnInit {
       data: {name:name}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result === 'yes'){
-      this.deleteEvent.emit(this.leadId)
+      if(result === 'yes'){ 
       this._baseService.delete(`${environment.lead_list}${this.leadId}/`).subscribe((res:any)=>{
         if(res){
+          this.deleteEvent.emit('DELETE')
           this.api.showSuccess(res.message)
-          this.getLeadData()
+          
         }
       },(error =>{
         this.api.showError(error.error.error.message)
@@ -98,5 +99,9 @@ export class LeadcardMoreComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
+  }
+  close(){
+    this._bottomSheet.dismiss()
+    window.location.reload();
   }
 }
