@@ -8,6 +8,7 @@ import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.component';
 import { LeadViewAllComponent } from '../lead-view-all/lead-view-all.component';
 import { LeadEditComponent } from '../lead-edit/lead-edit.component';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -21,11 +22,11 @@ export class LeadCardContentComponent implements OnInit {
   expandPanel=false;
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
+  selectedCheckboxIds: any = [];
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef) {}
   delete(event:any){
-    this.deleteLead.emit(event)
-     alert("ENABLED")
+    this.deleteLead.emit(event);
   }
   ngOnInit(): void {
   }
@@ -33,7 +34,40 @@ export class LeadCardContentComponent implements OnInit {
     this.morePanel = !this.morePanel
   }
  
+  onCheckboxChange(event: MatCheckboxChange, itemId: string) {
+    if (event.checked) {
+      // Checkbox is checked, add the item ID to the array
+      this.selectedCheckboxIds.push(itemId);
+    } else {
+      // Checkbox is unchecked, remove the item ID from the array
+      const index = this.selectedCheckboxIds.indexOf(itemId);
+      if (index !== -1) {
+        this.selectedCheckboxIds.splice(index, 1);
+      }
+    }
+  }
+  selectAllChecked: boolean = false;
 
+selectAll():any {
+  // Toggle the selectAllChecked state
+  this.selectAllChecked = !this.selectAllChecked;
+
+  if (this.selectAllChecked) {
+    // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+    this.selectedCheckboxIds = this.leadData.map((item:any) => item.id);
+    return true
+  } else {
+    // If "Select All" is unchecked, clear the selectedCheckboxIds array
+    this.selectedCheckboxIds = [];
+    return false
+  }
+  
+}
+
+
+
+
+  
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
       this.expandedCardIndex = -1;

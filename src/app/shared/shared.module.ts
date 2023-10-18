@@ -11,6 +11,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericDeleteComponent } from './generic-delete/generic-delete.component';
 import { NodataComponent } from './nodata/nodata.component';
+import { GenericCountComponent } from './generic-count/generic-count.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NodataComponent } from './nodata/nodata.component';
     QuickAddComponent,
     LoginListComponent,
     GenericDeleteComponent,
-    NodataComponent
+    NodataComponent,
+    GenericCountComponent
   ],
   imports: [
     CommonModule,

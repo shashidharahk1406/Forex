@@ -80,7 +80,7 @@ export class ListComponent implements  AfterViewInit {
       this.allSubStatus= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSubStatus);
       this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
       
     },(error:any)=>{
       console.log(error);

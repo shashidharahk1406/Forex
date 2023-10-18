@@ -1,0 +1,19 @@
+<mat-card>
+    <div class="mat-dialog-header">
+      <div>
+          <div class="row">
+              <div class="col"><h6 mat-dialog-title>Delete</h6></div>
+              <div class="col-1">
+                  <mat-icon mat-dialog-close>close</mat-icon>
+              </div>
+          </div>
+      </div>
+    </div>
+    <mat-dialog-content class="m-2">
+    {{data}}?
+    </mat-dialog-content>
+    <div mat-dialog-actions class="mb-1">
+      <button mat-button mat-dialog-close class="mat-cancel">NO</button>
+      <button mat-button type="submit"  class="mat-disable" cdkFocusInitial (click)="onSubmit()">YES</button>
+    </div>
+  </mat-card>
