@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -6,6 +6,9 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
 import { environment } from 'src/environments/environment';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 
 @Component({
@@ -34,11 +37,14 @@ export class AddLeadComponent implements OnInit {
   stat_us:any= [];
   time:any = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
   seasons:any = [];
+  @Output() addLead = new EventEmitter()
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     private fb: FormBuilder,
     private _baseService:BaseServiceService,
     private api:ApiService,
-    private _commonService:CommonServiceService) {
+    private _commonService:CommonServiceService,
+    private _datePipe:DatePipe,
+    private _addLeadEmitter:AddLeadEmitterService) {
       this.dropDownValues()
     }
 
@@ -209,18 +215,7 @@ export class AddLeadComponent implements OnInit {
       })
   }
   getCourse(){
-    // this.api.getAllCourse().subscribe((res:any)=>{
-    //   if(res.results){
-    //     this.courseOptions = res.results;
-    //   }
-    //   else{
-    //     this.api.showError('ERROR')
-    //    }
-    //   },(error:any)=>{
-    //     this.api.showError(error.error.message)
-        
-    //   })
-    this._baseService.getData(environment.lead_course).subscribe((res:any)=>{
+    this.api.getAllCourse().subscribe((res:any)=>{
       if(res.results){
         this.courseOptions = res.results;
       }
@@ -231,20 +226,18 @@ export class AddLeadComponent implements OnInit {
         this.api.showError(error.error.message)
         
       })
-  }
-  // getLocation(){
-  //   this.api.getAll().subscribe((res:any)=>{
-  //     if(res.results){
-  //       this.newChannelOptions = res.results;
-  //     }
-  //     else{
-  //       this.api.showError('ERROR')
-  //      }
-  //     },(error:any)=>{
-  //       this.api.showError(error.error.message)
+    // this._baseService.getData(environment.lead_course).subscribe((res:any)=>{
+    //   if(res.results){
+    //     this.courseOptions = res.results;
+    //   }
+    //   else{
+    //     this.api.showError('ERROR')
+    //    }
+    //   },(error:any)=>{
+    //     this.api.showError(error.error.message)
         
-  //     })
-  // }
+    //   })
+  }
   getMedium(){
     this.api.getAllMedium().subscribe((res:any)=>{
       if(res.results){
@@ -332,7 +325,9 @@ export class AddLeadComponent implements OnInit {
       priority_id:f.priority,
       refered_to_id:f.referredTo,
       lead_list_status_id:f.status,
+      lead_list_substatus_id:f.subStatus,
       department_id:f.department,
+      date_of_birth:this._datePipe.transform(f.dateOfBirth,'YYYY-MM-dd'),
       course_id:f.course,
       location: f.location,
       year_of_passing:f.yearOfPassing,
@@ -355,11 +350,15 @@ export class AddLeadComponent implements OnInit {
      }
     if(this.addNewLead.invalid){
       this.addNewLead.markAllAsTouched()
+      
     }
     else{
       this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
         if(res){
-          this.api.showSuccess(res.message) 
+          this.addLead.emit('ADD')
+          this.api.showSuccess(res.message)
+          this._bottomSheetRef.dismiss('yes');
+          this._addLeadEmitter.triggerGet();
         }
         else{
           this.api.showError("ERROR !")
