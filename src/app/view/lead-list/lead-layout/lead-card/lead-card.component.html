@@ -1,50 +1,15 @@
 
 <mat-tab-group class="lead-card-tabs" (selectedTabChange)="getLeadData($event)">
   <mat-card class="p-0 m-0">
-    <mat-tab label="All">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="allLeadCardsDataSource.data.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Untouched">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="untouchedLeadCardsDataSource.data" [ngClass]="untouchedLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="untouchedLeadCardsDataSource.data.length > 0" [length]="untouchedLeadCardsDataSource.data.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, untouchedLeadCardsDataSource,'Untouched')" #untouchedPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Callback">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="callbackLeadCardsDataSource.data" [ngClass]="callbackLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="callbackLeadCardsDataSource.data.length > 0" [length]="callbackLeadCardsDataSource.data.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, callbackLeadCardsDataSource,'Callback')" #callbackPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Campus Visit">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="campusVisitLeadCardsDataSource.data" [ngClass]="campusVisitLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="campusVisitLeadCardsDataSource.data.length > 0" [length]="campusVisitLeadCardsDataSource.data.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, campusVisitLeadCardsDataSource,'Campus Visit')" #campusVisitPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Enrolled">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="enrolledLeadCardsDataSource.data" [ngClass]="enrolledLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="enrolledLeadCardsDataSource.data.length > 0" [length]="leadCards.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, enrolledLeadCardsDataSource,'Enrolled')" #enrolledPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Not Interested">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="notInterestedLeadCardsDataSource.data" [ngClass]="notInterestedLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="notInterestedLeadCardsDataSource.data.length > 0" [length]="leadCards.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, notInterestedLeadCardsDataSource,'Not Interested')" #notInterestedPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Leads Referred">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="leadsReferredLeadCardsDataSource.data" [ngClass]="leadsReferredLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="leadsReferredLeadCardsDataSource.data.length > 0" [length]="leadCards.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, leadsReferredLeadCardsDataSource,'Leads Referred')" #leadsReferredPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Re-enquired">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="reEnquiredLeadCardsDataSource.data" [ngClass]="reEnquiredLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="reEnquiredLeadCardsDataSource.data.length > 0" [length]="leadCards.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, reEnquiredLeadCardsDataSource,'Re-enquired')" #reEnquiredPaginator></mat-paginator>
-    </mat-tab>
-
-    <mat-tab label="Online">
-      <app-lead-card-content (deleteLead)="delete($event)" [leadData]="onlineLeadCardsDataSource.data" [ngClass]="onlineLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
-      <mat-paginator *ngIf="onlineLeadCardsDataSource.data.length > 0" [length]="leadCards.length" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, onlineLeadCardsDataSource,'Online')" #onlinePaginator></mat-paginator>
-    </mat-tab>
+   <div class="row">
+    <div class="col-12" *ngFor="let items of statusArray">
+      <mat-tab [label]="items">
+        <app-lead-card-content (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
+        <mat-paginator *ngIf="allLeadCardsDataSource.data.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
+      </mat-tab>
+    </div>
+   </div>
+    
   </mat-card>
 </mat-tab-group>
 

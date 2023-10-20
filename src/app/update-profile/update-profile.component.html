@@ -1,0 +1,380 @@
+
+    <div class="row d-flex justify-content-center align-items-center container-row">
+  
+        <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center">
+           
+        <mat-card class="p-0 m-0">
+            <div class="d-flex align-items-center justify-content-center">
+                <img src="../../assets/images/logo.png" width="250"  class="logo-tag"/>
+             </div>
+             <div class="row my-2">
+                <div class="col-12 text-center">
+                    <h6 class="">UPDATE PROFILE</h6>
+                </div>
+            </div>
+             <div class="main-container">
+              <form [formGroup]="updateLead" >
+                  <ng-container>
+                    <div class="container">
+                       <section>
+                       
+                         <mat-form-field appearance="outline" class="mb-1" >
+                           <mat-label>First Name</mat-label>
+                           <input
+                             matInput
+                             type="text"
+                             placeholder="Enter Your First Name"
+                             formControlName="firstName"
+                             required
+                           />
+                           <mat-error *ngIf="f['firstName'].hasError('required')">
+                            First Name Is Required.
+                           </mat-error>
+                           <mat-error *ngIf="f['firstName'].hasError('pattern')">
+                            Invalid Name Format.Please Enter Characters.
+                           </mat-error>
+                         </mat-form-field>
+                     
+                         <mat-form-field appearance="outline" class="mb-1" >
+                           <mat-label>Last Name</mat-label>
+                           <input matInput type="text" placeholder="Enter Your Last Name" formControlName="lastName" />
+                           <mat-error *ngIf="f['lastName'].hasError('pattern')">
+                            Invalid Name Format.Please Enter Characters.
+                           </mat-error>
+                          </mat-form-field>
+                     
+              
+                         <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>Date Of Birth</mat-label>
+                          <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="MM/DD/YYYY">
+                          <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
+                          <mat-datepicker #dateOfBirth></mat-datepicker>
+                        </mat-form-field>
+                    
+                         <mat-form-field appearance="outline" class="mb-1">
+                           <mat-label>Highest Qualification</mat-label>
+                           <input
+                             matInput
+                             type="text"
+                             placeholder="Enter Your Highest Qualification"
+                             formControlName="highestQualification"
+                           />
+                         </mat-form-field>
+                       </section>
+                       
+                         <section>           
+                           <mat-form-field class="mb-1" appearance="outline">
+                             <mat-label>Campaign Name</mat-label>
+                             <input
+                               matInput
+                               type="text"
+                               formControlName="campaignName"
+                               required
+                               placeholder="Enter Your Campaign Name"
+                             />
+                             <mat-error *ngIf="f['campaignName'].hasError('required')">
+                               Campaign Name Is Required.
+                             </mat-error>
+                           </mat-form-field>
+                       
+                           <mat-form-field class="mb-1" appearance="outline">
+                             <mat-label>Season</mat-label>
+                             <mat-select formControlName="season" placeholder="Season">
+                               <mat-option *ngFor="let season of seasons" [value]="season.id">{{ season.name }}</mat-option>
+                             </mat-select>
+                             <button
+                               matSuffix
+                               mat-icon-button
+                               aria-label="Clear"
+                               (click)="clearSelectField('season')"
+                               *ngIf="updateLead.get('season')?.value"
+                             >
+                               <mat-icon>clear</mat-icon>
+                             </button>
+                           </mat-form-field>
+                       
+                           <mat-form-field class="mb-1" appearance="outline">
+                             <mat-label>Channel</mat-label>
+                             <mat-select formControlName="channel" placeholder="Channel">
+                               <mat-option *ngFor="let channel of channels" [value]="channel.id">{{ channel.channel_name }}</mat-option>
+                             </mat-select>
+                             <button
+                               matSuffix
+                               mat-icon-button
+                               aria-label="Clear"
+                               (click)="clearSelectField('channel')"
+                               *ngIf="updateLead.get('channel')?.value"
+                             >
+                               <mat-icon>clear</mat-icon>
+                             </button>
+                           </mat-form-field>
+                       
+                    
+                       </section>              
+                    
+                     <section>
+                     
+                     
+                   
+                    </section>
+                     
+                     <section>
+                      
+                           <mat-form-field class="mb-1" appearance="outline">
+                             <mat-label>Department</mat-label>
+                             <mat-select formControlName="department" placeholder="Select Department">
+                               <mat-option *ngFor="let option of departmentOptions" [value]="option.id">{{ option.name
+                              }}</mat-option>
+                             </mat-select>
+                             <mat-error *ngIf="f['department'].hasError('required')">Department Is Required.</mat-error>
+                             <button
+                               matSuffix
+                               mat-icon-button
+                               aria-label="Clear"
+                               (click)="clearSelectField('department')"
+                               *ngIf="updateLead.get('department')?.value"
+                             >
+                               <mat-icon>clear</mat-icon>
+                             </button>
+                           </mat-form-field>
+                       
+                           <mat-form-field class="mb-1" appearance="outline">
+                             <mat-label>Course</mat-label>
+                             <mat-select formControlName="course" placeholder="Select Course">
+                               <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.course_name }}</mat-option>
+                             </mat-select>
+                             <button
+                               matSuffix
+                               mat-icon-button
+                               aria-label="Clear"
+                               (click)="clearSelectField('course')"
+                               *ngIf="updateLead.get('course')?.value"
+                             >
+                               <mat-icon>clear</mat-icon>
+                             </button>
+                           </mat-form-field>
+                       
+                          
+                           <mat-form-field appearance="outline" class="mb-1" >
+                            <mat-label>Location</mat-label>
+                            <input
+                              matInput
+                              type="text"
+                              placeholder="Enter Your Location"
+                              formControlName="location"
+                              required
+                            />
+                            <mat-error *ngIf="f['location'].hasError('required')">
+                              Location Is Required.
+                            </mat-error>
+                          </mat-form-field>
+                           <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Year Of Passing</mat-label>
+                            <input type="number" formControlName="yearOfPassing" matInput  placeholder="Enter Your Year Of Passing">
+                           
+                          </mat-form-field>      
+                     </section>
+                      <section>
+                        
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>What Is The Best Time To Call?</mat-label>
+                          <mat-select formControlName="callTime" placeholder="What Is The Best Time To Call?">
+                            <mat-option *ngFor="let option of time" [value]="option">{{ option }}</mat-option>
+                          </mat-select>
+                        
+                          <button
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="clearSelectField('callTime')"
+                            *ngIf="updateLead.get('callTime')?.value"
+                          >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </section>             
+                   </div>
+                   </ng-container>
+                   <ng-container>
+                    <div class="container">
+                        <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Primary Phone Number</mat-label>
+                            <input matInput  formControlName="primaryNumber" placeholder="Enter A 10-Digit Primary Phone Number.">
+                            <mat-error *ngIf="f['primaryNumber'].hasError('pattern')">Please Enter A 10-Digit Primary Phone Number.</mat-error>
+                            <mat-error *ngIf="f['primaryNumber'].hasError('required')">Primary Phone Number Is Required.</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Alternate Phone Number</mat-label>
+                            <input matInput formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+                            <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
+                            <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
+                          </mat-form-field>  
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Father's Phone Number</mat-label>
+                            <input matInput formControlName="fathersNumber" placeholder="Enter A 10-Digit Father's Phone Number.">
+                            <mat-error *ngIf="f['fathersNumber'].hasError('pattern')">Please Enter A 10-Digit Father's Phone Number.</mat-error>
+                            <mat-error *ngIf="f['fathersNumber'].hasError('required')">Father's Phone Number Is Required.</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Mother's Phone Number</mat-label>
+                            <input matInput formControlName="mothersNumber" placeholder="Enter A 10-Digit Mother's Phone Number.">
+                            <mat-error *ngIf="f['mothersNumber'].hasError('pattern')">Please Enter A 10-Digit Mother's Phone Number.</mat-error>
+                            <mat-error *ngIf="f['mothersNumber'].hasError('required')">Mother's Phone Number Is Required.</mat-error>
+                          </mat-form-field>
+              
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Primary Email Id</mat-label>
+                            <input matInput  formControlName="primaryEmail" placeholder="Enter A  Primary Email Id.">
+                            <mat-error *ngIf="f['primaryEmail'].hasError('email')">Invalid Email Format.</mat-error>
+                            <mat-error *ngIf="f['primaryEmail'].hasError('required')">Primary Email Id Is Required.</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Alternate Email Id</mat-label>
+                            <input matInput formControlName="alternateEmail" placeholder="Enter A  Alternate Email Id.">
+                            <mat-error *ngIf="f['alternateEmail'].hasError('email')">Invalid Email Format.</mat-error>
+                            <mat-error *ngIf="f['alternateEmail'].hasError('required')">Alternate Email Id Is Required.</mat-error>
+                          </mat-form-field>  
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Father's Email Id</mat-label>
+                            <input matInput formControlName="fathersEmail" placeholder="Enter A  Father's Email Id.">
+                            <mat-error *ngIf="f['fathersEmail'].hasError('email')">Invalid Email Format.</mat-error>
+                            <mat-error *ngIf="f['fathersEmail'].hasError('required')">Father's Email Id Is Required.</mat-error>
+                          </mat-form-field>
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Mother's Email Id</mat-label>
+                            <input matInput formControlName="mothersEmail" placeholder="Enter A  Mother's Email Id.">
+                            <mat-error *ngIf="f['mothersEmail'].hasError('email')">Invalid Email Format.</mat-error>
+                            <mat-error *ngIf="f['mothersEmail'].hasError('required')">Mother's Email Id Is Required.</mat-error>
+                          </mat-form-field>
+              
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Select Country </mat-label>
+                              <mat-select formControlName="countryId" placeholder="Select Country">
+                                <mat-option *ngFor="let option of countryOptions" [value]="option.id">{{ option.name }}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('countryId')"
+                                *ngIf="f['countryId']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                        
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>State</mat-label>
+                              <mat-select formControlName="state" placeholder="Select State">
+                                <mat-option *ngFor="let option of stateOptions" [value]="option.id">{{ option.name }}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('state')"
+                                *ngIf="f['state']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                        
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>City Name</mat-label>
+                              <mat-select formControlName="cityName" placeholder="Select City">
+                                <mat-option *ngFor="let option of cityOptions" [value]="option.id">{{ option.name}}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('cityName')"
+                                *ngIf="f['cityName']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                       
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>New Channel</mat-label>
+                              <mat-select formControlName="newChannel" placeholder="Select New Channel">
+                                <mat-option *ngFor="let option of newChannelOptions" [value]="option.id">{{ option.new_channel_name}}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('newChannel')"
+                                *ngIf="f['newChannel']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                        
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Campaign</mat-label>
+                              <mat-select formControlName="campaign" placeholder="Select Campaign">
+                                <mat-option *ngFor="let option of campaignOptions" [value]="option.id">{{ option.campaign_name }}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('campaign')"
+                                *ngIf="f['campaign']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                        
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Medium</mat-label>
+                              <mat-select formControlName="medium" placeholder="Select Medium">
+                                <mat-option *ngFor="let option of mediumOptions" [value]="option.id">{{ option.medium_name }}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('medium')"
+                                *ngIf="f['medium']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                        
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Level Of Program</mat-label>
+                              <mat-select formControlName="levelOfProgram" placeholder="Select Level Of Program">
+                                <mat-option *ngFor="let option of levelOfProgramOptions" [value]="option.id">{{ option.name }}</mat-option>
+                              </mat-select>
+                              <button
+                                matSuffix
+                                mat-icon-button
+                                aria-label="Clear"
+                                (click)="clearSelectField('levelOfProgram')"
+                                *ngIf="f['levelOfProgram']?.value"
+                              >
+                                <mat-icon>clear</mat-icon>
+                              </button>
+                            </mat-form-field>
+                      
+                    </div>
+                   </ng-container>           
+              </form>
+            </div>
+          
+           
+         
+         
+           <div class="d-flex justify-content-center align-items-center">
+            <button class="w-50 m-2"  mat-button  (click)="onSubmit()">SUBMIT</button>
+           </div>
+            
+        </mat-card>
+         
+     
+        </div>
+    </div>
+
+

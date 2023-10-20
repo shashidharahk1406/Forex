@@ -23,12 +23,16 @@ export class LeadCardContentComponent implements OnInit {
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
   selectedCheckboxIds: any = [];
+  checked: boolean = false;
+  selectAllChecked: boolean = false;
+  checkAll:boolean = false;
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef) {}
   delete(event:any){
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
+    this.selectedCheckboxIds = [];
   }
   openMorePanel(){
     this.morePanel = !this.morePanel
@@ -38,28 +42,31 @@ export class LeadCardContentComponent implements OnInit {
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array
       this.selectedCheckboxIds.push(itemId);
+      if(this.selectedCheckboxIds.length === this.leadData.length)
+      this.checkAll = true
     } else {
       // Checkbox is unchecked, remove the item ID from the array
       const index = this.selectedCheckboxIds.indexOf(itemId);
       if (index !== -1) {
         this.selectedCheckboxIds.splice(index, 1);
+        this.checkAll = false
       }
     }
   }
-  selectAllChecked: boolean = false;
+  
 
 selectAll():any {
   // Toggle the selectAllChecked state
-  this.selectAllChecked = !this.selectAllChecked;
+  this.checkAll = !this.checkAll;
 
-  if (this.selectAllChecked) {
+  if (this.checkAll) {
     // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
     this.selectedCheckboxIds = this.leadData.map((item:any) => item.id);
-    return true
+    this.checked = true
   } else {
     // If "Select All" is unchecked, clear the selectedCheckboxIds array
     this.selectedCheckboxIds = [];
-    return false
+    this.checked = false
   }
   
 }

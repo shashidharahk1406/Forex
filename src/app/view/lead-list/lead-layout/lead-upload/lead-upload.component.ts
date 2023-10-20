@@ -42,7 +42,7 @@ export class LeadUploadComponent implements OnInit {
        status:[''],
        subStatus:[''],
        leadOwner:['',Validators.required],
-       reason:[''],
+      //  reason:[''],
        referedTo:['',Validators.required],
        //step-2
        department:[''],

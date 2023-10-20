@@ -1,0 +1,43 @@
+mat-card{
+   font-size: 12px;
+}
+.main-container{
+   height: 57vh;
+   overflow-y: scroll;
+}
+mat-card:hover ::-webkit-scrollbar-thumb{
+    background: rgb(172, 172, 172) !important; 
+}
+.container-row{
+    height: 100vh;
+    background: linear-gradient(201.39deg, #504e5f 9.2%, #1c1a2e 104.85%);
+    /* background-image: url('../../assets/images/bgimg.svg');
+    background-size: cover;
+    background-repeat: no-repeat; */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    /* margin: 10px; */
+}
+.mat-button{
+    background: var(--appColor);
+    color:white;
+}
+/* .img-bg{
+    width: 45%;
+    height: 67%;
+    background-color: var(--appLightColor);
+    clip-path: circle(50% at 50% 50%);
+    position: absolute;
+}
+.img-bg:hover,.img-bg:hover{
+    opacity: 0.8;
+}
+.img-bg-2{
+    width: 40%;
+    height: 57%;
+    background-color: #024aad;;
+    clip-path: circle(50% at 50% 50%);
+    position: absolute;
+} */
+
+

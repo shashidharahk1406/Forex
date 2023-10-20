@@ -1,6 +1,6 @@
 
 
-<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+<ng-container>
     
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
@@ -103,7 +103,7 @@
             <mat-error *ngIf="f['leadOwner'].hasError('required')">Lead Owner Is Required</mat-error>
           </mat-form-field>
          
-          <mat-form-field class="mb-1" appearance="outline">
+          <!-- <mat-form-field class="mb-1" appearance="outline">
             <mat-label>Select Reason</mat-label>
             <mat-select placeholder="Select Reason" formControlName="reason">
               <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
@@ -118,7 +118,7 @@
             >
               <mat-icon>clear</mat-icon>
             </button>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <mat-form-field class="mb-1" appearance="outline">
             <mat-label>Select Referred To</mat-label>

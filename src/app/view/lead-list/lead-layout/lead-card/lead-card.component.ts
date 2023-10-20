@@ -42,7 +42,8 @@ export class LeadCardComponent implements OnInit {
   currentPage=1;
   totalPageLength:any;
   totalNumberOfRecords:any;
-  
+  statusArray = ['All','Untouched','Callback','Campus Visit','Enrolled','Not Interested','Leads Referred','Re-enquired','Online']
+ 
   
   constructor(
     private _bottomSheet:  MatBottomSheet,
@@ -88,55 +89,22 @@ export class LeadCardComponent implements OnInit {
     }else {
       if(tabLabel.tab.textLabel === 'All' ){
           // If it's 'All', do not pass any query parameters
-          this._baseService.getData(environment.lead_list).subscribe((res: any) => {
+          this._baseService.getData(`${environment.lead_list}?page=1&page_size=10`).subscribe((res: any) => {
             if (res.results) {
               this.leadCards = res.results;
               this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-              this.allLeadCardsDataSource.paginator = this.allPaginator;
+              this.totalNumberOfRecords = res.total_no_of_record
             }
           }, (error: any) => {
             this.api.showError(error.error.message);
           });
         }else if(tabLabel.tab.textLabel !== 'All'){
-        this.query = `?leadlist_status_name=${tabLabel.tab.textLabel}`
+        this.query = `?leadlist_status_name=${tabLabel.tab.textLabel}&page=1&page_size=10`
         this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
           if (res.results) {
             this.leadCards = res.results;
-            // Update the appropriate data source and paginator based on the tab label
-            switch (tabLabel.tab.textLabel) {
-              case 'Untouched':
-                this.untouchedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.untouchedLeadCardsDataSource.paginator = this.untouchedPaginator;
-                break;
-              case 'Callback':
-                this.callbackLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.callbackLeadCardsDataSource.paginator = this.callbackPaginator;
-                break;
-              case 'Campus Visit':
-                this.campusVisitLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.campusVisitLeadCardsDataSource.paginator = this.campusVisitPaginator;
-                break;
-              case 'Enrolled':
-                this.enrolledLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.enrolledLeadCardsDataSource.paginator = this.enrolledPaginator;
-                break;
-              case 'Not Interested':
-                this.notInterestedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                // Handle other cases for different tabs
-                break;
-              case 'Leads Referred':
-                this.leadsReferredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.leadsReferredLeadCardsDataSource.paginator = this.leadsReferredPaginator;
-                break;
-              case 'Re-enquired':
-                this.reEnquiredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.reEnquiredLeadCardsDataSource.paginator = this.reEnquiredPaginator;
-                break;
-              case 'Online':
-                this.onlineLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                this.onlineLeadCardsDataSource.paginator = this.onlinePaginator;
-                break;
-            }
+            this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+            this.totalNumberOfRecords = res.total_no_of_record
           }
         }, (error: any) => {
           this.api.showError(error.error.message);
@@ -152,12 +120,11 @@ export class LeadCardComponent implements OnInit {
       const startIndex = event.pageIndex * event.pageSize;
       this.currentPage = event.pageIndex + 1;
       if(type === 'All'){
-        this._baseService.getData(`${environment.lead_list}?page=${this.currentPage}`).subscribe((res: any) => {
+        this._baseService.getData(`${environment.lead_list}?page=${this.currentPage}&page_size=${event.pageSize}`).subscribe((res: any) => {
           if (res.results) {
             this.leadCards = res.results;
             this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
             this.totalNumberOfRecords = res.total_no_of_record
-            // this.allLeadCardsDataSource = this.leadCards.slice(startIndex, startIndex + event.pageSize);
           }
         }, (error: any) => {
           this.api.showError(error.error.message);
@@ -165,49 +132,13 @@ export class LeadCardComponent implements OnInit {
       }
       else{
         
-        let query = `?leadlist_status_name=${type}&page=${this.currentPage}`
+        let query = `?leadlist_status_name=${type}&page=${this.currentPage}&page_size=${event.pageSize}`
           this._baseService.getData(`${environment.lead_list}${query}`).subscribe((res: any) => {
             if (res.results) {
                 this.leadCards = res.results;
-                // Update the appropriate data source and paginator based on the tab label
-                switch (type) {
-                  case 'Untouched':
-                    this.untouchedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.untouchedLeadCardsDataSource.paginator = this.untouchedPaginator;
-                    break;
-                  case 'Callback':
-                    this.callbackLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.callbackLeadCardsDataSource.paginator = this.callbackPaginator;
-                    break;
-                  case 'Campus Visit':
-                    this.campusVisitLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.campusVisitLeadCardsDataSource.paginator = this.campusVisitPaginator;
-                    break;
-                  case 'Enrolled':
-                    this.enrolledLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.enrolledLeadCardsDataSource.paginator = this.enrolledPaginator;
-                    break;
-                  case 'Not Interested':
-                    this.notInterestedLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // Handle other cases for different tabs
-                    break;
-                  case 'Leads Referred':
-                    this.leadsReferredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.leadsReferredLeadCardsDataSource.paginator = this.leadsReferredPaginator;
-                    break;
-                  case 'Re-enquired':
-                    this.reEnquiredLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.reEnquiredLeadCardsDataSource.paginator = this.reEnquiredPaginator;
-                    break;
-                  case 'Online':
-                    this.onlineLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-                    // this.onlineLeadCardsDataSource.paginator = this.onlinePaginator;
-                    break;
-                }
-              
-              this.leadCards = res.results;
-              dataSource = new MatTableDataSource<any>(this.leadCards);
-              this.totalNumberOfRecords = res.total_no_of_record
+                this.leadCards = res.results;
+                this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.totalNumberOfRecords = res.total_no_of_record
               // this.allLeadCardsDataSource = this.leadCards.slice(startIndex, startIndex + event.pageSize);
             }
           }, (error: any) => {

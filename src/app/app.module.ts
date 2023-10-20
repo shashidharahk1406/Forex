@@ -38,7 +38,8 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   pbThickness: 5, // progress bar thickness
   fgsSize:50
 };
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { UpdateProfileComponent } from './update-profile/update-profile.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { QuillModule } from 'ngx-quill'
     LayoutComponent,
     LoginComponent,
     ForgotPasswordComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     BrowserModule,

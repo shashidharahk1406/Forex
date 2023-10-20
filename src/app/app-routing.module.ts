@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 const routes: Routes = [
   
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'forgotPass', 
     component:ForgotPasswordComponent
+  },
+  {
+    path: 'update-lead', 
+    component:UpdateProfileComponent
   },
   { path: '', component: LayoutComponent},
   { path: '', component: LayoutComponent,children:[

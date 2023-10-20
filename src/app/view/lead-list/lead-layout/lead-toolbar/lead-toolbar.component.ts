@@ -5,7 +5,6 @@ import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.compo
 import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadWhatsappChatComponent } from '../lead-whatsapp-chat/lead-whatsapp-chat.component';
 import { LeadEmailComponent } from '../lead-email/lead-email.component';
-import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 import { LeadFilterComponent } from '../lead-filter/lead-filter.component';
 import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
@@ -16,10 +15,16 @@ import { GenericCountComponent } from 'src/app/shared/generic-count/generic-coun
   styleUrls: ['./lead-toolbar.component.css']
 })
 export class LeadToolbarComponent implements OnInit {
- @Input()selectedLeads:any
+ @Input()selectedLeads:any;
+ @Input()checkAll:any;
+  data!: any;
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  addCount(){
+    if(this.checkAll){
+      this.data = 'All'
+      }else{this.data = this.selectedLeads.length}
   }
   bulkVideoCall(){
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {
@@ -32,7 +37,9 @@ export class LeadToolbarComponent implements OnInit {
     
   }
   openVideoCall(){
-    let data = `Do You Want To Send SMS To ${this.selectedLeads.length} Leads`
+    this.addCount()
+   
+    let data = `Do You Want To Send SMS To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
@@ -52,8 +59,9 @@ export class LeadToolbarComponent implements OnInit {
     this._bottomSheet.open(LeadSMSComponent,config);
   }
   openSMS(name:any): void {
+    this.addCount()
    
-    let data = `Do You Want To Send SMS To ${this.selectedLeads.length} Leads`
+    let data = `Do You Want To Send SMS To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
@@ -66,7 +74,9 @@ export class LeadToolbarComponent implements OnInit {
     });
   }
   openWhatsAppChat(){
-    let data = `Do You Want To Send WhatsApp To ${this.selectedLeads.length} Leads`
+    this.addCount()
+   
+    let data = `Do You Want To Send WhatsApp To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
@@ -96,7 +106,9 @@ export class LeadToolbarComponent implements OnInit {
     this._bottomSheet.open(LeadEmailComponent,config);
   }
   openEmailChat(name?:any){
-    let data = `Do You Want To Send Email To ${this.selectedLeads.length} Leads`
+    this.addCount()
+   
+    let data = `Do You Want To Send Email To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
@@ -127,7 +139,9 @@ export class LeadToolbarComponent implements OnInit {
   }
   
   referLead(){
-    let data = `Do You Want To Refer ${this.selectedLeads.length} Leads`
+    this.addCount()
+   
+    let data = `Do You Want To Refer ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
