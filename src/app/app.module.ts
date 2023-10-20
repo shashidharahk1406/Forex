@@ -16,9 +16,10 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { LoginComponent } from './auth/login/login.component';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { NgChartsModule } from 'ng2-charts';
+// import { NgChartsModule } from 'ng2-charts';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './service/Auth-interceptor/auth-interceptor';
+
 
 import {
   NgxUiLoaderHttpModule, NgxUiLoaderModule,
@@ -62,7 +63,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
     CommonModule,
     SharedModule,
     NgbCarouselModule,
-    NgChartsModule,
+    // NgChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass:"toast-top-right",

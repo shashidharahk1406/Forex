@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { NgbCarouselModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationComponent } from './notification/notification.component';
@@ -12,7 +12,6 @@ import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericDeleteComponent } from './generic-delete/generic-delete.component';
 import { NodataComponent } from './nodata/nodata.component';
 import { GenericCountComponent } from './generic-count/generic-count.component';
-
 
 @NgModule({
   declarations: [
@@ -33,6 +32,8 @@ import { GenericCountComponent } from './generic-count/generic-count.component';
     NgbCarouselModule,
     CKEditorModule ,
     NgbTimepickerModule,
+    JsonPipe,
+
   ],
   exports:[
     SearchbarComponent,
@@ -43,7 +44,8 @@ import { GenericCountComponent } from './generic-count/generic-count.component';
     LoginListComponent,
     CKEditorModule ,
     NgbTimepickerModule,
-    NodataComponent 
+    NodataComponent ,
+    JsonPipe,
   ]
 })
 export class SharedModule { }

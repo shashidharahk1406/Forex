@@ -1,0 +1,18 @@
+h4{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 16px;
+    color:#393939 !important;
+}
+h3{
+    line-height: 23px;
+    font-size: 20px;
+    color:black !important;
+}
+i{
+    color:#393939 ;
+    font-size: 16px;
+    padding-left: 10px;
+    height: 20px;
+    font-weight: 600;
+}
