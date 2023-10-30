@@ -25,4 +25,13 @@
   mat-sidenav-content:hover ::-webkit-scrollbar-thumb {
     background: rgb(172, 172, 172);
   }
-  
+  /* .listbox ::-webkit-scrollbar-thumb{
+    background: rgb(172, 172, 172) !important; 
+  } */
+  div.mat-select-panel::-webkit-scrollbar-thumb{
+    background: rgb(172, 172, 172) !important; 
+    
+  }
+  div.mat-select-panel{
+    font-size: 12px !important;
+  }

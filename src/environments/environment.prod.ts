@@ -7,5 +7,9 @@ export const environment = {
   lead_season:'/api/season/',
   lead_priority:'/api/priority/',
   lead_campaign:'/api/campaign-lead-list/',
-  lead_course:'/api/course-leadlist/'
+  lead_course:'/api/course-leadlist/',
+  lead_upload:'/api/upload-lead-data/',
+  lead_refer:'/api/refer-lead-counsellor/',
+  lead_note:'/api/note/',
+  _user:'/api/user'
 };

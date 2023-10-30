@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.component';
@@ -15,8 +15,9 @@ import { GenericCountComponent } from 'src/app/shared/generic-count/generic-coun
   styleUrls: ['./lead-toolbar.component.css']
 })
 export class LeadToolbarComponent implements OnInit {
- @Input()selectedLeads:any;
+ @Input()selectedLeads:any = [];
  @Input()checkAll:any;
+ @Output()selectedSort = new EventEmitter()
   data!: any;
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
@@ -25,6 +26,9 @@ export class LeadToolbarComponent implements OnInit {
     if(this.checkAll){
       this.data = 'All'
       }else{this.data = this.selectedLeads.length}
+  }
+  onSelect(event:any){
+    this.selectedSort.emit(event)
   }
   bulkVideoCall(){
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {
@@ -123,7 +127,8 @@ export class LeadToolbarComponent implements OnInit {
   }
   openReferLead(){
     const dialogRef = this.dialog.open(ReferLeadComponent, {
-      width:'40%'
+      width:'40%',
+      data:{leadId:this.selectedLeads},
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -144,8 +149,7 @@ export class LeadToolbarComponent implements OnInit {
     let data = `Do You Want To Refer ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
-      data:data
-
+      data:data,
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

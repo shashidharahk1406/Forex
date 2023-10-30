@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-lead-bulk-sort',
@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lead-bulk-sort.component.css']
 })
 export class LeadBulkSortComponent implements OnInit {
-
+ @Output()selectedSort = new EventEmitter()
   constructor() { }
-  typesOfDate: string[] = ['Creation Date', 'Modification Date', 'Next Action Date', 'Re-enquiry Date'];
-  ngOnInit(): void {
-  }
-  openNotification(){
-    
+  typesOfDate: string[] = ['Ascending','Decending','Creation Date', 'Modification Date', 'Next Action Date', 'Re-enquiry Date'];
+  ngOnInit(): void {}
+  openNotification(){}
+  onChange(event:any){
+    this.selectedSort.emit(event)
   }
 }

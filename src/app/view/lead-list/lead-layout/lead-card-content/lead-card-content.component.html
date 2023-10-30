@@ -1,8 +1,7 @@
-<app-nodata class="d-flex align-items-center justify-content-center" *ngIf="leadData.length === 0"></app-nodata>
-<app-lead-toolbar *ngIf="leadData.length > 0" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
-
-<div class="container custom-height-set" *ngIf="leadData.length > 0">
-  <mat-checkbox  (change)="selectAll()" class="ps-3" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3">SELECT ALL</div></mat-checkbox>
+<app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!leadData"></app-nodata>
+<app-lead-toolbar *ngIf="leadData?.length > 0" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
+<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll()" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3">SELECT ALL</div></mat-checkbox>
+<div class="container custom-height-set" *ngIf="leadData?.length > 0">
   <div class="row">
     <div class="col-12" *ngFor="let item of leadData;let i = index">
         <mat-card class="p-1 lead-card-container">

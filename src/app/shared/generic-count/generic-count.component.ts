@@ -12,7 +12,7 @@ export class GenericCountComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   ngOnInit(): void {
-    console.log(this.data,"DATA")
+    console.log(this.data.content,this.data[0],"DATA")
   }
   onSubmit() {
     this.dialogRef.close('yes'); 

@@ -56,7 +56,8 @@ export class LeadcardMoreComponent implements OnInit {
   }
   addNote(){
     const dialogRef = this.dialog.open(LeadNoteComponent, {
-      width:'40%'
+      width:'40%',
+      data:this.leadId
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -93,7 +94,8 @@ export class LeadcardMoreComponent implements OnInit {
    }
   referLead(){
     const dialogRef = this.dialog.open(ReferLeadComponent, {
-      width:'40%'
+      width:'40%',
+      data:this.leadId
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

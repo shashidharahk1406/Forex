@@ -19,3 +19,6 @@
 .lead-video-tabs .mat-tab-body-content {
     height: 30vh !important;
 }
+app-lead-card .mat-paginator-container {
+    padding: 15px 8px 0 !important;  
+  }

@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BaseServiceService {
+  file: boolean = false;
   constructor(private http:HttpClient){}
   getData(params:any){
     return this.http.get(`${environment.live_url}/${params}`)
@@ -14,6 +15,10 @@ export class BaseServiceService {
     return this.http.get(`${environment.live_url}/${params}`)
   }
   postData(url:any,data:any){
+    return this.http.post(`${environment.live_url}/${url}`,data)
+  }
+  postFile(url:any,data:any){
+    this.file = true
     return this.http.post(`${environment.live_url}/${url}`,data)
   }
   updateData(url:any,data:any){

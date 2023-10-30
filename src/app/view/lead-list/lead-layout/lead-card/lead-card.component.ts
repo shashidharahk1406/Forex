@@ -15,26 +15,10 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
   styleUrls: ['./lead-card.component.css']
 })
 export class LeadCardComponent implements OnInit {
-  allLeadCardsDataSource = new MatTableDataSource<any>([]);
-  untouchedLeadCardsDataSource = new MatTableDataSource<any>([]);
-  callbackLeadCardsDataSource = new MatTableDataSource<any>([]);
-  campusVisitLeadCardsDataSource = new MatTableDataSource<any>([]);
-  enrolledLeadCardsDataSource = new MatTableDataSource<any>([]);
-  notInterestedLeadCardsDataSource = new MatTableDataSource<any>([]);
-  leadsReferredLeadCardsDataSource = new MatTableDataSource<any>([]);
-  reEnquiredLeadCardsDataSource = new MatTableDataSource<any>([]);
-  onlineLeadCardsDataSource = new MatTableDataSource<any>([]);
-
+  allLeadCardsDataSource:any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
-  @ViewChild('untouchedPaginator') untouchedPaginator!: MatPaginator;
-  @ViewChild('callbackPaginator') callbackPaginator!: MatPaginator;
-  @ViewChild('campusVisitPaginator') campusVisitPaginator!: MatPaginator;
-  @ViewChild('enrolledPaginator') enrolledPaginator!: MatPaginator;
-  @ViewChild('notInterestedPaginator') notInterestedPaginator!: MatPaginator;
-  @ViewChild('leadsReferredPaginator') leadsReferredPaginator!: MatPaginator;
-  @ViewChild('reEnquiredPaginator') reEnquiredPaginator!: MatPaginator;
-  @ViewChild('onlinePaginator') onlinePaginator!: MatPaginator;
+  
   leadCards: any;
   displayedLeadCards!: MatTableDataSource<any>;
   query!: string;
@@ -42,7 +26,7 @@ export class LeadCardComponent implements OnInit {
   currentPage=1;
   totalPageLength:any;
   totalNumberOfRecords:any;
-  statusArray = ['All','Untouched','Callback','Campus Visit','Enrolled','Not Interested','Leads Referred','Re-enquired','Online']
+  statusArray:any = []
  
   
   constructor(
@@ -58,7 +42,43 @@ export class LeadCardComponent implements OnInit {
     };
     this._bottomSheet.open(AddLeadComponent,config);
   }
-  
+  onChangeSorting(event:any){
+    // this.allLeadCardsDataSource = []
+    // this.totalNumberOfRecords = []
+    // let arr = this.allLeadCardsDataSource.data
+    // if (event.target.innerText === 'Ascending') {
+    //   debugger;
+    //   // Sort the data in ascending order
+      
+    //   arr.sort((a: any, b: any) => {
+    //     // Modify this comparison based on your specific sorting criteria
+    //     // Here, it's sorting by a property named 'fieldName'
+    //     return this.allLeadCardsDataSource = a.user_data.last_name - b.user_data.last_name;
+    //   });
+    // } else {
+    //   if(event.target.innerText === 'Decending'){
+    //     // Sort the data in descending order
+    //     arr.sort((a: any, b: any) => {
+    //       // Modify this comparison based on your specific sorting criteria
+    //       // Here, it's sorting by a property named 'fieldName' in descending order
+    //       return this.allLeadCardsDataSource =  b.user_data.last_name - a.user_data.last_name;
+    //     });
+    //   }
+     
+   // }
+    // else{
+    //   this.query = `?sort_by=${event.target.innerText}&page=1&page_size=10`
+    //   this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
+    //     if (res.results) {
+    //       this.leadCards = res.results;
+    //       this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+    //       this.totalNumberOfRecords = res.total_no_of_record
+    //     }
+    //   }, (error: any) => {
+    //     this.api.showError(error.error.message);
+    //   });
+    // }
+  }
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet'
@@ -66,12 +86,21 @@ export class LeadCardComponent implements OnInit {
     this._bottomSheet.open(LeadUploadComponent,config);
   }
   ngOnInit(): void {
+    this.getStatus()
     this.getLeadData('tabLabel')
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadData('tabLabel')
     });
   }
-  
+  getStatus(){
+    this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
+     if(res.results){
+       this.statusArray = res.results;
+     }
+    },(error:any)=>{
+     this.api.showError(error.error.message)
+    })
+   }
   getLeadData(tabLabel: any) {
     
     if (tabLabel === 'tabLabel') {
@@ -99,7 +128,7 @@ export class LeadCardComponent implements OnInit {
             this.api.showError(error.error.message);
           });
         }else if(tabLabel.tab.textLabel !== 'All'){
-        this.query = `?leadlist_status_name=${tabLabel.tab.textLabel}&page=1&page_size=10`
+        this.query = `?status=${tabLabel.tab.textLabel}&page=1&page_size=10`
         this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
           if (res.results) {
             this.leadCards = res.results;
@@ -132,7 +161,7 @@ export class LeadCardComponent implements OnInit {
       }
       else{
         
-        let query = `?leadlist_status_name=${type}&page=${this.currentPage}&page_size=${event.pageSize}`
+        let query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}`
           this._baseService.getData(`${environment.lead_list}${query}`).subscribe((res: any) => {
             if (res.results) {
                 this.leadCards = res.results;

@@ -10,7 +10,12 @@
       </div>
     </div>
     <mat-dialog-content class="m-2">
-    {{data}}?
+    <div *ngIf="data.content">
+      {{data.content}}?
+    </div>
+    <div *ngIf="data && !data.content">
+      {{data}}?
+    </div>
     </mat-dialog-content>
     <div mat-dialog-actions class="mb-1">
       <button mat-button mat-dialog-close class="mat-cancel">NO</button>

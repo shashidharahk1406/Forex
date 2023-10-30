@@ -18,7 +18,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
   @Output()deleteLead = new EventEmitter()
-  
+  @Output()selectedSort = new EventEmitter()
   expandPanel=false;
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
@@ -37,7 +37,9 @@ export class LeadCardContentComponent implements OnInit {
   openMorePanel(){
     this.morePanel = !this.morePanel
   }
- 
+  onChange(event:any){
+    this.selectedSort.emit(event)
+  }
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array
