@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { GenericService } from 'src/app/service/generic.service';
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-upload-raw-lead-data',
@@ -9,71 +11,210 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./upload-raw-lead-data.component.css']
 })
 export class UploadRawLeadDataComponent implements OnInit {
-
   uploadLeadForm!:FormGroup
-  isOpen: boolean = false;  
-  allChannel:any = [];
-  allSource :any=[];
-  allStatus :any=[];
-  allSubStatus :any=[];
-  allLevel :any=[];
-  allDepartment :any=[];
-  allPriority :any=[];
-  allCourse :any=[];
-  allCountry :any=[];
-  allCity :any=[];
-  file:any = File ;
-  priorityList = ['1-Hot','2-Warm','Medium','Low'];
-  leadOwnerList = ['Rohith','Sandesh','Abhishek'];
-  statusList = ['New','Call Back','Closed','Enrolled'];
-  referedToList = ['Live Chat','Option-1','Option-2'];
-  departmentList = ['Instrumentation','Medical','Finance'];
-  courseList = ['1-BAJMC-Film','Option-1','Option-2'];
-  countryList = ['India','Afganistan','Africa'];
-  cityList = ['New Delhi','Abhayopuri','Sudon'];
-  reasonList = ['Reason-1','Reason-2','Reason-3'];
+
+  // channelList = ['Telephonic','Social Media','Offline','Email','SMS'];
+  // sourceList = ['Partners - TMV','Option-2'];
+  // priorityList = ['1-Hot','2-Warm','Medium','Low'];
+  // leadOwnerList = ['Rohith','Sandesh','Abhishek'];
+  // statusList = ['New','Call Back','Closed','Enrolled'];
+  // referedToList = ['Live Chat','Option-1','Option-2'];
+  // departmentList = ['Instrumentation','Medical','Finance'];
+  // courseList = ['1-BAJMC-Film','Option-1','Option-2'];
+  // countryList = ['India','Afganistan','Africa'];
+  // stateList = ['New Delhi','Abhayopuri','Sudon'];
+  channelList:any = [];
+  sourceList:any = [];
+  priorityList:any = [];
+  
+  statusList:any = [];
+  referedToList:any = [
+    {
+      id:1,
+      name:'Rohith'
+    },
+    {
+      id:2,
+      name:'Sandesh'
+    },
+  ];
+  leadOwnerList:any = [
+    {
+      id:1,
+      name:'Rohith'
+    },
+    {
+      id:2,
+      name:'Sandesh'
+    },
+  ];
+  departmentList:any = [];
+  courseList:any = [];
+  countryList:any = [];
+  stateList:any = [];
+  
   selectedFiles: any;
+  file!:File;
+  formData:any;
+  inputEl: any;
+  
 
-
-  constructor(private api:ApiService,private _bottomSheetRef: MatBottomSheetRef<any>,
+  constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder,
+    private api:ApiService,
+    private _baseService:BaseServiceService,
+   ){
+    this.dropDownValues()
+   }
 
     ngOnInit(): void {
-      this.isOpen = !this.isOpen;
       this.initForm();
-      this.getAllChannel()
-      this.getAllSource()
-      this.getAllStatus()
-      this.getAllSubStatus()
-      this.getAllLevel()
-      this.getAllDepartment()
-      this.getAllPriority()
-      this.getAllCourse()
-      this.getAllCountry()
-      this.getAllCity()
-      this.getAllUser()
+
+    }
+    dropDownValues(){
+      this.getCountry();
+      this.getState();
+      this.getChannel();
+      this.getSource();
+      this.getDepartment();
+      this.getCourse();
+      this.getPriority();
+      this.getStatus();
+    }
+    
+    getCountry(){
+      this.api.getAllCountry().subscribe((res:any)=>{
+        if(res){
+        this.countryList = res.results
+        console.log(res)
+        }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+    }
+    getState(){
+      this.api.getAllState().subscribe((res:any)=>{
+        if(res){
+          this.stateList = res.results
+          console.log(res)
+        }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+    }
+    getChannel(){
+      this.api.getAllChannel().subscribe((resp:any)=>{
+        if(resp.results){
+          this.channelList= resp.results;
+          console.log(this.channelList,"this.newChannelOptions")
+        }
+        else{
+          this.api.showError('ERROR')
+        }  
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      }
+  
+      )
+    }
+    getSource(){
+      this.api.getAllSource().subscribe((res:any)=>{
+       if(res.results){
+        this.sourceList = res.results
+       }
+       else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+    }
+    
+   
+    
+    getDepartment(){
+      this.api.getAllDepartment().subscribe((res:any)=>{
+        if(res.results){
+          this.departmentList = res.results;
+        }
+        else{
+          this.api.showError('ERROR')
+         }
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        })
+    }
+    getCourse(){
+      this.api.getAllCourse().subscribe((res:any)=>{
+        if(res.results){
+          this.courseList = res.results;
+        }
+        else{
+          this.api.showError('ERROR')
+         }
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        })
+      
+    } 
+    getPriority(){
+      this._baseService.getData(environment.lead_priority).subscribe((res:any)=>{
+          if(res.results){
+            this.priorityList = res.results
+          } else{
+            this.api.showError('ERROR')
+           }
+          },(error:any)=>{
+            this.api.showError(error.error.message)
+        })
+    }
+    getStatus(){
+     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
+      if(res.results){
+        this.statusList = res.results;
+      }
+     },(error:any)=>{
+      this.api.showError(error.error.message)
+     })
     }
    
+   
+    onFileSelected(event: any) {
+      if (event.target.files && event.target.files.length) {
+        this.file = event.target.files[0];
+       //console.log(this.file)
+      // You can also update your form control if needed
+      this.uploadLeadForm.get('leadUpload')?.setValue(this.file);
+      }
+    }
+    
     initForm(){
       this.uploadLeadForm = this.fb.group({
        //step-1
        channel_id:[''],
-       source_id:[''],
-       status_id:[''],
-      //  sub_status_id:[''],
-       leadOwner:[''],
-       refered_to_ids:[''],
-       priority_id:[''],
-       course_id:[''],
-       country_id:[''],
-       city_id:[''],
-       level_of_program_id:[''],
-       departent_id:[''],
-       send_welcome_email:[''],
-       send_welcome_sms:[''],
+       source:[''],
+       priority:[''],
+       status:[''],
+      //  subStatus:[''],
+       leadOwner:['',Validators.required],
+      //  reason:[''],
+       referedTo:['',Validators.required],
        //step-2
-       sample_file:['']
+       department:[''],
+       course:[''],
+       country:[''],
+       state:[''],
+       welcomeEmail:[''],
+       welcomeSms:[''],
+       //step-3
+       leadUpload:['',Validators.required]
       });
     }
     selectFile(event:any) {
@@ -87,156 +228,45 @@ export class UploadRawLeadDataComponent implements OnInit {
       }
     closePopup(){
       this._bottomSheetRef.dismiss()
-      this.isOpen = !this.isOpen;
     }
-    getAllChannel(){
-      this.api.getAllChannel().subscribe(
-        (resp:any)=>{
-          this.allChannel=resp.results
-        },
-        (error:any)=>{
-  
-        }
+    onSubmit(){  
+       let f = this.uploadLeadForm.value
+       this.formData = new FormData();
+     
         
-      )
-    }
-    getAllSource(){
-      this.api.getAllSource().subscribe(
-        (resp:any)=>{
-          this.allSource=resp.results
-        },
-        (error:any)=>{
-  
+           if(this.uploadLeadForm.invalid){
+          this.uploadLeadForm.markAllAsTouched();
+          this.api.showError('Invalid Form')
+        }else{
+          if (this.file) {
+            this.formData.set('sample_file',this.file);
+            // this.formData.set('name',this.file.name);
+             // Append other fields to the formData
+              this.formData.set('channel_id', f.channel);
+              this.formData.set('source_id', f.source);
+              this.formData.set('priority_id', f.priority);
+              this.formData.set('status_id', f.status);
+              this.formData.set('lead_owner', f.leadOwner);
+              this.formData.set('refered_to_ids', [Number(f.referedTo)]);
+              this.formData.set('departent_id', f.department);
+              this.formData.set('course_id', f.course);
+              this.formData.set('country_id', f.country);
+              this.formData.set('state_id', f.state);
+              // this.formData.set('send_welcome_email', f.welcomeEmail);
+              // this.formData.set('send_welcome_sms', f.welcomeSms);
+              this.formData.set('send_welcome_email', false);
+              this.formData.set('send_welcome_sms', false);
+              this._baseService.postFile(`${environment.lead_upload}`,this.formData).subscribe((res:any)=>{
+                if(res){
+                  this.api.showSuccess(res.message)
+                }
+              },((error:any)=>{
+                this.api.showError(error.error.error.message)
+              }))
+            } 
+         
         }
-        
-      )
-    }
-    getAllStatus(){
-      this.api.getAllStatus().subscribe(
-        (resp:any)=>{
-          this.allStatus=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllSubStatus(){
-      this.api.getAllSubStatus().subscribe(
-        (resp:any)=>{
-          this.allSubStatus=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllLevel(){
-      this.api.getAllLevelOfProgram().subscribe(
-        (resp:any)=>{
-          this.allLevel=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllDepartment(){
-      this.api.getAllDepartment().subscribe(
-        (resp:any)=>{
-          this.allDepartment=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllPriority(){
-      this.api.getAllPriority().subscribe(
-        (resp:any)=>{
-          this.allPriority=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllCourse(){
-      this.api.getAllCourse().subscribe(
-        (resp:any)=>{
-          this.allCourse=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllCountry(){
-      this.api.getAllCountry().subscribe(
-        (resp:any)=>{
-          this.allCountry=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllCity(){
-      this.api.getAllCity().subscribe(
-        (resp:any)=>{
-          this.allCity=resp.results
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    getAllUser(){
-      this.api.getAllUser().subscribe(
-        (resp:any)=>{
-          console.log(resp);
-          
-        },
-        (error:any)=>{
-  
-        }
-        
-      )
-    }
-    onChange(event:any) {
-      console.log('event',event.target.files[0])
-      this.file = event.target.files[0]
-      this.uploadLeadForm.get('sample_file')?.setValue(this.file)
-      console.log(this.file)
-     }
-     baseurl= environment.live_url;
-    onSubmit(){
-      const fd = new FormData()
-      fd.append('sample_file',this.file,this.file.name)
-      console.log(this.uploadLeadForm.value);
-      if(this.uploadLeadForm.invalid){
-
-      }
-      else{
-        this.api.postRawdata(this.uploadLeadForm.value).subscribe(
-          (resp:any)=>{
-            console.log(resp)
-          },
-          (error:any)=>{
-            console.log(error);
-            
-          }
-        )
-      }
       
     }
-
+    
 }

@@ -95,7 +95,7 @@ export class SourceListComponent implements AfterViewInit {
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
     
-    this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allSource= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSource);

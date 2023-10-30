@@ -1,0 +1,16 @@
+.head-container{
+    padding: 15px 0 10px 0;
+    padding-left: 0px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    background-color: transparent !important;
+}
+h1{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 20px;
+    color:#393939 !important;
+}
+.icon{
+    padding: 10px;
+    margin-top: 20px;
+}

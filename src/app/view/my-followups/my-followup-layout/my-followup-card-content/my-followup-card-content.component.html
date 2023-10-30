@@ -85,8 +85,16 @@
                 <div class="col  p-0">
                   <div ngbDropdown class="d-inline-block lead-dropdown">
                     <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
-                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                      <!-- <app-raw-data-card-more [leadName]="leadData.name"></app-raw-data-card-more> -->
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1"  class="more-dropdown">
+                      <div class="app-list" ngbDropdownToggle routerLink="../createEnterpriseTemplate">
+                        <i style="color: green;" class="bi bi-circle-fill"></i> Done
+                      </div>
+                      <div class="app-list" ngbDropdownToggle routerLink="../createEnterpriseTemplate">
+                        <i style="color: red;" class="bi bi-circle-fill"></i> Missed
+                      </div>
+                      <div class="app-list" ngbDropdownToggle routerLink="../createEnterpriseTemplate">
+                        <i style="color: rgb(208, 203, 62);" class="bi bi-circle-fill"></i> Planned
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -120,6 +120,13 @@ input:focus{
   .custom-calendar {
     border: 1px solid #ccc; 
     width: 100%; 
+    
 
-
+  }
+  .app-list{
+    padding: 3px;
+  } 
+  .more-dropdown{
+    width: 191px;
+    padding: 20px; 
   }
