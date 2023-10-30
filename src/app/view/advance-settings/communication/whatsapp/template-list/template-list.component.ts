@@ -30,7 +30,7 @@ export class TemplateListComponent implements AfterViewInit  {
   displayedColumns: string[] = [
     'template_name',
     // 'subject',
-    'template_type_id',
+    'template_type_name',
     'status',
     'Action',
 

@@ -1,0 +1,116 @@
+<div class="row">
+  <div class="col-8">
+    <app-my-followup-tool-bar></app-my-followup-tool-bar>
+    <div class="col-12 col-md-12" *ngFor="let leadData of leadData"> 
+      <mat-card class="p-1 lead-card-container">
+          <div class="row d-flex align-items-center">
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="row">
+                <div class="col-2 d-flex align-items-center">
+                  <mat-checkbox></mat-checkbox>
+                </div>
+                <div class="col">
+                  <div class="row">
+                    <div class="col-12 c-name point-set" (click)="editLead(leadData.name)">{{ leadData.name }} <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span></div>
+                    <div class="col-12 text-muted">{{ leadData.id }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-2">
+              <div class="row status-box">
+                <div class="col-6 top-bar truncate-text">{{ leadData.status }}</div>
+                <div class="col-6 top-bar">
+                  <span class="erp-box position-rel">ERP 
+                    <div class="position-absol">
+                      <i class="bi bi-arrow-up"></i>
+                    </div>
+                  </span>
+                </div>
+                <div class="col-12 text-muted">{{ leadData.leadStatus }}</div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-3 border-r">
+              <div class="row">
+                <div class="col p-0 text-center">
+                  <i class="bi bi-telephone"></i><span class="ps-1">{{ leadData.phoneNumber }}</span> 
+                </div>
+                <div class="col p-0 text-center">
+                  <i class="bi bi-chat-left"></i><span class="ps-1">{{ leadData.chatCount }}</span> 
+                </div>
+                <div class="col p-0 text-center">
+                  <i class="bi bi-envelope"></i> <span class="ps-1">{{ leadData.emailCount }}</span> 
+                </div>
+                <div class="col p-0 text-center">
+                  <i class="bi bi-chat-left-text"></i><span class="ps-1">{{ leadData.chatTextCount }}</span> 
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-sm-12 col-md-6 col-lg-1">
+              <div class="row"> -->
+                <!-- <div class="col p-0 text-center position-rel">
+                  <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ leadData.personCounts[0] }}</span>
+                </div>
+                <div class="col p-0 text-center  position-rel">
+                  <i class="bi bi-person" title="Lead Responses"></i><span class="badge clr-person-2" title="Lead Responses">{{ leadData.personCounts[1] }}</span>
+                </div>
+                <div class="col p-0 text-center  position-rel">
+                  <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ leadData.personCounts[2] }}</span>
+                </div> -->
+                <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(leadData.name)">View All</div> -->
+              <!-- </div>
+            </div> -->
+            <div class="col-sm-0 col-md-0 col-lg-1"></div>
+            <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="row">
+                <div class="col p-0" (click)="openVideoCall()">
+                  <i class="bi bi-camera-video-fill"></i>
+                </div>
+                <div class="col p-0" (click)="openCall(leadData.name)">
+                  <i class="bi bi-telephone-fill"></i>
+                </div>
+                <div class="col  p-0 position-rel" (click)="openSMS(leadData.name)">
+                  <i class="bi bi-x-circle-fill msg-close-icon"></i>
+                  <i class="bi bi-chat-left-dots-fill"></i>
+                </div>
+                <div class="col  p-0" (click)="openEmailChat(leadData.name)">
+                  <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div class="col  p-0" (click)="openWhatsAppChat()">
+                  <i class="bi bi-whatsapp"></i>
+                </div>
+                <!-- <div class="col  p-0">
+                  <i class="bi bi-wechat"></i>
+                </div> -->
+                <div class="col  p-0">
+                  <div ngbDropdown class="d-inline-block lead-dropdown">
+                    <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
+                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                      <!-- <app-raw-data-card-more [leadName]="leadData.name"></app-raw-data-card-more> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="col  p-0">
+                  <mat-icon class="common-class" *ngIf="!expandPanel"(click)="expandPanel=!expandPanel">expand_more</mat-icon>
+                  <mat-icon class="common-class" *ngIf="expandPanel" (click)="expandPanel=!expandPanel">expand_less</mat-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-------------EXPANSION PANEL------------------>
+          <ng-container *ngIf="expandPanel">
+            <app-my-followup-bottom-pannel></app-my-followup-bottom-pannel>
+          </ng-container>
+        </mat-card>
+        
+    </div>
+  </div>
+  <div class="col-4 " style="padding: 45px;">
+    <mat-calendar class="custom-calendar" [selected]="selectedDate" (selectedChange)="selectedDatePicker($event)"></mat-calendar>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,62 @@
+<mat-card>
+    <div class="row">
+        <div class="col d-flex ">
+            <p style="margin-right: 10px;color: blue;">All(0)</p>
+            <p style="margin-right: 10px;color: green;">Green - Done Followups(0)</p>
+            <p style="margin-right: 10px;color: red;">Red - Missed Followups(0)</p>
+            <p style="margin-right: 10px;color: rgb(208, 203, 62);">Yellow - Planned Followups(0)</p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-0 col-md-0 col-lg-8">
+          <app-my-followup-sort></app-my-followup-sort> 
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <div class="row">
+                <div class="col p-1" (click)="openVideoCall()">
+                    <i class="bi bi-camera-video-fill" ></i>
+                </div>
+                <!-- <div class="col p-1">
+                    <i class="bi bi-person-fill-up"></i>
+                </div> -->
+                <!-- <div class="col p-1">
+                    <i class="bi bi-megaphone-fill"></i>
+                </div> -->
+                <!-- <div class="col p-1" (click)="editLead('All')">
+                    <i class="bi bi-pencil-square"></i>
+                </div> -->
+                <!-- <div class="col p-1 position-rel" (click)="referLead()">
+                    <i class="bi bi-person-check-fill"></i>
+                </div>
+                <div class="col p-1" (click)="openWhatsAppChat()">
+                    <i class="bi bi-whatsapp"></i>
+                </div> -->
+                <div class="col p-1" (click)="openSMS('All')">
+                    <i class="bi bi-chat-left-dots-fill"></i>
+                </div>
+                <div class="col p-1" (click)="openEmailChat('All')">
+                    <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div class="col p-1">
+                    <mat-icon>autorenew</mat-icon>
+                </div>
+                <!-- <div class="col p-1">
+                    <mat-icon>save_alt</mat-icon>
+                </div> -->
+                <!-- <div class="col p-1 position-rel">
+                    <mat-icon>people</mat-icon>
+                    <mat-icon class="forward-icon">forward</mat-icon>
+                </div>
+                <div class="col p-1">
+                    <mat-icon>list</mat-icon>
+                </div> -->
+                <div class="col p-1">
+                    <i class="bi bi-funnel-fill"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+
+

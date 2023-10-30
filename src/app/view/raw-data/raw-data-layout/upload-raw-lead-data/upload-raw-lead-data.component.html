@@ -19,8 +19,8 @@
         <b>Step 1 - Select Appropriate Values to add basic Lead details.</b>
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Channel</mat-label>
-          <mat-select placeholder="Select Channel" formControlName="channel">
-            <mat-option *ngFor="let channels of channelList" [value]="channels">{{channels}}</mat-option> 
+          <mat-select placeholder="Select Channel" formControlName="channel_id">
+            <mat-option *ngFor="let item of allChannel" [value]="item.id">{{item.channel_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -36,55 +36,70 @@
         
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Source</mat-label>
-          <mat-select placeholder="Select Source" formControlName="source">
-            <mat-option *ngFor="let sources of sourceList" [value]="sources">{{sources}}</mat-option> 
+          <mat-select placeholder="Select Source" formControlName="source_id">
+            <mat-option *ngFor="let item of allSource" [value]="item.id">{{item.source_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('source')"
-            *ngIf="f['source']?.value"
+            (click)="clearSelectField('source_id')"
+            *ngIf="f['source_id']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
       
-
         <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Source</mat-label>
-          <mat-select placeholder="Select Source" formControlName="priority">
-            <mat-option *ngFor="let prioritys of priorityList" [value]="prioritys">{{prioritys}}</mat-option> 
+          <mat-label>Select Priority</mat-label>
+          <mat-select placeholder="Select Priority" formControlName="priority_id">
+            <mat-option *ngFor="let item of allPriority" [value]="item.priority_group_id">{{item.priority_group_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('priority')"
-            *ngIf="f['priority']?.value"
+            (click)="clearSelectField('priority_id')"
+            *ngIf="f['priority_id']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Status</mat-label>
+          <mat-select placeholder="Select Status" formControlName="status_id">
+            <mat-option *ngFor="let item of allStatus" [value]="item.id">{{item.status_name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('status_id')"
+            *ngIf="f['status_id']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
      
-        <mat-form-field class="mb-1" appearance="outline">
+        <!-- <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Substatus</mat-label>
-          <mat-select placeholder="Select Substatus" formControlName="status">
-            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option> 
+          <mat-select placeholder="Select Substatus" formControlName="sub_status_id">
+            <mat-option *ngFor="let item of allSubStatus" [value]="item.id">{{item.sub_status_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('status')"
-            *ngIf="f['status']?.value"
+            (click)="clearSelectField('sub_status_id')"
+            *ngIf="f['sub_status_id']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
-        </mat-form-field>
+        </mat-form-field> -->
       
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Lead Owner</mat-label>
@@ -103,47 +118,112 @@
           </button>
           <mat-error *ngIf="f['leadOwner'].hasError('required')">Lead Owner Is Required</mat-error>
         </mat-form-field>
-       
         <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Level of Program</mat-label>
-          <mat-select placeholder="Select Level of Program" formControlName="reason">
-            <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
+          <mat-label>Select Referred To</mat-label>
+          <mat-select placeholder="Select Lead Owner" formControlName="refered_to_ids">
+            <mat-option *ngFor="let leadOwner of leadOwnerList" [value]="leadOwner">{{leadOwner}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('reason')"
-            *ngIf="f['reason']?.value"
+            (click)="clearSelectField('refered_to_ids')"
+            *ngIf="f['refered_to_ids']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+          <mat-error *ngIf="f['refered_to_ids'].hasError('required')">Lead Owner Is Required</mat-error>
+        </mat-form-field>
+       
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Level of Program</mat-label>
+          <mat-select placeholder="Select Level of Program" formControlName="level_of_program_id">
+            <mat-option  *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('level_of_program_id')"
+            *ngIf="f['level_of_program_id']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Department</mat-label>
-          <mat-select placeholder="Select Department" formControlName="reason">
-            <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
+          <mat-select placeholder="Select Department" formControlName="departent_id">
+            <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('reason')"
-            *ngIf="f['reason']?.value"
+            (click)="clearSelectField('departent_id')"
+            *ngIf="f['departent_id']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Course</mat-label>
+          <mat-select placeholder="Select Course" formControlName="course_id">
+            <mat-option *ngFor="let item of allCourse" [value]="item.id">{{item.course_name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('course_id')"
+            *ngIf="f['course_id']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Country</mat-label>
+          <mat-select placeholder="Select Country" formControlName="country_id">
+            <mat-option *ngFor="let item of allCountry" [value]="item.id">{{item.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('country_id')"
+            *ngIf="f['country_id']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-form-field>
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select City</mat-label>
+          <mat-select placeholder="Select City" formControlName="city_id">
+            <mat-option *ngFor="let item of allCity" [value]="item.id">{{item.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('city_id')"
+            *ngIf="f['city_id']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
         </mat-form-field>
         <div class="row">
           <div class="col-12">
-              <mat-checkbox   >Send Welcome Mail</mat-checkbox>
+              <mat-checkbox  formControlName="send_welcome_email" >Send Welcome Mail</mat-checkbox>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-              <mat-checkbox   >Send Welcome SMS</mat-checkbox>
+              <mat-checkbox  formControlName="send_welcome_sms" >Send Welcome SMS</mat-checkbox>
           </div>
         </div>
         
@@ -151,7 +231,7 @@
 
         <div class="row mt-2">
           <div class="col-12">
-              <input  type="file"  placeholder="file">
+              <input  type="file" (change)="onChange($event)" placeholder="file">
           </div>
         </div>
          

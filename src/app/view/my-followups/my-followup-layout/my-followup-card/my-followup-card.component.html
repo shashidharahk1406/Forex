@@ -1,0 +1,25 @@
+
+<mat-tab-group class="lead-card-tabs">
+    <mat-card class="p-0 m-0">
+    <mat-tab label="Today's Followup (30)">
+    <app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
+    </mat-tab>
+    <mat-tab label="Issue GDPI Call Letter (24)">
+      <app-my-followup-card-content [leadData]="leadCards"[ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
+    </mat-tab>
+    <mat-tab label="Add Followup(3)">
+      <app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
+    </mat-tab>
+    <mat-tab label="Payment Details(3)">
+      <app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
+    </mat-tab>
+  </mat-card>
+  </mat-tab-group>
+ 
+  <button mat-fab aria-label="Example icon button with a menu icon" class="appCoColor add-btn" (click)="openAddNew()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-fab aria-label="Example icon button with a menu icon" class="appCoColor upload-btn" (click)="uploadLeads()">
+      <mat-icon class="forward-icon">forward</mat-icon>
+  </button>
+

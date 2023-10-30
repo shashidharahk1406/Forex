@@ -24,6 +24,9 @@ export class ApiService implements OnInit{
   getStatus(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/status?page_size=${size}&page=${pageNo}`)
   }
+  getAllStatus(){
+    return this.http.get(`${this.baseurl}/api/status`)
+  }
   getStatusById(id:any){
     return this.http.get(`${this.baseurl}/api/status/${id}/`)
   }
@@ -39,6 +42,9 @@ export class ApiService implements OnInit{
 
   getSubStatus(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/sub-status?page_size=${size}&page=${pageNo}`)
+  }
+  getAllSubStatus(){
+    return this.http.get(`${this.baseurl}/api/sub-status`)
   }
   getSubStatusById(id:any){
     return this.http.get(`${this.baseurl}/api/sub-status/${id}/`)
@@ -383,5 +389,10 @@ export class ApiService implements OnInit{
   // Warning Message
   showWarning(message: any) {
     this.toastr.warning(message);
+  }
+
+  //Raw data upload
+  postRawdata(data:any){
+    return this.http.post(`${this.baseurl}/api/upload-lead-data/`,data)
   }
 }
