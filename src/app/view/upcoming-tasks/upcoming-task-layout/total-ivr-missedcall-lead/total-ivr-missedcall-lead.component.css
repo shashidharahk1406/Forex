@@ -1,0 +1,18 @@
+h1{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 16px;
+    color:#393939 !important;
+}
+h2{
+    color: #F18036;
+    font-size: 12px;
+    margin: 0px;
+}
+table {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-elevation-z8{
+    box-shadow: none;
+  }

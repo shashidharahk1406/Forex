@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input type="text" class="form-control" placeholder="Search Status Name">
+        <input (keyup)="applyFilter($event)" type="text" class="form-control" placeholder="Search Status Name">
         <button class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>
@@ -59,5 +59,6 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
    

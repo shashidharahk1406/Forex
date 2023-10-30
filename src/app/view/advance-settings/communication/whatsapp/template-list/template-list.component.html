@@ -24,7 +24,7 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input type="text" class="form-control" placeholder="Search Template">
+        <input (keyup)="applyFilter($event)" type="text" class="form-control" placeholder="Search Template">
         <button class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>
@@ -47,9 +47,9 @@
       </ng-container>
     
       <!-- Define Mobile column -->
-      <ng-container matColumnDef="template_type_id">
+      <ng-container matColumnDef="template_type_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>TEMPLATE</th>
-        <td mat-cell *matCellDef="let element">{{ element.template_type_id }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.template_type_name }}</td>
       </ng-container>
     
       <!-- Define User Role column -->
@@ -95,5 +95,6 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
    

@@ -52,10 +52,11 @@ export class AddStateComponent implements OnInit {
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()
+          this.api.showSuccess(resp.message)
         },
         (error:any)=>{
-          console.log("error");
-          
+          console.log(error);
+          this.api.showError(error.error.message)
         }
       )
     }

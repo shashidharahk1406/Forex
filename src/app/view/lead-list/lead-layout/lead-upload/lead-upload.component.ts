@@ -71,6 +71,7 @@ export class LeadUploadComponent implements OnInit {
 
     ngOnInit(): void {
       this.initForm();
+
     }
     dropDownValues(){
       this.getCountry();
@@ -198,7 +199,7 @@ export class LeadUploadComponent implements OnInit {
     initForm(){
       this.uploadLeadForm = this.fb.group({
        //step-1
-       channel:[''],
+       channel_id:[''],
        source:[''],
        priority:[''],
        status:[''],

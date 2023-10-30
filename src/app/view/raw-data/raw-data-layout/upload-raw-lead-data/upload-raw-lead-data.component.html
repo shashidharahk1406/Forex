@@ -1,7 +1,6 @@
-<div>
-  
 
-<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+
+<ng-container>
     
   <mat-card class="p-0 m-0">
     <div class="add-users mat-dialog-header">
@@ -12,15 +11,15 @@
         </div>
       </div>
     </div>
-      <mat-dialog-content class="mat-typography">
+      <mat-dialog-content class="mat-typography mx-2">
         <form [formGroup]="uploadLeadForm"  >
-       <div class=" mx-4 my-2">
+       <div class="container">
         <ng-container>
-        <b>Step 1 - Select Appropriate Values to add basic Lead details.</b>
+        <b>Step 1 - Select Channel,Lead Owner,Referred To Details.</b>
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Channel</mat-label>
-          <mat-select placeholder="Select Channel" formControlName="channel">
-            <mat-option *ngFor="let channels of channelList" [value]="channels">{{channels}}</mat-option> 
+          <mat-select placeholder="Select Channel"  formControlName="channel">
+            <mat-option *ngFor="let channels of channelList" [value]="channels.id">{{channels.channel_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -37,7 +36,7 @@
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Source</mat-label>
           <mat-select placeholder="Select Source" formControlName="source">
-            <mat-option *ngFor="let sources of sourceList" [value]="sources">{{sources}}</mat-option> 
+            <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -53,9 +52,9 @@
       
 
         <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Source</mat-label>
-          <mat-select placeholder="Select Source" formControlName="priority">
-            <mat-option *ngFor="let prioritys of priorityList" [value]="prioritys">{{prioritys}}</mat-option> 
+          <mat-label>Select Priority</mat-label>
+          <mat-select placeholder="Select Priority" formControlName="priority">
+            <mat-option *ngFor="let prioritys of priorityList" [value]="prioritys.id">{{prioritys.name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -70,9 +69,9 @@
         </mat-form-field>
      
         <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Substatus</mat-label>
-          <mat-select placeholder="Select Substatus" formControlName="status">
-            <mat-option *ngFor="let status of statusList" [value]="status">{{status}}</mat-option> 
+          <mat-label>Select Status</mat-label>
+          <mat-select placeholder="Select Status" formControlName="status">
+            <mat-option *ngFor="let status of statusList" [value]="status.id">{{status.name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -89,7 +88,7 @@
         <mat-form-field class="mb-1" appearance="outline">
           <mat-label>Select Lead Owner</mat-label>
           <mat-select placeholder="Select Lead Owner" formControlName="leadOwner">
-            <mat-option *ngFor="let leadOwner of leadOwnerList" [value]="leadOwner">{{leadOwner}}</mat-option> 
+            <mat-option *ngFor="let leadOwner of leadOwnerList" [value]="leadOwner.id">{{leadOwner.name}}</mat-option> 
           </mat-select>
           <button
             mat-button
@@ -104,62 +103,130 @@
           <mat-error *ngIf="f['leadOwner'].hasError('required')">Lead Owner Is Required</mat-error>
         </mat-form-field>
        
+       
+
         <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Level of Program</mat-label>
-          <mat-select placeholder="Select Level of Program" formControlName="reason">
-            <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
+          <mat-label>Select Referred To</mat-label>
+          <mat-select placeholder="Select Referred To" formControlName="referedTo">
+            <mat-option *ngFor="let referedTo of referedToList" [value]="referedTo.id">{{referedTo.name}}</mat-option> 
           </mat-select>
           <button
             mat-button
             matSuffix
             mat-icon-button
             aria-label="Clear"
-            (click)="clearSelectField('reason')"
-            *ngIf="f['reason']?.value"
+            (click)="clearSelectField('referedTo')"
+            *ngIf="f['referedTo']?.value"
           >
             <mat-icon>clear</mat-icon>
           </button>
+          <mat-error *ngIf="f['referedTo'].hasError('required')">Referred To Is Required</mat-error>
         </mat-form-field>
-        <mat-form-field class="mb-1" appearance="outline">
-          <mat-label>Select Department</mat-label>
-          <mat-select placeholder="Select Department" formControlName="reason">
-            <mat-option *ngFor="let reason of reasonList" [value]="reason">{{reason}}</mat-option> 
-          </mat-select>
-          <button
-            mat-button
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="clearSelectField('reason')"
-            *ngIf="f['reason']?.value"
-          >
-            <mat-icon>clear</mat-icon>
-          </button>
-        </mat-form-field>
-        <div class="row">
-          <div class="col-12">
-              <mat-checkbox   >Send Welcome Mail</mat-checkbox>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-              <mat-checkbox   >Send Welcome SMS</mat-checkbox>
-          </div>
-        </div>
-        
-        <b>Step 2 - Upload File with prospect Canditate details.</b>
-
-        <div class="row mt-2">
-          <div class="col-12">
-              <input  type="file"  placeholder="file">
-          </div>
-        </div>
-         
-    
-
    
       </ng-container>
+      <ng-container>
+        <b>Step-2 Select Department,Course And Location Details</b>
+       
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Department</mat-label>
+          <mat-select placeholder="Select Department" formControlName="department">
+            <mat-option *ngFor="let department of departmentList" [value]="department.id">{{department.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('department')"
+            *ngIf="f['department']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
 
+        </mat-form-field>
+
+          
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Course</mat-label>
+          <mat-select placeholder="Select Course" formControlName="course">
+            <mat-option *ngFor="let course of courseList" [value]="course.id">{{course.course_name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('course')"
+            *ngIf="f['course']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        
+        </mat-form-field>
+
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select Country</mat-label>
+          <mat-select placeholder="Select Country" formControlName="country">
+            <mat-option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('country')"
+            *ngIf="f['country']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+        
+        </mat-form-field>
+
+        <mat-form-field class="mb-1" appearance="outline">
+          <mat-label>Select State</mat-label>
+          <mat-select placeholder="Select State" formControlName="state">
+            <mat-option *ngFor="let state of stateList" [value]="state.id">{{state.name}}</mat-option> 
+          </mat-select>
+          <button
+            mat-button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="clearSelectField('state')"
+            *ngIf="f['state']?.value"
+          >
+            <mat-icon>clear</mat-icon>
+          </button>
+       
+        </mat-form-field>
+        <div class="mb-2">
+          <mat-checkbox formControlName="welcomeEmail">Send Welcome Email</mat-checkbox>
+        </div>
+       <div class="mb-2">
+        <mat-checkbox formControlName="welcomeSms">Send Welcome SMS</mat-checkbox>
+       </div>
+       
+      </ng-container>
+      <ng-container>
+        <b class="mt-1">Step 3 - Upload File With Prospect Candidate Details <b class="mandatory-symbol">*</b></b>
+      
+        <!-- <mat-form-field class="my-2"> -->
+          <!-- <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles.item(0).name}}</mat-label> -->
+          <!-- <ng-template #newFile >
+              <mat-label>Choose file</mat-label>
+          </ng-template> -->
+          <!-- <input matInput disabled> -->
+          <!-- <button mat-icon-button matSuffix (click)="fileInput.click()">
+            <mat-icon class="forward-icon">forward</mat-icon>
+          </button> -->
+          <!-- <input  (change)="selectFile($event)"  type="file" id="file" >
+          -->
+          <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
+          <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
+            <mat-error *ngIf="f['leadUpload'].hasError('required')">Lead Upload Is Required</mat-error>
+          </div>
+        <!-- </mat-form-field> -->
+      </ng-container>
        
       </div>
     </form>
@@ -168,11 +235,9 @@
    
     <mat-dialog-actions class="d-flex">
       <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
-      <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">UPLOAD</button>
+      <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">UPLOAD</button>
     </mat-dialog-actions>
   </mat-card>
  
 </ng-container>
 
-
-</div>

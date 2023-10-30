@@ -55,11 +55,11 @@ export class AddCampaignComponent implements OnInit {
           this.dialogRef.close()
           console.log(resp);
           
-          this.api.showSuccess("jj")
+          this.api.showSuccess(resp.message)
         },
         (error:any)=>{
-          this.api.showError(error.error.message.status_name[0])
-          console.log(error);   
+          console.log(error);
+          this.api.showError(error.error.message)
         }
       )
     }

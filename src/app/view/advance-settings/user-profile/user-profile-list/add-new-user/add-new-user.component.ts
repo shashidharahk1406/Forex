@@ -31,8 +31,8 @@ export class AddNewUserComponent implements OnInit {
     this.addForm = this._fb.group({
       first_name:['',[Validators.required]],
       last_name:[''],
-      email:['',[Validators.required,Validators.required]],
-      mobile_number:[''],
+      email:['',[Validators.required,Validators.email]],
+      mobile_number:['', Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
       emp_key:[''],
       target:[''],
       start_date:[''],
@@ -134,10 +134,11 @@ submit(){
       (resp:any)=>{
         this.emit.sendRefresh(true)
         this.dialogRef.close()
+        this.api.showSuccess(resp.message)
       },
       (error:any)=>{
-        console.log("error");
-        
+        console.log(error);
+        this.api.showError(error.error.message)
       }
     )
   }
