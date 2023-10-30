@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-lead-bulk-sort',
@@ -6,12 +7,16 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./lead-bulk-sort.component.css']
 })
 export class LeadBulkSortComponent implements OnInit {
- @Output()selectedSort = new EventEmitter()
+ @Output()selectedSort:any = new EventEmitter()
+ @ViewChild('dateType')dateType!:MatListModule
+  selected: boolean = false;
   constructor() { }
   typesOfDate: string[] = ['Ascending','Decending','Creation Date', 'Modification Date', 'Next Action Date', 'Re-enquiry Date'];
   ngOnInit(): void {}
-  openNotification(){}
   onChange(event:any){
+    this.selected = true
     this.selectedSort.emit(event)
+    
+    console.log(this.dateType)
   }
 }

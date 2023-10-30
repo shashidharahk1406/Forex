@@ -93,7 +93,7 @@
               
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
-                <input matInput [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="nextActionDate">
+                <input matInput appFormSpace [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="nextActionDate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="f['nextActionDate'].hasError('required')">
@@ -110,7 +110,7 @@
              </div>
              <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Follow Up Comment</mat-label>
-                <textarea matInput placeholder="Enter Your Follow Up Comment" formControlName="followupComment"></textarea>
+                <textarea matInput appFormSpace placeholder="Enter Your Follow Up Comment" formControlName="followupComment"></textarea>
                 <mat-error *ngIf="f['followupComment'].hasError('required')">
                     Follow Up Comment Is Required.
                 </mat-error>

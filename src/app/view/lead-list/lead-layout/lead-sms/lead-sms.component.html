@@ -1,8 +1,8 @@
-<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+<ng-container >
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Send SMS To {{data.name}}</h1></div>
+            <div class="col"><h1 mat-dialog-title>Send SMS To {{data.user_data.first_name}}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>
@@ -40,7 +40,7 @@
                 </mat-form-field>
                 <mat-form-field class="mb-1" appearance="outline">
                     <!-- <mat-label>Textarea Label</mat-label> -->
-                    <textarea matInput rows="5" placeholder="Enter Your Text Here" formControlName="selectedTemplate"></textarea>
+                    <textarea matInput appFormSpace rows="5" placeholder="Enter Your Text Here" formControlName="selectedTemplate"></textarea>
                 </mat-form-field>
 
                 <mat-form-field class="mb-1" appearance="outline">

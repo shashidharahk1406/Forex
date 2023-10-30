@@ -11,5 +11,6 @@ export const environment = {
   lead_upload:'/api/upload-lead-data/',
   lead_refer:'/api/refer-lead-counsellor/',
   lead_note:'/api/note/',
-  _user:'/api/user'
+  _user:'/api/user',
+  lead_email:'/api/send-emails/'
 };

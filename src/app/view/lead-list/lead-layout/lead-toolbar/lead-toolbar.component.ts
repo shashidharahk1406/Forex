@@ -105,18 +105,17 @@ export class LeadToolbarComponent implements OnInit {
   bulkOpenEmailChat(name?:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {bulkIds:this.selectedLeads,allChecked:this.checkAll}
     };
     this._bottomSheet.open(LeadEmailComponent,config);
   }
-  openEmailChat(name?:any){
+  openEmailChat(selectedData?:any){
     this.addCount()
    
     let data = `Do You Want To Send Email To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
-      data:data
-
+      data: data
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

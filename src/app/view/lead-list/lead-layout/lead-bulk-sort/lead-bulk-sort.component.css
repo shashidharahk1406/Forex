@@ -28,4 +28,8 @@
     font-size: 16px !important;
     padding: 0px !important;   
 }
+mat-list-item:hover{
+  background: var(--appLightColor) !important;
+}
+
 

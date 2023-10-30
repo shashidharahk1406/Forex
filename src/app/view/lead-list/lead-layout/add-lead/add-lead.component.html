@@ -45,7 +45,7 @@
                
                    <mat-form-field appearance="outline" class="mb-1" >
                      <mat-label>Last Name</mat-label>
-                     <input matInput type="text" placeholder="Enter Your Last Name" formControlName="lastName" />
+                     <input matInput appFormSpace type="text" placeholder="Enter Your Last Name" formControlName="lastName" />
                      <mat-error *ngIf="f['lastName'].hasError('pattern')">
                       Invalid Name Format.Please Enter Characters.
                      </mat-error>
@@ -324,50 +324,50 @@
             </mat-expansion-panel-header>
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Primary Phone Number</mat-label>
-              <input matInput  formControlName="primaryNumber" placeholder="Enter A 10-Digit Primary Phone Number.">
+              <input matInput appFormSpace  formControlName="primaryNumber" placeholder="Enter A 10-Digit Primary Phone Number.">
               <mat-error *ngIf="f['primaryNumber'].hasError('pattern')">Please Enter A 10-Digit Primary Phone Number.</mat-error>
               <mat-error *ngIf="f['primaryNumber'].hasError('required')">Primary Phone Number Is Required.</mat-error>
             </mat-form-field>
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Alternate Phone Number</mat-label>
-              <input matInput formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+              <input matInput appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
               <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
               <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
             </mat-form-field>  
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Father's Phone Number</mat-label>
-              <input matInput formControlName="fathersNumber" placeholder="Enter A 10-Digit Father's Phone Number.">
+              <input matInput appFormSpace formControlName="fathersNumber" placeholder="Enter A 10-Digit Father's Phone Number.">
               <mat-error *ngIf="f['fathersNumber'].hasError('pattern')">Please Enter A 10-Digit Father's Phone Number.</mat-error>
               <mat-error *ngIf="f['fathersNumber'].hasError('required')">Father's Phone Number Is Required.</mat-error>
             </mat-form-field>
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Mother's Phone Number</mat-label>
-              <input matInput formControlName="mothersNumber" placeholder="Enter A 10-Digit Mother's Phone Number.">
+              <input matInput appFormSpace formControlName="mothersNumber" placeholder="Enter A 10-Digit Mother's Phone Number.">
               <mat-error *ngIf="f['mothersNumber'].hasError('pattern')">Please Enter A 10-Digit Mother's Phone Number.</mat-error>
               <mat-error *ngIf="f['mothersNumber'].hasError('required')">Mother's Phone Number Is Required.</mat-error>
             </mat-form-field>
 
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Primary Email Id</mat-label>
-              <input matInput  formControlName="primaryEmail" placeholder="Enter A  Primary Email Id.">
+              <input matInput appFormSpace  formControlName="primaryEmail" placeholder="Enter A  Primary Email Id.">
               <mat-error *ngIf="f['primaryEmail'].hasError('email')">Invalid Email Format.</mat-error>
               <mat-error *ngIf="f['primaryEmail'].hasError('required')">Primary Email Id Is Required.</mat-error>
             </mat-form-field>
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Alternate Email Id</mat-label>
-              <input matInput formControlName="alternateEmail" placeholder="Enter A  Alternate Email Id.">
+              <input matInput appFormSpace formControlName="alternateEmail" placeholder="Enter A  Alternate Email Id.">
               <mat-error *ngIf="f['alternateEmail'].hasError('email')">Invalid Email Format.</mat-error>
               <mat-error *ngIf="f['alternateEmail'].hasError('required')">Alternate Email Id Is Required.</mat-error>
             </mat-form-field>  
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Father's Email Id</mat-label>
-              <input matInput formControlName="fathersEmail" placeholder="Enter A  Father's Email Id.">
+              <input matInput appFormSpace formControlName="fathersEmail" placeholder="Enter A  Father's Email Id.">
               <mat-error *ngIf="f['fathersEmail'].hasError('email')">Invalid Email Format.</mat-error>
               <mat-error *ngIf="f['fathersEmail'].hasError('required')">Father's Email Id Is Required.</mat-error>
             </mat-form-field>
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Mother's Email Id</mat-label>
-              <input matInput formControlName="mothersEmail" placeholder="Enter A  Mother's Email Id.">
+              <input matInput appFormSpace formControlName="mothersEmail" placeholder="Enter A  Mother's Email Id.">
               <mat-error *ngIf="f['mothersEmail'].hasError('email')">Invalid Email Format.</mat-error>
               <mat-error *ngIf="f['mothersEmail'].hasError('required')">Mother's Email Id Is Required.</mat-error>
             </mat-form-field>

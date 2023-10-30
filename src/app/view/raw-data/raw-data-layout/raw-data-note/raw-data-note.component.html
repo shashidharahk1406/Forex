@@ -31,7 +31,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Add Note</mat-label>
-                <textarea matInput placeholder="Enter Your Note" formControlName="leadNote"></textarea>
+                <textarea matInput appFormSpace placeholder="Enter Your Note" formControlName="leadNote"></textarea>
                 <mat-error *ngIf="f['leadNote'].hasError('required')">
                     Note Is Required.
                 </mat-error>

@@ -72,7 +72,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-6">
                     <mat-form-field appearance="outline">
                       <mat-label>First Name </mat-label>
-                      <input matInput placeholder="Enter Your First Name" formControlName="firstName" >
+                      <input matInput appFormSpace placeholder="Enter Your First Name" formControlName="firstName" >
                       <mat-error *ngIf="f['firstName'].invalid && f['firstName'].touched">
                         <span *ngIf="f['firstName'].errors && f['firstName'].errors['required']">First Name is required</span>
                         <span *ngIf="!f['firstName'].hasError('required') && f['firstName'].hasError('pattern')">Invalid First Name</span>
@@ -85,7 +85,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-6">
                     <mat-form-field appearance="outline">
                       <mat-label>Last Name</mat-label>
-                      <input matInput placeholder="Enter Your Last Name" formControlName="lastName" (input)="checkValidity(replaceUserForm.get('lastName'))">
+                      <input matInput appFormSpace placeholder="Enter Your Last Name" formControlName="lastName" (input)="checkValidity(replaceUserForm.get('lastName'))">
                       <mat-error *ngIf="replaceUserForm.get('lastName')?.hasError('pattern')">Invalid Last Name</mat-error>
                     </mat-form-field>
                   </div>
@@ -95,7 +95,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-6">
                     <mat-form-field appearance="outline">
                       <mat-label>Mobile Number</mat-label>
-                      <input matInput placeholder="Enter Your Mobile Number" formControlName="mobileNumber">
+                      <input matInput appFormSpace placeholder="Enter Your Mobile Number" formControlName="mobileNumber">
                       <mat-error *ngIf="replaceUserForm.get('mobileNumber')?.hasError('pattern')">
                         Invalid Mobile Number
                       </mat-error>
@@ -104,7 +104,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-6">
                     <mat-form-field appearance="outline">
                       <mat-label>Employee Key</mat-label>
-                      <input matInput placeholder="Enter Your Employee Key" formControlName="employeeKey">
+                      <input matInput appFormSpace placeholder="Enter Your Employee Key" formControlName="employeeKey">
                     </mat-form-field>
                   </div>
                 </div>
@@ -112,13 +112,13 @@
                   <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Target</mat-label>
-                      <input matInput placeholder="Enter Your Target" formControlName="target">
+                      <input matInput appFormSpace placeholder="Enter Your Target" formControlName="target">
                     </mat-form-field>
                   </div>
                   <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
                     <mat-form-field appearance="outline">
                       <mat-label>Start Date</mat-label>
-                      <input matInput [matDatepicker]="picker" placeholder="Choose A Date" formControlName="startDate">
+                      <input matInput appFormSpace [matDatepicker]="picker" placeholder="Choose A Date" formControlName="startDate">
                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>

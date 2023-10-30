@@ -12,6 +12,7 @@ import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericDeleteComponent } from './generic-delete/generic-delete.component';
 import { NodataComponent } from './nodata/nodata.component';
 import { GenericCountComponent } from './generic-count/generic-count.component';
+import { FormSpaceDirective } from './form-space.directive';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { GenericCountComponent } from './generic-count/generic-count.component';
     LoginListComponent,
     GenericDeleteComponent,
     NodataComponent,
-    GenericCountComponent
+    GenericCountComponent,
+    FormSpaceDirective
   ],
   imports: [
     CommonModule,
@@ -46,6 +48,7 @@ import { GenericCountComponent } from './generic-count/generic-count.component';
     NgbTimepickerModule,
     NodataComponent ,
     JsonPipe,
+    FormSpaceDirective
   ]
 })
 export class SharedModule { }

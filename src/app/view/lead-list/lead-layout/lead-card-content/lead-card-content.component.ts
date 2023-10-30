@@ -73,9 +73,6 @@ selectAll():any {
   
 }
 
-
-
-
   
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
@@ -84,20 +81,20 @@ selectAll():any {
       this.expandedCardIndex = index;
     }
   }
-  openCall(name:string){
+  openCall(selectedData:string){
     const dialogRef = this.dialog.open(LeadCallComponent, {
       width:'30%',
-      data: {name:name}
+      data: selectedData
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
   }
-  openSMS(name:any): void {
+  openSMS(selectedData:any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data:selectedData
     };
     this._bottomSheet.open(LeadSMSComponent,config);
   }
@@ -110,10 +107,10 @@ selectAll():any {
       console.log('The dialog was closed');
     });
   }
-  openEmailChat(name:any){
+  openEmailChat(selectedData:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {selectedData:selectedData,bulkIds:this.selectedCheckboxIds,allChecked:this.checked}
     };
     this._bottomSheet.open(LeadEmailComponent,config);
   }

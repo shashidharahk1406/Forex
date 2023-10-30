@@ -16,7 +16,7 @@
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline">
                       <mat-label>Full Name</mat-label>
-                      <input matInput formControlName="fullName" placeholder="Enter Your Full Name" required>
+                      <input matInput appFormSpace formControlName="fullName" placeholder="Enter Your Full Name" required>
                       <mat-error *ngIf="quickAddForm.get('fullName')?.hasError('required')">Full Name Is Required</mat-error>
                     
                     </mat-form-field>
@@ -24,7 +24,7 @@
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline">
                       <mat-label>Email</mat-label>
-                      <input matInput formControlName="email" required placeholder="Enter Your Email Id">
+                      <input matInput appFormSpace formControlName="email" required placeholder="Enter Your Email Id">
                       <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email Is Required</mat-error>
                       <mat-error *ngIf="quickAddForm.get('email')?.hasError('email')">Invalid Email Format</mat-error>
                     </mat-form-field>
@@ -34,7 +34,7 @@
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline" >
                       <mat-label>Mobile Number</mat-label>
-                      <input matInput type="tel" placeholder="Enter Your Mobile Number">
+                      <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number">
                     </mat-form-field>
               </div>
               <div class="col-sm-12 col-md-12 col-lg-6">
