@@ -37,8 +37,6 @@ export class CreateTemplateComponent implements OnInit {
     name: ['',[Validators.required]],
     message: ['',[Validators.required]],
     template_category_id: [2,[Validators.required]],
-    language_id: [null],
-    template_type_id: ['',[Validators.required]],    
   });
   this.getPlaceHolder()
 

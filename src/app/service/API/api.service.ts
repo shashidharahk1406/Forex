@@ -16,6 +16,16 @@ export class ApiService implements OnInit{
     return this.http.post(`${this.baseurl}/api/user-login/`,data)
   }
   //Login
+  //ResetLink
+  sendResetLink(data:any){
+    return this.http.post(`${this.baseurl}/api/reset-password/`,data)
+  }
+  //ResetLink
+  //NewPassword
+  sendNewPassword(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/reset-password/${id}/`,data)
+  }
+  //NewPassword
 
 
   //Advanced Settings api
