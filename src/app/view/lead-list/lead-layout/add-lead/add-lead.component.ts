@@ -335,18 +335,22 @@ export class AddLeadComponent implements OnInit {
       country_id:f.countryId,
       state_id:f.state,
       city_id:f.cityName,
+      role_id:5,
       new_channel_id:f.newChannel,
       campaign_id:f.campaign,
       medium_id:f.medium,
       level_of_program_id:f.levelOfProgram,
-      alternate_phone_number:f.alternateNumber,
-      primary_phone_number: f.primaryNumber,
-      father_phone_number:f.fathersNumber,
-      mother_phone_number:f.mothersNumber,
-      alternate_email:f.alternateEmail,
-      primary_email:f.primaryEmail,
-      father_email:f.fathersEmail,
-      mother_email:f.mothersEmail
+     
+      lead_contact:{
+        alternate_phone_number:f.alternateNumber,
+        primary_phone_number: f.primaryNumber,
+        father_phone_number:f.fathersNumber,
+        mother_phone_number:f.mothersNumber,
+        alternate_email:f.alternateEmail,
+        primary_email:f.primaryEmail,
+        father_email:f.fathersEmail,
+        mother_email:f.mothersEmail
+    }
      }
     if(this.addNewLead.invalid){
       this.addNewLead.markAllAsTouched()

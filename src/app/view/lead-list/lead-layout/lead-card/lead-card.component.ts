@@ -27,6 +27,8 @@ export class LeadCardComponent implements OnInit {
   totalPageLength:any;
   totalNumberOfRecords:any;
   statusArray:any = []
+  sorting: boolean = false;
+  sortingType: any;
  
   
   constructor(
@@ -43,37 +45,9 @@ export class LeadCardComponent implements OnInit {
     this._bottomSheet.open(AddLeadComponent,config);
   }
   onChangeSorting(event:any){
-    // Clone the original data to a new array
-  let sortedData: any = [...this.allLeadCardsDataSource.data];
-
-  if (event.target.innerText === 'Ascending') {
-    // Sort the new array in ascending order
-    sortedData.sort((a: any, b: any) => {
-      const nameA = a.user_data.first_name.toLowerCase();
-      const nameB = b.user_data.first_name.toLowerCase();
-      return nameA.localeCompare(nameB);
-    });
-    this.allLeadCardsDataSource = new MatTableDataSource<any>(sortedData);
-
-  console.log(this.allLeadCardsDataSource.data, sortedData, "DATA");
-   
-  } else if (event.target.innerText === 'Decending') {
-    // Sort the new array in descending order
-    sortedData.sort((a: any, b: any) => {
-      const nameA = a.user_data.first_name.toLowerCase();
-      const nameB = b.user_data.first_name.toLowerCase();
-      return nameB.localeCompare(nameA);
-    });
-    this.allLeadCardsDataSource = new MatTableDataSource<any>(sortedData);
-
-  console.log(this.allLeadCardsDataSource.data, sortedData, "DATA");
-   
-  }
-
-  // Assign the sorted data back to this.allLeadCardsDataSource
-  
-    else{
-      this.query = `?sort_by=${event.target.innerText}&page=1&page_size=10`
+    this.sorting = true
+     this.sortingType = event.target.innerText
+      this.query = `?sort_by=${this.sortingType}&page=1&page_size=10`
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results) {
           this.leadCards = res.results;
@@ -83,7 +57,6 @@ export class LeadCardComponent implements OnInit {
       }, (error: any) => {
         this.api.showError(error.error.message);
       });
-    }
   }
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
@@ -96,6 +69,18 @@ export class LeadCardComponent implements OnInit {
     this.getLeadData('tabLabel')
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadData('tabLabel')
+    });
+  }
+  applySearch(event:any){
+    this.query = `?key=${event}&page=${this.currentPage}&page_size=${this.pageSize}`
+    this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
+      if (res.results) {
+        this.leadCards = res.results;
+        this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+        this.totalNumberOfRecords = res.total_no_of_record
+      }
+    }, (error: any) => {
+      this.api.showError(error.error.message);
     });
   }
   getStatus(){
@@ -151,11 +136,15 @@ export class LeadCardComponent implements OnInit {
   
   onPageChange(event: any, dataSource: MatTableDataSource<any>,type?:any) {
     if(event){
-      console.log(dataSource)
-      const startIndex = event.pageIndex * event.pageSize;
       this.currentPage = event.pageIndex + 1;
       if(type === 'All'){
-        this._baseService.getData(`${environment.lead_list}?page=${this.currentPage}&page_size=${event.pageSize}`).subscribe((res: any) => {
+        let query:any;
+        if(this.sorting){
+          query = `?page=${this.currentPage}&page_size=${event.pageSize}&sort_by=${this.sortingType}`
+        }else{
+           query = `?page=${this.currentPage}&page_size=${event.pageSize}`
+        }
+        this._baseService.getData(`${environment.lead_list}${query}`).subscribe((res: any) => {
           if (res.results) {
             this.leadCards = res.results;
             this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
@@ -166,8 +155,13 @@ export class LeadCardComponent implements OnInit {
         });
       }
       else{
+        let query:any;
+        if(this.sorting){
+          query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}&sort_by=${this.sortingType}`
+        }else{
+           query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}`
+        }
         
-        let query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}`
           this._baseService.getData(`${environment.lead_list}${query}`).subscribe((res: any) => {
             if (res.results) {
                 this.leadCards = res.results;

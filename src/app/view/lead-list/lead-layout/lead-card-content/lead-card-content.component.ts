@@ -19,6 +19,7 @@ export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
   @Output()deleteLead = new EventEmitter()
   @Output()selectedSort = new EventEmitter()
+  @Output()
   expandPanel=false;
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
@@ -26,6 +27,7 @@ export class LeadCardContentComponent implements OnInit {
   checked: boolean = false;
   selectAllChecked: boolean = false;
   checkAll:boolean = false;
+  @Output()selectedSearch = new EventEmitter;
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef) {}
   delete(event:any){
@@ -39,6 +41,9 @@ export class LeadCardContentComponent implements OnInit {
   }
   onChange(event:any){
     this.selectedSort.emit(event)
+  }
+  search(event:any){
+   this.selectedSearch.emit(event)
   }
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
     if (event.checked) {
@@ -57,21 +62,21 @@ export class LeadCardContentComponent implements OnInit {
   }
   
 
-selectAll():any {
-  // Toggle the selectAllChecked state
-  this.checkAll = !this.checkAll;
+  selectAll():any {
+    // Toggle the selectAllChecked state
+    this.checkAll = !this.checkAll;
 
-  if (this.checkAll) {
-    // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-    this.selectedCheckboxIds = this.leadData.map((item:any) => item.id);
-    this.checked = true
-  } else {
-    // If "Select All" is unchecked, clear the selectedCheckboxIds array
-    this.selectedCheckboxIds = [];
-    this.checked = false
+    if (this.checkAll) {
+      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+      this.selectedCheckboxIds = this.leadData.map((item:any) => item.id);
+      this.checked = true
+    } else {
+      // If "Select All" is unchecked, clear the selectedCheckboxIds array
+      this.selectedCheckboxIds = [];
+      this.checked = false
+    }
+    
   }
-  
-}
 
   
   expandCard(index: number) {

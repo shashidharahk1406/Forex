@@ -26,3 +26,10 @@ i,mat-icon{
 .p-1{
  text-align: center;
 }
+.btn-outline-primary:hover .bi-search{
+ color:#FFF;
+}
+.form-control:focus{
+    box-shadow: none !important;
+    border: 1px solid var(--appColor) !important;
+}

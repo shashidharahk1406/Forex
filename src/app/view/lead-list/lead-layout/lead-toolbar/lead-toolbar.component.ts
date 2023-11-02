@@ -19,6 +19,8 @@ export class LeadToolbarComponent implements OnInit {
  @Input()checkAll:any;
  @Output()selectedSort = new EventEmitter()
   data!: any;
+  leadSearch:any;
+  @Output()selectedSearch = new EventEmitter()
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
   ngOnInit(): void {}
@@ -29,6 +31,9 @@ export class LeadToolbarComponent implements OnInit {
   }
   onSelect(event:any){
     this.selectedSort.emit(event)
+  }
+  search(event:any){
+    this.selectedSearch.emit(event)
   }
   bulkVideoCall(){
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {

@@ -11,51 +11,46 @@
   </div>
   <mat-dialog-content class="pb-3">
     <div class="quickAdd-container">
-      <form [formGroup]="quickAddForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="quickAddForm" >
           <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline">
-                      <mat-label>Full Name</mat-label>
-                      <input matInput appFormSpace formControlName="fullName" placeholder="Enter Your Full Name" required>
-                      <mat-error *ngIf="quickAddForm.get('fullName')?.hasError('required')">Full Name Is Required</mat-error>
+                      <mat-label>First Name</mat-label>
+                      <input matInput appFormSpace formControlName="firstName" placeholder="Enter Your First Name" required>
+                      <mat-error *ngIf="quickAddForm.get('firstName')?.hasError('required')">First Name Is Required</mat-error>
                     
                     </mat-form-field>
               </div>
               <div class="col-sm-12 col-md-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                      <mat-label>Email</mat-label>
-                      <input matInput appFormSpace formControlName="email" required placeholder="Enter Your Email Id">
-                      <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email Is Required</mat-error>
-                      <mat-error *ngIf="quickAddForm.get('email')?.hasError('email')">Invalid Email Format</mat-error>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput appFormSpace formControlName="lastName" placeholder="Enter Your Last Name" required>
+                      <mat-error *ngIf="quickAddForm.get('lastName')?.hasError('required')">Last Name Is Required</mat-error> 
                     </mat-form-field>
               </div>
           </div>
           <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput appFormSpace formControlName="email" required placeholder="Enter Your Email Id">
+                <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email Is Required</mat-error>
+                <mat-error *ngIf="quickAddForm.get('email')?.hasError('email')">Invalid Email Format</mat-error>
+              </mat-form-field> 
+            </div>
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline" >
                       <mat-label>Mobile Number</mat-label>
-                      <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number">
+                      <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number" formControlName="mobile">
                     </mat-form-field>
               </div>
-              <div class="col-sm-12 col-md-12 col-lg-6">
-                  <mat-form-field appearance="outline">
-                      <mat-label>Channel</mat-label>
-                      <mat-select formControlName="channel" placeholder="Enter Your Channel">
-                        <mat-option *ngFor="let channel of channels" [value]="channel">{{ channel }}</mat-option>
-                      </mat-select>
-                      <button mat-icon-button matSuffix *ngIf="quickAddForm.get('channel')?.value" (click)="clearChannel()">
-                        <mat-icon>clear</mat-icon>
-                      </button>
-                    </mat-form-field>
-              </div>
-             
           </div>
           <div class="row">
               <div class="col-sm-12 col-md-12 col-lg-6">
                   <mat-form-field appearance="outline">
                       <mat-label>Source</mat-label>
                       <mat-select formControlName="source" required placeholder="Enter Your Source">
-                        <mat-option *ngFor="let source of sources" [value]="source">{{ source }}</mat-option>
+                        <mat-option *ngFor="let source of sources" [value]="source.id">{{ source.source_name }}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="quickAddForm.get('source')?.hasError('required')">Source Is Required</mat-error>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('source')?.value" (click)="clearSource()">
@@ -67,7 +62,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Campaign</mat-label>
                       <mat-select formControlName="campaign" >
-                        <mat-option *ngFor="let campaign of campaigns" [value]="campaign">{{ campaign }}</mat-option>
+                        <mat-option *ngFor="let campaign of campaigns" [value]="campaign.id">{{ campaign.campaign_name }}</mat-option>
                       </mat-select>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('campaign')?.value" (click)="clearCampaign()">
                         <mat-icon>clear</mat-icon>
@@ -81,7 +76,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Medium</mat-label>
                       <mat-select formControlName="medium" >
-                        <mat-option *ngFor="let medium of mediums" [value]="medium">{{ medium }}</mat-option>
+                        <mat-option *ngFor="let medium of mediums" [value]="medium.id">{{ medium.medium_name }}</mat-option>
                       </mat-select>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('medium')?.value" (click)="clearMedium()">
                         <mat-icon>clear</mat-icon>
@@ -92,7 +87,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Level of Program</mat-label>
                       <mat-select formControlName="level" required>
-                        <mat-option *ngFor="let level of levels" [value]="level">{{ level }}</mat-option>
+                        <mat-option *ngFor="let level of levels" [value]="level.id">{{ level.name }}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="quickAddForm.get('level')?.hasError('required')">Level of Program Is Required</mat-error>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('level')?.value" (click)="clearLevel()">
@@ -107,7 +102,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Department</mat-label>
                       <mat-select formControlName="department" required>
-                        <mat-option *ngFor="let department of departments" [value]="department">{{ department }}</mat-option>
+                        <mat-option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="quickAddForm.get('department')?.hasError('required')">Department Is Required</mat-error>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('department')?.value" (click)="clearDepartment()">
@@ -119,7 +114,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Course</mat-label>
                       <mat-select formControlName="course" required>
-                        <mat-option *ngFor="let course of courses" [value]="course">{{ course }}</mat-option>
+                        <mat-option *ngFor="let course of courses" [value]="course.id">{{ course.course_name }}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="quickAddForm.get('course')?.hasError('required')">Course Is Required</mat-error>
                       <button mat-icon-button matSuffix *ngIf="quickAddForm.get('course')?.value" (click)="clearCourse()">
@@ -129,7 +124,22 @@
               </div>
               
           </div>
-         <div class="row">
+          <div class="row">
+           
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Channel</mat-label>
+                    <mat-select formControlName="channel" placeholder="Enter Your Channel">
+                      <mat-option *ngFor="let channel of channels" [value]="channel.id">{{ channel.channel_name }}</mat-option>
+                    </mat-select>
+                    <button mat-icon-button matSuffix *ngIf="quickAddForm.get('channel')?.value" (click)="clearChannel()">
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                  </mat-form-field>
+            </div>
+           
+        </div>
+         <!-- <div class="row">
           <div class="col-sm-12 mt-2 col-md-6 col-lg-3">
               <mat-checkbox formControlName="welcomeEmail" >Send Welcome Email</mat-checkbox>
           </div>
@@ -138,13 +148,13 @@
               <mat-checkbox formControlName="welcomeSms" >Send Welcome SMS</mat-checkbox>
           </div>
          </div>
-        
+         -->
         </form>
       </div>
   </mat-dialog-content>
   <div mat-dialog-actions class="mb-1">
     <button mat-button mat-dialog-close class="mat-cancel">SAVE & CLOSE</button>
-    <button mat-button type="submit" class="mat-disable" cdkFocusInitial>SAVE & ADD MORE</button>
+    <button mat-button type="submit" class="mat-disable" cdkFocusInitial (click)="onSubmit()">SAVE & ADD MORE</button>
   </div>
 </mat-card>
 

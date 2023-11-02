@@ -1,6 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quick-add',
@@ -10,22 +15,32 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class QuickAddComponent implements OnInit {
   quickAddForm!: FormGroup;
 
-  channels: string[] = ['Channel 1', 'Channel 2', 'Channel 3'];
-  sources: string[] = ['Source 1', 'Source 2', 'Source 3'];
-  campaigns: string[] = ['Campaign 1', 'Campaign 2', 'Campaign 3'];
-  mediums: string[] = ['Medium 1', 'Medium 2', 'Medium 3'];
-  levels: string[] = ['Level 1', 'Level 2', 'Level 3'];
-  departments: string[] = ['Department 1', 'Department 2', 'Department 3'];
-  courses: string[] = ['Course 1', 'Course 2', 'Course 3'];
+  channels:any = [];
+  sources:any = [];
+  campaigns:any = [];
+  mediums:any = [];
+  levels:any = [];
+  departments:any = [];
+  courses:any = [];
 
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<QuickAddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private api:ApiService,
+    private _baseService:BaseServiceService,
+    private _commonService:CommonServiceService,
+    private _addLeadEmitter:AddLeadEmitterService) {}
 
   ngOnInit() {
+    this.dropDownList()
+    this.initForm()
+  }
+  initForm(){
     this.quickAddForm = this.formBuilder.group({
-      fullName: ['', Validators.required],
+      firstName: ['', Validators.required,Validators.pattern(this._commonService.namePattern)],
+      lastName: ['', Validators.required,,Validators.pattern(this._commonService.namePattern)],
       email: ['', [Validators.required, Validators.email]],
+      mobile:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
       channel: [''],
       source: ['', Validators.required],
       campaign: [''],
@@ -33,10 +48,109 @@ export class QuickAddComponent implements OnInit {
       level: ['', Validators.required],
       department: ['', Validators.required],
       course: ['', Validators.required],
-      welcomeEmail:[''],
-      welcomeSms:[]
     });
   }
+  dropDownList(){
+    this.getChannel()
+    this.getSource()
+    this.getCampign()
+    this.getCourse()
+    this.getDepartment()
+    this.getLevelOfProgram()
+    this.getMedium()
+  }
+  getChannel(){
+    this.api.getAllChannel().subscribe((resp:any)=>{
+      if(resp.results){
+        this.channels= resp.results;
+        console.log(this.channels,"this.newChannelOptions")
+      }
+      else{
+        this.api.showError('ERROR')
+      }  
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    }
+
+    )
+  }
+  getSource(){
+    this.api.getAllSource().subscribe((res:any)=>{
+     if(res.results){
+      this.sources = res.results
+     }
+     else{
+      this.api.showError('ERROR')
+     }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+      
+    })
+  }
+ 
+  getCampign(){
+    this.api.getAllCampign().subscribe((res:any)=>{
+      if(res.results){
+        this.campaigns = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getDepartment(){
+    this.api.getAllDepartment().subscribe((res:any)=>{
+      if(res.results){
+        this.departments = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getCourse(){
+    this.api.getAllCourse().subscribe((res:any)=>{
+      if(res.results){
+        this.courses = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      })
+  }
+  getMedium(){
+    this.api.getAllMedium().subscribe((res:any)=>{
+      if(res.results){
+        this.mediums = res.results
+      } else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+    })
+  }
+  getLevelOfProgram(){
+    this.api.getAllLevelOfProgram().subscribe((res:any)=>{
+      if(res.results){
+        this.levels = res.results 
+      } else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+    })
+  }
+
 
   clearSource() {
     this.quickAddForm.get('source')?.setValue('');
@@ -64,13 +178,71 @@ export class QuickAddComponent implements OnInit {
   clearChannel(){
     this.quickAddForm.get('channel')?.setValue('');
   }
-  onSubmit() {
-    if (this.quickAddForm.valid) {
-      // Form is valid, perform submission logic here
-    } else {
-      // Form is invalid, display error messages
-      this.quickAddForm.markAllAsTouched();
+  
+  onSubmit(){
+    let f = this.quickAddForm.value
+   
+     let data:any ={
+      user_data: {
+          first_name: f.firstName,
+          last_name: f.lastName,
+          email: f.email,
+          mobile_number: f.mobile
+      },
+  
+      higest_qualification: null,
+      campaign_name:null,
+      season_id:f.season,
+      channel_id:f.channel,
+      source_id:f.source,
+      priority_id:null,
+      refered_to_id:null,
+      lead_list_status_id:null,
+      lead_list_substatus_id:null,
+      department_id:f.department,
+      date_of_birth:null,
+      course_id:f.course,
+      location: null,
+      year_of_passing:null,
+      best_time_to_call:null,
+      country_id:null,
+      state_id:null,
+      city_id:null,
+      role_id:5,
+      new_channel_id:null,
+      campaign_id:f.campaign,
+      medium_id:f.medium,
+      level_of_program_id:f.levels,
+      lead_contact:{
+        alternate_phone_number:null,
+        primary_phone_number: null,
+        father_phone_number:null,
+        mother_phone_number:null,
+        alternate_email:null,
+        primary_email:null,
+        father_email:null,
+        mother_email:null
+    }
+    
+     }
+    if(this.quickAddForm.invalid){
+      this.quickAddForm.markAllAsTouched()
+      
+    }
+    else{
+      this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
+        if(res){
+          // this.addLead.emit('ADD')
+          this.api.showSuccess(res.message)
+          this.dialogRef.close('yes');
+          this._addLeadEmitter.triggerGet();
+        }
+        else{
+          this.api.showError("ERROR !")
+        }
+      },((error:any)=>{
+        this.api.showError(error.error.error.message)
+      }))
     }
   }
-
 }
