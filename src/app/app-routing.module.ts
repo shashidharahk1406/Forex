@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 const routes: Routes = [
   
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'forgotPass', 
     component:ForgotPasswordComponent
+  },
+  {
+    path: 'reset-password/:id', 
+    component:ResetPasswordComponent
   },
   {
     path: 'update-lead', 

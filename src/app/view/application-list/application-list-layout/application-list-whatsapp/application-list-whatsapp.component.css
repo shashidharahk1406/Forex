@@ -1,0 +1,22 @@
+.mat-dialog-content{
+    margin: 0 !important;
+    padding: 0 20px !important;
+    overflow-y: hidden !important;
+    font-size: 13px;
+}
+.mat-dialog-actions {
+    padding: 10px 20px 34px !important;
+}
+mat-card{
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+}
+.mat-radio-button{
+    font-size: 12px;
+    color: gray;
+    padding-right: 5px;
+}
+.set-custom-h{
+    height: 20vh;
+}

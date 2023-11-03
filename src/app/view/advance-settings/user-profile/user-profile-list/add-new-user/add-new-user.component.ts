@@ -32,8 +32,8 @@ export class AddNewUserComponent implements OnInit {
       first_name:['',[Validators.required]],
       last_name:[''],
       email:['',[Validators.required,Validators.email]],
-      mobile_number:['', Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
-      emp_key:[''],
+      mobile_number:['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
+      emp_key:[null],
       target:[''],
       start_date:[''],
       designation_id:['',[Validators.required]],
@@ -42,7 +42,7 @@ export class AddNewUserComponent implements OnInit {
       is_allow_for_app:[false],
       level_of_program_id:['',[Validators.required]],
       department_id:[''],
-      password:[''],
+      password:[null],
       created_by:['',[Validators.required]]
     })
     this.getAllDepartment()

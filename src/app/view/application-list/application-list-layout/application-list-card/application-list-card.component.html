@@ -1,0 +1,36 @@
+
+<mat-tab-group class="lead-card-tabs">
+    <mat-card class="p-0 m-0">
+    <mat-tab label="All (30)">
+      <app-application-list-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Form Field (24)">
+      <app-application-list-card-content [leadData]="leadCards"[ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Application Fee(3)">
+      <app-application-list-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Document (3)">
+      <app-application-list-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Entrance Exam (0)">
+      <app-application-list-card-content [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Registration Fee">
+      <app-application-list-card-content [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Withdrawal (cancel)">
+      <app-application-list-card-content [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+    <mat-tab label="Enrolled">
+      <app-application-list-card-content [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-application-list-card-content>
+    </mat-tab>
+  </mat-card>
+  </mat-tab-group>
+ 
+  <button mat-fab aria-label="Example icon button with a menu icon" class="appCoColor add-btn" (click)="openBottomSheet()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-fab aria-label="Example icon button with a menu icon" class="appCoColor upload-btn" (click)="uploadLeads()">
+      <mat-icon class="forward-icon">forward</mat-icon>
+  </button>

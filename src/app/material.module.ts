@@ -52,7 +52,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatRadioModule,
     NgChartsModule,
     HttpClientModule,
-    MatExpansionModule
+    MatExpansionModule,
+
   ],
   exports: [
     MatButtonModule,
@@ -81,7 +82,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatExpansionModule
+    MatExpansionModule,
+
   ]
 })
 export class MaterialModule {}
