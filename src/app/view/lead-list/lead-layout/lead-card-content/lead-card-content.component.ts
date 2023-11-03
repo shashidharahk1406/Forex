@@ -9,6 +9,9 @@ import { LeadVideoCallComponent } from '../lead-video-call/lead-video-call.compo
 import { LeadViewAllComponent } from '../lead-view-all/lead-view-all.component';
 import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { environment } from 'src/environments/environment';
+import { ApiService } from 'src/app/service/API/api.service';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -19,8 +22,9 @@ export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
   @Output()deleteLead = new EventEmitter()
   @Output()selectedSort = new EventEmitter()
-  @Output()
-  expandPanel=false;
+  // @Output()expandPanel=false;
+  @Input()totalCount:any;
+  @Input()allLeadIds:any = [];
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
   selectedCheckboxIds: any = [];
@@ -28,57 +32,16 @@ export class LeadCardContentComponent implements OnInit {
   selectAllChecked: boolean = false;
   checkAll:boolean = false;
   @Output()selectedSearch = new EventEmitter;
+  leadAllIds: any = [];
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
-    private changeDetectorRef: ChangeDetectorRef) {}
+    private _baseService:BaseServiceService,
+    private api:ApiService) {}
   delete(event:any){
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
     this.selectedCheckboxIds = [];
   }
-  openMorePanel(){
-    this.morePanel = !this.morePanel
-  }
-  onChange(event:any){
-    this.selectedSort.emit(event)
-  }
-  search(event:any){
-   this.selectedSearch.emit(event)
-  }
-  onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-    if (event.checked) {
-      // Checkbox is checked, add the item ID to the array
-      this.selectedCheckboxIds.push(itemId);
-      if(this.selectedCheckboxIds.length === this.leadData.length)
-      this.checkAll = true
-    } else {
-      // Checkbox is unchecked, remove the item ID from the array
-      const index = this.selectedCheckboxIds.indexOf(itemId);
-      if (index !== -1) {
-        this.selectedCheckboxIds.splice(index, 1);
-        this.checkAll = false
-      }
-    }
-  }
-  
-
-  selectAll():any {
-    // Toggle the selectAllChecked state
-    this.checkAll = !this.checkAll;
-
-    if (this.checkAll) {
-      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-      this.selectedCheckboxIds = this.leadData.map((item:any) => item.id);
-      this.checked = true
-    } else {
-      // If "Select All" is unchecked, clear the selectedCheckboxIds array
-      this.selectedCheckboxIds = [];
-      this.checked = false
-    }
-    
-  }
-
-  
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
       this.expandedCardIndex = -1;
@@ -145,4 +108,91 @@ export class LeadCardContentComponent implements OnInit {
     };
     this._bottomSheet.open(LeadEditComponent,config);
   }
+  openMorePanel(){
+    this.morePanel = !this.morePanel
+  }
+  onChange(event:any){
+    this.selectedSort.emit(event)
+  }
+  search(event:any){
+   this.selectedSearch.emit(event)
+  }
+ 
+  selectAll():any {
+    
+    this.checkAll = !this.checkAll;
+    if (this.checkAll) {
+      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+     this.selectedCheckboxIds = this.allLeadIds
+     console.log(this.selectedCheckboxIds,"LEADIDS")
+      this.checked = true
+    } else {
+      // If "Select All" is unchecked, clear the selectedCheckboxIds array
+      this.selectedCheckboxIds = [];
+      this.checked = false
+    }
+    
+  }
+  
+  // onCheckboxChange(event: MatCheckboxChange, itemId: string) {
+  //   if (event.checked) {
+      
+  //     // Checkbox is checked, add the item ID to the array if it's not already there
+  //     if (this.selectedCheckboxIds?.length >0 ) {
+        
+  //       this.selectedCheckboxIds.forEach((m:any) => {
+  //         if(!m.includes(itemId)){
+  //           this.selectedCheckboxIds.push(itemId);
+  //         }
+  //       });
+  //       if(this.selectedCheckboxIds.length === this.allLeadIds.length ){
+  //         this.checkAll = true;
+  //       }
+  //     }
+  //     else{
+  //       this.selectedCheckboxIds.push(itemId);
+  //     }
+  //   } else {
+  //     // Checkbox is unchecked, remove the item ID from the array if it exists
+  //     const index = this.selectedCheckboxIds.indexOf(itemId);
+  //     if (index !== -1) {
+  //       this.selectedCheckboxIds.splice(index, 1);
+  //       // console.log(this.selectedCheckboxIds,"REMOVE UNCHECKED")
+  //       this.checkAll = false
+        
+  //     }
+  //   }
+  // }
+  onCheckboxChange(event: MatCheckboxChange, itemId: string) {
+    if (event.checked) {
+      // Checkbox is checked, add the item ID to the array if it's not already there
+      if (!this.selectedCheckboxIds) {
+        this.selectedCheckboxIds = [];
+      }
+  
+      if (!this.selectedCheckboxIds.includes(itemId)) {
+        this.selectedCheckboxIds.push(itemId);
+        // if (this.selectedCheckboxIds.length === this.allLeadIds.length) {
+        //   this.checkAll = true;
+        // } else{
+        //   this.checkAll = false;
+        // }
+      }
+      if (this.selectedCheckboxIds.length === this.totalCount) {
+        debugger;
+          this.checkAll = true;
+        } else{
+          debugger;
+          this.checkAll = false;
+        }
+    } else {
+      // Checkbox is unchecked, remove the item ID from the array if it exists
+      const index = this.selectedCheckboxIds.indexOf(itemId);
+      if (index !== -1) {
+        this.selectedCheckboxIds.splice(index, 1);
+        this.checkAll = false;
+      }
+    }
+  }
+  
 }

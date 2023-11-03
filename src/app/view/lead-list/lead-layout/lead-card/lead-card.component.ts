@@ -29,6 +29,7 @@ export class LeadCardComponent implements OnInit {
   statusArray:any = []
   sorting: boolean = false;
   sortingType: any;
+  leadAllIds: any = [];
  
   
   constructor(
@@ -70,6 +71,7 @@ export class LeadCardComponent implements OnInit {
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadData('tabLabel')
     });
+    this.getLeadIds()
   }
   applySearch(event:any){
     this.query = `?key=${event}&page=${this.currentPage}&page_size=${this.pageSize}`
@@ -189,5 +191,18 @@ export class LeadCardComponent implements OnInit {
    }
    
    }
+   getLeadIds(){
+    this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
+      if(res){
+        this.leadAllIds = res.lead_ids
+        console.log(res.lead_ids)
+      }
+    },((error:any)=>{
+      this.api.showError(error.error.error.message)
+    }))
+    return this.leadAllIds
+  }
+
+  
    
 }

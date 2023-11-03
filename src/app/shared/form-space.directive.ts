@@ -9,8 +9,8 @@ export class FormSpaceDirective {
 
   @HostListener('input', ['$event']) onInput(event: Event) {
     const inputElement = this.el.nativeElement as HTMLInputElement | HTMLTextAreaElement;
-    const trimmedValue = inputElement.value.trim();
+    const currentValue = inputElement.value;
+    const trimmedValue = currentValue.replace(/^\s+/, ''); // Remove leading spaces for the first word of a sentence
     this.renderer.setProperty(inputElement, 'value', trimmedValue);
   }
-
 }

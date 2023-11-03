@@ -3,12 +3,12 @@
   <mat-card class="p-0 m-0">
    <div class="row">
     <mat-tab label="All">
-      <app-lead-card-content (selectedSort)="onChangeSorting($event)" (selectedSearch)="applySearch($event)" (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
+      <app-lead-card-content (selectedSort)="onChangeSorting($event)" (selectedSearch)="applySearch($event)" [allLeadIds]="leadAllIds" [totalCount]="totalNumberOfRecords" (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
       <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
     </mat-tab>
     <div class="col-12" *ngFor="let items of statusArray">
       <mat-tab [label]="items.name">
-        <app-lead-card-content (selectedSort)="onChangeSorting($event)" (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
+        <app-lead-card-content (selectedSort)="onChangeSorting($event)" (deleteLead)="delete($event)" [allLeadIds]="leadAllIds" [totalCount]="totalNumberOfRecords" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
         <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
       </mat-tab>
     </div>

@@ -8,6 +8,7 @@ import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 import { LeadFilterComponent } from '../lead-filter/lead-filter.component';
 import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -17,23 +18,33 @@ import { GenericCountComponent } from 'src/app/shared/generic-count/generic-coun
 export class LeadToolbarComponent implements OnInit {
  @Input()selectedLeads:any = [];
  @Input()checkAll:any;
+ @Input()totalCount:any;
  @Output()selectedSort = new EventEmitter()
   data!: any;
   leadSearch:any;
+  serachForm!:FormGroup;
   @Output()selectedSearch = new EventEmitter()
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
   ngOnInit(): void {}
+  
   addCount(){
     if(this.checkAll){
       this.data = 'All'
-      }else{this.data = this.selectedLeads.length}
+      }else{
+         this.data = this.selectedLeads.length
+      }
   }
   onSelect(event:any){
     this.selectedSort.emit(event)
   }
   search(event:any){
     this.selectedSearch.emit(event)
+  }
+   onSearchInputChange() {
+    if (!this.leadSearch) {
+      this.selectedSearch.emit(this.leadSearch)
+    }
   }
   bulkVideoCall(){
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {

@@ -1,22 +1,14 @@
 <mat-card>
     <div class="row">
-        <div class="col-sm-0 col-md-0 col-lg-4">
+        <div class="col-sm-0 col-md-0 col-lg-4" *ngIf="totalCount > 0">
           <app-lead-bulk-sort (selectedSort)="onSelect($event)"></app-lead-bulk-sort> 
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-4">
+        <div class="col-sm-12 col-md-12 col-lg-4" *ngIf="totalCount > 0">
             <div class="row">
                 <div class="col p-1" (click)="openVideoCall()">
                     <i class="bi bi-camera-video-fill" ></i>
                 </div>
-                <!-- <div class="col p-1">
-                    <i class="bi bi-person-fill-up"></i>
-                </div> -->
-                <!-- <div class="col p-1">
-                    <i class="bi bi-megaphone-fill"></i>
-                </div> -->
-                <!-- <div class="col p-1" (click)="editLead('All')">
-                    <i class="bi bi-pencil-square"></i>
-                </div> -->
+                
                 <div class="col p-1 position-rel" (click)="referLead()">
                     <i class="bi bi-person-check-fill"></i>
                 </div>
@@ -47,10 +39,13 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col" *ngIf="totalCount === 0">
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4 ">
             <div class="input-group z-s m-auto">
-              <input  type="text" class="form-control" (keyup)="search(leadSearch)" [(ngModel)]="leadSearch" placeholder="Search by Name/Mobile">
-              <button class="btn btn-outline-primary" type="button" >
+              <input  type="text" class="form-control" [(ngModel)]="leadSearch" (input)="onSearchInputChange()"  placeholder="Search by Name/Mobile">
+              <button class="btn btn-outline-primary" type="button"  (click)="search(leadSearch)">
                 <i class="bi bi-search"></i>
               </button>
             </div>

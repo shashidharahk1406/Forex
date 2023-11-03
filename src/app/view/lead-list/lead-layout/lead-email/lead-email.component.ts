@@ -30,10 +30,6 @@ export class LeadEmailComponent implements OnInit {
  
   initForm(){
     this.emailForm = this.fb.group({
-      // primaryMobile: [false],
-      // fathersMobile: [false],
-      // mothersMobile: [false],
-      // alternateMobile: [false],
       emailTemplate: [''],
       subject: ['', Validators.required],
     });
@@ -76,16 +72,16 @@ export class LeadEmailComponent implements OnInit {
         }
         
       }
-      
-      this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
-        if(res){
-          this._bottomSheetRef.dismiss()
-          this.api.showSuccess(res.message)
+      console.log(emailFormVal,"EMAIL TO BULK")
+      // this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
+      //   if(res){
+      //     this._bottomSheetRef.dismiss()
+      //     this.api.showSuccess(res.message)
           
-        }
-      },((error)=>{
-        this.api.showError(error.error.error.message)
-      }))
+      //   }
+      // },((error)=>{
+      //   this.api.showError(error.error.error.message)
+      // }))
     }
     
     
