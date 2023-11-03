@@ -34,6 +34,9 @@ export class ApiService implements OnInit{
   getStatus(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/status?page_size=${size}&page=${pageNo}`)
   }
+  getStatusSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/status?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllStatus(){
     return this.http.get(`${this.baseurl}/api/status`)
   }
@@ -52,6 +55,9 @@ export class ApiService implements OnInit{
 
   getSubStatus(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/sub-status?page_size=${size}&page=${pageNo}`)
+  }
+  getSubStatusSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/sub-status?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllSubStatus(){
     return this.http.get(`${this.baseurl}/api/sub-status`)
@@ -84,6 +90,9 @@ export class ApiService implements OnInit{
   getChannel(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/channel?page_size=${size}&page=${pageNo}`)
   }
+  getChannelSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/channel?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllChannel(){
     return this.http.get(`${this.baseurl}/api/channel`)
   }
@@ -100,6 +109,9 @@ export class ApiService implements OnInit{
   //Source
   getSource(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/source?page_size=${size}&page=${pageNo}`)
+  }
+  getSourceSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/source?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllSource(){
     return this.http.get(`${this.baseurl}/api/source`)
@@ -118,6 +130,9 @@ export class ApiService implements OnInit{
   getNewChannel(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/new-channel?page_size=${size}&page=${pageNo}`)
   }
+  getNewChannelSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/new-channel?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllNewChannel(){
     return this.http.get(`${this.baseurl}/api/new-channel`)
   }
@@ -134,6 +149,9 @@ export class ApiService implements OnInit{
   //Campign
   getCampign(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/campaign?page_size=${size}&page=${pageNo}`)
+  }
+  getCampignSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/new-channel?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllCampign(){
     return this.http.get(`${this.baseurl}/api/campaign`)
@@ -152,6 +170,9 @@ export class ApiService implements OnInit{
   getMedium(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/medium?page_size=${size}&page=${pageNo}`)
   }
+  getMediumSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/medium?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllMedium(){
     return this.http.get(`${this.baseurl}/api/medium`)
   }
@@ -168,6 +189,9 @@ export class ApiService implements OnInit{
   //Level of program
   getLevelOfProgram(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/level-of-program?page_size=${size}&page=${pageNo}`)
+  }
+  getLevelOfProgramSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/level-of-program?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllLevelOfProgram(){
     return this.http.get(`${this.baseurl}/api/level-of-program`)
@@ -186,6 +210,9 @@ export class ApiService implements OnInit{
   getDepartment(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/department?page_size=${size}&page=${pageNo}`)
   }
+  getDepartmentSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/department?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllDepartment(){
     return this.http.get(`${this.baseurl}/api/department`)
   }
@@ -202,6 +229,9 @@ export class ApiService implements OnInit{
   //Course
   getCourse(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/course?page_size=${size}&page=${pageNo}`)
+  }
+  getCourseSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/course?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllCourse(){
     return this.http.get(`${this.baseurl}/api/course`)
@@ -220,6 +250,9 @@ export class ApiService implements OnInit{
   getCountry(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/country?page_size=${size}&page=${pageNo}`)
   }
+  getCountrySearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/country?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllCountry(){
     return this.http.get(`${this.baseurl}/api/country`)
   }
@@ -236,6 +269,9 @@ export class ApiService implements OnInit{
   //State
   getState(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/state?page_size=${size}&page=${pageNo}`)
+  }
+  getStateSearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/state?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllState(){
     return this.http.get(`${this.baseurl}/api/state`)
@@ -254,6 +290,9 @@ export class ApiService implements OnInit{
   getCity(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/city?page_size=${size}&page=${pageNo}`)
   }
+  getCitySearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/city?page_size=${size}&page=${pageNo}&key=${search}`)
+  }
   getAllCity(){
     return this.http.get(`${this.baseurl}/api/city`)
   }
@@ -270,6 +309,9 @@ export class ApiService implements OnInit{
   //Priority
   getPriority(size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/priority-name?page_size=${size}&page=${pageNo}`)
+  }
+  getPrioritySearch(search:any,size:any,pageNo:any){
+    return this.http.get(`${this.baseurl}/api/priority-name?page_size=${size}&page=${pageNo}&key=${search}`)
   }
   getAllPriority(){
     return this.http.get(`${this.baseurl}/api/priority-name`)

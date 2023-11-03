@@ -3,7 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/service/API/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AbstractControl } from '@angular/forms';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -17,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
     this.hidePassword = !this.hidePassword;
   }
   constructor(private _fb:FormBuilder,
-    private commonService:CommonServiceService, private api:ApiService,private router:ActivatedRoute){
+    private commonService:CommonServiceService, private api:ApiService,private router:ActivatedRoute,private route:Router){
       this.id = this.router.snapshot.paramMap.get('id')
     }
   ngOnInit(): void {
@@ -68,19 +69,31 @@ export class ResetPasswordComponent implements OnInit {
 			this.togglePaused();
 		}
 	}
+	error:boolean=false
   submit(){
+		console.log(this.forgotForm.get('new_password')?.value);
+		
 if(this.forgotForm.invalid){
-
+	this.error=false
 }
 else{
-	this.api.sendNewPassword(this.id,this.forgotForm.value).subscribe(
-		(resp:any)=>{
+	if(this.forgotForm.get('new_password')?.value === this.forgotForm.get('confirm_password')?.value){
+		this.api.sendNewPassword(this.id,this.forgotForm.value).subscribe(
+			(resp:any)=>{
+				this.route.navigate(['/login'])
+				this.api.showSuccess(resp.message)
+			},
+			(error:any)=>{
+				this.api.showError(error.error.message)
+			}
+		)
+	}
+	else{
+		this.error=true
+		console.log('miss');
+		
+	}
 
-		},
-		(error:any)=>{
-
-		}
-	)
 }
   }
 }

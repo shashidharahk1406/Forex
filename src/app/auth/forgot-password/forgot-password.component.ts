@@ -73,9 +73,10 @@ else{
 	this.api.sendResetLink(this.forgotForm.value).subscribe(
 		(resp:any)=>{
 			this.route.navigate(['/reset-password/1959'])
+			this.api.showSuccess(resp.message)
 		},
 		(error:any)=>{
-
+			this.api.showError(error.error.message)
 		}
 	)
 }

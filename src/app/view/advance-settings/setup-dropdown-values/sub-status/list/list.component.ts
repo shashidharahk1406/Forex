@@ -66,13 +66,20 @@ export class ListComponent implements  AfterViewInit {
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applyFilter(event: any) {
+    this.api.getSubStatusSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      console.log(resp.results);
+      this.allSubStatus= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allSubStatus);
+      this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+      
+    },(error:any)=>{
+      console.log(error);
+      
     }
+
+    )
   }
   getSubStatus(){
     this.api.getSubStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{

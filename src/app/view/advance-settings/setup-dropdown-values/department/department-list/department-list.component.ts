@@ -66,13 +66,20 @@ export class DepartmentListComponent implements AfterViewInit {
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applyFilter(event: any) {
+    this.api.getDepartmentSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      console.log(resp.results);
+      this.allDepartment= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allDepartment);
+      this.totalPageLength=resp.total_no_of_record
+    this.dataSource.sort = this.sort;
+      
+    },(error:any)=>{
+      console.log(error);
+      
     }
+
+    )
   }
   getDepartment(){
     this.api.getDepartment(this.pageSize,this.currentPage).subscribe((resp:any)=>{

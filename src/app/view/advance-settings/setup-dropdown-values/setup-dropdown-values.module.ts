@@ -14,7 +14,8 @@ import { MaterialModule } from 'src/app/material.module';
     CommonModule,
     SetupDropdownValuesRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    
   ]
 })
 export class SetupDropdownValuesModule { }

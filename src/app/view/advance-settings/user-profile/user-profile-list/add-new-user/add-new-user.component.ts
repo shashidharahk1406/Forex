@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
+import { first } from 'rxjs';
 @Component({
   selector: 'app-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -29,21 +30,21 @@ export class AddNewUserComponent implements OnInit {
   }
   initFilter(){
     this.addForm = this._fb.group({
-      first_name:['',[Validators.required]],
-      last_name:[''],
-      email:['',[Validators.required,Validators.email]],
-      mobile_number:['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
+      first_name:[null,[Validators.required]],
+      last_name:[null],
+      email:[null,[Validators.required,Validators.email]],
+      mobile_number:[null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[null],
-      target:[''],
-      start_date:[''],
-      designation_id:['',[Validators.required]],
-      role_id:['',[Validators.required]],
-      reporting_to_ids:['',[Validators.required]],
+      target:[null],
+      start_date:[null],
+      designation_id:[null,[Validators.required]],
+      role_id:[null,[Validators.required]],
+      reporting_to_ids:[null,[Validators.required]],
       is_allow_for_app:[false],
-      level_of_program_id:['',[Validators.required]],
-      department_id:[''],
+      level_of_program_id:[null,[Validators.required]],
+      department_id:[null],
       password:[null],
-      created_by:['',[Validators.required]]
+      created_by:[null,[Validators.required]]
     })
     this.getAllDepartment()
     this.getAllLevel()
@@ -59,6 +60,29 @@ date(event: MatDatepickerInputEvent<Date>){
   this.addForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
   console.log(event.value);
 
+}
+newArr:any=[]
+onSelectionChange(event: any): void {
+  event.value.forEach((element: any) => {
+    const itemIndex = this.newArr.findIndex((item: any) => item.id === element.id);
+
+    if (itemIndex === -1) {
+      // Item is not in the newArr, so it's selected
+      console.log('Selected:', element.id, element.first_name);
+      let data = {
+        name: element.first_name,
+        id: element.id,
+      };
+      this.newArr.push(data);
+    }
+  });
+
+  // Remove deselected items
+  this.newArr = this.newArr.filter((item: any) => {
+    return event.value.find((element: any) => element.id === item.id);
+  });
+
+  console.log(this.newArr);
 }
 onChange(event:any){
   console.log(event.checked);
@@ -124,6 +148,7 @@ onChange(event:any){
 submit(){
   this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
   this.addForm.patchValue({created_by:Number(this.user_id)})
+  this.addForm.patchValue({reporting_to_ids:this.newArr})
   console.log(this.addForm.value)
   if(this.addForm.invalid){
     console.log("==Invalid==");

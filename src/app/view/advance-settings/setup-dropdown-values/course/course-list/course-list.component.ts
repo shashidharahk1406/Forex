@@ -69,13 +69,20 @@ export class CourseListComponent implements AfterViewInit {
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applyFilter(event: any) {
+    this.api.getCourseSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      console.log(resp.results);
+      this.allCourse= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allCourse);
+      this.totalPageLength=resp.total_no_of_record
+    this.dataSource.sort = this.sort;
+      
+    },(error:any)=>{
+      console.log(error);
+      
     }
+
+    )
   }
   getCourse(){
     this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{

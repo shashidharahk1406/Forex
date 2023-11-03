@@ -21,7 +21,7 @@ import { MaterialModule } from 'src/app/material.module';
     CommonModule,
     StatusRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
   ]
 })
 export class StatusModule { }
