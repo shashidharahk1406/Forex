@@ -18,7 +18,10 @@
     </div>
    </div>
    
-   <div class="genericTable">
+   <div *ngIf="dataSource.data.length==0">
+    <app-nodata  class="d-flex align-items-center justify-content-center"></app-nodata>
+   </div>
+  <div class="genericTable" *ngIf="dataSource.data.length>0">
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
       <ng-container matColumnDef="sub_status_name">
