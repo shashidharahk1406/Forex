@@ -33,3 +33,7 @@ i,mat-icon{
     box-shadow: none !important;
     border: 1px solid var(--appColor) !important;
 }
+.go-back{
+    background-color:var(--appColor);
+    color:#FFF;
+}

@@ -1,10 +1,10 @@
 
 
-<ng-container [@sheetState]="isOpen ? 'open' : 'closed'">
+<ng-container >
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Add Follow  Up For {{data.name}}</h1></div>
+            <div class="col"><h1 mat-dialog-title>Follow  Up To {{data?.name | titlecase }}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>
@@ -17,7 +17,7 @@
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Lead Category</mat-label>
                 <mat-select formControlName="leadCategory" >
-                  <mat-option *ngFor="let leadList of leadCategory" [value]="leadList">{{ leadList }}</mat-option>
+                  <mat-option *ngFor="let leadList of leadCategory" [value]="leadList.id">{{ leadList.source_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -36,7 +36,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Status</mat-label>
                 <mat-select formControlName="status" >
-                  <mat-option *ngFor="let statuslist of status" [value]="statuslist">{{ statuslist }}</mat-option>
+                  <mat-option *ngFor="let statuslist of status" [value]="statuslist.id">{{ statuslist.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -55,7 +55,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Sub Status</mat-label>
                 <mat-select formControlName="subStatus" >
-                  <mat-option *ngFor="let subStatuslist of subStatus" [value]="subStatuslist">{{ subStatuslist }}</mat-option>
+                  <mat-option *ngFor="let subStatuslist of subStatus" [value]="subStatuslist.id">{{ subStatuslist.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -74,7 +74,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Follow Up Type</mat-label>
                 <mat-select formControlName="followupType" >
-                  <mat-option *ngFor="let followuplist of followupType" [value]="followuplist">{{ followuplist }}</mat-option>
+                  <mat-option *ngFor="let followuplist of followupType" [value]="followuplist.id">{{ followuplist.channel_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -89,8 +89,32 @@
                 Follow Up Type Is Required.
                 </mat-error>
               </mat-form-field>
+              <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Select Template</mat-label>
+                <mat-select formControlName="template" >
+                  <mat-option *ngFor="let template of templateList" [value]="template.id">{{ template.template }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('template')"
+                  *ngIf="editLead.get('template')?.value?.length > 0"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['template'].hasError('required')">
+                  Template Is Required.
+                </mat-error>
+              </mat-form-field>
 
-              
+              <mat-form-field appearance="outline" class="mb-1">
+                <mat-label>Follow Up Comment</mat-label>
+                <textarea matInput appFormSpace placeholder="Enter Your Follow Up Comment" formControlName="followupComment"></textarea>
+                <mat-error *ngIf="f['followupComment'].hasError('required')">
+                    Follow Up Comment Is Required.
+                </mat-error>
+              </mat-form-field>
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <input matInput appFormSpace [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="nextActionDate">
@@ -108,13 +132,7 @@
                     Next Action Time Is Required.
                 </mat-error>
              </div>
-             <mat-form-field appearance="outline" class="mb-1">
-                <mat-label>Follow Up Comment</mat-label>
-                <textarea matInput appFormSpace placeholder="Enter Your Follow Up Comment" formControlName="followupComment"></textarea>
-                <mat-error *ngIf="f['followupComment'].hasError('required')">
-                    Follow Up Comment Is Required.
-                </mat-error>
-              </mat-form-field>
+          
           </form>
         </div>
       

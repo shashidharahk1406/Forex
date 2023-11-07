@@ -20,10 +20,12 @@ export class LeadToolbarComponent implements OnInit {
  @Input()checkAll:any;
  @Input()totalCount:any;
  @Output()selectedSort = new EventEmitter()
+ @Output()selectedSearch = new EventEmitter()
+ @Output()refresh = new EventEmitter()
   data!: any;
   leadSearch:any;
   serachForm!:FormGroup;
-  @Output()selectedSearch = new EventEmitter()
+  
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
   ngOnInit(): void {}
@@ -42,6 +44,7 @@ export class LeadToolbarComponent implements OnInit {
     this.selectedSearch.emit(event)
   }
    onSearchInputChange() {
+    this.leadSearch = ""
     if (!this.leadSearch) {
       this.selectedSearch.emit(this.leadSearch)
     }
@@ -172,5 +175,8 @@ export class LeadToolbarComponent implements OnInit {
        this.openReferLead()
       }
     });
+  }
+  refreshLead(event:any){
+    this.refresh.emit(event)
   }
 }

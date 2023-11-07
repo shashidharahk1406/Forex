@@ -1,39 +1,42 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import { ApiService } from 'src/app/service/API/api.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lead-followup',
   templateUrl: './lead-followup.component.html',
   styleUrls: ['./lead-followup.component.css'],
-  animations: [
-    trigger('sheetState', [
-      state('open', style({
-        transform: 'translateY(0)'
-      })),
-      state('closed', style({
-        transform: 'translateY(0)'
-      })),
-      transition('closed => open', animate('0.10s ease-in-out')),
-      transition('open => closed', animate('0.10s ease-in-out'))
-    ])
-  ]
+ 
 })
 export class LeadFollowupComponent implements OnInit {
-  isOpen = false;
+
   meridian = true;
   editLead!: FormGroup;
-  leadCategory = ['Application','Lead','Raw Data'];
-  status = ['1-Untouched','2-Campus Visit','3-Call Back','4-Enrolled','5-Not Interested'];
-  subStatus = ['Fresh Lead','Send Adoption WA'];
-  followupType = ['SMS','Email','Whats App'];
+  leadCategory:any = [];
+  status:any = [];
+  subStatus:any = [];
+  followupType:any = [];
+  templateList:any = [
+    {
+      id:1,
+      template:'dummy1'
+    },
+    {
+      id:2,
+      template:'dummy2'
+    }
+  ]
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder,
+    private api:ApiService,
+    private _baseService:BaseServiceService) {}
 
   ngOnInit(): void {
-    this.isOpen = !this.isOpen;
+    this.dropDownValues()
     this.initForm()
   }
 
@@ -45,12 +48,64 @@ export class LeadFollowupComponent implements OnInit {
     followupType:['',Validators.required],
     nextActionDate:['',Validators.required],
     nextActionTime:['',Validators.required],
-    followupComment:['',Validators.required]
+    followupComment:['',Validators.required],
+    template:['',Validators.required]
   })
  }
+ dropDownValues(){
+  this.getSource()
+  this.getStatus()
+  this.getSubStatus()
+  this.getChannel()
+ }
+ getSource(){
+  this.api.getAllSource().subscribe((res:any)=>{
+   if(res.results){
+    this.leadCategory = res.results
+   }
+   else{
+    this.api.showError('ERROR')
+   }
+  },(error:any)=>{
+    this.api.showError(error.error.message)
+    
+  })
+}
+getStatus(){
+  this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
+   if(res.results){
+     this.status = res.results;
+   }
+  },(error:any)=>{
+   this.api.showError(error.error.message)
+  })
+ }
+ getSubStatus(){
+   this._baseService.getData(`${environment.lead_subStatus}`).subscribe((res:any)=>{
+     if(res.results){
+       this.subStatus = res.results;
+     }
+    },(error:any)=>{
+     this.api.showError(error.error.message)
+    })
+ }
+ getChannel(){
+  this.api.getAllChannel().subscribe((resp:any)=>{
+    if(resp.results){
+      this.followupType= resp.results;
+    }
+    else{
+      this.api.showError('ERROR')
+    }  
+  },(error:any)=>{
+    this.api.showError(error.error.message)
+    
+  }
+
+  )
+}
  closePopup(){
   this._bottomSheetRef.dismiss()
-  this.isOpen = !this.isOpen;
 }
   
 get f() {

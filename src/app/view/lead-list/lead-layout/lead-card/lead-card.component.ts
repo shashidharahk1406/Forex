@@ -74,7 +74,7 @@ export class LeadCardComponent implements OnInit {
     this.getLeadIds()
   }
   applySearch(event:any){
-    this.query = `?key=${event}&page=${this.currentPage}&page_size=${this.pageSize}`
+    this.query = `?key=${event}`
     this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
       if (res.results) {
         this.leadCards = res.results;
@@ -106,7 +106,7 @@ export class LeadCardComponent implements OnInit {
           this.totalNumberOfRecords = res.total_no_of_record
         }
       }, (error: any) => {
-        this.api.showError(error.error.message);
+        this.api.showError(error.error.error.message);
       }); 
     }else {
       if(tabLabel.tab.textLabel === 'All' ){
@@ -118,7 +118,7 @@ export class LeadCardComponent implements OnInit {
               this.totalNumberOfRecords = res.total_no_of_record
             }
           }, (error: any) => {
-            this.api.showError(error.error.message);
+            this.api.showError(error.error.error.message);
           });
         }else if(tabLabel.tab.textLabel !== 'All'){
         this.query = `?status=${tabLabel.tab.textLabel}&page=1&page_size=10`
@@ -129,7 +129,7 @@ export class LeadCardComponent implements OnInit {
             this.totalNumberOfRecords = res.total_no_of_record
           }
         }, (error: any) => {
-          this.api.showError(error.error.message);
+          this.api.showError(error.error.error.message);
         });
       }
      
@@ -153,7 +153,7 @@ export class LeadCardComponent implements OnInit {
             this.totalNumberOfRecords = res.total_no_of_record
           }
         }, (error: any) => {
-          this.api.showError(error.error.message);
+          this.api.showError(error.error.error.message);
         });
       }
       else{
@@ -173,7 +173,7 @@ export class LeadCardComponent implements OnInit {
               // this.allLeadCardsDataSource = this.leadCards.slice(startIndex, startIndex + event.pageSize);
             }
           }, (error: any) => {
-            this.api.showError(error.error.message);
+            this.api.showError(error.error.error.message);
           });
       }
       
@@ -195,14 +195,20 @@ export class LeadCardComponent implements OnInit {
     this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
       if(res){
         this.leadAllIds = res.lead_ids
-        console.log(res.lead_ids)
       }
     },((error:any)=>{
       this.api.showError(error.error.error.message)
     }))
     return this.leadAllIds
   }
-
+  reLoad(event:any){
+    this.getStatus()
+    this.getLeadData('tabLabel')
+    this._addLeadEmitter.triggerGet$.subscribe(() => {
+      this.getLeadData('tabLabel')
+    });
+    this.getLeadIds()
+  }
   
    
 }

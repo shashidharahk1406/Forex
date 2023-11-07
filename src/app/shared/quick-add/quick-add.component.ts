@@ -187,7 +187,8 @@ export class QuickAddComponent implements OnInit {
           first_name: f.firstName,
           last_name: f.lastName,
           email: f.email,
-          mobile_number: f.mobile
+          mobile_number: f.mobile,
+          role:5
       },
   
       higest_qualification: null,
@@ -208,7 +209,6 @@ export class QuickAddComponent implements OnInit {
       country_id:null,
       state_id:null,
       city_id:null,
-      role_id:5,
       new_channel_id:null,
       campaign_id:f.campaign,
       medium_id:f.medium,
@@ -221,7 +221,7 @@ export class QuickAddComponent implements OnInit {
         alternate_email:null,
         primary_email:null,
         father_email:null,
-        mother_email:null
+        mother_email:null,
     }
     
      }

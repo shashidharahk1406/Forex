@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
-import { GenericService } from 'src/app/service/generic.service';
+
 import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-upload-raw-lead-data',
@@ -13,16 +13,6 @@ import { environment } from 'src/environments/environment';
 export class UploadRawLeadDataComponent implements OnInit {
   uploadLeadForm!:FormGroup
 
-  // channelList = ['Telephonic','Social Media','Offline','Email','SMS'];
-  // sourceList = ['Partners - TMV','Option-2'];
-  // priorityList = ['1-Hot','2-Warm','Medium','Low'];
-  // leadOwnerList = ['Rohith','Sandesh','Abhishek'];
-  // statusList = ['New','Call Back','Closed','Enrolled'];
-  // referedToList = ['Live Chat','Option-1','Option-2'];
-  // departmentList = ['Instrumentation','Medical','Finance'];
-  // courseList = ['1-BAJMC-Film','Option-1','Option-2'];
-  // countryList = ['India','Afganistan','Africa'];
-  // stateList = ['New Delhi','Abhayopuri','Sudon'];
   channelList:any = [];
   sourceList:any = [];
   priorityList:any = [];

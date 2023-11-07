@@ -33,6 +33,9 @@ export class LeadNoteComponent implements OnInit {
     return this.leadNoteForm.controls;
   }
   submit(){
+    if(this.leadNoteForm.invalid){
+      this.leadNoteForm.markAllAsTouched()
+    }else{
     let f = this.leadNoteForm.value
     let obj = {
         note_name:f.leadNote,
@@ -43,7 +46,8 @@ export class LeadNoteComponent implements OnInit {
         this.api.showSuccess(res.message)
       }
     },((error)=>{
-      this.api.showError(error.error.error.message)
+      this.api.showError(error.error.message)
     }))
   }
+}
 }

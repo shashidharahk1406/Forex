@@ -1,9 +1,9 @@
 <mat-card>
-    <div class="row">
-        <div class="col-sm-0 col-md-0 col-lg-4" *ngIf="totalCount > 0">
+    <div class="row" *ngIf="totalCount > 0">
+        <div class="col-sm-0 col-md-0 col-lg-4" >
           <app-lead-bulk-sort (selectedSort)="onSelect($event)"></app-lead-bulk-sort> 
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-4" *ngIf="totalCount > 0">
+        <div class="col-sm-12 col-md-12 col-lg-4" >
             <div class="row">
                 <div class="col p-1" (click)="openVideoCall()">
                     <i class="bi bi-camera-video-fill" ></i>
@@ -21,7 +21,7 @@
                 <div class="col p-1" (click)="openEmailChat('All')">
                     <i class="bi bi-envelope-fill"></i>
                 </div>
-                <div class="col p-1">
+                <div class="col p-1" (click)="refreshLead($event)">
                     <mat-icon>autorenew</mat-icon>
                 </div>
                 <div class="col p-1">
@@ -39,19 +39,21 @@
                 </div>
             </div>
         </div>
-        <div class="col" *ngIf="totalCount === 0">
-
-        </div>
+       
         <div class="col-sm-12 col-md-12 col-lg-4 ">
             <div class="input-group z-s m-auto">
-              <input  type="text" class="form-control" [(ngModel)]="leadSearch" (input)="onSearchInputChange()"  placeholder="Search by Name/Mobile">
+              <input  type="text" class="form-control" [(ngModel)]="leadSearch"   placeholder="Search by Name/Mobile">
               <button class="btn btn-outline-primary" type="button"  (click)="search(leadSearch)">
                 <i class="bi bi-search"></i>
               </button>
             </div>
-          </div>
-        
-        
+          </div> 
+    </div>
+    <div class="row" *ngIf="totalCount === 0">
+        <div class="col"></div>
+        <div class="col-2" >
+            <button mat-raised-button (click)="onSearchInputChange()" class="go-back">GO BACK</button>
+        </div>
     </div>
 </mat-card>
 

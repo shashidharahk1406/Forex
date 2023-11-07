@@ -314,7 +314,8 @@ export class AddLeadComponent implements OnInit {
           first_name: f.firstName,
           last_name: f.lastName,
           email: f.email,
-          mobile_number: f.mobile
+          mobile_number: f.mobile,
+          role:5
       },
   
       higest_qualification: f.highestQualification,

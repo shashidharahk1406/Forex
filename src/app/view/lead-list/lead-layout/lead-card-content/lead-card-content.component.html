@@ -1,21 +1,23 @@
-<app-lead-toolbar  (selectedSearch)="search($event)"  [totalCount]="totalCount" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
+<app-lead-toolbar  (selectedSearch)="search($event)" (refresh)="refreshLead($event)" [totalCount]="totalCount" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
 <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!leadData || leadData?.length === 0"></app-nodata>
 
-<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll()" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3">SELECT ALL</div></mat-checkbox>
+<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll()" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
 
-<div class="container custom-height-set" *ngIf="leadData?.length > 0">
+<div class="container custom-height-set" *ngIf="leadData2?.length > 0">
   <div class="row">
-    <div class="col-12" *ngFor="let item of leadData;let i = index">
+    <div class="col-12" *ngFor="let item of leadData2;let i = index">
         <mat-card class="p-1 lead-card-container">
             <div class="row d-flex align-items-center">
               <div class="col-sm-12 col-md-6 col-lg-3">
                 <div class="row">
-                  <div class="col-2 d-flex align-items-center">
-                    <mat-checkbox (change)="onCheckboxChange($event, item.id);"  [checked]="checked"></mat-checkbox>
+                  <div class="col-2 d-flex align-items-center" >
+                   
+                      <mat-checkbox (change)="onCheckboxChange($event, item.id);"  [(ngModel)]="item.checked"></mat-checkbox>
+                   
                   </div>
                   <div class="col">
                     <div class="row">
-                      <div class="col-12 c-name point-set" (click)="editLead(item)">{{ item.user_data.first_name }} {{ item.user_data.last_name }} <span class="alightColor badge student-badge">{{ item.badgeCount }}</span></div>
+                      <div class="col-12 c-name point-set" (click)="editLead(item)">{{ item.user_data.first_name | titlecase}} {{ item.user_data.last_name | titlecase }} <span class="alightColor badge student-badge">{{ item.badgeCount }}</span></div>
                       <!-- <div class="col-12 text-muted">{{ item.user_data.mobile_number }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div> -->
                       <div class="col-12 text-muted">{{ item.user_data.mobile_number }} </div>
                     </div>
@@ -75,7 +77,6 @@
                     <i class="bi bi-telephone-fill"></i>
                   </div>
                   <div class="col  p-0 position-rel" (click)="openSMS(item)">
-                    <i class="bi bi-x-circle-fill msg-close-icon"></i>
                     <i class="bi bi-chat-left-dots-fill"></i>
                   </div>
                   <div class="col  p-0" (click)="openEmailChat(item)">

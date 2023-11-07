@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
-import { GenericService } from 'src/app/service/generic.service';
+
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,16 +14,6 @@ import { environment } from 'src/environments/environment';
 export class LeadUploadComponent implements OnInit {
   uploadLeadForm!:FormGroup
 
-  // channelList = ['Telephonic','Social Media','Offline','Email','SMS'];
-  // sourceList = ['Partners - TMV','Option-2'];
-  // priorityList = ['1-Hot','2-Warm','Medium','Low'];
-  // leadOwnerList = ['Rohith','Sandesh','Abhishek'];
-  // statusList = ['New','Call Back','Closed','Enrolled'];
-  // referedToList = ['Live Chat','Option-1','Option-2'];
-  // departmentList = ['Instrumentation','Medical','Finance'];
-  // courseList = ['1-BAJMC-Film','Option-1','Option-2'];
-  // countryList = ['India','Afganistan','Africa'];
-  // stateList = ['New Delhi','Abhayopuri','Sudon'];
   channelList:any = [];
   sourceList:any = [];
   priorityList:any = [];
@@ -110,7 +100,6 @@ export class LeadUploadComponent implements OnInit {
       this.api.getAllChannel().subscribe((resp:any)=>{
         if(resp.results){
           this.channelList= resp.results;
-          console.log(this.channelList,"this.newChannelOptions")
         }
         else{
           this.api.showError('ERROR')
@@ -199,7 +188,7 @@ export class LeadUploadComponent implements OnInit {
     initForm(){
       this.uploadLeadForm = this.fb.group({
        //step-1
-       channel_id:[''],
+       channel_id:['',Validators.required],
        source:[''],
        priority:[''],
        status:[''],
@@ -243,7 +232,7 @@ export class LeadUploadComponent implements OnInit {
             this.formData.set('sample_file',this.file);
             // this.formData.set('name',this.file.name);
              // Append other fields to the formData
-              this.formData.set('channel_id', f.channel);
+              this.formData.set('channel_id', f.channel_id);
               this.formData.set('source_id', f.source);
               this.formData.set('priority_id', f.priority);
               this.formData.set('status_id', f.status);
@@ -262,7 +251,7 @@ export class LeadUploadComponent implements OnInit {
                   this.api.showSuccess(res.message)
                 }
               },((error:any)=>{
-                this.api.showError(error.error.error.message)
+                this.api.showError(error.error.message)
               }))
             } 
          

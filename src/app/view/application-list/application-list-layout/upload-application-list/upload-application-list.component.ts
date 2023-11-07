@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
-import { GenericService } from 'src/app/service/generic.service';
+// import { GenericService } from 'src/app/service/generic.service';
 import { environment } from 'src/environments/environment';
 
 @Component({

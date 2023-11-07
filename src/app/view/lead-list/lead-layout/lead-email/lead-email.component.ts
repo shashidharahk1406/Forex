@@ -72,16 +72,16 @@ export class LeadEmailComponent implements OnInit {
         }
         
       }
-      console.log(emailFormVal,"EMAIL TO BULK")
-      // this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
-      //   if(res){
-      //     this._bottomSheetRef.dismiss()
-      //     this.api.showSuccess(res.message)
+      
+      this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
+        if(res){
+          this._bottomSheetRef.dismiss()
+          this.api.showSuccess(res.message)
           
-      //   }
-      // },((error)=>{
-      //   this.api.showError(error.error.error.message)
-      // }))
+        }
+      },((error)=>{
+        this.api.showError(error.error.message)
+      }))
     }
     
     

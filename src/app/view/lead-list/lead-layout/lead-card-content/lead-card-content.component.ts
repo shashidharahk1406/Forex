@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { LeadSMSComponent } from '../lead-sms/lead-sms.component';
 import { LeadCallComponent } from '../lead-call/lead-call.component';
@@ -20,6 +20,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 })
 export class LeadCardContentComponent implements OnInit {
   @Input()leadData:any = [];
+  public leadData2:any;
   @Output()deleteLead = new EventEmitter()
   @Output()selectedSort = new EventEmitter()
   // @Output()expandPanel=false;
@@ -33,6 +34,9 @@ export class LeadCardContentComponent implements OnInit {
   checkAll:boolean = false;
   @Output()selectedSearch = new EventEmitter;
   leadAllIds: any = [];
+  @Output()refresh = new EventEmitter;
+  leadItem: any;
+
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private _baseService:BaseServiceService,
     private api:ApiService) {}
@@ -40,7 +44,26 @@ export class LeadCardContentComponent implements OnInit {
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
-    this.selectedCheckboxIds = [];
+   this.selectedCheckboxIds = [];
+   
+   }
+  ngOnChanges(changes: SimpleChanges) {
+    this.api.setLeadData(this.leadData);
+   
+    if (changes['leadData']) {
+      this.leadData2 = this.api.getLeadData();
+      
+     
+      if (this.selectedCheckboxIds.length === this.totalCount) {
+        this.checkAll = true;
+        this.checkBoxData()
+        
+      } else{
+        this.checkAll = false;
+        this.checkBoxData()
+      }
+    }
+
   }
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
@@ -56,7 +79,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openSMS(selectedData:any): void {
@@ -72,7 +95,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openEmailChat(selectedData:any){
@@ -88,7 +111,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openViewAll(name:any){
@@ -98,7 +121,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   editLead(name:any){
@@ -124,8 +147,8 @@ export class LeadCardContentComponent implements OnInit {
     if (this.checkAll) {
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
      this.selectedCheckboxIds = this.allLeadIds
-     console.log(this.selectedCheckboxIds,"LEADIDS")
-      this.checked = true
+    // console.log(this.selectedCheckboxIds,"LEADIDS")
+      this.checkBoxData()
     } else {
       // If "Select All" is unchecked, clear the selectedCheckboxIds array
       this.selectedCheckboxIds = [];
@@ -134,35 +157,7 @@ export class LeadCardContentComponent implements OnInit {
     
   }
   
-  // onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-  //   if (event.checked) {
-      
-  //     // Checkbox is checked, add the item ID to the array if it's not already there
-  //     if (this.selectedCheckboxIds?.length >0 ) {
-        
-  //       this.selectedCheckboxIds.forEach((m:any) => {
-  //         if(!m.includes(itemId)){
-  //           this.selectedCheckboxIds.push(itemId);
-  //         }
-  //       });
-  //       if(this.selectedCheckboxIds.length === this.allLeadIds.length ){
-  //         this.checkAll = true;
-  //       }
-  //     }
-  //     else{
-  //       this.selectedCheckboxIds.push(itemId);
-  //     }
-  //   } else {
-  //     // Checkbox is unchecked, remove the item ID from the array if it exists
-  //     const index = this.selectedCheckboxIds.indexOf(itemId);
-  //     if (index !== -1) {
-  //       this.selectedCheckboxIds.splice(index, 1);
-  //       // console.log(this.selectedCheckboxIds,"REMOVE UNCHECKED")
-  //       this.checkAll = false
-        
-  //     }
-  //   }
-  // }
+ 
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
@@ -170,29 +165,40 @@ export class LeadCardContentComponent implements OnInit {
         this.selectedCheckboxIds = [];
       }
   
-      if (!this.selectedCheckboxIds.includes(itemId)) {
+      else if (!this.selectedCheckboxIds.includes(itemId)) {
         this.selectedCheckboxIds.push(itemId);
-        // if (this.selectedCheckboxIds.length === this.allLeadIds.length) {
-        //   this.checkAll = true;
-        // } else{
-        //   this.checkAll = false;
-        // }
-      }
-      if (this.selectedCheckboxIds.length === this.totalCount) {
-        debugger;
+        if (this.selectedCheckboxIds.length === this.totalCount) {
           this.checkAll = true;
-        } else{
-          debugger;
-          this.checkAll = false;
-        }
+          this.checkBoxData()
+          
+        } 
+      }
+      
+      else{
+        this.checkAll = false;
+      }
     } else {
       // Checkbox is unchecked, remove the item ID from the array if it exists
       const index = this.selectedCheckboxIds.indexOf(itemId);
       if (index !== -1) {
         this.selectedCheckboxIds.splice(index, 1);
         this.checkAll = false;
+        this.checkBoxData()
       }
     }
   }
+  refreshLead(event:any){
+    this.refresh.emit(event)
+  }
+  checkBoxData(){
+    for (const selectedId of this.selectedCheckboxIds) {
+      const leadItem = this.leadData2.find((item:any) => item.id === selectedId);
+      if (leadItem ) {
+        leadItem.checked = true;
+      }
+    }
+   
+  }
+  
   
 }

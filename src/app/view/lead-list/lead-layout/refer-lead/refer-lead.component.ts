@@ -29,7 +29,7 @@ export class ReferLeadComponent implements OnInit {
         this.referTo = res.results
         }
       },((error:any)=>{
-        this.api.showError(error.error.error.message)
+        this.api.showError(error.error.message)
       }))
     }
     clearSelectField(fieldName: string) {
@@ -44,7 +44,6 @@ export class ReferLeadComponent implements OnInit {
         let formData:any = {}
       const f = this.referLeadForm.value;
       if(this.data.leadId){
-        debugger;
         formData= {
           lead_list: this.data.leadId,
           counsellor_ids: f.referTo,
@@ -64,14 +63,13 @@ export class ReferLeadComponent implements OnInit {
           this.dialogRef.close()
         }
        },((error:any)=>{
-        this.api.showError(error.error.error.message)
+        this.api.showError(error.error.message)
        }))
       }
       
     }
     
     ngOnInit(): void {
-      console.log(this.data,"LEADID_____>>>>")
       this.getCounselor()
       this.initForm()
     }

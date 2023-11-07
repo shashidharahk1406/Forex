@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ApiService implements OnInit{
   baseurl= environment.live_url;
+  private leadData: any[] = [];
   constructor(private http:HttpClient,private toastr:ToastrService) { }
 
   ngOnInit(): void {}
@@ -404,5 +405,12 @@ export class ApiService implements OnInit{
   //Raw data upload
   postRawdata(data:any){
     return this.http.post(`${this.baseurl}/api/upload-lead-data/`,data)
+  }
+  getLeadData(): any[] {
+    return this.leadData;
+  }
+
+  setLeadData(data: any[]): void {
+    this.leadData = data;
   }
 }

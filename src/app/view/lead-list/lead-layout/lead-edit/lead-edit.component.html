@@ -41,6 +41,7 @@
                   type="text"
                   formControlName="lastName"
                   required
+                  appFormSpace
                   placeholder="Enter Your Last Name"
                 />
                 <mat-error *ngIf="f['lastName'].hasError('required')">
@@ -210,7 +211,7 @@
      
       <mat-dialog-actions class="d-flex">
         <button class="mat-cancel m-1" mat-button mat-dialog-close (click)="closePopup()">CANCEL</button>
-        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">UPDATE LEAD</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">UPDATE LEAD</button>
       </mat-dialog-actions>
     </mat-card>
      

@@ -187,6 +187,7 @@ height: 90%;
     display: block !important;
     width: 93% !important;
     height: 68vh !important;
+    padding-right: 0;
    }
 /* app-analytics{
     display: block !important;
