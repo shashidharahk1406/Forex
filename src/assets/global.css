@@ -202,3 +202,11 @@ height: 90%;
  app-nodata{
   height: 66vh !important;
  }
+ button:hover,i:hover{
+ opacity: 0.9 !important;
+ }
+ 
+ .non-editable {
+  pointer-events: none !important;
+  background-color: #f0f0f0 !important; /* You can adjust the background color as needed */
+}

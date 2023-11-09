@@ -33,7 +33,7 @@ export class AddLeadComponent implements OnInit {
   mediumOptions:any = [];
   levelOfProgramOptions:any = [];
   subStatus: any = [];
-  referredTo:any = ['Live Chat', 'Option 2', 'Option 3'];
+  referredTo:any = [];
   stat_us:any= [];
   time:any = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
   seasons:any = [];
@@ -109,6 +109,7 @@ export class AddLeadComponent implements OnInit {
     this.getStatus();
     this.getSubStatus();
     this.getSeason();
+    this.getCounselor()
   }
   
   getCountry(){
@@ -299,6 +300,15 @@ export class AddLeadComponent implements OnInit {
       },(error:any)=>{
         this.api.showError(error.error.message)
     })
+  }
+  getCounselor(){
+    this._baseService.getData(`${environment._user}/?role=counsellor`).subscribe((res:any)=>{
+      if(res){
+      this.referredTo = res
+      }
+    },((error:any)=>{
+      this.api.showError(error.error.message)
+    }))
   }
   get f() {
     return this.addNewLead.controls;

@@ -181,7 +181,7 @@
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Referred To</mat-label>
                        <mat-select formControlName="referredTo" placeholder="Referred To">
-                         <mat-option *ngFor="let referred of referredTo" [value]="referred">{{ referred }}</mat-option>
+                         <mat-option *ngFor="let referred of referredTo" [value]="referred.id">{{ referred.first_name }}</mat-option>
                        </mat-select>
                        <button
                          matSuffix

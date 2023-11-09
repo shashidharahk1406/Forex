@@ -19,5 +19,7 @@ export const environment = {
   _user:'/api/user',
   lead_email:'/api/send-emails/',
   raw_data:'/api/upload-lead-data/',
-  lead_ids:`/api/get-lead-ids/`
+  lead_ids:`/api/get-lead-ids/`,
+  whatsapp_template:`/api/template/`,
+  lead_follow_up:`/api/add-follow-up/`
 };

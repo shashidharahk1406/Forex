@@ -14,21 +14,15 @@ import { environment } from 'src/environments/environment';
 export class LeadFollowupComponent implements OnInit {
 
   meridian = true;
-  editLead!: FormGroup;
+  followupForm!: FormGroup;
   leadCategory:any = [];
   status:any = [];
   subStatus:any = [];
   followupType:any = [];
-  templateList:any = [
-    {
-      id:1,
-      template:'dummy1'
-    },
-    {
-      id:2,
-      template:'dummy2'
-    }
-  ]
+  templateList:any = [];
+  basicTemplate: any;
+ 
+  
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
@@ -41,15 +35,16 @@ export class LeadFollowupComponent implements OnInit {
   }
 
  initForm(){
-  this.editLead = this.fb.group({
+  this.followupForm = this.fb.group({
     leadCategory:['',Validators.required],
     status:['',Validators.required],
     subStatus:['',Validators.required],
     followupType:['',Validators.required],
     nextActionDate:['',Validators.required],
-    nextActionTime:['',Validators.required],
+    // nextActionTime:['',Validators.required],
     followupComment:['',Validators.required],
-    template:['',Validators.required]
+    template:['',Validators.required],
+    editableText:['']
   })
  }
  dropDownValues(){
@@ -57,6 +52,7 @@ export class LeadFollowupComponent implements OnInit {
   this.getStatus()
   this.getSubStatus()
   this.getChannel()
+  this.getTemplate()
  }
  getSource(){
   this.api.getAllSource().subscribe((res:any)=>{
@@ -104,26 +100,86 @@ getStatus(){
 
   )
 }
+getTemplate(){
+  this._baseService.getData(`${environment.whatsapp_template}`).subscribe((res:any)=>{
+    if(res.results){
+      this.templateList = res.results
+    }
+  })
+}
  closePopup(){
   this._bottomSheetRef.dismiss()
 }
   
 get f() {
-  return this.editLead.controls;
+  return this.followupForm.controls;
 }
 clearSelectField(fieldName: string) {
-  this.editLead.get(fieldName)?.reset();
+  this.followupForm.get(fieldName)?.reset();
 }
 onSubmit(){
-  if(this.editLead.invalid){
-    this.editLead.markAllAsTouched()
+  if(this.followupForm.invalid){
+    this.followupForm.markAllAsTouched()
+  }else{
+    const fd= this.followupForm.value
+    let data = {
+      lead_category:fd.leadCategory,
+      lead_status: fd.status,
+      lead_sub_status: fd.subStatus,
+      follow_up_type: fd.followupType,
+      tempplate: fd.template,
+      action_date_time: fd.nextActionDate,
+      follow_up_text: fd.followupComment
+  }
+  this._baseService.postData(`${environment.lead_follow_up}`,data).subscribe((res:any)=>{
+    if(res){
+      this.api.showSuccess(res.message)
+    }
+  },((error:any)=>{
+    this.api.showError(error.error.message)
+  }))
   }
 }
 selectOptionsProgrammatically() {
   const selectedValues = ['Application','Lead'];
-  this.editLead.patchValue({
+  this.followupForm.patchValue({
     leadCategory:selectedValues
   })
 }
+onChanges(item:any,template:any){
+  this.basicTemplate = '';
+ if(template && item){
+   if(item.id === template){
+    this.basicTemplate = `#Hi# ${item.message} #first_name#`
+    // Check if the followupComment contains hash symbols (#)
+    // Use a regular expression to identify and wrap text within hash symbols with read-only attributes
+    // const modifiedValue =  this.basicTemplate.replace(/#(.*?)#/g, (match: any, content: any) => {
+    //   return `<span class="non-editable" contenteditable="false">${match}</span>`;
+    // });
+    this.followupForm.patchValue({
+      followupComment:this.basicTemplate
+    })
+   
+  
+  }
+ }
+}
+onInput(event: any) {
+  const textarea = event.target;
+  const value = textarea.value;
+
+  // Use a regular expression to identify and wrap text within hash symbols with read-only attributes
+  // const modifiedValue = value.replace(/#(.*?)#/g, (match: any, content: any) => {
+
+  //   return `<span class="non-editable" >${match}</span>`;
+  // });
+ //console.log(modifiedValue,"debugger")
+  // this.followupForm.patchValue({
+  //   followupComment: modifiedValue
+  // });
+  
+}
+
+
 
 }

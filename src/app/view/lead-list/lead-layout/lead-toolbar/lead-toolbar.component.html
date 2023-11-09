@@ -49,10 +49,10 @@
             </div>
           </div> 
     </div>
-    <div class="row" *ngIf="totalCount === 0">
-        <div class="col"></div>
-        <div class="col-2" >
-            <button mat-raised-button (click)="onSearchInputChange()" class="go-back">GO BACK</button>
+    <div class="row" *ngIf="totalCount === 0 && leadSearch">
+        <!-- <div class="col"></div> -->
+        <div class="col" >
+            <button mat-raised-button (click)="onSearchInputChange()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
         </div>
     </div>
 </mat-card>

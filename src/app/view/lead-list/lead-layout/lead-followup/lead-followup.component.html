@@ -12,7 +12,7 @@
       </div>
         <mat-dialog-content class="mat-typography">
          <div class="container">
-          <form [formGroup]="editLead">
+          <form [formGroup]="followupForm">
            
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Lead Category</mat-label>
@@ -24,7 +24,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('leadCategory')"
-                  *ngIf="editLead.get('leadCategory')?.value?.length > 0"
+                  *ngIf="followupForm.get('leadCategory')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -43,7 +43,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('status')"
-                  *ngIf="editLead.get('status')?.value?.length > 0"
+                  *ngIf="followupForm.get('status')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -62,7 +62,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('subStatus')"
-                  *ngIf="editLead.get('subStatus')?.value?.length > 0"
+                  *ngIf="followupForm.get('subStatus')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -81,7 +81,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('followupType')"
-                  *ngIf="editLead.get('followupType')?.value?.length > 0"
+                  *ngIf="followupForm.get('followupType')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -92,14 +92,14 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Template</mat-label>
                 <mat-select formControlName="template" >
-                  <mat-option *ngFor="let template of templateList" [value]="template.id">{{ template.template }}</mat-option>
+                  <mat-option *ngFor="let temp of templateList" [value]="temp.id" (click)="onChanges(temp,f['template'].value)">{{ temp.name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('template')"
-                  *ngIf="editLead.get('template')?.value?.length > 0"
+                  *ngIf="followupForm.get('template')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -107,14 +107,42 @@
                   Template Is Required.
                 </mat-error>
               </mat-form-field>
-
-              <mat-form-field appearance="outline" class="mb-1">
+              
+          
+              <!-- <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Follow Up Comment</mat-label>
-                <textarea matInput appFormSpace placeholder="Enter Your Follow Up Comment" formControlName="followupComment"></textarea>
+                <textarea
+                  matInput
+                  appFormSpace
+                  placeholder="Enter Your Follow Up Comment"
+                  formControlName="followupComment"
+                  style="display: none;"
+                ></textarea>
                 <mat-error *ngIf="f['followupComment'].hasError('required')">
-                    Follow Up Comment Is Required.
+                  Follow Up Comment Is Required.
                 </mat-error>
-              </mat-form-field>
+              </mat-form-field> -->
+
+              <!-- <mat-label>Final Template</mat-label>
+              <div >{{f['followupComment'].value}}</div> -->
+              
+              <div class="mat-input-container">
+                <label for="followupComment">Follow Up Comment</label>
+                <div
+                matInput
+                  appFormSpace
+                  contenteditable="true"
+                  (input)="onInput($event)"
+                  readonlyTextarea
+                  formControlName="followupComment"
+                  [innerHtml]="f['followupComment'].value"
+                ></div>
+               
+              </div>
+
+             
+              
+              
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <input matInput appFormSpace [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="nextActionDate">
@@ -125,14 +153,7 @@
                 </mat-error>
               </mat-form-field>
              
-             <div class="my-2">
-                <mat-label  [ngClass]="f['nextActionTime'].touched && f['nextActionTime'].hasError('required') ? 'time-label-error':'time-label'">Next Action Time *</mat-label>
-                <ngb-timepicker formControlName="nextActionTime" [meridian]="meridian"></ngb-timepicker>
-                <mat-error *ngIf="f['nextActionTime'].touched && f['nextActionTime'].hasError('required')">
-                    Next Action Time Is Required.
-                </mat-error>
-             </div>
-          
+             
           </form>
         </div>
       
@@ -140,7 +161,7 @@
      
       <mat-dialog-actions class="d-flex">
         <button class="mat-cancel m-1" mat-button mat-dialog-close (click)="closePopup()">CANCEL</button>
-        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">UPDATE FOLLOWUP</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">UPDATE FOLLOWUP</button>
       </mat-dialog-actions>
     </mat-card>
      

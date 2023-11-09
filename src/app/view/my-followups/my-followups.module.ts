@@ -4,6 +4,7 @@ import { MyFollowupsRoutingModule } from './my-followups-routing.module';
 import { MyFollowupsComponent } from './my-followups.component';
 import { MyFollowupLayoutModule } from './my-followup-layout/my-followup-layout.module';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material/daterangepicker.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -14,7 +15,8 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material/daterangepick
   imports: [
     CommonModule,
     MyFollowupsRoutingModule,
-    MyFollowupLayoutModule
+    MyFollowupLayoutModule,
+    SharedModule
   ]
 })
 export class MyFollowupsModule { }
