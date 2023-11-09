@@ -14,6 +14,7 @@ import { NodataComponent } from './nodata/nodata.component';
 import { GenericCountComponent } from './generic-count/generic-count.component';
 import { FormSpaceDirective } from './form-space.directive';
 import { ReadonlyTextareaDirective } from './non-editable.directive';
+import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReadonlyTextareaDirective } from './non-editable.directive';
     NodataComponent,
     GenericCountComponent,
     FormSpaceDirective,
-    ReadonlyTextareaDirective
+    ReadonlyTextareaDirective,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +52,8 @@ import { ReadonlyTextareaDirective } from './non-editable.directive';
     NodataComponent ,
     JsonPipe,
     FormSpaceDirective,
-    ReadonlyTextareaDirective
+    ReadonlyTextareaDirective,
+    DeleteComponent
   ]
 })
 export class SharedModule { }

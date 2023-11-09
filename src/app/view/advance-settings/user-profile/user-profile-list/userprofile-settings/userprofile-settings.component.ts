@@ -70,6 +70,15 @@ export class UserprofileSettingsComponent implements AfterViewInit {
         }
       }
     )
+    this.emit.getRefreshByFilter.subscribe(
+      (resp:any)=>{
+        if(resp){
+          this.dataSource = new MatTableDataSource<any>(resp);
+          console.log("ll");
+          
+        }
+      }
+    )
   }
   ngAfterViewInit() {
 
@@ -88,7 +97,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
   getUser(){
-    this.api.getUser(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    var role="Admin"
+    console.log("ppp");
+    
+    this.api.getUser(this.pageSize,this.currentPage,role).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allUser= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -106,8 +118,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
-    
-    this.api.getUser(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    var role="Admin"
+    this.api.getUser(this.pageSize,this.currentPage,role).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allUser= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allUser);

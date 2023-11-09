@@ -9,6 +9,8 @@ import { AddCityComponent } from '../add-city/add-city.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -29,6 +31,7 @@ export class CityListComponent implements AfterViewInit {
     'is_system_value',
     'state_name',
     'is_metro_politan',
+    'delete'
 
   ]
   dataSource = new MatTableDataSource<any>;
@@ -128,6 +131,18 @@ export class CityListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EditCityComponent, {
       width:'35%',
       data:id
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/city/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

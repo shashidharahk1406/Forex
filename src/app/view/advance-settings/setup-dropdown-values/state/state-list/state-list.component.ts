@@ -9,6 +9,8 @@ import { EditStateComponent } from '../edit-state/edit-state.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
 export interface UserData {
   'User Name': string,
@@ -29,6 +31,7 @@ export class StateListComponent implements  AfterViewInit {
     'is_active',
     'is_system_value',
     'country_name',
+    'delete'
 
   ]
   dataSource = new MatTableDataSource<any>;
@@ -134,6 +137,19 @@ export class StateListComponent implements  AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/state/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  
   
   
   

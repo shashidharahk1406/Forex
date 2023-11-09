@@ -11,6 +11,8 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { CreateTemplateComponent } from '../create-template/create-template.component';
 import { EditTemplateComponent } from '../edit-template/edit-template.component';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -30,9 +32,10 @@ export class TemplateListComponent implements AfterViewInit  {
   displayedColumns: string[] = [
     'template_name',
     // 'subject',
-    'template_type_name',
-    'status',
+    'message',
+
     'Action',
+
 
   ]
 
@@ -144,5 +147,17 @@ export class TemplateListComponent implements AfterViewInit  {
       console.log('The dialog was closed');
     }); 
   }
-
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/template/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  
 }

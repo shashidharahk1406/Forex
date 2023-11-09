@@ -9,6 +9,8 @@ import { EditLevelOfProgramComponent } from '../edit-level-of-program/edit-level
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -27,6 +29,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
+    'delete'
   ]
   dataSource=new MatTableDataSource<UserData>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
@@ -128,7 +131,18 @@ export class LevelOfProgramListComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/level-of-program/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
   
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
   
   
  

@@ -9,6 +9,8 @@ import { EditComponent } from '../edit/edit.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
+import { environment } from 'src/environments/environment';
 
 export interface UserData {
   'User Name': string,
@@ -31,6 +33,7 @@ export class ListComponent implements AfterViewInit {
     'is_system_value',
     'status_group_name',
     'master_status_name',
+    'delete'
 
   ]
 
@@ -133,6 +136,18 @@ export class ListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EditComponent, {
       width:'35%',
       data:id
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/status/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

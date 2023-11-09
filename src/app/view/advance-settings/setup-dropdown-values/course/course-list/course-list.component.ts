@@ -9,6 +9,8 @@ import { EditCourseComponent } from '../edit-course/edit-course.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
 
 export interface UserData {
@@ -31,7 +33,7 @@ export class CourseListComponent implements AfterViewInit {
     'is_system_value',
     'department_name',
     'level_of_program_name',
-
+    'delete'
   ]
 
   dataSource = new MatTableDataSource<any>;
@@ -131,6 +133,18 @@ export class CourseListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EditCourseComponent, {
       width:'35%',
       data:id
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/course/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

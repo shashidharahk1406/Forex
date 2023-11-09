@@ -10,6 +10,8 @@ import { EditNewChannelComponent } from '../edit-new-channel/edit-new-channel.co
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
 export interface UserData {
   'User Name': string,
@@ -29,6 +31,7 @@ export class NewChannelListComponent implements AfterViewInit {
     'new_channel_name',
     'is_active',
     'is_system_value',
+    'delete'
   ]
   dataSource=new MatTableDataSource<UserData>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
@@ -130,7 +133,18 @@ export class NewChannelListComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/new-channel/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
   
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
   
   
  

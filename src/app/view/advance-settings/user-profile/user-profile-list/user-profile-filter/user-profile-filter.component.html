@@ -18,52 +18,73 @@
                 <div class="col-12 col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>User Role</mat-label>
-                        <mat-select  formControlName="role">
-                          <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                        <mat-select  formControlName="role_ids">
+                            <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                        <mat-error *ngIf="f['role_ids'].invalid && f['role_ids'].touched">
+                          <div *ngIf="f['role_ids'].errors && f['role_ids'].errors['required']">
+                              User Role Is Required
+                          </div>
+                      </mat-error>
+              
                 </div>
                 <div class="col-12 col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>User Status</mat-label>
-                        <mat-select formControlName="status"  >
-                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select formControlName="is_active"  >
+                          <mat-option *ngFor="let status of status" [value]="status">{{status}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  appearance="outline">
                         <mat-label>Designation</mat-label>
-                        <mat-select formControlName="designation" >
-                          <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select  formControlName="designation">
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <mat-error *ngIf="f['designation'].invalid && f['designation'].touched">
+                        <div *ngIf="f['designation'].errors && f['designation'].errors['required']">
+                            Designation Is Required
+                        </div>
+                    </mat-error>
                 </div>
                 <div class="col-12 col-md-6">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  appearance="outline">
                         <mat-label>Select Reporting to User</mat-label>
-                        <mat-select formControlName="reportingTo" >
-                          <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select formControlName="reporting_to_ids"  multiple>
+                          <mat-option *ngFor="let item of allUser" [value]="item">{{item.first_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <mat-error *ngIf="f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched">
+                        <div *ngIf="f['reporting_to_ids'].errors && f['reporting_to_ids'].errors['required']">
+                            Reporting to User Is Required
+                        </div>
+                    </mat-error>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  appearance="outline">
                         <mat-label>Level of Program</mat-label>
-                        <mat-select  formControlName="program">
-                          <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select  formControlName="level_of_program">
+                          <mat-option *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
+                      <mat-error *ngIf="f['level_of_program'].invalid && f['level_of_program'].touched">
+                        <div *ngIf="f['level_of_program'].errors && f['level_of_program'].errors['required']">
+                            Level of Program Is Required
+                        </div>
+                    </mat-error>
                 </div>
                 <div class="col-12 col-md-6">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field  appearance="outline">
                         <mat-label>Department</mat-label>
-                        <mat-select  formControlName="department">
-                          <mat-option  *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        <mat-select formControlName="department" >
+                          <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                 </div>
@@ -89,15 +110,15 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input formControlName="creationFrom" matInput [matDatepicker]="creationFrom">
-                                <mat-datepicker-toggle matSuffix [for]="creationFrom"></mat-datepicker-toggle>
-                                <mat-datepicker #creationFrom></mat-datepicker>
+                                <input (dateChange)="createdFromDate($event,'creationFrom')"  matInput [matDatepicker]="created_date_time_before">
+                                <mat-datepicker-toggle matSuffix [for]="created_date_time_before"></mat-datepicker-toggle>
+                                <mat-datepicker #created_date_time_before></mat-datepicker>
                               </mat-form-field>
                         </div>
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input formControlName="creationTo" matInput [matDatepicker]="creationTo">
+                                <input (dateChange)="createdFromDate($event,'creationTo')" matInput [matDatepicker]="creationTo">
                                 <mat-datepicker-toggle matSuffix [for]="creationTo"></mat-datepicker-toggle>
                                 <mat-datepicker #creationTo></mat-datepicker>
                               </mat-form-field>
@@ -115,7 +136,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input formControlName="loginFrom" matInput [matDatepicker]="loginFrom">
+                                <input  (dateChange)="createdFromDate($event,'loginFrom')" matInput [matDatepicker]="loginFrom">
                                 <mat-datepicker-toggle matSuffix [for]="loginFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #loginFrom></mat-datepicker>
                               </mat-form-field>
@@ -123,7 +144,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input formControlName="loginTo" matInput [matDatepicker]="loginTo">
+                                <input (dateChange)="createdFromDate($event,'loginTo')" matInput [matDatepicker]="loginTo">
                                 <mat-datepicker-toggle matSuffix [for]="loginTo"></mat-datepicker-toggle>
                                 <mat-datepicker #loginTo></mat-datepicker>
                               </mat-form-field>
@@ -143,7 +164,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input formControlName="modificationFrom" matInput [matDatepicker]="modificationFrom">
+                                <input (dateChange)="createdFromDate($event,'updateFrom')" matInput [matDatepicker]="modificationFrom">
                                 <mat-datepicker-toggle matSuffix [for]="modificationFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #modificationFrom></mat-datepicker>
                               </mat-form-field>
@@ -151,7 +172,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input formControlName="modificationTo" matInput [matDatepicker]="modificationTo">
+                                <input (dateChange)="createdFromDate($event,'updateTo')" matInput [matDatepicker]="modificationTo">
                                 <mat-datepicker-toggle matSuffix [for]="modificationTo"></mat-datepicker-toggle>
                                 <mat-datepicker #modificationTo></mat-datepicker>
                               </mat-form-field>
@@ -166,7 +187,7 @@
       </div>
     <mat-dialog-actions align="end">
       <button class="mat-cancel" mat-button mat-dialog-close>RESET</button>
-      <button class="mat-disable" mat-button [mat-dialog-close]="true" cdkFocusInitial>APPLY</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>APPLY</button>
     </mat-dialog-actions>
     
     
