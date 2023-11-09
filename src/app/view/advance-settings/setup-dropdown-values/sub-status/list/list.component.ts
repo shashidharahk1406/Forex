@@ -9,6 +9,8 @@ import { EditComponent } from '../edit/edit.component';
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
 export interface UserData {
   'User Name': string,
@@ -16,6 +18,7 @@ export interface UserData {
   'Mobile': string,
   'User Role': string,
   'Designation':string,
+  
 
 }
 @Component({
@@ -29,7 +32,7 @@ export class ListComponent implements  AfterViewInit {
     'is_active',
     'is_system_value',
     'reason_group_name',
-
+    'delete'
   ]
   dataSource = new MatTableDataSource<any>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
@@ -134,7 +137,18 @@ export class ListComponent implements  AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/sub-status/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
   
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
   
   
  

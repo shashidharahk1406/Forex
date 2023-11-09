@@ -50,6 +50,9 @@ export class ApiService implements OnInit{
   postStatus(data:any){
     return this.http.post(`${this.baseurl}/api/status/`,data)
   }
+  delete(url:any){
+    return this.http.delete(url);
+  }
   //Status
   //Sub Status
   //Sub Status
@@ -345,11 +348,14 @@ export class ApiService implements OnInit{
   }
   //Priority Group
   //User
-  getUser(size:any,pageNo:any){
-    return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}`)
+  getUser(size:any,pageNo:any,role:any){
+    return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role=${role}`)
   }
   getAllUser(){
     return this.http.get(`${this.baseurl}/api/user`)
+  }
+  getuserByFilter(url:any){
+    return this.http.get(url)
   }
   getUserById(id:any){
     return this.http.get(`${this.baseurl}/api/user/${id}/`)

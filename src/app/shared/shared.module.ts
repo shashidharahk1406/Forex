@@ -13,6 +13,7 @@ import { GenericDeleteComponent } from './generic-delete/generic-delete.componen
 import { NodataComponent } from './nodata/nodata.component';
 import { GenericCountComponent } from './generic-count/generic-count.component';
 import { FormSpaceDirective } from './form-space.directive';
+import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { FormSpaceDirective } from './form-space.directive';
     GenericDeleteComponent,
     NodataComponent,
     GenericCountComponent,
-    FormSpaceDirective
+    FormSpaceDirective,
+    DeleteComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,8 @@ import { FormSpaceDirective } from './form-space.directive';
     NgbTimepickerModule,
     NodataComponent ,
     JsonPipe,
-    FormSpaceDirective
+    FormSpaceDirective,
+    DeleteComponent
   ]
 })
 export class SharedModule { }

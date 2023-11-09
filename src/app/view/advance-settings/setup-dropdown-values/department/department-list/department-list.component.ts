@@ -9,6 +9,8 @@ import { EditDepartmentComponent } from '../edit-department/edit-department.comp
 import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -28,7 +30,7 @@ export class DepartmentListComponent implements AfterViewInit {
     'is_active',
     'is_system_value',
     'level_of_program_name',
-   
+    'delete'
 
   ]
   dataSource = new MatTableDataSource<any>;
@@ -134,7 +136,18 @@ export class DepartmentListComponent implements AfterViewInit {
       console.log('The dialog was closed');
     }); 
   }
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/department/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+    });
   
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
   
   
  

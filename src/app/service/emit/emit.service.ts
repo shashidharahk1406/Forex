@@ -12,4 +12,9 @@ export class EmitService {
   sendRefresh(data:any){
     return this.refresh.next(data)
   }
+  private refreshByFilter= new Subject<any>;
+  getRefreshByFilter= this.refreshByFilter.asObservable()
+  sendRefreshbyFilter(data:any){
+    return this.refreshByFilter.next(data)
+  }
 }
