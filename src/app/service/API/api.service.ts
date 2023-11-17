@@ -348,8 +348,14 @@ export class ApiService implements OnInit{
   }
   //Priority Group
   //User
-  getUser(size:any,pageNo:any,role:any){
-    return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role=${role}`)
+  getUser(size:any,pageNo:any,role:any,data:any){
+    if(data!=null){
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&${data}`)
+    }
+    else{
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}`)
+
+    }
   }
   getAllUser(){
     return this.http.get(`${this.baseurl}/api/user`)
@@ -363,8 +369,14 @@ export class ApiService implements OnInit{
   editUser(id:any,data:any){
     return this.http.put(`${this.baseurl}/api/user/${id}/`,data)
   }
+  replaceUser(data:any){
+    return this.http.post(`${this.baseurl}/api/replace-user/`,data)
+  }
   postUser(data:any){
     return this.http.post(`${this.baseurl}/api/user/`,data)
+  }
+  pauseUser(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/manage-user/${id}/`,data)
   }
   //User
   //Role
@@ -404,8 +416,15 @@ export class ApiService implements OnInit{
 
 
   //Whatsapp Template
-  getWhatsappTemplate(size:any,pageNo:any){
-    return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}`)
+  getWhatsappTemplate(size:any,pageNo:any,data:any){
+    if(data!=null){
+      return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}&${data}`)
+    }
+    else{
+      return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}`)
+
+    }
+    // return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}`)
   }
   getAllWhatsappTemplate(){
     return this.http.get(`${this.baseurl}/api/template`)

@@ -1,13 +1,14 @@
 .profile-container{
     height: 85px;
     width: 90px;
-    background: rgb(97, 205, 187);
+    background: #f2f2f2;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 45px;
     color: white;
+    /* background-image: url(); */
 }
 .text-muted{
   font-size: 12px;

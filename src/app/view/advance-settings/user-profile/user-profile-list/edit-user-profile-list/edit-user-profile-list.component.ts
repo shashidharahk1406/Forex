@@ -201,10 +201,10 @@ getUserbyId(){
       reader.readAsDataURL(fileInput.files[0]);
     }
   }
-  openDisableChat(name:string){
+  openDisableChat(id:any){
     const dialogRef = this.dialog.open(DisableChatComponent, {
       width:'35%',
-      data: {name:name}
+      data: id
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

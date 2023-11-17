@@ -12,10 +12,11 @@ table {
   border-bottom: 1px solid rgb(216, 216, 216);
   background-color: transparent !important;
 }
-.bi-funnel-fill,.bi-person-plus-fill{
+.bi-funnel-fill,.bi-funnel,.bi-person-plus-fill{
   margin: 0 10px;
   font-size: 20px;
   text-align: right !important;
+  color: #f17e33;
 }
 .more-icon{
   line-height: 33px !important;
