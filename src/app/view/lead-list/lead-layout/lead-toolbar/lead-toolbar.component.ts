@@ -22,9 +22,11 @@ export class LeadToolbarComponent implements OnInit {
  @Output()selectedSort = new EventEmitter()
  @Output()selectedSearch = new EventEmitter()
  @Output()refresh = new EventEmitter()
+ @Input()leadData:any = [];
   data!: any;
   leadSearch:any;
   serachForm!:FormGroup;
+  showBtn: boolean = false;
   
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
 
@@ -41,7 +43,10 @@ export class LeadToolbarComponent implements OnInit {
     this.selectedSort.emit(event)
   }
   search(event:any){
-    this.selectedSearch.emit(event)
+    if(event){
+      this.selectedSearch.emit(event)
+     }
+   
   }
    onSearchInputChange() {
     this.leadSearch = ""

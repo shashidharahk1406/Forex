@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -24,14 +24,16 @@ courseList:any = [];
 status:any = [];
 cityList:any = [];
 campaignList: any;
-  queryItems: any;
+queryItems: any;
+@Output() filter:any = new EventEmitter();
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
     private _baseService:BaseServiceService,
-    private _addLeadEmitter:AddLeadEmitterService) {}
+    private _addLeadEmitter:AddLeadEmitterService,
+    ) {}
 
   ngOnInit(): void {
     this.initForm()
@@ -131,9 +133,9 @@ campaignList: any;
       })
   }
   getCounselor(){
-    this._baseService.getData(environment._user).subscribe((res:any)=>{
-      if(res.results){
-      this.counselorList = res.results
+    this._baseService.getData(`${environment._user}/?role=counsellor`).subscribe((res:any)=>{
+      if(res){
+      this.counselorList = res
       }
     },((error:any)=>{
       this.api.showError(error.error.message)
@@ -171,16 +173,11 @@ campaignList: any;
  
      // Construct the API request URL with query parameters
      const apiUrl = `${environment.lead_list}?page=1&page_size=10&${queryParams.join('&')}`;
- 
+   
+    this._addLeadEmitter.leadFilter.next(apiUrl)
+     this._addLeadEmitter.triggerFilter()
      // Make the API request with the constructed URL
-    this._baseService.getData(apiUrl).subscribe((response:any) => {
-      if(response){
-        this.api.showSuccess(response.message)
-        this._addLeadEmitter.triggerGet();
-      }
-    },((error:any)=>{
-      this.api.showError(error.error.message)
-    }));
+    this.closePopup()
     }
 
    
@@ -188,14 +185,14 @@ campaignList: any;
   
   initForm(){
     this.filterLead = this.fb.group({
-      counsellor_id:['',[Validators.required]],
+      counsellor_id:[''],
       campaign_id:[''],
       channel_id:[''],
       source_id:[''],
       department_id:[''],
       course_id:[''],
       city_id:[''],
-      year_of_passing:[]
+      year_of_passing:['']
     })
   }
   closePopup(){

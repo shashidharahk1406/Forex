@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RawDataRoutingModule } from './raw-data-routing.module';
 import { RawDataComponent } from './raw-data.component';
 import { RawDataLayoutModule } from './raw-data-layout/raw-data-layout.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { RawDataLayoutModule } from './raw-data-layout/raw-data-layout.module';
   imports: [
     CommonModule,
     RawDataRoutingModule,
-    RawDataLayoutModule
+    RawDataLayoutModule,
+    SharedModule
   ]
 })
 export class RawDataModule { }

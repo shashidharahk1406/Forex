@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UpcomingTasksRoutingModule } from './upcoming-tasks-routing.module';
 import { UpcomingTasksComponent } from './upcoming-tasks.component';
 import { UpcomingTaskLayoutModule } from './upcoming-task-layout/upcoming-task-layout.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -13,7 +14,8 @@ import { UpcomingTaskLayoutModule } from './upcoming-task-layout/upcoming-task-l
   imports: [
     CommonModule,
     UpcomingTasksRoutingModule,
-    UpcomingTaskLayoutModule
+    UpcomingTaskLayoutModule,
+    SharedModule
   ]
 })
 export class UpcomingTasksModule { }

@@ -13,6 +13,7 @@ import { GenericDeleteComponent } from './generic-delete/generic-delete.componen
 import { NodataComponent } from './nodata/nodata.component';
 import { GenericCountComponent } from './generic-count/generic-count.component';
 import { FormSpaceDirective } from './form-space.directive';
+import { ReadonlyTextareaDirective } from './non-editable.directive';
 import { DeleteComponent } from './delete/delete.component';
 
 @NgModule({
@@ -25,7 +26,7 @@ import { DeleteComponent } from './delete/delete.component';
     NodataComponent,
     GenericCountComponent,
     FormSpaceDirective,
-    DeleteComponent,
+    ReadonlyTextareaDirective,
     DeleteComponent
   ],
   imports: [
@@ -38,7 +39,6 @@ import { DeleteComponent } from './delete/delete.component';
     CKEditorModule ,
     NgbTimepickerModule,
     JsonPipe,
-
   ],
   exports:[
     SearchbarComponent,
@@ -52,6 +52,7 @@ import { DeleteComponent } from './delete/delete.component';
     NodataComponent ,
     JsonPipe,
     FormSpaceDirective,
+    ReadonlyTextareaDirective,
     DeleteComponent
   ]
 })

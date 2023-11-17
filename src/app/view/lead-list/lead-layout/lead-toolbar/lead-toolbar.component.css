@@ -37,3 +37,6 @@ i,mat-icon{
     background-color:var(--appColor);
     color:#FFF;
 }
+.bi-arrow-left-circle-fill{
+    color:#FFF
+}

@@ -72,6 +72,11 @@ export class LeadCardComponent implements OnInit {
       this.getLeadData('tabLabel')
     });
     this.getLeadIds()
+    this._addLeadEmitter.leadFilter.subscribe((res)=>{
+      if(res){
+        this.filterLeads(res)
+      }
+    })
   }
   applySearch(event:any){
     this.query = `?key=${event}`
@@ -94,6 +99,20 @@ export class LeadCardComponent implements OnInit {
      this.api.showError(error.error.message)
     })
    }
+   filterLeads(apiUrl:any){
+    this._baseService.getData(apiUrl).subscribe((res:any) => {
+      if(res){
+        this.api.showSuccess(res.message)
+        this.leadCards = res.results;
+        this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+        this.allLeadCardsDataSource.paginator = this.allPaginator;
+        this.totalNumberOfRecords = res.total_no_of_record
+      }
+    },((error:any)=>{
+      this.api.showError(error.error.message)
+    }));
+
+   }
   getLeadData(tabLabel: any) {
     
     if (tabLabel === 'tabLabel') {
@@ -106,7 +125,7 @@ export class LeadCardComponent implements OnInit {
           this.totalNumberOfRecords = res.total_no_of_record
         }
       }, (error: any) => {
-        this.api.showError(error.error.error.message);
+        this.api.showError(error.error.message);
       }); 
     }else {
       if(tabLabel.tab.textLabel === 'All' ){
@@ -129,7 +148,7 @@ export class LeadCardComponent implements OnInit {
             this.totalNumberOfRecords = res.total_no_of_record
           }
         }, (error: any) => {
-          this.api.showError(error.error.error.message);
+          this.api.showError(error.error.message);
         });
       }
      
