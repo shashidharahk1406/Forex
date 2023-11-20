@@ -14,6 +14,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PauseUserComponent } from '../pause-user/pause-user.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -51,6 +52,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   pageSize= 10;
   currentPage=1;
   totalPageLength:any;
+  params:any=null;
 
   constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService,private fb:FormBuilder
     ) {
@@ -66,23 +68,23 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
-          this.getUser(); 
+          this.getUser(this.params); 
         }
       }
     )
     this.emit.getRefreshByFilter.subscribe(
       (resp:any)=>{
-        if(resp){
-          this.dataSource = new MatTableDataSource<any>(resp);
-          console.log("ll");
+       
+          this.params=resp
+          this.getUser(this.params); 
           
-        }
+        
       }
     )
   }
   ngAfterViewInit() {
 
-    this.getUser(); 
+    this.getUser(null); 
     this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
 
@@ -96,42 +98,76 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  getUser(){
+  getUser(data:any){
     var role="Admin"
     console.log("ppp");
-    
-    this.api.getUser(this.pageSize,this.currentPage,role).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allUser= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allUser);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    if(this.params!=null){
+      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }
+    else{
+      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
     }
 
-    )
   }
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
     var role="Admin"
-    this.api.getUser(this.pageSize,this.currentPage,role).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allUser= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allUser);
-      this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    if(this.params!=null){
+      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
     }
-
-    )
+    else{
+      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }
   }
   
   openReplaceUser(userdata:any){
@@ -155,10 +191,22 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       console.log('The dialog was closed');
     });
   }
-  openDisableChat(name:string){
+  openDisableChat(id:any){
     const dialogRef = this.dialog.open(DisableChatComponent, {
       width:'35%',
-      data: {name:name}
+      data: id
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openPauseUser(id:any){
+    console.log("kkk",id);
+    
+    const dialogRef = this.dialog.open(PauseUserComponent, {
+      width:'35%',
+      data:id 
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -196,12 +244,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   editForm!:FormGroup
   initForm(){
     this.editForm = this.fb.group({
-      is_allow_for_app:["",Validators.required]
+      deactive:["",Validators.required]
     });}
   onSlideToggleChange(id:any,event:any){
     console.log(id,event.checked);
     this.editForm.patchValue({is_allow_for_app:event.checked})
-    this.api.editUser(id,this.editForm.value).subscribe(
+    this.api.pauseUser(id,this.editForm.value).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)
       },

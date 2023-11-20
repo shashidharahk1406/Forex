@@ -36,7 +36,7 @@ export class CreateTemplateComponent implements OnInit {
   this.whatsappTemplate = this.fb.group({
     name: ['',[Validators.required]],
     message: ['',[Validators.required]],
-    template_category_id: [2,[Validators.required]],
+    template_category_id: ['',[Validators.required]],
   });
   this.getPlaceHolder()
 

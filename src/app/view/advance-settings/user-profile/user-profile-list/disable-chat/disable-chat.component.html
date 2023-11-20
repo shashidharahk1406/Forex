@@ -1,7 +1,7 @@
 <mat-card>
     <div class="mat-dialog-header">
       <div class="row">
-          <div class="col"><h1 mat-dialog-title>Disable chat for {{data.name}}</h1></div>
+          <div class="col"><h1 mat-dialog-title>Disable Chat</h1></div>
           <div class="col-1 close-icon">
               <mat-icon mat-dialog-close>close</mat-icon>
           </div>
@@ -13,7 +13,7 @@
   </div>
   <div mat-dialog-actions>
     <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
-    <button mat-button [mat-dialog-close]="data" class="mat-disable" cdkFocusInitial>DISABLE</button>
+    <button mat-button (click)="submit(true)" class="mat-disable" cdkFocusInitial>PAUSE</button>
   </div>
   </mat-card>
   

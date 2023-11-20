@@ -38,6 +38,8 @@ export class TemplateListComponent implements AfterViewInit  {
 
 
   ]
+  params:any=null;
+
 
   dataSource = new MatTableDataSource<any>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
@@ -62,14 +64,23 @@ export class TemplateListComponent implements AfterViewInit  {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
-          this.getTemplate(); 
+          this.getTemplate(this.params); 
         }
+      }
+    )
+    this.emit.getRefreshByFilter.subscribe(
+      (resp:any)=>{
+       
+          this.params=resp
+          this.getTemplate(this.params); 
+          
+        
       }
     )
   }
   ngAfterViewInit() {
 
-    this.getTemplate(); 
+    this.getTemplate(null); 
     this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
 
@@ -83,39 +94,74 @@ export class TemplateListComponent implements AfterViewInit  {
       this.dataSource.paginator.firstPage();
     }
   }
-  getTemplate(){
-    this.api.getWhatsappTemplate(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allTemplate= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allTemplate);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+  getTemplate(data:any){
+    if(this.params!=null){
+      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allTemplate= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }
+    else{
+      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allTemplate= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
     }
 
-    )
+
   }
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
-    
-    this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allTemplate= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allTemplate);
-      this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    if(this.params!=null){
+      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allTemplate= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
     }
-
-    )
+    else{
+      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allTemplate= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }
   }
 
 

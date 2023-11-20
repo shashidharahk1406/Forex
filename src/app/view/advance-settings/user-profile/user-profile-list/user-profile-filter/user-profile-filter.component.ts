@@ -59,7 +59,6 @@ export class UserProfileFilterComponent implements OnInit {
       last_login_after:[''],
       updated_date_time_before:[''],
       updated_date_time_after:[''],
-
     })
     this.getAllRole()
     this.getAllUser()
@@ -67,10 +66,42 @@ export class UserProfileFilterComponent implements OnInit {
     this.getDesignation()
     this.getAllDepartment()
     this.getAllLevel()
+    this.setValue();
 
   }
   get f() {
     return this.filterForm.controls;
+  }
+  selectedArray:any=[]
+  setValue(){
+    var data:any=localStorage.getItem('userFilter')
+    var resp:any= JSON.parse(data)
+    if(resp){
+      console.log(resp.reporting_to_ids);
+      if(resp.reporting_to_ids){
+        resp.reporting_to_ids.forEach((element:any) => {
+          console.log(element);
+          this.selectedArray.push(element)
+        });
+      }
+
+      console.log(this.selectedArray);
+      
+      this.filterForm.patchValue({role_ids:resp?.role_ids})
+      this.filterForm.patchValue({is_active:resp?.is_active})
+      this.filterForm.patchValue({designation:resp?.designation})
+      this.filterForm.patchValue({reporting_to_ids:this.selectedArray})
+      this.filterForm.patchValue({level_of_program:resp?.level_of_program})
+      this.filterForm.patchValue({department:resp?.department})
+      this.filterForm.patchValue({role_ids:resp?.role_ids})
+      this.filterForm.patchValue({created_date_time_before:resp?.created_date_time_before})
+      this.filterForm.patchValue({created_date_time_after:resp?.created_date_time_after})
+      this.filterForm.patchValue({last_login_before:resp?.last_login_before})
+      this.filterForm.patchValue({last_login_after:resp?.last_login_after})
+      this.filterForm.patchValue({updated_date_time_before:resp?.updated_date_time_before})
+      this.filterForm.patchValue({updated_date_time_after:resp?.updated_date_time_after})
+    }
+
   }
   getAllRole(){
     this.api.getAllRole().subscribe(
@@ -128,9 +159,9 @@ export class UserProfileFilterComponent implements OnInit {
     )
   }
 
-  status: any = [true,false];
+  status: any = ['True','False'];
   baseurl= environment.live_url;
-  submit(){
+ async submit(){
     const formValues = this.filterForm.value;
 
     // Create an array of query parameters with non-empty values
@@ -142,8 +173,13 @@ export class UserProfileFilterComponent implements OnInit {
           // Handle multi-select fields
           if (value.length > 0) {
             // Convert array of objects to a comma-separated string of IDs
-            const ids = value.map((item) => item.id).join(',');
-            queryParams.push(`${key}=${ids}`);
+            if (key === 'reporting_to_ids') {
+              const ids = value.map((item) => item).join(',');
+              queryParams.push(`${key}=[${ids}]`);
+            } else {
+              const values = value.join(',');
+              queryParams.push(`${key}=${values}`);
+            }
           }
         } else {
           queryParams.push(`${key}=${value}`);
@@ -151,17 +187,24 @@ export class UserProfileFilterComponent implements OnInit {
       }
     }
   
-
+  
     // Construct the API request URL with query parameters
-    const apiUrl = `${this.baseurl}/api/filter-users?${queryParams.join('&')}`;
-
+    var apiUrl = `${queryParams.join('&')}`;
+    console.log(this.filterForm.value);
+    localStorage.setItem('userFilter',JSON.stringify(this.filterForm.value))
     // Make the API request with the constructed URL
-    this.api.getuserByFilter(apiUrl).subscribe((resp:any) => {
+
       // Handle the API response
-      this.emit.sendRefreshbyFilter(resp)
+      this.emit.sendRefreshbyFilter(apiUrl)
       this.dialogRef.close()
       // this.api.showSuccess(resp.message)
-    });
+
+  }
+  reset(){
+    localStorage.removeItem('userFilter')
+    this.emit.sendRefreshbyFilter(null)
+
+    this.dialogRef.close()
   }
   }
 

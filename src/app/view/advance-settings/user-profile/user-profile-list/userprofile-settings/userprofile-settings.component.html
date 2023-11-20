@@ -6,7 +6,9 @@
    
    <div class="row m-4">
     <div class="col-sm-12 col-md-6 col-lg-8 text-end">
-      <i class="bi bi-funnel-fill" (click)="openFilter()"></i>
+      
+      <i *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()"></i>
+      <i *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
       <i (click)="openAddUser()" class="bi bi-person-plus-fill" ></i>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
@@ -48,7 +50,7 @@
       <!-- Define Designation column -->
       <ng-container matColumnDef="designation_id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Designation</th>
-        <td mat-cell *matCellDef="let element">{{ element.designation }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.designation_name }}</td>
       </ng-container>
     
       <!-- Define Reporting To column -->
@@ -65,7 +67,7 @@
       <ng-container matColumnDef="is_allow_for_app">
         <th mat-header-cell *matHeaderCellDef>User Status</th>
         <!-- <td mat-cell *matCellDef="let element">{{ element['User Status'] }}</td> -->
-        <td mat-cell *matCellDef="let element"><mat-slide-toggle (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="element.is_allow_for_app" class="z-s"></mat-slide-toggle></td>
+        <td mat-cell *matCellDef="let element"><mat-slide-toggle (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="element.deactive" class="z-s"></mat-slide-toggle></td>
       </ng-container>
     
       <!-- Define Action column -->
@@ -75,8 +77,8 @@
         <div ngbDropdown #myDropdown="ngbDropdown">
           <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-             <div class="app-list"ngbDropdownToggle>
-              <mat-icon class="more-inner-icon">pause_circle_filled</mat-icon> Pause User
+             <div class="app-list"ngbDropdownToggle (click)="openPauseUser(element.id)">
+              <mat-icon class="more-inner-icon" >pause_circle_filled</mat-icon> Pause User
              </div>
              <div class="app-list" ngbDropdownToggle (click)="openReplaceUser(element)">
               <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
@@ -84,7 +86,7 @@
              <div class="app-list"ngbDropdownToggle (click)="openResetPassword(element)">
               <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
              </div>
-             <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element['User Name'])">
+             <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element.id)">
               <mat-icon class="more-inner-icon">speaker_notes_off</mat-icon> Chat disable
              </div>
             </div>

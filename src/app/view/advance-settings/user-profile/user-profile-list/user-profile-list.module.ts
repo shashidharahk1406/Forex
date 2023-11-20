@@ -10,6 +10,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/material.module';
 import { UserProfileFilterComponent } from './user-profile-filter/user-profile-filter.component';
 import { EditUserProfileListComponent } from './edit-user-profile-list/edit-user-profile-list.component';
+import { PauseUserComponent } from './pause-user/pause-user.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { EditUserProfileListComponent } from './edit-user-profile-list/edit-user
     UserProfileFilterComponent,
     UserprofileSettingsComponent,
     EditUserProfileListComponent,
+    PauseUserComponent,
   ],
   imports: [
     CommonModule,

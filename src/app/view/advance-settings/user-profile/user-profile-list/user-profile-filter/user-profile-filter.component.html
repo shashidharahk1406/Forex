@@ -18,7 +18,7 @@
                 <div class="col-12 col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>User Role</mat-label>
-                        <mat-select  formControlName="role_ids">
+                        <mat-select  formControlName="role_ids" multiple>
                             <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -56,7 +56,7 @@
                     <mat-form-field  appearance="outline">
                         <mat-label>Select Reporting to User</mat-label>
                         <mat-select formControlName="reporting_to_ids"  multiple>
-                          <mat-option *ngFor="let item of allUser" [value]="item">{{item.first_name}}</mat-option>
+                          <mat-option *ngFor="let item of allUser" [value]="item.id">{{item.first_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                       <mat-error *ngIf="f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched">
@@ -110,7 +110,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input (dateChange)="createdFromDate($event,'creationFrom')"  matInput [matDatepicker]="created_date_time_before">
+                                <input formControlName="created_date_time_before" (dateChange)="createdFromDate($event,'creationFrom')"  matInput [matDatepicker]="created_date_time_before">
                                 <mat-datepicker-toggle matSuffix [for]="created_date_time_before"></mat-datepicker-toggle>
                                 <mat-datepicker #created_date_time_before></mat-datepicker>
                               </mat-form-field>
@@ -118,7 +118,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input (dateChange)="createdFromDate($event,'creationTo')" matInput [matDatepicker]="creationTo">
+                                <input formControlName="created_date_time_after" (dateChange)="createdFromDate($event,'creationTo')" matInput [matDatepicker]="creationTo">
                                 <mat-datepicker-toggle matSuffix [for]="creationTo"></mat-datepicker-toggle>
                                 <mat-datepicker #creationTo></mat-datepicker>
                               </mat-form-field>
@@ -136,7 +136,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input  (dateChange)="createdFromDate($event,'loginFrom')" matInput [matDatepicker]="loginFrom">
+                                <input formControlName="last_login_before" (dateChange)="createdFromDate($event,'loginFrom')" matInput [matDatepicker]="loginFrom">
                                 <mat-datepicker-toggle matSuffix [for]="loginFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #loginFrom></mat-datepicker>
                               </mat-form-field>
@@ -144,7 +144,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input (dateChange)="createdFromDate($event,'loginTo')" matInput [matDatepicker]="loginTo">
+                                <input formControlName="last_login_after"  (dateChange)="createdFromDate($event,'loginTo')" matInput [matDatepicker]="loginTo">
                                 <mat-datepicker-toggle matSuffix [for]="loginTo"></mat-datepicker-toggle>
                                 <mat-datepicker #loginTo></mat-datepicker>
                               </mat-form-field>
@@ -164,7 +164,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>From Date</mat-label>
-                                <input (dateChange)="createdFromDate($event,'updateFrom')" matInput [matDatepicker]="modificationFrom">
+                                <input formControlName="updated_date_time_before" (dateChange)="createdFromDate($event,'updateFrom')" matInput [matDatepicker]="modificationFrom">
                                 <mat-datepicker-toggle matSuffix [for]="modificationFrom"></mat-datepicker-toggle>
                                 <mat-datepicker #modificationFrom></mat-datepicker>
                               </mat-form-field>
@@ -172,7 +172,7 @@
                         <div class="col-12 col-md-6">
                             <mat-form-field appearance="outline">
                                 <mat-label>To Date</mat-label>
-                                <input (dateChange)="createdFromDate($event,'updateTo')" matInput [matDatepicker]="modificationTo">
+                                <input formControlName="updated_date_time_after" (dateChange)="createdFromDate($event,'updateTo')" matInput [matDatepicker]="modificationTo">
                                 <mat-datepicker-toggle matSuffix [for]="modificationTo"></mat-datepicker-toggle>
                                 <mat-datepicker #modificationTo></mat-datepicker>
                               </mat-form-field>
@@ -186,7 +186,7 @@
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">
-      <button class="mat-cancel" mat-button mat-dialog-close>RESET</button>
+      <button class="mat-cancel" mat-button (click)="reset()">RESET</button>
       <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>APPLY</button>
     </mat-dialog-actions>
     
