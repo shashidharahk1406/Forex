@@ -9,6 +9,9 @@ import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 import { LeadFilterComponent } from '../lead-filter/lead-filter.component';
 import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
 import { FormGroup } from '@angular/forms';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { environment } from 'src/environments/environment';
+import { ApiService } from 'src/app/service/API/api.service';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -27,8 +30,10 @@ export class LeadToolbarComponent implements OnInit {
   leadSearch:any;
   serachForm!:FormGroup;
   showBtn: boolean = false;
+  exportReference: any;
   
-  constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog) {}
+  constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
+    private _baseService:BaseServiceService,private api:ApiService) {}
 
   ngOnInit(): void {}
   
@@ -158,7 +163,14 @@ export class LeadToolbarComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  
+  downloadLead(){
+  if(this.selectedLeads.length >0){
+    this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedLeads}`
+  }else{
+    this.api.showWarning('Please select atleast one lead to download')
+  }
+ 
+  }
   filterLead(){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',

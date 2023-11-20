@@ -24,8 +24,9 @@
                 <div class="col p-1" (click)="refreshLead($event)">
                     <mat-icon>autorenew</mat-icon>
                 </div>
-                <div class="col p-1">
-                    <mat-icon>save_alt</mat-icon>
+                <div class="col p-1"  (click)="downloadLead()">
+                  <a *ngIf="selectedLeads.length >0" [href]="exportReference" target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>
+                  <a *ngIf="selectedLeads.length === 0"  target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>    
                 </div>
                 <!-- <div class="col p-1 position-rel">
                     <mat-icon>people</mat-icon>

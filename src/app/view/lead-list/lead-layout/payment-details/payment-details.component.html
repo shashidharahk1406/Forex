@@ -1,0 +1,33 @@
+
+
+
+<ng-container >
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Payment Details</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+      <mat-dialog-content class="mat-typography">
+        <div class="row dlx-bx mt-3">
+          <div class="col">
+            <mat-checkbox [(ngModel)]="smsChecked">SMS</mat-checkbox> 
+            <mat-checkbox [(ngModel)]="emailChecked">Email</mat-checkbox>
+            <mat-checkbox [(ngModel)]="whatsappChecked">WhatsApp</mat-checkbox>
+          </div>
+         
+        </div>
+        <div class="dlx-bx">
+          <button mat-raised-button color="primary" routerLink="./lead-payment" (click)="closePopup()">SEND LINK</button> 
+        </div>
+  
+      </mat-dialog-content>
+      
+     
+    </mat-card>
+     
+  </ng-container>
+  

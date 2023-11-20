@@ -16,5 +16,6 @@ export const environment = {
   raw_data:'/api/upload-lead-data/',
   lead_ids:`/api/get-lead-ids/`,
   whatsapp_template:`/api/template/`,
-  lead_follow_up:`/api/add-follow-up/`
+  lead_follow_up:`/api/add-follow-up/`,
+  export_leads:`/api/export-leads/`
 };

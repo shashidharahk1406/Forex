@@ -210,3 +210,6 @@ height: 90%;
   pointer-events: none !important;
   background-color: #f0f0f0 !important; /* You can adjust the background color as needed */
 }
+.dlx-bx .mat-checkbox-layout .mat-checkbox-label {
+  margin-right: 10px !important;
+}

@@ -4,9 +4,10 @@ import { LeadListRoutingModule } from './lead-list-routing.module';
 import { LeadListComponent } from './lead-list.component';
 import { LeadLayoutModule } from './lead-layout/lead-layout.module';
 
+
 @NgModule({
   declarations: [
-    LeadListComponent
+    LeadListComponent,
   ],
   imports: [
     CommonModule,

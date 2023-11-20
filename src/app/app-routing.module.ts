@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PaymentButtonComponent } from './payment-button/payment-button.component';
 
 const routes: Routes = [
   
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'update-lead', 
     component:UpdateProfileComponent
+  },
+  {
+    path: 'lead-payment', 
+    component:PaymentButtonComponent
   },
   { path: '', component: LayoutComponent},
   { path: '', component: LayoutComponent,children:[

@@ -10,6 +10,7 @@ import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
 import { environment } from 'src/environments/environment';
+import { PaymentDetailsComponent } from '../payment-details/payment-details.component';
 
 
 @Component({
@@ -100,6 +101,16 @@ export class LeadcardMoreComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
+    });
+  }
+  openPayment(){
+    const dialogRef = this.dialog.open(PaymentDetailsComponent, {
+      width:'30%',
+      height:'30%'
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
     });
   }
   close(){

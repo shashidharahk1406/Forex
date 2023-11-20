@@ -1,0 +1,71 @@
+
+<div class="row d-flex justify-content-center align-items-center container-row">
+  
+    <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center">
+       
+    <mat-card class="p-0 m-0">
+        <div class="d-flex align-items-center justify-content-center">
+            <img src="../../assets/images/logo.png" width="250"  class="logo-tag"/>
+         </div>
+         <div class="row my-2">
+            <div class="col-12 text-center">
+                <h6 class="f-s">VERIFY ACCOUNT</h6>
+            </div>
+        </div>
+         <div class="main-container">
+            <form [formGroup]="verifyForm" class="example-form">
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-label>Name</mat-label>
+                  <input matInput type="text" placeholder="Enter Your Name" formControlName="name" required>
+                  <mat-error *ngIf="formControls['name'].hasError('required')">
+                    Name is required.
+                  </mat-error>
+                  <!-- You can add more error handling for specific patterns if needed -->
+                </mat-form-field>
+              
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" placeholder="Enter Your Email" formControlName="email" required>
+                  <mat-error *ngIf="formControls['email'].hasError('required')">
+                    Email is required.
+                  </mat-error>
+                  <mat-error *ngIf="formControls['email'].hasError('email')">
+                    Invalid email format.
+                  </mat-error>
+                </mat-form-field>
+              
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-label>Phone Number</mat-label>
+                  <input matInput type="tel" placeholder="Enter Your Phone Number" formControlName="phoneNumber" required>
+                  <mat-error *ngIf="formControls['phoneNumber'].hasError('required')">
+                    Phone number is required.
+                  </mat-error>
+                </mat-form-field>
+              
+                <mat-form-field appearance="outline" class="example-full-width">
+                  <mat-label>Bank Account Number</mat-label>
+                  <input matInput type="text" placeholder="Enter Your Bank Account Number" formControlName="bankAccountNumber" required>
+                  <mat-error *ngIf="formControls['bankAccountNumber'].hasError('required')">
+                    Bank account number is required.
+                  </mat-error>
+                </mat-form-field>
+              
+              
+              </form>
+              
+        </div>
+      
+       
+     
+     
+       <div class="d-flex justify-content-center align-items-center">
+        <button class="w-50 m-2"  mat-button  (click)="verifyAccount()">VERIFY</button>
+       </div>
+        
+    </mat-card>
+     
+ 
+    </div>
+</div>
+
+

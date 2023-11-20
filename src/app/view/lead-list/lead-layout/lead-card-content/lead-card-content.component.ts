@@ -10,7 +10,6 @@ import { LeadViewAllComponent } from '../lead-view-all/lead-view-all.component';
 import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { BaseServiceService } from 'src/app/service/base-service.service';
-import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
 
 @Component({
@@ -114,6 +113,7 @@ export class LeadCardContentComponent implements OnInit {
       //console.log('The dialog was closed');
     });
   }
+  
   openViewAll(name:any){
     const dialogRef = this.dialog.open(LeadViewAllComponent, {
       width:'60%',

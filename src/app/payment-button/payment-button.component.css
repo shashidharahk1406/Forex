@@ -1,0 +1,27 @@
+mat-card{
+    font-size: 12px;
+ }
+ .main-container{
+    height: 57vh;
+    overflow-y: auto;
+    padding: 10px;
+ }
+ mat-card:hover ::-webkit-scrollbar-thumb{
+     background: rgb(172, 172, 172) !important; 
+ }
+ .container-row{
+     height: 99vh;
+     /* background: linear-gradient(201.39deg, #504e5f 9.2%, #1c1a2e 104.85%); */
+     background-image: url('../../assets/images/BG_Orange.svg');
+     background-size: cover;
+     background-repeat: no-repeat; 
+     overflow-y: hidden;
+ }
+ .f-s{
+     color: #505050;
+     font-weight: 600;
+ }
+ .mat-button{
+     background: var(--appColor);
+     color:white;
+ }

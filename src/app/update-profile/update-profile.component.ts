@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { AddLeadEmitterService } from '../service/add-lead-emitter.service';
 import { DatePipe } from '@angular/common';
 import { BaseServiceService } from '../service/base-service.service';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ApiService } from '../service/API/api.service';
 import { CommonServiceService } from '../service/common-service.service';
 
@@ -34,6 +33,7 @@ export class UpdateProfileComponent implements OnInit {
   stat_us:any= [];
   time:any = ['Morning', 'Afternoon', 'Evening', 'Night', 'Other'];
   seasons:any = [];
+  data: any;
   // @Output() addLead = new EventEmitter()
   constructor(
     private fb: FormBuilder,
@@ -53,23 +53,25 @@ export class UpdateProfileComponent implements OnInit {
   this.updateLead = this.fb.group({
     firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
     lastName: ['',[Validators.pattern(this._commonService.namePattern)]],
-    email: ['', [Validators.required, Validators.email]],
-    mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
+    // email: ['', [Validators.required, Validators.email]],
+    // mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
+    email: [''],
+    mobile: [''],
     dateOfBirth:['',[Validators.required]],
     highestQualification: [''],
     callTime:[''],
-    campaignName: ['', Validators.required],
+    // campaignName: ['', Validators.required],
     season: [''],
     channel: [''],
-    source: ['',Validators.required],
+    source: [''],
     priority: [''],
     referredTo: [''],
-    status:['',Validators.required],
-    subStatus:['',Validators.required],
-    department: ['', Validators.required],
-    course: [''],
+    status:[''],
+    subStatus:[''],
+    department: ['',Validators.required],
+    course: ['',Validators.required],
     location: [''],
-    yearOfPassing: [''],
+    yearOfPassing: ['',Validators.required],
     primaryNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
     fathersNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
     mothersNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
@@ -84,11 +86,12 @@ export class UpdateProfileComponent implements OnInit {
     newChannel: [''],
     campaign: [''],
     medium: [''],
-    levelOfProgram: [''],
+    levelOfProgram: ['',Validators.required],
   });
 
 
  }
+ 
   dropDownValues(){
     this.getCountry();
     this.getState();
@@ -307,18 +310,18 @@ export class UpdateProfileComponent implements OnInit {
     let f = this.updateLead.value
    
      let data:any ={
-      user_data: {
+      // user_data: {
           first_name: f.firstName,
           last_name: f.lastName,
-          // email: f.email,
-          // mobile_number: f.mobile
-      },
+          email: 'test@gmail.com',
+          mobile_number: 9843253456,
+      //},
   
       higest_qualification: f.highestQualification,
       campaign_name:f.campaignName,
       season_id:f.season,
       channel_id:f.channel,
-      source_id:f.source,
+      source_id:13,
       // priority_id:f.priority,
       // refered_to_id:f.referredTo,
       // lead_list_status_id:f.status,
@@ -347,10 +350,10 @@ export class UpdateProfileComponent implements OnInit {
      }
     if(this.updateLead.invalid){
       this.updateLead.markAllAsTouched()
-      
+      this.api.showError('Invalid Form')
     }
     else{
-      this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
+      this._baseService.updateData(`${environment.lead_list}${1842}/`,data).subscribe((res:any)=>{
         if(res){
           // this.addLead.emit('ADD')
           this.api.showSuccess(res.message)

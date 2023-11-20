@@ -50,6 +50,7 @@ queryItems: any;
     this.getCampign()
     this.getCounselor()
     this.getChannel()
+    this.getCourse()
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
@@ -156,7 +157,7 @@ queryItems: any;
      const queryParams = [];
      for (const key in formValues) {
        const value = formValues[key];
-       if (value !== '' && value !== undefined) {
+       if (value !== '' && value !== undefined && value !== null) {
          if (Array.isArray(value)) {
            // Handle multi-select fields
            if (value.length > 0) {

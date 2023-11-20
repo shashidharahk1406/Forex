@@ -42,6 +42,7 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
 import { QuillModule } from 'ngx-quill';
 import { UpdateProfileComponent } from './update-profile/update-profile.component'
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PaymentButtonComponent } from './payment-button/payment-button.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     LoginComponent,
     ForgotPasswordComponent,
     UpdateProfileComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    PaymentButtonComponent
   ],
   imports: [
     BrowserModule,
