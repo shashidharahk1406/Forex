@@ -18,7 +18,7 @@ export class PaymentButtonComponent implements OnInit {
       amount:30000,
       name:'Asma',
       key:'rzp_test_8QJuav3Zg2fxgz',
-      image:'',
+      image:'../assets/images/logo.png',
       prefill:{
         name:'Asma M',
         email:'asma@ekfrazo.in',
@@ -34,14 +34,76 @@ export class PaymentButtonComponent implements OnInit {
       }
 
     }
-    const successCallback =(paymentid:any)=>{
+    const successCallback = (paymentid:any)=>{
     console.log(paymentid)
     }
     const failureCallback =(e:any)=>{
       console.log(e)
       }
-      Razorpay.open(RozarpayOptions,successCallback,failureCallback)
+    Razorpay.open(RozarpayOptions,successCallback,failureCallback)
+    // Razorpay.open(RozarpayOptions).then((razpayData: any) => {
+    //   console.log(razpayData,"ANY")
+    //     const data = {
+    //       razorpay_payment_id: razpayData.response.razorpay_payment_id,
+    //       razorpay_order_id: razpayData.response.razorpay_order_id,
+    //       razorpay_signature: razpayData.response.razorpay_signature,
+    //       is_amount_paid: true,
+    //       driver_id:localStorage.getItem('driver_id'),
+    //       //subscription_id:this.subscription_id
+    //     };
+    //    // this.showLoading()
+    //     // setTimeout(() => {
+    //     //   this.api.sendPaymentDetails(data).subscribe(
+    //     //     (successData) => {
+    //     //       this.router.navigate(['driver/inner/home']);
+    //     //       this.loaderDismiss()
+    //     //     });
+    //     // }, 100);
+    //   }).catch((err:any) => {
+    //     // console.log(err);
+    //     // this.loaderDismiss()
+      
+    //   });
   }
+  // const options = {
+  //   key: 'rzp_test_GxaJhvoS78ZpIz',
+  //   amount: this.planDetails['amount'],
+  //   description: 'Payment',
+  //   image: '../../../../../../assets/images/smiley.png',
+  
+  //   order_id: resp.order_id,//Order ID generated in Step 1
+  //   currency: 'INR',
+  //   name: 'Logistics',
+  //   prefill: {
+  //     contact: localStorage.getItem('user_id')
+  //   },
+  //   theme: {
+  //     color: '#3CCCC4'
+  //   }
+  // };
+  // Checkout.open(options).then((razpayData: any) => {
+
+  //   const data = {
+  //     razorpay_payment_id: razpayData.response.razorpay_payment_id,
+  //     razorpay_order_id: razpayData.response.razorpay_order_id,
+  //     razorpay_signature: razpayData.response.razorpay_signature,
+  //     is_amount_paid: true,
+  //     driver_id:localStorage.getItem('driver_id'),
+  //     subscription_id:this.subscription_id
+  //   };
+  //   this.showLoading()
+  //   setTimeout(() => {
+  //     this.api.sendPaymentDetails(data).subscribe(
+  //       (successData) => {
+  //         this.router.navigate(['driver/inner/home']);
+  //         this.loaderDismiss()
+  //       });
+  //   }, 100);
+  // }).catch((err) => {
+  //   console.log(err);
+  //   this.loaderDismiss()
+  
+  // });
   constructor(private formBuilder: FormBuilder,private commonService:CommonServiceService) {}
 
   ngOnInit() {

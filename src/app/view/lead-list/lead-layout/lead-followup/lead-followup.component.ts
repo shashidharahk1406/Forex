@@ -57,7 +57,7 @@ export class LeadFollowupComponent implements OnInit {
  getSource(){
   this.api.getAllSource().subscribe((res:any)=>{
    if(res.results){
-    this.leadCategory = res.results
+    this.followupType = res.results
    }
    else{
     this.api.showError('ERROR')
@@ -88,7 +88,7 @@ getStatus(){
  getChannel(){
   this.api.getAllChannel().subscribe((resp:any)=>{
     if(resp.results){
-      this.followupType= resp.results;
+      this.leadCategory= resp.results;
     }
     else{
       this.api.showError('ERROR')
@@ -134,6 +134,7 @@ onSubmit(){
   this._baseService.postData(`${environment.lead_follow_up}`,data).subscribe((res:any)=>{
     if(res){
       this.api.showSuccess(res.message)
+      this.closePopup()
     }
   },((error:any)=>{
     this.api.showError(error.error.message)

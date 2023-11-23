@@ -241,7 +241,7 @@ export class LeadToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(PaymentDetailsComponent, {
       width:'30%',
       height:'70%',
-      data:this.selectedLeads,
+      data:{data:this.selectedLeads,name:'BULK'},
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

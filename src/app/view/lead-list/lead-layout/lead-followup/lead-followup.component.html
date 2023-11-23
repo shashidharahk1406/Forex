@@ -17,7 +17,7 @@
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Lead Category</mat-label>
                 <mat-select formControlName="leadCategory" >
-                  <mat-option *ngFor="let leadList of leadCategory" [value]="leadList.id">{{ leadList.source_name }}</mat-option>
+                  <mat-option *ngFor="let leadList of leadCategory" [value]="leadList.id">{{  leadList.channel_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
@@ -74,7 +74,7 @@
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Follow Up Type</mat-label>
                 <mat-select formControlName="followupType" >
-                  <mat-option *ngFor="let followuplist of followupType" [value]="followuplist.id">{{ followuplist.channel_name }}</mat-option>
+                  <mat-option *ngFor="let followuplist of followupType" [value]="followuplist.id">{{ followuplist.source_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix

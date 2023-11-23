@@ -48,21 +48,23 @@ export class PaymentDetailsComponent implements OnInit {
       this.paymentForm.markAllAsTouched
     }else{
       let formData ={}
-      if(this.data.id){
-       formData ={
-        // amount:this.paymentForm.value['amount'],
-        // channel:this.paymentForm.value['channel'],
-        lead_ids: [this.data.id],
-        counsellor_id:[2] ,
-      }
-    }else{
+      if(this.data.name === "BULK"){
+      
       formData ={
-        // amount:this.paymentForm.value['amount'],
-        // channel:this.paymentForm.value['channel'],
-        lead_ids: this.data,
+        amount:this.paymentForm.value['amount'],
+        channel:this.paymentForm.value['channel'],
+        lead_ids: this.data.data,
         counsellor_id:[2] ,
       } 
+    }else{
+      formData ={
+        amount:this.paymentForm.value['amount'],
+        channel:this.paymentForm.value['channel'],
+        lead_ids: [this.data.user_data.id],
+        counsellor_id:[2] ,
+      }
     }
+    console.log(formData,"FORMDATA")
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
