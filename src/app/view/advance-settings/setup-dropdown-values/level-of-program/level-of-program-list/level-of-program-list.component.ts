@@ -63,21 +63,31 @@ export class LevelOfProgramListComponent implements AfterViewInit {
 
   }
 
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getLevelOfProgramSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allLevel= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allLevel);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getLevel()
     }
-
-    )
-  }
+   
+  }  
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getLevelOfProgramSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allLevel= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allLevel);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getLevel(){
     this.api.getLevelOfProgram(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

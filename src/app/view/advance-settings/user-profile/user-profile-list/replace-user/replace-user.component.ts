@@ -30,6 +30,7 @@ export class ReplaceUserComponent implements OnInit {
   is_allow_for_app:boolean=false
   user_id:any
   id:any
+  userData:any
 
   constructor(
     public dialogRef: MatDialogRef<ReplaceUserComponent>,private api:ApiService, private emit:EmitService,private datePipe:DatePipe,
@@ -39,6 +40,9 @@ export class ReplaceUserComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.id=data.userdata.id
+    this.userData=data.userdata
+    console.log(data);
+    
   }
 
   ngOnInit(): void {

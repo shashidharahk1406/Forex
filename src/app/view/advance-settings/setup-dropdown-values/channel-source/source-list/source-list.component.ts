@@ -69,22 +69,28 @@ export class SourceListComponent implements AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
-
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getSourceSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allSource= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allSource);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getSource()
     }
-
-    )
   }
+  search(){
+    if(this.searchValue?.length>0){
+  this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    console.log(resp.results);
+    this.allSource= resp.results;
+    this.dataSource = new MatTableDataSource<any>(this.allSource);
+    this.totalPageLength=resp.total_no_of_record
+  this.dataSource.sort = this.sort;
+    
+  },(error:any)=>{
+    console.log(error);
+    
+  }
+
+  )}}
   getSource(){
     this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

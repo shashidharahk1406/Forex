@@ -64,7 +64,7 @@ export class TemplateListComponent implements AfterViewInit  {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
-          this.getTemplate(this.params); 
+          this.getTemplate(); 
         }
       }
     )
@@ -72,7 +72,7 @@ export class TemplateListComponent implements AfterViewInit  {
       (resp:any)=>{
        
           this.params=resp
-          this.getTemplate(this.params); 
+          this.getTemplate(); 
           
         
       }
@@ -80,21 +80,37 @@ export class TemplateListComponent implements AfterViewInit  {
   }
   ngAfterViewInit() {
 
-    this.getTemplate(null); 
+    this.getTemplate(); 
     this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
 
   }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  searchValue:any
+  applyFilter(event: any) {
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getTemplate()
     }
+   
   }
-  getTemplate(data:any){
+  search(){
+    if(this.searchValue?.length>0){
+    this.api.getWhatsappTemplateSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+      console.log(resp.results);
+      this.allTemplate= resp.results;
+      this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+      this.totalPageLength=resp.total_no_of_record
+    this.dataSource.sort = this.sort;
+      
+    },(error:any)=>{
+      console.log(error);
+      
+    }
+
+    )
+  }}
+  getTemplate(){
     if(this.params!=null){
       this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);

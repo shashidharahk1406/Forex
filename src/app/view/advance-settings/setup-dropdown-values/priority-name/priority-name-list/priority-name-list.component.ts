@@ -68,21 +68,31 @@ export class PriorityNameListComponent implements AfterViewInit {
 
   }
 
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getPrioritySearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allPriority= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allPriority);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getPriority()
     }
-
-    )
+   
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getPrioritySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allPriority= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allPriority);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getPriority(){
     this.api.getPriority(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

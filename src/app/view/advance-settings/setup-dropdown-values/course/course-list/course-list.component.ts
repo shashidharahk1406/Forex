@@ -71,21 +71,31 @@ export class CourseListComponent implements AfterViewInit {
 
   }
 
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getCourseSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allCourse= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getCourse()
     }
-
-    )
+   
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getCourseSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allCourse= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCourse);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getCourse(){
     this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

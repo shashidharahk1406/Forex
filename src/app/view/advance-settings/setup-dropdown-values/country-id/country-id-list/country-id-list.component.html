@@ -10,8 +10,8 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input (keyup)="applyFilter($event)" type="text" class="form-control" placeholder="Search Country Name">
-        <button class="btn btn-outline-secondary" type="button">
+        <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search Country Name">
+        <button (click)="search()" class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>
       </div>
@@ -24,19 +24,19 @@
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Country Id</th>
-        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.name }}</td>
+        <th mat-header-cell *matHeaderCellDef >Country Id</th>
+        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.name |titlecase}}</td>
       </ng-container>
     
       <!-- Define Email column -->
       <ng-container matColumnDef="is_active">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
+        <th mat-header-cell *matHeaderCellDef >Is Active</th>
         <td mat-cell *matCellDef="let element">{{ element.is_active }}</td>
       </ng-container>
     
       <!-- Define Mobile column -->
       <ng-container matColumnDef="is_system_value">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Sysytem value</th>
+        <th mat-header-cell *matHeaderCellDef >Is Sysytem value</th>
         <td mat-cell *matCellDef="let element">{{ element.is_system_value }}</td>
       </ng-container>
 
@@ -68,5 +68,5 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
    

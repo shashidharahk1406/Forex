@@ -11,12 +11,16 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 export class DisableChatComponent implements OnInit {
   id:any;
   editForm!: FormGroup;
+userData:boolean;
+_data:any
   
     constructor(
       public dialogRef: MatDialogRef<DisableChatComponent>,private api:ApiService, private emit:EmitService,
       @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder
     ) {
-      this.id=data
+      this.id=data.id
+      this.userData=data.user_management[0].disable_chat
+      this._data=data
      }
   
     ngOnInit(): void {

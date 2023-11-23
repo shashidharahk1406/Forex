@@ -64,9 +64,16 @@ export class NewChannelListComponent implements AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
-
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getNewChannelSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getChannel()
+    }
+    
+  }
+  search(){
+    this.api.getNewChannelSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
       this.allChannel= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allChannel);

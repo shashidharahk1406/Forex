@@ -69,21 +69,31 @@ export class StateListComponent implements  AfterViewInit {
 
   }
 
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getStateSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allState= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allState);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getState()
     }
-
-    )
+   
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getStateSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allState= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allState);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getState(){
     this.api.getState(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

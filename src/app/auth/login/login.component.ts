@@ -80,13 +80,14 @@ export class LoginComponent implements OnInit {
 		else{
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
-				this.loginForm.reset()
 				localStorage.setItem('token',resp.result[0].token)
 				const decodedToken:any = jwtDecode(resp.result[0].token);
 				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id)
 				this.api.showSuccess('Login Successfull !!')
-				this.router.navigate(['/advancesettings'])
+				this.router.navigate(['/analytics'])
+				this.loginForm.reset()
+
 			},
 			(error=>{
 			  this.api.showError(error.error.message)

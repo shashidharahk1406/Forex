@@ -68,22 +68,30 @@ export class CampaignListComponent implements  AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
-
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getCampignSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allCampaign= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCampaign);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getCampaign()
     }
-
-    )
+    
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getCampignSearch(this.searchValue.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allCampaign= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCampaign);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getCampaign(){
     this.api.getCampign(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
