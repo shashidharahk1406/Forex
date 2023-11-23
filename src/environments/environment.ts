@@ -22,5 +22,6 @@ export const environment = {
   lead_ids:`/api/get-lead-ids/`,
   whatsapp_template:`/api/template/`,
   lead_follow_up:`/api/add-follow-up/`,
-  export_leads:`/api/export-leads/`
+  export_leads:`/api/export-leads/`,
+  leadPayment:`/api/send-payment-link/`
 };

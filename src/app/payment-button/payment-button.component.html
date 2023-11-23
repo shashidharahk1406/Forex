@@ -3,7 +3,7 @@
   
     <div class="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center">
        
-    <mat-card class="p-0 m-0">
+    <mat-card class="p-0 m-0 w-100">
         <div class="d-flex align-items-center justify-content-center">
             <img src="../../assets/images/logo.png" width="250"  class="logo-tag"/>
          </div>
@@ -13,14 +13,17 @@
             </div>
         </div>
          <div class="main-container">
-            <form [formGroup]="verifyForm" class="example-form">
+            <!-- <form [formGroup]="verifyForm" class="example-form">
                 <mat-form-field appearance="outline" class="example-full-width">
                   <mat-label>Name</mat-label>
                   <input matInput type="text" placeholder="Enter Your Name" formControlName="name" required>
                   <mat-error *ngIf="formControls['name'].hasError('required')">
                     Name is required.
                   </mat-error>
-                  <!-- You can add more error handling for specific patterns if needed -->
+                  <mat-error *ngIf="formControls['name'].hasError('pattern')">
+                    Invalid Name Pattern.
+                  </mat-error>
+                
                 </mat-form-field>
               
                 <mat-form-field appearance="outline" class="example-full-width">
@@ -38,29 +41,35 @@
                   <mat-label>Phone Number</mat-label>
                   <input matInput type="tel" placeholder="Enter Your Phone Number" formControlName="phoneNumber" required>
                   <mat-error *ngIf="formControls['phoneNumber'].hasError('required')">
-                    Phone number is required.
+                    Phone Number Is Required.
+                  </mat-error>
+                  <mat-error *ngIf="formControls['phoneNumber'].hasError('pattern')">
+                    Please Enter 10 Digits.
                   </mat-error>
                 </mat-form-field>
               
                 <mat-form-field appearance="outline" class="example-full-width">
                   <mat-label>Bank Account Number</mat-label>
-                  <input matInput type="text" placeholder="Enter Your Bank Account Number" formControlName="bankAccountNumber" required>
+                  <input matInput type="number" placeholder="Enter Your Bank Account Number" formControlName="bankAccountNumber" required>
                   <mat-error *ngIf="formControls['bankAccountNumber'].hasError('required')">
-                    Bank account number is required.
+                    Bank Account Number Is Required.
                   </mat-error>
                 </mat-form-field>
               
               
               </form>
-              
-        </div>
+               -->
+        
+               <div class="d-flex justify-content-center align-items-center">
+                <button class="w-50 m-2"  mat-button  (click)="payment()">PAYMENT</button>
+               </div>
+          
+          </div>
       
        
      
      
-       <div class="d-flex justify-content-center align-items-center">
-        <button class="w-50 m-2"  mat-button  (click)="verifyAccount()">VERIFY</button>
-       </div>
+      
         
     </mat-card>
      

@@ -87,6 +87,7 @@ export class LeadEmailComponent implements OnInit {
     
    
   }
+  
   closePopup(){
     this._bottomSheetRef.dismiss() 
   }

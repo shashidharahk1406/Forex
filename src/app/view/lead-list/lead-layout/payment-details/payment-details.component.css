@@ -5,25 +5,25 @@ mat-card{
 mat-dialog-content{
     height: 70% !important;  
 }
-button{
-    color:#FFF !important;
-}
+
 .dlx-bx {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
-    /* Make sure the container takes the full height */
+    justify-content: center;
+    align-items: center; 
   }
   
-  /* Additional styling for the button if needed */
   .dlx-bx button {
-    margin-top: 20px; /* Adjust the margin as needed */
+    margin-top: 20px; 
   }
-  .mat-dialog-content .dlx-bx .col {
+   /*.mat-dialog-content .dlx-bx .col {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
+  }*/
+  mat-label{
+   font-weight: bold;
+   margin: 0 auto;
   }
   

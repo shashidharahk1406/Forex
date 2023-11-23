@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import necessary form modules
+import { CommonServiceService } from '../service/common-service.service';
 
 declare var Razorpay:any;
 @Component({
@@ -10,8 +11,6 @@ declare var Razorpay:any;
 export class PaymentButtonComponent implements OnInit {
   verifyForm!: FormGroup;
   
-  
- 
   payment(){
     const RozarpayOptions = {
       description:'Sample Rozarpay demo',
@@ -43,22 +42,22 @@ export class PaymentButtonComponent implements OnInit {
       }
       Razorpay.open(RozarpayOptions,successCallback,failureCallback)
   }
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private commonService:CommonServiceService) {}
 
   ngOnInit() {
     // Initialize the form with validators
-    this.verifyForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', Validators.required],
-      bankAccountNumber: ['', Validators.required]
-    });
+    // this.verifyForm = this.formBuilder.group({
+    //   name: ['', [Validators.required,Validators.pattern(this.commonService.namePattern)]],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   phoneNumber: ['', [Validators.required,Validators.pattern(this.commonService.mobilePattern)]],
+    //   bankAccountNumber: ['', Validators.required]
+    // });
   }
 
   // Access form controls
-  get formControls() {
-    return this.verifyForm.controls;
-  }
+  // get formControls() {
+  //   return this.verifyForm.controls;
+  // }
 
   verifyAccount() {
     if(this.verifyForm.invalid){

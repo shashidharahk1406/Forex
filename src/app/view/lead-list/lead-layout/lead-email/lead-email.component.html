@@ -61,8 +61,8 @@
         </mat-dialog-content>
      
       <mat-dialog-actions class="d-flex">
-        <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
-        <button class="mat-disable m-1" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="onSubmit()">SEND EMAIL</button>
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">SEND EMAIL</button>
       </mat-dialog-actions>
     </mat-card>
      

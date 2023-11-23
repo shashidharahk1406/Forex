@@ -12,6 +12,7 @@ import { FormGroup } from '@angular/forms';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
+import { PaymentDetailsComponent } from '../payment-details/payment-details.component';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -66,13 +67,14 @@ export class LeadToolbarComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
+      this.refreshLead('event')
     });
     
   }
   openVideoCall(){
     this.addCount()
-   
-    let data = `Do You Want To Send SMS To ${this.data} Leads`
+    if(this.data !== 0){
+    let data = `Do You Want To Send A Video Call Link To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
@@ -81,8 +83,12 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkVideoCall()
+       this.refreshLead('event')
       }
     });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
   }
   bulkSMS(){
     const config: MatBottomSheetConfig = {
@@ -93,7 +99,7 @@ export class LeadToolbarComponent implements OnInit {
   }
   openSMS(name:any): void {
     this.addCount()
-   
+    if(this.data !== 0){
     let data = `Do You Want To Send SMS To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
@@ -103,24 +109,31 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkSMS()
+       this.refreshLead('event')
       }
-    });
+    })}
+    else{
+      this.api.showWarning('Please select atleast one lead')
+    }
   }
   openWhatsAppChat(){
     this.addCount()
-   
+    if(this.data !== 0){
     let data = `Do You Want To Send WhatsApp To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
       data:data
-
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkWhatsAppChat();
+       this.refreshLead('event')
       }
     });
+  }else{
+    this.api.showWarning('Please select atleast one lead to download')
+  }
   }
   bulkWhatsAppChat(){
     const dialogRef = this.dialog.open(LeadWhatsappChatComponent, {
@@ -129,6 +142,7 @@ export class LeadToolbarComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
+      this.refreshLead('event')
     });
   }
   bulkOpenEmailChat(name?:any){
@@ -140,7 +154,7 @@ export class LeadToolbarComponent implements OnInit {
   }
   openEmailChat(selectedData?:any){
     this.addCount()
-   
+    if(this.data !== 0){
     let data = `Do You Want To Send Email To ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
@@ -150,8 +164,12 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkOpenEmailChat()
+       this.refreshLead('event')
       }
     });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
   }
   openReferLead(){
     const dialogRef = this.dialog.open(ReferLeadComponent, {
@@ -161,6 +179,7 @@ export class LeadToolbarComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
+      this.refreshLead('event')
     });
   }
   downloadLead(){
@@ -180,7 +199,7 @@ export class LeadToolbarComponent implements OnInit {
   
   referLead(){
     this.addCount()
-   
+    if(this.data !== 0){
     let data = `Do You Want To Refer ${this.data} Leads`
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width:'40%',
@@ -192,8 +211,41 @@ export class LeadToolbarComponent implements OnInit {
        this.openReferLead()
       }
     });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
   }
   refreshLead(event:any){
     this.refresh.emit(event)
+  }
+  onClickLink(){
+    this.addCount()
+    if(this.data !== 0){
+      let data = `Do You Want To Send A Link To  ${this.data} Leads`
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width:'40%',
+        data:data,
+      });
+    
+      dialogRef.afterClosed().subscribe((result:any) => {
+        if(result === 'yes'){
+          this.paymentDetailsLink()
+        }
+      });
+    }else{
+      this.api.showWarning('Please select atleast one lead')
+    }
+   
+  }
+  paymentDetailsLink(){
+    const dialogRef = this.dialog.open(PaymentDetailsComponent, {
+      width:'30%',
+      height:'70%',
+      data:this.selectedLeads,
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      this.refresh.emit('event')
+    });
   }
 }

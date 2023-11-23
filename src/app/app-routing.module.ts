@@ -31,7 +31,7 @@ const routes: Routes = [
     component:UpdateProfileComponent
   },
   {
-    path: 'lead-payment', 
+    path: 'pay', 
     component:PaymentButtonComponent
   },
   { path: '', component: LayoutComponent},

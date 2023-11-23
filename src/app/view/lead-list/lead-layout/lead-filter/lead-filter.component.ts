@@ -134,7 +134,7 @@ queryItems: any;
       })
   }
   getCounselor(){
-    this._baseService.getData(`${environment._user}/?role=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
       if(res){
       this.counselorList = res
       }

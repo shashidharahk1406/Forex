@@ -7,8 +7,17 @@ import { Subject } from 'rxjs';
 export class EmitService {
 
   constructor() { }
+  
   private refresh= new Subject<any>;
   getRefresh= this.refresh.asObservable()
+  
+  private payment= new Subject<void>();
+  getRefreshPayment= this.payment.asObservable()
+   
+  paymentLink(){
+    return this.payment.next()
+  }
+  
   sendRefresh(data:any){
     return this.refresh.next(data)
   }

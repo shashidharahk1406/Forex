@@ -60,7 +60,8 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
   ],
   exports:[
     AddLeadComponent,
-    LeadLayoutComponent
+    LeadLayoutComponent,
+    PaymentDetailsComponent
   ]
 })
 export class LeadLayoutModule { }

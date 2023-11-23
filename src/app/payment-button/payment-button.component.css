@@ -2,8 +2,8 @@ mat-card{
     font-size: 12px;
  }
  .main-container{
-    height: 57vh;
-    overflow-y: auto;
+    /* height: 57vh; */
+    /* overflow-y: auto; */
     padding: 10px;
  }
  mat-card:hover ::-webkit-scrollbar-thumb{
@@ -24,4 +24,7 @@ mat-card{
  .mat-button{
      background: var(--appColor);
      color:white;
+ }
+ .w-100{
+    width: 100%;
  }

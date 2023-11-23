@@ -20,6 +20,10 @@ i{
     color:var(--appColor);
     margin-right: 10px;  
 }
+.bi-link-45deg{
+    font-size: 17px;
+    margin-right: 5px;
+}
 .border-cell:hover{
     background-color: lightgray;
     color:black;

@@ -21,6 +21,7 @@ import { PaymentDetailsComponent } from '../payment-details/payment-details.comp
 export class LeadcardMoreComponent implements OnInit {
   @Input()leadName:any;
   @Input()leadId:any;
+  @Input()counselor_id:any;
   @Input()item:any;
   @Output()deleteEvent = new EventEmitter()
   constructor(
@@ -70,13 +71,13 @@ export class LeadcardMoreComponent implements OnInit {
       width:'35%',
       data: {name:name}
     });
+    console.log()
     dialogRef.afterClosed().subscribe(result => {
       if(result === 'yes'){ 
-      this._baseService.delete(`${environment.lead_list}${this.leadId}/`).subscribe((res:any)=>{
+      this._baseService.delete(`${environment.lead_list}${this.item.user_data.id}/`).subscribe((res:any)=>{
         if(res){
           this.deleteEvent.emit('DELETE')
           this.api.showSuccess(res.message)
-          
         }
       },(error =>{
         this.api.showError(error.error.error.message)
@@ -106,7 +107,8 @@ export class LeadcardMoreComponent implements OnInit {
   openPayment(){
     const dialogRef = this.dialog.open(PaymentDetailsComponent, {
       width:'30%',
-      height:'30%'
+      height:'70%',
+      data:this.item
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {

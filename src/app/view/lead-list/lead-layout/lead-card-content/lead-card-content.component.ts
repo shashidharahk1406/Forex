@@ -28,7 +28,7 @@ export class LeadCardContentComponent implements OnInit {
   morePanel: boolean = false;
   expandedCardIndex: number = -1; 
   selectedCheckboxIds: any = [];
-  checked: boolean = false;
+  checked:boolean = false;
   selectAllChecked: boolean = false;
   checkAll:boolean = false;
   @Output()selectedSearch = new EventEmitter;
@@ -36,7 +36,9 @@ export class LeadCardContentComponent implements OnInit {
   @Output()refresh = new EventEmitter;
   leadItem: any;
 
-  constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
+  constructor(
+    private _bottomSheet:  MatBottomSheet,
+    private dialog: MatDialog,
     private _baseService:BaseServiceService,
     private api:ApiService) {}
   delete(event:any){
@@ -44,15 +46,12 @@ export class LeadCardContentComponent implements OnInit {
   }
   ngOnInit(): void {
    this.selectedCheckboxIds = [];
-   
    }
   ngOnChanges(changes: SimpleChanges) {
     this.api.setLeadData(this.leadData);
    
     if (changes['leadData']) {
       this.leadData2 = this.api.getLeadData();
-      
-     
       if (this.selectedCheckboxIds.length === this.totalCount) {
         this.checkAll = true;
         this.checkBoxData()
@@ -189,10 +188,11 @@ export class LeadCardContentComponent implements OnInit {
   }
   refreshLead(event:any){
     this.refresh.emit(event)
+    this.selectedCheckboxIds = []
   }
   checkBoxData(){
     for (const selectedId of this.selectedCheckboxIds) {
-      const leadItem = this.leadData2.find((item:any) => item.id === selectedId);
+      const leadItem = this.leadData2.find((item:any) => item.user_data.id === selectedId);
       if (leadItem ) {
         leadItem.checked = true;
       }
