@@ -69,21 +69,31 @@ export class CityListComponent implements AfterViewInit {
 
   }
 
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getCitySearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allCity= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCity);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getCity()
     }
 
-    )
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getCitySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allCity= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCity);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getCity(){
     this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

@@ -62,22 +62,31 @@ export class ChannelListComponent implements  AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
+  searchValue:any
 
   applyFilter(event: any) {
-    this.api.getChannelSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allChannel= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allChannel);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getChannel()
     }
-
-    )
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getChannelSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allChannel= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allChannel);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
+
   getChannel(){
     this.api.getChannel(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);

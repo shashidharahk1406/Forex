@@ -72,22 +72,30 @@ export class ListComponent implements AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
-
+  searchValue:any
   applyFilter(event: any) {
     console.log(event.target.value);
-    this.api.getStatusSearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allStatus= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allStatus);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getStatus()
     }
-
-    )
+  }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allStatus= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allStatus);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }
   }
   getStatus(){
     this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{

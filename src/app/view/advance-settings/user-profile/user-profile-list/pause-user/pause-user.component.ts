@@ -12,13 +12,19 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 })
 export class PauseUserComponent implements OnInit {
 id:any;
+userData:boolean;
+data:any;
 editForm!: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<PauseUserComponent>,private api:ApiService, private emit:EmitService,
-    @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public _data: any, private fb: FormBuilder
   ) {
-    this.id=data
+    this.id=_data.id
+    this.userData=_data.user_management[0].pause
+    this.data=_data
+    console.log(this.data);
+    
    }
 
   ngOnInit(): void {

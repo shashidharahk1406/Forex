@@ -37,9 +37,9 @@ export class EditTemplateComponent implements OnInit {
     this.editForm = this._fb.group({
       name: ['',[Validators.required]],
       message: ['',[Validators.required]],
-      template_category_id: [2,[Validators.required]],
+      template_category_id: ['',[Validators.required]],
       language_id: [null],
-      template_type_id: ['',[Validators.required]],  
+      // template_category_id: ['',[Validators.required]],  
 
     })
     this.getWhatsAppTemplateById()
@@ -66,7 +66,7 @@ export class EditTemplateComponent implements OnInit {
         console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({name:resp.result[0].name})
         this.editForm.patchValue({message:resp.result[0].message})
-        this.editForm.patchValue({template_type_id:resp.result[0].template_type_id})
+        this.editForm.patchValue({template_category_id:resp.result[0].template_category_id})
 
 
       },

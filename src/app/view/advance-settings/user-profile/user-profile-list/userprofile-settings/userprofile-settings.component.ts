@@ -68,7 +68,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
-          this.getUser(this.params); 
+          this.getUser(); 
         }
       }
     )
@@ -76,7 +76,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       (resp:any)=>{
        
           this.params=resp
-          this.getUser(this.params); 
+          this.getUser(); 
           
         
       }
@@ -84,21 +84,40 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   }
   ngAfterViewInit() {
 
-    this.getUser(null); 
+    this.getUser(); 
     this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
 
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  searchValue:any
+  applyFilter(event: any) {
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getUser()
     }
+    console.log(event.target.value);
+
   }
-  getUser(data:any){
+  search(){
+    if(this.searchValue?.length>0){
+      var role="Admin"
+      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params,role).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
+  getUser(){
     var role="Admin"
     console.log("ppp");
     if(this.params!=null){
@@ -248,7 +267,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });}
   onSlideToggleChange(id:any,event:any){
     console.log(id,event.checked);
-    this.editForm.patchValue({is_allow_for_app:event.checked})
+    this.editForm.patchValue({deactive:!event.checked})
     this.api.pauseUser(id,this.editForm.value).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)

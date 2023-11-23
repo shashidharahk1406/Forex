@@ -350,12 +350,22 @@ export class ApiService implements OnInit{
   //User
   getUser(size:any,pageNo:any,role:any,data:any){
     if(data!=null){
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&${data}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&${data}`)
     }
     else{
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}`)
 
     }
+  }
+  getUserSearch(search:any,size:any,pageNo:any,data:any,role:any){
+    if(data!=null){
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&key=${search}&${data}`)
+    }
+    else{
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&key=${search}`)
+
+    }
+    
   }
   getAllUser(){
     return this.http.get(`${this.baseurl}/api/user`)
@@ -425,6 +435,16 @@ export class ApiService implements OnInit{
 
     }
     // return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}`)
+  }
+  getWhatsappTemplateSearch(search:any,size:any,pageNo:any,data:any){
+    if(data!=null){
+      return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}&key=${search}&${data}`)
+    }
+    else{
+      return this.http.get(`${this.baseurl}/api/template?page_size=${size}&page=${pageNo}&key=${search}`)
+
+    }
+    
   }
   getAllWhatsappTemplate(){
     return this.http.get(`${this.baseurl}/api/template`)

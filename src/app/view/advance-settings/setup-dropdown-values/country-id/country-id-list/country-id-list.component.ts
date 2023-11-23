@@ -62,22 +62,31 @@ export class CountryIdListComponent implements AfterViewInit {
     // this.dataSource.sort = this.sort;
 
   }
-
+  searchValue:any
   applyFilter(event: any) {
-    this.api.getCountrySearch(event.target.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allCountry= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCountry);
-      this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
-      
-    },(error:any)=>{
-      console.log(error);
-      
+    console.log(event.target.value);
+    this.searchValue=event.target.value
+    if(event.target.value==''){
+      this.getCountry()
     }
-
-    )
+   
   }
+  search(){
+    if(this.searchValue?.length>0){
+      this.api.getCountrySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        console.log(resp.results);
+        this.allCountry= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCountry);
+        this.totalPageLength=resp.total_no_of_record
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      }
+  
+      )
+    }}
   getCountry(){
     this.api.getCountry(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       console.log(resp.results);
