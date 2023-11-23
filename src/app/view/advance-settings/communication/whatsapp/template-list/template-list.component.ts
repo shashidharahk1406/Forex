@@ -13,6 +13,8 @@ import { CreateTemplateComponent } from '../create-template/create-template.comp
 import { EditTemplateComponent } from '../edit-template/edit-template.component';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
+import { WhatsappTemplateDuplicateComponent } from '../whatsapp-template-duplicate/whatsapp-template-duplicate.component';
+import { WhatsappViewTemplateComponent } from '../whatsapp-view-template/whatsapp-view-template.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -209,6 +211,28 @@ export class TemplateListComponent implements AfterViewInit  {
       console.log('The dialog was closed');
     }); 
   }
+  openView(id:any){
+    const dialogRef = this.dialog.open(WhatsappViewTemplateComponent, {
+      width:'35%',
+      data:id
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
+  openDuplicateTemplate(data:any){
+    console.log("ll");
+    
+    const dialogRef = this.dialog.open(WhatsappTemplateDuplicateComponent, {
+      width:'35%',
+      data: data
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+    }); 
+  }
   baseurl= environment.live_url;
   openDelete(id:any){
     const apiUrl = `${this.baseurl}/api/template/${id}/`;
@@ -221,5 +245,6 @@ export class TemplateListComponent implements AfterViewInit  {
       console.log('The dialog was closed');
     }); 
   }
+
   
 }

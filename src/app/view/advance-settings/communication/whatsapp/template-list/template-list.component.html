@@ -66,15 +66,15 @@
         <div ngbDropdown #myDropdown="ngbDropdown">
           <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-             <div class="app-list"ngbDropdownToggle>
+             <div class="app-list" ngbDropdownToggle (click)="openDuplicateTemplate(element)">
               <mat-icon class="more-inner-icon"><span class="material-icons">
                 content_copy_filled
                 </span></mat-icon> Duplicate
              </div>
-             <div class="app-list" ngbDropdownToggle >
+             <div class="app-list" ngbDropdownToggle (click)="openView(element.id)">
               <mat-icon class="more-inner-icon">visibility</mat-icon> View
              </div>
-             <div class="app-list"ngbDropdownToggle (click)="openDelete(element.id)">
+             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id)">
               <mat-icon class="more-inner-icon">delete</mat-icon> Delete
              </div>
              <!-- <div class="app-list"ngbDropdownToggle>

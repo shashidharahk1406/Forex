@@ -461,6 +461,9 @@ export class ApiService implements OnInit{
   getPlaceHolder(){
     return this.http.get(`${this.baseurl}/api/placeholder/`)
   }
+  createDuplicate(id:any){
+    return this.http.post(`${this.baseurl}/api/template/${id}/duplicate_template/`,null)
+  }
   //Whatsapp Template
   //Report
   getTarget(){
