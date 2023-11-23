@@ -1,0 +1,28 @@
+* .row,.col{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.r-h{
+    height: fit-content !important;
+}
+h6{
+    padding: 10px 10px 0;
+    font-weight: 600;
+    margin: 5px 0 10px !important;
+}
+.container{
+    margin: 10px 0;
+}
+mat-card{
+    box-shadow: none !important;
+    margin: 0;
+    padding: 0;
+}
+textarea{
+    background-color: #f2f2f2;
+    height: 150px;
+    border-radius: 8px;
+   border: solid 0.5px rgba(199, 197, 197, 0.977);
+   width: 100%;
+
+}

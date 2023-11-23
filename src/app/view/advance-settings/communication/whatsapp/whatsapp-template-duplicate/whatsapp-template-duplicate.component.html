@@ -1,27 +1,27 @@
 <mat-card>
     <div class="mat-dialog-header">
       <div class="row">
-          <div class="col"><h1 mat-dialog-title>Enable/Disable Chat [{{_data.first_name }}]</h1></div>
+          <div class="col"><h1 mat-dialog-title>Duplicate Template [{{ _data.name ? ( _data.name | slice: 0:20) : ''}}]</h1></div>
           <div class="col-1 close-icon">
               <mat-icon mat-dialog-close>close</mat-icon>
           </div>
       </div>
   </div>
   
-  <div *ngIf="!userData" mat-dialog-content class="disable-user">
-    <p class="pt-3">Do you want to disable this user?</p>
+  <div  mat-dialog-content class="disable-user">
+    <p class="pt-3">Do you want to duplicate the template?</p>
   </div>
-  <div *ngIf="!userData" mat-dialog-actions>
+  <div  mat-dialog-actions>
     <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
-    <button mat-button (click)="submit(true)" class="mat-disable" cdkFocusInitial>DISABLE</button>
+    <button mat-button (click)="submit()" class="mat-disable" cdkFocusInitial>DUPLICATE</button>
   </div>
-  <div *ngIf="userData" mat-dialog-content class="disable-user">
+  <!-- <div *ngIf="userData" mat-dialog-content class="disable-user">
     <p class="pt-3">Do you want to enable this user?</p>
   </div>
   <div *ngIf="userData" mat-dialog-actions>
     <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
     <button mat-button (click)="submit(false)" class="mat-disable" cdkFocusInitial>ENABLE</button>
-  </div>
+  </div> -->
   </mat-card>
   
   

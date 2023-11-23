@@ -12,6 +12,8 @@ import { WhatsappFilterComponent } from './whatsapp-filter/whatsapp-filter.compo
 import { CreateEnterpriseTemplateComponent } from './create-enterprise-template/create-enterprise-template.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
+import { WhatsappTemplateDuplicateComponent } from './whatsapp-template-duplicate/whatsapp-template-duplicate.component';
+import { WhatsappViewTemplateComponent } from './whatsapp-view-template/whatsapp-view-template.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { EditTemplateComponent } from './edit-template/edit-template.component';
     WhatsappFilterComponent,
     CreateEnterpriseTemplateComponent,
     CreateTemplateComponent,
-    EditTemplateComponent
+    EditTemplateComponent,
+    WhatsappTemplateDuplicateComponent,
+    WhatsappViewTemplateComponent
   ],
   imports: [
     CommonModule,
