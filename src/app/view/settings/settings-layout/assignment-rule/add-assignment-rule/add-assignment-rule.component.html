@@ -1,0 +1,121 @@
+
+
+<ng-container>
+    
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Add Assignment Rule</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+          <form [formGroup]="uploadLeadForm"  >
+         <div class="container">
+          <ng-container>
+            <h4>When Criteria</h4>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Source</mat-label>
+            <mat-select placeholder="Source"  formControlName="channel">
+              <mat-option *ngFor="let channels of channelList" [value]="channels.id">{{channels.channel_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('channel')"
+              *ngIf="f['channel']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+            <p>AND</p>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select placeholder="Department" formControlName="source">
+              <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('source')"
+              *ngIf="f['source']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <p>AND</p>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Level of Program</mat-label>
+            <mat-select placeholder="Department" formControlName="source">
+              <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('source')"
+              *ngIf="f['source']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <p>AND</p>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Course</mat-label>
+            <mat-select placeholder="Department" formControlName="source">
+              <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('source')"
+              *ngIf="f['source']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <h4>Then Counselor is</h4>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Counselor</mat-label>
+            <mat-select placeholder="Counselor" formControlName="source">
+              <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('source')"
+              *ngIf="f['source']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+
+     
+        </ng-container>
+
+         
+        </div>
+      </form>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">ADD RULE</button>
+      </mat-dialog-actions>
+    </mat-card>
+   
+  </ng-container>
+  
+  

@@ -1,0 +1,22 @@
+mat-card{
+    box-shadow: none !important;
+}
+.container{
+  padding: 10px 20px;
+}
+.bi-box-arrow-in-up{
+    color:var(--appColor);
+    font-size: 25px;
+}
+.forward-icon{
+    color:var(--appColor);
+    font-size: 25px;
+    border-left: 2px solid var(--appColor);
+    transform: rotate(-90deg);
+}
+p{
+    color: var(--appColor) !important;
+}
+h4{
+    font-weight: 600;
+}

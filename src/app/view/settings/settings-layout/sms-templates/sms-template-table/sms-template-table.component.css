@@ -1,0 +1,196 @@
+h1{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 20px;
+    color:#393939 !important;
+}
+.head-container{
+    padding: 15px 0 10px 0;
+    padding-left: 0px;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    background-color: transparent !important;
+}
+.bi-plus-lg{
+  color:var(--appColor);
+  font-size: 25px;
+  font-weight: 800;
+}
+table {
+    width: 100%;
+  }
+  ::ng-deep .mat-icon {
+    overflow: inherit;
+}
+.more-dropdown{
+    width: 191px;
+    padding: 20px; 
+  }
+  .more-inner-icon{
+    padding: 2px;
+    height: 10px;
+  }
+  .genericTable {
+    height: 100%!important;
+  }
+  
+.filter-icon-label {
+    display: flex;
+    align-items: center;
+  }
+  .filter-icon {
+    margin-right: 8px;
+  }
+  mat-form-field{
+   font-size: 13px;
+  }
+  .arrow-down{
+    vertical-align: middle;
+    float: right;
+    line-height: 21px;
+    color: darkgray;
+  }
+  .text-muted{
+    font-size: 12px;
+  }
+  .bi-funnel-fill{
+    margin: 0 0 10px;
+    color:rgb(134, 134, 134) !important;
+    font-size: 12px;
+  }
+  .filter-text{
+    font-size: 13px;
+    color: rgb(83 83 83);
+    padding-left: 10px;
+  }
+ 
+  .filterBy-category{
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 10px;
+    width: 100%;
+    margin: 0;
+    box-shadow: none !important;
+  }
+  .filterBy-category:hover{
+    background-color: #f6f6f6;
+  }
+  .more-dropdown{
+    inset: -36px auto auto -21px !important;
+    margin: 0px;
+    width: 420px !important;
+    font-size: 13px;
+  }
+  .more-dropdown2{
+    inset: -41px auto auto -7px !important;
+    margin: 5px !important;
+    width: 250px !important;
+    font-size: 13px;
+  }
+  .more-dropdown:hover{
+    background-color: none !important;
+  }
+  .br-b{
+  border-bottom:1px solid #f3f3f3;
+  margin: 0;
+  }
+  .clear-icon{
+    font-size: 15px;
+    vertical-align: text-top;
+    height: 17px !important;
+  }
+  .footer-col{
+    text-align: end;
+    padding-right: 5%;
+    border-top: 1px solid #f6f6f6;
+  }
+  button{
+    padding: 0;
+    height: 34px;
+  }
+  .c-h{
+    padding: 16px 16px 13px !important;
+  }
+  .body-section{
+    line-height: 24px;
+    height: 150px;
+    overflow-y: auto;
+  }
+ .main-catagory:hover{
+  background-color: #f6f6f6;
+ }
+ .snippets{
+  background-color: #d5d5d5;
+  padding: 4px;
+  border-radius: 10px;
+ }
+ .op-m{
+  margin-top: -15px;
+ }
+
+li{
+  list-style: none;
+}
+ul{
+  padding-left: 0rem !important;
+}
+.s-p{
+  position: absolute !important;
+  margin-left: 15px;
+}
+.selected-category{
+  background-color: #f6f6f6;
+}
+.list-head{
+  font-weight: bold;
+}
+.col-p{
+  padding-right: 0
+}
+.suffix-icon{
+  float: right;
+}
+.br-b{
+  border-bottom: 1px solid #d5d5d5;
+  padding: 5px 0;
+}
+.filter-type-card{
+  padding: 6px;
+  border-radius: 0;
+  border: 1px solid #d3d3d3;
+  border-right: 0;
+  box-shadow: none;
+}
+select:focus{
+  outline: none;
+}
+/* Your component's style file (.css or .scss) */
+
+.input-container {
+  display: flex;
+  gap: 0px; /* Adjust the gap according to your preference */
+}
+
+.mat-form-field {
+  flex: 1; /* Make both fields take equal width */
+}
+
+.add-btn{
+  position: fixed;
+  bottom: 7rem;
+  right: 2px;
+  z-index: 1;
+  height: 55px;
+
+}
+.upload-btn{
+  position: fixed;
+  bottom: 3rem;
+  right: 2px;
+  z-index: 1;
+  height: 55px;
+}
+.forward-icon{
+  border-left: 2px solid white;
+  transform: rotate(-90deg);
+}
