@@ -9,6 +9,7 @@ import { LeadCountSmsDownloadComponent } from '../lead-count-sms-download/lead-c
 import { LeadCountMailComponent } from '../lead-count-mail/lead-count-mail.component';
 import { LeadCountWhatsappComponent } from '../lead-count-whatsapp/lead-count-whatsapp.component';
 import { Chart } from 'chart.js';
+import { ApiService } from 'src/app/service/API/api.service';
 
 export interface UserData {
   'User Name': string,
@@ -40,7 +41,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   
 
-  constructor(private dialog: MatDialog,  
+  constructor(private dialog: MatDialog,  private api:ApiService
     ) {
       
    
@@ -203,36 +204,56 @@ export class LeadCountTableComponent implements  AfterViewInit {
     }); 
   }
   
-  createChart(){
-    this.chart = new Chart(this.chartRef.nativeElement, {
-      type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: [
-            'red',
-            'blue',
-            'yellow',
-            'green',
-            'purple',
-            'orange'
-          ],
-          borderColor: [
-            'red',
-            'blue',
-            'yellow',
-            'green',
-            'purple',
-            'orange'
-          ],
-          borderWidth: 1
-        }]
+  createChart() {
+    this.api.getLeadCount().subscribe(
+      (resp: any) => {
+        if (this.chart) {
+          this.chart.destroy();
+        }
+        this.chart = new Chart(this.chartRef.nativeElement, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(resp.result[0]), 
+            datasets: [{
+              label: '# of Leads',
+              data: Object.values(resp.result[0]), 
+              backgroundColor: [
+                'red',
+                'blue',
+                'yellow',
+                'green',
+                'purple',
+                'orange',
+                'gray', 
+              ],
+              borderColor: [
+                'red',
+                'blue',
+                'yellow',
+                'green',
+                'purple',
+                'orange',
+                'gray',
+   
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
       },
-      options: {}
-    });
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
+  
   }
 
  

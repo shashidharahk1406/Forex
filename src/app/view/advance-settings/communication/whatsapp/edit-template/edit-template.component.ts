@@ -39,8 +39,7 @@ export class EditTemplateComponent implements OnInit {
       message: ['',[Validators.required]],
       template_category_id: ['',[Validators.required]],
       language_id: [null],
-      // template_category_id: ['',[Validators.required]],  
-
+      template_type_id: [3,[Validators.required]],
     })
     this.getWhatsAppTemplateById()
   this.getPlaceHolder();

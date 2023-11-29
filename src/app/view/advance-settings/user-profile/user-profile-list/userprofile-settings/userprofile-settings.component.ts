@@ -103,7 +103,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       var role="Admin"
-      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params,role).subscribe((resp:any)=>{
+      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -121,7 +121,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     var role="Admin"
     console.log("ppp");
     if(this.params!=null){
-      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -136,7 +136,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       )
     }
     else{
-      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -158,7 +158,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     console.log(this.pageSize,this.currentPage);
     var role="Admin"
     if(this.params!=null){
-      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -173,7 +173,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       )
     }
     else{
-      this.api.getUser(this.pageSize,this.currentPage,role,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
