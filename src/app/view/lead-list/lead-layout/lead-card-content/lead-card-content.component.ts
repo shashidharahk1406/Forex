@@ -140,18 +140,24 @@ export class LeadCardContentComponent implements OnInit {
    this.selectedSearch.emit(event)
   }
  
-  selectAll():any {
-    
+  selectAll(event:any) {
+   // console.log(event,"EVENT")
     this.checkAll = !this.checkAll;
-    if (this.checkAll) {
+    if (event.checked == true) {
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
      this.selectedCheckboxIds = this.allLeadIds
     // console.log(this.selectedCheckboxIds,"LEADIDS")
       this.checkBoxData()
-    } else {
+     // this.checked = false
+    } else  {
       // If "Select All" is unchecked, clear the selectedCheckboxIds array
       this.selectedCheckboxIds = [];
-      this.checked = false
+      this.leadData2.forEach((element:any) => {
+        if (element ) {
+          element.checked = false;
+        }
+      });
+        
     }
     
   }
