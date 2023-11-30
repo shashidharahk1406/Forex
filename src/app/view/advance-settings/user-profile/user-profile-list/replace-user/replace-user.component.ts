@@ -54,6 +54,7 @@ export class ReplaceUserComponent implements OnInit {
   departments: string[] = ['Department 1', 'Department 2', 'Department 3'];
 
   editForm!: FormGroup;
+  changeUserForm!: FormGroup;
   replaceUserForm!: FormGroup;
   user_details:any=[]
   initForm(){
@@ -74,6 +75,10 @@ export class ReplaceUserComponent implements OnInit {
       // password:[''],
       // created_by:['',[Validators.required]]
     });
+    this.changeUserForm= this.fb.group({
+      old_emp_id:['',[Validators.required]],
+      new_emp_id:['',[Validators.required]],
+    });
     this.getAllDepartment()
     this.getAllLevel()
     this.getAllRole()
@@ -90,6 +95,9 @@ export class ReplaceUserComponent implements OnInit {
  
   get f() {
     return this.editForm.controls;
+  }
+  get fd() {
+    return this.changeUserForm.controls;
   }
 date(event: MatDatepickerInputEvent<Date>){
   console.log(event.value);
@@ -171,7 +179,10 @@ getUserbyId(){
   getAllUser(){
     this.api.getAllUser().subscribe(
       (resp:any)=>{
-        this.allUser=resp.results
+  
+        this.allUser = resp.results.filter((user: any) => (user.id !== this.id && user.role_name=='counsellor'));
+        
+
       },
       (error:any)=>{
 
@@ -246,6 +257,25 @@ getUserbyId(){
       });
       this.editForm.patchValue({reporting_to_ids:array})
       this.api.replaceUser(this.editForm.value).subscribe(
+        (resp:any)=>{
+          this.emit.sendRefresh(true)
+          this.dialogRef.close()
+          this.api.showSuccess(resp.message)
+        },
+        (error:any)=>{
+          console.log(error);
+          this.api.showError(error.error.message)
+        }
+      )
+    }
+    }
+  async submitReplaceUser(){
+    this.changeUserForm.patchValue({'old_emp_id':this.id})
+    if(this.changeUserForm.invalid){
+      this.changeUserForm.markAllAsTouched()
+    }
+    else{
+      this.api.replaceOldUser(this.changeUserForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()

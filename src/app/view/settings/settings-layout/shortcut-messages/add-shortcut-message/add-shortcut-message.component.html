@@ -1,0 +1,65 @@
+
+
+<ng-container>
+    
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Add Shortcut Message</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+          <form [formGroup]="uploadLeadForm"  >
+         <div class="container">
+          <ng-container>
+            
+            <mat-form-field appearance="outline" class="mb-1" >
+                <mat-label>Shortcut Name</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Enter Your Shortcut Name"
+                  required
+                />
+              </mat-form-field>
+          <mat-form-field class="mb-1" appearance="outline">
+            <mat-label>Visible For</mat-label>
+            <mat-select placeholder="Visible For"  formControlName="channel">
+              <mat-option *ngFor="let channels of channelList" [value]="channels.id">{{channels.channel_name}}</mat-option> 
+            </mat-select>
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="clearSelectField('channel')"
+              *ngIf="f['channel']?.value"
+            >
+              <mat-icon>clear</mat-icon>
+            </button>
+          </mat-form-field>
+          <mat-form-field   appearance="outline">
+            <mat-label>Message</mat-label>
+            <input matInput type="text" matInput placeholder="Message">
+        </mat-form-field>
+        
+
+     
+        </ng-container>
+
+         
+        </div>
+      </form>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">SAVE</button>
+      </mat-dialog-actions>
+    </mat-card>
+   
+  </ng-container>

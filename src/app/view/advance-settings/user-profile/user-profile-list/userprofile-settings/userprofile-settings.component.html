@@ -84,10 +84,10 @@
              <div class="app-list"ngbDropdownToggle (click)="openPauseUser(element)">
               <mat-icon class="more-inner-icon" >pause_circle_filled</mat-icon> Resume/Pause User
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openReplaceUser(element)">
+             <div class="app-list" *ngIf="element.role_name=='counsellor'" ngbDropdownToggle (click)="openReplaceUser(element)">
               <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
              </div>
-             <div class="app-list"ngbDropdownToggle (click)="openResetPassword(element)">
+             <div class="app-list" ngbDropdownToggle (click)="openResetPassword(element)">
               <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
              </div>
              <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element)">
