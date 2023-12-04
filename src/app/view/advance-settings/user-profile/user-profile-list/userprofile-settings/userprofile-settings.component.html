@@ -68,8 +68,7 @@
       <!-- Define User Status column -->
       <ng-container matColumnDef="is_allow_for_app">
         <th mat-header-cell *matHeaderCellDef>User Status</th>
-        <!-- <td mat-cell *matCellDef="let element">{{ element['User Status'] }}</td> -->
-        <td mat-cell *matCellDef="let element"><mat-slide-toggle *ngIf="element.user_management.length>0" (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="!element.user_management[0].deactive" class="z-s"></mat-slide-toggle>
+        <td mat-cell  *matCellDef="let element"><mat-slide-toggle *ngIf="element.user_management" (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="!element.user_management[0].deactive" class="z-s"></mat-slide-toggle>
           </td>
        
       </ng-container>

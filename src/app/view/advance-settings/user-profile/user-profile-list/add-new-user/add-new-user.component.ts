@@ -42,7 +42,7 @@ export class AddNewUserComponent implements OnInit {
       reporting_to_ids:[null,[Validators.required]],
       is_allow_for_app:[false],
       level_of_program_id:[null,[Validators.required]],
-      department_id:[null],
+      department_id:[null,[Validators.required]],
       password:[null],
       created_by:[null,[Validators.required]]
     })
