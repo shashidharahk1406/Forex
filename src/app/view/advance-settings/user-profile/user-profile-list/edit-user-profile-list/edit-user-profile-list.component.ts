@@ -63,7 +63,7 @@ export class EditUserProfileListComponent implements OnInit {
       role_id:['',[Validators.required]],
       reporting_to_ids:['',[Validators.required]],
       level_of_program_id:['',[Validators.required]],
-      department_id:[''],
+      department_id:['',[Validators.required]],
       password:[''],
       created_by:['',[Validators.required]]
     });

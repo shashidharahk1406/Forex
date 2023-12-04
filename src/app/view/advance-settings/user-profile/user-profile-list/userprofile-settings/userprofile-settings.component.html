@@ -68,8 +68,7 @@
       <!-- Define User Status column -->
       <ng-container matColumnDef="is_allow_for_app">
         <th mat-header-cell *matHeaderCellDef>User Status</th>
-        <!-- <td mat-cell *matCellDef="let element">{{ element['User Status'] }}</td> -->
-        <td mat-cell *matCellDef="let element"><mat-slide-toggle *ngIf="element.user_management.length>0" (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="!element.user_management[0].deactive" class="z-s"></mat-slide-toggle>
+        <td mat-cell  *matCellDef="let element"><mat-slide-toggle *ngIf="element.user_management" (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="!element.user_management[0].deactive" class="z-s"></mat-slide-toggle>
           </td>
        
       </ng-container>
@@ -84,10 +83,10 @@
              <div class="app-list"ngbDropdownToggle (click)="openPauseUser(element)">
               <mat-icon class="more-inner-icon" >pause_circle_filled</mat-icon> Resume/Pause User
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openReplaceUser(element)">
+             <div class="app-list" *ngIf="element.role_name=='counsellor'" ngbDropdownToggle (click)="openReplaceUser(element)">
               <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
              </div>
-             <div class="app-list"ngbDropdownToggle (click)="openResetPassword(element)">
+             <div class="app-list" ngbDropdownToggle (click)="openResetPassword(element)">
               <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
              </div>
              <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element)">

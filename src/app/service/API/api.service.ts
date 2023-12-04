@@ -348,21 +348,21 @@ export class ApiService implements OnInit{
   }
   //Priority Group
   //User
-  getUser(size:any,pageNo:any,role:any,data:any){
+  getUser(size:any,pageNo:any,data:any){
     if(data!=null){
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&${data}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&${data}`)
     }
     else{
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}`)
 
     }
   }
-  getUserSearch(search:any,size:any,pageNo:any,data:any,role:any){
+  getUserSearch(search:any,size:any,pageNo:any,data:any){
     if(data!=null){
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&key=${search}&${data}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&key=${search}&${data}`)
     }
     else{
-      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&role_name=${role}&key=${search}`)
+      return this.http.get(`${this.baseurl}/api/user?page_size=${size}&page=${pageNo}&key=${search}`)
 
     }
     
@@ -381,6 +381,9 @@ export class ApiService implements OnInit{
   }
   replaceUser(data:any){
     return this.http.post(`${this.baseurl}/api/replace-user/`,data)
+  }
+  replaceOldUser(data:any){
+    return this.http.put(`${this.baseurl}/api/replace-user/`,data)
   }
   postUser(data:any){
     return this.http.post(`${this.baseurl}/api/user/`,data)
@@ -506,4 +509,10 @@ export class ApiService implements OnInit{
   setLeadData(data: any[]): void {
     this.leadData = data;
   }
+
+  //get lead count
+  getLeadCount(){
+    return this.http.get(`${this.baseurl}/api/lead_status_count/`)
+  }
+  //get lead count
 }

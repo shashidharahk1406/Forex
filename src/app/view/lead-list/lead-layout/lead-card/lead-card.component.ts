@@ -221,11 +221,9 @@ export class LeadCardComponent implements OnInit {
     return this.leadAllIds
   }
   reLoad(event:any){
+    this.totalNumberOfRecords = []
     this.getStatus()
     this.getLeadData('tabLabel')
-    this._addLeadEmitter.triggerGet$.subscribe(() => {
-      this.getLeadData('tabLabel')
-    });
     this.getLeadIds()
   }
   
