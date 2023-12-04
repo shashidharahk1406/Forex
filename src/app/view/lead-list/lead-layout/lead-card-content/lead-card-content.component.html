@@ -1,7 +1,7 @@
 <app-lead-toolbar  (selectedSearch)="search($event)" [leadData]="leadData2" (refresh)="refreshLead($event)" [totalCount]="totalCount" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
 <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!leadData || leadData?.length === 0"></app-nodata>
 
-<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll()" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
+<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll($event)" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
 
 <div class="container custom-height-set" *ngIf="leadData2?.length > 0">
   <div class="row">

@@ -24,6 +24,10 @@ export class PaymentButtonComponent implements OnInit {
         email:'asma@ekfrazo.in',
         phone:'9898989898'
       },
+      handler: function(response: any) {
+        console.log(response);
+        alert(response.razorpay_payment_id);
+      },
       theme:{
         color:'#f37254'
       },
