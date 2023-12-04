@@ -46,9 +46,11 @@ export class TwoDimensionMultiLineChartComponent implements OnInit {
         responsive: true,
         maintainAspectRatio: false,
         scales: {
-          y: {
+          y:{
             beginAtZero: true
           }
+           
+          
         }
       }
     });
