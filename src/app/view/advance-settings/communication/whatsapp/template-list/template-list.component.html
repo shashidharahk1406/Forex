@@ -8,8 +8,8 @@
    <div class="row m-4">
     <div class="col-sm-12 col-md-8 col-lg-8 text-end">
         <!-- <i class="bi bi-arrow-clockwise more-inner-icon"></i> -->
-      <i *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()"></i>
-      <i *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
+      <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()"></i>
+      <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
       <!-- <i ngbDropdown #myDropdown="ngbDropdown">
         <mat-icon title="Create Template" matBadgeColor="warn" id="dropdownBasic1" ngbDropdownToggle >  <i class="bi bi-pencil-square more-inner-icon"></i></mat-icon>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
@@ -21,7 +21,7 @@
            </div>
           </div>
         </i> -->
-        <i (click)="openCreateTemplate()" class="bi bi-pencil-square  more-inner-icon"></i>
+        <i (click)="openCreateTemplate()"  data-bs-toggle="tooltip"  title="Add Template" class="bi bi-pencil-square  more-inner-icon"></i>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
