@@ -13,6 +13,8 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
 import { PaymentDetailsComponent } from '../payment-details/payment-details.component';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -32,11 +34,27 @@ export class LeadToolbarComponent implements OnInit {
   serachForm!:FormGroup;
   showBtn: boolean = false;
   exportReference: any;
+  filtered = false;
   
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
-    private _baseService:BaseServiceService,private api:ApiService) {}
+    private _baseService:BaseServiceService,private api:ApiService,private emit:EmitService,private addEventEmitter:AddLeadEmitterService ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit():any {
+    this.addEventEmitter.leadFilterIcon.subscribe(
+      (resp:any)=>{
+       console.log(resp,"RESPONSE")
+       if(resp === 'true'){
+        this.filtered= true
+       }else{
+        this.filtered= false
+       }
+         
+         
+        
+      }
+    )
+  }
   
   addCount(){
     if(this.checkAll){

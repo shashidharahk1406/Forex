@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Import necessary form modules
-import { CommonServiceService } from '../service/common-service.service';
+
+import { HttpClient } from '@angular/common/http';
+import { RazorpayService } from '../service/razorpay.service';
+import { ApiService } from '../service/API/api.service';
+import { BaseServiceService } from '../service/base-service.service';
+import { environment } from 'src/environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var Razorpay:any;
 @Component({
@@ -10,24 +16,48 @@ declare var Razorpay:any;
 })
 export class PaymentButtonComponent implements OnInit {
   verifyForm!: FormGroup;
-  
+  orderId!: string;
+  paymentId!: string;
+  paymentStatus!: string;
+  btnEnable: boolean = false;
+  data:any = {}
+  email: any;
+  leadId: any;
+  counsellorId: any;
+  amount: any;
+  convertedAmount:any;
+  constructor(private baseService:BaseServiceService,private api:ApiService,
+    private router:Router,
+    private route: ActivatedRoute) {}
+
+ 
   payment(){
-    const RozarpayOptions = {
+    const RazarpayOptions:any = {
       description:'Sample Rozarpay demo',
       currency:'INR',
-      amount:30000,
+      amount:this.convertedAmount,
       name:'Asma',
-      key:'rzp_test_8QJuav3Zg2fxgz',
+      key:'rzp_test_SGLqA6ORuQPThF',
       image:'../assets/images/logo.png',
+      order_id:this.orderId,
       prefill:{
         name:'Asma M',
         email:'asma@ekfrazo.in',
         phone:'9898989898'
       },
-      handler: function(response: any) {
-        console.log(response);
-        alert(response.razorpay_payment_id);
+      handler: function(response: any):any {
+         if(response){
+        //   this.data ={
+        //     razorpay_payment_id:response.razorpay_payment_id,
+        //     razorpay_order_id:"dgfjguusriouip0000000sukfu"
+        //    }
+           this.btnEnable = true
+          
+           console.log(response)
+           successCallback(response)
+         }
       },
+      
       theme:{
         color:'#f37254'
       },
@@ -38,102 +68,74 @@ export class PaymentButtonComponent implements OnInit {
       }
 
     }
-    const successCallback = (paymentid:any)=>{
-    console.log(paymentid)
+    const successCallback = (response:any)=>{
+      console.log("SUCCESS CALLBACK", response)
+   //   this.postPaymentDetails(response)
+       this.onSuccessCallback(response)
     }
     const failureCallback =(e:any)=>{
-      console.log(e)
+      // console.log(e)
+      if(e){
+        this.btnEnable = false
       }
-    Razorpay.open(RozarpayOptions,successCallback,failureCallback)
-    // Razorpay.open(RozarpayOptions).then((razpayData: any) => {
-    //   console.log(razpayData,"ANY")
-    //     const data = {
-    //       razorpay_payment_id: razpayData.response.razorpay_payment_id,
-    //       razorpay_order_id: razpayData.response.razorpay_order_id,
-    //       razorpay_signature: razpayData.response.razorpay_signature,
-    //       is_amount_paid: true,
-    //       driver_id:localStorage.getItem('driver_id'),
-    //       //subscription_id:this.subscription_id
-    //     };
-    //    // this.showLoading()
-    //     // setTimeout(() => {
-    //     //   this.api.sendPaymentDetails(data).subscribe(
-    //     //     (successData) => {
-    //     //       this.router.navigate(['driver/inner/home']);
-    //     //       this.loaderDismiss()
-    //     //     });
-    //     // }, 100);
-    //   }).catch((err:any) => {
-    //     // console.log(err);
-    //     // this.loaderDismiss()
+      }
       
-    //   });
+    Razorpay.open(RazarpayOptions,successCallback)
+    
   }
-  // const options = {
-  //   key: 'rzp_test_GxaJhvoS78ZpIz',
-  //   amount: this.planDetails['amount'],
-  //   description: 'Payment',
-  //   image: '../../../../../../assets/images/smiley.png',
   
-  //   order_id: resp.order_id,//Order ID generated in Step 1
-  //   currency: 'INR',
-  //   name: 'Logistics',
-  //   prefill: {
-  //     contact: localStorage.getItem('user_id')
-  //   },
-  //   theme: {
-  //     color: '#3CCCC4'
-  //   }
-  // };
-  // Checkout.open(options).then((razpayData: any) => {
-
-  //   const data = {
-  //     razorpay_payment_id: razpayData.response.razorpay_payment_id,
-  //     razorpay_order_id: razpayData.response.razorpay_order_id,
-  //     razorpay_signature: razpayData.response.razorpay_signature,
-  //     is_amount_paid: true,
-  //     driver_id:localStorage.getItem('driver_id'),
-  //     subscription_id:this.subscription_id
-  //   };
-  //   this.showLoading()
-  //   setTimeout(() => {
-  //     this.api.sendPaymentDetails(data).subscribe(
-  //       (successData) => {
-  //         this.router.navigate(['driver/inner/home']);
-  //         this.loaderDismiss()
-  //       });
-  //   }, 100);
-  // }).catch((err) => {
-  //   console.log(err);
-  //   this.loaderDismiss()
-  
-  // });
-  constructor(private formBuilder: FormBuilder,private commonService:CommonServiceService) {}
-
   ngOnInit() {
-    // Initialize the form with validators
-    // this.verifyForm = this.formBuilder.group({
-    //   name: ['', [Validators.required,Validators.pattern(this.commonService.namePattern)]],
-    //   email: ['', [Validators.required, Validators.email]],
-    //   phoneNumber: ['', [Validators.required,Validators.pattern(this.commonService.mobilePattern)]],
-    //   bankAccountNumber: ['', Validators.required]
-    // });
+    this.route.queryParams.subscribe(params => {
+      this.email = params['email'];
+      this.leadId = params['lead_id'];
+      this.counsellorId =  2
+      this.amount = params['amount'];
+      this.orderId = params['order_id'];
+
+      // Now you have access to the data from the URL
+      console.log('Email:', this.email);
+      console.log('Lead ID:', this.leadId);
+      console.log('Counsellor ID:', this.counsellorId);
+      console.log('Amount:', this.amount);
+      console.log('Order ID:', this.orderId);
+
+     
+    });
+    this.convertedAmount = this.amount*100
   }
-
-  // Access form controls
-  // get formControls() {
-  //   return this.verifyForm.controls;
-  // }
-
-  verifyAccount() {
-    if(this.verifyForm.invalid){
-      this.verifyForm.markAllAsTouched()
-    }
-    else{
-      // Perform action when the form is valid
-      const formData = this.verifyForm.value;
-      console.log('Form Data:', formData);
-      // Implement your logic for verifying the account using formData
-    } 
+  postPaymentDetails(response:any){
+       const data ={
+        razorpay_payment_id:response.razorpay_payment_id,
+        razorpay_order_id:this.orderId,
+        razorpay_signature:response.razorpay_signature,
+        lead_id:this.leadId,
+        counsellor_id:this.counsellorId,
+        is_clicked:true,
+        is_paid:true,
+        email: this.email,
+        mobile_number:9888665543,
+        status:"pending"
+       }
+        this.baseService.postData(`${environment.paymentDetails}`,data).subscribe((resp:any)=>{
+          if(resp){
+            this.api.showSuccess(resp.message)
+            
+            this.btnEnable = true
+            setTimeout(() => {
+              this.router.navigate(['/transaction'])
+            }, 500);
+          }
+         },((error:any)=>{
+          this.api.showError(error.error.message)
+          this.btnEnable = false
+         }))
+    
+  
+  }
+  @HostListener('click', ['$event'])
+  onSuccessCallback(event: Event) {
+    // Handle the click event on the host element
+    console.log('Host element clicked!', event);
+    // Add your logic here
   }
 }

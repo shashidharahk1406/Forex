@@ -391,6 +391,9 @@ export class ApiService implements OnInit{
   pauseUser(id:any,data:any){
     return this.http.put(`${this.baseurl}/api/manage-user/${id}/`,data)
   }
+  deleteUser(id:any){
+    return this.http.delete(`${this.baseurl}/api/user/${id}/`)
+  }
   //User
   //Role
   getRole(size:any,pageNo:any){

@@ -56,7 +56,7 @@ export class LeadCountByCounselorComponent implements OnInit {
         indexAxis: 'y', // Set the axis to be horizontal
         scales: {
           x: {
-            beginAtZero: true
+            beginAtZero:true
           }
         }
       }

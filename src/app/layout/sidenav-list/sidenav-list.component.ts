@@ -34,6 +34,12 @@ export class SidenavListComponent implements OnInit {
     path:'/leadList',
     icon:'bi bi-1-square'
     },
+    
+    {
+    page:'Transaction Details',
+    path:'/transaction',
+    icon:'bi bi-1-square'
+    },
     {
     page:'Application List',
     path:'/applicationList',

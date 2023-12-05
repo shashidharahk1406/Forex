@@ -43,6 +43,7 @@ import { QuillModule } from 'ngx-quill';
 import { UpdateProfileComponent } from './update-profile/update-profile.component'
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PaymentButtonComponent } from './payment-button/payment-button.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { PaymentButtonComponent } from './payment-button/payment-button.componen
     ForgotPasswordComponent,
     UpdateProfileComponent,
     ResetPasswordComponent,
-    PaymentButtonComponent
+    PaymentButtonComponent,
+    TransactionDetailsComponent
   ],
   imports: [
     BrowserModule,
