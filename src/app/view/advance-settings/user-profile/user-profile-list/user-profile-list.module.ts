@@ -11,6 +11,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { UserProfileFilterComponent } from './user-profile-filter/user-profile-filter.component';
 import { EditUserProfileListComponent } from './edit-user-profile-list/edit-user-profile-list.component';
 import { PauseUserComponent } from './pause-user/pause-user.component';
+import { UserProfilePermissionsComponent } from './user-profile-permissions/user-profile-permissions.component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { PauseUserComponent } from './pause-user/pause-user.component';
     UserprofileSettingsComponent,
     EditUserProfileListComponent,
     PauseUserComponent,
+    UserProfilePermissionsComponent,
   ],
   imports: [
     CommonModule,
