@@ -15,6 +15,7 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PauseUserComponent } from '../pause-user/pause-user.component';
+import { error } from 'console';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -279,5 +280,16 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     )
   }
     
+
+  deleteUserProfile(id:any){
+    this.api.deleteUser(id).subscribe((res:any)=>{
+      this.emit.sendRefresh(true);
+      this.api.showSuccess(res.message)
+
+    },(error:any)=>{
+      console.log(error);
+      this.api.showError(error.error.message);
+    })
+  }
   
 }

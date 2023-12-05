@@ -56,9 +56,11 @@ export class MonthlyEnrollmentsComponent implements OnInit {
       options: {
         indexAxis: 'y', // Set the axis to be horizontal
         scales: {
-          x: {
-            beginAtZero: true
-          }
+          x:
+            {
+              beginAtZero: true
+            }
+          
         }
       }
     });
