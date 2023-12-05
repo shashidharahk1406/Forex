@@ -1,0 +1,90 @@
+
+
+<div class="head-container">
+    <h1>Transaction Details</h1>
+</div>
+<mat-card>
+<div class="row">
+    <div class="col"></div>
+    <div class="col-sm-12 col-md-6 col-lg-4 my-4 mx-2">
+        <div class="input-group z-s">
+          <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search by Name/Mobile/Email">
+          <button (click)="search()" class="btn btn-outline-secondary" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+</div>
+
+ 
+ <div *ngIf="dataSource.data.length==0">
+  <app-nodata  class="d-flex align-items-center justify-content-center"></app-nodata>
+ </div>
+
+
+
+ 
+    <table mat-table [dataSource]="dataSource"  matSort>
+ <!-- Payment Id Column -->
+      <ng-container matColumnDef="paymentId">
+        <th mat-header-cell *matHeaderCellDef >Payment Id</th>
+        <td mat-cell *matCellDef="let element" >{{element.paymentId}}</td>
+      </ng-container>
+    
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef >Amount</th>
+        <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+      </ng-container>
+    
+       <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef >Email</th>
+        <td mat-cell *matCellDef="let element">{{element.email}}</td>
+      </ng-container>
+    
+      <!-- Mobile Number column -->
+      <ng-container matColumnDef="contact">
+        <th mat-header-cell *matHeaderCellDef >Mobile Number </th>
+        <td mat-cell *matCellDef="let element">{{element.contact}}</td>
+      </ng-container>
+    
+      <!-- Created At Column -->
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef >Created At </th>
+        <td mat-cell *matCellDef="let element">{{element.createdAt}}</td>
+      </ng-container>
+       <!-- Created At Column -->
+       <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef >Status </th>
+        <td mat-cell *matCellDef="let element" ><b class="status-clr" >{{element.status}}</b></td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef >Option</th>
+        <td mat-cell *matCellDef="let element">        <div ngbDropdown #myDropdown="ngbDropdown">
+          <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
+             <div class="app-list" ngbDropdownToggle   >
+              <mat-icon class="more-inner-icon" data-bs-toggle="modal">delete</mat-icon> Delete
+             </div>
+            </div>
+          </div></td>
+      </ng-container> -->
+    
+
+    
+  
+    
+      <!-- Set the column headers -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    
+      <!-- Define the table rows -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+ 
+     
+    <!-- Add pagination -->
+    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="dataSource.data.length"   [pageSizeOptions]="[5,10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+</mat-card>

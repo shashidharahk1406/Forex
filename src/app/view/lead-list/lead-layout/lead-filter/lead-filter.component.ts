@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LeadFilterComponent implements OnInit {
 filterLead!:FormGroup
-
+@Output()filterApplied = new EventEmitter()
 counselorList:any = [];
 channelsList:any = [];
 sourceList:any = [];
@@ -177,6 +177,7 @@ queryItems: any;
    
     this._addLeadEmitter.leadFilter.next(apiUrl)
      this._addLeadEmitter.triggerFilter()
+     this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL
     this.closePopup()
     }

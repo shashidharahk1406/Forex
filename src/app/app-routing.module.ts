@@ -6,6 +6,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PaymentButtonComponent } from './payment-button/payment-button.component';
+import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
 
 const routes: Routes = [
   
@@ -34,6 +35,7 @@ const routes: Routes = [
     path: 'pay', 
     component:PaymentButtonComponent
   },
+  
   { path: '', component: LayoutComponent},
   { path: '', component: LayoutComponent,children:[
     {
@@ -89,7 +91,11 @@ const routes: Routes = [
     },
     {
       path:'report', loadChildren:()=>import('./view/report/report.module').then(m =>m.ReportModule)
-    }
+    },
+    {
+      path: 'transaction', 
+      component:TransactionDetailsComponent
+    },
   ]
   },
  ];

@@ -4,7 +4,7 @@
     --allFontColor:#393939;
     --appLightColor:#FFF2EB;
 }
-tr.mat-header-row {
+tr.mat-header-row,mat-header-row {
     height: 40px !important;
     background:var(--appLightColor) ;
 }

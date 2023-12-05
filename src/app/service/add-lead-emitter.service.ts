@@ -11,11 +11,11 @@ export class AddLeadEmitterService {
   private triggerGetFilter = new Subject<void>();
   triggerGetFilter$ = this.triggerGetFilter.asObservable();
   leadFilter = new BehaviorSubject('')
-
+  leadFilterIcon = new BehaviorSubject('')
   triggerGet() {
     this.triggerGetSource.next();
   }
-  triggerFilter() {
+  triggerFilter():any {
     this.triggerGetFilter.next();
   }
 }
