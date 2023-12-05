@@ -85,7 +85,7 @@ import { PaymentButtonComponent } from './payment-button/payment-button.componen
     SharedModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{provide: LocationStrategy, useClass: HashLocationStrategy},
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   provideAnimations()],
   bootstrap: [AppComponent]
