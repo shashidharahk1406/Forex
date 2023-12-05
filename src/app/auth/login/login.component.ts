@@ -81,6 +81,8 @@ export class LoginComponent implements OnInit {
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
 				console.log(resp,"login responsssssssssssss",)
+				console.log(resp);
+				
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
 				console.log("==userid==",decodedToken);

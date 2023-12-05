@@ -39,7 +39,8 @@
                     <mat-icon>link</mat-icon>
                 </div>
                 <div class="col p-1" (click)="filterLead()">
-                    <i class="bi bi-funnel-fill"></i>
+                    <i class="bi bi-funnel" *ngIf="!filtered"></i>
+                    <i class="bi bi-funnel-fill" *ngIf="filtered"></i>
                 </div>
                
             </div>
