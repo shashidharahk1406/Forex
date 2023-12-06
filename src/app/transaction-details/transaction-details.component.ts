@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ApiService } from '../service/API/api.service';
+import { BaseServiceService } from '../service/base-service.service';
+import { environment } from 'src/environments/environment';
 
 export interface PaymentData {
-  paymentId: number;
-  amount: number;
+  razorpay_payment_id: string;
   email: string;
-  contact: string;
-  createdAt: string;
+  mobile_number: string;
+  created_date_time: string;
   status: string;
 }
 
@@ -18,75 +20,58 @@ export interface PaymentData {
   styleUrls: ['./transaction-details.component.css']
 })
 export class TransactionDetailsComponent implements OnInit {
-  displayedColumns: string[] = ['paymentId', 'amount', 'email', 'contact', 'createdAt', 'status'];
-  dataSource: MatTableDataSource<PaymentData>;
+  displayedColumns: string[] = ['razorpay_payment_id',  'email', 'mobile_number', 'created_date_time', 'status'];
+  dataSource!: MatTableDataSource<PaymentData>;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  paymentsData: PaymentData[] = [
-    { 
-      paymentId: 1, 
-      amount: 50, 
-      email: 'john@example.com', 
-      contact: '1234567890', 
-      createdAt: '2023-11-25', 
-      status: 'Completed' 
-    },
-    { 
-      paymentId: 2, 
-      amount: 75, 
-      email: 'sarah@example.com', 
-      contact: '9876543210', 
-      createdAt: '2023-11-22', 
-      status: 'Pending' 
-    },
-    { 
-      paymentId: 3, 
-      amount: 120, 
-      email: 'alice@example.com', 
-      contact: '5555555555', 
-      createdAt: '2023-11-20', 
-      status: 'Failed' 
-    },
-    { 
-      paymentId: 4, 
-      amount: 50, 
-      email: 'john@example.com', 
-      contact: '1234567890', 
-      createdAt: '2023-11-25', 
-      status: 'Completed' 
-    },
-    { 
-      paymentId: 5, 
-      amount: 75, 
-      email: 'sarah@example.com', 
-      contact: '9876543210', 
-      createdAt: '2023-11-22', 
-      status: 'Pending' 
-    },
-    { 
-      paymentId: 6, 
-      amount: 120, 
-      email: 'alice@example.com', 
-      contact: '5555555555', 
-      createdAt: '2023-11-20', 
-      status: 'Failed' 
-    },
-    // Add more data as needed
-  ];
+  paymentsData: PaymentData[] = [];
+  pageSize = 10;
+  currentPage = 1;
+  
 
 
-  constructor() {
+  constructor(private api:ApiService,private base_service:BaseServiceService) {
+    this.getPaymentDetails(this.pageSize,this.currentPage)
+    console.log(this.dataSource,"fsdgsg")
+    
     this.dataSource = new MatTableDataSource(this.paymentsData);
   }
 
-
+  getPaymentDetails(page_size:any,page:any,params?:any){
+    let query = ""
+    if(params){
+      query = `?page_size=${page_size}&page=${page}&key=${params}`
+    }else{
+      query = `?page_size=${page_size}&page=${page}`
+    }
+   
+    this.base_service.getData(`${environment.paymentDetails}${query}`).subscribe((res:any)=>{
+      if(res.results){
+        this.paymentsData = res.results
+        this.dataSource = new MatTableDataSource(this.paymentsData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        
+      }
+     },(error:any)=>{
+      this.api.showError(error.error.message)
+     })
+   
+  }
   
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
-  applyFilter(event:any){}
-  search(){}
+  applyFilter(event:any){
+    this.getPaymentDetails(this.pageSize,this.currentPage,event.target.value)
+  }
+  pageChanged(event: PageEvent) {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex + 1;
+    this.getPaymentDetails(this.pageSize,this.currentPage)
+  }
+ 
+  
 }

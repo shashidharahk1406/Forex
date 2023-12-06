@@ -25,17 +25,18 @@ export class PaymentButtonComponent implements OnInit {
   leadId: any;
   counsellorId: any;
   amount: any;
-  convertedAmount:any;
   constructor(private baseService:BaseServiceService,private api:ApiService,
     private router:Router,
     private route: ActivatedRoute) {}
 
  
   payment(){
+    alert(this.amount)
+   
     const RazarpayOptions:any = {
       description:'Sample Rozarpay demo',
       currency:'INR',
-      amount:this.convertedAmount,
+      amount:this.amount,
       name:'Asma',
       key:'rzp_test_SGLqA6ORuQPThF',
       image:'../assets/images/logo.png',
@@ -47,12 +48,7 @@ export class PaymentButtonComponent implements OnInit {
       },
       handler: function(response: any):any {
          if(response){
-        //   this.data ={
-        //     razorpay_payment_id:response.razorpay_payment_id,
-        //     razorpay_order_id:"dgfjguusriouip0000000sukfu"
-        //    }
-           this.btnEnable = true
-          
+         
            console.log(response)
            successCallback(response)
          }
@@ -70,8 +66,8 @@ export class PaymentButtonComponent implements OnInit {
     }
     const successCallback = (response:any)=>{
       console.log("SUCCESS CALLBACK", response)
-   //   this.postPaymentDetails(response)
-       this.onSuccessCallback(response)
+      this.postPaymentDetails(response)
+      
     }
     const failureCallback =(e:any)=>{
       // console.log(e)
@@ -86,43 +82,37 @@ export class PaymentButtonComponent implements OnInit {
   
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.email = params['email'];
-      this.leadId = params['lead_id'];
-      this.counsellorId =  2
-      this.amount = params['amount'];
-      this.orderId = params['order_id'];
-
-      // Now you have access to the data from the URL
-      console.log('Email:', this.email);
-      console.log('Lead ID:', this.leadId);
-      console.log('Counsellor ID:', this.counsellorId);
-      console.log('Amount:', this.amount);
-      console.log('Order ID:', this.orderId);
-
-     
+      if(params){
+        this.email = params['email'];
+        this.leadId = Number(params['lead_id']);
+        this.counsellorId =  2
+        this.amount = (params['amount']*100);
+        this.orderId = params['order_id'];
+        
+       
+      }
+      
     });
-    this.convertedAmount = this.amount*100
+    
   }
   postPaymentDetails(response:any){
        const data ={
         razorpay_payment_id:response.razorpay_payment_id,
-        razorpay_order_id:this.orderId,
+        razorpay_order_id:response.razorpay_order_id,
         razorpay_signature:response.razorpay_signature,
         lead_id:this.leadId,
         counsellor_id:this.counsellorId,
         is_clicked:true,
         is_paid:true,
         email: this.email,
-        mobile_number:9888665543,
-        status:"pending"
+        mobile_number:9845123453,
        }
         this.baseService.postData(`${environment.paymentDetails}`,data).subscribe((resp:any)=>{
           if(resp){
-            this.api.showSuccess(resp.message)
-            
             this.btnEnable = true
             setTimeout(() => {
-              this.router.navigate(['/transaction'])
+              this.api.showSuccess(resp.message)
+             // this.router.navigate(['/transaction'])
             }, 500);
           }
          },((error:any)=>{
@@ -132,10 +122,5 @@ export class PaymentButtonComponent implements OnInit {
     
   
   }
-  @HostListener('click', ['$event'])
-  onSuccessCallback(event: Event) {
-    // Handle the click event on the host element
-    console.log('Host element clicked!', event);
-    // Add your logic here
-  }
+  
 }
