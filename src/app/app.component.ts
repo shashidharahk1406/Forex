@@ -1,4 +1,5 @@
 import {  Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 
@@ -8,8 +9,12 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private ngxService: NgxUiLoaderService){}
+  constructor(private ngxService: NgxUiLoaderService,private router:Router){}
   ngOnInit(){
+    
+    if(!localStorage.getItem('token')){
+      this.router.navigate(['login'])
+    }
     this.ngxService.start(); 
     setTimeout(() => {
       this.ngxService.stop();

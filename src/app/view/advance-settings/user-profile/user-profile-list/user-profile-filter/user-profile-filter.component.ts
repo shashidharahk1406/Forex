@@ -47,7 +47,7 @@ export class UserProfileFilterComponent implements OnInit {
   }
   initFilter(){
     this.filterForm = this._fb.group({
-      role_ids:[''],
+      role_id:[''],
       is_active:[''],
       designation:[''],
       reporting_to_ids:[''],
@@ -87,13 +87,13 @@ export class UserProfileFilterComponent implements OnInit {
 
       console.log(this.selectedArray);
       
-      this.filterForm.patchValue({role_ids:resp?.role_ids})
+      this.filterForm.patchValue({role_id:resp?.role_id})
       this.filterForm.patchValue({is_active:resp?.is_active})
       this.filterForm.patchValue({designation:resp?.designation})
       this.filterForm.patchValue({reporting_to_ids:this.selectedArray})
       this.filterForm.patchValue({level_of_program:resp?.level_of_program})
       this.filterForm.patchValue({department:resp?.department})
-      this.filterForm.patchValue({role_ids:resp?.role_ids})
+      this.filterForm.patchValue({role_id:resp?.role_id})
       this.filterForm.patchValue({created_date_time_before:resp?.created_date_time_before})
       this.filterForm.patchValue({created_date_time_after:resp?.created_date_time_after})
       this.filterForm.patchValue({last_login_before:resp?.last_login_before})
