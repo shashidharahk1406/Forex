@@ -58,7 +58,7 @@ export class PaymentDetailsComponent implements OnInit {
       } 
     }else{
       formData ={
-        amount:this.paymentForm.value['amount'],
+        amount:(this.paymentForm.value['amount']*100),
         channel:this.paymentForm.value['channel'],
         lead_ids: [this.data.user_data.id],
         counsellor_id:[2] ,

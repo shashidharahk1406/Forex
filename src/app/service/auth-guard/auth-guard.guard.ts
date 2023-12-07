@@ -15,14 +15,18 @@ export class AuthGuardGuard implements CanActivate {
 
    canActivate(route:ActivatedRouteSnapshot,state:RouterStateSnapshot):boolean|Observable<boolean>| Promise<boolean>
    {
+    // Check if the URL contains a specific query parameter indicating it's from the email link
+    
     this.currentUrl = state.url;
+
     return this.checkUrl(this.currentUrl);
    }
    checkUrl(url:any):any{
     this.token = localStorage.getItem('token')
-    if(!this.token ){
+    if(!this.token){
       this.router.navigate(['login'])
     }
+    
     return true
    }
 

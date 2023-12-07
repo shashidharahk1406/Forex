@@ -33,7 +33,7 @@ const routes: Routes = [
     component:UpdateProfileComponent
   },
   {
-    path: 'pay', 
+    path: 'pay',
     component:PaymentButtonComponent
   },
   

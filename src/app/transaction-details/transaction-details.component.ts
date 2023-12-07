@@ -65,13 +65,19 @@ export class TransactionDetailsComponent implements OnInit {
     
   }
   applyFilter(event:any){
-    this.getPaymentDetails(this.pageSize,this.currentPage,event.target.value)
+    if(event.target.value.length > 3){
+      this.getPaymentDetails(this.pageSize,this.currentPage,event.target.value)
+    }
+   
   }
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     this.getPaymentDetails(this.pageSize,this.currentPage)
   }
+   myTimer = setTimeout(() => {
+    console.log('This will be logged after 2000 milliseconds');
+  }, 2000);
  
   
 }
