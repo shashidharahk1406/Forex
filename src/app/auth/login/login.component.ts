@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
 
 			},
 			(error=>{
-			  this.api.showError(error.error.message)
+			   this.api.showError(this.api.toTitleCase(error.error.message))
 			})
 		  )
 		}

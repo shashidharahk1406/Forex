@@ -48,7 +48,7 @@ export class LeadEditComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getDepartment(){
@@ -60,7 +60,7 @@ export class LeadEditComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -70,7 +70,7 @@ export class LeadEditComponent implements OnInit {
        this.stat_us = res.results;
      }
     },(error:any)=>{
-     this.api.showError(error.error.message)
+      this.api.showError(this.api.toTitleCase(error.error.message))
     })
    }
  initForm(){
@@ -218,7 +218,7 @@ onSubmit(){
       this.api.showError('Error')
     }
   },(error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
   })
  }
 }

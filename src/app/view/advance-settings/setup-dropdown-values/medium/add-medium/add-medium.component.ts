@@ -50,11 +50,11 @@ export class AddMediumComponent implements OnInit {
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()
-          this.api.showSuccess(resp.message)
+          this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
           console.log(error);
-          this.api.showError(error.error.message)
+          this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )
     }

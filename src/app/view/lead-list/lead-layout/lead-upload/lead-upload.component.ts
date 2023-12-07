@@ -81,7 +81,7 @@ export class LeadUploadComponent implements OnInit {
         console.log(res)
         }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -92,7 +92,7 @@ export class LeadUploadComponent implements OnInit {
           console.log(res)
         }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -105,7 +105,7 @@ export class LeadUploadComponent implements OnInit {
           this.api.showError('ERROR')
         }  
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       }
   
@@ -120,7 +120,7 @@ export class LeadUploadComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -136,7 +136,7 @@ export class LeadUploadComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
           
         })
     }
@@ -149,7 +149,7 @@ export class LeadUploadComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
           
         })
       
@@ -162,7 +162,7 @@ export class LeadUploadComponent implements OnInit {
             this.api.showError('ERROR')
            }
           },(error:any)=>{
-            this.api.showError(error.error.message)
+             this.api.showError(this.api.toTitleCase(error.error.message))
         })
     }
     getStatus(){
@@ -171,7 +171,7 @@ export class LeadUploadComponent implements OnInit {
         this.statusList = res.results;
       }
      },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
      })
     }
    
@@ -251,7 +251,7 @@ export class LeadUploadComponent implements OnInit {
                   this.api.showSuccess(res.message)
                 }
               },((error:any)=>{
-                this.api.showError(error.error.message)
+                 this.api.showError(this.api.toTitleCase(error.error.message))
               }))
             } 
          

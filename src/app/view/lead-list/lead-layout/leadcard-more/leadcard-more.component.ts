@@ -91,7 +91,7 @@ export class LeadcardMoreComponent implements OnInit {
      // this.leadCards = res.results
      }
     },(error:any)=>{
-     this.api.showError(error.error.message)
+      this.api.showError(this.api.toTitleCase(error.error.message))
     })
    }
   referLead(){

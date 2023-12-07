@@ -49,8 +49,12 @@
                     <div class="col-12 col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Mobile</mat-label>
-                            <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile">
+                            <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile">                               
                           </mat-form-field>
+                          <mat-error *ngIf="f['mobile_number'].invalid && f['mobile_number'].touched">
+                               
+                            Mobile Is Invalid
+                    </mat-error>
                     </div>
                 </div>
                 <div class="row">
@@ -166,7 +170,13 @@
                             <mat-select formControlName="department_id" >
                               <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option>
                             </mat-select>
+                      
                           </mat-form-field>
+                          <mat-error *ngIf="f['department_id'].invalid && f['department_id'].touched">
+                            <div *ngIf="f['department_id'].errors && f['department_id'].errors['required']">
+                                Department Is Required
+                            </div>
+                        </mat-error>
                         
                     </div>
                 </div>

@@ -288,7 +288,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     },(error:any)=>{
       console.log(error);
-      this.api.showError(error.error.message);
+       this.api.showError(this.api.toTitleCase(error.error.message));
     })
   }
   

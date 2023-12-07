@@ -69,7 +69,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
       }  
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     }
 
@@ -84,7 +84,7 @@ export class QuickAddComponent implements OnInit {
       this.api.showError('ERROR')
      }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -98,7 +98,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -111,7 +111,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -124,7 +124,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -136,7 +136,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getLevelOfProgram(){
@@ -147,7 +147,7 @@ export class QuickAddComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
 

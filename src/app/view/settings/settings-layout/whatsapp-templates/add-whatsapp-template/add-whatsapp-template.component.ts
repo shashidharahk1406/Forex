@@ -91,7 +91,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
         console.log(res)
         }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -102,7 +102,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
           console.log(res)
         }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -116,7 +116,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
           this.api.showError('ERROR')
         }  
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       }
   
@@ -131,7 +131,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     }
@@ -147,7 +147,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
           
         })
     }
@@ -160,7 +160,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
           
         })
       
@@ -173,7 +173,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
             this.api.showError('ERROR')
            }
           },(error:any)=>{
-            this.api.showError(error.error.message)
+             this.api.showError(this.api.toTitleCase(error.error.message))
         })
     }
     getStatus(){
@@ -182,7 +182,7 @@ export class AddWhatsappTemplateComponent implements OnInit {
         this.statusList = res.results;
       }
      },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
      })
     }
    

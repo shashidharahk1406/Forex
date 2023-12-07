@@ -515,4 +515,12 @@ export class ApiService implements OnInit{
     return this.http.get(`${this.baseurl}/api/lead_status_count/`)
   }
   //get lead count
+
+  //Title Case
+  toTitleCase(str: string): string {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+  //Title Case
 }

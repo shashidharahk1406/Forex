@@ -63,7 +63,7 @@ export class LeadFollowupComponent implements OnInit {
     this.api.showError('ERROR')
    }
   },(error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
     
   })
 }
@@ -73,7 +73,7 @@ getStatus(){
      this.status = res.results;
    }
   },(error:any)=>{
-   this.api.showError(error.error.message)
+    this.api.showError(this.api.toTitleCase(error.error.message))
   })
  }
  getSubStatus(){
@@ -82,7 +82,7 @@ getStatus(){
        this.subStatus = res.results;
      }
     },(error:any)=>{
-     this.api.showError(error.error.message)
+      this.api.showError(this.api.toTitleCase(error.error.message))
     })
  }
  getChannel(){
@@ -94,7 +94,7 @@ getStatus(){
       this.api.showError('ERROR')
     }  
   },(error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
     
   }
 
@@ -137,7 +137,7 @@ onSubmit(){
       this.closePopup()
     }
   },((error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
   }))
   }
 }
