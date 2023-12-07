@@ -87,7 +87,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     SharedModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  providers: [DatePipe,{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },{provide: LocationStrategy, useClass: HashLocationStrategy},
   {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
   provideAnimations()],
   bootstrap: [AppComponent]
