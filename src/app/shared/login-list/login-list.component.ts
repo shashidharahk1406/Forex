@@ -19,5 +19,8 @@ export class LoginListComponent implements OnInit {
   logOut(){
     localStorage.clear();
    this.router.navigate(['/login'])
+    // localStorage.clear()
+  //  this.router.navigate(['/login']);
+
   }
 }

@@ -46,7 +46,7 @@ export class LeadNoteComponent implements OnInit {
         this.api.showSuccess(res.message)
       }
     },((error)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
     }))
   }
 }

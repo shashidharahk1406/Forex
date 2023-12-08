@@ -10,6 +10,9 @@
 @import "./assets/add-new-lead.css";
 @import "./assets/lead-card.css";
 @import "./assets/global.css";
+input[type="search"]::-webkit-search-cancel-button:hover{
+   cursor:pointer;
+  }
 
 
 

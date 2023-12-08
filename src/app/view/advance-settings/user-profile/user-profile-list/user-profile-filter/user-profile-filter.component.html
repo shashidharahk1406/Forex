@@ -18,12 +18,12 @@
                 <div class="col-12 col-md-6">
                     <mat-form-field appearance="outline">
                         <mat-label>User Role</mat-label>
-                        <mat-select  formControlName="role_ids" multiple>
+                        <mat-select  formControlName="role_id" multiple>
                             <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
-                        <mat-error *ngIf="f['role_ids'].invalid && f['role_ids'].touched">
-                          <div *ngIf="f['role_ids'].errors && f['role_ids'].errors['required']">
+                        <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
+                          <div *ngIf="f['role_id'].errors && f['role_id'].errors['required']">
                               User Role Is Required
                           </div>
                       </mat-error>

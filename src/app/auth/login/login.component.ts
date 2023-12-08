@@ -97,12 +97,17 @@ export class LoginComponent implements OnInit {
 				localStorage.setItem('user_and_roles',resp.permissions[0].adv_sett[0].user_and_roles)
                  localStorage.setItem('adv_comm_sett',resp.permissions[0].adv_sett[0].adv_comm_sett)
 				this.api.showSuccess('Login Successfull !!')
+				localStorage.setItem('token',resp.token.token)
+				// const decodedToken:any = jwtDecode(resp.token.token);
+				console.log("==userid==",decodedToken);
+				localStorage.setItem('user_id',decodedToken.user_id)
+				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()
 
 			},
 			(error=>{
-			  this.api.showError(error.error.message)
+			   this.api.showError(this.api.toTitleCase(error.error.message))
 			})
 		  )
 		}

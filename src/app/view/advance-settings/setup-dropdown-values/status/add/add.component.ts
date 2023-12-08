@@ -23,7 +23,7 @@ export class AddComponent implements OnInit {
   }
   initFilter(){
     this.addForm = this._fb.group({
-      status_name:['',[Validators.required]],
+      status_name:['',[Validators.required,Validators.pattern(/^[A-Za-z0-9\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/)]],
       status_group_id:['',[Validators.required]],
       master_status_id:['',[Validators.required]],
       is_active:[true],
@@ -64,11 +64,11 @@ export class AddComponent implements OnInit {
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()
-          this.api.showSuccess(resp.message)
+          this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
           console.log(error);
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )
     }

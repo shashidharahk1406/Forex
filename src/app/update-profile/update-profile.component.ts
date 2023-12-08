@@ -118,7 +118,7 @@ export class UpdateProfileComponent implements OnInit {
       console.log(res)
       }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -129,7 +129,7 @@ export class UpdateProfileComponent implements OnInit {
         console.log(res)
       }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -143,7 +143,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
       }  
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     }
 
@@ -158,7 +158,7 @@ export class UpdateProfileComponent implements OnInit {
       this.api.showError('ERROR')
      }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -171,7 +171,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -184,7 +184,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -197,7 +197,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -210,7 +210,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -223,7 +223,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     // this._baseService.getData(environment.lead_course).subscribe((res:any)=>{
@@ -234,7 +234,7 @@ export class UpdateProfileComponent implements OnInit {
     //     this.api.showError('ERROR')
     //    }
     //   },(error:any)=>{
-    //     this.api.showError(error.error.message)
+    //      this.api.showError(this.api.toTitleCase(error.error.message))
         
     //   })
   }
@@ -246,7 +246,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getLevelOfProgram(){
@@ -257,7 +257,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getPriority(){
@@ -268,7 +268,7 @@ export class UpdateProfileComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
       })
   }
   getStatus(){
@@ -277,7 +277,7 @@ export class UpdateProfileComponent implements OnInit {
       this.stat_us = res.results;
     }
    },(error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
    })
   }
   getSubStatus(){
@@ -286,7 +286,7 @@ export class UpdateProfileComponent implements OnInit {
         this.subStatus = res.results;
       }
      },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
      })
   }
   getSeason(){
@@ -297,7 +297,7 @@ export class UpdateProfileComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   get f() {
