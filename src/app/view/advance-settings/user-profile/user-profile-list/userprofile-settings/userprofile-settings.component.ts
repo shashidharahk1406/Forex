@@ -54,9 +54,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
   params:any=null;
-
+user:any;
   constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService,private fb:FormBuilder
     ) {
+
       
    
       // Create 100 users
@@ -268,6 +269,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });}
   onSlideToggleChange(id:any,event:any){
     console.log(id,event.checked);
+    console.log(id,event);
     this.editForm.patchValue({deactive:!event.checked})
     this.api.pauseUser(id,this.editForm.value).subscribe(
       (resp:any)=>{
@@ -291,5 +293,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.api.showError(error.error.message);
     })
   }
+
+  somthing(id:any){
+    console.log('id===',id)
+  }
+
   
 }

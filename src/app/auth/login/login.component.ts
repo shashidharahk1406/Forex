@@ -14,13 +14,18 @@ import jwtDecode, { JwtPayload } from 'jwt-decode';
 export class LoginComponent implements OnInit {
   hidePassword = true;
   loginForm!:FormGroup;
+  id:any;
+  dropDownValues:any;
 	// show: boolean = false;
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
   constructor(private _fb:FormBuilder,
     private commonService:CommonServiceService,
-	private router:Router,private api:ApiService){}
+	private router:Router,private api:ApiService){
+
+		this.id=localStorage.getItem('id')
+	}
   ngOnInit(): void {
     this.initForm()
   }
@@ -81,12 +86,16 @@ export class LoginComponent implements OnInit {
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
 				console.log(resp,"login responsssssssssssss",)
-				console.log(resp);
-				
+
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
 				console.log("==userid==",decodedToken);
-				localStorage.setItem('user_id',decodedToken.user_id)
+				localStorage.setItem('user_id',decodedToken.user_id);
+				this.dropDownValues=resp.permissions[0].adv_sett[0].dropdown_values;
+				console.log(this.dropDownValues)
+				localStorage.setItem('dropDownValues',this.dropDownValues);
+				localStorage.setItem('user_and_roles',resp.permissions[0].adv_sett[0].user_and_roles)
+                 localStorage.setItem('adv_comm_sett',resp.permissions[0].adv_sett[0].adv_comm_sett)
 				this.api.showSuccess('Login Successfull !!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()
@@ -98,4 +107,7 @@ export class LoginComponent implements OnInit {
 		  )
 		}
 	  }
+
+
+	  
 }
