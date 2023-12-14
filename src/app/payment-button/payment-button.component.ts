@@ -114,12 +114,12 @@ export class PaymentButtonComponent implements OnInit {
           if(resp){
             this.btnEnable = true
             setTimeout(() => {
-              this.api.showSuccess(resp.message)
+              this.api.showSuccess(this.api.toTitleCase(resp.message))
              // this.router.navigate(['/transaction'])
             }, 500);
           }
          },((error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
           this.btnEnable = false
          }))
     

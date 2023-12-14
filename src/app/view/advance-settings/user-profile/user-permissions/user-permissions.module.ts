@@ -5,6 +5,7 @@ import { UserPermissionsRoutingModule } from './user-permissions-routing.module'
 import { UserPermissionsComponent } from './user-permissions.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 
@@ -16,7 +17,8 @@ import {MatCardModule} from '@angular/material/card';
     CommonModule,
     UserPermissionsRoutingModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ]
 })
 export class UserPermissionsModule { }

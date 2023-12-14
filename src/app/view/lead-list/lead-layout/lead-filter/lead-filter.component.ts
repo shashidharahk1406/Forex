@@ -61,7 +61,7 @@ queryItems: any;
         this.api.showError('ERROR')
       }  
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     }
 
@@ -76,7 +76,7 @@ queryItems: any;
        this.api.showError('ERROR')
       }
      },(error:any)=>{
-       this.api.showError(error.error.message)
+        this.api.showError(this.api.toTitleCase(error.error.message))
        
      })
   }
@@ -89,7 +89,7 @@ queryItems: any;
       this.api.showError('ERROR')
      }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -102,7 +102,7 @@ queryItems: any;
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -115,7 +115,7 @@ queryItems: any;
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -129,7 +129,7 @@ queryItems: any;
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -139,7 +139,7 @@ queryItems: any;
       this.counselorList = res
       }
     },((error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
     }))
   }
   clearSelectField(fieldName: string) {

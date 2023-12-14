@@ -515,4 +515,29 @@ export class ApiService implements OnInit{
     return this.http.get(`${this.baseurl}/api/lead_status_count/`)
   }
   //get lead count
+
+
+
+  //get advance-settigs permissions
+  getAdvanceSettingsPermissions(id:any){
+    return this.http.get(`${this.baseurl}/api/permissions_by_user/${id}/`)
+  }
+  updateAdvanceSettingsPermissions(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/permissions_by_user/${id}/`,data)
+  }
+
+   //Get Leadlist Permissions
+  getLeadListPermissions(id:any){
+    return this.http.get(`${this.baseurl}/api/permissions_by_user/${id}/`)
+  }
+  updateLeadListPermissions(id:any,data:any){
+    return this.http.put(`${this.baseurl}/api/permissions_by_user/${id}/`,data)
+  }
+  //Title Case
+  toTitleCase(str: string): string {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+  }
+  //Title Case
 }

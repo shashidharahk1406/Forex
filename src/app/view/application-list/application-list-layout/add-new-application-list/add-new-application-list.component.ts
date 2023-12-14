@@ -117,7 +117,7 @@ export class AddNewApplicationListComponent implements OnInit {
       console.log(res)
       }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -128,7 +128,7 @@ export class AddNewApplicationListComponent implements OnInit {
         console.log(res)
       }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -142,7 +142,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
       }  
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     }
 
@@ -157,7 +157,7 @@ export class AddNewApplicationListComponent implements OnInit {
       this.api.showError('ERROR')
      }
     },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
@@ -170,7 +170,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -183,7 +183,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -196,7 +196,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -209,7 +209,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
   }
@@ -222,7 +222,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
       })
     // this._baseService.getData(environment.lead_course).subscribe((res:any)=>{
@@ -233,7 +233,7 @@ export class AddNewApplicationListComponent implements OnInit {
     //     this.api.showError('ERROR')
     //    }
     //   },(error:any)=>{
-    //     this.api.showError(error.error.message)
+    //      this.api.showError(this.api.toTitleCase(error.error.message))
         
     //   })
   }
@@ -245,7 +245,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getLevelOfProgram(){
@@ -256,7 +256,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   getPriority(){
@@ -267,7 +267,7 @@ export class AddNewApplicationListComponent implements OnInit {
           this.api.showError('ERROR')
          }
         },(error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
       })
   }
   getStatus(){
@@ -276,7 +276,7 @@ export class AddNewApplicationListComponent implements OnInit {
       this.stat_us = res.results;
     }
    },(error:any)=>{
-    this.api.showError(error.error.message)
+     this.api.showError(this.api.toTitleCase(error.error.message))
    })
   }
   getSubStatus(){
@@ -285,7 +285,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.subStatus = res.results;
       }
      },(error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
      })
   }
   getSeason(){
@@ -296,7 +296,7 @@ export class AddNewApplicationListComponent implements OnInit {
         this.api.showError('ERROR')
        }
       },(error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
     })
   }
   get f() {

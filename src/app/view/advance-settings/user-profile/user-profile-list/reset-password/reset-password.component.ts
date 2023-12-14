@@ -59,12 +59,12 @@ export class ResetPasswordComponent implements OnInit {
       this.api.sendResetLink(this.resetLinkForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
-          this.api.showSuccess(resp.message)
+          this.api.showSuccess(this.api.toTitleCase(resp.message))
           this.resetLinkForm.reset()
           this.dialogRef.close()
         },
         (error:any)=>{
-          this.api.showError(error.error.message)
+           this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )
     }

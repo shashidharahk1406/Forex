@@ -197,7 +197,7 @@ export class UserProfileFilterComponent implements OnInit {
       // Handle the API response
       this.emit.sendRefreshbyFilter(apiUrl)
       this.dialogRef.close()
-      // this.api.showSuccess(resp.message)
+      // this.api.showSuccess(this.api.toTitleCase(resp.message))
 
   }
   reset(){

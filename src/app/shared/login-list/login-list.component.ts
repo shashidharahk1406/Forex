@@ -17,8 +17,10 @@ export class LoginListComponent implements OnInit {
     this.notification = !this.notification
   }
   logOut(){
-    localStorage.clear()
-   this.router.navigate(['/login']);
+    localStorage.clear();
+   this.router.navigate(['/login'])
+    // localStorage.clear()
+  //  this.router.navigate(['/login']);
 
   }
 }

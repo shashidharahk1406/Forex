@@ -1,0 +1,229 @@
+<form [formGroup]="editForm">
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Edit Advance Settings Permissions</h1></div>
+            <div class="col-1 close-icon">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+      </div>
+      <div class="container">
+        <mat-dialog-content class="mat-typography">
+          <div class="row">
+            <div class="col-12 col-md-12">
+             
+                <mat-checkbox formControlName="dropdown_values" aria-checked="dropdown_values" readonly>Dropdown Values</mat-checkbox>
+                
+              <mat-error *ngIf="f['dropdown_values'].invalid && f['dropdown_values'].touched">
+                <div *ngIf="f['dropdown_values'].errors && f['dropdown_values'].errors['required']">
+                     Dropdown Value Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+              
+                <mat-checkbox formControlName="status" aria-checked="status">Status </mat-checkbox>
+                
+             
+              <mat-error *ngIf="f['status'].invalid && f['status'].touched">
+                <div *ngIf="f['status'].errors && f['status'].errors['required']">
+                     Status Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="sources_and_channels" aria-checked="sources_and_channels">Sources and Channels </mat-checkbox>
+              <mat-error *ngIf="f['sources_and_channels'].invalid && f['sources_and_channels'].touched">
+                <div *ngIf="f['sources_and_channels'].errors && f['sources_and_channels'].errors['required']">
+                     Sources and Channel  Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="courses" aria-checked="courses">Courses</mat-checkbox>
+              <mat-error *ngIf="f['courses'].invalid && f['courses'].touched">
+                <div *ngIf="f['courses'].errors && f['courses'].errors['required']">
+                     Course Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="demographics" aria-checked="demographics">Demographics</mat-checkbox>
+              <mat-error *ngIf="f['demographics'].invalid && f['demographics'].touched">
+                <div *ngIf="f['demographics'].errors && f['demographics'].errors['required']">
+                     Demographic Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="priorities" aria-checked="priorities">Priorities</mat-checkbox>
+              <mat-error *ngIf="f['priorities'].invalid && f['priorities'].touched">
+                <div *ngIf="f['priorities'].errors && f['priorities'].errors['required']">
+                     Priority Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="user_and_roles" aria-checked="user_and_roles">User and Roles</mat-checkbox>
+              <mat-error *ngIf="f['user_and_roles'].invalid && f['user_and_roles'].touched">
+                <div *ngIf="f['user_and_roles'].errors && f['user_and_roles'].errors['required']">
+                     User and Role Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="adv_comm_sett" aria-checked="adv_comm_sett">Advance Communication</mat-checkbox>
+              <mat-error *ngIf="f['adv_comm_sett'].invalid && f['adv_comm_sett'].touched">
+                <div *ngIf="f['adv_comm_sett'].errors && f['adv_comm_sett'].errors['required']">
+                    Advance Communication Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="whatsp_temp_sett" aria-checked="whatsp_temp_sett">Whatsapp Template</mat-checkbox>
+              <mat-error *ngIf="f['whatsp_temp_sett'].invalid && f['whatsp_temp_sett'].touched">
+                <div *ngIf="f['whatsp_temp_sett'].errors && f['whatsp_temp_sett'].errors['required']">
+                    Whatsapp Template Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="email_temp_sett" aria-checked="email_temp_sett">Email Template</mat-checkbox>
+              <mat-error *ngIf="f['email_temp_sett'].invalid && f['email_temp_sett'].touched">
+                <div *ngIf="f['email_temp_sett'].errors && f['email_temp_sett'].errors['required']">
+                   Email Template Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <mat-checkbox formControlName="sms_temp_sett" aria-checked="sms_temp_sett">SMS Template </mat-checkbox>
+              <mat-error *ngIf="f['sms_temp_sett'].invalid && f['sms_temp_sett'].touched">
+                <div *ngIf="f['sms_temp_sett'].errors && f['sms_temp_sett'].errors['required']">
+                    SMS Template Is Required
+                </div>
+            </mat-error>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-12">
+              <mat-checkbox formControlName="user_add" aria-checked="user_add">User Add </mat-checkbox>
+            <mat-error *ngIf="f['user_add'].invalid && f['user_add'].touched">
+              <div *ngIf="f['user_add'].errors && f['user_add'].errors['required']">
+                  User Add Is Required
+              </div>
+          </mat-error>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-md-12">
+            <mat-checkbox formControlName="user_status" aria-checked="user_status">User Status </mat-checkbox>
+          <mat-error *ngIf="f['user_status'].invalid && f['user_status'].touched">
+            <div *ngIf="f['user_status'].errors && f['user_status'].errors['required']">
+              User Status Is Required
+            </div>
+        </mat-error>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-md-12">
+          <mat-checkbox formControlName="res_pause_user" aria-checked="res_pause_user">Resume/Pause User</mat-checkbox>
+        <mat-error *ngIf="f['res_pause_user'].invalid && f['res_pause_user'].touched">
+          <div *ngIf="f['res_pause_user'].errors && f['res_pause_user'].errors['required']">
+             Resume/Pause User  Is Required
+          </div>
+      </mat-error>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-12">
+        <mat-checkbox formControlName="repl_user" aria-checked="repl_user">Replace User </mat-checkbox>
+      <mat-error *ngIf="f['repl_user'].invalid && f['repl_user'].touched">
+        <div *ngIf="f['repl_user'].errors && f['repl_user'].errors['required']">
+            Replace User Is Required
+        </div>
+    </mat-error>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-12">
+      <mat-checkbox formControlName="reset_pass" aria-checked="reset_pass">Reset Password</mat-checkbox>
+    <mat-error *ngIf="f['reset_pass'].invalid && f['reset_pass'].touched">
+      <div *ngIf="f['reset_pass'].errors && f['reset_pass'].errors['required']">
+         Reset Password Is Required
+      </div>
+  </mat-error>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-12">
+      <mat-checkbox formControlName="chat_dis_enab" aria-checked="chat_dis_enab">Chat Disabled/Enabled</mat-checkbox>
+    <mat-error *ngIf="f['chat_dis_enab'].invalid && f['chat_dis_enab'].touched">
+      <div *ngIf="f['chat_dis_enab'].errors && f['chat_dis_enab'].errors['required']">
+          Chat Disabled/Enabled Is Required
+      </div>
+  </mat-error>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-12">
+      <mat-checkbox formControlName="del_user" aria-checked="del_user">Delete User</mat-checkbox>
+    <mat-error *ngIf="f['del_user'].invalid && f['del_user'].touched">
+      <div *ngIf="f['del_user'].errors && f['del_user'].errors['required']">
+          Delete User Permission Is Required
+      </div>
+  </mat-error>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-12">
+      <mat-checkbox formControlName="user_perm" aria-checked="user_perm">User Permissions</mat-checkbox>
+    <mat-error *ngIf="f['user_perm'].invalid && f['user_perm'].touched">
+      <div *ngIf="f['user_perm'].errors && f['user_perm'].errors['required']">
+       User Permission Is Required
+      </div>
+  </mat-error>
+  </div>
+</div>
+       
+        
+
+        
+        </mat-dialog-content>
+      </div>
+    <mat-dialog-actions align="end">
+      <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
+      <button class="mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
+    </mat-dialog-actions>
+    
+    
+</form>

@@ -56,7 +56,7 @@ export class LeadCardComponent implements OnInit {
           this.totalNumberOfRecords = res.total_no_of_record
         }
       }, (error: any) => {
-        this.api.showError(error.error.message);
+         this.api.showError(this.api.toTitleCase(error.error.message));
       });
   }
   uploadLeads(): void{
@@ -87,7 +87,7 @@ export class LeadCardComponent implements OnInit {
         this.totalNumberOfRecords = res.total_no_of_record
       }
     }, (error: any) => {
-      this.api.showError(error.error.message);
+       this.api.showError(this.api.toTitleCase(error.error.message));
     });
   }
   getStatus(){
@@ -96,7 +96,7 @@ export class LeadCardComponent implements OnInit {
        this.statusArray = res.results;
      }
     },(error:any)=>{
-     this.api.showError(error.error.message)
+      this.api.showError(this.api.toTitleCase(error.error.message))
     })
    }
    filterLeads(apiUrl:any){
@@ -109,7 +109,7 @@ export class LeadCardComponent implements OnInit {
         this.totalNumberOfRecords = res.total_no_of_record
       }
     },((error:any)=>{
-      this.api.showError(error.error.message)
+       this.api.showError(this.api.toTitleCase(error.error.message))
     }));
 
    }
@@ -125,7 +125,7 @@ export class LeadCardComponent implements OnInit {
           this.totalNumberOfRecords = res.total_no_of_record
         }
       }, (error: any) => {
-        this.api.showError(error.error.message);
+         this.api.showError(this.api.toTitleCase(error.error.message));
       }); 
     }else {
       if(tabLabel.tab.textLabel === 'All' ){
@@ -148,7 +148,7 @@ export class LeadCardComponent implements OnInit {
             this.totalNumberOfRecords = res.total_no_of_record
           }
         }, (error: any) => {
-          this.api.showError(error.error.message);
+           this.api.showError(this.api.toTitleCase(error.error.message));
         });
       }
      

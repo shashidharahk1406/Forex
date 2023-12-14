@@ -1,0 +1,162 @@
+<div class="row">
+  <div class="col-sm-12 col-md-12 col-lg-6">
+    <div class="col my-3"><h1 mat-dialog-title>Leadlist Permissions</h1></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Edit Lead</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.edit_lead"
+      [(ngModel)]="leadListPermissions.edit_lead"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>View History </label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.view_history"
+      [(ngModel)]="leadListPermissions.view_history"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Add FolloUp</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.add_followup"
+      [(ngModel)]="leadListPermissions.add_followup"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Add Note</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.add_note"
+      [(ngModel)]="leadListPermissions.add_note"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Delete Lead</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.delete_lead"
+      [(ngModel)]="leadListPermissions.delete_lead"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Payment Details</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.payment_details"
+      [(ngModel)]="leadListPermissions.payment_details"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Download Leads</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.download_leads"
+      [(ngModel)]="leadListPermissions.download_leads"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Email</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.email"
+      [(ngModel)]="leadListPermissions.email"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>Whatsapp Template Settings</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.whatsapp"
+      [(ngModel)]="leadListPermissions.whatsapp"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <label>SMS Template Settings</label>
+  </div>
+
+  <div class="col-sm-3 col-md-3 col-lg-3">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="leadListPermissions.sms"
+      [(ngModel)]="leadListPermissions.sms"
+      disabled
+    ></mat-checkbox>
+  </div>
+</div>
+
+<div class="row my-3">
+  <div class="col-sm-4 col-md-4 col-lg-5 text-left">
+    <button
+      (click)="openEdit(leadListPermissions.id)"
+      class="mat-disable"
+      mat-button
+      cdkFocusInitial
+    >
+      Edit
+    </button>
+  </div>
+</div>

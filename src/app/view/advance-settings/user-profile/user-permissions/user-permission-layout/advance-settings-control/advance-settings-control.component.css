@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+  }
+  h1{
+    font-weight: 600;
+    line-height: 23px;
+    font-size: 20px;
+    color:#393939 !important;
+}
+.head-container{
+  padding: 15px 15px 11px;
+  border-bottom: 1px solid rgb(216, 216, 216);
+  background-color: transparent !important;
+}
+.bi-funnel-fill,.bi-person-plus-fill{
+  margin: 0 10px;
+  font-size: 20px;
+  text-align: right !important;
+}
+.more-icon{
+  line-height: 33px !important;
+  cursor: pointer;
+}
+.more-dropdown{
+  width: 191px;
+  padding: 20px; 
+}
+.more-inner-icon{
+  vertical-align: middle !important;
+  font-size: 20px;
+  cursor: pointer;
+}
+.app-list{
+  padding: 3px;
+  cursor: pointer;
+}
+.user-name:hover{
+  cursor:pointer;
+  font-weight: bold;
+}
+.more-inner-icon{
+    font-size: 25px;
+}
+label{
+    font-size: 12px;
+}

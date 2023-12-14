@@ -6,7 +6,7 @@ const routes: Routes = [{
   path:'',component:UserPermissionsComponent
 },
 {
-  path:'permissions-layout',loadChildren:()=> import('./user-permission-layout/user-permission-layout.module').then(m=>m.UserPermissionLayoutModule)
+  path:'permissions-layout/:id',loadChildren:()=> import('./user-permission-layout/user-permission-layout.module').then(m=>m.UserPermissionLayoutModule)
 }];
 
 @NgModule({

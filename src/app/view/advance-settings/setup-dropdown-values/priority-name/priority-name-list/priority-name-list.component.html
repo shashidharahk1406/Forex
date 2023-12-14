@@ -1,7 +1,7 @@
 
 <div class="head-container">
     <h1><span class="h1-set-header" routerLink="/advancesettings">Advance Settings  <i class="bi bi-chevron-right"></i> </span>
-      <span class="h1-set-header" routerLink="/advancesettings/setupDropDownValues">Setup Dropdown Values <i class="bi bi-chevron-right"></i></span><span>Pirority Name</span></h1>
+      <span class="h1-set-header" routerLink="/advancesettings/setupDropDownValues">Setup Dropdown Values <i class="bi bi-chevron-right"></i></span><span>Priority Name</span></h1>
   </div>
    
    <div class="row m-4">
@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search Pirority Name">
+        <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search Priority Name">
         <button (click)="search()" class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>
@@ -24,7 +24,7 @@
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef >Pirority Name</th>
+        <th mat-header-cell *matHeaderCellDef >Priority Name</th>
         <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.name | titlecase }}</td>
       </ng-container>
     
@@ -42,7 +42,7 @@
     
       <!-- Define User Role column -->
       <ng-container matColumnDef="priority_group_name">
-        <th mat-header-cell *matHeaderCellDef >Pirority Group Name</th>
+        <th mat-header-cell *matHeaderCellDef >Priority Group Name</th>
         <td mat-cell *matCellDef="let element">{{ element.priority_group_name }}</td>
       </ng-container>
       <ng-container matColumnDef="delete">

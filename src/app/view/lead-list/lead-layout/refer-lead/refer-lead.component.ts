@@ -29,7 +29,7 @@ export class ReferLeadComponent implements OnInit {
         this.referTo = res.results
         }
       },((error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
       }))
     }
     clearSelectField(fieldName: string) {
@@ -63,7 +63,7 @@ export class ReferLeadComponent implements OnInit {
           this.dialogRef.close()
         }
        },((error:any)=>{
-        this.api.showError(error.error.message)
+         this.api.showError(this.api.toTitleCase(error.error.message))
        }))
       }
       
