@@ -25,8 +25,8 @@ export class ReferLeadComponent implements OnInit {
     }
     getCounselor(){
       this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
-        if(res){
-        this.referTo = res
+        if(res.results){
+        this.referTo = res.results
         }
       },((error:any)=>{
         this.api.showError(error.error.message)

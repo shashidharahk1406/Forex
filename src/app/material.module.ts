@@ -53,7 +53,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     NgChartsModule,
     HttpClientModule,
     MatExpansionModule,
-
   ],
   exports: [
     MatButtonModule,
@@ -83,7 +82,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ReactiveFormsModule,
     FormsModule,
     MatExpansionModule,
-
   ]
 })
 export class MaterialModule {}

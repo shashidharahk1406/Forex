@@ -15,7 +15,7 @@
                     <mat-form-field class="mb-1" appearance="outline" *ngIf="data?.leadId">
                         <mat-label>Select Refer To</mat-label>
                         <mat-select placeholder="Select Email Template" formControlName="referTo" multiple >
-                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name}}</mat-option>
+                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name | titlecase}}</mat-option>
                         </mat-select>
                         <button
                           mat-button
@@ -34,7 +34,7 @@
                       <mat-form-field class="mb-1" appearance="outline" *ngIf="!data?.leadId">
                         <mat-label>Select Refer To</mat-label>
                         <mat-select placeholder="Select Email Template" formControlName="referTo" >
-                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name}}</mat-option>
+                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name | titlecase }}</mat-option>
                         </mat-select>
                         <button
                           mat-button
