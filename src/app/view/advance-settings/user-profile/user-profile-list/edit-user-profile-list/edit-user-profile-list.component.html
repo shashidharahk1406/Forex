@@ -7,8 +7,9 @@
           </div>
       </div>
     </div>
+    <div class="container box">
+
     <mat-dialog-content>
-      <div class="container">
         <div class="row border-bottom mx-1 my-2 pb-3">
           <div class="col-sm-12 col-md-12 col-lg-2 m-auto">
               <div class="profile-container position-rel">
@@ -44,16 +45,16 @@
               <div class="col-sm-12 col-md-12 col-lg-5 text-muted mt-2 ps-4 pd-r">
                 <ul>
                     <li>{{user_details.email}}</li>
-                    <li>User Role : {{user_details.role}}</li>
+                    <li>User Role : {{user_details.role_name}}</li>
                     <li>User Status : </li>
                   </ul>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-7 right-container text-muted mt-2 ps-4">
               <ul>
                 <li>
-                  Designation : {{user_details.designation_id}}</li>
-                <li>Last Login Date : {{user_details.last_login}}</li>
-                <li>Created On : {{user_details.date_joined}}</li>
+                  Designation : {{user_details.designation_name}}</li>
+                <li>Last Login Date : {{user_details.last_login |date: 'dd/MM/yyyy'}}</li>
+                <li>Created On : {{user_details.date_joined |date: 'dd/MM/yyyy'}}</li>
               </ul>
             </div>
             </div>
@@ -99,16 +100,25 @@
                         <input formControlName="email" type="email" matInput placeholder="Email">
                       </mat-form-field>
                       <mat-error *ngIf="f['email'].invalid && f['email'].touched">
-                        <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                            Email Is Required
+                        <div *ngIf="f['email'].errors">
+                          <div *ngIf="f['email'].errors['required']">
+                            Email is required
+                          </div>
+                          <div *ngIf="f['email'].errors['email']">
+                            Invalid email format
+                          </div>
                         </div>
-                    </mat-error>
+                      </mat-error>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Mobile</mat-label>
-                        <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile">
+                        <mat-label>Mobile Number</mat-label>
+                        <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile Number">
                       </mat-form-field>
+                      <mat-error *ngIf="f['mobile_number'].invalid && f['mobile_number'].touched">
+                               
+                        Mobile Number Is Invalid
+                </mat-error>
                     </div>
                   </div>
                   <div class="row">
@@ -171,7 +181,7 @@
                 <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
                   <mat-form-field  appearance="outline">
                     <mat-label>Select Reporting to User</mat-label>
-                    <mat-select formControlName="reporting_to_ids"  multiple>
+                    <mat-select formControlName="reporting_to_ids" (selectionChange)="onSelectionChange($event)"   multiple>
                       <mat-option *ngFor="let item of allUser" [value]="item.id">{{item.first_name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -211,11 +221,12 @@
             </form>
           </div>
         </div>
+    </mat-dialog-content>
+
       </div>
        
       
       <!-----------END--------------->
-    </mat-dialog-content>
     <div mat-dialog-actions>
       <button mat-button mat-dialog-close class="mat-cancel">CANCEL</button>
       <button mat-button type="button"  class="mat-disable" cdkFocusInitial (click)="submit()">UPDATE</button>
