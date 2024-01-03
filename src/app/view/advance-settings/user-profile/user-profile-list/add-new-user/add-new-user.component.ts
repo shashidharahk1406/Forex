@@ -162,7 +162,7 @@ submit(){
         this.api.showSuccess(this.api.toTitleCase(resp.message))
       },
       (error:any)=>{
-        console.log(error);
+        console.log(error,"user error");
          this.api.showError(this.api.toTitleCase(error.error.message))
       }
     )

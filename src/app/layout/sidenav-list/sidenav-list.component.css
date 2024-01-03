@@ -24,3 +24,6 @@ mat-card{
   padding: 0 !important;
 }
 
+.myClass {
+  display: block;
+}
