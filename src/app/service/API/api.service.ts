@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators ,AbstractControl, ValidatorFn,} from '@angular/forms';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -540,4 +542,35 @@ export class ApiService implements OnInit{
     });
   }
   //Title Case
+
+  // Email Validation
+  emailWithTldValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const email = control.value as string;
+  
+      if (!email) {
+        // If the email is empty, don't perform the check
+        return null;
+      }
+  
+      // Use the built-in email validator
+      const emailValidator = Validators.email(control);
+  
+      if (emailValidator) {
+        // If the email format is invalid, return the error
+        return emailValidator;
+      }
+  
+      // Check if the email has a valid TLD
+      const tldRegex = /\.[a-zA-Z]{2,}$/;
+      if (!tldRegex.test(email)) {
+        // If the TLD is invalid, return the error
+        return { 'invalidTld': true };
+      }
+  
+      // If everything is valid, return null (no error)
+      return null;
+    };
+  }
+  // Email Validation
 }

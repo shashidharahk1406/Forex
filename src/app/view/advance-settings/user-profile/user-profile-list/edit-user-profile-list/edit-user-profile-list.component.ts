@@ -54,8 +54,8 @@ export class EditUserProfileListComponent implements OnInit {
     this.editForm = this.fb.group({
       first_name:['',[Validators.required]],
       last_name:[''],
-      email:['',[Validators.required,Validators.email]],
-      mobile_number:['', Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
+      email:['',[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
+      mobile_number:['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[''],
       target:[''],
       start_date:[''],
@@ -85,26 +85,23 @@ export class EditUserProfileListComponent implements OnInit {
     return this.editForm.controls;
   }
 date(event: MatDatepickerInputEvent<Date>){
-  console.log(event.value);
   this.editForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
-  console.log(event.value);
 
 }
 onChange(event:any){
-  console.log(event.checked);
+
   this.is_allow_for_app=event.checked
   
 }
+newArrFromApi:any=[]
 getUserbyId(){
   this.api.getUserById(this.id).subscribe(
     (resp:any)=>{
       this.user_details=resp.result[0]
       resp.result[0].reporting_to_ids.forEach((element:any) => {
-        console.log(element);
         this.selectedArray.push(element.id)
+        this.newArrFromApi.push(element)
       });
-      console.log(this.selectedArray,"array");
-      
       this.editForm.patchValue({first_name:resp.result[0].first_name})
       this.editForm.patchValue({last_name:resp.result[0].last_name})
       this.editForm.patchValue({email:resp.result[0].email})
@@ -120,8 +117,7 @@ getUserbyId(){
       this.editForm.patchValue({department_id:resp.result[0].department_id})
       this.editForm.patchValue({password:resp.result[0].password})
       this.editForm.patchValue({created_by:resp.result[0].created_by})
-      console.log(this.editForm.get('reporting_to_ids')?.value,"set value");
-      
+
     },
     (error:any)=>{
 
@@ -196,7 +192,6 @@ getUserbyId(){
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result;
-        console.log(this.selectedImage,"SELECTED IMG")
       };
       reader.readAsDataURL(fileInput.files[0]);
     }
@@ -221,22 +216,46 @@ getUserbyId(){
       console.log('The dialog was closed');
     });
   }
- 
+  newArr:any=[]
+  onSelectionChange(event: any): void {
+    this.newArrFromApi=[];
+    event.value.forEach((element: any) => {
+      const itemIndex = this.newArr.findIndex((item: any) => item.id === element);
+  
+      if (itemIndex === -1) {
+        // Check if the ID exists in allUser array
+        const user = this.allUser.find((user: any) => user.id === element);
+  
+        if (user) {
+          let data = {
+            name: user.first_name,
+            id: user.id,
+          };
+          this.newArr.push(data);
+        }
+      }
+    });
+  
+    // Remove deselected items
+    this.newArr = this.newArr.filter((item: any) => {
+      // Check if the ID exists in allUser array
+      return this.allUser.find((user: any) => user.id === item.id);
+    });
+  }
+  
   async submit(){
+    // this.editForm.patchValue({reporting_to_ids:this.newArr})
+    if(this.newArrFromApi.length==0){
+      this.editForm.patchValue({reporting_to_ids:this.newArr})
+    }
+    else if(this.newArr.length==0){
+      this.editForm.patchValue({reporting_to_ids:this.newArrFromApi})
+    }
+    
     if(this.editForm.invalid){
       this.editForm.markAllAsTouched()
     }
     else{
-      var array:any=[]
-      console.log(this.editForm.get('reporting_to_ids')?.value);
-      
-      await this.allUser.forEach((element:any) => {
-        if(this.editForm.get('reporting_to_ids')?.value.find((item:any)=> item===element.id)){
-          console.log(element);
-         array.push(element)
-        }
-      });
-      this.editForm.patchValue({reporting_to_ids:array})
       this.api.editUser(this.id,this.editForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
@@ -244,7 +263,6 @@ getUserbyId(){
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

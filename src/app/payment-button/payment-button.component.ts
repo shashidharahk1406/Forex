@@ -25,7 +25,8 @@ export class PaymentButtonComponent implements OnInit {
   amount: number = 0;
   constructor(private baseService:BaseServiceService,private api:ApiService,
     private router:Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    ) {
    
     }
 

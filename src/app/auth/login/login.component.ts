@@ -31,8 +31,9 @@ export class LoginComponent implements OnInit {
   }
   initForm(){
     this.loginForm = this._fb.group({
-		email:['',[Validators.required,Validators.email]],
-      password:['',[Validators.required]]
+		email:['',[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
+      password:['',[Validators.required]],
+	  device_type:['',[Validators.required]]
     })
   }
   get f() {
@@ -79,6 +80,8 @@ export class LoginComponent implements OnInit {
 		this.router.navigate(['/forgotPass'])
 	}
 	login(){
+		this.loginForm.patchValue({device_type:"computer"})
+
 		if(this.loginForm.invalid){
 			console.log("Invalid");	
 		}

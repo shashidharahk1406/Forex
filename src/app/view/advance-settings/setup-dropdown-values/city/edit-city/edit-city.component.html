@@ -2,7 +2,7 @@
 <form [formGroup]="editForm">
     <div class="mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Add City</h1></div>
+            <div class="col"><h1 mat-dialog-title>Edit City</h1></div>
             <div class="col-1 close-icon">
                 <mat-icon mat-dialog-close>close</mat-icon>
             </div>
@@ -40,7 +40,7 @@
         </div>   
         <div class="row">
           <div class="col-12">
-              <mat-checkbox [checked]="is_metropolitan" (change)="onChange($event)" >Is MetroPolitan</mat-checkbox>
+              <mat-checkbox [checked]="is_metropolitan" (change)="onChange($event)" >Is Metropolitan</mat-checkbox>
           </div>
       </div>  
         </mat-dialog-content>

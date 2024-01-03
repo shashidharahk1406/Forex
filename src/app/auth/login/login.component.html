@@ -41,14 +41,14 @@
                                 <div class="row">
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
-                                            <mat-label>User Name</mat-label>
-                                            <input matInput appFormSpace placeholder="Enter Your Name" formControlName="email" required>
+                                            <mat-label>Email</mat-label>
+                                            <input matInput appFormSpace placeholder="Enter Your Email" formControlName="email" required>
                                             <mat-error *ngIf="f['email'].invalid && f['email'].touched">
                                                 <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                                                    User Name Is Required
+                                                    Email Is Required
                                                 </div>
                                                 <div *ngIf="f['email'].errors && f['email'].errors['email']">
-                                                    Invalid User Name
+                                                    Invalid Email
                                                 </div>
                                             </mat-error>
                                         </mat-form-field>

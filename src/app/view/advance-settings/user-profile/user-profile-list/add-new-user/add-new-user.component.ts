@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators ,AbstractControl, ValidatorFn,} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
@@ -32,7 +32,7 @@ export class AddNewUserComponent implements OnInit {
     this.addForm = this._fb.group({
       first_name:[null,[Validators.required]],
       last_name:[null],
-      email:[null,[Validators.required,Validators.email]],
+      email:[null,[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
       mobile_number:[null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[null],
       target:[null],
@@ -56,11 +56,11 @@ export class AddNewUserComponent implements OnInit {
     return this.addForm.controls;
   }
 date(event: MatDatepickerInputEvent<Date>){
-  console.log(event.value);
+
   this.addForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
-  console.log(event.value);
 
 }
+
 newArr:any=[]
 onSelectionChange(event: any): void {
   event.value.forEach((element: any) => {
@@ -68,7 +68,6 @@ onSelectionChange(event: any): void {
 
     if (itemIndex === -1) {
       // Item is not in the newArr, so it's selected
-      console.log('Selected:', element.id, element.first_name);
       let data = {
         name: element.first_name,
         id: element.id,
@@ -82,10 +81,8 @@ onSelectionChange(event: any): void {
     return event.value.find((element: any) => element.id === item.id);
   });
 
-  console.log(this.newArr);
 }
 onChange(event:any){
-  console.log(event.checked);
   this.is_allow_for_app=event.checked
   
 }
@@ -149,7 +146,6 @@ submit(){
   this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
   this.addForm.patchValue({created_by:Number(this.user_id)})
   this.addForm.patchValue({reporting_to_ids:this.newArr})
-  console.log(this.addForm.value)
   if(this.addForm.invalid){
     console.log("==Invalid==");
     

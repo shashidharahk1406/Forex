@@ -1,4 +1,4 @@
-.profile-container{
+profile-container{
     height: 85px;
     width: 90px;
     background: #f2f2f2;
@@ -8,7 +8,7 @@
     justify-content: center;
     font-size: 45px;
     color: white;
-    /* background-image: url(); */
+    
 }
 .text-muted{
   font-size: 12px;
@@ -55,9 +55,9 @@ mat-card{
     margin: 0;
     padding: 0;
 }
-.container{
+/* .container{
     margin: 0 5px;
-}
+} */
 .u-name{
  padding-left: 5px;
 }
@@ -72,3 +72,27 @@ mat-card{
   .more-dropdown{
     padding: 15px; 
   }
+
+::-webkit-scrollbar{
+    height: 0px !important; 
+    width: 5px !important;
+    }
+    
+    /* Track */
+    ::-webkit-scrollbar-track{
+      background: #f2f2f2!important; 
+    }
+     
+    /* Handle */
+    ::-webkit-scrollbar-thumb{
+      background:#F17E33!important; 
+      height: 10px !important;
+      width: 5px!important;
+    }
+
+
+    .box{
+      max-height: 400px; 
+     overflow-y: scroll;
+     overflow-x: hidden; 
+    }
