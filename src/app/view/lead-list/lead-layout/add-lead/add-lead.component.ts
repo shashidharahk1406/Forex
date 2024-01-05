@@ -114,7 +114,7 @@ export class AddLeadComponent implements OnInit {
   
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
-      if(res){
+      if(res.results){
       this.countryOptions = res.results
       console.log(res)
       }
@@ -125,7 +125,7 @@ export class AddLeadComponent implements OnInit {
   }
   getState(){
     this.api.getAllState().subscribe((res:any)=>{
-      if(res){
+      if(res.results){
         this.stateOptions = res.results
         console.log(res)
       }
@@ -303,8 +303,8 @@ export class AddLeadComponent implements OnInit {
   }
   getCounselor(){
     this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
-      if(res){
-      this.referredTo = res
+      if(res.results){
+      this.referredTo = res.results
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -369,7 +369,7 @@ export class AddLeadComponent implements OnInit {
     }
     else{
       this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
-        if(res){
+        if(res.results){
           this.addLead.emit('ADD')
           this.api.showSuccess(res.message)
           this._bottomSheetRef.dismiss('yes');
