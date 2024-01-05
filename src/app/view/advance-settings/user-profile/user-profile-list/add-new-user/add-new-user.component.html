@@ -8,7 +8,7 @@
                 </div>
             </div>
           </div>
-          <div class="container">
+          <div class="container box">
             <mat-dialog-content class="mat-typography">
                 <div class="row">
                     <div class="col-6 col-md-6">
@@ -38,22 +38,27 @@
                     <div class="col-12 col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input formControlName="email" type="email" matInput placeholder="Email">
+                            <input formControlName="email" type="text" matInput placeholder="Email">
                           </mat-form-field>
                           <mat-error *ngIf="f['email'].invalid && f['email'].touched">
-                            <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                                Email Is Required
+                            <div *ngIf="f['email'].errors">
+                              <div *ngIf="f['email'].errors['required']">
+                                Email is required
+                              </div>
+                              <div *ngIf="f['email'].errors['email']">
+                                Invalid email format
+                              </div>
                             </div>
-                        </mat-error>
+                          </mat-error>
                     </div>
                     <div class="col-12 col-md-6">
                         <mat-form-field class="example-full-width" appearance="outline">
-                            <mat-label>Mobile</mat-label>
-                            <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile">                               
+                            <mat-label>Mobile Number</mat-label>
+                            <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile Number">                               
                           </mat-form-field>
                           <mat-error *ngIf="f['mobile_number'].invalid && f['mobile_number'].touched">
                                
-                            Mobile Is Invalid
+                            Mobile Number Is Invalid
                     </mat-error>
                     </div>
                 </div>
@@ -136,7 +141,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <mat-checkbox (change)="onChange($event)"  formControlName="is_allow_for_app" >Allow this user to Log in Mobile App</mat-checkbox>
+                        <mat-checkbox (change)="onChange($event)"  formControlName="is_allow_for_app" >Allow this user to Log in to the Mobile App</mat-checkbox>
                     </div>
                 </div>
                 <div class="row">

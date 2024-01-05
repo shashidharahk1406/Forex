@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/service/API/api.service';
 
 @Component({
   selector: 'app-advance-settings',
@@ -14,7 +15,7 @@ export class AdvanceSettingsComponent implements OnInit {
   advanceCommunicationSettingsBooleanValue: boolean;
   dropDownValuesbooleanvalue: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,private api:ApiService) {
     this.dropDownValues = localStorage.getItem('dropDownValues');
     this.dropDownValuesbooleanvalue=JSON.parse(this.dropDownValues);
     console.log(this.dropDownValuesbooleanvalue, JSON.parse(this.dropDownValues), 'ddv');
@@ -24,10 +25,25 @@ export class AdvanceSettingsComponent implements OnInit {
     this.advanceCommunicationSettings=localStorage.getItem('adv_comm_sett');
     this.advanceCommunicationSettingsBooleanValue = JSON.parse(this.advanceCommunicationSettings);
     console.log(this.advanceCommunicationSettingsBooleanValue);
+    // if(this.dropDownValuesbooleanvalue && this.userRolesAndProfilesBooleanValue && this.advanceCommunicationSettingsBooleanValue){
+    //   alert('User does not have Permissions')
+    //   }
+   
   }
+    
+    
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.showErrorMesage();
+  }
   getUserData() {
     this.router.navigate(['./userProfile']);
   }
+
+//   showErrorMesage(){
+// if(this.dropDownValuesbooleanvalue && this.userRolesAndProfilesBooleanValue && this.advanceCommunicationSettingsBooleanValue){
+// alert('User does not have Permissions')
+// }
+//   }
+
 }
