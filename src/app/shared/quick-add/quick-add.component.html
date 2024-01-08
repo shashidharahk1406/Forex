@@ -42,6 +42,8 @@
                   <mat-form-field appearance="outline" >
                       <mat-label>Mobile Number</mat-label>
                       <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number" formControlName="mobile">
+                      <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('required')">Mobile Number Is Required</mat-error>
+                      <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('pattern')">Please Enter 10-Digit Numeric Format</mat-error>
                     </mat-form-field>
               </div>
           </div>
@@ -129,7 +131,7 @@
             <div class="col-sm-12 col-md-12 col-lg-6">
                 <mat-form-field appearance="outline">
                     <mat-label>Channel</mat-label>
-                    <mat-select formControlName="channel" placeholder="Enter Your Channel">
+                    <mat-select formControlName="channel" placeholder="Select Your Channel">
                       <mat-option *ngFor="let channel of channels" [value]="channel.id">{{ channel.channel_name }}</mat-option>
                     </mat-select>
                     <button mat-icon-button matSuffix *ngIf="quickAddForm.get('channel')?.value" (click)="clearChannel()">
@@ -153,8 +155,8 @@
       </div>
   </mat-dialog-content>
   <div mat-dialog-actions class="mb-1">
-    <button mat-button mat-dialog-close class="mat-cancel">SAVE & CLOSE</button>
-    <button mat-button type="submit" class="mat-disable" cdkFocusInitial (click)="onSubmit()">SAVE & ADD MORE</button>
+    <button mat-button mat-dialog-close class="mat-cancel">CLOSE</button>
+    <button mat-button type="submit" class="mat-disable" cdkFocusInitial (click)="onSubmit()">SUBMIT</button>
   </div>
 </mat-card>
 
