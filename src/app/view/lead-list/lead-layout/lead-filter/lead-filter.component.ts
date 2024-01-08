@@ -36,8 +36,8 @@ queryItems: any;
     ) {}
 
   ngOnInit(): void {
-    this.initForm()
     this.dropdownvalues()
+    this.initForm() 
   }
   get f() {
     return this.filterLead.controls;
@@ -136,7 +136,7 @@ queryItems: any;
   getCounselor(){
     this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
       if(res){
-      this.counselorList = res
+      this.counselorList = res.results
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))

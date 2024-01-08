@@ -11,7 +11,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class LeadViewAllComponent implements OnInit {
   date = new Date();
   constructor(
-    public dialogRef: MatDialogRef<LeadWhatsappChatComponent>,
+    public dialogRef: MatDialogRef<LeadViewAllComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb:FormBuilder) { }
   

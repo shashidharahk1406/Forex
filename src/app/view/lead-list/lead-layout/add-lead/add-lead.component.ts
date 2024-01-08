@@ -369,17 +369,14 @@ export class AddLeadComponent implements OnInit {
     }
     else{
       this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
-        if(res.results){
+        if(res){
           this.addLead.emit('ADD')
           this.api.showSuccess(res.message)
           this._bottomSheetRef.dismiss('yes');
           this._addLeadEmitter.triggerGet();
         }
-        else{
-          this.api.showError("ERROR !")
-        }
       },(error=>{
-        this.api.showError(error.error.error.message)
+        this.api.showError(error?.error.message)
       }))
     }
   }

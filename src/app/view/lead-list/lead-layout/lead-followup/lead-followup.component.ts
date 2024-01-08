@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
  
 })
 export class LeadFollowupComponent implements OnInit {
-
   meridian = true;
   followupForm!: FormGroup;
   leadCategory:any = [];
@@ -32,6 +31,7 @@ export class LeadFollowupComponent implements OnInit {
   ngOnInit(): void {
     this.dropDownValues()
     this.initForm()
+    console.log(this.data,"data")
   }
 
  initForm(){
@@ -129,7 +129,10 @@ onSubmit(){
       follow_up_type: fd.followupType,
       tempplate: fd.template,
       action_date_time: fd.nextActionDate,
-      follow_up_text: fd.followupComment
+      follow_up_text: fd.followupComment,
+      counsellor: this.data.item.counsellor,
+      lead: this.data.item.user_data.id,
+      created_by:this.data.item.created_by
   }
   this._baseService.postData(`${environment.lead_follow_up}`,data).subscribe((res:any)=>{
     if(res){

@@ -117,7 +117,7 @@ export class LeadCardComponent implements OnInit {
     
     if (tabLabel === 'tabLabel') {
       // If it's 'All', do not pass any query parameters
-      this._baseService.getData(environment.lead_list).subscribe((res: any) => {
+      this._baseService.getData(`${environment.lead_list}?page=1&page_size=10`).subscribe((res: any) => {
         if (res.results) {
           this.leadCards = res.results;
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);

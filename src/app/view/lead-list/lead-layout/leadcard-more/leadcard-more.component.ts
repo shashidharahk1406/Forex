@@ -52,7 +52,7 @@ export class LeadcardMoreComponent implements OnInit {
   addFollowUp(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name,item:this.item},
     };
     this._bottomSheet.open(LeadFollowupComponent,config);
   }

@@ -17,6 +17,8 @@ import { environment } from 'src/environments/environment';
 export class LeadEmailComponent implements OnInit {
  @Input()selectedId:any;
   emailForm!: FormGroup;
+  templateList: any;
+  basicTemplate: any;
   
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -26,12 +28,14 @@ export class LeadEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.getTemplate()
   }
  
   initForm(){
     this.emailForm = this.fb.group({
       emailTemplate: [''],
       subject: ['', Validators.required],
+      followupComment:['',Validators.required],
     });
   }
   get f() {
@@ -54,20 +58,28 @@ export class LeadEmailComponent implements OnInit {
          emailFormVal ={
           all_users: true, 
           subject: fd.subject,
-          message: fd.emailTemplate
+          message: fd.followupComment,
+          template_id: fd.emailTemplate,
+          template_type_id:5
          }
       }else{
         if(this.data.bulkIds?.length > 0 ){
            emailFormVal ={
+            all_users: false,
             lead_list_ids: this.data.bulkIds, 
             subject: fd.subject,
-            message: fd.emailTemplate
+            message: fd.followupComment,
+            template_id: fd.emailTemplate,
+            template_type_id:5
            }
         }else{
            emailFormVal ={
+            all_users: false,
             lead_list_ids: [this.data.selectedData.id], 
             subject: fd.subject,
-            message: fd.emailTemplate
+            message: fd.followupComment,
+            template_id: fd.emailTemplate,
+            template_type_id:5
            }
         }
         
@@ -90,5 +102,36 @@ export class LeadEmailComponent implements OnInit {
   
   closePopup(){
     this._bottomSheetRef.dismiss() 
+  }
+  getTemplate(){
+    this._baseService.getData(`${environment.whatsapp_template}`).subscribe((res:any)=>{
+      if(res.results){
+        this.templateList = res.results
+      }
+    })
+  }
+  onChanges(item:any,template:any){
+    this.basicTemplate = '';
+   if(template && item){
+     if(item.id === template){
+      this.basicTemplate = `#Hi# ${item.message} #first_name#`
+      // Check if the followupComment contains hash symbols (#)
+      // Use a regular expression to identify and wrap text within hash symbols with read-only attributes
+      // const modifiedValue =  this.basicTemplate.replace(/#(.*?)#/g, (match: any, content: any) => {
+      //   return `<span class="non-editable" contenteditable="false">${match}</span>`;
+      // });
+      this.emailForm.patchValue({
+        followupComment:this.basicTemplate
+      })
+     
+    
+    }
+   }
+  }
+  onInput(event: any) {
+    const textarea = event.target;
+    const value = textarea.value;
+  
+   
   }
 }
