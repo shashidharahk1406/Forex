@@ -42,8 +42,8 @@ getPermissions(){
   this.api.getAdvanceSettingsPermissions(this.id).subscribe((res:any)=>{
 this.permissions=res;
 console.log(this.permissions,'permissions')
-this.advanceComSet=res.results[0].adv_sett[0].adv_comm_sett
-console.log( typeof this.advanceComSet,"this.advanceComSet")
+// this.advanceComSet=res.results[0].adv_sett[0].adv_comm_sett
+// console.log( typeof this.advanceComSet,"this.advanceComSet")
   })
 }
 
@@ -77,7 +77,7 @@ console.log( typeof this.advanceComSet,"this.advanceComSet")
     page:'Lead List',
     path:'/leadList',
     icon:'bi bi-1-square',
-    hidden:true,
+    hidden:false,
     },
     
     {
@@ -163,8 +163,8 @@ console.log( typeof this.advanceComSet,"this.advanceComSet")
     page:'Advance Settings',
     path:'/advancesettings',
     icon:'bi bi-gear-wide-connected',
-    hidden:true,
-    key:'adv_comm_sett'
+    hidden:false,
+    // key:'adv_comm_sett'
     },
     {
       page:'Report',
