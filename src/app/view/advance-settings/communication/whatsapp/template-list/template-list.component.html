@@ -17,11 +17,12 @@
              Enterprises
            </div>
            <div class="app-list" ngbDropdownToggle routerLink="../createNonEnterpriseTemplate">
-            Non-Enterprises
+            Non-Enterprises<i class="bi bi-plus-circle"></i>
            </div>
           </div>
         </i> -->
-        <i (click)="openCreateTemplate()"  data-bs-toggle="tooltip"  title="Add Template" class="bi bi-pencil-square  more-inner-icon"></i>
+        <!-- <i (click)="openCreateTemplate()"  data-bs-toggle="tooltip"  title="Add Template" class="bi bi-plus-circle "></i> -->
+        <mat-icon data-bs-toggle="tooltip"  title="Add Status" (click)="openCreateTemplate()"  class="more-inner-icon"> format_list_bulleted_add</mat-icon>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">

@@ -46,6 +46,7 @@ export class AddCampaignComponent implements OnInit {
   }
   submit(){
     if(this.addForm.invalid){
+      
 
     }
     else{

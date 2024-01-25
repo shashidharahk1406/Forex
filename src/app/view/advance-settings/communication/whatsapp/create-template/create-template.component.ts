@@ -73,6 +73,7 @@ submit(){
   console.log(this.whatsappTemplate.value);
   
   if(this.whatsappTemplate.invalid){
+    this.whatsappTemplate.markAllAsTouched()
 
   }
   else{
