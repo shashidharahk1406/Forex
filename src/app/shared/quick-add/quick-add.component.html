@@ -43,7 +43,7 @@
                       <mat-label>Mobile Number</mat-label>
                       <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number" formControlName="mobile">
                       <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('required')">Mobile Number Is Required</mat-error>
-                      <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('pattern')">Please Enter 10-Digit Numeric Format</mat-error>
+                      <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('pattern')">Please Enter 10-Digits</mat-error>
                     </mat-form-field>
               </div>
           </div>
