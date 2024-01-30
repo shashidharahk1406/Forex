@@ -26,6 +26,11 @@ import { LeadNoteComponent } from './lead-note/lead-note.component';
 import { ReferLeadComponent } from './refer-lead/refer-lead.component';
 import { LeadFilterComponent } from './lead-filter/lead-filter.component';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { AddNewLeadComponent } from './add-new-lead/add-new-lead.component';
+import { AdmissionDetailsComponent } from './admission-details/admission-details.component';
+import { DocsProcessComponent } from './docs-process/docs-process.component';
+import { PaymentStatusComponent } from './payment-status/payment-status.component';
+import { PaymentProofComponent } from './payment-proof/payment-proof.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +54,12 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
     LeadNoteComponent,
     ReferLeadComponent,
     LeadFilterComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    AddNewLeadComponent,
+    AdmissionDetailsComponent,
+    DocsProcessComponent,
+    PaymentStatusComponent,
+    PaymentProofComponent
   ],
   imports: [
     CommonModule,

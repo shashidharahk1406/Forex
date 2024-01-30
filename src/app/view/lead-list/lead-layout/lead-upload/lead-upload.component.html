@@ -210,18 +210,6 @@
         </ng-container>
         <ng-container>
           <b class="mt-1">Step 3 - Upload File With Prospect Candidate Details <b class="mandatory-symbol">*</b></b>
-        
-          <!-- <mat-form-field class="my-2"> -->
-            <!-- <mat-label *ngIf="selectedFiles; else newFile">{{selectedFiles.item(0).name}}</mat-label> -->
-            <!-- <ng-template #newFile >
-                <mat-label>Choose file</mat-label>
-            </ng-template> -->
-            <!-- <input matInput appFormSpace disabled> -->
-            <!-- <button mat-icon-button matSuffix (click)="fileInput.click()">
-              <mat-icon class="forward-icon">forward</mat-icon>
-            </button> -->
-            <!-- <input  (change)="selectFile($event)"  type="file" id="file" >
-            -->
             <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
             <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
               <mat-error *ngIf="f['leadUpload'].hasError('required')">Lead Upload Is Required</mat-error>

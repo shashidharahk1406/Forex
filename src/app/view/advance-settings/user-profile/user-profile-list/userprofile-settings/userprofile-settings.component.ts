@@ -40,9 +40,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     'role',
     'designation_id',
     'reporting_to_ids',
-    'is_allow_for_app',
     'Action',
-
+    'is_allow_for_app',
   ]
 
   dataSource = new MatTableDataSource<any>;

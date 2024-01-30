@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LeadStagesComponent } from './lead-stages/lead-stages.component';
 
 @Component({
   selector: 'app-setup-dropdown-values',

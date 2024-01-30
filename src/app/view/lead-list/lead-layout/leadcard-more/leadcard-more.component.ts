@@ -11,6 +11,9 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
 import { environment } from 'src/environments/environment';
 import { PaymentDetailsComponent } from '../payment-details/payment-details.component';
+import { AdmissionDetailsComponent } from '../admission-details/admission-details.component';
+import { DocsProcessComponent } from '../docs-process/docs-process.component';
+import { PaymentStatusComponent } from '../payment-status/payment-status.component';
 
 
 @Component({
@@ -108,6 +111,36 @@ export class LeadcardMoreComponent implements OnInit {
     const dialogRef = this.dialog.open(PaymentDetailsComponent, {
       width:'30%',
       height:'70%',
+      data:this.item
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+    });
+  }
+  admissionDetails(){
+    const dialogRef = this.dialog.open(AdmissionDetailsComponent, {
+      width:'30%',
+      data:this.item
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+    });
+  }
+  docsStatus(){
+    const dialogRef = this.dialog.open(DocsProcessComponent, {
+      width:'30%',
+      data:this.item
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+    });
+  }
+  openPaymentStatus(){
+    const dialogRef = this.dialog.open(PaymentStatusComponent, {
+      width:'30%',
       data:this.item
     });
   

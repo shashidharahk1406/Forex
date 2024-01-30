@@ -8,6 +8,7 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { AddNewLeadComponent } from '../add-new-lead/add-new-lead.component';
 
 @Component({
   selector: 'app-lead-card',
@@ -43,7 +44,7 @@ export class LeadCardComponent implements OnInit {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet'
     };
-    this._bottomSheet.open(AddLeadComponent,config);
+    this._bottomSheet.open(AddNewLeadComponent,config);
   }
   onChangeSorting(event:any){
     this.sorting = true

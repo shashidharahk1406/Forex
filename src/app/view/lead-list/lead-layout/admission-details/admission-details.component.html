@@ -1,0 +1,48 @@
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Admission Details</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-0 my-2">
+          <form [formGroup]="admissionDetailsForm">
+        
+            <mat-label >Application Number <b class="mandatory-symbol">*</b></mat-label>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Application Number</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="applicationNumber"
+                required
+                placeholder="Enter Your Application Number"
+              />
+              <mat-error *ngIf="f['applicationNumber'].hasError('required')">
+                Application Number Is Required.
+              </mat-error>
+            </mat-form-field>
+            <ng-container>
+             
+              <p class="mt-1">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
+                <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
+                <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
+                  <mat-error class="er-fs" *ngIf="f['leadUpload'].hasError('required')">Application form Is Required</mat-error>
+                </div>
+              <!-- </mat-form-field> -->
+            </ng-container>
+             
+         
+      </form>
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex justify-content-center">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>

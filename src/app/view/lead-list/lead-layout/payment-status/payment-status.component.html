@@ -1,0 +1,42 @@
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Payment Status</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-0 my-2">
+          <form [formGroup]="paymentStatus">
+        
+            <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Payment Status</mat-label>
+                <mat-select formControlName="payStatus" placeholder="Channel">
+                  <mat-option *ngFor="let status of docStatus" [value]="status.id">{{ status.status }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('payStatus')"
+                  *ngIf="f['payStatus']?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['payStatus'].hasError('required')">
+                    Payment Status Is Required.
+                  </mat-error>
+              </mat-form-field>
+           
+      </form>
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex justify-content-center">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>

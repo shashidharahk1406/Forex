@@ -116,18 +116,6 @@ export class LoginComponent implements OnInit {
 				// localStorage.setItem('whatsp_temp_sett',resp.permissions[0].adv_sett[0].whatsp_temp_sett)
 				// localStorage.setItem('chat_dis_enab',resp.permissions[0].adv_sett[0].chat_dis_enab)
 
-				
-
-
-
-
-
-
-
-
-
-
-
 				// localStorage.setItem('user_and_roles',resp.permissions[0].adv_sett[0].user_and_roles)
                 // localStorage.setItem('adv_comm_sett',resp.permissions[0].adv_sett[0].adv_comm_sett)
 				// localStorage.setItem('edit_lead',resp.permissions[0].lead_list_sett[0].edit_lead)
