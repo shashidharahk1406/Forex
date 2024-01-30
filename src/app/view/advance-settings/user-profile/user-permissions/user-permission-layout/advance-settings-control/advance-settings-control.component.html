@@ -299,16 +299,16 @@
 </div> -->
 
 
-<form [formGroup]="editForm">
+<!-- <form [formGroup]="editForm">
   <div class="mat-dialog-header">
       <div class="row my-1">
-          <div class="col"><h1 mat-dialog-title>Edit Advance Settings Permissions</h1></div>
+          <div class="col"><h1 mat-dialog-title>Edit Advance Settings Permissions</h1></div> -->
           <!-- <div class="col-1 close-icon">
               <mat-icon mat-dialog-close>close</mat-icon>
           </div> -->
-      </div>
-    </div>
-    <div class="container">
+      <!-- </div>
+    </div> -->
+    <!-- <div class="container">
       <mat-dialog-content class="mat-typography">
         <div class="row">
           <div class="col-12 col-md-12">
@@ -525,11 +525,38 @@
 
       
       </mat-dialog-content>
-    </div>
-  <mat-dialog-actions align="end">
+    </div> -->
+  <!-- <mat-dialog-actions align="end"> -->
     <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button> -->
-    <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
+    <!-- <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
   </mat-dialog-actions>
   
   
-</form>
+</form> -->
+
+
+
+
+
+<ul *ngFor="let perm of allPermissions; let i = index" >
+  <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
+      
+  }}</mat-checkbox> -->
+   <input type="checkbox" (change)="updateParentMenuPermission($event,i,perm)" [checked]="perm.access_status"  #checkBox/><label 
+    
+    >&nbsp;{{ perm.menu_name | titlecase
+      
+    }}</label
+  >
+  <ul *ngIf="checkBox.checked" style="list-style-type: none;">
+    <li *ngFor="let child of perm.children_status;let j=index" >
+      <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
+      
+      }}</mat-checkbox> -->
+      <label><input type="checkbox"  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
+    </li>
+  
+  </ul>
+</ul>
+ <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
+ <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button>  -->
