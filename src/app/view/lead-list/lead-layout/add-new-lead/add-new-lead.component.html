@@ -293,8 +293,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('course')"
-                          *ngIf="f['course']?.value"
+                          (click)="clearSelectField3('course')"
+                          *ngIf="ssd['course']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
@@ -377,7 +377,7 @@
           <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" >
             <mat-expansion-panel-header>
               <mat-panel-title>
-                Student Details
+                Lead Details
               </mat-panel-title>
             
             </mat-expansion-panel-header>
@@ -394,8 +394,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('counsellor')"
-                          *ngIf="f['counsellor']?.value"
+                          (click)="clearSelectField4('counsellor')"
+                          *ngIf="sd['counsellor']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
@@ -409,8 +409,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('counsellorAdmin')"
-                          *ngIf="f['counsellorAdmin']?.value"
+                          (click)="clearSelectField4('counsellorAdmin')"
+                          *ngIf="sd['counsellorAdmin']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
@@ -423,15 +423,32 @@
                          }}</mat-option>
                         </mat-select>
                         <button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('leadSource')"
-                          *ngIf="f['leadSource']?.value?.length > 0"
-                        >
-                          <mat-icon>clear</mat-icon>
-                        </button>
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSelectField4('leadSource')"
+                        *ngIf="sd['leadSource']?.value"
+                      >
+                        <mat-icon>clear</mat-icon>
+                      </button>
                       </mat-form-field>
+
+                      <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Lead Stage</mat-label>
+                        <mat-select formControlName="leadStages"  placeholder="Select The Lead Stage">
+                          <mat-option *ngFor="let stage of leadStage" [value]="stage">{{ stage}}</mat-option>
+                        </mat-select>
+                        <button
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSelectField4('leadStages')"
+                        *ngIf="sd['leadStages']?.value"
+                      >
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                      </mat-form-field>
+
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="leadStatus" placeholder="Select The Status">
@@ -441,8 +458,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('leadStatus')"
-                          *ngIf="f['leadStatus']?.value?.length > 0"
+                          (click)="clearSelectField4('leadStatus')"
+                          *ngIf="sd['leadStatus']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>

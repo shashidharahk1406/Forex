@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class PaymentStatusComponent implements OnInit {
   paymentStatus!:FormGroup;
-  docStatus:any = [
+  payStatus:any = [
     {
       id:1,
       status:'Payment Cleared'
@@ -18,6 +18,10 @@ export class PaymentStatusComponent implements OnInit {
     {
       id:2,
       status:'Payment Pending'
+    },
+    {
+      id:3,
+      status:'Inprogress'
     },
    ]
   constructor(
@@ -37,7 +41,15 @@ export class PaymentStatusComponent implements OnInit {
   get f() {
     return this.paymentStatus.controls;
   }
-  onSubmit(){}
+  onSubmit(){
+    if(this.paymentStatus.invalid){
+      this.paymentStatus.markAllAsTouched()
+    }else{
+      if(this.paymentStatus.value.payStatus == 3 || this.paymentStatus.value.payStatus == 2)
+      this.dialogRef.close('sendPayLink')
+    }
+    
+  }
   closePopup(){
     this.dialogRef.close()
   }

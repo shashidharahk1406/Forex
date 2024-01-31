@@ -1,1 +1,36 @@
-<p>edit-stage works!</p>
+
+<form [formGroup]="editForm">
+    <div class="mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Edit Lead Stage</h1></div>
+            <div class="col-1 close-icon">
+                <mat-icon mat-dialog-close>close</mat-icon>
+            </div>
+        </div>
+      </div>
+      <div class="container">
+        <mat-dialog-content class="mat-typography">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Lead Stage</mat-label>
+                      <input formControlName="name" type="text" matInput placeholder="Enter Lead Stage">
+                      <mat-error *ngIf="f['name'].invalid && f['name'].touched">
+                        <div *ngIf="f['name'].errors && f['name'].errors['required']">
+                            Lead Stage Is Required
+                        </div>
+                    </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+         
+        </mat-dialog-content>
+      </div>
+    <mat-dialog-actions align="end">
+      <button class="mat-cancel" mat-button mat-dialog-close>CANCEL</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>Update</button>
+    </mat-dialog-actions>
+    
+    
+</form>

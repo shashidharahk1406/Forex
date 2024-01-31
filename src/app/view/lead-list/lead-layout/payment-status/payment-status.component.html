@@ -14,7 +14,7 @@
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Payment Status</mat-label>
                 <mat-select formControlName="payStatus" placeholder="Channel">
-                  <mat-option *ngFor="let status of docStatus" [value]="status.id">{{ status.status }}</mat-option>
+                  <mat-option *ngFor="let status of payStatus" [value]="status.id">{{ status.status }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix

@@ -14,6 +14,7 @@ import { PaymentDetailsComponent } from '../payment-details/payment-details.comp
 import { AdmissionDetailsComponent } from '../admission-details/admission-details.component';
 import { DocsProcessComponent } from '../docs-process/docs-process.component';
 import { PaymentStatusComponent } from '../payment-status/payment-status.component';
+import { PaymentProofComponent } from '../payment-proof/payment-proof.component';
 
 
 @Component({
@@ -146,6 +147,19 @@ export class LeadcardMoreComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
+      if(result === 'sendPayLink'){
+        this.openPayment()
+      }
+    });
+  }
+  openPaymentProof(){
+    const dialogRef = this.dialog.open(PaymentProofComponent, {
+      width:'30%',
+      data:this.item
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+     
     });
   }
   close(){

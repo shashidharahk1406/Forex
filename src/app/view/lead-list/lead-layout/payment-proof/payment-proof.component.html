@@ -1,1 +1,65 @@
-<p>payment-proof works!</p>
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Payment Proof</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-0 my-2">
+          <form [formGroup]="paymentProof">
+            <p class="mb-0">Payment Mode <b class="mandatory-symbol">*</b></p>
+            <mat-form-field class="m-0" appearance="outline">
+                <mat-label>Payment Mode</mat-label>
+                <mat-select formControlName="paymentMode" placeholder="Select The Payment Mode">
+                  <mat-option *ngFor="let pay of payType" [value]="pay">{{ pay }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('paymentMode')"
+                  *ngIf="f['paymentMode']?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['paymentMode'].hasError('required')">
+                    Payment Mode Is Required.
+                  </mat-error>
+              </mat-form-field>
+              <ng-container>
+             
+                <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
+                  <input type="file" class="mb-3" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl/>
+                  <div *ngIf="f['uploadProof'].invalid && f['uploadProof'].touched">
+                    <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
+                  </div>
+                
+              </ng-container>
+              <p class="mb-0">Admission Status <b class="mandatory-symbol">*</b></p>
+              
+              <mat-form-field appearance="outline" class="mb-1" >
+                <mat-label>Admission Status</mat-label>
+                <input
+                  matInput
+                  appFormSpace
+                  type="text"
+                  placeholder="Enter The Admission Status"
+                  formControlName="admissionStatus"
+                />
+                <mat-error *ngIf="f['admissionStatus'].hasError('required')">
+                    Admission Status Is Required.
+                  </mat-error>
+              </mat-form-field>
+      </form>
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex justify-content-center">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>

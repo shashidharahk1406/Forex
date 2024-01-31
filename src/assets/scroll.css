@@ -1,6 +1,6 @@
 ::-webkit-scrollbar{
   height: 0px !important; 
-  width: 5px !important;
+  width: 4px !important;
   }
   
   /* Track */
@@ -10,9 +10,10 @@
    
   /* Handle */
   ::-webkit-scrollbar-thumb{
-    background:#F17E33!important; 
+    /* background:#F17E33!important;  */
+    background:#c6c6c6!important; 
     height: 10px !important;
-    width: 5px!important;
+    width: 4px!important;
   }
   
   mat-sidenav:hover ::-webkit-scrollbar-thumb{

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { BaseServiceService } from 'src/app/service/base-service.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add-stages',
@@ -11,10 +13,15 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 })
 export class AddStagesComponent implements OnInit {
   addForm!:FormGroup;
-  allDepartment:any=[]
-  allLevel:any=[]
+ 
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddStagesComponent>, private emit:EmitService) { }
+  constructor(
+    private _fb:FormBuilder,
+    private api:ApiService,
+    public dialogRef: MatDialogRef<AddStagesComponent>, 
+    private emit:EmitService,
+    private baseService:BaseServiceService) 
+    { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -22,9 +29,7 @@ export class AddStagesComponent implements OnInit {
   }
   initFilter(){
     this.addForm = this._fb.group({
-      lead_stage:['',[Validators.required]],
-      is_active:[true],
-      is_system_value:[true],
+      name:['',[Validators.required]],
     })
   }
   get f() {
@@ -33,10 +38,10 @@ export class AddStagesComponent implements OnInit {
  
   submit(){
     if(this.addForm.invalid){
-
+      this.addForm.markAllAsTouched()
     }
     else{
-      this.api.postCourse(this.addForm.value).subscribe(
+      this.baseService.postData(environment.leadStage,this.addForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()

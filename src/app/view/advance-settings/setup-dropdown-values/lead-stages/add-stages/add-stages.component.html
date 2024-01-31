@@ -12,49 +12,19 @@
         <mat-dialog-content class="mat-typography">
             <div class="row">
                 <div class="col-12 col-md-12">
-                    <mat-form-field  appearance="outline">
-                        <mat-label>Lead Stage</mat-label>
-                        <mat-select  formControlName="lead_stage">
-                          <mat-option *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                      <mat-error *ngIf="f['lead_stage'].invalid && f['lead_stage'].touched">
-                        <div *ngIf="f['lead_stage'].errors && f['lead_stage'].errors['required']">
+                    
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Lead Stage</mat-label>
+                      <input formControlName="name" type="text" matInput placeholder="Enter Lead Stage">
+                      <mat-error *ngIf="f['name'].invalid && f['name'].touched">
+                        <div *ngIf="f['name'].errors && f['name'].errors['required']">
                             Lead Stage Is Required
                         </div>
                     </mat-error>
+                    </mat-form-field>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-12 col-md-12">
-                  <mat-form-field  appearance="outline">
-                    <mat-label>Level Of Program</mat-label>
-                    <mat-select  formControlName="level_of_program_id">
-                      <mat-option *ngFor="let item of allLevel" [value]="item.id">{{item.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-error *ngIf="f['level_of_program_id'].invalid && f['level_of_program_id'].touched">
-                  <div *ngIf="f['level_of_program_id'].errors && f['level_of_program_id'].errors['required']">
-                      Level of program Is Required
-                  </div>
-              </mat-error>
-                </div>
-            </div> -->
-            <!-- <div class="row">
-                <div class="col-12 col-md-12">
-                  <mat-form-field  appearance="outline">
-                    <mat-label>Department</mat-label>
-                    <mat-select  formControlName="department_id">
-                      <mat-option *ngFor="let item of allDepartment" [value]="item.id">{{item.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-error *ngIf="f['department_id'].invalid && f['department_id'].touched">
-                  <div *ngIf="f['department_id'].errors && f['department_id'].errors['required']">
-                       Department Is Required
-                  </div>
-              </mat-error>
-                </div>
-            </div>           -->
+         
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">

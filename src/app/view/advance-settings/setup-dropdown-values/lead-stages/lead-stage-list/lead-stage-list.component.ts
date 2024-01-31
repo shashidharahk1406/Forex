@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatSort } from '@angular/material/sort';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { BaseServiceService } from 'src/app/service/base-service.service';
 
 // export interface UserData {
 //   'User Name': string,
@@ -26,10 +27,9 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LeadStageListComponent implements OnInit {
   displayedColumns: string[] = [
-    'lead_stage_name',
-    'is_active',
-    'is_system_value',
-    // 'delete'
+    "name",
+    "created_date_time",
+    "delete"
   ]
 
   dataSource = new MatTableDataSource<any>;
@@ -41,54 +41,13 @@ export class LeadStageListComponent implements OnInit {
   currentPage=1;
   totalPageLength:any;
   
-  data:any = []
-  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-    ) {
-      this.data = [
-        {
-          id: 1,
-          lead_stage_name: 'Qualified Lead',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 2,
-          lead_stage_name: 'Walkin',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 3,
-          lead_stage_name: 'Application',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 4,
-          lead_stage_name: 'Payment',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 5,
-          lead_stage_name: 'Document Verification',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 6,
-          lead_stage_name: 'Admission',
-          is_active: true,
-          is_system_value: true,
-        },
-        {
-          id: 7,
-          lead_stage_name: 'Droupout',
-          is_active: true,
-          is_system_value: true,
-        },
-      ];
-    }
+  
+  constructor(
+    private dialog: MatDialog, 
+    private api:ApiService, 
+    private emit:EmitService,
+    private baseService:BaseServiceService
+    ) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -102,7 +61,7 @@ export class LeadStageListComponent implements OnInit {
 
     this.getLeadStage(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
 
   }
 
@@ -117,56 +76,48 @@ export class LeadStageListComponent implements OnInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getCourseSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        console.log(resp.results);
-        // this.allCourse= resp.results;
-        this.allCourse = this.data
+      this.baseService.getData(`${environment.leadStage}/?key=${this.searchValue}&page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
+        this.allCourse= resp.results;
+        
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
-        
+        this.api.showError(error.error.message)
       }
   
       )
     }}
   getLeadStage(){
-    // this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-    //   console.log(resp.results);
-      // this.allCourse= resp.results;
-      // this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      // this.totalPageLength=resp.total_no_of_record
-      this.allCourse= this.data;
-      console.log(this.allCourse,"COURSE")
+    this.baseService.getData(environment.leadStage).subscribe((resp:any)=>{
+      console.log(resp.results);
+      this.allCourse= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      this.totalPageLength=this.data.length
-    // this.dataSource.sort = this.sort;
+      this.totalPageLength=resp.total_no_of_record
+     
+    this.dataSource.sort = this.sort;
       
-    // },(error:any)=>{
-    //   console.log(error);
-      
-    // }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+    }
 
-    // )
+    )
   }
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
-    
-    this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+   
+    this.baseService.getData(`${environment.leadStage}/?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
       console.log(resp.results);
-      //this.allCourse= resp.results;
-      this.allCourse = this.data
+      this.allCourse= resp.results;
+     
       this.dataSource = new MatTableDataSource<any>(this.allCourse);
       this.totalPageLength=resp.total_no_of_record
       console.log(this.dataSource);
       
     },(error:any)=>{
-      console.log(error);
-      
+     this.api.showError(error.error.message)
     }
 
     )
@@ -180,10 +131,10 @@ export class LeadStageListComponent implements OnInit {
       console.log('The dialog was closed');
     }); 
   }
-  openEdit(id:any){
+  openEdit(selectedData:any){
     const dialogRef = this.dialog.open(EditStageComponent, {
       width:'35%',
-      data:id
+      data:selectedData
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -192,7 +143,7 @@ export class LeadStageListComponent implements OnInit {
   }
   baseurl= environment.live_url;
   openDelete(id:any){
-    const apiUrl = `${this.baseurl}/api/course/${id}/`;
+    const apiUrl = `${this.baseurl}${environment.leadStage}${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
       data:apiUrl

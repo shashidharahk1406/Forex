@@ -13,7 +13,7 @@
         
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Document Status</mat-label>
-                <mat-select formControlName="docsStatus" placeholder="Channel">
+                <mat-select formControlName="docsStatus" placeholder="Select The Document Status">
                   <mat-option *ngFor="let status of docStatus" [value]="status.id">{{ status.status }}</mat-option>
                 </mat-select>
                 <button

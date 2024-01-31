@@ -14,9 +14,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-new-lead.component.css']
 })
 export class AddNewLeadComponent implements OnInit {
-  addNewLead!: FormGroup;
+  // addNewLead!: FormGroup;
   basicLeadDeatails!:FormGroup;
   additionalInformation!:FormGroup;
+  studentEducation!: FormGroup;
+  studentStudyDetails!: FormGroup;
+  studentDetails!: FormGroup;
   step: number = 0;
   countryOptions: any = [];
   stateOptions: any = [];
@@ -24,17 +27,16 @@ export class AddNewLeadComponent implements OnInit {
   cityOptions: any = [];
   campaignOptions: any = [];
   leadStatus:any = [];
-  studentEducation!: FormGroup;
-  entranceExam!: FormGroup;
-  studentDetails!: FormGroup;
+  
   referredTo: any = [];
-  studentStudyDetails!: FormGroup;
+  
   adminList:any = [];
   leadSources: any = [];
   @Output() addLead = new EventEmitter()
   courseOptions: any = [];
   showOtherInput: boolean = false;
   zone:string[] = ['South','North', 'East', 'West'];
+  leadStage:any = ['Data (Intital stage)','Qualified Lead','Walkin','Application','Payment','Document Verification', 'Admission','Droupout']
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -92,6 +94,7 @@ export class AddNewLeadComponent implements OnInit {
         counsellor:[''],
         counsellorAdmin:[''],
         leadSource:[''],
+        leadStages:[''],
         leadStatus:[''],
         notes:[''],
         remarks:['']
@@ -105,6 +108,12 @@ export class AddNewLeadComponent implements OnInit {
   }
   get f() {
     return this.basicLeadDeatails.controls;
+  }
+  get sd(){
+    return this.studentDetails.controls;
+  }
+  get ssd(){
+    return this.studentStudyDetails.controls;
   }
   onCourseSelectionChange(event:any) {
     if(event.target.value){
@@ -120,6 +129,7 @@ export class AddNewLeadComponent implements OnInit {
     this.getCounselor();
     this.getStatus();
     this.getCourse();
+    this.getCounselledBy()
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
@@ -230,11 +240,28 @@ export class AddNewLeadComponent implements OnInit {
       })
    
   }
+  getCounselledBy(){
+    this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+      if(res.results){
+      this.adminList = res.results
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
+  }
+  
   clearSelectField(fieldName: string) {
-    this.addNewLead.get(fieldName)?.reset();
-}
+    this.basicLeadDeatails.get(fieldName)?.reset();
+   }
+  
+   clearSelectField3(fieldName: string) {
+    this.studentStudyDetails.get(fieldName)?.reset();
+   }
+   clearSelectField4(fieldName: string) {
+    this.studentDetails.get(fieldName)?.reset();
+   }
 onSubmit(){
-  let f = this.addNewLead.value
+  let f = this.basicLeadDeatails.value
  
    let data:any ={
     user_data: {
@@ -280,8 +307,8 @@ onSubmit(){
       mother_email:f.mothersEmail
   }
    }
-  if(this.addNewLead.invalid){
-    this.addNewLead.markAllAsTouched()
+  if(this.basicLeadDeatails.invalid){
+    this.basicLeadDeatails.markAllAsTouched()
     
   }
   else{
