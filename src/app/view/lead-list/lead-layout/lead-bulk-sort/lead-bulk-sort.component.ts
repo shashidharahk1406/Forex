@@ -13,6 +13,7 @@ export class LeadBulkSortComponent implements OnInit {
   constructor() { }
   typesOfDate: string[] = ['Ascending','Descending','Creation Date', 'Modification Date', 'Next Action Date', 'Re-enquiry Date'];
   ngOnInit(): void {}
+ 
   onChange(event:any){
     this.selected = true
     this.selectedSort.emit(event)

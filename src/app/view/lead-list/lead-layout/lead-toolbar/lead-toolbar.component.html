@@ -28,6 +28,10 @@
                   <a *ngIf="selectedLeads.length >0" [href]="exportReference" target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>
                   <a *ngIf="selectedLeads.length === 0"  target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>    
                 </div>
+
+                <!-- <div class="col p-1 position-rel" (click)="referLead()">
+                    <i class="bi bi-person-check-fill"></i>
+                </div> -->
                 <!-- <div class="col p-1 position-rel">
                     <mat-icon>people</mat-icon>
                     <mat-icon class="forward-icon">forward</mat-icon>

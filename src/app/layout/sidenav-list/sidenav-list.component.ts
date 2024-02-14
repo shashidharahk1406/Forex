@@ -24,6 +24,7 @@ export class SidenavListComponent implements OnInit {
   permissions:any;
   token:any
   decodedData:any;
+  showHide!:boolean;
 constructor(private api:ApiService,private route:ActivatedRoute){
   this.id=localStorage.getItem('user_id')
  
@@ -32,13 +33,14 @@ this.permissions=localStorage.getItem('resp')
 const decodedToken:any = jwtDecode(this.permissions);
 console.log(decodedToken,'decodedToken')
 this.decodedData=decodedToken;
-// console.log(this.decodedData,"permissions")
-// this.token=localStorage.getItem('token')
-// console.log(this.token,"tokeeeennn")
+
+
 this.decodedData.permissions.forEach((element:any) => {
   this.fillerNav.forEach((menu:any)=>{
     if(element.menu_name===menu.page){
       menu.hidden=element.access_status;
+     this.showHide=menu.hidden
+
     }
   })
   this.advance_settings=element.perm_status
@@ -46,7 +48,7 @@ this.decodedData.permissions.forEach((element:any) => {
   // this.leadList=element.permissions[1].menu_name
   // console.log(this.leadList,"this.leadList")
 });
-
+console.log(this.fillerNav,"this.showHide")
 
 }
 
@@ -173,7 +175,7 @@ ngOnInit() {
     page:'Advance Settings',
     path:'/advancesettings',
     icon:'bi bi-gear-wide-connected',
-    hidden:false,
+    hidden:true,
     // key:'adv_comm_sett'
     },
     {

@@ -47,7 +47,9 @@ export class LeadCardComponent implements OnInit {
   }
   onChangeSorting(event:any){
     this.sorting = true
-     this.sortingType = event.target.innerText
+     this.sortingType = event.target.innerText;
+     
+     console.log( this.sortingType," this.sortingType")
       this.query = `?sort_by=${this.sortingType}&page=1&page_size=10`
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results) {

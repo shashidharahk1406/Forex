@@ -542,7 +542,7 @@
   <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
       
   }}</mat-checkbox> -->
-   <input type="checkbox" (change)="updateParentMenuPermission($event,i,perm)" [checked]="perm.access_status"  #checkBox/><label 
+   <input type="checkbox" class="form-check-input" (change)="updateParentMenuPermission($event,i,perm)" [checked]="perm.access_status"  #checkBox/><label 
     
     >&nbsp;{{ perm.menu_name | titlecase
       
@@ -553,7 +553,7 @@
       <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
       
       }}</mat-checkbox> -->
-      <label><input type="checkbox"  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
+      <label><input type="checkbox" class="form-check-input "  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
     </li>
   
   </ul>

@@ -4,15 +4,15 @@
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Follow  Up To {{data?.name | titlecase }}</h1></div>
+            <div class="col"><h1 mat-dialog-title>Edit Follow  Up of {{leadName}}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>
         </div>
       </div>
-        <mat-dialog-content class="mat-typography">
+        <mat-dialog-content class="mat-typography p-5 m-3">
          <div class="container">
-          <form [formGroup]="followupForm">
+          <form [formGroup]="editFollowUpForm">
            
             <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Priority</mat-label>
@@ -24,7 +24,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('priority')"
-                  *ngIf="followupForm.get('priority')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('priority')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -43,9 +43,9 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('statuslist')"
-                  *ngIf="followupForm.get('lead_status')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('lead_status')?.value?.length > 0"
                 >
-                  <mat-icon>clear</mat-icon>
+                  <!-- <mat-icon>clear</mat-icon> -->
                 </button>
                 <mat-error *ngIf="f['lead_status'].hasError('required')">
                  Status Is Required.
@@ -53,9 +53,9 @@
               </mat-form-field>
              
 
-              <mat-form-field class="mb-1" appearance="outline" *ngIf="isRequired" >
+              <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Followup Status</mat-label>
-                <mat-select formControlName="follow_up_status"  [required]="isRequired">
+                <mat-select formControlName="follow_up_status" >
                   <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id">{{ followUpStatus.status_name }}</mat-option>
                 </mat-select>
                 <button
@@ -63,7 +63,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('followUpStatus')"
-                  *ngIf="followupForm.get('follow_up_status')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('follow_up_status')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -81,7 +81,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('subStatus')"
-                  *ngIf="followupForm.get('subStatus')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('subStatus')?.value?.length > 0"
                   follow_up_status
                 >
                   <mat-icon>clear</mat-icon>
@@ -101,7 +101,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('followuplist')"
-                  *ngIf="followupForm.get('communication_channel')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('communication_channel')?.value?.length > 0"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -112,7 +112,7 @@
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <!-- <input matInput type="datetime-local" placeholder="start date"> -->
-                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="currentDate">
+                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time">
                 <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
                 <!-- <mat-datepicker #picker></mat-datepicker> -->
                 
@@ -141,7 +141,7 @@
      
       <mat-dialog-actions class="d-flex">
         <button class="mat-cancel m-1" mat-button mat-dialog-close (click)="closePopup()">CANCEL</button>
-        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">ADD FOLLOWUP</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="edit()">UPDATE FOLLOWUP</button>
       </mat-dialog-actions>
     </mat-card>
      

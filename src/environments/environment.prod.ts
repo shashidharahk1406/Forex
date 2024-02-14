@@ -20,5 +20,6 @@ export const environment = {
   lead_follow_up:`/api/follow-up/`,
   export_leads:`/api/export-leads/`,
   leadPayment:`/api/send-payment-link/`,
-  paymentDetails:`/api/payment-details/`
+  paymentDetails:`/api/payment-details/`,
+  followUps:`/api/follow-up/`
 };

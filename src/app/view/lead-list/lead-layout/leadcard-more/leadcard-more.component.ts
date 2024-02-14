@@ -49,10 +49,12 @@ export class LeadcardMoreComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-  addFollowUp(name:any){
+  addFollowUp(item:any){
+    console.log("===>>",item.user);
+    
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name,item:this.item},
+      data: {name:name,item:item},
     };
     this._bottomSheet.open(LeadFollowupComponent,config);
   }

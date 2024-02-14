@@ -20,9 +20,7 @@
                             <mat-select formControlName="template_category_id">
                                 <!-- Add options for WhatsApp Type here -->
                                 <mat-option *ngFor="let item of allType" [value]="item.name">{{item.name}}</mat-option>
-                                <mat-error *ngIf="whatsappTemplate.value['template_category_id'].hasError('required')">
-                                    Template Name Is Required.
-                                   </mat-error>
+                                
                                 <!-- <mat-option value="2">Non-Enterprises</mat-option> -->
                                 <!-- Add more options as needed -->
                             </mat-select>
@@ -34,9 +32,6 @@
                         <mat-form-field   appearance="outline">
                             <mat-label>Template Title</mat-label>
                             <input formControlName="name" matInput type="text" matInput placeholder="Name">
-                            <mat-error *ngIf="whatsappTemplate.value['name'].hasError('required')">
-                                Template Title Is Required.
-                               </mat-error>
                         </mat-form-field>
                     </div>
                 </div>

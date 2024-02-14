@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
@@ -58,5 +58,10 @@ export class MyFollowupToolBarComponent implements OnInit {
     // dialogRef.afterClosed().subscribe((result:any) => {
     //   console.log('The dialog was closed');
     // });
+  }
+
+  @Output()selectedSort = new EventEmitter()
+  onSelect(event:any){
+    this.selectedSort.emit(event)
   }
 }

@@ -12,7 +12,10 @@ export class LeadCallComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<LeadCallComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _fb:FormBuilder) { }
+    private _fb:FormBuilder) { 
+    
+     
+    }
 
   ngOnInit(): void {
     this.initForm()

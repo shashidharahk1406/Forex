@@ -1,24 +1,20 @@
-
-
-
-<app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
-<mat-tab-group class="lead-card-tabs">
+<app-my-followup-card-content ></app-my-followup-card-content>
+<!-- <mat-tab-group class="lead-card-tabs">
     <mat-card class="p-0 m-0">
-    <!-- <mat-tab label="Today's Followup (30)">
+    <mat-tab label="Today's Followup (30)">
    
-    </mat-tab> -->
-   
-    <!-- <mat-tab label="Issue GDPI Call Letter (24)">
-      
+    </mat-tab>
+    <mat-tab label="Issue GDPI Call Letter (24)">
+      <app-my-followup-card-content [leadData]="leadCards"[ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
     </mat-tab>
     <mat-tab label="Add Followup(3)">
       <app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
     </mat-tab>
     <mat-tab label="Payment Details(3)">
       <app-my-followup-card-content [leadData]="leadCards" [ngClass]="leadCards.length === 1 ? 'set-custom':''"></app-my-followup-card-content>
-    </mat-tab> -->
+    </mat-tab>
   </mat-card>
-  </mat-tab-group>
+  </mat-tab-group> -->
  
   <button mat-fab aria-label="Example icon button with a menu icon" class="appCoColor add-btn" (click)="openAddNew()">
     <mat-icon>add</mat-icon>

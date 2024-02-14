@@ -44,9 +44,9 @@ table {
 label{
     font-size: 12px;
 }
-/* input{
+input{
 background-color: #f17e33 !important;
-} */
+}
 
 
 
@@ -82,4 +82,12 @@ background-color: #f17e33 !important;
 }
 .input-assumpte:checked + label:after {
   background-color:  #f17e33 !important;
-}
+} 
+
+
+
+   
+
+
+
+ 

@@ -69,7 +69,7 @@ getPlaceHolder(){
     
   )
 }
- f=this.whatsappTemplate.value
+ 
 submit(){
  
   console.log(this.whatsappTemplate.value);

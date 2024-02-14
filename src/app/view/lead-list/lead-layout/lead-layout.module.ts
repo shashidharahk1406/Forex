@@ -26,6 +26,8 @@ import { LeadNoteComponent } from './lead-note/lead-note.component';
 import { ReferLeadComponent } from './refer-lead/refer-lead.component';
 import { LeadFilterComponent } from './lead-filter/lead-filter.component';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+// import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
     LeadLayoutRoutingModule,
     MaterialModule,
     MatBottomSheetModule,
-    SharedModule
+    SharedModule,
+    // NgxMatDatetimePickerModule
+  
   ],
   exports:[
     AddLeadComponent,

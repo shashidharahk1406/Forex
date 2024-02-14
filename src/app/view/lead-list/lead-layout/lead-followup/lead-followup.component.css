@@ -38,3 +38,11 @@ mat-dialog-content{
     min-height: 100px;
     background-color: transparent;
   }
+
+  textarea{
+    border: none !important;
+  }
+
+  textarea:hover{
+    border: none !important;
+  }
