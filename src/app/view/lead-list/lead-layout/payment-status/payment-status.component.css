@@ -1,0 +1,10 @@
+.payment-btn{
+    background-color: var(--appColor);
+    color:white;
+}
+.m-cus{
+    margin-left: 10px;
+}
+mat-card{
+    box-shadow: none;
+}

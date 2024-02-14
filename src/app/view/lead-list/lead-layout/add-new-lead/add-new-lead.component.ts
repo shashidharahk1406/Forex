@@ -14,12 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-new-lead.component.css']
 })
 export class AddNewLeadComponent implements OnInit {
-  // addNewLead!: FormGroup;
-  basicLeadDeatails!:FormGroup;
-  additionalInformation!:FormGroup;
-  studentEducation!: FormGroup;
-  studentStudyDetails!: FormGroup;
-  studentDetails!: FormGroup;
+  
   step: number = 0;
   countryOptions: any = [];
   stateOptions: any = [];
@@ -36,7 +31,9 @@ export class AddNewLeadComponent implements OnInit {
   courseOptions: any = [];
   showOtherInput: boolean = false;
   zone:string[] = ['South','North', 'East', 'West'];
-  leadStage:any = ['Data (Intital stage)','Qualified Lead','Walkin','Application','Payment','Document Verification', 'Admission','Droupout']
+  leadStage:any = [];
+  //leadStage:any = ['Data (Intital stage)','Qualified Lead','Walkin','Application','Payment','Document Verification', 'Admission','Droupout']
+  addLeadForm!:FormGroup;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -53,8 +50,7 @@ export class AddNewLeadComponent implements OnInit {
     this.initForm()
   }
   initForm(){
-    
-      this.basicLeadDeatails = this.fb.group({
+      this.addLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
@@ -63,24 +59,16 @@ export class AddNewLeadComponent implements OnInit {
         state: [''],
         zone:[''],
         cityName: [''],
-        pincode:['',[Validators.max(6)]],
+        pincode:[''],
         countryId:[''],
-      })
-    
-      this.additionalInformation = this.fb.group({
         referenceName:[''],
-        referencePhoneNumber:[''],
+        referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
         fatherName:[''],
         fatherOccupation:[''],
-        fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)]
-      })
-     
-      this.studentEducation = this.fb.group({
+        fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
         tenthPercentage :[''],
         twelthPercentage :[''],
-        degree:['']
-      })
-      this.studentStudyDetails = this.fb.group({
+        degree:[''],
         course:[''],
         otherCourse:[''],
         entranceExam:[''],
@@ -89,12 +77,10 @@ export class AddNewLeadComponent implements OnInit {
         preferredCollege2:[''],
         preferredLocation1:[''],
         preferredLocation2:[''],
-      })
-      this.studentDetails = this.fb.group({
-        counsellor:[''],
+        counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
-        leadSource:[''],
-        leadStages:[''],
+        leadSource:['',[Validators.required]],
+        leadStages:['',[Validators.required]],
         leadStatus:[''],
         notes:[''],
         remarks:['']
@@ -107,14 +93,9 @@ export class AddNewLeadComponent implements OnInit {
     this._bottomSheetRef.dismiss()
   }
   get f() {
-    return this.basicLeadDeatails.controls;
+    return this.addLeadForm.controls;
   }
-  get sd(){
-    return this.studentDetails.controls;
-  }
-  get ssd(){
-    return this.studentStudyDetails.controls;
-  }
+ 
   onCourseSelectionChange(event:any) {
     if(event.target.value){
       this.showOtherInput = !this.showOtherInput
@@ -129,7 +110,8 @@ export class AddNewLeadComponent implements OnInit {
     this.getCounselor();
     this.getStatus();
     this.getCourse();
-    this.getCounselledBy()
+    this.getCounselledBy();
+    this.getLeadStage();
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
@@ -209,7 +191,7 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   getCounselor(){
-    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }
@@ -241,7 +223,7 @@ export class AddNewLeadComponent implements OnInit {
    
   }
   getCounselledBy(){
-    this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe((res:any)=>{
       if(res.results){
       this.adminList = res.results
       }
@@ -249,66 +231,81 @@ export class AddNewLeadComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error.error.message))
     }))
   }
-  
+  getLeadStage(){
+   this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
+    if(res){
+     this.leadStage = res.results
+    }
+   },((error:any)=>{
+    this.api.showError(error.error.message)
+   }))
+  }
   clearSelectField(fieldName: string) {
-    this.basicLeadDeatails.get(fieldName)?.reset();
+    this.addLeadForm.get(fieldName)?.reset();
    }
   
-   clearSelectField3(fieldName: string) {
-    this.studentStudyDetails.get(fieldName)?.reset();
-   }
-   clearSelectField4(fieldName: string) {
-    this.studentDetails.get(fieldName)?.reset();
-   }
+  
 onSubmit(){
-  let f = this.basicLeadDeatails.value
+  let f = this.addLeadForm.value
  
    let data:any ={
-    user_data: {
-        first_name: f.firstName,
-        last_name: f.lastName,
-        email: f.email,
-        mobile_number: f.mobile,
-        role:5
+     user_data: {
+        first_name: f['firstName'],
+        last_name: "",
+        email: f['email'] || null,
+        mobile_number:f['mobile'],
+        role: 5
     },
-
-    higest_qualification: f.highestQualification,
-    campaign_name:f.campaignName,
-    season_id:f.season,
-    channel_id:f.channel,
-    source_id:f.source,
-    priority_id:f.priority,
-    refered_to_id:f.referredTo,
-    lead_list_status_id:f.status,
-    lead_list_substatus_id:f.subStatus,
-    department_id:f.department,
-    date_of_birth:this._datePipe.transform(f.dateOfBirth,'YYYY-MM-dd'),
-    course_id:f.course,
-    location: f.location,
-    year_of_passing:f.yearOfPassing,
-    best_time_to_call:f.callTime,
-    country_id:f.countryId,
-    state_id:f.state,
-    city_id:f.cityName,
-    role_id:5,
-    new_channel_id:f.newChannel,
-    campaign_id:f.campaign,
-    medium_id:f.medium,
-    level_of_program_id:f.levelOfProgram,
+    date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
+    alternate_mobile_number:f['alternateNumber'] || null,
+    additional_info:{
+      reference_name:f['referenceName'],
+      reference_mobile_number:f['referencePhoneNumber'] || null,
+      father_name:f['fatherName'],
+      father_occupation:f['fatherOccupation'],
+      father_mobile_number:f['fatherPhoneNumber'] || null
+    },
+    
+    user_location: {
+        location: 'NA',
+        pincode: f['pincode'] || null,
+        country:f['countryId'],
+        state: f['state'],
+        city: f['cityName'],
+        zone:f['zone']
+    },
+    education_details: {
+        tenth_per: f['tenthPercentage'] || null,
+        twelfth_per: f['twelthPercentage'] || null,
+        degree_per: f['degree'] || null,
+        // stream: f["course"],
+       
+        others: f["otherCourse"],
+        enterance_exam: f["entranceExam"],
+        course_looking_for: f["courseLookingfor"],
+        preferance_college_and_location: [
+            {
+                preferred_college1: f["preferredCollege1"],
+                preferred_college2: f["preferredCollege2"],
+                preferred_location1: f["preferredLocation1"],
+                preferred_location2: f["preferredLocation2"]
+            }
+        ]
+    },
+    course:f['course'],
+    lead_list_status: f['leadStatus'],
+    counselled_by:f['counsellorAdmin'],
+    lead_stage:f['leadStages'],
+    notes:f['notes'],
+    remark:f['remarks'],
+    source:f['leadSource'],
+    refered_to:f['counsellor'],
+    
    
-    lead_contact:{
-      alternate_phone_number:f.alternateNumber,
-      primary_phone_number: f.primaryNumber,
-      father_phone_number:f.fathersNumber,
-      mother_phone_number:f.mothersNumber,
-      alternate_email:f.alternateEmail,
-      primary_email:f.primaryEmail,
-      father_email:f.fathersEmail,
-      mother_email:f.mothersEmail
-  }
-   }
-  if(this.basicLeadDeatails.invalid){
-    this.basicLeadDeatails.markAllAsTouched()
+}
+
+  if(this.addLeadForm.invalid){
+    this.addLeadForm.markAllAsTouched()
     
   }
   else{

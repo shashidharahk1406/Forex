@@ -26,6 +26,7 @@ cityList:any = [];
 campaignList: any;
 queryItems: any;
 @Output() filter:any = new EventEmitter();
+  counselled_by: any;
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -46,11 +47,10 @@ queryItems: any;
     this.getChannel()
     this.getSource()
     this.getCity()
-    this.getDepartment()
-    this.getCampign()
     this.getCounselor()
     this.getChannel()
     this.getCourse()
+    this.getCounselledBy()
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
@@ -106,33 +106,17 @@ queryItems: any;
         
       })
   }
-  getCampign(){
-    this.api.getAllCampign().subscribe((res:any)=>{
-      if(res.results){
-        this.campaignList = res.results;
-      }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-  }
   
-  getDepartment(){
-    this.api.getAllDepartment().subscribe((res:any)=>{
-      if(res.results){
-        this.departmentList = res.results;
+  getCounselledBy(){
+    this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+      if(res){
+      this.counselled_by = res.results
       }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-  }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
+  } 
+ 
   getCounselor(){
     this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
       if(res){

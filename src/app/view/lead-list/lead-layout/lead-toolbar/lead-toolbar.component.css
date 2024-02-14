@@ -27,16 +27,12 @@ i,mat-icon{
  text-align: center;
 }
 .btn-outline-primary:hover .bi-search{
- color:#FFF;
-}
-.form-control:focus{
-    box-shadow: none !important;
-    border: 1px solid var(--appColor) !important;
-}
-.go-back{
-    background-color:var(--appColor);
-    color:#FFF;
+ color:#FFF !important;
 }
 .bi-arrow-left-circle-fill{
     color:#FFF
+}
+.go-back{
+ background-color: var(--appColor);
+ color:white;
 }

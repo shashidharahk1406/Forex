@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 
 import { environment } from 'src/environments/environment';
@@ -19,26 +21,8 @@ export class LeadUploadComponent implements OnInit {
   priorityList:any = [];
   
   statusList:any = [];
-  referedToList:any = [
-    {
-      id:1,
-      name:'Rohith'
-    },
-    {
-      id:2,
-      name:'Sandesh'
-    },
-  ];
-  leadOwnerList:any = [
-    {
-      id:1,
-      name:'Rohith'
-    },
-    {
-      id:2,
-      name:'Sandesh'
-    },
-  ];
+ 
+  leadOwnerList:any = [];
   departmentList:any = [];
   courseList:any = [];
   countryList:any = [];
@@ -48,13 +32,16 @@ export class LeadUploadComponent implements OnInit {
   file!:File;
   formData:any;
   inputEl: any;
+  referTo: any = [];
   
 
-  constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
+  constructor(
+    public dialogRef: MatDialogRef<LeadUploadComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
     private _baseService:BaseServiceService,
+    private _addLeadEmitter:AddLeadEmitterService
    ){
     this.dropDownValues()
    }
@@ -72,6 +59,8 @@ export class LeadUploadComponent implements OnInit {
       this.getCourse();
       this.getPriority();
       this.getStatus();
+      this.getCounselor();
+      this.getLeadOwner()
     }
     
     getCountry(){
@@ -174,7 +163,24 @@ export class LeadUploadComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error.error.message))
      })
     }
-   
+    getCounselor(){
+      this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+        if(res.results){
+        this.referTo = res.results
+        }
+      },((error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+      }))
+    }
+    getLeadOwner(){
+      this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+        if(res.results){
+        this.leadOwnerList = res.results
+        }
+      },((error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+      }))
+    }
    
     onFileSelected(event: any) {
       if (event.target.files && event.target.files.length) {
@@ -188,22 +194,9 @@ export class LeadUploadComponent implements OnInit {
     initForm(){
       this.uploadLeadForm = this.fb.group({
        //step-1
-       channel_id:['',Validators.required],
-       source:[''],
-       priority:[''],
-       status:[''],
-      //  subStatus:[''],
-       leadOwner:['',Validators.required],
-      //  reason:[''],
-       referedTo:['',Validators.required],
-       //step-2
-       department:[''],
-       course:[''],
-       country:[''],
-       state:[''],
-       welcomeEmail:[''],
-       welcomeSms:[''],
-       //step-3
+     
+      referedTo:['',Validators.required],
+       
        leadUpload:['',Validators.required]
       });
     }
@@ -217,38 +210,26 @@ export class LeadUploadComponent implements OnInit {
         this.uploadLeadForm.get(fieldName)?.reset();
       }
     closePopup(){
-      this._bottomSheetRef.dismiss()
+      this.dialogRef.close()
     }
     onSubmit(){  
        let f = this.uploadLeadForm.value
+       const selected_counsellor_id = f.referedTo
        this.formData = new FormData();
-     
-        
-           if(this.uploadLeadForm.invalid){
-          this.uploadLeadForm.markAllAsTouched();
-          this.api.showError('Invalid Form')
+        if(this.uploadLeadForm.invalid){
+        this.uploadLeadForm.markAllAsTouched();
+        this.api.showError('Invalid Form')
         }else{
           if (this.file) {
             this.formData.set('sample_file',this.file);
-            // this.formData.set('name',this.file.name);
-             // Append other fields to the formData
-              this.formData.set('channel_id', f.channel_id);
-              this.formData.set('source_id', f.source);
-              this.formData.set('priority_id', f.priority);
-              this.formData.set('status_id', f.status);
-              this.formData.set('lead_owner', f.leadOwner);
-              this.formData.set('refered_to_ids', [Number(f.referedTo)]);
-              this.formData.set('departent_id', f.department);
-              this.formData.set('course_id', f.course);
-              this.formData.set('country_id', f.country);
-              this.formData.set('state_id', f.state);
-              // this.formData.set('send_welcome_email', f.welcomeEmail);
-              // this.formData.set('send_welcome_sms', f.welcomeSms);
-              this.formData.set('send_welcome_email', false);
-              this.formData.set('send_welcome_sms', false);
+            this.formData.set('counsellor_ids',JSON.stringify(selected_counsellor_id))
+            
               this._baseService.postFile(`${environment.lead_upload}`,this.formData).subscribe((res:any)=>{
                 if(res){
                   this.api.showSuccess(res.message)
+                  this._addLeadEmitter.triggerGet();
+                  this.dialogRef.close();
+                 
                 }
               },((error:any)=>{
                  this.api.showError(this.api.toTitleCase(error.error.message))

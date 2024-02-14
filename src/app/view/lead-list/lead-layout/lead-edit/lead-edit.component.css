@@ -1,18 +1,16 @@
 mat-card{
     box-shadow: none !important;
 }
-mat-dialog-content{
-    font-size: 12px;
-    height: 68vh;
-    overflow-y: auto;
-}
-.container{
-    padding: 0.2rem 3rem;
-    margin: 0;
-}
-.time-label{
-    color: #6c6c6c;
-}
-.time-label-error{
-    color:red;
+.example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+  }
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+    border: 1px solid #f3f3f3;
 }

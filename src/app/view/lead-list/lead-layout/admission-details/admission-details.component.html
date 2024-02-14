@@ -27,15 +27,24 @@
             </mat-form-field>
             <ng-container>
              
-              <p class="mt-1">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
-                <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
+              <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
+              <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
+              <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
                 <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
                   <mat-error class="er-fs" *ngIf="f['leadUpload'].hasError('required')">Application form Is Required</mat-error>
                 </div>
-              <!-- </mat-form-field> -->
-            </ng-container>
+              
+                <div class="img-container" *ngIf="f['leadUpload'].value">
+                  <img [src]="f['leadUpload'].value" class="uploaded-image"/>
+                  <button mat-mini-fab class="mat-fab-cus"  (click)="downloadImage()">
+                    <mat-icon class="forward">forward</mat-icon>
+                  </button>
+                  <a mat-mini-fab [href]="f['leadUpload'].value" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                    <mat-icon class="eye-1">visibility</mat-icon>
+                  </a>
+                </div>
              
-         
+              </ng-container>
       </form>
         </mat-dialog-content>
      

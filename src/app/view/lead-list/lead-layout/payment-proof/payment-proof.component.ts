@@ -25,7 +25,6 @@ export class PaymentProofComponent implements OnInit {
     this.paymentProof = this.fb.group({
       paymentMode:['',Validators.required],
       uploadProof:['',Validators.required],
-      admissionStatus:['',Validators.required]
     })
   }
   get f() {

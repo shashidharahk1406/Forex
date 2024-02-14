@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ export class EmitService {
   
   private payment= new Subject<void>();
   getRefreshPayment= this.payment.asObservable()
-   
+  allocateSearch = new BehaviorSubject('')
+
   paymentLink(){
     return this.payment.next()
   }

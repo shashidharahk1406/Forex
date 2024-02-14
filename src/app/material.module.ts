@@ -25,6 +25,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {NgChartsModule } from 'ng2-charts';
 import {HttpClientModule } from '@angular/common/http';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatStepperModule} from '@angular/material/stepper';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -53,6 +54,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     NgChartsModule,
     HttpClientModule,
     MatExpansionModule,
+    MatStepperModule
   ],
   exports: [
     MatButtonModule,
@@ -82,6 +84,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ReactiveFormsModule,
     FormsModule,
     MatExpansionModule,
+    MatStepperModule
   ]
 })
 export class MaterialModule {}

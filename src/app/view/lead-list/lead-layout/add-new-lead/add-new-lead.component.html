@@ -10,8 +10,9 @@
       </div>
         <mat-dialog-content class="mat-typography mx-2">
          <div class="container">
-        
+         <form [formGroup]="addLeadForm">
           <mat-accordion class="example-headers-align">
+            
             <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" >
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -22,7 +23,7 @@
           
               <ng-container>
                 <div class="container">
-                    <form [formGroup]="basicLeadDeatails">
+                   
                     <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Student Name</mat-label>
                         <input
@@ -124,7 +125,7 @@
                       </mat-form-field>
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Pincode</mat-label>
-                        <input type="number" max="6" formControlName="pincode" matInput  placeholder="Enter The Pin Code">
+                        <input type="number"  formControlName="pincode" matInput  placeholder="Enter The Pin Code">
                       </mat-form-field>
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Country </mat-label>
@@ -142,7 +143,7 @@
                         </button>
                       </mat-form-field>
 
-                    </form>
+                    
                     
                 </div>
                 
@@ -158,7 +159,7 @@
             
                 <ng-container>
                     <div class="container">
-                        <form [formGroup]="additionalInformation">
+                        
                         <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Reference Name </mat-label>
                         <input
@@ -169,16 +170,7 @@
                         formControlName="referenceName"
                       />
                       </mat-form-field>
-                      <mat-form-field class="mb-1" appearance="outline">
-                      <mat-label>Reference Phone Number</mat-label>
-                      <input
-                      matInput
-                      appFormSpace
-                      type="text"
-                      placeholder="Enter Your Reference Phone Number"
-                      formControlName="referencePhoneNumber"
-                      />
-                    </mat-form-field>
+                    
                     <mat-form-field class="mb-1" appearance="outline">
                     <mat-label>Reference Phone Number</mat-label>
                     <input
@@ -188,6 +180,7 @@
                     placeholder="Enter Your Reference Phone Number"
                     formControlName="referencePhoneNumber"
                     />
+                    <mat-error *ngIf="f['referencePhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                       </mat-form-field>
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Father Name</mat-label>
@@ -218,8 +211,9 @@
                         placeholder="Enter Father Phone Number"
                         formControlName="fatherPhoneNumber"
                         />
+                        <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                       </mat-form-field>
-                    </form>
+                    
                     </div>
                 </ng-container>
             </mat-expansion-panel>
@@ -234,7 +228,7 @@
           
               <ng-container>
                   <div class="container">
-                      <form [formGroup]="studentEducation">
+                      
                       <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Tenth Percentage</mat-label>
                       <input
@@ -268,10 +262,10 @@
                     />
                   </mat-form-field>
 
-                  </form>
+                  
                   </div>
               </ng-container>
-          </mat-expansion-panel>
+            </mat-expansion-panel>
          
           <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" >
             <mat-expansion-panel-header>
@@ -283,7 +277,7 @@
         
             <ng-container>
                 <div class="container">
-                    <form [formGroup]="studentStudyDetails">
+                    
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Course</mat-label>
                         <mat-select formControlName="course" placeholder="Select Course" >
@@ -293,15 +287,15 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField3('course')"
-                          *ngIf="ssd['course']?.value"
+                          (click)="clearSelectField('course')"
+                          *ngIf="f['course']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
                       </mat-form-field>
                   <!-- Additional input for 'Other' -->
                  
-                  <mat-form-field class="mb-1" appearance="outline" *ngIf="studentStudyDetails.value.course == 19">
+                  <mat-form-field class="mb-1" appearance="outline" *ngIf="addLeadForm.value.course == 19">
                     <mat-label>Other Course</mat-label>
                     <input type="text" matInput appFormSpace formControlName="otherCourse" placeholder="Enter The Other Course" />
                   </mat-form-field>
@@ -370,7 +364,6 @@
                   formControlName="preferredLocation2"
                   />
                 </mat-form-field>
-                </form>
                 </div>
             </ng-container>
           </mat-expansion-panel>
@@ -384,7 +377,7 @@
         
             <ng-container>
                 <div class="container">
-                    <form [formGroup]="studentDetails">
+                    
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Lead Owner</mat-label>
                         <mat-select formControlName="counsellor" placeholder="Select The Lead Owner">
@@ -394,11 +387,12 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField4('counsellor')"
-                          *ngIf="sd['counsellor']?.value"
+                          (click)="clearSelectField('counsellor')"
+                          *ngIf="f['counsellor']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
+                        <mat-error *ngIf="f['counsellor'].hasError('required')">Lead Owner Is Required.</mat-error>
                       </mat-form-field>
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Counselled By</mat-label>
@@ -409,8 +403,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField4('counsellorAdmin')"
-                          *ngIf="sd['counsellorAdmin']?.value"
+                          (click)="clearSelectField('counsellorAdmin')"
+                          *ngIf="f['counsellorAdmin']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
@@ -426,27 +420,29 @@
                         matSuffix
                         mat-icon-button
                         aria-label="Clear"
-                        (click)="clearSelectField4('leadSource')"
-                        *ngIf="sd['leadSource']?.value"
+                        (click)="clearSelectField('leadSource')"
+                        *ngIf="f['leadSource']?.value"
                       >
                         <mat-icon>clear</mat-icon>
                       </button>
+                      <mat-error *ngIf="f['leadSource'].hasError('required')">Source Is Required.</mat-error>
                       </mat-form-field>
 
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Lead Stage</mat-label>
                         <mat-select formControlName="leadStages"  placeholder="Select The Lead Stage">
-                          <mat-option *ngFor="let stage of leadStage" [value]="stage">{{ stage}}</mat-option>
+                          <mat-option *ngFor="let stage of leadStage" [value]="stage.id">{{stage.name}}</mat-option>
                         </mat-select>
                         <button
                         matSuffix
                         mat-icon-button
                         aria-label="Clear"
-                        (click)="clearSelectField4('leadStages')"
-                        *ngIf="sd['leadStages']?.value"
+                        (click)="clearSelectField('leadStages')"
+                        *ngIf="f['leadStages']?.value"
                       >
                         <mat-icon>clear</mat-icon>
                       </button>
+                      <mat-error *ngIf="f['leadStages'].hasError('required')">Lead Stage Is Required.</mat-error>
                       </mat-form-field>
 
                       <mat-form-field class="mb-1" appearance="outline">
@@ -458,8 +454,8 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField4('leadStatus')"
-                          *ngIf="sd['leadStatus']?.value"
+                          (click)="clearSelectField('leadStatus')"
+                          *ngIf="f['leadStatus']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
@@ -485,17 +481,18 @@
                           formControlName="remarks"
                         />
                       </mat-form-field>
-                  </form>
+                 
                 </div>
             </ng-container>
           </mat-expansion-panel>
-          </mat-accordion>
           
+         </mat-accordion>
+        </form>
          </div>
         </mat-dialog-content>
         <mat-dialog-actions class="d-flex">
-          <button class="mat-cancel m-1" mat-button mat-dialog-close>CANCEL</button>
-          <button class="mat-disable m-1" mat-button mat-dialog-close cdkFocusInitial (click)="onSubmit()">ADD</button>
+          <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+          <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">ADD</button>
         </mat-dialog-actions>
     </mat-card>
 </ng-container>

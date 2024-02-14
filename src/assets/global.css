@@ -220,7 +220,8 @@ height: 90%;
   background-color: transparent !important;
 }
 app-lead-list{
-  display: flex;
+  /* display: flex; */
   height: 100%;
-  overflow-y: hidden;
+  width: 100%;
+  overflow-y: hidden !important;
 }

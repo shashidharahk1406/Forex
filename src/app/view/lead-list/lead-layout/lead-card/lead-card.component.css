@@ -1,13 +1,13 @@
 .add-btn{
     position: fixed;
     bottom: 7rem;
-    right: 2px;
+    right: 15px;
     z-index: 1;
 }
 .upload-btn{
     position: fixed;
     bottom: 3rem;
-    right: 2px;
+    right: 15px;
     z-index: 1;
 }
 .forward-icon{

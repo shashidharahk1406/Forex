@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LeadLayoutComponent } from './lead-layout.component';
-import { AddLeadComponent } from './add-lead/add-lead.component';
+import { AddLeadComponent } from './dummy-add/add-lead.component';
 import { LeadBottomPannelComponent } from './lead-bottom-pannel/lead-bottom-pannel.component';
 
 const routes: Routes = [

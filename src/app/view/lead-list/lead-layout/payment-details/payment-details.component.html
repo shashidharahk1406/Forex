@@ -41,16 +41,14 @@
               <mat-select formControlName="channel" placeholder="Season" multiple>
                 <mat-option *ngFor="let item of channels" [value]="item">{{ item }}</mat-option>
               </mat-select>
-              <!-- <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectField('channel')" *ngIf="paymentForm.get('channel')?.value && paymentForm.get('channel')?.value.length > 0">
-                <mat-icon>clear</mat-icon>
-              </button> -->
+             
               <mat-error *ngIf="f['channel'].hasError('required')">
                 Communication Channel Is Required.
               </mat-error>
             </mat-form-field>
           </div>
         </div>
-       
+        
       </form> 
       </mat-dialog-content> 
       <mat-dialog-actions class="d-flex">

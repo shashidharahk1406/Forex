@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LeadLayoutRoutingModule } from './lead-layout-routing.module';
-import { AddLeadComponent } from './add-lead/add-lead.component';
+import { AddLeadComponent } from './dummy-add/add-lead.component';
 import { LeadLayoutComponent } from './lead-layout.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MatBottomSheetModule} from '@angular/material/bottom-sheet';
@@ -31,6 +31,7 @@ import { AdmissionDetailsComponent } from './admission-details/admission-details
 import { DocsProcessComponent } from './docs-process/docs-process.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { PaymentProofComponent } from './payment-proof/payment-proof.component';
+import { EidtDocProcessComponent } from './eidt-doc-process/eidt-doc-process.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { PaymentProofComponent } from './payment-proof/payment-proof.component';
     AdmissionDetailsComponent,
     DocsProcessComponent,
     PaymentStatusComponent,
-    PaymentProofComponent
+    PaymentProofComponent,
+    EidtDocProcessComponent
   ],
   imports: [
     CommonModule,

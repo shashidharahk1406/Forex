@@ -10,6 +10,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class PaymentStatusComponent implements OnInit {
   paymentStatus!:FormGroup;
+  editable = false;
+  payType:any = ['Cash','Net banking','G-pay','phonepay'];
   payStatus:any = [
     {
       id:1,
@@ -24,9 +26,12 @@ export class PaymentStatusComponent implements OnInit {
       status:'Inprogress'
     },
    ]
+  firstFormGroup!: FormGroup;
+  secondFormGroup!: FormGroup;
+  thirdFormGroup!: FormGroup;
   constructor(
     private fb:FormBuilder,
-    public dialogRef: MatDialogRef<AdmissionDetailsComponent>,
+    public dialogRef: MatDialogRef<PaymentStatusComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) { }
 
@@ -37,24 +42,41 @@ export class PaymentStatusComponent implements OnInit {
     this.paymentStatus = this.fb.group({
       payStatus:['',Validators.required],
     })
+    this.firstFormGroup = this.fb.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this.fb.group({
+      secondCtrl: ['', Validators.required],
+    });
+    this.thirdFormGroup = this.fb.group({
+      paymentMode:['',Validators.required],
+      uploadProof:['',Validators.required],
+    })
   }
   get f() {
-    return this.paymentStatus.controls;
+    return this.thirdFormGroup.controls;
   }
   onSubmit(){
-    if(this.paymentStatus.invalid){
-      this.paymentStatus.markAllAsTouched()
-    }else{
-      if(this.paymentStatus.value.payStatus == 3 || this.paymentStatus.value.payStatus == 2)
-      this.dialogRef.close('sendPayLink')
-    }
+    // if(this.paymentStatus.invalid){
+    //   this.paymentStatus.markAllAsTouched()
+    // }else{
+    //   if(this.paymentStatus.value.payStatus == 3 || this.paymentStatus.value.payStatus == 2){
+    //     this.dialogRef.close(2)
+    //   }
+     
+    // }
     
   }
+  sendLink(){
+    this.dialogRef.close(2)
+  }
+  
   closePopup(){
-    this.dialogRef.close()
+    
+    this.dialogRef.close(0)
   }
   clearSelectField(fieldName: string) {
-    this.paymentStatus.get(fieldName)?.reset();
+    this.thirdFormGroup.get(fieldName)?.reset();
 }
   onFileSelected(event:any){}
 

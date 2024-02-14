@@ -8,3 +8,42 @@ mat-dialog-content{
     font-size: 11px !important;
     padding-left: 11px;
 }
+.img-container{
+    position: relative;
+}
+.eye-1{
+    color: black !important;
+    font-size: 13px;
+    position: absolute;
+    top: 5px;
+    right: -2px;
+}
+.mat-fab-cus{
+    height: 20px;
+    width: 20px;
+    right: 5em;
+    top: 14px;
+}
+.uploaded-image{
+  height: 70px;
+  width: 100px;
+  margin-top: 10px;
+  border-radius: 10px;
+  opacity: 8;
+}
+.img-container{
+  width: fit-content;
+}
+  
+.img-container:hover + .hide {
+ display: block;
+ color: red;
+}
+.forward{
+    transform: rotate(90deg);
+    color: black !important;
+    font-size: 13px;
+    position: absolute;
+    top: -1px;
+    right: 3px;
+}

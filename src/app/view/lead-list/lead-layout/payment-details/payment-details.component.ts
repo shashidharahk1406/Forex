@@ -18,7 +18,9 @@ export class PaymentDetailsComponent implements OnInit {
   emailChecked: boolean = false;
   whatsappChecked: boolean = false;
   channels = ["SMS","EMAIL","WHATSAPP"]
-  constructor(public dialogRef: MatDialogRef<ReferLeadComponent>,
+  firstFormGroup: any;
+  secondFormGroup: any;
+  constructor(public dialogRef: MatDialogRef<PaymentDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb:FormBuilder,
     private _baseService:BaseServiceService,

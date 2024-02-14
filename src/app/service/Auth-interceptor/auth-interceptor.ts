@@ -9,8 +9,8 @@ export class BasicAuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // add authorization header with basic auth credentials if available
         const skipUrl = [
-            'https://fcmdev.thestorywallcafe.com/api/login/'
-            
+            'https://fcmdev.thestorywallcafe.com/api/login/',
+            // 'http://localhost:8005/api/login/',
         ];
         if (skipUrl.indexOf(request.url) === -1 ) {
             let value=localStorage.getItem('token');

@@ -46,17 +46,19 @@
             </div>
         </div>
        
-        <div class="col-sm-12 col-md-12 col-lg-4 ">
-            <div class="input-group z-s m-auto">
-              <input  type="text" class="form-control" [(ngModel)]="leadSearch"   placeholder="Search by Name/Mobile">
-              <button class="btn btn-outline-primary" type="button"  (click)="search(leadSearch)">
+          <!-- <div class="col" *ngIf="totalCount === 0"></div> -->
+          <div class="col-sm-12 col-md-12 col-lg-4" >
+            <div class="input-group z-s">
+              <input [(ngModel)]="leadSearch" (input)="applyFilter($event)" type="search" class="form-control" placeholder="Search by Name/Mobile">
+              <button (click)="search(leadSearch)" class="btn btn-outline-secondary" type="button">
                 <i class="bi bi-search"></i>
               </button>
             </div>
-          </div> 
+          </div>
+
     </div>
     <div class="row" *ngIf="totalCount === 0 && leadSearch">
-        <!-- <div class="col"></div> -->
+        
         <div class="col" >
             <button mat-raised-button (click)="onSearchInputChange()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
         </div>

@@ -37,7 +37,11 @@ export class LeadToolbarComponent implements OnInit {
   filtered = false;
   
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
-    private _baseService:BaseServiceService,private api:ApiService,private emit:EmitService,private addEventEmitter:AddLeadEmitterService ) {
+    private _baseService:BaseServiceService,
+    private api:ApiService,
+    private emit:EmitService,
+    private addEventEmitter:AddLeadEmitterService 
+    ) {
   }
 
   ngOnInit():any {
@@ -64,7 +68,16 @@ export class LeadToolbarComponent implements OnInit {
       }
   }
   onSelect(event:any){
+    // this.leadSearch = ''
     this.selectedSort.emit(event)
+  }
+  applyFilter(event: any) {
+    console.log(event.target.value);
+    if(event.target.value==''){
+      this.selectedSearch.emit('')
+      this.emit.allocateSearch.next('init')
+    }
+   
   }
   search(event:any){
     if(event){

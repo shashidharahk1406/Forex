@@ -147,8 +147,10 @@ export class LeadcardMoreComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
-      if(result === 'sendPayLink'){
+      if(result == 2 ){
         this.openPayment()
+      }else{
+        this.openPaymentProof()
       }
     });
   }
@@ -159,7 +161,6 @@ export class LeadcardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-     
     });
   }
   close(){

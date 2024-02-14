@@ -1,3 +1,4 @@
 mat-card{
     box-shadow: none !important;
+    overflow: hidden;
 }

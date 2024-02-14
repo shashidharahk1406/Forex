@@ -12,7 +12,7 @@
       </div>
         <mat-dialog-content class="mat-typography mx-2">
          <div class="container">
-          <form [formGroup]="filterLead" >
+          <form [formGroup]="filterLead">
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
@@ -41,45 +41,46 @@
             <div class="row">
               <div class="col-12">
                   <mat-form-field class="mb-1" appearance="outline">
-                    <mat-label>Campaign Name</mat-label>
-                      <mat-select placeholder="Select Counselors" formControlName="campaign_id" >
-                        <mat-option *ngFor="let campaign of campaignList" [value]="campaign.id">{{campaign.campaign_name}}</mat-option>
+                      <mat-label>Select Counselled By</mat-label>
+                      <mat-select placeholder="Select Counselors" formControlName="counselled_by" >
+                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}}</mat-option>
                       </mat-select>
                       <button
                         mat-button
                         matSuffix
                         mat-icon-button
                         aria-label="Clear"
-                        (click)="clearSelectField('campaign_id')"
-                        *ngIf="f['campaign_id']?.value"
+                        (click)="clearSelectField('counselled_by')"
+                        *ngIf="f['counselled_by']?.value"
                       >
                         <mat-icon>clear</mat-icon>
                       </button>
-                    
+                  
                   </mat-form-field>
               </div>
           </div>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Select Channel</mat-label>
-                        <mat-select placeholder="Select Channel" formControlName="channel_id" >
-                          <mat-option *ngFor="let channels of channelsList" [value]="channels.id">{{channels.channel_name}}</mat-option>
-                        </mat-select>
-                        <button
-                          mat-button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('channel_id')"
-                          *ngIf="f['channel_id']?.value"
-                        >
-                          <mat-icon>clear</mat-icon>
-                        </button>
-                        
-                    </mat-form-field>
-                </div>
+        
+          <div class="row">
+            <div class="col-12">
+                <mat-form-field class="mb-1" appearance="outline">
+                    <mat-label>Select Cource</mat-label>
+                    <mat-select placeholder="Select Cource" formControlName="cource_id" >
+                      <mat-option *ngFor="let course of courseList" [value]="course.id">{{course.course_name}}</mat-option>
+                    </mat-select>
+                    <button
+                      mat-button
+                      matSuffix
+                      mat-icon-button
+                      aria-label="Clear"
+                      (click)="clearSelectField('cource_id')"
+                      *ngIf="f['cource_id']?.value"
+                    >
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                    
+                </mat-form-field>
             </div>
+        </div>
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
@@ -101,31 +102,11 @@
                     </mat-form-field>
                 </div>
             </div>
+        
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Select Department</mat-label>
-                        <mat-select placeholder="Select Department" formControlName="department_id">
-                          <mat-option *ngFor="let departments of departmentList" [value]="departments.id">{{departments.name}}</mat-option>
-                        </mat-select>
-                        <button
-                          mat-button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('department_id')"
-                          *ngIf="f['department_id']?.value"
-                        >
-                          <mat-icon>clear</mat-icon>
-                        </button>
-                        
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Select Course</mat-label>
+                        <mat-label>Select Stream</mat-label>
                         <mat-select placeholder="Select Course" formControlName="course_id">
                           <mat-option *ngFor="let courses of courseList" [value]="courses.id">{{courses.course_name}}</mat-option>
                         </mat-select>
@@ -164,15 +145,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Year Of Passing</mat-label>
-                        <input type="number" appFormSpace formControlName="year_of_passing" matInput placeholder="Enter Your Year Of Passing">
-                      </mat-form-field>  
-                </div>
-            </div>
-             
+           
           </form>
         </div>
       

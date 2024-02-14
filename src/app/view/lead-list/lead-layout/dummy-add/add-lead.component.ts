@@ -64,7 +64,7 @@ export class AddLeadComponent implements OnInit {
     campaignName: ['', Validators.required],
     season: [''],
     channel: [''],
-    source: ['',Validators.required],
+    source: [2,Validators.required],
     priority: [''],
     referredTo: [''],
     status:['',Validators.required],

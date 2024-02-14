@@ -12,8 +12,7 @@
         <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
       </mat-tab>
     </div>
-   </div>
-    
+   </div>    
   </mat-card>
 </mat-tab-group>
 

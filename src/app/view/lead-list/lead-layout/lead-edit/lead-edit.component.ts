@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -14,47 +14,209 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./lead-edit.component.css'],
 })
 export class LeadEditComponent implements OnInit {
-  isOpen = false;
-  meridian = true;
-  editLead!: FormGroup;
-  genderList = ['Female','Male','Others'];
-  programList:any = [];
-  department:any = []
-  stat_us: any = [];
+  step: number = 0;
+  countryOptions: any = [];
+  stateOptions: any = [];
+  channels: any = [];
+  cityOptions: any = [];
+  campaignOptions: any = [];
+  leadStatus:any = [];
+  
+  referredTo: any = [];
+  
+  adminList:any = [];
+  leadSources: any = [];
+  @Output() addLead = new EventEmitter()
+  courseOptions: any = [];
+  showOtherInput: boolean = false;
+  zone:string[] = ['South','North', 'East', 'West'];
+  leadStage:any = [];
+  editLeadForm!:FormGroup;
+  leadData: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private fb: FormBuilder,
-    private _baseService:BaseServiceService,
     private _commonService:CommonServiceService,
+    private fb:FormBuilder,
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private api:ApiService,
+    private _baseService:BaseServiceService,
     private _datePipe:DatePipe,
-    private _addLeadEmitter:AddLeadEmitterService) {
-      this.getLevelOfProgram()
-      this.getDepartment()
-      this.getStatus()
+    private _addLeadEmitter:AddLeadEmitterService,
+    ) { 
+      this.dropDownValues()
     }
 
   ngOnInit(): void {
-    console.log(this.data,"sdgs")
     this.initForm()
-    this.patchFormValue()
+    this.getLeadById()
   }
-  getLevelOfProgram(){
-    this.api.getAllLevelOfProgram().subscribe((res:any)=>{
+  getLeadById() {
+    this._baseService.getByID(`${environment.lead_list}${this.data.user_data.id}/`).subscribe(
+      (res: any) => {
+        if (res && res.result && res.result.length > 0) {
+          const lead = res.result[0];
+          this.editLeadForm.patchValue({
+            firstName: lead.user_data.first_name,
+            mobile: lead.user_data.mobile_number,
+            alternateNumber: lead.alternate_mobile_number,
+            email: lead.user_data.email,
+            dateOfBirth: lead.date_of_birth,
+            state: lead.state,
+            zone: lead.zone,
+            course:lead.course,
+            cityName: lead.city,
+            pincode: lead.pincode,
+            countryId: lead.country,
+            referenceName: lead.reference_name,
+            referencePhoneNumber: lead.reference_mobile_number,
+            fatherName: lead.father_name,
+            fatherOccupation: lead.father_occupation,
+            fatherPhoneNumber: lead.father_mobile_number,
+            tenthPercentage: lead.tenth_per,
+            twelthPercentage: lead.twelfth_per,
+            degree: lead.degree_per,
+            otherCourse: lead.others,
+            entranceExam: lead.enterance_exam,
+            courseLookingfor: lead.course_looking_for,
+            preferredCollege1: lead.preferred_college1,
+            preferredCollege2: lead.preferred_college2,
+            preferredLocation1: lead.preferred_location1,
+            preferredLocation2: lead.preferred_location2,
+            counsellor: lead.referred_to,
+            counsellorAdmin: lead.counselled_by,
+            leadSource: lead.source,
+            leadStages: lead.lead_stage,
+            leadStatus: lead.lead_list_status,
+            notes: lead.notes,
+            remarks: lead.remark
+          });
+        }
+      },
+      (error) => {
+        this.api.showError(error.error.message);
+      }
+    );
+  }
+  
+  initForm(){
+      this.editLeadForm = this.fb.group({
+        firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
+        mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
+        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
+        email: ['', [Validators.email]],
+        dateOfBirth:"",
+        state: [''],
+        zone:[''],
+        cityName: [''],
+        pincode:[''],
+        countryId:[''],
+        referenceName:[''],
+        referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
+        fatherName:[''],
+        fatherOccupation:[''],
+        fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
+        tenthPercentage :[''],
+        twelthPercentage :[''],
+        degree:[''],
+        course:[''],
+        otherCourse:[''],
+        entranceExam:[''],
+        courseLookingfor:[''],
+        preferredCollege1:[''],
+        preferredCollege2:[''],
+        preferredLocation1:[''],
+        preferredLocation2:[''],
+        counsellor:['',[Validators.required]],
+        counsellorAdmin:[''],
+        leadSource:['',[Validators.required]],
+        leadStages:['',[Validators.required]],
+        leadStatus:[''],
+        notes:[''],
+        remarks:['']
+      })
+  }
+  setStep(index: number) {
+    this.step = index;
+  }
+  closePopup(){
+    this._bottomSheetRef.dismiss()
+  }
+  get f() {
+    return this.editLeadForm.controls;
+  }
+ 
+  onCourseSelectionChange(event:any) {
+    if(event.target.value){
+      this.showOtherInput = !this.showOtherInput
+    }
+  }
+  dropDownValues(){
+    this.getCountry();
+    this.getState();
+    this.getChannel();
+    this.getSource();
+    this.getCity();
+    this.getCounselor();
+    this.getStatus();
+    this.getCourse();
+    this.getCounselledBy();
+    this.getLeadStage();
+  }
+  getCountry(){
+    this.api.getAllCountry().subscribe((res:any)=>{
       if(res.results){
-        this.programList = res.results 
-      } else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
+      this.countryOptions = res.results
+      console.log(res)
+      }
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
     })
   }
-  getDepartment(){
-    this.api.getAllDepartment().subscribe((res:any)=>{
+  getState(){
+    this.api.getAllState().subscribe((res:any)=>{
       if(res.results){
-        this.department = res.results;
+        this.stateOptions = res.results
+        console.log(res)
+      }
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
+    })
+  }
+  getChannel(){
+    this.api.getAllChannel().subscribe((resp:any)=>{
+      if(resp.results){
+        this.channels= resp.results;
+        console.log(this.channels,"this.newChannelOptions")
+      }
+      else{
+        this.api.showError('ERROR')
+      }  
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
+    }
+
+    )
+  }
+  getSource(){
+    this.api.getAllSource().subscribe((res:any)=>{
+     if(res.results){
+      this.leadSources = res.results
+     }
+     else{
+      this.api.showError('ERROR')
+     }
+    },(error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+      
+    })
+  }
+  getCity(){
+    this.api.getAllCity().subscribe((res:any)=>{
+      if(res.results){
+        this.cityOptions = res.results;
       }
       else{
         this.api.showError('ERROR')
@@ -64,168 +226,141 @@ export class LeadEditComponent implements OnInit {
         
       })
   }
+  getCampign(){
+    this.api.getAllCampign().subscribe((res:any)=>{
+      if(res.results){
+        this.campaignOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      })
+  }
+  getCounselor(){
+    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+      if(res.results){
+      this.referredTo = res.results
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
+  }
   getStatus(){
     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
      if(res.results){
-       this.stat_us = res.results;
+       this.leadStatus = res.results;
      }
     },(error:any)=>{
       this.api.showError(this.api.toTitleCase(error.error.message))
     })
    }
- initForm(){
-  this.editLead = this.fb.group({
-   firstName:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
-   lastName:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
-   email:['',[Validators.required,Validators.email]],
-   mobileNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
-   dateOfBirth:[''],
-  //  gender:[''],
-   alternateMobile:['',[Validators.pattern(this._commonService.mobilePattern)]],
-   alternateEmail:['',[Validators.email]],
-   levelOfProgram:['',Validators.required],
-   department:['',Validators.required],
-   status:['',Validators.required],
-   
-   highestQualification: [''],
-    callTime:[''],
-    campaignName: [''],
-    season: [''],
-    channel: [''],
-    source: [''],
-    priority: [''],
-    referredTo: [''],
-    subStatus:[''],
-    course: [''],
-    location: [''],
-    yearOfPassing: [''],
-    primaryNumber:[''],
-    fathersNumber:[''],
-    mothersNumber:[''],
-    alternateNumber:[''],
-    primaryEmail:[''],
-    fathersEmail:[''],
-    mothersEmail:[''],
-    countryId: [''],
-    state: [''],
-    cityName: [''],
-    newChannel: [''],
-    campaign: [''],
-    medium: [''],
-  })
- }
- patchFormValue(){
-  if(this.data){
-    console.log(this.data.lead_contact_details)
-    this.editLead.patchValue({
-      firstName:this.data.user_data.first_name,
-      lastName:this.data.user_data.last_name,
-      email:this.data.user_data.email,
-      mobileNumber:this.data.user_data.mobile_number,
-      alternateMobile:this.data.lead_contact_details[0]?.alternate_phone_number,
-      alternateEmail:this.data.lead_contact_details[0]?.alternate_email,
-      levelOfProgram:this.data.level_of_program_id,
-      department:this.data.department_id,
-       
-      highestQualification:this.data.higest_qualification,
-      campaignName:this.data.campaign_name,
-      season:this.data.season_id,
-      channel:this.data.channel_id,
-      source:this.data.source_id,
-      priority:this.data.priority_id,
-      referredTo:this.data.refered_to_id,
-      status:this.data.lead_list_status_id,
-      dateOfBirth:this.data.date_of_birth,
-      course:this.data.course_id,
-      location:this.data.location,
-      yearOfPassing:this.data.year_of_passing,
-      callTime:this.data.best_time_to_call,
-      countryId:this.data.country_id,
-      state:this.data.state_id,
-      cityName:this.data.city_id,
-      newChannel:this.data.new_channel_id,
-      campaign:this.data.campaign_id,
-      medium:this.data.medium_id,
+   getCourse(){
+    this.api.getAllCourse().subscribe((res:any)=>{
+      if(res.results){
+        this.courseOptions = res.results;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
         
-      primaryNumber: this.data.lead_contact_details[0]?.primary_phone_number,
-      fathersNumber:this.data.lead_contact_details[0]?.father_phone_number,
-      mothersNumber:this.data.lead_contact_details[0]?.mother_phone_number,
-      primaryEmail :this.data.lead_contact_details[0]?.primary_email,
-      fathersEmail :this.data.lead_contact_details[0]?.father_email,
-      mothersEmail :this.data.lead_contact_details[0]?.mother_email
-     })
+      })
+   
   }
- 
- }
- closePopup(){
-  this._bottomSheetRef.dismiss()
-}
+  getCounselledBy(){
+    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe((res:any)=>{
+      if(res.results){
+      this.adminList = res.results
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
+  }
+  getLeadStage(){
+    this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
+     if(res){
+      this.leadStage = res.results
+     }
+    },((error:any)=>{
+     this.api.showError(error.error.message)
+    }))
+   }
   
-get f() {
-  return this.editLead.controls;
-}
-clearSelectField(fieldName: string) {
-  this.editLead.get(fieldName)?.reset();
-}
+  clearSelectField(fieldName: string) {
+    this.editLeadForm.get(fieldName)?.reset();
+   }
+  
+  
 onSubmit(){
-  if(this.editLead.invalid){
-    this.editLead.markAllAsTouched()
+ 
+const formData = this.editLeadForm.value;
+const data ={
+  first_name: formData.firstName,
+  last_name:"",
+  email: formData.email,
+  mobile_number: formData.mobile,
+  date_of_birth: this._datePipe.transform(formData.dateOfBirth,'YYYY-MM-dd'),
+  alternate_mobile_number: formData.alternateNumber,
+  role: 5,
+  location:  formData.cityName,
+  pincode: formData.pincode,
+  country: formData.countryId,
+  state: formData.state, 
+  city: formData.cityName, 
+  zone: formData.zone,
+  lead_list_status: formData.leadStatus,
+  lead_list_substatus: 1,
+  counselled_by: formData.counsellorAdmin,
+  lead_stage: formData.leadStages,
+  notes: formData.notes,
+  remark: formData.remarks,
+  source: formData.leadSource,
+  refered_to: formData.referedTo,
+  education_details: {
+  tenth_per: formData.tenthPercentage,
+  twelfth_per: formData.twelthPercentage,
+  degree_per: formData.degree,
+  stream: formData.course,
+  others: formData.otherCourse,
+  enterance_exam: formData.entranceExam,
+  course_looking_for: formData.courseLookingfor,
+    preferance_college_and_location: [
+      {
+        preferred_college1: formData.preferredCollege1,
+        preferred_college2: formData.preferredCollege2,
+        preferred_location1: formData.preferredLocation1,
+        preferred_location2: formData.preferredLocation2
+      }
+    ],
+  },
+  additional_info: {
+    reference_name: formData.referenceName,
+    reference_mobile_number:formData.referencePhoneNumber,
+    father_name: formData.fatherName,
+    father_occupation: formData.fatherOccupation,
+    father_mobile_number: formData.fatherPhoneNumber
+  }
+}
+
+  if(this.editLeadForm.invalid){
+    this.editLeadForm.markAllAsTouched()
+    this.api.showError("Please Fill The Mandatory Fields")
   }
   else{
-    let e = this.editLead.value
-    let data = {
-          first_name: e.firstName,
-          last_name: e.lastName,
-          email: e.email,
-          mobile_number: e.mobileNumber,
-          higest_qualification: e.highestQualification,
-          campaign_name:e.campaignName,
-          season_id:e.season,
-          channel_id:e.channel,
-          source_id:e.source,
-          priority_id:e.priority,
-          refered_to_id:e.referredTo,
-          lead_list_status_id:e.status,
-          department_id:e.department,
-          date_of_birth:this._datePipe.transform(e.dateOfBirth,'YYYY-MM-dd'),
-          course_id:e.course,
-          location: e.location,
-          year_of_passing:e.yearOfPassing,
-          best_time_to_call:e.callTime,
-          country_id:e.countryId,
-          state_id:e.state,
-          city_id:e.cityName,
-          new_channel_id:e.newChannel,
-          campaign_id:e.campaign,
-          medium_id:e.medium,
-          level_of_program_id:e.levelOfProgram,
-          alternate_phone_number:e.alternateNumber,
-          primary_phone_number: e.primaryNumber,
-          father_phone_number:e.fathersNumber,
-          mother_phone_number:e.mothersNumber,
-          alternate_email:e.alternateEmail,
-          primary_email:e.primaryEmail,
-          father_email:e.fathersEmail,
-          mother_email:e.mothersEmail
+    this._baseService.updateData(`${environment.lead_list}${this.data.user_data.id}/`,data).subscribe((res:any)=>{
+      if(res){
+        this.addLead.emit('ADD')
+        this.api.showSuccess(res.message)
+        this._bottomSheetRef.dismiss('yes');
+        this._addLeadEmitter.triggerGet();
+      }
+    },(error=>{
+      this.api.showError(error?.error.message)
+    }))
   }
-  
-  this._baseService.updateData(`${environment.lead_list}${this.data.id}/`,data).subscribe((res:any)=>{
-    if(res){
-      this.api.showSuccess(res.message)
-      this.closePopup()
-     this._addLeadEmitter.triggerGet();
-    }else{
-      this.api.showError('Error')
-    }
-  },(error:any)=>{
-     this.api.showError(this.api.toTitleCase(error.error.message))
-  })
- }
-}
-selectOptionsProgrammatically() {
-  const selectedValues = ['Application','Lead'];
-  this.editLead.patchValue({
-    leadCategory:selectedValues
-  })
 }
 }

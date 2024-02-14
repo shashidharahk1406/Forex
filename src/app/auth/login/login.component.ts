@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
 				const decodedToken:any = jwtDecode(resp.token.token);
 				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
+				localStorage.setItem('user_role',decodedToken.user_role);
 				// this.dropDownValues=resp.permissions[0].adv_sett[0].dropdown_values;
 				// console.log(this.dropDownValues)
 				// localStorage.setItem('dropDownValues',this.dropDownValues);

@@ -16,6 +16,8 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PauseUserComponent } from '../pause-user/pause-user.component';
 import { error } from 'console';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { environment } from 'src/environments/environment';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -34,6 +36,7 @@ export interface UserData {
 })
 export class UserprofileSettingsComponent implements AfterViewInit {
   displayedColumns: string[] = [
+    'id',
     'first_name',
     'email',
     'mobile_number',
@@ -54,14 +57,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   totalPageLength:any;
   params:any=null;
 user:any;
-  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService,private fb:FormBuilder
+  constructor(
+    private dialog: MatDialog, 
+    private api:ApiService, 
+    private emit:EmitService,private fb:FormBuilder,
+    private baseService:BaseServiceService
     ) {
-
-      
-   
-      // Create 100 users
-  
-
 
   }
   ngOnInit(): void {
@@ -158,6 +159,7 @@ user:any;
     this.currentPage = event.pageIndex + 1;
     console.log(this.pageSize,this.currentPage);
     var role="Admin"
+    let query = `?page_size=${this.pageSize}&page=${this.currentPage}`
     if(this.params!=null){
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
         console.log(resp.results);
@@ -172,6 +174,19 @@ user:any;
       }
   
       )
+      // this.baseService.getData(`${environment._user}${query}${this.params}`).subscribe((resp:any)=>{
+      //     console.log(resp.results);
+      //     this.allUser= resp.results;
+      //     this.dataSource = new MatTableDataSource<any>(this.allUser);
+      //     this.totalPageLength=resp.total_no_of_record
+      //   this.dataSource.sort = this.sort;
+          
+      //   },(error:any)=>{
+      //     console.log(error);
+          
+      //   }
+    
+      //   )
     }
     else{
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
