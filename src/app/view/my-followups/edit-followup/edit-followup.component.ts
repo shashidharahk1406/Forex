@@ -184,6 +184,7 @@ AllFollowupStatuses:any=[]
             // alert('api calling');
             if (res) {
               this.api.showSuccess(res.message);
+              // window.location.reload()
               this.closePopup();
             }
           },

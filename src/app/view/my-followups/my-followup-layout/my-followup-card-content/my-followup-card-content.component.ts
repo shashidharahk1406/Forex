@@ -92,6 +92,9 @@ export class MyFollowupCardContentComponent implements OnInit {
       (resp:any)=>{
         if(resp==true){
           this.getAllFollowUps('All'); 
+          this.getDone('Done');
+          this.getMissed('Missed');
+          this.getUpcoming('Upcoming')
         }
       }
     )

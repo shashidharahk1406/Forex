@@ -200,35 +200,103 @@
           <ng-container *ngIf="expandedCardIndex === i">
             <mat-card class="inner-expansion" >
               <div class="row mb-1">
-                <div class="col">
-                    <div class="row">
-                        <div class="col-12 pannel-label">
-                           Action Date 
-                        </div>
-                        <div class="col-12">{{followUp.action_date_time}}</div>
+
+
+                <div class="row mb-1">
+                  <div class="col">
+                      <div class="row text-start">
+                          <div class="col-12 pannel-label">Age</div>
+                          <div class="col-12">{{followUpsData.age}}</div>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="row">
+                          <div class="col-12 pannel-label text-start">Campaign Name</div>
+                          <div class="col-12">{{followUpsData.campaign_name}}</div>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="row text-start">
+                          <div class="col-12 pannel-label">Source</div>
+                          <div class="col-12">{{followUpsData.source_name}}</div>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <div class="row text-start">
+                          <div class="col-12 pannel-label">Department</div>
+                          <div class="col-12">{{followUpsData.department_name}}</div>
+                      </div>
+                  </div>
+                </div> 
+                <div class="row mb-1">
+                  <div class="col">
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">Channel</div>
+                        <div class="col-12">{{followUpsData.channel_name}}</div>
                     </div>
+                  </div>
+                  <div class="col">
+                      <div class="row text-start">
+                          <div class="col-12 pannel-label">Medium</div>
+                          <div class="col-12">{{followUpsData.medium_name}}</div>
+                      </div>
+                  </div>
+                  <!-- <div class="col">
+                      <div class="row">
+                          <div class="col-12 pannel-label">Lead Creation Date</div>
+                          <div class="col-12">{{followUpsData.created_date_time | date }}</div>
+                      </div>
+                  </div> -->
+                  <div class="col">
+                      <div class="row text-start">
+                          <div class="col-12 pannel-label">Lead Modification Date</div>
+                          <div class="col-12" *ngIf="!followUpsData.updated_date_time">{{'--'}}</div>
+                          <div class="col-12" *ngIf="followUpsData.updated_date_time">{{followUpsData.updated_date_time | date}}</div>
+                      </div>
+                  </div>
                 </div>
+                <!-- <div class="col ">
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">
+                           Action Date Time
+                        </div>
+                        <div class="col-12">{{followUp.action_date_time |date:"medium"}}</div>
+                    </div>
+                </div> -->
                 <div class="col">
-                    <div class="row">
+                    <div class="row text-start">
                         <div class="col-12 pannel-label">Counsellor</div>
                         <div class="col-12">{{followUp.counsellor}}</div>
                     </div>
                 </div>
-                <div class="col">
+
+                <!-- <div class="col">
+                  <div class="row text-start">
+                      <div class="col-12 pannel-label">Age</div>
+                      <div class="col-12">{{followUp.counsellor}}</div>
+                  </div>
+              </div> -->
+              <!-- <div class="col">
+                <div class="row text-start">
+                    <div class="col-12 pannel-label">Campaign Name</div>
+                    <div class="col-12">{{followUp.counsellor}}</div>
+                </div>
+            </div> -->
+                <!-- <div class="col">
                     <div class="row">
                         <div class="col-12 pannel-label">Created By</div>
                         <div class="col-12">{{followUp.created_by}}</div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col">
-                    <div class="row">
-                        <div class="col-12 pannel-label">Creation Date</div>
-                        <div class="col-12">{{followUp.created_datetime}}</div>
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">Creation Date Time</div>
+                        <div class="col-12">{{followUp.created_datetime | date:'medium'}}</div>
                     </div>
                 </div>
               </div> 
               <div class="row mb-1">
-                <div class="col">
+                <!-- <div class="col">
                     <div class="row">
                         <div class="col-12 pannel-label">Followup Type</div>
                         <div class="col-12">{{followUp.follow_up_type}}</div>
@@ -251,7 +319,7 @@
                         <div class="col-12 pannel-label">Department</div>
                         <div class="col-12">-</div>
                     </div>
-                </div>
+                </div> -->
               </div> 
               <div class="row mb-1">
                 <!-- <div class="col">
@@ -266,12 +334,14 @@
                         <div class="col-12">-</div>
                     </div>
                 </div> -->
-                <div class="col">
+                <!-- <div class="col">
                     <div class="row">
                         <div class="col-12 pannel-label">Lead Creation Date</div>
                         <div class="col-12">{{followUp.created_datetime}}</div>
                     </div>
-                </div>
+                </div> -->
+
+               
                 <!-- <div class="col">
                     <div class="row">
                         <div class="col-12 pannel-label">Lead Modification Date</div>
