@@ -372,16 +372,17 @@
     </div>
     
   </div>
-  <div class="col my-3" >
-    <div class="input-group z-s m-auto py-5 px-5">
+  <div class="col" style="padding: 30px;">
+    <div class="input-group z-s m-auto m-4" id="calender-col">
       <input  type="search" class="form-control " placeholder="Search by Name/Mobile" [(ngModel)]="followupSearch" (input)="clearSearch($event)" >
       <button class="btn btn-outline-primary" type="button" (click)="applySearch(followupSearch)" >
         
         <i class="bi bi-search"></i>
       </button>
     
-      <mat-card class="demo-inline-calendar-card" style="margin-top: 38px;">
-        <div class="col " >
+     
+        <div class="col-12" >
+          <mat-card  class="m-4" >
           <mat-calendar class="custom-calendar" [(selected)]="selectedDate" (selectedChange)="selectedDatePicker($event)" >
             
           </mat-calendar>
@@ -389,9 +390,9 @@
          Reset Calender
           </button>
 
-         
+        </mat-card>
         </div>
-      </mat-card>
+    
      
     </div>
    
@@ -411,8 +412,3 @@
               aria-label="Select page"
               (page)="onPageChange($event,followUpsData)">
 </mat-paginator>
-
-
-
-
-
