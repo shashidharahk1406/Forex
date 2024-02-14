@@ -314,7 +314,7 @@ export class ApiService implements OnInit{
   //State
   //Priority
   getPriority(size:any,pageNo:any){
-    return this.http.get(`${this.baseurl}/api/priority-name/?page_size=${size}&page=${pageNo}`)
+    return this.http.get(`${this.baseurl}/api/priority/?page_size=${size}&page=${pageNo}`)
   }
   getPrioritySearch(search:any,size:any,pageNo:any){
     return this.http.get(`${this.baseurl}/api/priority-name/?page_size=${size}&page=${pageNo}&key=${search}`)
@@ -573,4 +573,122 @@ export class ApiService implements OnInit{
     };
   }
   // Email Validation
+
+
+
+
+  // My-Followups
+  
+  getAllFollowUp(id:any,pageNo:any,size:any){
+    return this.http.get(`${this.baseurl}/api/follow-up/?counsellor_id=${id}&page=${pageNo}&page_size=${size}`)
+
+  }
+
+getUpcomingFollowUps(id:any,pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?counsellor_id=${id}&follow_up_status=${status}&page=${pageNo}&page_size=${size}`)
+
+}
+getDoneFollowUps(id:any,status:any,pageNo:any,size:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?counsellor_id=${id}&follow_up_status=${status}&page=${pageNo}&page_size=${size}`)
+}
+
+getMissedFollowUps(id:any,pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?counsellor_id=${id}&follow_up_status=${status}&page=${pageNo}&page_size=${size}`)
+}
+
+filterFollowUps(id:any,pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?counsellor_id=${id}&follow_up_status=${status}&page=${pageNo}&page_size=${size}`)
+}
+getFollowUpByLeadId(id:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/${id}/`)
+}
+updateLeadFollowUp(id:any,data:any){
+  return this.http.put(`${this.baseurl}/api/follow-up/${id}/`,data)
+}
+
+allFollowUpStatuses(){
+  return this.http.get(`${this.baseurl}/api/follow-up-status/`)
+}
+//For Counsellor
+followUpCountsOnCalenderForCounsellor(id:any,date:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&counsellor_id=${id}`)
+}
+
+
+
+//For Admin
+getFollowUpsbyDateForAdmin(date:any,pageNo:any,size:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}`)
+
+}
+//For Admin
+getAllFollowupsForAdmin(pageNo:any,size:any){ 
+return this.http.get(`${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}`)
+}
+
+getUpcomingFollowupsForAdmin(pageNo:any,size:any,status:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+}
+
+getMissedFollowupsForAdmin(pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+}
+
+getDoneFollowupsForAdmin(pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+}
+
+getFollowupCalenderCountsForAdmin(date:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}`)
+}
+
+getCalenderUpcomingFollowupsForAdmin(date:any,pageNo:any,size:any,status:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+}
+
+getCalenderDoneFollowupsForAdmin(date:any,pageNo:any,size:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+  }
+  getCalenderMissedFollowupsForAdmin(date:any,pageNo:any,size:any,status:any){
+    return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&follow_up_status=${status}`)
+    }
+
+
+//For Counselllor
+getAllFollowupsForCounsellor(pageNo:any,size:any,id:any){ 
+  return this.http.get(`${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}&counsellor_id=${id}`)
+  }
+
+getAllFollowupsByDateForCounsellor(date:any,pageNo:any,size:any,id:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&counsellor_id=${id}`)
+}
+
+getCalenderUpcomingFollowupsForCounsellor(date:any,pageNo:any,size:any,id:any,status:any){
+  return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}`)
+  }
+  getCalenderDoneFollowupsForCounsellor(date:any,pageNo:any,size:any,id:any,status:any){
+    return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}`)
+    }
+    getCalenderMissedFollowupsForCounsellor(date:any,pageNo:any,size:any,id:any,status:any){
+      return this.http.get(`${this.baseurl}/api/follow-up/?action_datetime=${date}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}`)
+      }
+
+
+
+      searchFollowupsForAdmin(key:any,pageNo:any,size:any){
+        return this.http.get(`${this.baseurl}/api/follow-up/?key=${key}&page=${pageNo}&page_size=${size}`)
+      }
+
+      searchFollowupsForCounsellor(key:any,pageNo:any,size:any,id:any){
+        return this.http.get(`${this.baseurl}/api/follow-up/?key=${key}&page=${pageNo}&page_size=${size}&counsellor_id=${id}`)
+      }
+
+
+      sortForAdmin(sortType:any,pageNo:any,size:any){
+return this.http.get(`${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}`)
+      }
+
+      sortForCounsellor(sortType:any,pageNo:any,size:any,id:any){
+        return this.http.get(`${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&counsellor_id=${id}`)
+              }
 }

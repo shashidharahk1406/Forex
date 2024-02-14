@@ -69,7 +69,9 @@ getPlaceHolder(){
     
   )
 }
+ 
 submit(){
+ 
   console.log(this.whatsappTemplate.value);
   
   if(this.whatsappTemplate.invalid){
@@ -79,6 +81,7 @@ submit(){
   else{
     this.api.postWhatsappTemplate(this.whatsappTemplate.value).subscribe(
       (resp:any)=>{
+        this.api.showSuccess(resp.message)
         this.emit.sendRefresh(true)
         this.dialogRef.close()
       },

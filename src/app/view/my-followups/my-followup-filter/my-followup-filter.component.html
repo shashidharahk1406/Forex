@@ -1,0 +1,78 @@
+
+
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Filter</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+         <div class="container">
+          <form [formGroup]="filterFollowUpForm" >
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Counselors</mat-label>
+                        <mat-select placeholder="Select Counselors" formControlName="counsellor_id" >
+                          <mat-option *ngFor="let couselor of counselorList" [value]="couselor.id" >{{couselor.first_name}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('counsellor_id')"
+                          *ngIf="f['counsellor_id']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        <mat-error *ngIf="f['counsellor_id'].hasError('required')">
+                          Counsellor Name Is Required.
+                         </mat-error>
+                      
+                    </mat-form-field>
+                </div>
+            </div>
+          
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                      <mat-label>Followup Status</mat-label>
+                        <mat-select placeholder="Followup Status" formControlName="follow_up_status" >
+                          <mat-option *ngFor="let followup of allFollowUpData" [value]="followup.id">{{followup.follow_up_status_name}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('follow_up_status')"
+                          *ngIf="f['campaign_id']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        <mat-error *ngIf="f['follow_up_status'].hasError('required')">
+                            Followup Status Is Required.
+                           </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+             
+          </form>
+        </div>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>APPLY FILTER</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  
+  

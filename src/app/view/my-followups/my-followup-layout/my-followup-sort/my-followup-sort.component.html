@@ -1,10 +1,51 @@
 
+
+
+
+
+
+
+
 <div class="row">
-	<div class="col">
+	<div class="col-1">
 		<div ngbDropdown class="d-inline-block">
-			<i class="bi bi-arrow-down-up" title="Sort" ngbDropdownToggle (click)="openNotification()"></i>
+			<i class="bi bi-arrow-down-up" title="Sort" ngbDropdownToggle ></i>
 			
 				<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown sort-lead-dropdown">
+			
+					<mat-list #dateType >
+						
+						<mat-list-item *ngFor="let dateType of typesOfDate"   (click)="onChange($event)" ngbDropdownToggle >
+							<i mat-list-icon class="bi bi-calendar-week-fill more-inner-icon" ></i>
+							
+							<div mat-line class="app-list">{{dateType}}</div>
+						</mat-list-item>
+					  </mat-list>
+					
+				   </div>
+				
+			
+		</div>
+	</div>
+	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="row">
+	<div class="col">
+		<div ngbDropdown class="d-inline-block">
+			<i class="bi bi-arrow-down-up" title="Sort" ngbDropdownToggle ></i>
+			
+				<div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown sort-lead-dropdown"> -->
 					<!-- <mat-card>
 						
 						<div class="app-list"ngbDropdownToggle>
@@ -20,12 +61,12 @@
 							<i class="bi bi-calendar-week-fill more-inner-icon"></i> Re-enquiry Date
 						</div>
 					</mat-card> -->
-					<mat-selection-list #dateType [multiple]="false">
+					<!-- <mat-selection-list #dateType [multiple]="false" (selectionChange)="change($event,dateType.selectedOptions.selected)">
 						
-						<mat-list-option *ngFor="let dateType of typesOfDate" [value]="dateType">
+						<mat-list-option *ngFor="let dateType of typesOfDate" [value]="dateType.value"  >
 							<i mat-list-icon class="bi bi-calendar-week-fill more-inner-icon" ></i>
 							
-							<div mat-line class="app-list">{{dateType}}</div>
+							<div mat-line class="app-list">{{dateType.name}}</div>
 						</mat-list-option>
 					  </mat-selection-list>
 					
@@ -34,4 +75,4 @@
 			
 		</div>
 	</div>
-</div>
+</div> -->

@@ -89,12 +89,13 @@ export class LoginComponent implements OnInit {
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
 				console.log(resp,"login responsssssssssssss",)
+				localStorage.setItem('resp',JSON.stringify(resp))
 				// this.api.showSuccess('Login Successfull !!')
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
 				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
-				localStorage.setItem('user_role',decodedToken.user_role);
+				//localStorage.setItem('user_role',decodedToken.user_role);
 				// this.dropDownValues=resp.permissions[0].adv_sett[0].dropdown_values;
 				// console.log(this.dropDownValues)
 				// localStorage.setItem('dropDownValues',this.dropDownValues);
@@ -134,6 +135,7 @@ export class LoginComponent implements OnInit {
 				// const decodedToken:any = jwtDecode(resp.token.token);
 				// console.log("==userid==",decodedToken);
 				// localStorage.setItem('user_id',decodedToken.user_id)
+				localStorage.setItem('user_role',decodedToken.user_role)
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()

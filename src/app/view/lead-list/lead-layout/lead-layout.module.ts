@@ -32,6 +32,8 @@ import { DocsProcessComponent } from './docs-process/docs-process.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { PaymentProofComponent } from './payment-proof/payment-proof.component';
 import { EidtDocProcessComponent } from './eidt-doc-process/eidt-doc-process.component';
+// import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { EidtDocProcessComponent } from './eidt-doc-process/eidt-doc-process.com
     LeadLayoutRoutingModule,
     MaterialModule,
     MatBottomSheetModule,
-    SharedModule
+    SharedModule,
+    // NgxMatDatetimePickerModule
+  
   ],
   exports:[
     AddLeadComponent,
