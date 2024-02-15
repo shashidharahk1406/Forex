@@ -828,4 +828,7 @@ this.api.searchFollowupsForCounsellor(this.followupSearch,this.page,this.pageSiz
 
 
   }
+  refreshFollowUps(){
+    this.getAllFollowUps('All');
+  }
 }

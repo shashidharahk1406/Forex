@@ -18,41 +18,30 @@
           </div>
           <div class="col-sm-12 col-md-12 col-lg-4">
               <div class="row">
-                  <div class="col p-1" (click)="openVideoCall()">
+                  <div class="col p-1 " (click)="openVideoCall()">
                       <i class="bi bi-camera-video-fill" ></i>
                   </div>
-                  <!-- <div class="col p-1">
-                      <i class="bi bi-person-fill-up"></i>
-                  </div> -->
-                  <!-- <div class="col p-1">
-                      <i class="bi bi-megaphone-fill"></i>
-                  </div> -->
-                  <!-- <div class="col p-1" (click)="editLead('All')">
-                      <i class="bi bi-pencil-square"></i>
-                  </div> -->
-                  <!-- <div class="col p-1 position-rel" (click)="referLead()">
+                  <div class="col p-1  position-rel" (click)="referFollowUp()">
                       <i class="bi bi-person-check-fill"></i>
                   </div>
-                  <div class="col p-1" (click)="openWhatsAppChat()">
+                  <div class="col p-1 " (click)="openWhatsAppChat()">
                       <i class="bi bi-whatsapp"></i>
-                  </div> -->
-                  <div class="col p-1" (click)="openSMS('All')">
+                  </div>
+                  <div class="col p-1 " (click)="openSMS('All')">
                       <i class="bi bi-chat-left-dots-fill"></i>
                   </div>
-                  <div class="col p-1" (click)="openEmailChat('All')">
+                  <div class="col p-1 " (click)="openEmailChat('All')">
                       <i class="bi bi-envelope-fill"></i>
                   </div>
-                  <div class="col p-1" (click)="calenderReset()">
+                  <div class="col p-1 " (click)="refreshFollowUps()">
                       <mat-icon>autorenew</mat-icon>
                   </div>
-                  <div class="col p-1"  (click)="downloadFollowUp()">
+                  <div class="col p-1 "  (click)="downloadFollowUp()">
                     <a *ngIf="selectedFollowUps.length >0" [href]="exportReference" target="_blank" (click)="downloadFollowUp()"><mat-icon >save_alt</mat-icon></a>
                     <a *ngIf="selectedFollowUps.length === 0"  target="_blank" (click)="downloadFollowUp()"><mat-icon >save_alt</mat-icon></a>    
                   </div>
   
-                  <div class="col p-1 position-rel" (click)="referFollowUp()">
-                      <i class="bi bi-person-check-fill"></i>
-                  </div>
+               
 
 
                   
@@ -75,8 +64,12 @@
           </div>
       </div>
   </mat-card>
-
-  <mat-checkbox class="pl-3" *ngIf="followUpsData?.length > 0"  [(ngModel)]="selectAllCheckboxes" (change)="selectAll()" class="ms-4" [checked]="selectAllCheckboxes"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
+<div class="row" >
+  <div class="col" style="padding-left: 1px;">
+    <mat-checkbox  class="" *ngIf="followUpsData?.length > 0"  [(ngModel)]="selectAllCheckboxes" (change)="selectAll()" class="ms-4" [checked]="selectAllCheckboxes"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
+  </div>
+</div>
+ 
 <div class="row">
   <div class="col">
     <p style="color: orange;" class="my-2" *ngIf="selectedDate">Applied Date &nbsp; :  &nbsp; {{selectedDate | date :'dd-MM-yyyy ' }}</p>
@@ -92,25 +85,36 @@
               <div class="row">
                 <div class="col-2 d-flex align-items-center">
                   <mat-checkbox [(ngModel)]="followUp.selected" (change)="toggleSelection(followUp)"></mat-checkbox>
+                 
                 </div>
+
+
                 <div class="col">
                   <div class="row">
-                    <div class="col-12 c-name point-set" (click)="editLead(followUp.name)">{{ followUp.lead }}
-                       <!-- <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span> -->
+                    <div class="col-12 text-muted">{{ followUp.id }} 
+                      <!-- <i class="bi bi-x-circle-fill stu-close-icon"></i> -->
                     </div>
-                    <!-- <div class="col-12 text-muted">{{ followUp.id }} 
-                      <i class="bi bi-x-circle-fill stu-close-icon"></i>
-                    </div> -->
                   </div>
+                </div>
+                <div class="col">
+                 
+                  <div class="row">
+                    
+                    
+                    <div class="col-12 c-name point-set" >{{ followUp.lead |titlecase }} </div>
+                      <div class="col-12 text-muted "><b>{{ followUp.lead_mobile_number }}</b> </div>
+                       <!-- <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span> -->
+                   
+                  
+                  </div>
+                  
                 </div>
               </div>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-2">
               <div class="row ">
                 <div class="col-6">{{ followUp.follow_up_status_name |uppercase }}</div>
-                <div class="col-6">
-                  
-                </div>
+               
                 <div class="col-12 text-muted">{{ followUp.leadStatus }}</div>
               </div>
             </div>
@@ -204,27 +208,39 @@
 
                 <div class="row mb-1">
                   <div class="col">
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">Lead Number</div>
+                        <div class="col-12">{{followUp.lead_number}}</div>
+                    </div>
+                </div>
+                  <div class="col">
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">Lead ID</div>
+                        <div class="col-12">{{followUp.lead_id}}</div>
+                    </div>
+                </div>
+                  <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Age</div>
-                          <div class="col-12">{{followUpsData.age}}</div>
+                          <div class="col-12">{{followUp.age}}</div>
                       </div>
                   </div>
                   <div class="col">
                       <div class="row">
                           <div class="col-12 pannel-label text-start">Campaign Name</div>
-                          <div class="col-12">{{followUpsData.campaign_name}}</div>
+                          <div class="col-12">{{followUp.campaign_name}}</div>
                       </div>
                   </div>
                   <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Source</div>
-                          <div class="col-12">{{followUpsData.source_name}}</div>
+                          <div class="col-12">{{followUp.source_name}}</div>
                       </div>
                   </div>
                   <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Department</div>
-                          <div class="col-12">{{followUpsData.department_name}}</div>
+                          <div class="col-12">{{followUp.department_name}}</div>
                       </div>
                   </div>
                 </div> 
@@ -232,28 +248,36 @@
                   <div class="col">
                     <div class="row text-start">
                         <div class="col-12 pannel-label">Channel</div>
-                        <div class="col-12">{{followUpsData.channel_name}}</div>
+                        <div class="col-12">{{followUp.communication_channel}}</div>
                     </div>
                   </div>
                   <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Medium</div>
-                          <div class="col-12">{{followUpsData.medium_name}}</div>
+                          <div class="col-12">{{followUp.medium_name}}</div>
                       </div>
                   </div>
-                  <!-- <div class="col">
-                      <div class="row">
-                          <div class="col-12 pannel-label">Lead Creation Date</div>
-                          <div class="col-12">{{followUpsData.created_date_time | date }}</div>
-                      </div>
-                  </div> -->
+                
                   <div class="col">
                       <div class="row text-start">
-                          <div class="col-12 pannel-label">Lead Modification Date</div>
-                          <div class="col-12" *ngIf="!followUpsData.updated_date_time">{{'--'}}</div>
-                          <div class="col-12" *ngIf="followUpsData.updated_date_time">{{followUpsData.updated_date_time | date}}</div>
+                          <div class="col-12 pannel-label">Modification Date</div>
+                          <div class="col-12" *ngIf="!followUp.lead_updation_date">{{'NA'}}</div>
+                          <div class="col-12" *ngIf="followUp.lead_updation_date">{{followUp.lead_updation_date | date}}</div>
                       </div>
                   </div>
+                  <div class="col">
+                    <div class="row text-start">
+                        <div class="col-12 pannel-label">Creation Date Time</div>
+                        <div class="col-12">{{followUp.created_datetime | date:'medium'}}</div>
+                    </div>
+                </div>
+
+                <div class="col">
+                  <div class="row text-start">
+                      <div class="col-12 pannel-label">Counsellor</div>
+                      <div class="col-12">{{followUp.counsellor}}</div>
+                  </div>
+              </div>
                 </div>
                 <!-- <div class="col ">
                     <div class="row text-start">
@@ -263,12 +287,7 @@
                         <div class="col-12">{{followUp.action_date_time |date:"medium"}}</div>
                     </div>
                 </div> -->
-                <div class="col">
-                    <div class="row text-start">
-                        <div class="col-12 pannel-label">Counsellor</div>
-                        <div class="col-12">{{followUp.counsellor}}</div>
-                    </div>
-                </div>
+               
 
                 <!-- <div class="col">
                   <div class="row text-start">
@@ -288,12 +307,7 @@
                         <div class="col-12">{{followUp.created_by}}</div>
                     </div>
                 </div> -->
-                <div class="col">
-                    <div class="row text-start">
-                        <div class="col-12 pannel-label">Creation Date Time</div>
-                        <div class="col-12">{{followUp.created_datetime | date:'medium'}}</div>
-                    </div>
-                </div>
+               
               </div> 
               <div class="row mb-1">
                 <!-- <div class="col">
@@ -443,6 +457,9 @@
     
   </div>
   <div class="col" style="padding: 30px;">
+    <div class="col-12">
+      
+    </div>
     <div class="input-group z-s m-auto m-4" id="calender-col">
       <input  type="search" class="form-control " placeholder="Search by Name/Mobile" [(ngModel)]="followupSearch" (input)="clearSearch($event)" >
       <button class="btn btn-outline-primary" type="button" (click)="applySearch(followupSearch)" >
@@ -452,7 +469,7 @@
     
      
         <div class="col-12" >
-          <mat-card  class="m-4" >
+          <mat-card  class="m-4" style="margin-left: -13px !important;">
           <mat-calendar class="custom-calendar" [(selected)]="selectedDate" (selectedChange)="selectedDatePicker($event)" >
             
           </mat-calendar>

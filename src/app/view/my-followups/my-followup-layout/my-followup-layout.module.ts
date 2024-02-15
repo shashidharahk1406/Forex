@@ -14,6 +14,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { MyFollowupBottomPannelComponent } from './my-followup-bottom-pannel/my-followup-bottom-pannel.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReferFollowupComponent } from './refer-followup/refer-followup.component';
 // import { FullCalendarModule } from '@fullcalendar/angular';
 
 
@@ -25,7 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MyFollowupCardContentComponent,
     MyFollowupToolBarComponent,
     MyFollowupSortComponent,
-    MyFollowupBottomPannelComponent
+    MyFollowupBottomPannelComponent,
+    ReferFollowupComponent
   ],
   imports: [
     CommonModule,
