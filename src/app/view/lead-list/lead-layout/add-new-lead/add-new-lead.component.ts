@@ -34,6 +34,9 @@ export class AddNewLeadComponent implements OnInit {
   leadStage:any = [];
   //leadStage:any = ['Data (Intital stage)','Qualified Lead','Walkin','Application','Payment','Document Verification', 'Admission','Droupout']
   addLeadForm!:FormGroup;
+  max!: Date;
+  
+  
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -48,6 +51,7 @@ export class AddNewLeadComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
+    this.max = new Date()
   }
   initForm(){
       this.addLeadForm = this.fb.group({

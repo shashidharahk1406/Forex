@@ -14,7 +14,7 @@ export class EmitService {
   private payment= new Subject<void>();
   getRefreshPayment= this.payment.asObservable()
   allocateSearch = new BehaviorSubject('')
-
+  
   paymentLink(){
     return this.payment.next()
   }

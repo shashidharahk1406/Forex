@@ -28,6 +28,7 @@ export class LeadFollowupComponent implements OnInit {
   currentDate=new Date().toISOString().slice(0, -8);
 
   counsellor_id: any;
+  statusId: any;
   constructor(
     private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -37,14 +38,14 @@ export class LeadFollowupComponent implements OnInit {
     private _baseService: BaseServiceService
   ) {
     this.counsellor_id = localStorage.getItem('user_id');
+    this.initForm();
     console.log(this.data.item.user_data.id,"this.data.item.user;")
-
+    this.getFollowUp()
   }
 
   ngOnInit(): void {
     this.dropDownValues();
-    this.initForm();
-    console.log(this.data?.id?.id, 'data');
+    // this.initForm();
     this.getPriorities();
     this.getAllFollowupStatuses()
   }
@@ -63,6 +64,57 @@ export class LeadFollowupComponent implements OnInit {
       created_by: [''],
     });
   }
+  getFollowUp(){
+    this._baseService.getByID(`${environment.followUps}?lead_id=${this.data.item.user_data.id}`).subscribe((res:any)=>{
+      if(res){
+        let formData = res
+      //   {
+      //     "id": 52,
+      //     "counsellor": "Swapna",
+      //     "counsellor_id": 972,
+      //     "lead": "qwerty",
+      //     "lead_id": 1660,
+      //     "created_by": "Swapna",
+      //     "follow_up_type": "normal",
+      //     "lead_status": "Hot Followups",
+      //     "follow_up_status_name": "Upcoming",
+      //     "age": 19,
+      //     "date_of_birth": "2005-02-01",
+      //     "department": null,
+      //     "lead_creation_date": "2024-02-08T12:39:14.410316Z",
+      //     "lead_updation_date": null,
+      //     "lead_mobile_number": "3399920155",
+      //     "action_date_time": "2024-02-04T11:10:00+05:30",
+      //     "follow_up_text": "wrjvqweriv",
+      //     "created_datetime": "2024-02-14T12:15:34.286919+05:30",
+      //     "priority": 6,
+      //     "communication_channel": 5,
+      //     "follow_up_status": 3
+      // }
+      this.status.forEach((element:any) => {
+        if(element.name==res.lead_status){
+          this.statusId=element.id
+        }
+      });
+      this.followupForm.patchValue({
+        follow_up_type:formData.follow_up_type,
+        priority: formData.priority,
+        lead_status: this.statusId,
+        follow_up_status:formData.follow_up_status_name,
+        communication_channel:formData.communication_channel,
+        action_date_time:this.datePipe.transform(formData.action_date_time,'yyyy-MM-ddTHH:mm'),
+        follow_up_text: formData.follow_up_text,
+        counsellor: formData.counsellor_id,
+        lead: formData.lead_id,
+        created_by: formData.created_by
+      });
+       console.log(res.result,'RESULTS')
+      }
+    },((error:any)=>{
+      this.api.showError(error.error.message)
+    }))
+  }
+    
   dropDownValues() {
     this.getSource();
     this.getStatus();
@@ -232,6 +284,5 @@ AllFollowupStatuses:any=[]
   }
 
 
-  
   
 }

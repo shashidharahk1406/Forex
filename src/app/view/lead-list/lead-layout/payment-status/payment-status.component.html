@@ -10,30 +10,42 @@
       </div>
         <mat-dialog-content class="mat-typography mx-0 my-2">
         
-      <mat-stepper orientation="vertical"  #stepper >
-        <mat-step [stepControl]="firstFormGroup" [editable]="editable">
+      <mat-stepper orientation="vertical"  #stepper [selectedIndex]="selectedIndex" (click)="onChangeStep($event)">
+        <mat-step [stepControl]="firstFormGroup"  id="1" [editable]="editable1" >
           <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel >Send A Link To The Lead</ng-template>
+            <ng-template matStepLabel >Pending</ng-template>
            
+            <p class="mt-3">Send A Link To The Lead</p>
             <div>
               <button mat-button class="payment-btn" (click)="sendLink()">Send Link</button>
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" [editable]="editable">
+        <mat-step [stepControl]="secondFormGroup" id="2" [editable]="editable2" >
           <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>Payment Inprogress</ng-template>
+            <ng-template matStepLabel>Inprogress</ng-template>
+
+            <p class="mt-3">Payment Inprogress</p>
            
-            <div>
-                <button mat-button class="payment-btn mt-4" (click)="sendLink()">Send Link Again</button>
-                <button mat-button matStepperNext class="mat-cancel m-cus mt-4">Save & Next</button>
+            <div class="row">
+              <div class="col-6">
+                <button mat-button class="payment-btn " (click)="sendLink()">Send Link Again</button>
+              </div>
+              <div class="col-6">
+                <button mat-button matStepperNext class="mat-cancel m-cus ">Save & Next</button>
+              </div>
             </div>
+           
+           
           </form>
         </mat-step>
-        <mat-step [stepControl]="thirdFormGroup" [editable]="editable">
+        <mat-step [stepControl]="thirdFormGroup" id="3" [editable]="editable3" >
          
             <form [formGroup]="thirdFormGroup">
-              <ng-template matStepLabel>Upload Payment Proof</ng-template>
+              <ng-template matStepLabel>Completed</ng-template>
+
+              <p class="mt-3">Upload Payment Proof</p>
+           
               <p class="mb-0">Payment Mode <b class="mandatory-symbol">*</b></p>
               <mat-form-field class="m-0" appearance="outline">
                   <mat-label>Payment Mode</mat-label>
@@ -62,19 +74,34 @@
                     </div>
                   
                 </ng-container>
+                <mat-form-field class="mb-1" appearance="outline">
+                  <mat-label>Admission Status</mat-label>
+                  <mat-select formControlName="admissionStatus" placeholder="Select Admission Status">
+                    <mat-option *ngFor="let option of admissionStatus" [value]="option">{{ option }}</mat-option>
+                  </mat-select>
+                  <button
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="clearSelectField('admissionStatus')"
+                    *ngIf="f['admissionStatus']?.value"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </mat-form-field>
             </form>
-
-            <div>
-              <!-- <button mat-button class="payment-btn m-cus">Upload Proof</button> -->
-            <button mat-button class="mat-cancel" (click)="closePopup()">Done</button>
-          </div>
         </mat-step>
       </mat-stepper>
+
+     
         </mat-dialog-content>
      
       <mat-dialog-actions class="d-flex justify-content-center">
         <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
         <!-- <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button> -->
+      
+        <button mat-button class="mat-disable m-1" *ngIf="selectedIndex == 2 || selectedTab" (click)="onSubmit()">Done</button>
+     
       </mat-dialog-actions>
     </mat-card>
      

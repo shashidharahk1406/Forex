@@ -118,7 +118,7 @@ queryItems: any;
   } 
  
   getCounselor(){
-    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}/?role_name=counselPlor`).subscribe((res:any)=>{
       if(res){
       this.counselorList = res.results
       }
@@ -172,11 +172,13 @@ queryItems: any;
   initForm(){
     this.filterLead = this.fb.group({
       counsellor_id:[''],
+      counselled_by:[''],
       campaign_id:[''],
       channel_id:[''],
       source_id:[''],
       department_id:[''],
       course_id:[''],
+      stream_id:[''],
       city_id:[''],
       year_of_passing:['']
     })

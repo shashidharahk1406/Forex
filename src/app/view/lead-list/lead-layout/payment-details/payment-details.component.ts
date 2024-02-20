@@ -52,18 +52,30 @@ export class PaymentDetailsComponent implements OnInit {
       let formData ={}
       if(this.data.name === "BULK"){
       
+      // formData ={
+      //   amount:this.paymentForm.value['amount'],
+      //   channel:this.paymentForm.value['channel'],
+      //   lead_ids: this.data.data,
+      //   counsellor_id:[2] ,
+      // } 
       formData ={
         amount:this.paymentForm.value['amount'],
         channel:this.paymentForm.value['channel'],
         lead_ids: this.data.data,
-        counsellor_id:[2] ,
+        counsellor_id:6 ,
       } 
     }else{
+      // formData ={
+      //   amount:(this.paymentForm.value['amount']*100),
+      //   channel:this.paymentForm.value['channel'],
+      //   lead_ids: [this.data.user_data.id],
+      //   counsellor_id:[2] ,
+      // }
       formData ={
         amount:(this.paymentForm.value['amount']*100),
         channel:this.paymentForm.value['channel'],
         lead_ids: [this.data.user_data.id],
-        counsellor_id:[2] ,
+        counsellor_id:6,
       }
     }
     console.log(formData,"FORMDATA")
@@ -78,5 +90,7 @@ export class PaymentDetailsComponent implements OnInit {
       })
     }
   }
-  
+  goBackpayStatus(){
+   this.dialogRef.close('Open')
+  }
 }

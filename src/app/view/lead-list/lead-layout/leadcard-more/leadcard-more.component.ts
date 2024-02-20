@@ -118,7 +118,9 @@ export class LeadcardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+     if(result == 'Open'){
+      this.openPaymentStatus();
+     }
     });
   }
   admissionDetails(){
@@ -148,23 +150,21 @@ export class LeadcardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      console.log('The dialog was closed');
       if(result == 2 ){
         this.openPayment()
-      }else{
-        this.openPaymentProof()
       }
     });
   }
-  openPaymentProof(){
-    const dialogRef = this.dialog.open(PaymentProofComponent, {
-      width:'30%',
-      data:this.item
-    });
+  // openPaymentProof(){
+  //   const dialogRef = this.dialog.open(PaymentProofComponent, {
+  //     width:'30%',
+  //     data:this.item
+  //   });
   
-    dialogRef.afterClosed().subscribe((result:any) => {
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((result:any) => {
+  //   });
+  // }
   close(){
     this._bottomSheet.dismiss()
     window.location.reload();

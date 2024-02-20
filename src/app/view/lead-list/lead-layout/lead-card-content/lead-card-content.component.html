@@ -8,7 +8,7 @@
     <div class="col-12" *ngFor="let item of leadData2;let i = index">
         <mat-card class="p-1 lead-card-container">
             <div class="row d-flex align-items-center">
-              <div class="col-sm-12 col-md-6 col-lg-3">
+              <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row">
                   <div class="col-2 d-flex align-items-center" >
                    
@@ -24,16 +24,19 @@
                   </div>
                 </div>
               </div>
+              <div class="col"></div>
               <div class="col-sm-12 col-md-6 col-lg-2">
                 <div class="row status-box">
-                  <div class="col-6 top-bar truncate-text">{{ item.lead_list_status_name }}</div>
-                  <div class="col-6 top-bar">
+                  <!-- <div class="col-6 top-bar truncate-text">{{ item.lead_list_status_name }}</div> -->
+                  <div class="col-12 text-center top-bar truncate-text">{{ item.lead_list_status_name }}</div>
+                  <!-- <div class="col-6 top-bar">
                    
-                  </div>
+                  </div> -->
                   <!-- <div class="col-12 text-muted">{{ item.lead_list_substatus_name }}</div> -->
                 </div>
               </div>
-              <div class="col-sm-12 col-md-6 col-lg-3 border-r">
+              <div class="col"></div>
+              <!-- <div class="col-sm-12 col-md-6 col-lg-3 border-r">
                 <div class="row">
                   <div class="col p-0 text-center">
                     <i class="bi bi-telephone"></i><span class="ps-1">{{ item.phoneNumber }}</span> 
@@ -48,7 +51,7 @@
                     <i class="bi bi-chat-left-text"></i><span class="ps-1">{{ item.chatTextCount }}</span> 
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- <div class="col-sm-12 col-md-6 col-lg-1">
                 <div class="row"> -->
                   <!-- <div class="col p-0 text-center position-rel">

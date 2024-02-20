@@ -42,7 +42,7 @@ export class AdmissionDetailsComponent implements OnInit {
       this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}`).subscribe((res:any)=>{
         if(res.result){
           let data = res.result[0]
-          this.admissionDetailsForm = this.fb.group({
+          this.admissionDetailsForm.patchValue({
           applicationNumber:data.application_number,
           leadUpload:data.application_soft_copy
         })
@@ -82,7 +82,6 @@ export class AdmissionDetailsComponent implements OnInit {
   }
   onFileSelected(event:any){
     if(event){
-      this.admissionDetailsForm.patchValue({leadUpload:''})
       this.uploadFile=  event.target.files[0];
       if(event.target.files && event.target.files[0]){
         const reader =new FileReader();
@@ -90,8 +89,7 @@ export class AdmissionDetailsComponent implements OnInit {
         reader.onload = (event:any)=>{
           this.url = event.target.result;
           this.fileUrl= reader.result
-          this.admissionDetailsForm.patchValue({leadUpload:this.url})
-         console.log(this.fileUrl)
+         this.admissionDetailsForm.patchValue({leadUpload:this.url})
         }
       }
     }
