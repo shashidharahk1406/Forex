@@ -118,7 +118,7 @@ queryItems: any;
   } 
  
   getCounselor(){
-    this._baseService.getData(`${environment._user}/?role_name=counselPlor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
       if(res){
       this.counselorList = res.results
       }
@@ -157,8 +157,10 @@ queryItems: any;
    
  
      // Construct the API request URL with query parameters
-     const apiUrl = `${environment.lead_list}?page=1&page_size=10&${queryParams.join('&')}`;
-   
+     let apiUrl = `${environment.lead_list}?page=1&page_size=10`;
+     if(queryParams.length > 0){
+      apiUrl +=`&${queryParams.join('&')}`
+     }
     this._addLeadEmitter.leadFilter.next(apiUrl)
      this._addLeadEmitter.triggerFilter() 
      this._addLeadEmitter.leadFilterIcon.next('true')
