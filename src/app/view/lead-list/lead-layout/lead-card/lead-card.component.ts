@@ -80,6 +80,8 @@ export class LeadCardComponent implements OnInit {
       height:'60%',
       // data:{data:this.selectedLeads,name:'BULK'},
     });
+
+
   
     dialogRef.afterClosed().subscribe((result:any) => {});
   }

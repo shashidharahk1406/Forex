@@ -12,8 +12,8 @@
       </div>
         <mat-dialog-content class="mat-typography mx-2">
          <div class="container">
-          <form [formGroup]="filterFollowUpForm" >
-            <div class="row">
+          <form [formGroup]="filterLead">
+            <div class="row" *ngIf="role==='Admin'">
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Counselors</mat-label>
@@ -38,30 +38,114 @@
                 </div>
             </div>
           
+            <!-- <div class="row">
+              <div class="col-12">
+                  <mat-form-field class="mb-1" appearance="outline">
+                      <mat-label>Select Counselled By</mat-label>
+                      <mat-select placeholder="Select Counselors" formControlName="counselled_by" >
+                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}}</mat-option>
+                      </mat-select>
+                      <button
+                        mat-button
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSelectField('counselled_by')"
+                        *ngIf="f['counselled_by']?.value"
+                      >
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                  
+                  </mat-form-field>
+              </div>
+          </div> -->
+        
+          <div class="row">
+            <div class="col-12">
+                <mat-form-field class="mb-1" appearance="outline">
+                    <mat-label>Select Course</mat-label>
+                    <mat-select placeholder="Select Cource" formControlName="stream_id" >
+                      <mat-option *ngFor="let course of courseList" [value]="course.id">{{course.course_name}}</mat-option>
+                    </mat-select>
+                    <button
+                      mat-button
+                      matSuffix
+                      mat-icon-button
+                      aria-label="Clear"
+                      (click)="clearSelectField('stream_id')"
+                      *ngIf="f['stream_id']?.value"
+                    >
+                      <mat-icon>clear</mat-icon>
+                    </button>
+                    
+                </mat-form-field>
+            </div>
+        </div>
             <div class="row">
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
-                      <mat-label>Followup Status</mat-label>
-                        <mat-select placeholder="Followup Status" formControlName="follow_up_status" >
-                          <mat-option *ngFor="let followup of allFollowUpData" [value]="followup.id">{{followup.follow_up_status_name}}</mat-option>
+                        <mat-label>Select Source</mat-label>
+                        <mat-select placeholder="Select Source" formControlName="source_id" >
+                          <mat-option *ngFor="let sources of sourceList" [value]="sources.id">{{sources.source_name}}</mat-option>
                         </mat-select>
                         <button
                           mat-button
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('follow_up_status')"
-                          *ngIf="f['campaign_id']?.value"
+                          (click)="clearSelectField('source_id')"
+                          *ngIf="f['source_id']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
-                        <mat-error *ngIf="f['follow_up_status'].hasError('required')">
-                            Followup Status Is Required.
-                           </mat-error>
+                        
                     </mat-form-field>
                 </div>
             </div>
-             
+        
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select Stream</mat-label>
+                        <mat-select placeholder="Select Stream" formControlName="stream_id">
+                          <mat-option *ngFor="let courses of courseList" [value]="courses.id">{{courses.course_name}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('stream_id')"
+                          *ngIf="f['stream_id']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-12">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Select City</mat-label>
+                        <mat-select placeholder="Select City" formControlName="city_id">
+                          <mat-option *ngFor="let citys of cityList" [value]="citys.id">{{citys.name}}</mat-option>
+                        </mat-select>
+                        <button
+                          mat-button
+                          matSuffix
+                          mat-icon-button
+                          aria-label="Clear"
+                          (click)="clearSelectField('city_id')"
+                          *ngIf="f['city_id']?.value"
+                        >
+                          <mat-icon>clear</mat-icon>
+                        </button>
+                        
+                    </mat-form-field>
+                </div>
+            </div>
+           
           </form>
         </div>
       

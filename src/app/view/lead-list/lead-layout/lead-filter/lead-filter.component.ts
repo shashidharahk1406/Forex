@@ -160,7 +160,7 @@ queryItems: any;
      const apiUrl = `${environment.lead_list}?page=1&page_size=10&${queryParams.join('&')}`;
    
     this._addLeadEmitter.leadFilter.next(apiUrl)
-     this._addLeadEmitter.triggerFilter()
+     this._addLeadEmitter.triggerFilter() 
      this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL
     this.closePopup()

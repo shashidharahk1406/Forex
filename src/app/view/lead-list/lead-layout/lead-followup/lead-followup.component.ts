@@ -50,6 +50,8 @@ export class LeadFollowupComponent implements OnInit {
     this.getAllFollowupStatuses()
   }
 
+  presentDate=new Date();
+
   initForm() {
     this.followupForm = this.fb.group({
       follow_up_type: ['normal'],
@@ -62,6 +64,7 @@ export class LeadFollowupComponent implements OnInit {
       counsellor: [''],
       lead: [''],
       created_by: [''],
+      modified_datetime:['']
     });
   }
   getFollowUp(){
@@ -201,8 +204,10 @@ export class LeadFollowupComponent implements OnInit {
     this.followupForm.value.counsellor = Number(this.counsellor_id);
     this.followupForm.value.created_by = Number(this.counsellor_id);
     let update_date_time = this.datePipe.transform(this.followupForm.value.action_date_time,  'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
+    // let formattedModifiedDateTime=this.datePipe.transform(this.followupForm.value.modified_datetime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     
     this.followupForm.value.action_date_time = update_date_time
+    this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
    
 
     console.log(this.followupForm.valid, this.followupForm.value);
