@@ -5,6 +5,7 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetConfig, MatBottomS
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -35,7 +36,8 @@ export class EditFollowupComponent implements OnInit {
     private api: ApiService,
     private _baseService: BaseServiceService,
     private activateRoute:ActivatedRoute,
-    private _bottomSheet:  MatBottomSheet) {
+    private _bottomSheet:  MatBottomSheet,
+    private emit:EmitService) {
       this.counsellor_id = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
       // this.leadId=this.data?.item.user;
@@ -43,8 +45,20 @@ export class EditFollowupComponent implements OnInit {
       console.log(data,"dataaaaaaaaaaaaaaaa")
       
      }
-
+currentDateTime=new Date();
+formattedDate3=this.datePipe.transform(this.currentDateTime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
   ngOnInit(): void {
+
+    this.emit.getRefresh.subscribe(
+      (resp:any)=>{
+        if(resp==true){
+          // this.getAllFollowUps('All'); 
+          // this.getDone('Done');
+          // this.getMissed('Missed');
+          // this.getUpcoming('Upcoming')
+        }
+      }
+    )
     console.log(this.data.id,"data")
 this.dropDownValues();
 this.getFollowUpById()
@@ -59,6 +73,7 @@ this.getFollowUpById()
       counsellor: [''],
       lead: [''],
       created_by: [''],
+      modified_datetime:[this.formattedDate3]
     });
   }
 

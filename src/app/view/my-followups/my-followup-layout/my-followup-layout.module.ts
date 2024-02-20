@@ -15,6 +15,11 @@ import { MyFollowupBottomPannelComponent } from './my-followup-bottom-pannel/my-
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReferFollowupComponent } from './refer-followup/refer-followup.component';
+import { FollowupWhatsappchatComponent } from './followup-whatsappchat/followup-whatsappchat.component';
+import { FollowupVideocallComponent } from './followup-videocall/followup-videocall.component';
+import { FollowupEmailComponent } from './followup-email/followup-email.component';
+import { FollowupSmsComponent } from './followup-sms/followup-sms.component';
+import { FollowupNoteComponent } from './followup-note/followup-note.component';
 // import { FullCalendarModule } from '@fullcalendar/angular';
 
 
@@ -27,7 +32,12 @@ import { ReferFollowupComponent } from './refer-followup/refer-followup.componen
     MyFollowupToolBarComponent,
     MyFollowupSortComponent,
     MyFollowupBottomPannelComponent,
-    ReferFollowupComponent
+    ReferFollowupComponent,
+    FollowupWhatsappchatComponent,
+    FollowupVideocallComponent,
+    FollowupEmailComponent,
+    FollowupSmsComponent,
+    FollowupNoteComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +47,8 @@ import { ReferFollowupComponent } from './refer-followup/refer-followup.componen
     SharedModule,
     MatPaginatorModule,
     NgxDaterangepickerMd.forRoot(),
-    MatTooltipModule
+    MatTooltipModule,
+
     // FullCalendarModule,
   ],
   exports:[

@@ -12,103 +12,187 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
   styleUrls: ['./my-followup-filter.component.css']
 })
 export class MyFollowupFilterComponent implements OnInit {
-  counselorList: any=[];
-  filterFollowUpForm!:FormGroup;
-  counsellor_id:any
-  page=1;
- pageSize=10;
-allFollowUpData:any=[]
-@Output()filterApplied = new EventEmitter()
-@Output() filter:any = new EventEmitter();
-  constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private _baseService:BaseServiceService,
-    private api:ApiService,
-    private fb:FormBuilder,
-    private _addLeadEmitter:AddLeadEmitterService,
-  ) {
-
-    this.counsellor_id=localStorage.getItem('user_id')
-   }
-
-  ngOnInit(): void {
-    this.getCounselor();
-    this.getAllFollowUps();
-    this.filterFollowUpForm = this.fb.group({
-      counsellor_id:[''],
-      follow_up_status:['']
-     
-    })
-  }
-
-
-  get f() {
-    return this.filterFollowUpForm.controls;
-  }
-
-  getCounselor(){
-    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
-      if(res){
-      this.counselorList = res.results
-      
+  filterLead!:FormGroup
+  @Output()filterApplied = new EventEmitter()
+  counselorList:any = [];
+  channelsList:any = [];
+  sourceList:any = [];
+  departmentList:any = [];
+  courseList:any = [];
+  status:any = [];
+  cityList:any = [];
+  campaignList: any;
+  queryItems: any;
+  @Output() filter:any = new EventEmitter();
+    counselled_by: any;
+  role:any;
+    constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
+      @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
+      private fb: FormBuilder,
+      private api:ApiService,
+      private _baseService:BaseServiceService,
+      private _addLeadEmitter:AddLeadEmitterService,
+      ) {
+        this.role=localStorage.getItem('user_role')
       }
-    },((error:any)=>{
-       this.api.showError(this.api.toTitleCase(error.error.message))
-    }))
-  }
+  
+    ngOnInit(): void {
 
-
-  getAllFollowUps(){
-    this.api.getAllFollowUp(this.counsellor_id,this.page,this.pageSize).subscribe((res:any)=>{
-      console.log(res,"All followups")
-      this.allFollowUpData=res.results;
-    })
-  }
-
-
-  closePopup(){
-    this._bottomSheetRef.dismiss()
-  }
-followUpStatus:any
-  onSubmit(){
-    // this.counsellor_id=counsl_id;
-    // this.followUpStatus=followUp_Status
-    if (this.filterFollowUpForm.invalid) {
-      this.filterFollowUpForm.markAllAsTouched()
-      this.api.showError('Invalid Form')
-    } else{
-     const formValues = this.filterFollowUpForm.value;
+      
+      this.dropdownvalues()
+      this.initForm() 
+    }
+    get f() {
+      return this.filterLead.controls;
+    }
+    dropdownvalues(){
+      this.getChannel()
+      this.getSource()
+      this.getCity()
+      this.getCounselor()
+      this.getChannel()
+      this.getCourse()
+      this.getCounselledBy()
+    }
+    getChannel(){
+      this.api.getAllChannel().subscribe((resp:any)=>{
+        if(resp.results){
+          this.channelsList= resp.results;
+        }
+        else{
+          this.api.showError('ERROR')
+        }  
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      }
+  
+      )
+    }
+    getCourse(){
+      this.api.getAllCourse().subscribe((res:any)=>{
+        if(res.results){
+         this.courseList = res.results
+        }
+        else{
+         this.api.showError('ERROR')
+        }
+       },(error:any)=>{
+          this.api.showError(this.api.toTitleCase(error.error.message))
+         
+       })
+    }
+    getSource(){
+      this.api.getAllSource().subscribe((res:any)=>{
+       if(res.results){
+        this.sourceList = res.results
+       }
+       else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      })
+    }
+    getCity(){
+      this.api.getAllCity().subscribe((res:any)=>{
+        if(res.results){
+          this.cityList = res.results;
+        }
+        else{
+          this.api.showError('ERROR')
+         }
+        },(error:any)=>{
+           this.api.showError(this.api.toTitleCase(error.error.message))
+          
+        })
+    }
+    
+    getCounselledBy(){
+      this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+        if(res){
+        this.counselled_by = res.results
+        }
+      },((error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+      }))
+    } 
    
-     // Create an array of query parameters with non-empty values
-     const queryParams = [];
-     for (const key in formValues) {
-       const value = formValues[key];
-       if (value !== '' && value !== undefined && value !== null) {
-         if (Array.isArray(value)) {
-           // Handle multi-select fields
-           if (value.length > 0) {
-             // Convert array of objects to a comma-separated string of IDs
-             const ids = value.map((item) => item.id).join(',');
-             queryParams.push(`${key}=${ids}`);
+    getCounselor(){
+      this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+        if(res){
+        this.counselorList = res.results
+        }
+      },((error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+      }))
+    }
+    clearSelectField(fieldName: string) {
+      this.filterLead.get(fieldName)?.reset();
+    }
+    page = 1;
+    pageSize = 5;
+  
+    
+    initForm(){
+      this.filterLead = this.fb.group({
+        counsellor_id:[''],
+        // campaign_id:[''],
+        // channel_id:[''],
+        source_id:[''],
+        // department_id:[''],
+        stream_id:[''],
+        city_id:[''],
+        // year_of_passing:['']
+      })
+    }
+    closePopup(){
+      this._bottomSheetRef.dismiss()
+    }
+
+
+      onSubmit() {
+      console.log(this.filterLead.value,"filter followup values")
+      if (this.filterLead.invalid) {
+        this.filterLead.markAllAsTouched()
+        this.api.showError('Invalid Form')
+      } else{
+       const formValues = this.filterLead.value;
+      //  this.api.filterFollowupsForAdmin(formValues,this.page,this.pageSize).subscribe((res:any)=>{
+      //   console.log(res,"filtered records")
+      //  })
+     
+       // Create an array of query parameters with non-empty values
+       const queryParams = [];
+       for (const key in formValues) {
+         const value = formValues[key];
+         console.log(value,"form valuesssssssss")
+         if (value !== '' && value !== undefined && value !== null) {
+           if (Array.isArray(value)) {
+             // Handle multi-select fields
+             if (value.length > 0) {
+               // Convert array of objects to a comma-separated string of IDs
+               const ids = value.map((item) => item.id).join(',');
+               queryParams.push(`${key}=${ids}`);
+             }
+           } else {
+             queryParams.push(`${key}=${value}`);
            }
-         } else {
-           queryParams.push(`${key}=${value}`);
          }
        }
-      // this.api.filterFollowUps(this.filterFollowUpForm.values,this.page,this.pageSize)
-       const apiUrl = `${environment.followUps}?page=1&page_size=10&${queryParams.join('&')}`;
-       this._addLeadEmitter.followUpFilter.next(apiUrl)
+     
+   
+       // Construct the API request URL with query parameters
+       const apiUrl = `${environment.lead_follow_up}?page=1&page_size=10&${queryParams.join('&')}`;
+     
+      this._addLeadEmitter.leadFilter.next(apiUrl)
        this._addLeadEmitter.triggerFilter()
-       this._addLeadEmitter.followUpFilter.next('true')
+       this._addLeadEmitter.leadFilterIcon.next('true')
        // Make the API request with the constructed URL
       this.closePopup()
-   
-      }}}
-
-
+      }
   
-
-  clearSelectField(fieldName: string) {
-    this.filterFollowUpForm.get(fieldName)?.reset();
-  }
+     
+    }
 }

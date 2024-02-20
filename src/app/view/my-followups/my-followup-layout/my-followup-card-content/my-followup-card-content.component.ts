@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, ViewChild, Inject, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Inject, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheet,
   MatBottomSheetConfig,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
@@ -21,13 +21,20 @@ import { error } from 'console';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { ReferFollowupComponent } from '../refer-followup/refer-followup.component';
+import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
+import { FollowupVideocallComponent } from '../followup-videocall/followup-videocall.component';
+import { FollowupSmsComponent } from '../followup-sms/followup-sms.component';
+import { FollowupWhatsappchatComponent } from '../followup-whatsappchat/followup-whatsappchat.component';
+import { FollowupEmailComponent } from '../followup-email/followup-email.component';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 @Component({
   selector: 'app-my-followup-card-content',
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit {
+export class MyFollowupCardContentComponent implements OnInit,OnChanges {
   selectedDate: any=null;
   @ViewChild(DaterangepickerDirective, { static: false })
   @Output()selectedSort = new EventEmitter()
@@ -42,16 +49,15 @@ export class MyFollowupCardContentComponent implements OnInit {
   counsellor_id: any;
   page = 1;
   pageSize = 5;
-  follow_up_status: any;
+  // follow_up_status: any;
   followUpsData: any = [];
   upcomingFollowUpData: any = [];
   missedFolloUpData: any = [];
   doneFollowUpData: any = [];
-  allFollowUpDataSource: any;
+
   totalNumberOfRecords: any;
   searchTerm: string = '';
-  // @Output()selectedSort = new EventEmitter()
-  // @ViewChild("fullcalendar", { static: true })
+ 
 
   allData = []; //Store all data from provider
   filterData = []; //Store filtered data
@@ -61,7 +67,13 @@ export class MyFollowupCardContentComponent implements OnInit {
   role: any;
   selectedTab:any='All'
   query!: string;
-  // @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  followUpsData2: any;
+  filtered = false;
+ 
+
+  allFollowUpDataSource:any = new MatTableDataSource<any>([]);
+  // Define paginator references for all tabs
+  @ViewChild('allPaginator') allPaginator!: MatPaginator;
   constructor(
     private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
@@ -70,7 +82,8 @@ export class MyFollowupCardContentComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private datePipe: DatePipe,
     private emit:EmitService,
-    private _baseService:BaseServiceService
+    private _baseService:BaseServiceService,
+    private addEventEmitter:AddLeadEmitterService 
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
@@ -80,6 +93,46 @@ export class MyFollowupCardContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedCheckboxIds = [];
+    this.addEventEmitter.leadFilter.subscribe((res:any)=>{
+      if(res){
+        
+        this.filterFollowUps(res)
+        res.results.forEach((element:any) => {
+          
+          if(element.follow_up_status_name=='Done'){
+            this.countData=[]
+            this.doneFollowUpCounts.push(element.follow_up_status_name)
+            this.countData.Done=this.doneFollowUpCounts.length
+            console.log(this.doneFollowUpCounts,"allfollowupcounts")
+          }else if(element.follow_up_status_name=='Upcomming'){
+            this.countData=[]
+            this.upcomingFollowUpCounts.push(element.follow_up_status_name)
+            this.countData.Upcomming=this.upcomingFollowUpCounts.length
+            console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
+          }
+          else{
+            console.log('invalid')
+          }
+        });
+       
+      }
+    })
+    this.addEventEmitter.leadFilterIcon.subscribe(
+      (resp:any)=>{
+       console.log(resp,"RESPONSE")
+       if(resp === 'true'){
+        this.filtered= true
+       }else{
+        this.filtered= false
+       }
+         
+         
+        
+      }
+    )
+    
+    this.totalCount=this.totalNumberOfRecords;
     // this.getUpcoming();
     // this.followUpCounts();
     this.getAllFollowUps('All');
@@ -113,6 +166,32 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.morePanel = !this.morePanel
   }
 
+AllFollowUpCounts:any=[]
+upcomingFollowUpCounts:any=[]
+missedFollowUpCounts:any=[]
+doneFollowUpCounts:any=[]
+  filterFollowUps(apiUrl:any){
+    this._baseService.getData(apiUrl).subscribe((res:any) => {
+      if(res){
+        this.followUpsData=[];
+        
+        // this.api.showSuccess(res.message)
+        this.followUpsData = res.results;
+        this.allFollowUpDataSource = new MatTableDataSource<any>(this.followUpsData);
+        this.followUpsData.paginator = this.allPaginator;
+        this.totalNumberOfRecords = res.total_no_of_record;
+       
+        this.countData.All=res.total_no_of_record;
+        this.countData.Upcomming=res.total_no_of_record;
+        
+        
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }));
+
+   }
+
   openCall(name: string) {
     // const dialogRef = this.dialog.open(RawDataCallComponent, {
     //   width:'30%',
@@ -122,36 +201,36 @@ export class MyFollowupCardContentComponent implements OnInit {
     //   console.log('The dialog was closed');
     // });
   }
-  openSMS(name: any): void {
+  // openSMS(name: any): void {
     // const config: MatBottomSheetConfig = {
     //   panelClass: 'lead-bottom-sheet',
     //   data: {name:name}
     // };
     // this._bottomSheet.open(RawDataSmsComponent,config);
-  }
-  openWhatsAppChat() {
-    // const dialogRef = this.dialog.open(RawDataWhatsappchatComponent, {
-    //   width:'45%',
-    // });
-    // dialogRef.afterClosed().subscribe((result:any) => {
-    //   console.log('The dialog was closed');
-    // });
-  }
-  openEmailChat(name: any) {
-    // const config: MatBottomSheetConfig = {
-    //   panelClass: 'lead-bottom-sheet',
-    //   data: {name:name}
-    // };
-    // this._bottomSheet.open(RawDataEmailComponent,config);
-  }
-  openVideoCall() {
-    // const dialogRef = this.dialog.open(RawDataVideoCallComponent, {
-    //   width:'45%',
-    // });
-    // dialogRef.afterClosed().subscribe((result:any) => {
-    //   console.log('The dialog was closed');
-    // });
-  }
+  // }
+  // openWhatsAppChat() {
+  //   const dialogRef = this.dialog.open(RawDataWhatsappchatComponent, {
+  //     width:'45%',
+  //   });
+  //   dialogRef.afterClosed().subscribe((result:any) => {
+  //     console.log('The dialog was closed');
+  //   });
+  // }
+  // openEmailChat(name: any) {
+  //   // const config: MatBottomSheetConfig = {
+  //   //   panelClass: 'lead-bottom-sheet',
+  //   //   data: {name:name}
+  //   // };
+  //   // this._bottomSheet.open(RawDataEmailComponent,config);
+  // }
+  // openVideoCall() {
+  //   // const dialogRef = this.dialog.open(RawDataVideoCallComponent, {
+  //   //   width:'45%',
+  //   // });
+  //   // dialogRef.afterClosed().subscribe((result:any) => {
+  //   //   console.log('The dialog was closed');
+  //   // });
+  // }
   openViewAll(name: any) {
     // const dialogRef = this.dialog.open(RawDataViewAllComponent, {
     //   width:'60%',
@@ -718,34 +797,130 @@ this.api.searchFollowupsForCounsellor(this.followupSearch,this.page,this.pageSiz
   closePopup() {
     this._bottomSheetRef.dismiss();
   }
+selectedCheckBoxesId:any=[];
+allLeadIds:any=[]
 
-  toggleSelection(record: any): void {
-    record.selected = !record.selected;
-    this.checkIfAllSelected();
+ngOnChanges(changes: SimpleChanges): void {
+
+  if (changes['followUpsData']) {
+    this.followUpsData2=this.followUpsData;
+   
+    if (this.selectedCheckboxIds.length === this.totalCount) {
+      this.checkAll = true;
+      this.checkBoxData()
+      
+    } else{
+      this.checkAll = false;
+      this.checkBoxData()
+    }
+  }
+}
+onCheckboxChange(event: MatCheckboxChange, itemId: string) {
+  console.log()
+  if (event.checked) {
+    // Checkbox is checked, add the item ID to the array if it's not already there
+    if (!this.selectedCheckboxIds) {
+      this.selectedCheckboxIds = [];
+    }
+
+    else if (!this.selectedCheckboxIds.includes(itemId)) {
+      this.selectedCheckboxIds.push(itemId);
+      if (this.selectedCheckboxIds.length === this.totalCount) {
+        this.checkAll = true;
+        this.checkBoxData()
+        
+      } 
+    }
+    
+    else{
+      this.checkAll = false;
+    }
+  } else {
+    // Checkbox is unchecked, remove the item ID from the array if it exists
+    const index = this.selectedCheckboxIds.indexOf(itemId);
+    if (index !== -1) {
+      this.selectedCheckboxIds.splice(index, 1);
+      this.checkAll = false;
+      this.checkBoxData()
+    }
+  }
+}
+// selectAll(event:any,data:any) {
+//   this.allLeadIds=[]
+
+//   console.log(event,data,"EVENT")
+//    this.checkAll = !this.checkAll;
+//    if (event.checked == true) {
+
+//     this.followUpsData.forEach((element:any) => {
+//       // this.allLeadIds.push(element.lead_id);
+//       // element.checked=true;
+//       element.checked=true;
+//     });
+    
+//   this.selectedCheckBoxesId =this.allLeadIds;
+//   console.log(this.selectedCheckBoxesId,"this.selectedCheckBoxesId")
+//      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+  
+//     console.log(this.allLeadIds,"leadids")
+//    // console.log(this.selectedCheckboxIds,"LEADIDS")
+//      this.checkBoxData()
+//     // this.checked = false
+//    } else  {
+//      // If "Select All" is unchecked, clear the selectedCheckboxIds array
+//     //  this.selectedCheckboxIds = [];
+//      this.followUpsData2.forEach((element:any) => {
+//        if (element ) {
+//          element.checked = false;
+//        }
+//      });
+       
+//    }
+   
+//  }
+
+
+selectAll(event:any,data:any) {
+  // console.log(event,"EVENT")
+   this.checkAll = !this.checkAll;
+   if (event.checked == true) {
+
+    this.followUpsData.forEach((element:any) => {
+      if (element ) {
+        element.checked = true;
+        this.allLeadIds.push(element.lead_id)
+      }
+    });
+     console.log(this.selectedCheckBoxesId,"allleaids")
+     // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+    this.selectedCheckboxIds = this.allLeadIds
+   console.log(this.selectedCheckboxIds,"LEADIDS")
+     this.checkBoxData()
+    // this.checked = false
+   } else  {
+     // If "Select All" is unchecked, clear the selectedCheckboxIds array
+     this.selectedCheckboxIds = [];
+     this.followUpsData.forEach((element:any) => {
+       if (element ) {
+         element.checked = false;
+       }
+     });
+       
+   }
+   
+ }
+
+ checkBoxData(){
+
+  for (let selectedId of this.selectedCheckboxIds) {
+    const leadFollowUpItem = this.followUpsData2.find((item:any) => item.lead_id === selectedId);
+    if (leadFollowUpItem ) {
+      leadFollowUpItem.checked = true;
+    }
   }
 
-  selectAll(): void {
-    // this.selectAllCheckboxes = !this.selectAllCheckboxes;
-    this.followUpsData.forEach(
-      (record: any) => (record.selected = this.selectAllCheckboxes)
-    );
-    console.log(this.selectAllCheckboxes, 'this.selectAllCheckboxes');
-  }
-
-  checkIfAllSelected(): void {
-    this.selectAllCheckboxes = this.followUpsData.every(
-      (record: any) => record.selected
-    );
-  }
-  // openFollowUpCounts(){
-  //   const dialogRef = this.dialog.open(CalenderModalComponent, {
-  //     width:'35%'
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result:any) => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
+ }
+  
 
   currentdate = new Date();
   formattedDate = this.datePipe.transform(this.currentdate, 'yyyy-MM-dd');
@@ -831,4 +1006,198 @@ this.api.searchFollowupsForCounsellor(this.followupSearch,this.page,this.pageSiz
   refreshFollowUps(){
     this.getAllFollowUps('All');
   }
+
+
+  addCount(){
+    if(this.checkAll){
+      this.data = 'All'
+      }else{
+         this.data = this.selectedCheckBoxesId.length
+         console.log(this.selectedCheckBoxesId,"this.selectedCheckBoxesId")
+
+      }
+  }
+
+
+  openReferLead(){
+    const dialogRef = this.dialog.open(ReferFollowupComponent, {
+      width:'40%',
+      data:{leadId:this.selectedCheckboxIds},
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+      this.refreshFollowUps()
+    });
+  }
+
+  referFollowups() {
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Refer ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data:data,
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+       this.openReferLead()
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
+  }
+
+
+  openVideoCall(){
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Send A Video Call Link To ${this.data} `
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data:data
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+      //  this.bulkVideoCall()
+      //  this.refreshLead('event')
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
+  }
+
+
+
+  openWhatsAppChat(){
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Send WhatsApp To ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data:data
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+      //  this.bulkWhatsAppChat();
+      //  this.refreshLead('event')
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead to download')
+  }
+  }
+
+
+
+
+  openSMS(name:any): void {
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Send SMS To ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data:data
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+      //  this.bulkSMS()
+      //  this.refreshLead('event')
+      }
+    })}
+    else{
+      this.api.showWarning('Please select atleast one lead')
+    }
+  }
+
+
+
+
+  openEmailChat(selectedData?:any){
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Send Email To ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data: data
+    });
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+      //  this.bulkOpenEmailChat()
+      //  this.refreshLead('event')
+      this.refreshFollowUps();
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
+  }
+  selectedLeads:any=[]
+  downloadLead(){
+    if(this.selectedLeads.length >0){
+      this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedLeads}`
+    }else{
+      this.api.showWarning('Please select atleast one lead to download')
+    }
+   
+    }
+
+
+    
+    bulkVideoCall(){
+      const dialogRef = this.dialog.open(FollowupVideocallComponent, {
+        width:'45%',
+      });
+    
+      dialogRef.afterClosed().subscribe((result:any) => {
+        console.log('The dialog was closed');
+        this.refreshFollowUps();
+      });
+      
+    }
+
+
+
+    bulkSMS(){
+      const config: MatBottomSheetConfig = {
+        panelClass: 'lead-bottom-sheet',
+        data: {name:name}
+      };
+      this._bottomSheet.open(FollowupSmsComponent,config);
+    }
+
+
+
+    bulkWhatsAppChat(){
+      const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
+        width:'45%',
+      });
+    
+      dialogRef.afterClosed().subscribe((result:any) => {
+        console.log('The dialog was closed');
+        this.refreshFollowUps()
+      });
+    }
+
+
+
+    bulkOpenEmailChat(name?:any){
+      const config: MatBottomSheetConfig = {
+        panelClass: 'lead-bottom-sheet',
+        data: {bulkIds:this.selectedLeads,allChecked:this.checkAll}
+      };
+      this._bottomSheet.open(FollowupEmailComponent,config);
+    }
+  onClickLink(){
+
+  }
+
+
 }
