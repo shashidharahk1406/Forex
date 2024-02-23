@@ -28,6 +28,7 @@ export class EditFollowupComponent implements OnInit {
   created_by: any;
   formattedDate!: any
   statusId: any;
+  createdBy:any;
 
   constructor( private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -38,7 +39,7 @@ export class EditFollowupComponent implements OnInit {
     private activateRoute:ActivatedRoute,
     private _bottomSheet:  MatBottomSheet,
     private emit:EmitService) {
-      // this.counsellor_id = localStorage.getItem('user_id');
+       this.createdBy = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
       // this.leadId=this.data?.item.user;
       // console.log(this.leadId,"leadid")
@@ -73,7 +74,7 @@ this.getFollowUpById()
       follow_up_text: [''],
       counsellor: [''],
       lead: [''],
-      created_by: [''],
+      created_by: [this.createdBy],
       modified_datetime:[this.formattedDate3]
     });
   }
@@ -195,7 +196,7 @@ AllFollowupStatuses:any=[]
     console.log(this.counsellor_id,"counsellorid")
     this.editFollowUpForm.patchValue({counsellor:this.counsellor_id})
     this.editFollowUpForm.patchValue({lead:this.leadId})
-    this.editFollowUpForm.patchValue({created_by:this.created_by})
+    this.editFollowUpForm.patchValue({created_by:this.createdBy})
     let update_date_time = this.datePipe.transform(this.editFollowUpForm.value.action_date_time,  'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     
     this.editFollowUpForm.value.action_date_time = update_date_time

@@ -130,7 +130,7 @@ export class CampaignListComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(AddCampaignComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -140,7 +140,7 @@ export class CampaignListComponent implements  AfterViewInit {
       width:'35%',
       data:id
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -153,7 +153,7 @@ export class CampaignListComponent implements  AfterViewInit {
       width:'35%',
       data:apiUrl
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

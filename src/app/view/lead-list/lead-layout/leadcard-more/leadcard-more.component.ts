@@ -48,6 +48,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'60%',
       data: {name:name}
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -67,6 +68,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'40%',
       data:this.leadId
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -77,6 +79,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'35%',
       data: {name:name}
     });
+    dialogRef.disableClose=true
     console.log()
     dialogRef.afterClosed().subscribe(result => {
       if(result === 'yes'){ 
@@ -105,6 +108,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'40%',
       data:this.leadId
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -116,6 +120,7 @@ export class LeadcardMoreComponent implements OnInit {
       height:'70%',
       data:this.item
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
      if(result == 'Open'){
@@ -128,7 +133,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'30%',
       data:this.item
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
     });
@@ -138,7 +143,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'30%',
       data:this.item
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
     });
@@ -148,7 +153,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'30%',
       data:this.item
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
       if(result == 2 ){

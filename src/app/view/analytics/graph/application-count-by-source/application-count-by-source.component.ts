@@ -59,6 +59,7 @@ export class ApplicationCountBySourceComponent implements OnInit {
     const dialogRef = this.dialog.open(ApplicationCountBySourceComponent, {
       width: '50%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

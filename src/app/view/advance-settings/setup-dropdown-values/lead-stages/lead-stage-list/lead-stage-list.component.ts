@@ -126,7 +126,7 @@ export class LeadStageListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddStagesComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -136,6 +136,7 @@ export class LeadStageListComponent implements OnInit {
       width:'35%',
       data:selectedData
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -148,6 +149,7 @@ export class LeadStageListComponent implements OnInit {
       width:'35%',
       data:apiUrl
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

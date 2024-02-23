@@ -32,7 +32,7 @@ export class RawDataCardMoreComponent implements OnInit {
       width:'60%',
       data: {name:name}
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
@@ -48,6 +48,7 @@ export class RawDataCardMoreComponent implements OnInit {
     const dialogRef = this.dialog.open(RawDataNoteComponent, {
       width:'40%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -58,7 +59,7 @@ export class RawDataCardMoreComponent implements OnInit {
       width:'35%',
       data: {name:name}
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
@@ -67,6 +68,7 @@ export class RawDataCardMoreComponent implements OnInit {
     const dialogRef = this.dialog.open(RawDataReferLeadComponent, {
       width:'40%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

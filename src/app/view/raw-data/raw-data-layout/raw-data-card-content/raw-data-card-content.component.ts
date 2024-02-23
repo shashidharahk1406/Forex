@@ -30,6 +30,7 @@ openCall(name:string){
     width:'30%',
     data: {name:name}
   });
+  dialogRef.disableClose=true
 
   dialogRef.afterClosed().subscribe((result:any) => {
     console.log('The dialog was closed');
@@ -46,7 +47,7 @@ openWhatsAppChat(){
   const dialogRef = this.dialog.open(RawDataWhatsappchatComponent, {
     width:'45%',
   });
-
+  dialogRef.disableClose=true
   dialogRef.afterClosed().subscribe((result:any) => {
     console.log('The dialog was closed');
   });
@@ -62,7 +63,7 @@ openVideoCall(){
   const dialogRef = this.dialog.open(RawDataVideoCallComponent, {
     width:'45%',
   });
-
+  dialogRef.disableClose=true
   dialogRef.afterClosed().subscribe((result:any) => {
     console.log('The dialog was closed');
   });
@@ -72,6 +73,7 @@ openViewAll(name:any){
     width:'60%',
     data: {name:name}
   });
+  dialogRef.disableClose=true
 
   dialogRef.afterClosed().subscribe((result:any) => {
     console.log('The dialog was closed');

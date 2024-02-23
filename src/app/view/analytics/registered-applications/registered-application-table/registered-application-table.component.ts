@@ -170,6 +170,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(DownloadRegisteredApplicationComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -179,7 +180,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(RegisteredApplicationSmsDownloadComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,6 +189,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(RegisteredApplicationMailComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -197,7 +199,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(RegisteredApplicationWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

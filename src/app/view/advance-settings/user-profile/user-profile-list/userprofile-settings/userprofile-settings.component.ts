@@ -212,6 +212,8 @@ user:any;
       data: { userdata: userdata }
 
     });
+
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -222,6 +224,7 @@ user:any;
       width: '45%',
       data: { userdata: userdata }
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -232,6 +235,7 @@ user:any;
       width:'35%',
       data: id
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -244,6 +248,7 @@ user:any;
       width:'35%',
       data:id 
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -253,6 +258,7 @@ user:any;
     const dialogRef = this.dialog.open(UserProfileFilterComponent, {
       width: '50%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -273,7 +279,7 @@ user:any;
       width: '45%',
       data: { userdata: userdata }
     })
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

@@ -66,6 +66,7 @@ export class LeadCountByCounselorComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadCountByCounselorComponent, {
       width: '50%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

@@ -185,7 +185,7 @@ export class ApiService implements OnInit {
   }
   getCampignSearch(search: any, size: any, pageNo: any) {
     return this.http.get(
-      `${this.baseurl}/api/new-channel/?page_size=${size}&page=${pageNo}&key=${search}`
+      `${this.baseurl}/api/campaign/?page_size=${size}&page=${pageNo}&key=${search}`
     );
   }
   getAllCampign() {

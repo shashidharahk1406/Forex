@@ -75,6 +75,8 @@ export class LeadListControlComponent implements OnInit {
       data: id,
     });
 
+    dialogRef.disableClose=true
+
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
     });

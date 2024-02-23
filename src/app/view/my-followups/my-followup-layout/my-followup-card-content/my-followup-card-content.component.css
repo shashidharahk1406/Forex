@@ -383,4 +383,16 @@ font-weight: bolder;
 .row{
 font-size: 1 rem !important;
 }
+/* .close-icon1{
+    visibility:hidden;
+    margin-right: 10px;
+    margin-top: -25px;
+}
+.filter-icon:hover ~ .close-icon1 {
+    cursor: pointer;
+    visibility: visible;
+    background-color: #0000;
+    z-index: 9999 !important;
+} */
+
 

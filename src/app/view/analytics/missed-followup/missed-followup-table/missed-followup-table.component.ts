@@ -170,7 +170,7 @@ export class MissedFollowupTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadMissedFollowupComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -179,6 +179,7 @@ export class MissedFollowupTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(MissedFollowupSmsComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -188,7 +189,7 @@ export class MissedFollowupTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(MissedFollowupMailComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -197,7 +198,7 @@ export class MissedFollowupTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(MissedFollowupWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

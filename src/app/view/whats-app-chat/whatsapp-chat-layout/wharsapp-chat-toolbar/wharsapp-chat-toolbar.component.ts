@@ -32,7 +32,7 @@ export class WharsappChatToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(WhatsappChatWhatsappComponent, {
       width:'45%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });

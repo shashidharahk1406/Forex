@@ -132,7 +132,7 @@ export class MediumListComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(AddMediumComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -142,6 +142,7 @@ export class MediumListComponent implements  AfterViewInit {
       width:'35%',
       data:id
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -155,7 +156,7 @@ export class MediumListComponent implements  AfterViewInit {
       width:'35%',
       data:apiUrl
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

@@ -31,6 +31,7 @@ export class ApplicationListToolBarComponent implements OnInit {
      const dialogRef = this.dialog.open(ApplicationListVideoCallComponent, {
        width:'45%',
      });
+     dialogRef.disableClose=true
    
      dialogRef.afterClosed().subscribe((result:any) => {
        console.log('The dialog was closed');
@@ -94,7 +95,7 @@ export class ApplicationListToolBarComponent implements OnInit {
      const dialogRef = this.dialog.open(ApplicationListWhatsappComponent, {
        width:'45%',
      });
-   
+     dialogRef.disableClose=true
      dialogRef.afterClosed().subscribe((result:any) => {
        console.log('The dialog was closed');
      });

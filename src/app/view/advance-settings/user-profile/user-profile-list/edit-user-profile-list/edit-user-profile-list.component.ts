@@ -201,6 +201,8 @@ getUserbyId(){
       width:'35%',
       data: id
     });
+
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -211,7 +213,7 @@ getUserbyId(){
       width: '40%',
       data: { userdata: userdata }
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });

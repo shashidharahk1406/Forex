@@ -24,6 +24,12 @@
                                 <!-- <mat-option value="2">Non-Enterprises</mat-option> -->
                                 <!-- Add more options as needed -->
                             </mat-select>
+
+                            <mat-error *ngIf="f['template_category_id'].invalid && f['template_category_id'].touched">
+                                <div *ngIf="f['template_category_id'].errors && f['template_category_id'].errors['required']">
+                                    Template Type Is Required
+                                </div>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -32,6 +38,11 @@
                         <mat-form-field   appearance="outline">
                             <mat-label>Template Title</mat-label>
                             <input formControlName="name" matInput type="text" matInput placeholder="Name">
+                            <mat-error *ngIf="f['name'].invalid && f['name'].touched">
+                                <div *ngIf="f['name'].errors && f['name'].errors['required']">
+                                    Template Name Is Required
+                                </div>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>

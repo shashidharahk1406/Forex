@@ -170,7 +170,7 @@ export class CallConnectedTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadCallConnectedComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -179,7 +179,7 @@ export class CallConnectedTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(CallConnectedSmsComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,7 +188,7 @@ export class CallConnectedTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(CallConnectedMailComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -197,7 +197,7 @@ export class CallConnectedTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(CallConnectedWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

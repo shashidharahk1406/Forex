@@ -75,6 +75,7 @@ export class LeadCardContentComponent implements OnInit {
       width:'30%',
       data: selectedData
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
@@ -91,6 +92,7 @@ export class LeadCardContentComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadWhatsappChatComponent, {
       width:'45%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
@@ -107,6 +109,7 @@ export class LeadCardContentComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {
       width:'45%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
@@ -118,7 +121,7 @@ export class LeadCardContentComponent implements OnInit {
       width:'60%',
       data: {name:name}
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
     });

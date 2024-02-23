@@ -1048,7 +1048,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
       width: '40%',
       data: { leadId: this.selectedCheckboxIds },
     });
-
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
       this.refreshFollowUps();
@@ -1063,7 +1063,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
-
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.openReferLead();
@@ -1082,7 +1082,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
-
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkVideoCall();
@@ -1103,7 +1103,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
-
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkWhatsAppChat();
@@ -1124,6 +1124,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
+      dialogRef.disableClose=true
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
@@ -1145,7 +1146,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
-
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkOpenEmailChat();
@@ -1170,7 +1171,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(FollowupVideocallComponent, {
       width: '45%',
     });
-
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
       this.refreshFollowUps();
@@ -1189,6 +1190,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
       width: '45%',
     });
+    dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
@@ -1211,6 +1213,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         width: '40%',
         data: data,
       });
+      dialogRef.disableClose=true
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
@@ -1227,6 +1230,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
       height: '70%',
       data: { data: this.selectedCheckboxIds, name: 'BULK' },
     });
+    dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')

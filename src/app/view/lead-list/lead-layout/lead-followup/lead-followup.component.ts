@@ -29,6 +29,7 @@ export class LeadFollowupComponent implements OnInit {
 
   counsellor_id: any;
   statusId: any;
+  createdBy:any
   constructor(
     private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -37,7 +38,7 @@ export class LeadFollowupComponent implements OnInit {
     private api: ApiService,
     private _baseService: BaseServiceService
   ) {
-    // this.counsellor_id = localStorage.getItem('user_id');
+    this.createdBy = localStorage.getItem('user_id');
     this.initForm();
     console.log(this.data.item.user_data.id,"this.data.item.user;")
     this.getFollowUp()
@@ -214,7 +215,7 @@ export class LeadFollowupComponent implements OnInit {
     // console.log('api calling', this.data);
     this.followupForm.value.lead = this.data.item.user_data.id;
     this.followupForm.value.counsellor = Number(this.counsellor_id);
-    this.followupForm.value.created_by = Number(this.counsellor_id);
+    this.followupForm.value.created_by = Number(this.createdBy);
     let update_date_time = this.datePipe.transform(this.followupForm.value.action_date_time,  'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     // let formattedModifiedDateTime=this.datePipe.transform(this.followupForm.value.modified_datetime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     

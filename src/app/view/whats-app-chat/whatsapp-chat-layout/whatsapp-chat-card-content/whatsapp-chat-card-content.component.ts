@@ -31,6 +31,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
       width:'30%',
       data: {name:name}
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -47,7 +48,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
     const dialogRef = this.dialog.open(WhatsappChatWhatsappComponent, {
       width:'45%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
@@ -73,6 +74,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
       width:'60%',
       data: {name:name}
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

@@ -171,6 +171,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(DownloadLeadListComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -180,7 +181,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(LeadCountSmsDownloadComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -189,7 +190,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(LeadCountMailComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -198,7 +199,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(LeadCountWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

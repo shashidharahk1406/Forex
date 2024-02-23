@@ -134,7 +134,7 @@ export class ListComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(AddComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -144,6 +144,7 @@ export class ListComponent implements  AfterViewInit {
       width:'35%',
       data:id
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -156,6 +157,7 @@ export class ListComponent implements  AfterViewInit {
       width:'35%',
       data:apiUrl
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

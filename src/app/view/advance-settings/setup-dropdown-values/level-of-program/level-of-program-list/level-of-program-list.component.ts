@@ -126,6 +126,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(AddLevelOfProgramComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -136,6 +137,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
       width:'35%',
       data:id
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -148,7 +150,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
       width:'35%',
       data:apiUrl
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

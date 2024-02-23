@@ -21,6 +21,7 @@ export class RawDataToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(RawDataVideoCallComponent, {
       width:'45%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -37,7 +38,7 @@ export class RawDataToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(RawDataWhatsappchatComponent, {
       width:'45%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     });
@@ -60,6 +61,7 @@ export class RawDataToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(RawDataReferLeadComponent, {
       width:'40%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

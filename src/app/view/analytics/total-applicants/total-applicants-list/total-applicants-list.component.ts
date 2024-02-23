@@ -170,7 +170,7 @@ export class TotalApplicantsListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadTotalApplicantsComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -179,7 +179,7 @@ export class TotalApplicantsListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalApplicantsSmsDownloadComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,6 +188,7 @@ export class TotalApplicantsListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalApplicantsMailComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -197,6 +198,7 @@ export class TotalApplicantsListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalApplicantsWhatsappComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

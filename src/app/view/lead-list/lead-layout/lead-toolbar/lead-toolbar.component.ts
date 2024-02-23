@@ -97,7 +97,7 @@ export class LeadToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {
       width:'45%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
       this.refreshLead('event')
@@ -112,6 +112,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data:data
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
@@ -138,7 +139,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data:data
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkSMS()
@@ -157,6 +158,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data:data
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
@@ -172,7 +174,7 @@ export class LeadToolbarComponent implements OnInit {
     const dialogRef = this.dialog.open(LeadWhatsappChatComponent, {
       width:'45%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
       this.refreshLead('event')
@@ -193,7 +195,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data: data
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.bulkOpenEmailChat()
@@ -209,7 +211,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data:{leadId:this.selectedLeads},
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
       this.refreshLead('event')
@@ -238,6 +240,7 @@ export class LeadToolbarComponent implements OnInit {
       width:'40%',
       data:data,
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
@@ -259,6 +262,7 @@ export class LeadToolbarComponent implements OnInit {
         width:'40%',
         data:data,
       });
+      dialogRef.disableClose=true
     
       dialogRef.afterClosed().subscribe((result:any) => {
         if(result === 'yes'){
@@ -276,6 +280,7 @@ export class LeadToolbarComponent implements OnInit {
       height:'70%',
       data:{data:this.selectedLeads,name:'BULK'},
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       this.refresh.emit('event')

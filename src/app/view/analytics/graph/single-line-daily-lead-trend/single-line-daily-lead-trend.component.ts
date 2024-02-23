@@ -55,7 +55,7 @@ export class SingleLineDailyLeadTrendComponent implements OnInit {
     const dialogRef = this.dialog.open(SingleLineDailyLeadTrendComponent, {
       width: '50%',
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

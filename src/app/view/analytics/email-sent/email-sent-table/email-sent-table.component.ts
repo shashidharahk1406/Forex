@@ -170,6 +170,7 @@ export class EmailSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadEmailSentComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -179,7 +180,7 @@ export class EmailSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EmailSmsDownloadComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,7 +189,7 @@ export class EmailSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EmailSentMailComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -197,6 +198,7 @@ export class EmailSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(EmailSentWhatsappComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

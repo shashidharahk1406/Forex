@@ -170,6 +170,7 @@ export class TotalReEnquiriesTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(DownloadTotalReEnquiriesComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -179,6 +180,7 @@ export class TotalReEnquiriesTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(TotalReEnquiriesSmsDownloadComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -188,6 +190,7 @@ export class TotalReEnquiriesTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(TotalReEnquiriesMailComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -197,7 +200,7 @@ export class TotalReEnquiriesTableComponent implements  AfterViewInit {
     const dialogRef = this.dialog.open(TotalReEnquiriesWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

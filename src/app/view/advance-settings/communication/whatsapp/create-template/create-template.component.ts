@@ -37,7 +37,7 @@ export class CreateTemplateComponent implements OnInit {
     name: ['',[Validators.required]],
     message: ['',[Validators.required]],
     template_category_id: ['',[Validators.required]],
-    template_type_id: [3,[Validators.required]],
+    template_type_id: [1,[Validators.required]],
   });
   this.getPlaceHolder()
 
@@ -70,6 +70,10 @@ getPlaceHolder(){
   )
 }
  
+get f() {
+  return this.whatsappTemplate.controls;
+}
+
 submit(){
  
   console.log(this.whatsappTemplate.value);

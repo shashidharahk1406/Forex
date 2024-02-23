@@ -91,6 +91,7 @@ export class RawDataCardComponent implements OnInit {
       // height:"90%"
 
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

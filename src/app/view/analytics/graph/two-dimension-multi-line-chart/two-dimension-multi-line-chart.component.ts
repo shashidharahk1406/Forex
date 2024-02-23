@@ -71,6 +71,7 @@ export class TwoDimensionMultiLineChartComponent implements OnInit {
     const dialogRef = this.dialog.open(TwoDimensionMultiLineChartComponent, {
       width: '50%',
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');

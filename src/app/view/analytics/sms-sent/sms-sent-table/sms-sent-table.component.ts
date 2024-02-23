@@ -170,7 +170,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadSmsSentComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -179,7 +179,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(SmsSentSmsComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,6 +188,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(SmsSentEmailComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -197,7 +198,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(SmsSentWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 

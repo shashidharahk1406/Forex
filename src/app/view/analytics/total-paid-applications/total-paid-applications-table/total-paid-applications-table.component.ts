@@ -170,6 +170,7 @@ export class TotalPaidApplicationsTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DownloadTotalPaidApplicationsComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -179,7 +180,7 @@ export class TotalPaidApplicationsTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalApplicantsSmsDownloadComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
@@ -188,6 +189,7 @@ export class TotalPaidApplicationsTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalPaidApplicationsMailComponent, {
       width:'35%'
     });
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -197,7 +199,7 @@ export class TotalPaidApplicationsTableComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TotalPaidApplicationsWhatsappComponent, {
       width:'35%'
     });
-  
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
     }); 
