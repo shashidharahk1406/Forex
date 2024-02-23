@@ -18,6 +18,7 @@ import { PauseUserComponent } from '../pause-user/pause-user.component';
 import { error } from 'console';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
+import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -261,6 +262,7 @@ user:any;
     const dialogRef = this.dialog.open(AddNewUserComponent, {
       width: '50%',
     })
+    dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
       console.log('The dialog was closed');
@@ -297,16 +299,33 @@ user:any;
   }
     
 
-  deleteUserProfile(id:any){
-    this.api.deleteUser(id).subscribe((res:any)=>{
-      this.emit.sendRefresh(true);
-      this.api.showSuccess(res.message)
+  // deleteUserProfile(id:any){
+  //   this.api.deleteUser(id).subscribe((res:any)=>{
+  //     this.emit.sendRefresh(true);
+  //     this.api.showSuccess(res.message)
 
-    },(error:any)=>{
-      console.log(error);
-       this.api.showError(this.api.toTitleCase(error.error.message));
-    })
+  //   },(error:any)=>{
+  //     console.log(error);
+  //      this.api.showError(this.api.toTitleCase(error.error.message));
+  //   })
+  // }
+
+  baseurl= environment.live_url;
+  openDelete(id:any){
+    const apiUrl = `${this.baseurl}/api/user/${id}/`;
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      width:'35%',
+      data:apiUrl
+
+    });
+    dialogRef.disableClose = true;
+  
+    dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('The dialog was closed');
+      
+    });
   }
+
 
   somthing(id:any){
     console.log('id===',id)

@@ -44,6 +44,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PaymentButtonComponent } from './payment-button/payment-button.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +70,7 @@ import { TransactionDetailsComponent } from './transaction-details/transaction-d
     CommonModule,
     SharedModule,
     NgbCarouselModule,
+    Ng2SearchPipeModule,
     // NgChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,

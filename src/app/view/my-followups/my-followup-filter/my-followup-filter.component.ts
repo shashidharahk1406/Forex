@@ -23,6 +23,7 @@ export class MyFollowupFilterComponent implements OnInit {
   cityList:any = [];
   campaignList: any;
   queryItems: any;
+  streamsList:any=[]
   @Output() filter:any = new EventEmitter();
     counselled_by: any;
   role:any;
@@ -53,6 +54,8 @@ export class MyFollowupFilterComponent implements OnInit {
       this.getChannel()
       this.getCourse()
       this.getCounselledBy()
+      this.getStream();
+      this.getAllFollowupStatuses()
     }
     getChannel(){
       this.api.getAllChannel().subscribe((resp:any)=>{
@@ -81,6 +84,15 @@ export class MyFollowupFilterComponent implements OnInit {
           this.api.showError(this.api.toTitleCase(error.error.message))
          
        })
+    }
+
+    getStream(){
+      this.api.getStreams().subscribe((res:any)=>{
+        console.log(res,"streams response");
+        this.streamsList=res.results;
+      },((error:any)=>{
+        this.api.showError(this.api.toTitleCase(error.error))
+      }))
     }
     getSource(){
       this.api.getAllSource().subscribe((res:any)=>{
@@ -128,6 +140,15 @@ export class MyFollowupFilterComponent implements OnInit {
          this.api.showError(this.api.toTitleCase(error.error.message))
       }))
     }
+
+
+    AllFollowupStatuses:any=[]
+  getAllFollowupStatuses(){
+    this.api.allFollowUpStatuses().subscribe((res:any)=>{
+      console.log(res,"all folloups")
+      this.AllFollowupStatuses=res
+    })
+  }
     clearSelectField(fieldName: string) {
       this.filterLead.get(fieldName)?.reset();
     }
@@ -143,7 +164,9 @@ export class MyFollowupFilterComponent implements OnInit {
         source_id:[''],
         // department_id:[''],
         stream_id:[''],
+        course_id:[''],
         city_id:[''],
+        follow_up_status:['']
         // year_of_passing:['']
       })
     }
@@ -188,7 +211,7 @@ export class MyFollowupFilterComponent implements OnInit {
      
       this._addLeadEmitter.leadFilter.next(apiUrl)
        this._addLeadEmitter.triggerFilter()
-       this._addLeadEmitter.leadFilterIcon.next('true')
+       this._addLeadEmitter.followUpFilterIcon.next('true')
        // Make the API request with the constructed URL
       this.closePopup()
       }

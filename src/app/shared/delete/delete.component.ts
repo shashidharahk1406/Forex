@@ -11,11 +11,11 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 })
 export class DeleteComponent implements OnInit {
   url:any;
-
+  // disableClose:boolean=true
   constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<DeleteComponent>,private emit:EmitService,
-    @Inject(MAT_DIALOG_DATA) public _url: any) {
+    @Inject(MAT_DIALOG_DATA) public _url: any,   ) {
       this.url=_url
-      
+     
      }
   ngOnInit(): void {
   }

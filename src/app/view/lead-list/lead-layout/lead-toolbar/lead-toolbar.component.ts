@@ -69,6 +69,8 @@ export class LeadToolbarComponent implements OnInit {
   }
   onSelect(event:any){
     // this.leadSearch = ''
+
+    
     this.selectedSort.emit(event)
   }
   applyFilter(event: any) {

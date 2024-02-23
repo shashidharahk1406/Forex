@@ -11,6 +11,7 @@ import {MatCardModule} from '@angular/material/card';
 import { MaterialModule } from 'src/app/material.module';
 import { EditFollowupComponent } from './edit-followup/edit-followup.component';
 import { CalenderModalComponent } from './calender-modal/calender-modal.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 
@@ -30,6 +31,7 @@ import { CalenderModalComponent } from './calender-modal/calender-modal.componen
     MatBottomSheetModule,
     MatCardModule,
     MaterialModule,
+    Ng2SearchPipeModule
     
   ]
 })

@@ -1,71 +1,85 @@
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="row">
   <div class="col-8">
     <!-- <app-my-followup-tool-bar></app-my-followup-tool-bar> -->
     <mat-card>
       <div class="row">
           <div class="col d-flex ">
-              <p style="margin-right: 10px;color: blue;" (click)="getAllFollowUps('All')" [class.active_tab]="selectedTab==='All'" >All <span>({{(countData?.All)}})</span> </p>
-              <p style="margin-right: 10px;color: rgb(208, 203, 62);" (click)="getUpcoming('Upcoming')" [class.active_tab]="selectedTab==='Upcoming'"> Upcoming ({{(countData?.Upcomming)}})</p>
-              <p style="margin-right: 10px;color: green;" (click)=" getDone('Done')" [class.active_tab]="selectedTab==='Done'"> Done  ({{(countData?.Done)}})</p>
-              <p style="margin-right: 10px;color: red;" (click)="getMissed('Missed')" [class.active_tab]="selectedTab==='Missed'"> Missed ({{(countData?.Missed)}}) </p>
+              <p style="margin-right: 10px;color: blue;" (click)="filtered==true?filteredByUpcomingStatus('All'):getAllFollowUps('All')" [class.active_tab]="selectedTab==='All'" >All <span>({{(countData?.All)}})</span> </p>
+              <p style="margin-right: 10px;color: rgb(208, 203, 62);" (click)="filtered==true?filteredByUpcomingStatus('Upcoming'): getUpcoming('Upcoming')" [class.active_tab]="selectedTab==='Upcoming'"> Upcoming ({{(countData?.Upcoming)}})</p>
+              <p style="margin-right: 10px;color: green;" (click)="filtered==true?filteredByUpcomingStatus('Done'): getDone('Done')" [class.active_tab]="selectedTab==='Done'"> Done  ({{(countData?.Done)}})</p>
+              <p style="margin-right: 10px;color: red;" (click)="filtered==true?filteredByUpcomingStatus('Missed'):getMissed('Missed')" [class.active_tab]="selectedTab==='Missed'"> Missed ({{(countData?.Missed)}}) </p>
   
           </div>
+
+          <!-- <div class="col d-flex ">
+            <p style="margin-right: 10px;color: blue;" (click)="selectTab('All')"  [class.active_tab]="selectedTab==='All'">All <span>({{(countData?.All)}})</span> </p>
+            <p style="margin-right: 10px;color: rgb(208, 203, 62);" (click)="selectTab('Upcoming')" [class.active_tab]="selectedTab==='Upcoming'"> Upcoming ({{(countData?.Upcoming)}})</p>
+            <p style="margin-right: 10px;color: green;" (click)="selectTab('Done')" [class.active_tab]="selectedTab==='Done'"> Done  ({{(countData?.Done)}})</p>
+            <p style="margin-right: 10px;color: red;" (click)="selectTab('Missed')" [class.active_tab]="selectedTab==='Missed'"> Missed ({{(countData?.Missed)}}) </p>
+
+        </div> -->
   
       </div>
-      <div class="row">
-          <div class="col-sm-0 col-md-0 col-lg-8">
+      <div class="row" *ngIf="followUpsData?.length > 0">
+          <div class="col-sm-0 col-md-0 col-lg-6">
             <app-my-followup-sort (selectedSort)="onChangeSorting($event)"></app-my-followup-sort> 
           </div>
-          <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="col-sm-12 col-md-12 col-lg-6"  >
               <div class="row">
-                  <div class="col p-1 " (click)="openVideoCall()">
-                      <i class="bi bi-camera-video-fill" ></i>
+                  <div class="col p-0 " (click)="openVideoCall()">
+                      <i class="bi bi-camera-video" ></i>
                   </div>
-                  <div class="col p-1  position-rel" (click)="referFollowups()">
-                      <i class="bi bi-person-check-fill"></i>
+                  <div class="col p-0  position-rel" (click)="referFollowups()">
+                      <i class="bi bi-person-check"></i>
                   </div>
-                  <div class="col p-1 " (click)="openWhatsAppChat()">
+                  <div class="col p-0 " (click)="openWhatsAppChat()">
                       <i class="bi bi-whatsapp"></i>
+                      <!-- <mat-icon>watsapp</mat-icon> -->
                   </div>
-                  <div class="col p-1 " (click)="openSMS('All')">
-                      <i class="bi bi-chat-left-dots-fill"></i>
+                  <div class="col p-0 " (click)="openSMS('All')">
+                      <!-- <i class="bi bi-chat-left-dots"></i> -->
+                      <i class="bi bi-chat-dots"></i>
+                      <!-- <mat-icon>sms</mat-icon> -->
                   </div>
-                  <div class="col p-1 " (click)="openEmailChat('All')">
-                      <i class="bi bi-envelope-fill"></i>
+                  <div class="col p-0 " (click)="openEmailChat('All')">
+                      <i class="bi bi-envelope"></i>
+                      <!-- <mat-icon>mail</mat-icon> -->
                   </div>
-                  <div class="col p-1 " (click)="refreshFollowUps()">
-                      <mat-icon>autorenew</mat-icon>
+                  <div class="col p-0 " (click)="refreshFollowUps()">
+                      <!-- <mat-icon>autorenew</mat-icon> -->
+                      <i class="bi bi-repeat"></i>
                   </div>
-                  <div class="col p-1 "  (click)="downloadFollowUp()">
-                    <a *ngIf="selectedFollowUps.length >0" [href]="exportReference" target="_blank" (click)="downloadFollowUp()"><mat-icon >save_alt</mat-icon></a>
-                    <a *ngIf="selectedFollowUps.length === 0"  target="_blank" (click)="downloadFollowUp()"><mat-icon >save_alt</mat-icon></a>    
+                  <div class="col p-0 "  (click)="downloadLead()">
+                    <a *ngIf="selectedCheckboxIds.length >0" [href]="exportReference" target="_blank" (click)="downloadLead()">
+                      <!-- <mat-icon >save_alt</mat-icon> -->
+                      <i class="bi bi-download"></i>
+                    </a>
+                    <a *ngIf="selectedCheckboxIds.length === 0"  target="_blank" (click)="downloadLead()">
+                      <!-- <mat-icon >save_alt</mat-icon> -->
+                      <i class="bi bi-download"></i>
+                    </a>    
                   </div>
   
                
-                  <div class="col p-1" (click)="onClickLink()">
+                  <div class="col p-0" (click)="onClickLink()">
                     <mat-icon>link</mat-icon>
                 </div>
 
-                  
-                  <!-- <div class="col p-1">
-                      <mat-icon>save_alt</mat-icon>
-                  </div> -->
-                  <!-- <div class="col p-1 position-rel">
-                      <mat-icon>people</mat-icon>
-                      <mat-icon class="forward-icon">forward</mat-icon>
-                  </div>
-                  <div class="col p-1">
-                      <mat-icon>list</mat-icon>
-                  </div> -->
-                  <!-- <div class="col p-1">
-                      <i class="bi bi-funnel-fill" (click)="filterFollowups()"></i>
-                      <i class="bi bi-funnel" *ngIf="!filtered"></i>
-                    <i class="bi bi-funnel-fill" *ngIf="filtered"></i>
-                  </div> -->
-
-                  <div class="col p-1" (click)="filterFollowups()">
+                  <div class="col p-0" (click)="filterFollowups()">
                     <i class="bi bi-funnel" *ngIf="!filtered"></i>
-                    <i class="bi bi-funnel-fill" *ngIf="filtered"></i>
+                    <i class="bi bi-funnel" *ngIf="filtered"></i>
                 </div>
 
                   
@@ -87,13 +101,14 @@
 
   <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!followUpsData || followUpsData?.length === 0"></app-nodata>
   
-    <div class="col-12 col-md-12" *ngFor="let followUp of followUpsData;let i = index"> 
+    <div class="col-12 col-md-12" *ngFor="let followUp of followUpsData|filter:followupSearch;let i = index" > 
+      <!-- <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="followUpsData?.length === 0"></app-nodata> -->
       <mat-card class="p-1 lead-card-container">
           <div class="row d-flex align-items-center">
-            <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="col-sm-12 col-md-12 col-lg-4">
               <div class="row">
-                <div class="col-4 d-flex align-items-center">
-                  <mat-checkbox  (change)="onCheckboxChange($event, followUp.lead_id);"   [(ngModel)]="followUp.checked" ></mat-checkbox>
+                <div class="col-2 d-flex align-items-center">
+                  <mat-checkbox  (change)="onCheckboxChange($event,followUp.lead_id)"   [(ngModel)]="followUp.checked" ></mat-checkbox>
                  
                 </div>
 
@@ -106,28 +121,24 @@
                   </div>
                 </div> -->
                 <div class="col">
-                 
-                  <div class="row text-start">
-                    
-                    
+                  <div class="row text-start">   
                     <div class="col-12 c-name point-set" >{{ followUp.lead |titlecase }} </div>
                       <div class="col-12 text-muted "><b>{{ followUp.lead_mobile_number }}</b> </div>
                        <!-- <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span> -->
-                   
-                  
                   </div>
-                  
                 </div>
               </div>
             </div>
+            <div class="col"></div>
             <div class="col-sm-12 col-md-6 col-lg-2">
               <div class="row ">
-                <div class="col-6">{{ followUp.follow_up_status_name |uppercase }}</div>
+                <div class="col-12 ">{{ followUp.follow_up_status_name |uppercase }}</div>
                
                 <!-- <div class="col-12 text-muted">{{ followUp.leadStatus }}</div> -->
               </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-3 border-r">
+            <div class="col"></div>
+            <!-- <div class="col-sm-12 col-md-6 col-lg-3 border-r">
               <div class="row">
                 <div class="col p-0 text-center">
                   <i class="bi bi-telephone"></i><span class="ps-1"></span> 
@@ -142,7 +153,7 @@
                   <i class="bi bi-chat-left-text"></i><span class="ps-1"></span> 
                 </div>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="col-sm-12 col-md-6 col-lg-1">
               <div class="row"> -->
                 <!-- <div class="col p-0 text-center position-rel">
@@ -158,29 +169,11 @@
               <!-- </div>
             </div> -->
             <div class="col-sm-0 col-md-0 col-lg-1"></div>
-            <div class="col-sm-12 col-md-6 col-lg-3">
+            <div class="col-sm-12 col-md-6 col-lg-3 p-ct">
               <div class="row">
-                <div class="col p-1" (click)="openVideoCall()">
-                  <i class="bi bi-camera-video-fill"></i>
-                </div>
-                <div class="col p-1" (click)="openCall(leadData.name)">
-                  <i class="bi bi-telephone-fill"></i>
-                </div>
-                <div class="col  p-1 position-rel" (click)="openSMS(leadData.name)">
-                  <!-- <i class="bi bi-x-circle-fill msg-close-icon"></i> -->
-                  <i class="bi bi-chat-left-dots-fill"></i>
-                </div>
-                <div class="col  p-1 " (click)="openEmailChat(leadData.name)">
-                  <i class="bi bi-envelope-fill"></i>
-                </div>
-                <div class="col  p-1" (click)="openWhatsAppChat()">
-                  <i class="bi bi-whatsapp"></i>
-                </div>
-                <!-- <div class="col  p-0">
-                  <i class="bi bi-wechat"></i>
-                </div> -->
-                <div class="col  p-0">
-                  <div ngbDropdown class="d-inline-block lead-dropdown">
+
+                <div class="col p-0">
+                  <div ngbDropdown class="d-inline-block lead-dropdown my-1">
                     <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()" >more_vert</mat-icon>
                     <div ngbDropdownMenu aria-labelledby="dropdownBasic1"  class="more-dropdown"  style="cursor: pointer;">
                       <div class="app-list" ngbDropdownToggle  (click)="EditFollowups(followUp.id)" >
@@ -194,8 +187,32 @@
                       </div> -->
                     </div>
                   </div>
+
+
                 </div>
-                <div class="col p-0">
+
+
+                <div class="col p-1  " (click)="openVideoCall()">
+                  <i class="bi bi-camera-video" ></i>
+                </div>
+                <div class="col p-1 " >
+                  <i class="bi bi-telephone"></i>
+                </div>
+                <div class="col  p-1  position-rel" (click)="openSMS('All')">
+                  <i class="bi bi-chat-dots"></i>
+                </div>
+                <div class="col  p-1 " (click)="openEmailChat('All')">
+                  <i class="bi bi-envelope"></i>
+                </div>
+                <div class="col  p-1 " (click)="openWhatsAppChat()" >
+                  <i class="bi bi-whatsapp" ></i>
+                </div>
+                <!-- <div class="col  p-1 ">
+                  <i class="bi bi-wechat"></i>
+                </div> -->
+               
+             
+                <div class="col p-0 py-1">
                   <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)">expand_more</mat-icon>
                   <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)">expand_less</mat-icon>
                 </div> 
@@ -210,8 +227,8 @@
             <app-my-followup-bottom-pannel></app-my-followup-bottom-pannel>
           </ng-container> -->
 
-          <ng-container *ngIf="expandedCardIndex === i">
-            <mat-card class="inner-expansion" >
+          <ng-container *ngIf="expandedCardIndex === i" >
+            <mat-card class="inner-expansion " >
               <div class="row mb-1">
 
 
@@ -237,47 +254,47 @@
                           <div class="col-12" *ngIf="followUp.age">{{followUp.age}}</div>
                       </div>
                   </div>
-                  <div class="col">
+                  <!-- <div class="col">
                       <div class="row">
                           <div class="col-12 pannel-label text-start">Campaign Name</div>
                           <div class="col-12" *ngIf="!followUp.campaign_name">{{'NA'}}</div>
                           <div class="col-12" *ngIf="followUp.campaign_name">{{followUp.campaign_name}}</div>
                       </div>
-                  </div>
+                  </div> -->
                   <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Source</div>
-                          <div class="col-12" *ngIf="!followUp.campaign_name">{{'NA'}}</div>
-                          <div class="col-12" *ngIf="followUp.campaign_name">{{followUp.source_name}}</div>
+                          <div class="col-12" *ngIf="!followUp.source">NA</div>
+                          <div class="col-12" *ngIf="followUp.source">{{followUp.source}}</div>
                       </div>
                   </div>
-                  <div class="col">
+                  <!-- <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Department</div>
                           <div class="col-12" *ngIf="!followUp.department_name">{{'NA'}}</div>
                           <div class="col-12"  *ngIf="followUp.department_name">{{followUp.department_name}}</div>
                       </div>
-                  </div>
+                  </div> -->
                 </div> 
                 <div class="row my-2">
-                  <div class="col">
+                  <!-- <div class="col">
                     <div class="row text-start">
                         <div class="col-12 pannel-label">Channel</div>
                         <div class="col-12" *ngIf="!followUp.communication_channel">{{'NA'}}</div>
                         <div class="col-12" *ngIf="followUp.communication_channel">{{followUp.communication_channel}}</div>
                     </div>
-                  </div>
-                  <div class="col">
+                  </div> -->
+                  <!-- <div class="col">
                       <div class="row text-start">
                           <div class="col-12 pannel-label">Medium</div>
                           <div class="col-12" *ngIf="!followUp.medium_name">{{'NA'}}</div>
                           <div class="col-12"  *ngIf="followUp.medium_name">{{followUp.medium_name}}</div>
                       </div>
-                  </div>
+                  </div> -->
                 
                   <div class="col">
                       <div class="row text-start">
-                          <div class="col-12 pannel-label">Modification Date</div>
+                          <div class="col-12 pannel-label">Modification Date Time</div>
                           <div class="col-12" *ngIf="!followUp.modified_datetime">{{'NA'}}</div>
                           <div class="col-12" *ngIf="followUp.modified_datetime" >{{followUp.modified_datetime | date:'medium'}}</div>
                       </div>
@@ -314,31 +331,36 @@
                   <div class="col">
                     <div class="row text-start">
                         <div class="col-12 pannel-label">Payment Status</div>
-                        <div class="col-12">{{'Null'}}</div>
+                        <div class="col-12" *ngIf="!followUp.payment_status">{{'NA'}}</div>
+                        <div class="col-12" *ngIf="followUp.payment_status">{{followUp?.payment_status}}</div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="row text-start">
                         <div class="col-12 pannel-label">Admission Status</div>
-                        <div class="col-12">{{'Null'}}</div>
+                        <div class="col-12" *ngIf="!followUp.admission_status">NA</div>
+                        <div class="col-12" *ngIf="followUp.admission_status">{{followUp?.admission_status}}</div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="row text-start">
-                        <div class="col-12 pannel-label">Channel</div>
-                        <div class="col-12">{{followUp.communication_channel}}</div>
+                        <div class="col-12 pannel-label">Document Process Status</div>
+                        <div class="col-12" *ngIf="!followUp.document_process_status">NA</div>
+                        <div class="col-12" *ngIf="followUp.document_process_status">{{followUp.document_process_status}}</div>
                     </div>
                   </div>
-                  <div class="col">
+                  <!-- <div class="col">
                     <div class="row text-start">
-                        <div class="col-12 pannel-label">Status</div>
-                        <div class="col-12">{{'Null'}}</div>
+                        <div class="col-12 pannel-label">Status</div>  
+                        <div class="col-12" *ngIf="!followUp.status">NA</div>
+                        <div class="col-12">{{followUp?.status}}</div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col">
                     <div class="row text-start">
                         <div class="col-12 pannel-label">Course Looking For</div>
-                        <div class="col-12">{{'Null'}}</div>
+                        <div class="col-12" *ngIf="!followUp.course_looking_for">NA</div>
+                        <div class="col-12" *ngIf="followUp.course_looking_for">{{followUp?.course_looking_for}}</div>
                     </div>
                   </div>
                 </div>
@@ -523,9 +545,9 @@
     <div class="col-12">
       
     </div>
-    <div class="input-group z-s m-auto m-4" id="calender-col">
+    <div class="input-group z-s m-auto m-4" id="calender-col" >
       <input  type="search" class="form-control " placeholder="Search by Name/Mobile" [(ngModel)]="followupSearch" (input)="clearSearch($event)" >
-      <button class="btn btn-outline-primary" type="button" (click)="applySearch(followupSearch)" >
+      <button class="btn btn-outline-primary" type="button" >
         
         <i class="bi bi-search"></i>
       </button>
@@ -539,6 +561,10 @@
           <button class="btn btn-outline-primary my-2" type="button" (click)="calenderReset()" >
          Reset Calender
           </button>
+
+          <button class="btn btn-outline-primary my-2 mx-3" type="button" (click)="refreshFollowUps()" >
+            Reset Filter
+             </button>
 
         </mat-card>
         </div>

@@ -37,7 +37,7 @@ export class LeadFollowupComponent implements OnInit {
     private api: ApiService,
     private _baseService: BaseServiceService
   ) {
-    this.counsellor_id = localStorage.getItem('user_id');
+    // this.counsellor_id = localStorage.getItem('user_id');
     this.initForm();
     console.log(this.data.item.user_data.id,"this.data.item.user;")
     this.getFollowUp()
@@ -45,6 +45,7 @@ export class LeadFollowupComponent implements OnInit {
 
   ngOnInit(): void {
     this.dropDownValues();
+    this.getLeadByID(this.data.item.user_data.id);
     // this.initForm();
     this.getPriorities();
     this.getAllFollowupStatuses()
@@ -196,6 +197,17 @@ export class LeadFollowupComponent implements OnInit {
   }
   clearSelectField(fieldName: string) {
     this.followupForm.get(fieldName)?.reset();
+  }
+
+  getLeadByID(lead_id:any = null){
+    console.log("get lead by id");
+    
+    this._baseService.getByID(`${environment.lead_list}${lead_id}/`).subscribe(
+      (res: any) => {
+        console.log(res.result[0].referred_to,"getleadby id response")
+        this.counsellor_id = res.result[0].referred_to
+      }
+    )
   }
   
   onSubmit() {

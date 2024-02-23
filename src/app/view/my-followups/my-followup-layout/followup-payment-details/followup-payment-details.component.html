@@ -1,0 +1,62 @@
+
+
+
+<ng-container >
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Payment Details</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+      <mat-dialog-content class="mat-typography m-2 pt-2">
+        <form [formGroup]="paymentForm">
+          <div class="row">
+            <div class="col-12">
+              <mat-label class="mt-2">Enter The Amount</mat-label>
+              <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input
+                  matInput
+                  type="number"
+                  formControlName="amount"
+                  required
+                  placeholder="Enter The Amount"
+                />
+                <mat-error *ngIf="f['amount'].hasError('required')">
+                  Amount Is Required.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+       
+       
+        <div class="row mt-1">
+          <div class="col-12">
+            <mat-label>Select The Communication Channel</mat-label>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Select The Communication Channel</mat-label>
+              <mat-select formControlName="channel" placeholder="Season" multiple>
+                <mat-option *ngFor="let item of channels" [value]="item">{{ item }}</mat-option>
+              </mat-select>
+             
+              <mat-error *ngIf="f['channel'].hasError('required')">
+                Communication Channel Is Required.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        
+      </form> 
+      </mat-dialog-content> 
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-raised-button color="primary"  (click)="onSubmit()">SEND LINK</button> 
+      </mat-dialog-actions>
+     
+    </mat-card>
+     
+  </ng-container>
+  

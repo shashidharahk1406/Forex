@@ -20,8 +20,9 @@ import { FollowupVideocallComponent } from './followup-videocall/followup-videoc
 import { FollowupEmailComponent } from './followup-email/followup-email.component';
 import { FollowupSmsComponent } from './followup-sms/followup-sms.component';
 import { FollowupNoteComponent } from './followup-note/followup-note.component';
+import { FollowupPaymentDetailsComponent } from './followup-payment-details/followup-payment-details.component';
 // import { FullCalendarModule } from '@fullcalendar/angular';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { FollowupNoteComponent } from './followup-note/followup-note.component';
     FollowupEmailComponent,
     FollowupSmsComponent,
     FollowupNoteComponent,
+    FollowupPaymentDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -48,6 +50,7 @@ import { FollowupNoteComponent } from './followup-note/followup-note.component';
     MatPaginatorModule,
     NgxDaterangepickerMd.forRoot(),
     MatTooltipModule,
+    Ng2SearchPipeModule
 
     // FullCalendarModule,
   ],

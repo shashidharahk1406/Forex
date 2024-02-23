@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EditFollowupComponent implements OnInit {
   editFollowUpForm!:FormGroup
-  counsellor_id: string | null;
+  counsellor_id: any;
   leadCategory: any = [];
   status: any = [];
   subStatus: any = [];
@@ -38,11 +38,12 @@ export class EditFollowupComponent implements OnInit {
     private activateRoute:ActivatedRoute,
     private _bottomSheet:  MatBottomSheet,
     private emit:EmitService) {
-      this.counsellor_id = localStorage.getItem('user_id');
+      // this.counsellor_id = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
       // this.leadId=this.data?.item.user;
-      console.log(this.leadId,"leadid")
+      // console.log(this.leadId,"leadid")
       console.log(data,"dataaaaaaaaaaaaaaaa")
+      // console.log(this.data.item?.user_data?.id,"this.data.item.user;")
       
      }
 currentDateTime=new Date();
@@ -77,6 +78,18 @@ this.getFollowUpById()
     });
   }
 
+
+
+  getLeadByID(lead_id:any = null){
+    console.log("get lead by id");
+    
+    this._baseService.getByID(`${environment.lead_list}${lead_id}/`).subscribe(
+      (res: any) => {
+        console.log(res.result[0].referred_to,"getleadby id response")
+        this.counsellor_id = res.result[0].referred_to
+      }
+    )
+  }
   get f() {
     return this.editFollowUpForm.controls;
   }
@@ -179,7 +192,8 @@ AllFollowupStatuses:any=[]
 
   edit() {
     // console.log('api calling', this.data);
-    this.editFollowUpForm.patchValue({counsellor:this.counsellor_Id})
+    console.log(this.counsellor_id,"counsellorid")
+    this.editFollowUpForm.patchValue({counsellor:this.counsellor_id})
     this.editFollowUpForm.patchValue({lead:this.leadId})
     this.editFollowUpForm.patchValue({created_by:this.created_by})
     let update_date_time = this.datePipe.transform(this.editFollowUpForm.value.action_date_time,  'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
@@ -212,14 +226,16 @@ AllFollowupStatuses:any=[]
 id:any;
 leadName:any;
   getFollowUpById(){{
+    
     this.api.getFollowUpByLeadId(this.data.id).subscribe((res:any)=>{
 console.log(res,"getbyid");
 this.id=res.id;
 this.leadName=res.lead
 this.leadId=res.lead_id;
 console.log(this.leadId,"this.leadId")
-this.counsellor_Id=res.counsellor_id
-console.log(this.counsellor_Id,"this.counsellor_Id")
+this.getLeadByID(this.leadId);
+// this.counsellor_Id=res.counsellor_id
+// console.log(this.counsellor_Id,"this.counsellor_Id")
 this.created_by=res.counsellor_id
 console.log(this.created_by,"this.created_by")
 console.log(res.priority,"priority")

@@ -345,16 +345,17 @@ i,mat-icon{
     color: var(--appColor);
     cursor: pointer;
 }
-.bi-camera-video-fill,.bi-telephone-fill,.bi-chat-left-dots-fill,.bi-envelope-fill,
+.bi-camera-video,.bi-telephone,.bi-chat-dots,.bi-envelope,
 .bi-whatsapp,.bi-wechat{
     color:var(--appColor);
-    font-size:14px;
+    font-size:14px !important;
 }
 .common-class{
     color: gray !important;
     font-size: 22px;
 }
 .dropdown-menu.show{
+    
     /* width: 50vw !important;
     position: absolute !important;
     inset: unset !important;
@@ -375,5 +376,11 @@ i,mat-icon{
 }
 
 
-
+.pannel-label{
+/* color: #000 !important; */
+font-weight: bolder;
+}
+.row{
+font-size: 1 rem !important;
+}
 

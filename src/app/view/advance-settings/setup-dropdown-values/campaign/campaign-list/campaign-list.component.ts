@@ -78,7 +78,7 @@ export class CampaignListComponent implements  AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getCampignSearch(this.searchValue.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.api.getCampignSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
         console.log(resp.results);
         this.allCampaign= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCampaign);

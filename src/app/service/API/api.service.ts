@@ -856,5 +856,8 @@ filterFollowupsForAdmin(pageNo:any,size:any){
 
 }
 
+getStreams(){
+  return this.http.get(`${this.baseurl}/api/studying-stream/`)
+}
 
 }

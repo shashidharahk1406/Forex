@@ -1,4 +1,14 @@
-import { Component, OnInit, Input, ViewChild, Inject, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  Inject,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheet,
@@ -28,19 +38,21 @@ import { FollowupSmsComponent } from '../followup-sms/followup-sms.component';
 import { FollowupWhatsappchatComponent } from '../followup-whatsappchat/followup-whatsappchat.component';
 import { FollowupEmailComponent } from '../followup-email/followup-email.component';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { FollowupPaymentDetailsComponent } from '../followup-payment-details/followup-payment-details.component';
 
 @Component({
   selector: 'app-my-followup-card-content',
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit,OnChanges {
-  selectedDate: any=null;
+export class MyFollowupCardContentComponent implements OnInit, OnChanges {
+  selectedDate: any = null;
   @ViewChild(DaterangepickerDirective, { static: false })
-  @Output()selectedSort = new EventEmitter()
+  @Output()
+  selectedSort = new EventEmitter();
   pickerDirective!: DaterangepickerDirective;
   @Input() leadData: any;
-  expandPanel : boolean=false;
+  expandPanel: boolean = false;
   morePanel: boolean = false;
   expandedCardIndex: number = -1;
   selected: any;
@@ -57,21 +69,20 @@ export class MyFollowupCardContentComponent implements OnInit,OnChanges {
 
   totalNumberOfRecords: any;
   searchTerm: string = '';
- 
+  followUpsDataTemp: any = [];
 
   allData = []; //Store all data from provider
   filterData = []; //Store filtered data
-  selectedCheckboxIds: any;
+  selectedCheckboxIds: any = [];
   totalCount: any;
   checkAll: boolean = false;
   role: any;
-  selectedTab:any='All'
+  selectedTab: any = 'All';
   query!: string;
   followUpsData2: any;
   filtered = false;
- 
 
-  allFollowUpDataSource:any = new MatTableDataSource<any>([]);
+  allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
   constructor(
@@ -81,79 +92,75 @@ export class MyFollowupCardContentComponent implements OnInit,OnChanges {
     private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private datePipe: DatePipe,
-    private emit:EmitService,
-    private _baseService:BaseServiceService,
-    private addEventEmitter:AddLeadEmitterService 
+    private emit: EmitService,
+    private _baseService: BaseServiceService,
+    private addEventEmitter: AddLeadEmitterService
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
     console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
     console.log(this.role, 'roleeeeeeeeeeeeeee');
+    console.log(data, 'data');
   }
-
+  filteredBaseUrl: any;
   ngOnInit(): void {
     this.selectedCheckboxIds = [];
-    this.addEventEmitter.leadFilter.subscribe((res:any)=>{
-      if(res){
-        
-        this.filterFollowUps(res)
-        res.results.forEach((element:any) => {
-          
-          if(element.follow_up_status_name=='Done'){
-            this.countData=[]
-            this.doneFollowUpCounts.push(element.follow_up_status_name)
-            this.countData.Done=this.doneFollowUpCounts.length
-            console.log(this.doneFollowUpCounts,"allfollowupcounts")
-          }else if(element.follow_up_status_name=='Upcomming'){
-            this.countData=[]
-            this.upcomingFollowUpCounts.push(element.follow_up_status_name)
-            this.countData.Upcomming=this.upcomingFollowUpCounts.length
-            console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
-          }
-          else{
-            console.log('invalid')
-          }
-        });
-       
+    this.addEventEmitter.leadFilter.subscribe((res: any) => {
+      if (res) {
+        this.filteredBaseUrl = res;
+        this.filtered = true;
+        console.log(res, 'resssssssssssssss');
+
+        this.filterFollowUps(res);
+        // res.results.forEach((element:any) => {
+
+        //   if(element.follow_up_status_name=='Done'){
+        //     this.countData=[]
+        //     this.doneFollowUpCounts.push(element.follow_up_status_name)
+        //     this.countData.Done=this.doneFollowUpCounts.length
+        //     console.log(this.doneFollowUpCounts,"allfollowupcounts")
+        //   }else if(element.follow_up_status_name=='Upcomming'){
+        //     this.countData=[]
+        //     this.upcomingFollowUpCounts.push(element.follow_up_status_name)
+        //     this.countData.Upcomming=this.upcomingFollowUpCounts.length
+        //     console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
+        //   }
+        //   else{
+        //     console.log('invalid')
+        //   }
+        // });
       }
-    })
-    this.addEventEmitter.leadFilterIcon.subscribe(
-      (resp:any)=>{
-       console.log(resp,"RESPONSE")
-       if(resp === 'true'){
-        this.filtered= true
-       }else{
-        this.filtered= false
-       }
-         
-         
-        
+    });
+    this.addEventEmitter.leadFilterIcon.subscribe((resp: any) => {
+      console.log(resp, 'RESPONSE');
+      if (resp === 'true') {
+        this.filtered = true;
+      } else {
+        this.filtered = false;
       }
-    )
-    
-    this.totalCount=this.totalNumberOfRecords;
+    });
+
+    this.totalCount = this.totalNumberOfRecords;
     // this.getUpcoming();
     // this.followUpCounts();
-    this.getAllFollowUps('All');
+
     this.getUpcoming('Upcoming');
     this.getMissed('Missed');
     this.getDone('Done');
+    this.getAllFollowUps('All');
 
     // this.selectedDate = null || undefined;
-    this.emit.getRefresh.subscribe(
-      (resp:any)=>{
-        if(resp==true){
-          this.getAllFollowUps('All'); 
-          this.getDone('Done');
-          this.getMissed('Missed');
-          this.getUpcoming('Upcoming')
-        }
+    this.emit.getRefresh.subscribe((resp: any) => {
+      if (resp == true) {
+        this.getDone('Done');
+        this.getMissed('Missed');
+        this.getUpcoming('Upcoming');
+        this.getAllFollowUps('All');
       }
-    )
+    });
     // console.log(this.selectedDate, 'this.selectedDate');
   }
-
 
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
@@ -163,90 +170,46 @@ export class MyFollowupCardContentComponent implements OnInit,OnChanges {
     }
   }
   openMorePanel() {
-    this.morePanel = !this.morePanel
+    this.morePanel = !this.morePanel;
   }
+  filteredFollowUps: any = [];
+  AllFollowUpCounts: any = [];
+  upcomingFollowUpCounts: any = [];
+  missedFollowUpCounts: any = [];
+  doneFollowUpCounts: any = [];
+  fitered: boolean = false;
+  filterFollowUps(apiUrl: any) {
+    this._baseService.getData(apiUrl).subscribe(
+      (res: any) => {
+        if (res) {
+          console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+          this.followUpsData = [];
+          this.followUpsDataTemp = [];
 
-AllFollowUpCounts:any=[]
-upcomingFollowUpCounts:any=[]
-missedFollowUpCounts:any=[]
-doneFollowUpCounts:any=[]
-  filterFollowUps(apiUrl:any){
-    this._baseService.getData(apiUrl).subscribe((res:any) => {
-      if(res){
-        this.followUpsData=[];
-        
-        // this.api.showSuccess(res.message)
-        this.followUpsData = res.results;
-        this.allFollowUpDataSource = new MatTableDataSource<any>(this.followUpsData);
-        this.followUpsData.paginator = this.allPaginator;
-        this.totalNumberOfRecords = res.total_no_of_record;
-       
-        this.countData.All=res.total_no_of_record;
-        this.countData.Upcomming=res.total_no_of_record;
-        
-        
+          this.filtered = true;
+          // this.api.showSuccess(res.message)
+          this.filteredFollowUps = res.results.data;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
+
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+          this.totalNumberOfRecords = res.total_no_of_record;
+
+          this.countData.All = res.results.data_count.All;
+          this.countData.Upcoming = res.results.data_count.Upcoming;
+          this.countData.Missed = res.results.data_count.Missed;
+          this.countData.Done = res.results.data_count.Done;
+        }
+      },
+      (error: any) => {
+        this.api.showError(this.api.toTitleCase(error.error.message));
       }
-    },((error:any)=>{
-       this.api.showError(this.api.toTitleCase(error.error.message))
-    }));
+    );
+  }
 
-   }
-
-  openCall(name: string) {
-    // const dialogRef = this.dialog.open(RawDataCallComponent, {
-    //   width:'30%',
-    //   data: {name:name}
-    // });
-    // dialogRef.afterClosed().subscribe((result:any) => {
-    //   console.log('The dialog was closed');
-    // });
-  }
-  // openSMS(name: any): void {
-    // const config: MatBottomSheetConfig = {
-    //   panelClass: 'lead-bottom-sheet',
-    //   data: {name:name}
-    // };
-    // this._bottomSheet.open(RawDataSmsComponent,config);
-  // }
-  // openWhatsAppChat() {
-  //   const dialogRef = this.dialog.open(RawDataWhatsappchatComponent, {
-  //     width:'45%',
-  //   });
-  //   dialogRef.afterClosed().subscribe((result:any) => {
-  //     console.log('The dialog was closed');
-  //   });
-  // }
-  // openEmailChat(name: any) {
-  //   // const config: MatBottomSheetConfig = {
-  //   //   panelClass: 'lead-bottom-sheet',
-  //   //   data: {name:name}
-  //   // };
-  //   // this._bottomSheet.open(RawDataEmailComponent,config);
-  // }
-  // openVideoCall() {
-  //   // const dialogRef = this.dialog.open(RawDataVideoCallComponent, {
-  //   //   width:'45%',
-  //   // });
-  //   // dialogRef.afterClosed().subscribe((result:any) => {
-  //   //   console.log('The dialog was closed');
-  //   // });
-  // }
-  openViewAll(name: any) {
-    // const dialogRef = this.dialog.open(RawDataViewAllComponent, {
-    //   width:'60%',
-    //   data: {name:name}
-    // });
-    // dialogRef.afterClosed().subscribe((result:any) => {
-    //   console.log('The dialog was closed');
-    // });
-  }
-  editLead(name: any) {
-    // const config: MatBottomSheetConfig = {
-    //   panelClass: 'lead-bottom-sheet',
-    //   data: {name:name}
-    // };
-    // this._bottomSheet.open(LeadEditComponent,config);
-  }
   formattedDate1!: any;
   selectedDatePicker(event: any) {
     this.countData = [];
@@ -266,7 +229,6 @@ doneFollowUpCounts:any=[]
           console.log(res, 'followup conts for admin');
           this.countData = res.results;
           this.getAllFollowUps('All');
-
         },
         (error: any) => {
           this.api.showError(error.error.message);
@@ -312,7 +274,8 @@ doneFollowUpCounts:any=[]
         .subscribe(
           (res: any) => {
             console.log(res, 'followups by dateeeeeeeeeeeeeee for admin');
-            this.followUpsData = res.results;
+            this.followUpsData = res.results.data;
+            this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
           },
           (error: any) => {
@@ -331,7 +294,8 @@ doneFollowUpCounts:any=[]
         .subscribe(
           (res: any) => {
             console.log(res, 'all followups by date for counsellor');
-            this.followUpsData = res.results;
+            this.followUpsData = res.results.data;
+            this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
           },
           (error: any) => {
@@ -352,7 +316,8 @@ doneFollowUpCounts:any=[]
         )
         .subscribe((res: any) => {
           console.log(res, 'calender upcoming follwups for admin');
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
         });
     } else {
@@ -366,7 +331,8 @@ doneFollowUpCounts:any=[]
           this.selectedTab
         )
         .subscribe((res: any) => {
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           console.log(res, 'calender upcoming followups for counsellor');
         });
@@ -385,7 +351,8 @@ doneFollowUpCounts:any=[]
         )
         .subscribe((res: any) => {
           console.log(res, 'calender done follwups for admin');
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
         });
     } else {
@@ -399,7 +366,8 @@ doneFollowUpCounts:any=[]
           this.selectedTab
         )
         .subscribe((res: any) => {
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           console.log(res, 'calender done followups for counsellor');
         });
@@ -418,7 +386,8 @@ doneFollowUpCounts:any=[]
         )
         .subscribe((res: any) => {
           console.log(res, 'calender Missed follwups for admin');
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
         });
     } else {
@@ -432,27 +401,33 @@ doneFollowUpCounts:any=[]
           this.selectedTab
         )
         .subscribe((res: any) => {
-          this.followUpsData = res.results;
+          this.followUpsData = res.results.data;
+          this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           console.log(res, 'calender Missed followups for counsellor');
         });
     }
   }
 
-  getAllFollowUps(data:any) {
-    this.selectedTab=data;
+  getAllFollowUps(data: any) {
+    this.selectedTab = data;
     this.followUpsData = [];
-    this.totalNumberOfRecords=[]
+    this.totalNumberOfRecords = [];
     if (this.role == 'Admin') {
-      if (this.selectedDate!== null || undefined) {
-        console.log(this.selectedDate == null || undefined,"!this.selectedDate == null && undefined")
+      if (this.selectedDate !== null || undefined) {
+        console.log(
+          this.selectedDate == null || undefined,
+          '!this.selectedDate == null && undefined'
+        );
         this.AllfollowupsByDate();
       } else {
         this.api.getAllFollowupsForAdmin(this.page, this.pageSize).subscribe(
           (res: any) => {
+            this.filtered = false;
             console.log(res, 'All followups for admin');
-            this.followUpsData = res.results;
-            this.countData.All=res.total_no_of_record;
+            this.followUpsData = res.results.data;
+            this.followUpsDataTemp = res.results.data;
+            this.countData.All = res.results.data_count.All;
             this.totalNumberOfRecords = res.total_no_of_record;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
@@ -468,7 +443,7 @@ doneFollowUpCounts:any=[]
         this.AllfollowupsByDate();
       } else {
         this.followUpsData = [];
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.api
           .getAllFollowupsForCounsellor(
             this.page,
@@ -478,9 +453,10 @@ doneFollowUpCounts:any=[]
           .subscribe(
             (res: any) => {
               console.log(res, 'All followup for counsellor');
-              this.followUpsData = res.results;
+              this.followUpsData = res.results.data;
+              this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
-              this.countData.All=res.total_no_of_record;
+              this.countData.All = res.results.data_count.All;
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
               );
@@ -493,23 +469,29 @@ doneFollowUpCounts:any=[]
     }
   }
 
-  getUpcoming(data:any) {
-    console.log('before',this.pageSize)
-    this.selectedTab=data
+  getUpcoming(data: any) {
+    console.log('before', this.pageSize);
+    this.selectedTab = data;
     if (this.role == 'Admin') {
       if (this.selectedDate !== null || undefined) {
         this.getCalenderUpcomingFollowups();
       } else {
         this.followUpsData = [];
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.api
-          .getUpcomingFollowupsForAdmin(this.page, this.pageSize,this.selectedTab)
+          .getUpcomingFollowupsForAdmin(
+            this.page,
+            this.pageSize,
+            this.selectedTab
+          )
           .subscribe(
             (res: any) => {
+              this.filtered = false;
               console.log(res, 'upcoming followups for admin');
-              this.followUpsData = res.results;
+              this.followUpsData = res.results.data;
+              this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
-              this.countData.Upcomming=res.total_no_of_record;
+              this.countData.Upcoming = res.results.data_count.Upcoming;
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -521,15 +503,21 @@ doneFollowUpCounts:any=[]
         this.getCalenderUpcomingFollowups();
       } else {
         this.followUpsData = [];
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.api
-          .getUpcomingFollowUps(this.counsellor_id, this.page, this.pageSize,this.selectedTab)
+          .getUpcomingFollowUps(
+            this.counsellor_id,
+            this.page,
+            this.pageSize,
+            this.selectedTab
+          )
           .subscribe(
             (res: any) => {
               console.log(res, 'upcoming response');
               this.upcomingFollowUpData = res.results;
-              this.countData.Upcomming=res.total_no_of_record;;
-              this.followUpsData = res.results;
+              this.countData.Upcoming = res.results.data_count.Upcoming;
+              this.followUpsData = res.results.data;
+              this.followUpsDataTemp = res.results.data;
               this.allData = res.results;
 
               this.allFollowUpDataSource = new MatTableDataSource<any>(
@@ -545,49 +533,60 @@ doneFollowUpCounts:any=[]
     }
   }
 
-  getMissed(data:any) {
-    this.totalNumberOfRecords=[]
-    this.selectedTab=data
+  getMissed(data: any) {
+    this.totalNumberOfRecords = [];
+    this.selectedTab = data;
     if (this.role == 'Admin') {
       if (this.selectedDate !== null || undefined) {
         this.getCalenderMissedFollowups();
       } else {
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.followUpsData = [];
-        this.api.getMissedFollowupsForAdmin(this.page, this.pageSize,this.selectedTab).subscribe(
-          (res: any) => {
-            console.log(res, 'Missed Followups for Admin');
-            this.followUpsData = res.results;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.countData.Missed=res.total_no_of_record;
-          },
-          (error: any) => {
-            this.api.showError(error.error.message);
-          }
-        );
+        this.api
+          .getMissedFollowupsForAdmin(
+            this.page,
+            this.pageSize,
+            this.selectedTab
+          )
+          .subscribe(
+            (res: any) => {
+              console.log(res, 'Missed Followups for Admin');
+              this.followUpsData = res.results.data;
+              this.followUpsDataTemp = res.results.data;
+              this.totalNumberOfRecords = res.total_no_of_record;
+              this.countData.Missed = res.results.data_count.Missed;
+            },
+            (error: any) => {
+              this.api.showError(error.error.message);
+            }
+          );
       }
     } else {
       if (this.selectedDate !== null || undefined) {
         this.getCalenderMissedFollowups();
       } else {
         this.followUpsData = [];
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.api
-          .getMissedFollowUps(this.counsellor_id, this.page, this.pageSize,this.selectedTab)
+          .getMissedFollowUps(
+            this.counsellor_id,
+            this.page,
+            this.pageSize,
+            this.selectedTab
+          )
           .subscribe(
             (res: any) => {
               console.log(res, 'Missed followups response for counsellor');
               this.missedFolloUpData = res.results;
-              this.followUpsData = res.results;
+              this.followUpsData = res.results.data;
+              this.followUpsDataTemp = res.results.data;
               this.allData = res.results;
-              this.countData.Missed=res.total_no_of_record;
+              this.countData.Missed = res.results.data_count.Missed;
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
               );
               this.totalNumberOfRecords = res.total_no_of_record;
               console.log(this.missedFolloUpData, 'this.missedFolloUpData');
-
-            
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -597,22 +596,24 @@ doneFollowUpCounts:any=[]
     }
   }
 
-  getDone(data:any) {
-    this.selectedTab=data;
+  getDone(data: any) {
+    this.selectedTab = data;
     if (this.role == 'Admin') {
       if (this.selectedDate !== null || undefined) {
         this.getCalenderDoneFollowups();
       } else {
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.followUpsData = [];
         this.api
-          .getDoneFollowupsForAdmin(this.page, this.pageSize,this.selectedTab)
+          .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
           .subscribe((res: any) => {
             console.log(res, 'Done followups for Admin');
-            this.followUpsData = res.results;
-            this.countData.Done=res.total_no_of_record;;
+            this.followUpsData = res.results.data;
+            this.countData.Done = res.results.data_count.Done;
             this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
+            this.allFollowUpDataSource = new MatTableDataSource<any>(
+              this.followUpsData
+            );
           });
       }
     } else {
@@ -620,15 +621,20 @@ doneFollowUpCounts:any=[]
         this.getCalenderDoneFollowups();
       } else {
         this.followUpsData = [];
-        this.totalNumberOfRecords=[]
+        this.totalNumberOfRecords = [];
         this.api
-          .getDoneFollowUps(this.counsellor_id, this.page, this.pageSize,this.selectedTab)
+          .getDoneFollowUps(
+            this.counsellor_id,
+            this.page,
+            this.pageSize,
+            this.selectedTab
+          )
           .subscribe(
             (res: any) => {
               console.log(res, 'Done followups response');
-              this.followUpsData = res.results;
+              this.followUpsData = res.results?.data;
               this.allData = res.results;
-              this.countData.Done=res.total_no_of_record;;
+              this.countData.Done = res.results.data.data_count.Done;
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
               );
@@ -653,274 +659,306 @@ doneFollowUpCounts:any=[]
     console.log(id, 'leadid');
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: { id: id },
+      data: { id: id, data: this.data },
     };
     this._bottomSheet.open(EditFollowupComponent, config);
   }
 
   onPageChange(event: any, followUpsData: any) {
-
-    this.pageSize=event.pageSize;
-    this.page=event.pageIndex + 1;
+    this.pageSize = event.pageSize;
+    this.page = event.pageIndex + 1;
     // this.getAllFollowUps('all');
-    if(this.role==='Admin'){
-    this.followUpsData=[]
-    this.totalNumberOfRecords=[]
-    if(this.role==='Admin'){
-
-    }
-     this.api.getAllFollowupsForAdmin(this.page,this.pageSize).subscribe((res:any)=>
-     {
-      this.followUpsData=res.results
-      this.allFollowUpDataSource = new MatTableDataSource<any>(
-        this.followUpsData
-      );
-      this.totalNumberOfRecords = res.total_no_of_record;
-     })
-    }
-    else{
-      this.totalNumberOfRecords=[]
-      this.followUpsData=[]
-      this.api.getAllFollowupsForCounsellor(this.page,this.pageSize,this.counsellor_id).subscribe((res:any)=>{
-      this.followUpsData=res.results;
-      this.totalNumberOfRecords = res.total_no_of_record;
-      this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
-    }
-    
-    if(this.role==='Admin'){
-      this.followUpsData=[]
-      this.totalNumberOfRecords=[]
-      this.api.getUpcomingFollowupsForAdmin(this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results
-        this.totalNumberOfRecords = res.total_no_of_record;
-        console.log( this.totalNumberOfRecords," upcoming pagination totalNumberOfRecords")
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
-    }
-    else{
-      this.followUpsData=[];
-      this.api.getUpcomingFollowUps(this.counsellor_id,this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
+    if (this.role === 'Admin') {
+      this.followUpsData = [];
+      this.totalNumberOfRecords = [];
+      if (this.role === 'Admin') {
+      }
+      this.api
+        .getAllFollowupsForAdmin(this.page, this.pageSize)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.totalNumberOfRecords = res.total_no_of_record;
+        });
+    } else {
+      this.totalNumberOfRecords = [];
+      this.followUpsData = [];
+      this.api
+        .getAllFollowupsForCounsellor(
+          this.page,
+          this.pageSize,
+          this.counsellor_id
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
     }
 
-    if(this.role==='Admin'){
-      this.followUpsData=[]
-      this.api.getDoneFollowupsForAdmin(this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
+    if (this.role === 'Admin') {
+      this.followUpsData = [];
+      this.totalNumberOfRecords = [];
+      this.api
+        .getUpcomingFollowupsForAdmin(
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          console.log(
+            this.totalNumberOfRecords,
+            ' upcoming pagination totalNumberOfRecords'
+          );
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
+    } else {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getUpcomingFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
     }
-    else{
-      this.followUpsData=[];
-      this.api.getDoneFollowUps(this.counsellor_id,this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
+
+    if (this.role === 'Admin') {
+      this.followUpsData = [];
+      this.api
+        .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
+    } else {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getDoneFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
     }
 
-
-    if(this.role==='Admin'){
-      this.followUpsData=[]
-      this.api.getMissedFollowupsForAdmin(this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
-
+    if (this.role === 'Admin') {
+      this.followUpsData = [];
+      this.api
+        .getMissedFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
+    } else {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getMissedFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        });
     }
-    else{
-      this.followUpsData=[];
-      this.api.getMissedFollowUps(this.counsellor_id,this.page,this.pageSize,this.selectedTab).subscribe((res:any)=>{
-        this.followUpsData=res.results;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-      })
-
-
-
-    }
-    
-
-    
-
-
-    
-
-
   }
 
- 
-  followupSearch:any=''
-searchValue:any;
-  applySearch(followupSearch:any){
-    if(this.role=='Admin'){
-      this.followUpsData=[]
-      console.log(followupSearch,"search value");
-      this.searchValue=followupSearch;
-      console.log(this.searchValue,"search value")
-      this.api.searchFollowupsForAdmin(this.followupSearch,this.page,this.pageSize).subscribe((res:any)=>{
-      console.log(res,"searched followups for admin")
-      this.followUpsData=res.results;
-     
-
-      },((error:any)=>{
-        this.api.showError(error.error.message)
-      }))
-    }else{
-      this.followUpsData=[]
-this.api.searchFollowupsForCounsellor(this.followupSearch,this.page,this.pageSize,this.counsellor_id).subscribe((res:any)=>{
-  console.log(res,"searched followups for counsellor")
-  this.followUpsData=res.results
-  // this.followupSearch=''
-},((error:any)=>{
-  this.api.showError(error.error.message)
-}))
+  filteredSearch() {
+    if (this.filteredFollowUps) {
     }
-    
-
-   
   }
 
-  search(event:any){
-    console.log(event,"eventtttttttttttttt")
+  followupSearch: any = '';
+  searchValue: any;
+  applySearch(followupSearch: any) {
+    if (this.role == 'Admin') {
+      if (this.filteredFollowUps) {
+        this.api
+          .searchFollowupsForAdmin(
+            this.followupSearch,
+            this.page,
+            this.pageSize
+          )
+          .subscribe((res: any) => {
+            console.log(res, 'search in filtered followups');
+          });
+      } else {
+        console.log('error');
+      }
+      this.followUpsData = [];
+      console.log(followupSearch, 'search value');
+      this.searchValue = followupSearch;
+      console.log(this.searchValue, 'search value');
+      this.api
+        .searchFollowupsForAdmin(this.followupSearch, this.page, this.pageSize)
+        .subscribe(
+          (res: any) => {
+            console.log(res, 'searched followups for admin');
+            this.followUpsData = res.results?.data;
+            this.totalNumberOfRecords = res.total_no_of_record;
+            this.allFollowUpDataSource = new MatTableDataSource<any>(
+              this.followUpsData
+            );
+          },
+          (error: any) => {
+            this.api.showError(error.error.message);
+          }
+        );
+    } else {
+      this.followUpsData = [];
+      this.api
+        .searchFollowupsForCounsellor(
+          this.followupSearch,
+          this.page,
+          this.pageSize,
+          this.counsellor_id
+        )
+        .subscribe(
+          (res: any) => {
+            console.log(res, 'searched followups for counsellor');
+            this.followUpsData = res.results?.data;
+            this.totalNumberOfRecords = res.total_no_of_record;
+            this.allFollowUpDataSource = new MatTableDataSource<any>(
+              this.followUpsData
+            );
+            // this.followupSearch=''
+          },
+          (error: any) => {
+            this.api.showError(error.error.message);
+          }
+        );
+    }
   }
 
+  search(event: any) {
+    console.log(event, 'eventtttttttttttttt');
+  }
 
   selectAllCheckboxes: boolean = false;
 
   closePopup() {
     this._bottomSheetRef.dismiss();
   }
-selectedCheckBoxesId:any=[];
-allLeadIds:any=[]
+  // selectedCheckBoxesId:any=[];
+  allLeadIds: any = [];
 
-ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['followUpsData']) {
+      this.followUpsData2 = this.followUpsData;
 
-  if (changes['followUpsData']) {
-    this.followUpsData2=this.followUpsData;
-   
-    if (this.selectedCheckboxIds.length === this.totalCount) {
-      this.checkAll = true;
-      this.checkBoxData()
-      
-    } else{
-      this.checkAll = false;
-      this.checkBoxData()
-    }
-  }
-}
-onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-  console.log()
-  if (event.checked) {
-    // Checkbox is checked, add the item ID to the array if it's not already there
-    if (!this.selectedCheckboxIds) {
-      this.selectedCheckboxIds = [];
-    }
-
-    else if (!this.selectedCheckboxIds.includes(itemId)) {
-      this.selectedCheckboxIds.push(itemId);
       if (this.selectedCheckboxIds.length === this.totalCount) {
         this.checkAll = true;
-        this.checkBoxData()
-        
-      } 
-    }
-    
-    else{
-      this.checkAll = false;
-    }
-  } else {
-    // Checkbox is unchecked, remove the item ID from the array if it exists
-    const index = this.selectedCheckboxIds.indexOf(itemId);
-    if (index !== -1) {
-      this.selectedCheckboxIds.splice(index, 1);
-      this.checkAll = false;
-      this.checkBoxData()
-    }
-  }
-}
-// selectAll(event:any,data:any) {
-//   this.allLeadIds=[]
-
-//   console.log(event,data,"EVENT")
-//    this.checkAll = !this.checkAll;
-//    if (event.checked == true) {
-
-//     this.followUpsData.forEach((element:any) => {
-//       // this.allLeadIds.push(element.lead_id);
-//       // element.checked=true;
-//       element.checked=true;
-//     });
-    
-//   this.selectedCheckBoxesId =this.allLeadIds;
-//   console.log(this.selectedCheckBoxesId,"this.selectedCheckBoxesId")
-//      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-  
-//     console.log(this.allLeadIds,"leadids")
-//    // console.log(this.selectedCheckboxIds,"LEADIDS")
-//      this.checkBoxData()
-//     // this.checked = false
-//    } else  {
-//      // If "Select All" is unchecked, clear the selectedCheckboxIds array
-//     //  this.selectedCheckboxIds = [];
-//      this.followUpsData2.forEach((element:any) => {
-//        if (element ) {
-//          element.checked = false;
-//        }
-//      });
-       
-//    }
-   
-//  }
-
-
-selectAll(event:any,data:any) {
-  // console.log(event,"EVENT")
-   this.checkAll = !this.checkAll;
-   if (event.checked == true) {
-
-    this.followUpsData.forEach((element:any) => {
-      if (element ) {
-        element.checked = true;
-        this.allLeadIds.push(element.lead_id)
+        this.checkBoxData();
+      } else {
+        this.checkAll = false;
+        this.checkBoxData();
       }
-    });
-     console.log(this.selectedCheckBoxesId,"allleaids")
-     // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-    this.selectedCheckboxIds = this.allLeadIds
-   console.log(this.selectedCheckboxIds,"LEADIDS")
-     this.checkBoxData()
-    // this.checked = false
-   } else  {
-     // If "Select All" is unchecked, clear the selectedCheckboxIds array
-     this.selectedCheckboxIds = [];
-     this.followUpsData.forEach((element:any) => {
-       if (element ) {
-         element.checked = false;
-       }
-     });
-       
-   }
-   
- }
-
- checkBoxData(){
-
-  for (let selectedId of this.selectedCheckboxIds) {
-    const leadFollowUpItem = this.followUpsData2.find((item:any) => item.lead_id === selectedId);
-    if (leadFollowUpItem ) {
-      leadFollowUpItem.checked = true;
+    }
+  }
+  onCheckboxChange(event: MatCheckboxChange, itemId: string) {
+    console.log(itemId, 'itemId');
+    if (event.checked) {
+      // Checkbox is checked, add the item ID to the array if it's not already there
+      if (!this.selectedCheckboxIds) {
+        this.selectedCheckboxIds = [];
+      } else if (!this.selectedCheckboxIds.includes(itemId)) {
+        this.selectedCheckboxIds.push(itemId);
+        if (this.selectedCheckboxIds.length === this.totalCount) {
+          this.checkAll = true;
+          this.checkBoxData();
+        }
+      } else {
+        this.checkAll = false;
+      }
+    } else {
+      // Checkbox is unchecked, remove the item ID from the array if it exists
+      const index = this.selectedCheckboxIds.indexOf(itemId);
+      if (index !== -1) {
+        this.selectedCheckboxIds.splice(index, 1);
+        this.checkAll = false;
+        this.checkBoxData();
+      }
     }
   }
 
- }
-  
+  selectAll(event: any, data: any) {
+    // console.log(event,"EVENT")
+    this.checkAll = !this.checkAll;
+    if (event.checked == true) {
+      this.followUpsData.forEach((element: any) => {
+        if (element) {
+          element.checked = true;
+          this.allLeadIds.push(element.lead_id);
+          console.log(this.allLeadIds, 'this.allLeadIds');
+        }
+      });
+      console.log(this.selectedCheckboxIds, 'allleaids');
+      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+      this.selectedCheckboxIds = this.allLeadIds;
+      console.log(this.selectedCheckboxIds, 'LEADIDS');
+      this.checkBoxData();
+      // this.checked = false
+    } else {
+      // If "Select All" is unchecked, clear the selectedCheckboxIds array
+
+      this.followUpsData.forEach((element: any) => {
+        if (element) {
+          element.checked = false;
+          if (element.checked == false) {
+            this.selectedCheckboxIds = [];
+          }
+        }
+      });
+    }
+  }
+
+  checkBoxData() {
+    for (let selectedId of this.selectedCheckboxIds) {
+      const leadFollowUpItem = this.followUpsData2.find(
+        (item: any) => item.lead_id === selectedId
+      );
+      if (leadFollowUpItem) {
+        leadFollowUpItem.checked = true;
+      }
+    }
+  }
 
   currentdate = new Date();
   formattedDate = this.datePipe.transform(this.currentdate, 'yyyy-MM-dd');
@@ -934,7 +972,7 @@ selectAll(event:any,data:any) {
       )
       .subscribe(
         (res: any) => {
-          this.countData = res.results;
+          this.countData = res.results?.data.data_count;
           console.log(this.countData, 'followups counts on date');
         },
         (error: any) => {
@@ -942,262 +980,280 @@ selectAll(event:any,data:any) {
         }
       );
   }
-  selectedFollowUps:any=[]  
-  exportReference:any
+  selectedFollowUps: any = [];
+  exportReference: any;
 
-  calenderReset(){
+  calenderReset() {
     // this.selectedDate=null || undefined;
-   window.location.reload();
-  // this.getAllFollowUps('All')
-   
-    
+    window.location.reload();
+    // this.getAllFollowUps('All')
   }
 
-  downloadFollowUp(){
-
-  }
-
-  referFollowUp(){
-
-  }
-
-
-  onSearchInputChange(){
+  onSearchInputChange() {
     this.getAllFollowUps('All');
   }
 
-
-  clearSearch(event:any){
-    console.log(event.target.value,"event value")
-    if(event.target.value==''){
-      this.getAllFollowUps('All')
-    }
-   
+  clearSearch(event: any) {
+    console.log('Event', event);
+    this.followUpsData = this.followUpsDataTemp;
   }
 
-  onChange(event:any){
-    this.selectedSort.emit(event)
+  onChange(event: any) {
+    this.selectedSort.emit(event);
   }
-  onSelect(event:any){
-    this.selectedSort.emit(event)
+  onSelect(event: any) {
+    this.selectedSort.emit(event);
   }
 
   sorting: boolean = false;
-  sortedType:any;
-  onChangeSorting(event:any){
-    this.sorting=true;
-    this.sortedType=event.target.innerText;
+  sortedType: any;
+  onChangeSorting(event: any) {
+    this.sorting = true;
+    this.sortedType = event.target.innerText;
     // console.log(event.option.value,event.option.selected)
-    console.log(this.sortedType,"this.sortedType");
-    this.followUpsData=[]
-    this.api.sortForAdmin(this.sortedType,this.page,this.pageSize).subscribe((res:any)=>{
-      console.log(res,"sorted results")
-      this.followUpsData=res.results;
-      this.totalNumberOfRecords = res.total_no_of_record;
-      this.allFollowUpDataSource=new MatTableDataSource<any>(this.followUpsData)
-
-
-    },((error:any)=>{
-      this.api.showSuccess(error.error.message)
-    }))
-
-
+    console.log(this.sortedType, 'this.sortedType');
+    this.followUpsData = [];
+    this.api.sortForAdmin(this.sortedType, this.page, this.pageSize).subscribe(
+      (res: any) => {
+        console.log(res, 'sorted results');
+        this.followUpsData = res.results.data;
+        this.totalNumberOfRecords = res.total_no_of_record;
+        this.allFollowUpDataSource = new MatTableDataSource<any>(
+          this.followUpsData
+        );
+      },
+      (error: any) => {
+        this.api.showSuccess(error.error.message);
+      }
+    );
   }
-  refreshFollowUps(){
+  refreshFollowUps() {
+    this.getUpcoming('Upcoming');
+    this.getMissed('Missed');
+    this.getDone('Done');
     this.getAllFollowUps('All');
   }
 
-
-  addCount(){
-    if(this.checkAll){
-      this.data = 'All'
-      }else{
-         this.data = this.selectedCheckBoxesId.length
-         console.log(this.selectedCheckBoxesId,"this.selectedCheckBoxesId")
-
-      }
+  addCount() {
+    if (this.checkAll) {
+      this.data = 'All';
+    } else {
+      this.data = this.selectedCheckboxIds.length;
+      console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
+    }
   }
 
-
-  openReferLead(){
+  openReferLead() {
     const dialogRef = this.dialog.open(ReferFollowupComponent, {
-      width:'40%',
-      data:{leadId:this.selectedCheckboxIds},
+      width: '40%',
+      data: { leadId: this.selectedCheckboxIds },
     });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
+
+    dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
-      this.refreshFollowUps()
+      this.refreshFollowUps();
     });
   }
 
   referFollowups() {
-    this.addCount()
-    if(this.data !== 0){
-    let data = `Do You Want To Refer ${this.data} Leads`
-    const dialogRef = this.dialog.open(GenericCountComponent, {
-      width:'40%',
-      data:data,
-    });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-      if(result === 'yes'){
-       this.openReferLead()
-      }
-    });
-  }else{
-    this.api.showWarning('Please select atleast one lead')
-  }
-  }
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Refer ${this.data} Leads`;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
 
-
-  openVideoCall(){
-    this.addCount()
-    if(this.data !== 0){
-    let data = `Do You Want To Send A Video Call Link To ${this.data} `
-    const dialogRef = this.dialog.open(GenericCountComponent, {
-      width:'40%',
-      data:data
-    });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-      if(result === 'yes'){
-      //  this.bulkVideoCall()
-      //  this.refreshLead('event')
-      }
-    });
-  }else{
-    this.api.showWarning('Please select atleast one lead')
-  }
-  }
-
-
-
-  openWhatsAppChat(){
-    this.addCount()
-    if(this.data !== 0){
-    let data = `Do You Want To Send WhatsApp To ${this.data} Leads`
-    const dialogRef = this.dialog.open(GenericCountComponent, {
-      width:'40%',
-      data:data
-    });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-      if(result === 'yes'){
-      //  this.bulkWhatsAppChat();
-      //  this.refreshLead('event')
-      }
-    });
-  }else{
-    this.api.showWarning('Please select atleast one lead to download')
-  }
-  }
-
-
-
-
-  openSMS(name:any): void {
-    this.addCount()
-    if(this.data !== 0){
-    let data = `Do You Want To Send SMS To ${this.data} Leads`
-    const dialogRef = this.dialog.open(GenericCountComponent, {
-      width:'40%',
-      data:data
-    });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-      if(result === 'yes'){
-      //  this.bulkSMS()
-      //  this.refreshLead('event')
-      }
-    })}
-    else{
-      this.api.showWarning('Please select atleast one lead')
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.openReferLead();
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead');
     }
   }
 
+  openVideoCall() {
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Send A Video Call Link To ${this.data} Leads `;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
 
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.bulkVideoCall();
+          //  this.refreshLead('event')
+          this.refreshFollowUps();
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead');
+    }
+  }
 
+  openWhatsAppChat() {
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Send WhatsApp To ${this.data} Leads`;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
 
-  openEmailChat(selectedData?:any){
-    this.addCount()
-    if(this.data !== 0){
-    let data = `Do You Want To Send Email To ${this.data} Leads`
-    const dialogRef = this.dialog.open(GenericCountComponent, {
-      width:'40%',
-      data: data
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.bulkWhatsAppChat();
+          this.refreshFollowUps();
+          //  this.refreshLead('event')
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead to download');
+    }
+  }
+
+  openSMS(name: any): void {
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Send SMS To ${this.data} Leads`;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.bulkSMS();
+          this.refreshFollowUps();
+          //  this.refreshLead('event')
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead');
+    }
+  }
+
+  openEmailChat(selectedData?: any) {
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Send Email To ${this.data} Leads`;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.bulkOpenEmailChat();
+          //  this.refreshLead('event')
+          this.refreshFollowUps();
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead');
+    }
+  }
+  // selectedLeads:any=[]
+  downloadLead() {
+    if (this.selectedCheckboxIds.length > 0) {
+      this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
+    } else {
+      this.api.showWarning('Please select atleast one lead to download');
+    }
+  }
+
+  bulkVideoCall() {
+    const dialogRef = this.dialog.open(FollowupVideocallComponent, {
+      width: '45%',
     });
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
-      if(result === 'yes'){
-      //  this.bulkOpenEmailChat()
-      //  this.refreshLead('event')
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed');
       this.refreshFollowUps();
-      }
     });
-  }else{
-    this.api.showWarning('Please select atleast one lead')
-  }
-  }
-  selectedLeads:any=[]
-  downloadLead(){
-    if(this.selectedLeads.length >0){
-      this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedLeads}`
-    }else{
-      this.api.showWarning('Please select atleast one lead to download')
-    }
-   
-    }
-
-
-    
-    bulkVideoCall(){
-      const dialogRef = this.dialog.open(FollowupVideocallComponent, {
-        width:'45%',
-      });
-    
-      dialogRef.afterClosed().subscribe((result:any) => {
-        console.log('The dialog was closed');
-        this.refreshFollowUps();
-      });
-      
-    }
-
-
-
-    bulkSMS(){
-      const config: MatBottomSheetConfig = {
-        panelClass: 'lead-bottom-sheet',
-        data: {name:name}
-      };
-      this._bottomSheet.open(FollowupSmsComponent,config);
-    }
-
-
-
-    bulkWhatsAppChat(){
-      const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
-        width:'45%',
-      });
-    
-      dialogRef.afterClosed().subscribe((result:any) => {
-        console.log('The dialog was closed');
-        this.refreshFollowUps()
-      });
-    }
-
-
-
-    bulkOpenEmailChat(name?:any){
-      const config: MatBottomSheetConfig = {
-        panelClass: 'lead-bottom-sheet',
-        data: {bulkIds:this.selectedLeads,allChecked:this.checkAll}
-      };
-      this._bottomSheet.open(FollowupEmailComponent,config);
-    }
-  onClickLink(){
-
   }
 
+  bulkSMS() {
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+      data: { name: name },
+    };
+    this._bottomSheet.open(FollowupSmsComponent, config);
+  }
 
+  bulkWhatsAppChat() {
+    const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
+      width: '45%',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed');
+      this.refreshFollowUps();
+    });
+  }
+
+  bulkOpenEmailChat(name?: any) {
+    const config: MatBottomSheetConfig = {
+      panelClass: 'lead-bottom-sheet',
+      data: { bulkIds: this.selectedCheckboxIds, allChecked: this.checkAll },
+    };
+    this._bottomSheet.open(FollowupEmailComponent, config);
+  }
+  onClickLink() {
+    this.addCount();
+    if (this.data !== 0) {
+      let data = `Do You Want To Send A Link To  ${this.data} Leads`;
+      const dialogRef = this.dialog.open(GenericCountComponent, {
+        width: '40%',
+        data: data,
+      });
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result === 'yes') {
+          this.paymentDetailsLink();
+        }
+      });
+    } else {
+      this.api.showWarning('Please select atleast one lead');
+    }
+  }
+  paymentDetailsLink() {
+    const dialogRef = this.dialog.open(FollowupPaymentDetailsComponent, {
+      width: '30%',
+      height: '70%',
+      data: { data: this.selectedCheckboxIds, name: 'BULK' },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      // this.refresh.emit('event')
+      this.refreshFollowUps();
+    });
+  }
+
+  filteredByUpcomingStatus(status: any) {
+    console.log(status, 'status');
+    this.selectedTab = status;
+    const apiUrl = this.filteredBaseUrl + `&follow_up_status=${status}`;
+    console.log(apiUrl, 'Base url for All status after filter');
+    this.filterFollowUps(apiUrl);
+  }
+
+  selectTab(data:any){
+if(data==='All')
+{
+  this.selectedTab='All'
+}else if(data==='Upcoming'){
+  this.selectedTab='Upcoming'
+}else if(data==='Done'){
+  this.selectedTab='Done';
+}
+else{
+  this.selectedTab="Missed"
+}
+
+  }
 }
