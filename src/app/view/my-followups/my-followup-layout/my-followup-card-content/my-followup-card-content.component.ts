@@ -39,6 +39,8 @@ import { FollowupWhatsappchatComponent } from '../followup-whatsappchat/followup
 import { FollowupEmailComponent } from '../followup-email/followup-email.component';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { FollowupPaymentDetailsComponent } from '../followup-payment-details/followup-payment-details.component';
+import { DataService } from 'src/app/service/data.service';
+import { Observable, Subscription, map } from 'rxjs';
 
 @Component({
   selector: 'app-my-followup-card-content',
@@ -85,6 +87,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  receiveFilterCount$!: Observable<any>;
   constructor(
     private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
@@ -94,7 +97,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     private datePipe: DatePipe,
     private emit: EmitService,
     private _baseService: BaseServiceService,
-    private addEventEmitter: AddLeadEmitterService
+    private addEventEmitter: AddLeadEmitterService,
+    private dataService:DataService
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
@@ -102,9 +106,25 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     this.role = localStorage.getItem('user_role');
     console.log(this.role, 'roleeeeeeeeeeeeeee');
     console.log(data, 'data');
+   
+    
   }
   filteredBaseUrl: any;
+
+  receiveData(): void {
+    const data = this.dataService.getSharedData();
+    console.log(data);
+  }
   ngOnInit(): void {
+
+    
+    this.dataService.dataUpdated.subscribe((res:any)=>{
+      console.log(res,"filtercount")
+      this.filterCount=res;
+    })
+    
+
+    
     this.selectedCheckboxIds = [];
     this.addEventEmitter.leadFilter.subscribe((res: any) => {
       if (res) {
@@ -136,6 +156,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
       console.log(resp, 'RESPONSE');
       if (resp === 'true') {
         this.filtered = true;
+
       } else {
         this.filtered = false;
       }
@@ -172,16 +193,28 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   openMorePanel() {
     this.morePanel = !this.morePanel;
   }
+
+
+
   filteredFollowUps: any = [];
   AllFollowUpCounts: any = [];
   upcomingFollowUpCounts: any = [];
   missedFollowUpCounts: any = [];
   doneFollowUpCounts: any = [];
   fitered: boolean = false;
+
+  filterCount = []
+  sub!: Subscription
   filterFollowUps(apiUrl: any) {
+   
+
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
+       
+      
         if (res) {
+         
+      
           console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
           this.followUpsData = [];
           this.followUpsDataTemp = [];
@@ -647,11 +680,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
       }
     }
   }
-
+// receiveFilterCount:any=[]
   filterFollowups() {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true,
+     
+      
     };
+    
     this._bottomSheet.open(MyFollowupFilterComponent, config);
   }
 
@@ -660,6 +697,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { id: id, data: this.data },
+      disableClose: true
+     
     };
     this._bottomSheet.open(EditFollowupComponent, config);
   }
@@ -1182,6 +1221,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { name: name },
+      disableClose: true
     };
     this._bottomSheet.open(FollowupSmsComponent, config);
   }
@@ -1202,6 +1242,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { bulkIds: this.selectedCheckboxIds, allChecked: this.checkAll },
+      disableClose: true
     };
     this._bottomSheet.open(FollowupEmailComponent, config);
   }
@@ -1260,4 +1301,6 @@ else{
 }
 
   }
+
+
 }

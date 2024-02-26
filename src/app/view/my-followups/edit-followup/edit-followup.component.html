@@ -55,8 +55,9 @@
 
               <mat-form-field class="mb-1" appearance="outline">
                 <mat-label>Select Followup Status</mat-label>
-                <mat-select formControlName="follow_up_status" >
-                  <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id">{{ followUpStatus.status_name }}</mat-option>
+                <mat-select formControlName="follow_up_status"  >
+                  <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id" [ngStyle]="{ display : followUpStatus.id==2 ? 'none' : 'block' }" >
+                    {{ followUpStatus.status_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix

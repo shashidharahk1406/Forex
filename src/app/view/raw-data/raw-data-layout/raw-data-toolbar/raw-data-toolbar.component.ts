@@ -30,7 +30,8 @@ export class RawDataToolbarComponent implements OnInit {
   openSMS(name:any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(RawDataSmsComponent,config);
   }
@@ -46,14 +47,16 @@ export class RawDataToolbarComponent implements OnInit {
   openEmailChat(name?:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(RawDataEmailComponent,config);
   }
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(RawDataEditComponent,config);
   }

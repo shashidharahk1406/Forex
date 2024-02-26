@@ -184,9 +184,11 @@ this.getFollowUpById()
   }
 
 AllFollowupStatuses:any=[]
+
   getAllFollowupStatuses(){
     this.api.allFollowUpStatuses().subscribe((res:any)=>{
       console.log(res,"all folloups")
+     
       this.AllFollowupStatuses=res
     })
   }

@@ -39,7 +39,8 @@ export class LeadcardMoreComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: this.item
+      data: this.item,
+      disableClose: true
     };
     this._bottomSheet.open(LeadEditComponent,config);
   }
@@ -60,6 +61,7 @@ export class LeadcardMoreComponent implements OnInit {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: {name:name,item:item},
+      disableClose: true
     };
     this._bottomSheet.open(LeadFollowupComponent,config);
   }

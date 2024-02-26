@@ -23,7 +23,8 @@ export class RawDataCardMoreComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(RawDataEditComponent,config);
   }
@@ -40,7 +41,8 @@ export class RawDataCardMoreComponent implements OnInit {
   addFollowUp(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(RawDataFollowupComponent,config);
   }

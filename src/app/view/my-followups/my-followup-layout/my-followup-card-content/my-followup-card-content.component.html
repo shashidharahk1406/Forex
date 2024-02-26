@@ -122,7 +122,7 @@
               <i
                 class="bi bi-funnel-fill"
                 *ngIf="filtered"
-                matBadge="{{ countData.All }}"
+                matBadge="{{ filterCount }}"
               ></i>
               <mat-icon
                 *ngIf="filtered"
@@ -209,7 +209,7 @@
           <div class="col"></div>
           <div class="col-sm-12 col-md-6 col-lg-2">
             <div class="row">
-              <div class="col-12">
+              <div class="col-12" >
                 {{ followUp.follow_up_status_name | uppercase }}
               </div>
 
@@ -696,20 +696,27 @@
       </mat-card>
     </div>
   </div>
-  <div class="col" style="padding: 30px">
-    <div class="col-12"></div>
-    <div class="input-group z-s m-auto m-4" id="calender-col">
-      <input
-        type="search"
-        class="form-control"
-        placeholder="Search by Name/Mobile"
-        [(ngModel)]="followupSearch"
-        (input)="clearSearch($event)"
-      />
-      <button class="btn btn-outline-primary" type="button" >
-        
-        <i class="bi bi-search"></i>
-      </button>
+  <div class="col" style="padding: 45px">
+    <div class="col d-flex my-1">
+     
+    <!-- <button class="btn btn-outline-primary" type="button" >
+      
+      <i class="bi bi-search"></i>
+    </button> -->
+    </div>
+ 
+    <!-- <div class="col-12"></div> -->
+    <input
+    type="search"
+    class="form-control icon-rtl"
+    placeholder="Search by Name/Mobile"
+    [(ngModel)]="followupSearch"
+    (input)="clearSearch($event)"
+    style="width: 89% !important;"
+  
+  />
+    <div class="input-group z-s m-auto m-2" id="calender-col">
+     
 
       <div class="col-12">
         <mat-card class="m-4" style="margin-left: -13px !important">

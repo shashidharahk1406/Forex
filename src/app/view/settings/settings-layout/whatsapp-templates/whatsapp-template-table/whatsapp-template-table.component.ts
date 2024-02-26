@@ -209,7 +209,8 @@ export class WhatsappTemplateTableComponent implements AfterViewInit {
   }
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet'
+      panelClass: 'lead-bottom-sheet',
+      disableClose: true
     };
     this._bottomSheet.open(AddWhatsappTemplateComponent,config);
   }

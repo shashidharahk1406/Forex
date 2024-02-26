@@ -39,7 +39,8 @@ openCall(name:string){
 openSMS(name:any): void {
   const config: MatBottomSheetConfig = {
     panelClass: 'lead-bottom-sheet',
-    data: {name:name}
+    data: {name:name},
+    disableClose: true
   };
   this._bottomSheet.open(RawDataSmsComponent,config);
 }
@@ -55,7 +56,8 @@ openWhatsAppChat(){
 openEmailChat(name:any){
   const config: MatBottomSheetConfig = {
     panelClass: 'lead-bottom-sheet',
-    data: {name:name}
+    data: {name:name},
+    disableClose: true
   };
   this._bottomSheet.open(RawDataEmailComponent,config);
 }

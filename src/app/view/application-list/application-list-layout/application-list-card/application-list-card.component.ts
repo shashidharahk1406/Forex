@@ -85,13 +85,17 @@ export class ApplicationListCardComponent implements OnInit {
    
   openBottomSheet(): void {
     const config: MatBottomSheetConfig = {
+      disableClose: true,
       panelClass: 'lead-bottom-sheet'
+      
     };
+    
     this._bottomSheet.open(AddNewApplicationListComponent,config);
   }
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet'
+      panelClass: 'lead-bottom-sheet',
+      disableClose: true
     };
     this._bottomSheet.open(UploadApplicationListComponent,config);
   }

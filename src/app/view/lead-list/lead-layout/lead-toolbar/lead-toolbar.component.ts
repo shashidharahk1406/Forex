@@ -127,7 +127,8 @@ export class LeadToolbarComponent implements OnInit {
   bulkSMS(){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(LeadSMSComponent,config);
   }
@@ -183,6 +184,7 @@ export class LeadToolbarComponent implements OnInit {
   bulkOpenEmailChat(name?:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true,
       data: {bulkIds:this.selectedLeads,allChecked:this.checkAll}
     };
     this._bottomSheet.open(LeadEmailComponent,config);
@@ -228,6 +230,7 @@ export class LeadToolbarComponent implements OnInit {
   filterLead(){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true
     };
     this._bottomSheet.open(LeadFilterComponent,config);
   }

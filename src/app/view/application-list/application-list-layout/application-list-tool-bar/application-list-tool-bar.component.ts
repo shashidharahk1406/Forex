@@ -56,7 +56,8 @@ export class ApplicationListToolBarComponent implements OnInit {
    bulkSMS(){
      const config: MatBottomSheetConfig = {
        panelClass: 'lead-bottom-sheet',
-       data: {name:name}
+       data: {name:name},
+       disableClose: true
      };
      this._bottomSheet.open(ApplicationListSmsComponent,config);
    }
@@ -103,7 +104,8 @@ export class ApplicationListToolBarComponent implements OnInit {
    bulkOpenEmailChat(name?:any){
      const config: MatBottomSheetConfig = {
        panelClass: 'lead-bottom-sheet',
-       data: {name:name}
+       data: {name:name},
+       disableClose: true
      };
      this._bottomSheet.open(ApplicationListEmailComponent,config);
    }

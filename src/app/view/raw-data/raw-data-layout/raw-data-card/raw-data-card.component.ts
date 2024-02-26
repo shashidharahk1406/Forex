@@ -99,7 +99,8 @@ export class RawDataCardComponent implements OnInit {
   }
   uploadLeads(): void{
     const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet'
+      panelClass: 'lead-bottom-sheet',
+      disableClose: true
     };
     this._bottomSheet.open(UploadRawLeadDataComponent,config);
   } 

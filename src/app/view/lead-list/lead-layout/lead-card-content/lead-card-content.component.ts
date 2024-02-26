@@ -84,6 +84,7 @@ export class LeadCardContentComponent implements OnInit {
   openSMS(selectedData:any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true,
       data:selectedData
     };
     this._bottomSheet.open(LeadSMSComponent,config);
@@ -101,6 +102,7 @@ export class LeadCardContentComponent implements OnInit {
   openEmailChat(selectedData:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true,
       data: {selectedData:selectedData,bulkIds:this.selectedCheckboxIds,allChecked:this.checked}
     };
     this._bottomSheet.open(LeadEmailComponent,config);
@@ -129,7 +131,8 @@ export class LeadCardContentComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: name
+      data: name,
+      disableClose: true
     };
     this._bottomSheet.open(LeadEditComponent,config);
   }

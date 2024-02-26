@@ -40,6 +40,7 @@ export class ApplicationListCardContentComponent implements OnInit {
   openSMS(name:any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      disableClose: true,
       data: {name:name}
     };
     this._bottomSheet.open(ApplicationListSmsComponent,config);
@@ -56,7 +57,8 @@ export class ApplicationListCardContentComponent implements OnInit {
   openEmailChat(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(ApplicationListEmailComponent,config);
   }

@@ -40,7 +40,8 @@ export class WhatsappChatCardContentComponent implements OnInit {
   openSMS(name:any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(WhatsappChatSmsComponent,config);
   }
@@ -56,7 +57,8 @@ export class WhatsappChatCardContentComponent implements OnInit {
   openEmailChat(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(WhatsappChatEmailComponent,config);
   }
@@ -83,7 +85,8 @@ export class WhatsappChatCardContentComponent implements OnInit {
   editLead(name:any){
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {name:name}
+      data: {name:name},
+      disableClose: true
     };
     this._bottomSheet.open(WhatsappChatEditComponent,config);
   }

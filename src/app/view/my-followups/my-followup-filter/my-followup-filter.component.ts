@@ -5,6 +5,7 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-my-followup-filter',
@@ -25,6 +26,7 @@ export class MyFollowupFilterComponent implements OnInit {
   queryItems: any;
   streamsList:any=[]
   @Output() filter:any = new EventEmitter();
+  // @Output() filterCount:any = new EventEmitter();
     counselled_by: any;
   role:any;
     constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -33,8 +35,11 @@ export class MyFollowupFilterComponent implements OnInit {
       private api:ApiService,
       private _baseService:BaseServiceService,
       private _addLeadEmitter:AddLeadEmitterService,
+      private dataService:DataService
       ) {
-        this.role=localStorage.getItem('user_role')
+        this.role=localStorage.getItem('user_role');
+        // this.sendData();
+        
       }
   
     ngOnInit(): void {
@@ -74,8 +79,9 @@ export class MyFollowupFilterComponent implements OnInit {
     }
     getCourse(){
       this.api.getAllCourse().subscribe((res:any)=>{
-        if(res.results){
-         this.courseList = res.results
+        if(res){
+         this.courseList = res
+         console.log(res,"course response")
         }
         else{
          this.api.showError('ERROR')
@@ -89,7 +95,7 @@ export class MyFollowupFilterComponent implements OnInit {
     getStream(){
       this.api.getStreams().subscribe((res:any)=>{
         console.log(res,"streams response");
-        this.streamsList=res.results;
+        this.streamsList=res;
       },((error:any)=>{
         this.api.showError(this.api.toTitleCase(error.error))
       }))
@@ -174,7 +180,7 @@ export class MyFollowupFilterComponent implements OnInit {
       this._bottomSheetRef.dismiss()
     }
 
-
+filterCount:any=[]
       onSubmit() {
       console.log(this.filterLead.value,"filter followup values")
       if (this.filterLead.invalid) {
@@ -190,7 +196,7 @@ export class MyFollowupFilterComponent implements OnInit {
        const queryParams = [];
        for (const key in formValues) {
          const value = formValues[key];
-         console.log(value,"form valuesssssssss")
+         console.log(value.length,"form valuesssssssss length")
          if (value !== '' && value !== undefined && value !== null) {
            if (Array.isArray(value)) {
              // Handle multi-select fields
@@ -198,9 +204,14 @@ export class MyFollowupFilterComponent implements OnInit {
                // Convert array of objects to a comma-separated string of IDs
                const ids = value.map((item) => item.id).join(',');
                queryParams.push(`${key}=${ids}`);
+               console.log(queryParams,"queryParams")
              }
            } else {
              queryParams.push(`${key}=${value}`);
+             this.filterCount=queryParams.length;
+             console.log(queryParams.length,"queryParams")
+             this.sendData();
+        
            }
          }
        }
@@ -218,4 +229,9 @@ export class MyFollowupFilterComponent implements OnInit {
   
      
     }
+    sendData() {
+      this.dataService.setSharedData(this.filterCount);
+      this.dataService.dataUpdated.emit(this.filterCount)
+    }
+    
 }
