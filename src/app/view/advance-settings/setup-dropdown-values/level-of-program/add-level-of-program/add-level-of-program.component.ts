@@ -41,7 +41,7 @@ export class AddLevelOfProgramComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

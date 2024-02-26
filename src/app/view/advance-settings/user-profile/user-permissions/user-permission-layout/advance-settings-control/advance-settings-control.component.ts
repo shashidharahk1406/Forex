@@ -23,7 +23,7 @@ export class AdvanceSettingsControlComponent implements OnInit {
   this.id=this.route.snapshot.paramMap.get('id');
   this.user_id=localStorage.getItem('user_id')
   localStorage.setItem('id',this.id);
-  console.log(this.id,"idddddddddd")
+  //console.log(this.id,"idddddddddd")
   }
   
 
@@ -77,11 +77,11 @@ export class AdvanceSettingsControlComponent implements OnInit {
 
   advancedSettingsById(){
     this.api.getAdvanceSettingsPermissions(this.id).subscribe((res:any)=>{
-      console.log(res,"responseeeeeeeeeee");
+      //console.log(res,"responseeeeeeeeeee");
       this.allPermissions=res.results;
       this.leadListPermissions = res.results;
-      console.log(this.allPermissions,"perrrrr")
-      console.log( this.leadListPermissions,"leadlist  permissions")
+      //console.log(this.allPermissions,"perrrrr")
+      //console.log( this.leadListPermissions,"leadlist  permissions")
     })
   }
 
@@ -94,7 +94,7 @@ export class AdvanceSettingsControlComponent implements OnInit {
 
 getAsettingsById(){
   this.api.getAdvanceSettingsPermissions(this.id).subscribe((res:any)=>{
-    console.log(res,"res")
+    //console.log(res,"res")
     // this.editForm.patchValue({dropdown_values:res.results[1].children_status[0].access_status})
     // this.editForm.patchValue({user_and_roles:res.results[1].children_status[1].access_status})
     // this.editForm.patchValue({communications:res.results[1].children_status[2].access_status})
@@ -116,7 +116,7 @@ getAsettingsById(){
     // this.editForm.patchValue({user_perm:res.results[0].adv_sett[0].user_perm})
     
   },(error:any)=>{
-    console.log(error);
+    //console.log(error);
     this.api.showError(error.error.message)
   })
 }
@@ -124,13 +124,13 @@ getAsettingsById(){
 edit(){
     this.api.updateAdvanceSettingsPermissions(this.id,this.allPermissions).subscribe(
       (resp:any)=>{
-        console.log(resp,"update user permissions")
+        //console.log(resp,"update user permissions")
         this.emit.sendRefresh(true)
         // this.dialogRef.close()
         this.api.showSuccess(resp.message)
       },
       (error:any)=>{
-        console.log(error);
+        //console.log(error);
         this.api.showError(error.error.message)
       }
     )
@@ -145,17 +145,17 @@ edit(){
   //     data:id
   //   });
   //   dialogRef.afterClosed().subscribe((result:any) => {
-  //     console.log('The dialog was closed');
+  //     //console.log('The dialog was closed');
   //   }); 
   // }
   updateChildrenMenuPermission(event:any,index:any,index2:any,data:any){
-    console.log("Checked Data",event?.target.checked)
-    console.log("Index Value",index)
-    console.log("Data Value",data);
+    //console.log("Checked Data",event?.target.checked)
+    //console.log("Index Value",index)
+    //console.log("Data Value",data);
     if(event.target.checked===true){
 this.allPermissions[index].children_status[index2].access_status=true;
 const statuscheckVal:boolean=this.allPermissions[index].children_status.some((ele:any)=>ele.access_status===true);
-console.log("statucheckVal",statuscheckVal);
+//console.log("statucheckVal",statuscheckVal);
 if(statuscheckVal){
   this.allPermissions[index].access_status=true;
 }else{
@@ -164,7 +164,7 @@ if(statuscheckVal){
     }else{
       this.allPermissions[index].children_status[index2].access_status=false;
       const statucheckVal:boolean=this.allPermissions[index].children_status.some((ele:any)=>ele.access_status===true);
-      console.log("statucheckVal",statucheckVal);
+      //console.log("statucheckVal",statucheckVal);
       if(statucheckVal){
   this.allPermissions[index].access_status=true;
 }else{
@@ -172,13 +172,13 @@ if(statuscheckVal){
 }
      
     }
-    console.log("Final Data",this.allPermissions);
+    //console.log("Final Data",this.allPermissions);
   }
 
   updateParentMenuPermission(event:any,index:any,data:any){
-    console.log("Checked Data",event?.target.checked);
-    console.log("Index Value",index);
-    console.log("Data Value",data);
+    //console.log("Checked Data",event?.target.checked);
+    //console.log("Index Value",index);
+    //console.log("Data Value",data);
 if(event.target.checked===true){
 this.allPermissions[index].access_status=true;
 this.allPermissions[index].children_status.forEach((ele:any) => {
@@ -188,6 +188,6 @@ this.allPermissions[index].children_status.forEach((ele:any) => {
   this.allPermissions[index].access_status=false;
 }  
 
-console.log("Final Data",this.allPermissions);
+//console.log("Final Data",this.allPermissions);
   }
 }

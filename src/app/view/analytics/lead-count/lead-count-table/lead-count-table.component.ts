@@ -173,7 +173,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openSMS(){
@@ -182,7 +182,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEmail(){
@@ -191,7 +191,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openWhatsapp(){
@@ -200,7 +200,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   
@@ -249,7 +249,7 @@ export class LeadCountTableComponent implements  AfterViewInit {
         });
       },
       (error: any) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }

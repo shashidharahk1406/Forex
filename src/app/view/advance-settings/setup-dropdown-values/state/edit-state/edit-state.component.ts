@@ -51,7 +51,7 @@ export class EditStateComponent implements OnInit {
   getStatebyId(){
     this.api.getStateById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({name:resp.result[0].name})
         this.editForm.patchValue({country_id:resp.result[0].country_id})
 
@@ -74,7 +74,7 @@ export class EditStateComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

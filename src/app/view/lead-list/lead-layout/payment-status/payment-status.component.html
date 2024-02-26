@@ -11,7 +11,7 @@
         <mat-dialog-content class="mat-typography mx-0 my-2">
         
       <mat-stepper orientation="vertical"  #stepper [selectedIndex]="selectedIndex" (click)="onChangeStep($event)">
-        <mat-step [stepControl]="firstFormGroup"  id="1" [editable]="editable1" >
+        <mat-step [stepControl]="firstFormGroup"   [editable]="editable1" >
           <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel >Pending</ng-template>
            
@@ -21,7 +21,7 @@
             </div>
           </form>
         </mat-step>
-        <mat-step [stepControl]="secondFormGroup" id="2" [editable]="editable2" >
+        <mat-step [stepControl]="secondFormGroup"  [editable]="editable2" >
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Inprogress</ng-template>
 
@@ -32,18 +32,14 @@
                 <button mat-button class="payment-btn " (click)="sendLink()">Send Link Again</button>
               </div>
               <div class="col-6">
-                <button mat-button matStepperNext class="mat-cancel m-cus ">Save & Next</button>
+                <button mat-button matStepperNext class="mat-cancel m-cus" (click)="saveAndNext()">Save & Next</button>
               </div>
             </div>
-           
-           
           </form>
         </mat-step>
-        <mat-step [stepControl]="thirdFormGroup" id="3" [editable]="editable3" >
-         
+        <mat-step [stepControl]="thirdFormGroup"  [editable]="editable3" >
             <form [formGroup]="thirdFormGroup">
               <ng-template matStepLabel>Completed</ng-template>
-
               <p class="mt-3">Upload Payment Proof</p>
            
               <p class="mb-0">Payment Mode <b class="mandatory-symbol">*</b></p>
@@ -65,30 +61,37 @@
                       Payment Mode Is Required.
                     </mat-error>
                 </mat-form-field>
-                <ng-container>
                
-                  <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
-                    <input type="file" class="mb-3" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl/>
-                    <div *ngIf="f['uploadProof'].invalid && f['uploadProof'].touched">
-                      <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
-                    </div>
-                  
-                </ng-container>
                 <mat-form-field class="mb-1" appearance="outline">
                   <mat-label>Admission Status</mat-label>
-                  <mat-select formControlName="admissionStatus" placeholder="Select Admission Status">
-                    <mat-option *ngFor="let option of admissionStatus" [value]="option">{{ option }}</mat-option>
+                  <mat-select formControlName="admission" placeholder="Select Admission Status">
+                    <mat-option *ngFor="let option of admissionStatus" [value]="option.id">{{ option.status }}</mat-option>
                   </mat-select>
-                  <button
-                    matSuffix
-                    mat-icon-button
-                    aria-label="Clear"
-                    (click)="clearSelectField('admissionStatus')"
-                    *ngIf="f['admissionStatus']?.value"
-                  >
+                  <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectField('admission')" *ngIf="f['admission'].value">
                     <mat-icon>clear</mat-icon>
                   </button>
                 </mat-form-field>
+                <ng-container>
+               
+                  <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
+                    <input type="file" accept=".jpg, .jpeg, .png" class="mb-3" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl/>
+                    <div *ngIf="f['uploadProof'].invalid && f['uploadProof'].touched">
+                      <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
+                    </div>     
+                </ng-container>
+                <ng-container>
+                  <div class="img-container" *ngIf="f['uploadProof'].value">
+                    <img [src]="f['uploadProof'].value"  class="uploaded-image" />
+                    <button mat-mini-fab class="mat-fab-cus"  (click)="downloadImage()">
+                      <mat-icon class="forward">forward</mat-icon>
+                    </button>
+                    <a mat-mini-fab [href]="f['uploadProof'].value" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                      <mat-icon class="eye-1">visibility</mat-icon>
+                    </a>
+                  </div>
+                </ng-container>
+
+               
             </form>
         </mat-step>
       </mat-stepper>

@@ -24,8 +24,8 @@ export class AddCourseComponent implements OnInit {
   initFilter(){
     this.addForm = this._fb.group({
       course_name:['',[Validators.required]],
-      level_of_program_id:['',[Validators.required]],
-      department_id:['',[Validators.required]],
+      // level_of_program_id:['',[Validators.required]],
+      // department_id:['',[Validators.required]],
       is_active:[true],
       is_system_value:[true],
     })
@@ -57,7 +57,7 @@ export class AddCourseComponent implements OnInit {
   }
   submit(){
     if(this.addForm.invalid){
-
+     this.addForm.markAllAsTouched()
     }
     else{
       this.api.postCourse(this.addForm.value).subscribe(
@@ -67,7 +67,7 @@ export class AddCourseComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

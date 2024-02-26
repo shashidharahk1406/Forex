@@ -56,13 +56,13 @@ export class AddPersonalDetailsComponent implements OnInit {
     return this.addForm.controls;
   }
 date(event: MatDatepickerInputEvent<Date>){
-  console.log(event.value);
+  //console.log(event.value);
   this.addForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
-  console.log(event.value);
+  //console.log(event.value);
 
 }
 onChange(event:any){
-  console.log(event.checked);
+  //console.log(event.checked);
   this.is_allow_for_app=event.checked
   
 }
@@ -125,9 +125,9 @@ onChange(event:any){
 submit(){
   this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
   this.addForm.patchValue({created_by:Number(this.user_id)})
-  console.log(this.addForm.value)
+  //console.log(this.addForm.value)
   if(this.addForm.invalid){
-    console.log("==Invalid==");
+    //console.log("==Invalid==");
     
   }
   else{
@@ -137,7 +137,7 @@ submit(){
         // this.dialogRef.close()
       },
       (error:any)=>{
-        console.log("error");
+        //console.log("error");
         
       }
     )

@@ -147,7 +147,7 @@ submit(){
   this.addForm.patchValue({created_by:Number(this.user_id)})
   this.addForm.patchValue({reporting_to_ids:this.newArr})
   if(this.addForm.invalid){
-    console.log("==Invalid==");
+    //console.log("==Invalid==");
     
   }
   else{
@@ -158,7 +158,7 @@ submit(){
         this.api.showSuccess(this.api.toTitleCase(resp.message))
       },
       (error:any)=>{
-        console.log(error,"user error");
+        //console.log(error,"user error");
          this.api.showError(this.api.toTitleCase(error.error.message))
       }
     )

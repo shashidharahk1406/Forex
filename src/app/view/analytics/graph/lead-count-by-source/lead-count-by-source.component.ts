@@ -61,7 +61,7 @@ export class LeadCountBySourceComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

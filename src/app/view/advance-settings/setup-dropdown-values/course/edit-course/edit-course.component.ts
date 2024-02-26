@@ -40,7 +40,7 @@ export class EditCourseComponent implements OnInit {
   getCoursebyId(){
     this.api.getCourseById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({course_name:resp.result[0].course_name})
         this.editForm.patchValue({level_of_program_id:resp.result[0].level_of_program_id})
         this.editForm.patchValue({department_id:resp.result[0].department_id})
@@ -85,7 +85,7 @@ export class EditCourseComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

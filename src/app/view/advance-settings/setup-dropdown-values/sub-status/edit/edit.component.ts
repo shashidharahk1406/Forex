@@ -51,7 +51,7 @@ export class EditComponent implements OnInit {
   getSubStatusbyId(){
     this.api.getSubStatusById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({reason_group_id:resp.result[0].reason_group_id})
         this.editForm.patchValue({sub_status_name:resp.result[0].sub_status_name})
 
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

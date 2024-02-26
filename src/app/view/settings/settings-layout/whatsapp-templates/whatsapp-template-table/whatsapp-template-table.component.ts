@@ -183,7 +183,7 @@ export class WhatsappTemplateTableComponent implements AfterViewInit {
       this.counselorSelected.push(subtask);
     }
   
-    console.log(this.counselorSelected, 'selected counselor');
+    //console.log(this.counselorSelected, 'selected counselor');
   }
   updateAllComplete() {
     this.allComplete = this.cousalerList.subtasks != null && this.cousalerList.subtasks.every((t:any) => t.completed);

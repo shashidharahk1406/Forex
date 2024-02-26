@@ -48,7 +48,7 @@ export class EditMediumComponent implements OnInit {
   getMediumbyId(){
     this.api.getMediumById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({medium_name:resp.result[0].medium_name})
         this.editForm.patchValue({campaign_id:resp.result[0].campaign_id})
 
@@ -72,7 +72,7 @@ export class EditMediumComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

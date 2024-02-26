@@ -40,7 +40,7 @@ export class EditSourceComponent implements OnInit {
   getSourcebyId(){
     this.api.getSourceById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].source_id);
+        //console.log(resp.result[0].source_id);
         this.editForm.patchValue({source_name:resp.result[0].source_name})
         this.editForm.patchValue({source_id:resp.result[0].source_id})
         this.editForm.patchValue({channel_id:resp.result[0].channel_id})
@@ -85,7 +85,7 @@ export class EditSourceComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

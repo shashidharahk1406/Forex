@@ -31,7 +31,7 @@ constructor(private api:ApiService,private route:ActivatedRoute){
 this.permissions=localStorage.getItem('resp')
 // JSON.parse(this.permissions)
 const decodedToken:any = jwtDecode(this.permissions);
-console.log(decodedToken,'decodedToken')
+//console.log(decodedToken,'decodedToken')
 this.decodedData=decodedToken;
 
 
@@ -44,11 +44,11 @@ this.decodedData.permissions.forEach((element:any) => {
     }
   })
   this.advance_settings=element.perm_status
-  console.log(this.advance_settings,"this.advance_settings")
+  //console.log(this.advance_settings,"this.advance_settings")
   // this.leadList=element.permissions[1].menu_name
-  // console.log(this.leadList,"this.leadList")
+  // //console.log(this.leadList,"this.leadList")
 });
-console.log(this.fillerNav,"this.showHide")
+//console.log(this.fillerNav,"this.showHide")
 
 }
 

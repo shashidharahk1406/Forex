@@ -77,7 +77,7 @@ export class UploadRawLeadDataComponent implements OnInit {
       this.api.getAllCountry().subscribe((res:any)=>{
         if(res){
         this.countryList = res.results
-        console.log(res)
+        //console.log(res)
         }
       },(error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
@@ -88,7 +88,7 @@ export class UploadRawLeadDataComponent implements OnInit {
       this.api.getAllState().subscribe((res:any)=>{
         if(res){
           this.stateList = res.results
-          console.log(res)
+          //console.log(res)
         }
       },(error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
@@ -99,7 +99,7 @@ export class UploadRawLeadDataComponent implements OnInit {
       this.api.getAllChannel().subscribe((resp:any)=>{
         if(resp.results){
           this.channelList= resp.results;
-          console.log(this.channelList,"this.newChannelOptions")
+          //console.log(this.channelList,"this.newChannelOptions")
         }
         else{
           this.api.showError('ERROR')
@@ -179,7 +179,7 @@ export class UploadRawLeadDataComponent implements OnInit {
     onFileSelected(event: any) {
       if (event.target.files && event.target.files.length) {
         this.file = event.target.files[0];
-       //console.log(this.file)
+       ////console.log(this.file)
       // You can also update your form control if needed
       this.uploadLeadForm.get('leadUpload')?.setValue(this.file);
       }

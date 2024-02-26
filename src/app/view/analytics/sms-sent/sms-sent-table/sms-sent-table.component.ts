@@ -172,7 +172,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openSMS(){
@@ -181,7 +181,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEmail(){
@@ -190,7 +190,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openWhatsapp(){
@@ -199,7 +199,7 @@ export class SmsSentTableComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

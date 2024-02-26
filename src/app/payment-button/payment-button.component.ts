@@ -58,7 +58,7 @@ export class PaymentButtonComponent implements OnInit {
         handler: function(response: any):any {
            if(response){
            
-             console.log(response)
+             //console.log(response)
              successCallback(response)
            }
         },
@@ -68,18 +68,18 @@ export class PaymentButtonComponent implements OnInit {
         },
         modal:{
           ondismiss:()=>{
-            console.log('dismissed')
+            //console.log('dismissed')
           }
         }
   
       }
       const successCallback = (response:any)=>{
-        console.log("SUCCESS CALLBACK", response)
+        //console.log("SUCCESS CALLBACK", response)
         this.postPaymentDetails(response)
         
       }
       const failureCallback =(e:any)=>{
-        // console.log(e)
+        // //console.log(e)
         if(e){
           this.btnEnable = false
         }

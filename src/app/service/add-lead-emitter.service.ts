@@ -12,6 +12,7 @@ export class AddLeadEmitterService {
   triggerGetFilter$ = this.triggerGetFilter.asObservable();
   leadFilter = new BehaviorSubject('');
   leadFilterIcon = new BehaviorSubject('');
+  selectedFilter = new BehaviorSubject('')
   // followUpFilter=new BehaviorSubject('')
   // followUpFilterIcon=new BehaviorSubject('')
   triggerGet() {

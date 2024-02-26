@@ -77,7 +77,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     }); 
   }
   openSMS(selectedData:any): void {
@@ -93,7 +93,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     });
   }
   openEmailChat(selectedData:any){
@@ -109,7 +109,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     });
   }
   
@@ -120,7 +120,7 @@ export class LeadCardContentComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     });
   }
   editLead(name:any){
@@ -141,13 +141,13 @@ export class LeadCardContentComponent implements OnInit {
   }
  
   selectAll(event:any) {
-   // console.log(event,"EVENT")
+   // //console.log(event,"EVENT")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
-      console.log(this.allLeadIds,"allleaids")
+      //console.log(this.allLeadIds,"allleaids")
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
      this.selectedCheckboxIds = this.allLeadIds
-    // console.log(this.selectedCheckboxIds,"LEADIDS")
+    // //console.log(this.selectedCheckboxIds,"LEADIDS")
       this.checkBoxData()
      // this.checked = false
     } else  {

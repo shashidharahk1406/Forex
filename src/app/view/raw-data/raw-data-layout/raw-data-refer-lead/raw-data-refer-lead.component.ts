@@ -31,7 +31,7 @@ export class RawDataReferLeadComponent implements OnInit {
   
       // Process form data
       const formData = this.referLeadForm.value;
-      console.log('Form Data:', formData);
+      //console.log('Form Data:', formData);
     }
     
     ngOnInit(): void {

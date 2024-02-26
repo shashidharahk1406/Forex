@@ -34,7 +34,7 @@ export class RawDataCardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   addFollowUp(name:any){
@@ -50,7 +50,7 @@ export class RawDataCardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   delete(name:any){
@@ -60,7 +60,7 @@ export class RawDataCardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   referLead(){
@@ -69,7 +69,7 @@ export class RawDataCardMoreComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 }

@@ -33,7 +33,7 @@ export class TransactionDetailsComponent implements OnInit {
 
   constructor(private api:ApiService,private base_service:BaseServiceService) {
     this.getPaymentDetails(this.pageSize,this.currentPage)
-    console.log(this.dataSource,"fsdgsg")
+    //console.log(this.dataSource,"fsdgsg")
     
     this.dataSource = new MatTableDataSource(this.paymentsData);
   }
@@ -76,7 +76,7 @@ export class TransactionDetailsComponent implements OnInit {
     this.getPaymentDetails(this.pageSize,this.currentPage)
   }
    myTimer = setTimeout(() => {
-    console.log('This will be logged after 2000 milliseconds');
+    //console.log('This will be logged after 2000 milliseconds');
   }, 2000);
  
   

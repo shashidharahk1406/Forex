@@ -71,7 +71,7 @@ export class CityListComponent implements AfterViewInit {
 
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getCity()
@@ -81,14 +81,14 @@ export class CityListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getCitySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allCity= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCity);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -96,14 +96,14 @@ export class CityListComponent implements AfterViewInit {
     }}
   getCity(){
     this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allCity= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allCity);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -112,17 +112,17 @@ export class CityListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     
     this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allCity= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allCity);
       this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -134,7 +134,7 @@ export class CityListComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -144,7 +144,7 @@ export class CityListComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -156,7 +156,7 @@ export class CityListComponent implements AfterViewInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

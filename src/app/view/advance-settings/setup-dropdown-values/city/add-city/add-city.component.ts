@@ -34,7 +34,7 @@ export class AddCityComponent implements OnInit {
     return this.addForm.controls;
   }
   onChange(event:any){
-    console.log(event.checked);
+    //console.log(event.checked);
     this.is_metropolitan=event.checked
     
   }
@@ -62,7 +62,7 @@ export class AddCityComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

@@ -70,13 +70,13 @@ tasks:any =[
 },
 ];
 selecteAllSnippets(tasks:any){
-  console.log(tasks,'TASKS___________')
+  //console.log(tasks,'TASKS___________')
   if(this.tasks.completed === true){
     this.filterdSnippetList.push(...this.filterdSnippetList,tasks)
   }
  
   // alert(this.filterdSnippetList)
-  console.log(this.filterdSnippetList)
+  //console.log(this.filterdSnippetList)
 }
 removeList(items: any) {
   // Remove the item from filterdSnippetList based on id
@@ -150,7 +150,7 @@ selectedSnippets(items: any, completed: boolean) {
     this.filterdSnippetList = this.snippetList;
   }
 
- // console.log(this.snippetList, "snippetList ITEMS------------------");
+ // //console.log(this.snippetList, "snippetList ITEMS------------------");
 
   if (this.filterdSnippetList.length === 0) {
     this.showHintFilter = true;

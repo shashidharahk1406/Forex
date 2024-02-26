@@ -1,11 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
+import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -35,7 +38,8 @@ export class AddNewLeadComponent implements OnInit {
   //leadStage:any = ['Data (Intital stage)','Qualified Lead','Walkin','Application','Payment','Document Verification', 'Admission','Droupout']
   addLeadForm!:FormGroup;
   max!: Date;
-  
+  user_id: any;
+  streamList: any = [];
   
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -44,9 +48,11 @@ export class AddNewLeadComponent implements OnInit {
     private api:ApiService,
     private _baseService:BaseServiceService,
     private _datePipe:DatePipe,
-    private _addLeadEmitter:AddLeadEmitterService
+    private _addLeadEmitter:AddLeadEmitterService,
+    private dialog: MatDialog
     ) { 
       this.dropDownValues()
+      this.user_id = localStorage.getItem('user_id')
     }
 
   ngOnInit(): void {
@@ -63,7 +69,7 @@ export class AddNewLeadComponent implements OnInit {
         state: [''],
         zone:[''],
         cityName: [''],
-        pincode:[''],
+        pincode:['',this.pincodeLengthValidator],
         countryId:[''],
         referenceName:[''],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
@@ -89,6 +95,15 @@ export class AddNewLeadComponent implements OnInit {
         notes:[''],
         remarks:['']
       })
+  }
+  pincodeLengthValidator(control:FormControl) {
+    const value = control.value;
+
+    if (value && value.toString().length !== 6) {
+      return { invalidPincodeLength: true };
+    }
+
+    return null;
   }
   setStep(index: number) {
     this.step = index;
@@ -116,12 +131,13 @@ export class AddNewLeadComponent implements OnInit {
     this.getCourse();
     this.getCounselledBy();
     this.getLeadStage();
+    this.getStream();
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
       if(res.results){
       this.countryOptions = res.results
-      console.log(res)
+      //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -132,7 +148,7 @@ export class AddNewLeadComponent implements OnInit {
     this.api.getAllState().subscribe((res:any)=>{
       if(res.results){
         this.stateOptions = res.results
-        console.log(res)
+        //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -143,7 +159,7 @@ export class AddNewLeadComponent implements OnInit {
     this.api.getAllChannel().subscribe((resp:any)=>{
       if(resp.results){
         this.channels= resp.results;
-        console.log(this.channels,"this.newChannelOptions")
+        //console.log(this.channels,"this.newChannelOptions")
       }
       else{
         this.api.showError('ERROR')
@@ -214,8 +230,8 @@ export class AddNewLeadComponent implements OnInit {
    }
    getCourse(){
     this.api.getAllCourse().subscribe((res:any)=>{
-      if(res.results){
-        this.courseOptions = res.results;
+      if(res){
+        this.courseOptions = res;
       }
       else{
         this.api.showError('ERROR')
@@ -238,7 +254,7 @@ export class AddNewLeadComponent implements OnInit {
   getLeadStage(){
    this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
     if(res){
-     this.leadStage = res.results
+     this.leadStage = res
     }
    },((error:any)=>{
     this.api.showError(error.error.message)
@@ -248,64 +264,64 @@ export class AddNewLeadComponent implements OnInit {
     this.addLeadForm.get(fieldName)?.reset();
    }
   
-  
+   getStream(){
+    this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
+    if(resp){
+     this.streamList = resp
+    } 
+    },(error:any)=>{
+      //console.log(error);
+      
+    }
+
+    )
+  }
 onSubmit(){
   let f = this.addLeadForm.value
- 
-   let data:any ={
-     user_data: {
-        first_name: f['firstName'],
-        last_name: "",
-        email: f['email'] || null,
-        mobile_number:f['mobile'],
-        role: 5
-    },
-    date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
-    alternate_mobile_number:f['alternateNumber'] || null,
-    additional_info:{
-      reference_name:f['referenceName'],
-      reference_mobile_number:f['referencePhoneNumber'] || null,
-      father_name:f['fatherName'],
-      father_occupation:f['fatherOccupation'],
-      father_mobile_number:f['fatherPhoneNumber'] || null
-    },
-    
-    user_location: {
-        location: 'NA',
-        pincode: f['pincode'] || null,
-        country:f['countryId'],
-        state: f['state'],
-        city: f['cityName'],
-        zone:f['zone']
-    },
-    education_details: {
-        tenth_per: f['tenthPercentage'] || null,
-        twelfth_per: f['twelthPercentage'] || null,
-        degree_per: f['degree'] || null,
-        // stream: f["course"],
-       
-        others: f["otherCourse"],
-        enterance_exam: f["entranceExam"],
-        course_looking_for: f["courseLookingfor"],
-        preferance_college_and_location: [
-            {
-                preferred_college1: f["preferredCollege1"],
-                preferred_college2: f["preferredCollege2"],
-                preferred_location1: f["preferredLocation1"],
-                preferred_location2: f["preferredLocation2"]
-            }
-        ]
-    },
-    course:f['course'],
-    lead_list_status: f['leadStatus'],
-    counselled_by:f['counsellorAdmin'],
-    lead_stage:f['leadStages'],
-    notes:f['notes'],
-    remark:f['remarks'],
-    source:f['leadSource'],
-    refered_to:f['counsellor'],
-    
-   
+
+let data:any ={
+  first_name: f['firstName'],
+  last_name: "",
+  email: f['email'] || null,
+  mobile_number:f['mobile'],
+  date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
+  alternate_mobile_number:f['alternateNumber'] || null,
+  role: 5,
+  created_by: this.user_id,
+  refered_to: f['counsellor'],
+  location:  null,
+  pincode: f['pincode'] || null,
+  country:f['countryId'],
+  state: f['state'],
+  city: f['cityName'],
+  zone:f['zone'],
+  reference_name:f['referenceName'],
+  reference_mobile_number:f['referencePhoneNumber'] || null,
+  father_name:f['fatherName'],
+  father_occupation:f['fatherOccupation'],
+  father_mobile_number:f['fatherPhoneNumber'] || null,
+  tenth_per: f['tenthPercentage'] || null,
+  twelfth_per: f['twelthPercentage'] || null,
+  degree_per: f['degree'] || null,
+  stream: f["course"],
+  others: f["otherCourse"],
+  enterance_exam: f["entranceExam"],
+  course_looking_for: f["courseLookingfor"],
+  lead_list_status:f['leadStatus'],
+  lead_list_substatus: null,
+  counselled_by:f['counsellorAdmin'],
+  lead_stage: f['leadStages'],
+  source: f['leadSource'],
+  preferance_college_and_location: 
+          {
+            preferred_college1: f["preferredCollege1"],
+            preferred_college2: f["preferredCollege2"],
+            preferred_location1: f["preferredLocation1"],
+            preferred_location2: f["preferredLocation2"]
+          },
+  note_name:f['notes'],
+  created_note_remark_by:this.user_id,
+  remark_name:f['remarks']
 }
 
   if(this.addLeadForm.invalid){
@@ -324,5 +340,25 @@ onSubmit(){
       this.api.showError(error?.error.message)
     }))
   }
+}
+openAddCourse(){
+  const dialogRef = this.dialog.open(AddCourseComponent, {
+    width:'35%'
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+    //console.log('The dialog was closed');
+    this.getCourse()
+  }); 
+}
+openAddStream(){
+  const dialogRef = this.dialog.open(AddStreamComponent, {
+    width:'35%'
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+    //console.log('The dialog was closed');
+    this.getStream()
+  }); 
 }
 }

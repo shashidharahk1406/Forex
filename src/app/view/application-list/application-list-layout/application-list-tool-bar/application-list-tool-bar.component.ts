@@ -33,7 +33,7 @@ export class ApplicationListToolBarComponent implements OnInit {
      });
    
      dialogRef.afterClosed().subscribe((result:any) => {
-       console.log('The dialog was closed');
+       //console.log('The dialog was closed');
      });
      
    }
@@ -96,7 +96,7 @@ export class ApplicationListToolBarComponent implements OnInit {
      });
    
      dialogRef.afterClosed().subscribe((result:any) => {
-       console.log('The dialog was closed');
+       //console.log('The dialog was closed');
      });
    }
    bulkOpenEmailChat(name?:any){
@@ -129,7 +129,7 @@ export class ApplicationListToolBarComponent implements OnInit {
     //  });
    
     //  dialogRef.afterClosed().subscribe((result:any) => {
-    //    console.log('The dialog was closed');
+    //    //console.log('The dialog was closed');
     //  });
    }
    

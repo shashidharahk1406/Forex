@@ -24,9 +24,9 @@
   <div class="genericTable" *ngIf="dataSource.data.length>0">
     <table mat-table [dataSource]="dataSource"  matSort>
       <!-- Define User Name column -->
-      <ng-container matColumnDef="status_name">
+      <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef >Status Name</th>
-        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.status_name | titlecase }}</td>
+        <td mat-cell *matCellDef="let element" class="user-name"(click)="openEdit(element.id)">{{ element.name | titlecase }}</td>
       </ng-container>
     
       <!-- Define Email column -->
@@ -41,17 +41,7 @@
         <td mat-cell *matCellDef="let element">{{ element.is_system_value }}</td>
       </ng-container>
     
-      <!-- Define User Role column -->
-      <ng-container matColumnDef="status_group_name">
-        <th mat-header-cell *matHeaderCellDef >Status Group</th>
-        <td mat-cell *matCellDef="let element">{{ element.status_group_name }}</td>
-      </ng-container>
-    
-      <!-- Define Designation column -->
-      <ng-container matColumnDef="master_status_name">
-        <th mat-header-cell *matHeaderCellDef >Master Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.master_status_name }}</td>
-      </ng-container>
+     
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef >Option</th>
         <td mat-cell *matCellDef="let element">        <div ngbDropdown #myDropdown="ngbDropdown">

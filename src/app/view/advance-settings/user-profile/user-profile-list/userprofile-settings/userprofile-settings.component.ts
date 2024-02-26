@@ -94,26 +94,26 @@ user:any;
 
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getUser()
     }
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
   }
   search(){
     if(this.searchValue?.length>0){
       var role="Admin"
       this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -121,17 +121,17 @@ user:any;
     }}
   getUser(){
     var role="Admin"
-    console.log("ppp");
+    //console.log("ppp");
     if(this.params!=null){
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -139,14 +139,14 @@ user:any;
     }
     else{
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -157,32 +157,32 @@ user:any;
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     var role="Admin"
     let query = `?page_size=${this.pageSize}&page=${this.currentPage}`
     if(this.params!=null){
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
       )
       // this.baseService.getData(`${environment._user}${query}${this.params}`).subscribe((resp:any)=>{
-      //     console.log(resp.results);
+      //     //console.log(resp.results);
       //     this.allUser= resp.results;
       //     this.dataSource = new MatTableDataSource<any>(this.allUser);
       //     this.totalPageLength=resp.total_no_of_record
       //   this.dataSource.sort = this.sort;
           
       //   },(error:any)=>{
-      //     console.log(error);
+      //     //console.log(error);
           
       //   }
     
@@ -190,14 +190,14 @@ user:any;
     }
     else{
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -213,7 +213,7 @@ user:any;
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openResetPassword(userdata:any){
@@ -223,7 +223,7 @@ user:any;
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openDisableChat(id:any){
@@ -233,11 +233,11 @@ user:any;
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openPauseUser(id:any){
-    console.log("kkk",id);
+    //console.log("kkk",id);
     
     const dialogRef = this.dialog.open(PauseUserComponent, {
       width:'35%',
@@ -245,7 +245,7 @@ user:any;
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openFilter(){
@@ -254,7 +254,7 @@ user:any;
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openAddUser(){
@@ -263,7 +263,7 @@ user:any;
     })
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   editUserProfile(userdata:any){
@@ -273,7 +273,7 @@ user:any;
     })
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   editForm!:FormGroup
@@ -282,15 +282,15 @@ user:any;
       deactive:["",Validators.required]
     });}
   onSlideToggleChange(id:any,event:any){
-    console.log(id,event.checked);
-    console.log(id,event);
+    //console.log(id,event.checked);
+    //console.log(id,event);
     this.editForm.patchValue({deactive:!event.checked})
     this.api.pauseUser(id,this.editForm.value).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)
       },
       (error:any)=>{
-        console.log("error");
+        //console.log("error");
         
       }
     )
@@ -303,13 +303,13 @@ user:any;
       this.api.showSuccess(res.message)
 
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
        this.api.showError(this.api.toTitleCase(error.error.message));
     })
   }
 
   somthing(id:any){
-    console.log('id===',id)
+    //console.log('id===',id)
   }
 
   

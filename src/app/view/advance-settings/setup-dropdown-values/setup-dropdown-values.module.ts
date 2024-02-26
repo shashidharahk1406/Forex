@@ -8,7 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   declarations: [
-    SetupDropdownValuesComponent
+    SetupDropdownValuesComponent,
   ],
   imports: [
     CommonModule,

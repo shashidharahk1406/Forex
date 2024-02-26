@@ -30,5 +30,6 @@ export const environment = {
   leadStage:`/api/lead-stage/`,
   admission_details:`/api/admission-details/`,
   followUps:`/api/follow-up/`,
-  payment_status:`/api/payment-status/`
+  payment_status:`/api/payment-status/`,
+  studying_stream:`api/studying-stream/`
 };

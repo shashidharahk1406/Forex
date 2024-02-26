@@ -23,7 +23,7 @@ editForm!: FormGroup;
     this.id=_data.id
     this.userData=_data.user_management[0].pause
     this.data=_data
-    console.log(this.data);
+    //console.log(this.data);
     
    }
 
@@ -47,7 +47,7 @@ editForm!: FormGroup;
             this.api.showSuccess(this.api.toTitleCase(resp.message))
           },
           (error:any)=>{
-            console.log(error);
+            //console.log(error);
              this.api.showError(this.api.toTitleCase(error.error.message))
           }
         )

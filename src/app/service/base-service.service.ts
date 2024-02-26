@@ -9,18 +9,18 @@ export class BaseServiceService {
   file: boolean = false;
   constructor(private http:HttpClient){}
   getData(params:any){
-    const apiUrl = [environment.live_url, params].join('/').replace(/^http:\/\/localhost:4200\//, '');
-    //const apiUrl = [environment.live_url, params].join('/').replace(/\/+/g, '/');
+    //const apiUrl = [environment.live_url, params].join('/').replace(/^http:\/\/localhost:4200\//, '');
+    const apiUrl = [environment.live_url, params].join('/').replace(/\/+/g, '/');
     return this.http.get(apiUrl)
   }
   getByID(params:any){
-    const apiUrl = [environment.live_url, params].join('/').replace(/^http:\/\/localhost:4200\//, '');
-    // const apiUrl = [environment.live_url, params].join('/').replace(/\/+/g, '/');
+    // const apiUrl = [environment.live_url, params].join('/').replace(/^http:\/\/localhost:4200\//, '');
+     const apiUrl = [environment.live_url, params].join('/').replace(/\/+/g, '/');
     return this.http.get(apiUrl)
   }
   postData(url:any,data:any){
-    const apiUrl = [environment.live_url, url].join('/').replace(/^http:\/\/localhost:4200\//, '');
-    //const apiUrl = [environment.live_url, url].join('/').replace(/\/+/g, '/');
+    //const apiUrl = [environment.live_url, url].join('/').replace(/^http:\/\/localhost:4200\//, '');
+    const apiUrl = [environment.live_url, url].join('/').replace(/\/+/g, '/');
     return this.http.post(apiUrl, data);
   }
   postFile(url:any,data:any){

@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
   getStatusbyId(){
     this.api.getStatusById(this.status_id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({status_name:resp.result[0].status_name})
         this.editForm.patchValue({status_group_id:resp.result[0].status_group_id})
         this.editForm.patchValue({master_status_id:resp.result[0].master_status_id})
@@ -72,7 +72,7 @@ export class EditComponent implements OnInit {
     this.api.getAllStatusGroup().subscribe(
       (resp:any)=>{
         this.allStatusGroup=resp.results
-        console.log(this.allStatusGroup,"array");
+        //console.log(this.allStatusGroup,"array");
         
       },
       (error:any)=>{
@@ -94,7 +94,7 @@ export class EditComponent implements OnInit {
 
         },
         (error:any)=>{
-          console.log("error");
+          //console.log("error");
            this.api.showError(this.api.toTitleCase(error.error.message))
 
           
