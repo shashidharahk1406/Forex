@@ -55,12 +55,10 @@ export class ListComponent implements AfterViewInit {
 
     this.getStatus(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
 
   }
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getStatus()
@@ -69,7 +67,6 @@ export class ListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allStatus= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allStatus);
         this.totalPageLength=resp.total_no_of_record
@@ -101,11 +98,9 @@ export class ListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
     
       if(this.searchValue?.length>0){
         this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-          //console.log(resp.results);
           this.allStatus= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allStatus);
           this.totalPageLength=resp.total_no_of_record
@@ -119,12 +114,9 @@ export class ListComponent implements AfterViewInit {
         )
       }else{
       this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allStatus= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allStatus);
-        this.totalPageLength=resp.total_no_of_record
-        //console.log(this.dataSource);
-        
+        this.totalPageLength=resp.total_no_of_record 
       },(error:any)=>{
         this.api.showError(error.error.message)
       }
@@ -140,7 +132,6 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -151,7 +142,6 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -164,7 +154,6 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   

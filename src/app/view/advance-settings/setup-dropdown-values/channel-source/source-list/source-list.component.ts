@@ -12,14 +12,7 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
 
-}
 @Component({
   selector: 'app-source-list',
   templateUrl: './source-list.component.html',
@@ -44,15 +37,7 @@ export class SourceListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-    ) {
-      
-   
-      // Create 100 users
-  
-
-
-  }
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -63,11 +48,8 @@ export class SourceListComponent implements AfterViewInit {
     )
   }
   ngAfterViewInit() {
-
     this.getSource(); 
-    this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
+    this.dataSource.paginator = this.paginator; 
   }
   searchValue:any
   applyFilter(event: any) {
@@ -78,29 +60,26 @@ export class SourceListComponent implements AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-  this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-    //console.log(resp.results);
+    this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
     this.allSource= resp.results;
     this.dataSource = new MatTableDataSource<any>(this.allSource);
     this.totalPageLength=resp.total_no_of_record
-  this.dataSource.sort = this.sort;
+    this.dataSource.sort = this.sort;
     
   },(error:any)=>{
-    //console.log(error);
-    
+    this.api.showError(error.error.message)
   }
 
   )}}
   getSource(){
     this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allSource= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allSource);
-      this.totalPageLength=resp.total_no_of_record
+    this.allSource= resp.results;
+    this.dataSource = new MatTableDataSource<any>(this.allSource);
+    this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
-      
+    
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -109,21 +88,21 @@ export class SourceListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allSource= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allSource);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        this.allSource= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allSource);
+        this.totalPageLength=resp.total_no_of_record
+       
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+      }
+  
+      )
     }
-
-    )
+   
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddSourceComponent, {
@@ -131,7 +110,6 @@ export class SourceListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -142,7 +120,6 @@ export class SourceListComponent implements AfterViewInit {
     
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   
@@ -155,7 +132,6 @@ export class SourceListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   

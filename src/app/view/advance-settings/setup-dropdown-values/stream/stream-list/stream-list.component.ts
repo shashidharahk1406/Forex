@@ -58,13 +58,11 @@ export class StreamListComponent implements OnInit {
 
     this.getCourse(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
+   
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getCourse()
@@ -74,14 +72,13 @@ export class StreamListComponent implements OnInit {
   search(){
     if(this.searchValue?.length>0){
       this.baseService.getData(`${environment.studying_stream}?page_size=${this.pageSize}&page=${this.currentPage}&key=${this.searchValue}`).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
@@ -98,7 +95,7 @@ export class StreamListComponent implements OnInit {
     }
       
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -120,7 +117,7 @@ export class StreamListComponent implements OnInit {
       }
         
       },(error:any)=>{
-        //console.log(error);
+       this.api.showError(error.error.message)
         
       }
   
@@ -132,7 +129,6 @@ export class StreamListComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -142,7 +138,6 @@ export class StreamListComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
  
@@ -154,7 +149,6 @@ export class StreamListComponent implements OnInit {
     });
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   

@@ -11,14 +11,7 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
 
-}
 @Component({
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
@@ -44,14 +37,7 @@ export class CityListComponent implements AfterViewInit {
   totalPageLength:any;
 
   constructor(private dialog: MatDialog, private api:ApiService,private emit:EmitService
-    ) {
-      
-   
-      // Create 100 users
-  
-
-
-  }
+    ) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -62,16 +48,12 @@ export class CityListComponent implements AfterViewInit {
     )
   }
   ngAfterViewInit() {
-
     this.getCity(); 
-    this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
+    this.dataSource.paginator = this.paginator; 
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getCity()
@@ -81,29 +63,27 @@ export class CityListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getCitySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allCity= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCity);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
       )
     }}
   getCity(){
-    this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
+     this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
       this.allCity= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allCity);
       this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -112,21 +92,20 @@ export class CityListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allCity= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCity);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      this.api.getCity(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        this.allCity= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCity);
+        this.totalPageLength=resp.total_no_of_record
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+      }
+  
+      )
     }
-
-    )
+   
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddCityComponent, {
@@ -134,7 +113,6 @@ export class CityListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -144,7 +122,6 @@ export class CityListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -156,7 +133,6 @@ export class CityListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   

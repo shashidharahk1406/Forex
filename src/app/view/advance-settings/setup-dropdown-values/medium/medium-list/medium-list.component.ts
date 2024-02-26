@@ -12,14 +12,7 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
 
-}
 @Component({
   selector: 'app-medium-list',
   templateUrl: './medium-list.component.html',
@@ -44,14 +37,7 @@ export class MediumListComponent implements  AfterViewInit {
   totalPageLength:any;
 
   constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-    ) {
-      
-   
-      // Create 100 users
-  
-
-
-  }
+    ) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -65,13 +51,10 @@ export class MediumListComponent implements  AfterViewInit {
 
     this.getMedium(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getMedium()
@@ -81,29 +64,26 @@ export class MediumListComponent implements  AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getMediumSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allMedium= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allMedium);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
-        
+       this.api.showError(error.error.message)
       }
   
       )
     }}
   getMedium(){
     this.api.getMedium(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
       this.allMedium= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allMedium);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -112,21 +92,20 @@ export class MediumListComponent implements  AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getMedium(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allMedium= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allMedium);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      this.api.getMedium(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        this.allMedium= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allMedium);
+        this.totalPageLength=resp.total_no_of_record
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+      }
+  
+      )
     }
-
-    )
+   
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddMediumComponent, {
@@ -134,7 +113,6 @@ export class MediumListComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -145,7 +123,6 @@ export class MediumListComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   
@@ -158,7 +135,6 @@ export class MediumListComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   
