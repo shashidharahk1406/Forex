@@ -41,25 +41,25 @@ export class ApiService implements OnInit {
   //Status
   getStatus(size: any, pageNo: any) {
     return this.http.get(
-      `${this.baseurl}/api/status/?page_size=${size}&page=${pageNo}`
+      `${this.baseurl}/api/lead-list-status/?page_size=${size}&page=${pageNo}`
     );
   }
   getStatusSearch(search: any, size: any, pageNo: any) {
     return this.http.get(
-      `${this.baseurl}/api/status/?page_size=${size}&page=${pageNo}&key=${search}`
+      `${this.baseurl}/api/lead-list-status/?page_size=${size}&page=${pageNo}&key=${search}`
     );
   }
   getAllStatus() {
-    return this.http.get(`${this.baseurl}/api/status/`);
+    return this.http.get(`${this.baseurl}/api/lead-list-status/`);
   }
   getStatusById(id: any) {
-    return this.http.get(`${this.baseurl}/api/status/${id}/`);
+    return this.http.get(`${this.baseurl}/api/lead-list-status/${id}/`);
   }
   editStatus(id: any, data: any) {
-    return this.http.put(`${this.baseurl}/api/status/${id}/`, data);
+    return this.http.put(`${this.baseurl}/api/lead-list-status/${id}/`, data);
   }
   postStatus(data: any) {
-    return this.http.post(`${this.baseurl}/api/status/`, data);
+    return this.http.post(`${this.baseurl}/api/lead-list-status/`, data);
   }
   delete(url: any) {
     return this.http.delete(url);

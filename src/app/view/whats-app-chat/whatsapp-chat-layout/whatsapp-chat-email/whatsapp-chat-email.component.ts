@@ -60,7 +60,7 @@ export class WhatsappChatEmailComponent implements OnInit {
  
      // Process form data
      const formData = this.emailForm.value;
-     console.log('Form Data:', formData);
+     //console.log('Form Data:', formData);
    }
    closePopup(){
      this._bottomSheetRef.dismiss()

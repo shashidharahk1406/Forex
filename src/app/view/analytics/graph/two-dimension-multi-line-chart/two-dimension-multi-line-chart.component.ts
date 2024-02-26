@@ -74,7 +74,7 @@ export class TwoDimensionMultiLineChartComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
 }

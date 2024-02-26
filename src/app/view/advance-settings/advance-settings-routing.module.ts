@@ -51,6 +51,9 @@ const routes: Routes = [
     path:'course', loadChildren:() => import('./setup-dropdown-values/course/course.module').then(m=>m.CourseModule)
   },
   {
+    path:'stream', loadChildren:() => import('./setup-dropdown-values/stream/stream.module').then(m=>m.StreamModule)
+  },
+  {
     path:'stages', loadChildren:() => import('./setup-dropdown-values/lead-stages/lead-stages.module').then(m=>m.LeadStagesModule)
   },
   {

@@ -41,7 +41,7 @@ export class ReplaceUserComponent implements OnInit {
   ) {
     this.id=data.userdata.id
     this.userData=data.userdata
-    console.log(data);
+    //console.log(data);
     
   }
 
@@ -100,13 +100,13 @@ export class ReplaceUserComponent implements OnInit {
     return this.changeUserForm.controls;
   }
 date(event: MatDatepickerInputEvent<Date>){
-  console.log(event.value);
+  //console.log(event.value);
   this.editForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
-  console.log(event.value);
+  //console.log(event.value);
 
 }
 onChange(event:any){
-  console.log(event.checked);
+  //console.log(event.checked);
   this.is_allow_for_app=event.checked
   
 }
@@ -115,10 +115,10 @@ getUserbyId(){
     (resp:any)=>{
       this.user_details=resp.result[0]
       resp.result[0].reporting_to_ids.forEach((element:any) => {
-        console.log(element);
+        //console.log(element);
         this.selectedArray.push(element.id)
       });
-      console.log(this.selectedArray,"array");
+      //console.log(this.selectedArray,"array");
       
       this.editForm.patchValue({first_name:resp.result[0].first_name})
       this.editForm.patchValue({last_name:resp.result[0].last_name})
@@ -135,7 +135,7 @@ getUserbyId(){
       this.editForm.patchValue({department_id:resp.result[0].department_id})
       this.editForm.patchValue({password:resp.result[0].password})
       this.editForm.patchValue({created_by:resp.result[0].created_by})
-      console.log(this.editForm.get('reporting_to_ids')?.value,"set value");
+      //console.log(this.editForm.get('reporting_to_ids')?.value,"set value");
       
     },
     (error:any)=>{
@@ -214,7 +214,7 @@ getUserbyId(){
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result;
-        console.log(this.selectedImage,"SELECTED IMG")
+        //console.log(this.selectedImage,"SELECTED IMG")
       };
       reader.readAsDataURL(fileInput.files[0]);
     }
@@ -228,7 +228,7 @@ getUserbyId(){
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openResetPassword(userdata:any){
@@ -239,7 +239,7 @@ getUserbyId(){
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
  
@@ -250,11 +250,11 @@ getUserbyId(){
     }
     else{
       var array:any=[]
-      console.log(this.editForm.get('reporting_to_ids')?.value);
+      //console.log(this.editForm.get('reporting_to_ids')?.value);
       
       await this.allUser.forEach((element:any) => {
         if(this.editForm.get('reporting_to_ids')?.value.find((item:any)=> item===element.id)){
-          console.log(element);
+          //console.log(element);
          array.push(element)
         }
       });
@@ -266,7 +266,7 @@ getUserbyId(){
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )
@@ -285,7 +285,7 @@ getUserbyId(){
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

@@ -108,7 +108,7 @@
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Stream</mat-label>
                         <mat-select placeholder="Select Course" formControlName="stream_id">
-                          <mat-option *ngFor="let courses of courseList" [value]="courses.id">{{courses.course_name}}</mat-option>
+                          <mat-option *ngFor="let courses of streamList" [value]="courses.id">{{courses.stream_name}}</mat-option>
                         </mat-select>
                         <button
                           mat-button

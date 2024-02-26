@@ -47,7 +47,7 @@ export class LeadToolbarComponent implements OnInit {
   ngOnInit():any {
     this.addEventEmitter.leadFilterIcon.subscribe(
       (resp:any)=>{
-       console.log(resp,"RESPONSE")
+       //console.log(resp,"RESPONSE")
        if(resp === 'true'){
         this.filtered= true
        }else{
@@ -74,7 +74,7 @@ export class LeadToolbarComponent implements OnInit {
     this.selectedSort.emit(event)
   }
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     if(event.target.value==''){
       this.selectedSearch.emit('')
       this.emit.allocateSearch.next('init')
@@ -99,7 +99,7 @@ export class LeadToolbarComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshLead('event')
     });
     
@@ -176,7 +176,7 @@ export class LeadToolbarComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshLead('event')
     });
   }
@@ -213,7 +213,7 @@ export class LeadToolbarComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshLead('event')
     });
   }

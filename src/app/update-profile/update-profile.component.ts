@@ -115,7 +115,7 @@ export class UpdateProfileComponent implements OnInit {
     this.api.getAllCountry().subscribe((res:any)=>{
       if(res){
       this.countryOptions = res.results
-      console.log(res)
+      //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -126,7 +126,7 @@ export class UpdateProfileComponent implements OnInit {
     this.api.getAllState().subscribe((res:any)=>{
       if(res){
         this.stateOptions = res.results
-        console.log(res)
+        //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -137,7 +137,7 @@ export class UpdateProfileComponent implements OnInit {
     this.api.getAllChannel().subscribe((resp:any)=>{
       if(resp.results){
         this.channels= resp.results;
-        console.log(this.channels,"this.newChannelOptions")
+        //console.log(this.channels,"this.newChannelOptions")
       }
       else{
         this.api.showError('ERROR')

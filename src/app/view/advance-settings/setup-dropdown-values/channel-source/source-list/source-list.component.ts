@@ -79,28 +79,28 @@ export class SourceListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
   this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-    console.log(resp.results);
+    //console.log(resp.results);
     this.allSource= resp.results;
     this.dataSource = new MatTableDataSource<any>(this.allSource);
     this.totalPageLength=resp.total_no_of_record
   this.dataSource.sort = this.sort;
     
   },(error:any)=>{
-    console.log(error);
+    //console.log(error);
     
   }
 
   )}}
   getSource(){
     this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allSource= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSource);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -109,17 +109,17 @@ export class SourceListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     
     this.api.getSource(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allSource= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSource);
       this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -131,7 +131,7 @@ export class SourceListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -142,7 +142,7 @@ export class SourceListComponent implements AfterViewInit {
     
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   
@@ -155,7 +155,7 @@ export class SourceListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

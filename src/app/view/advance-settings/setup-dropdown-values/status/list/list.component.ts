@@ -11,15 +11,9 @@ import {PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 import { environment } from 'src/environments/environment';
+import { BaseServiceService } from 'src/app/service/base-service.service';
 
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
 
-}
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -28,13 +22,10 @@ export interface UserData {
 
 export class ListComponent implements AfterViewInit {
   displayedColumns: string[] = [
-    'status_name',
+    'name',
     'is_active',
     'is_system_value',
-    'status_group_name',
-    'master_status_name',
     'delete'
-
   ]
 
   dataSource = new MatTableDataSource<any>;
@@ -46,16 +37,11 @@ export class ListComponent implements AfterViewInit {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-
-    ) {
-      
-   
-      // Create 100 users
-  
-
-
-  }
+  constructor(
+    private dialog: MatDialog, 
+    private api:ApiService, 
+    private emit:EmitService,
+    private baseService:BaseServiceService) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -74,7 +60,7 @@ export class ListComponent implements AfterViewInit {
   }
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getStatus()
@@ -83,14 +69,14 @@ export class ListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allStatus= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allStatus);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
@@ -99,14 +85,14 @@ export class ListComponent implements AfterViewInit {
   }
   getStatus(){
     this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allStatus= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allStatus);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -115,21 +101,37 @@ export class ListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     
-    this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allStatus= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allStatus);
-      this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      if(this.searchValue?.length>0){
+        this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+          //console.log(resp.results);
+          this.allStatus= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allStatus);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        }
+    
+        )
+      }else{
+      this.api.getStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        //console.log(resp.results);
+        this.allStatus= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allStatus);
+        this.totalPageLength=resp.total_no_of_record
+        //console.log(this.dataSource);
+        
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+      }
       
-    },(error:any)=>{
-      console.log(error);
-      
+      )
     }
-
-    )
+   
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddComponent, {
@@ -138,7 +140,7 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -149,7 +151,7 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -162,7 +164,7 @@ export class ListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

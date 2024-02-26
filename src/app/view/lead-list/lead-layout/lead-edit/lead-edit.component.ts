@@ -1,11 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
+import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -33,6 +36,8 @@ export class LeadEditComponent implements OnInit {
   leadStage:any = [];
   editLeadForm!:FormGroup;
   leadData: any = [];
+  user_id: any;
+  streamList: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -42,8 +47,10 @@ export class LeadEditComponent implements OnInit {
     private _baseService:BaseServiceService,
     private _datePipe:DatePipe,
     private _addLeadEmitter:AddLeadEmitterService,
+    private dialog:MatDialog
     ) { 
       this.dropDownValues()
+      this.user_id = localStorage.getItem('user_id')
     }
 
   ngOnInit(): void {
@@ -77,7 +84,7 @@ export class LeadEditComponent implements OnInit {
             degree: lead.degree_per,
             otherCourse: lead.others,
             entranceExam: lead.enterance_exam,
-            courseLookingfor: lead.course_looking_for,
+            courseLookingfor: lead.course_looking_for_id,
             preferredCollege1: lead.preferred_college1,
             preferredCollege2: lead.preferred_college2,
             preferredLocation1: lead.preferred_location1,
@@ -108,7 +115,7 @@ export class LeadEditComponent implements OnInit {
         state: [''],
         zone:[''],
         cityName: [''],
-        pincode:[''],
+        pincode:['',this.pincodeLengthValidator],
         countryId:[''],
         referenceName:[''],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
@@ -135,6 +142,7 @@ export class LeadEditComponent implements OnInit {
         remarks:['']
       })
   }
+
   setStep(index: number) {
     this.step = index;
   }
@@ -161,12 +169,13 @@ export class LeadEditComponent implements OnInit {
     this.getCourse();
     this.getCounselledBy();
     this.getLeadStage();
+    this.getStream()
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
       if(res.results){
       this.countryOptions = res.results
-      console.log(res)
+      //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -177,7 +186,7 @@ export class LeadEditComponent implements OnInit {
     this.api.getAllState().subscribe((res:any)=>{
       if(res.results){
         this.stateOptions = res.results
-        console.log(res)
+        //console.log(res)
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -188,7 +197,7 @@ export class LeadEditComponent implements OnInit {
     this.api.getAllChannel().subscribe((resp:any)=>{
       if(resp.results){
         this.channels= resp.results;
-        console.log(this.channels,"this.newChannelOptions")
+        //console.log(this.channels,"this.newChannelOptions")
       }
       else{
         this.api.showError('ERROR')
@@ -259,8 +268,8 @@ export class LeadEditComponent implements OnInit {
    }
    getCourse(){
     this.api.getAllCourse().subscribe((res:any)=>{
-      if(res.results){
-        this.courseOptions = res.results;
+      if(res){
+        this.courseOptions = res;
       }
       else{
         this.api.showError('ERROR')
@@ -283,17 +292,36 @@ export class LeadEditComponent implements OnInit {
   getLeadStage(){
     this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
      if(res){
-      this.leadStage = res.results
+      this.leadStage = res
      }
     },((error:any)=>{
      this.api.showError(error.error.message)
     }))
    }
-  
+   getStream(){
+    this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
+    if(resp){
+     this.streamList = resp
+    } 
+    },(error:any)=>{
+      //console.log(error);
+      
+    }
+
+    )
+  }
   clearSelectField(fieldName: string) {
     this.editLeadForm.get(fieldName)?.reset();
    }
-  
+   pincodeLengthValidator(control:FormControl) {
+    const value = control.value;
+
+    if (value && value.toString().length !== 6) {
+      return { invalidPincodeLength: true };
+    }
+
+    return null;
+  }
   
 onSubmit(){
  
@@ -316,26 +344,27 @@ const data ={
   lead_list_substatus: 1,
   counselled_by: formData.counsellorAdmin,
   lead_stage: formData.leadStages,
-  notes: formData.notes,
+  updated_by:this.user_id,
+  note: formData.notes,
   remark: formData.remarks,
   source: formData.leadSource,
-  refered_to: formData.referedTo,
+  refered_to: formData.counsellor,
   education_details: {
-  tenth_per: formData.tenthPercentage,
-  twelfth_per: formData.twelthPercentage,
-  degree_per: formData.degree,
+  tenth_per: formData.tenthPercentage || null,
+  twelfth_per: formData.twelthPercentage || null,
+  degree_per: formData.degree || null,
   stream: formData.course,
   others: formData.otherCourse,
   enterance_exam: formData.entranceExam,
   course_looking_for: formData.courseLookingfor,
-    preferance_college_and_location: [
+    preferance_college_and_location: 
       {
         preferred_college1: formData.preferredCollege1,
         preferred_college2: formData.preferredCollege2,
         preferred_location1: formData.preferredLocation1,
         preferred_location2: formData.preferredLocation2
       }
-    ],
+    
   },
   additional_info: {
     reference_name: formData.referenceName,
@@ -362,5 +391,24 @@ const data ={
       this.api.showError(error?.error.message)
     }))
   }
+}
+openAddCourse(){
+  const dialogRef = this.dialog.open(AddCourseComponent, {
+    width:'35%'
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+    //console.log('The dialog was closed');
+  }); 
+}
+openAddStream(){
+  const dialogRef = this.dialog.open(AddStreamComponent, {
+    width:'35%'
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+    //console.log('The dialog was closed');
+    this.getStream()
+  }); 
 }
 }

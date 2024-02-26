@@ -19,7 +19,9 @@ export class LeadNoteComponent implements OnInit {
     private _fb:FormBuilder,
     private _commonService:CommonServiceService,
     private _baseService:BaseServiceService,
-    private api:ApiService) { }
+    private api:ApiService) {
+      this.getNotes()
+     }
 
   ngOnInit(): void {
     this.initForm()
@@ -44,10 +46,23 @@ export class LeadNoteComponent implements OnInit {
     this._baseService.postData(environment.lead_note,obj).subscribe((res:any)=>{
       if(res){
         this.api.showSuccess(res.message)
+        this.dialogRef.close()
       }
     },((error)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
     }))
   }
 }
+  getNotes(){
+   this._baseService.getByID(`${environment.lead_note}?lead_id=${this.data}`).subscribe((res:any)=>{
+    if(res.result){
+      let formData = res.result[0]
+      this.leadNoteForm.patchValue({
+        leadNote:formData.note_name
+      })
+    }
+   },((error:any)=>{
+    this.api.showError(error.error.message)
+   })) 
+  }
 }

@@ -37,7 +37,7 @@ export class CreateTemplateComponent implements OnInit {
     name: ['',[Validators.required]],
     message: ['',[Validators.required]],
     template_category_id: ['',[Validators.required]],
-    template_type_id: [1,[Validators.required]],
+    template_type_id: [1],
   });
   this.getPlaceHolder()
 
@@ -56,7 +56,7 @@ handleSelectChange(event:any) {
   const currentEditorData = this.message || '';
   this.message =currentEditorData+ `${selectedValue}`;
   // this.matSelect.value = null; // Reset MatSelect's value
-  console.log(this.message);
+  //console.log(this.message);
 }
 getPlaceHolder(){
   this.api.getPlaceHolder().subscribe(
@@ -76,7 +76,7 @@ get f() {
 
 submit(){
  
-  console.log(this.whatsappTemplate.value);
+  //console.log(this.whatsappTemplate.value);
   
   if(this.whatsappTemplate.invalid){
     this.whatsappTemplate.markAllAsTouched()
@@ -90,7 +90,7 @@ submit(){
         this.dialogRef.close()
       },
       (error:any)=>{
-        console.log("error");
+        //console.log("error");
         
       }
     )

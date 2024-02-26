@@ -18,6 +18,6 @@ export class LeadBulkSortComponent implements OnInit {
     this.selected = true
     this.selectedSort.emit(event)
     
-    console.log(this.dateType)
+    //console.log(this.dateType)
   }
 }

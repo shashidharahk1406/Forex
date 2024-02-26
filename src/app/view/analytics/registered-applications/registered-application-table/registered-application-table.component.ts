@@ -173,7 +173,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openSMS(){
@@ -182,7 +182,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEmail(){
@@ -192,7 +192,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openWhatsapp(){
@@ -201,7 +201,7 @@ export class RegisteredApplicationTableComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

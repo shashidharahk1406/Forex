@@ -27,6 +27,7 @@ campaignList: any;
 queryItems: any;
 @Output() filter:any = new EventEmitter();
   counselled_by: any;
+  streamList: any = [];
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -51,6 +52,7 @@ queryItems: any;
     this.getChannel()
     this.getCourse()
     this.getCounselledBy()
+    this.getStream()
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
@@ -69,8 +71,8 @@ queryItems: any;
   }
   getCourse(){
     this.api.getAllCourse().subscribe((res:any)=>{
-      if(res.results){
-       this.courseList = res.results
+      if(res){
+       this.courseList = res
       }
       else{
        this.api.showError('ERROR')
@@ -106,7 +108,17 @@ queryItems: any;
         
       })
   }
-  
+  getStream(){
+    this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
+    if(resp){
+     this.streamList = resp
+    } 
+    },(error:any)=>{
+     this.api.showError(error.error.message)
+    }
+
+    )
+  }
   getCounselledBy(){
     this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
       if(res){
@@ -158,10 +170,13 @@ queryItems: any;
  
      // Construct the API request URL with query parameters
      let apiUrl = `${environment.lead_list}?page=1&page_size=10`;
+     let filterParams:any;
      if(queryParams.length > 0){
       apiUrl +=`&${queryParams.join('&')}`
+      filterParams = `&${queryParams.join('&')}`
      }
     this._addLeadEmitter.leadFilter.next(apiUrl)
+    this._addLeadEmitter.selectedFilter.next(filterParams)
      this._addLeadEmitter.triggerFilter() 
      this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL

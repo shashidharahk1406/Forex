@@ -80,11 +80,11 @@ export class ReportComponent implements AfterViewInit {
 
   getTarget(){
     this.api.getTarget().subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allTarget= resp;
       this.dataSource = new MatTableDataSource<any>(this.allTarget);
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       // this.dataSource.sort = this.sort;
     }
 
@@ -92,11 +92,11 @@ export class ReportComponent implements AfterViewInit {
   }
   getAcheived(){
     this.api.getAcheived().subscribe((resp:any)=>{
-      console.log(resp[0]);
+      //console.log(resp[0]);
       this.allAcheived= resp;
       this.dataSourceAchieved = new MatTableDataSource<any>(this.allAcheived);
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -104,7 +104,7 @@ export class ReportComponent implements AfterViewInit {
   }
   async onOptionSelected(event: any) {
     const selectedOptionValue = event.value; // Get the selected option's value
-    console.log('Selected option:', selectedOptionValue);
+    //console.log('Selected option:', selectedOptionValue);
     await this.addEmployee.patchValue({emp_ids:selectedOptionValue})
     this.api.postEmployeeForReport(this.addEmployee.value).subscribe(
       (resp:any)=>{

@@ -51,120 +51,12 @@ export class LeadUploadComponent implements OnInit {
 
     }
     dropDownValues(){
-      this.getCountry();
-      this.getState();
-      this.getChannel();
-      this.getSource();
-      this.getDepartment();
-      this.getCourse();
-      this.getPriority();
-      this.getStatus();
       this.getCounselor();
-      this.getLeadOwner()
-    }
-    
-    getCountry(){
-      this.api.getAllCountry().subscribe((res:any)=>{
-        if(res){
-        this.countryList = res.results
-        console.log(res)
-        }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-    }
-    getState(){
-      this.api.getAllState().subscribe((res:any)=>{
-        if(res){
-          this.stateList = res.results
-          console.log(res)
-        }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-    }
-    getChannel(){
-      this.api.getAllChannel().subscribe((resp:any)=>{
-        if(resp.results){
-          this.channelList= resp.results;
-        }
-        else{
-          this.api.showError('ERROR')
-        }  
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      }
-  
-      )
-    }
-    getSource(){
-      this.api.getAllSource().subscribe((res:any)=>{
-       if(res.results){
-        this.sourceList = res.results
-       }
-       else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
     }
     
    
-    
-    getDepartment(){
-      this.api.getAllDepartment().subscribe((res:any)=>{
-        if(res.results){
-          this.departmentList = res.results;
-        }
-        else{
-          this.api.showError('ERROR')
-         }
-        },(error:any)=>{
-           this.api.showError(this.api.toTitleCase(error.error.message))
-          
-        })
-    }
-    getCourse(){
-      this.api.getAllCourse().subscribe((res:any)=>{
-        if(res.results){
-          this.courseList = res.results;
-        }
-        else{
-          this.api.showError('ERROR')
-         }
-        },(error:any)=>{
-           this.api.showError(this.api.toTitleCase(error.error.message))
-          
-        })
-      
-    } 
-    getPriority(){
-      this._baseService.getData(environment.lead_priority).subscribe((res:any)=>{
-          if(res.results){
-            this.priorityList = res.results
-          } else{
-            this.api.showError('ERROR')
-           }
-          },(error:any)=>{
-             this.api.showError(this.api.toTitleCase(error.error.message))
-        })
-    }
-    getStatus(){
-     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
-      if(res.results){
-        this.statusList = res.results;
-      }
-     },(error:any)=>{
-       this.api.showError(this.api.toTitleCase(error.error.message))
-     })
-    }
     getCounselor(){
-      this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+      this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
         if(res.results){
         this.referTo = res.results
         }
@@ -172,20 +64,12 @@ export class LeadUploadComponent implements OnInit {
          this.api.showError(this.api.toTitleCase(error.error.message))
       }))
     }
-    getLeadOwner(){
-      this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
-        if(res.results){
-        this.leadOwnerList = res.results
-        }
-      },((error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-      }))
-    }
+   
    
     onFileSelected(event: any) {
       if (event.target.files && event.target.files.length) {
         this.file = event.target.files[0];
-       //console.log(this.file)
+       ////console.log(this.file)
       // You can also update your form control if needed
       this.uploadLeadForm.get('leadUpload')?.setValue(this.file);
       }
@@ -227,8 +111,8 @@ export class LeadUploadComponent implements OnInit {
               this._baseService.postFile(`${environment.lead_upload}`,this.formData).subscribe((res:any)=>{
                 if(res){
                   this.api.showSuccess(res.message)
-                  this._addLeadEmitter.triggerGet();
                   this.dialogRef.close();
+                  this._addLeadEmitter.triggerGet();
                  
                 }
               },((error:any)=>{

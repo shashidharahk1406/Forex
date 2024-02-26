@@ -71,7 +71,7 @@ export class MediumListComponent implements  AfterViewInit {
 
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getMedium()
@@ -81,14 +81,14 @@ export class MediumListComponent implements  AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getMediumSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allMedium= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allMedium);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -96,14 +96,14 @@ export class MediumListComponent implements  AfterViewInit {
     }}
   getMedium(){
     this.api.getMedium(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allMedium= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allMedium);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -112,17 +112,17 @@ export class MediumListComponent implements  AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     
     this.api.getMedium(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allMedium= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allMedium);
       this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -134,7 +134,7 @@ export class MediumListComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -145,7 +145,7 @@ export class MediumListComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   
@@ -158,7 +158,7 @@ export class MediumListComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

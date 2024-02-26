@@ -21,7 +21,7 @@ export class ResetPasswordComponent implements OnInit {
     public dialogRef: MatDialogRef<ResetPasswordComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb:FormBuilder,private api:ApiService,private emit:EmitService) {
-      console.log(data);
+      //console.log(data);
       this.userData=data
   }
   

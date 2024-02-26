@@ -71,7 +71,7 @@ export class ResetPasswordComponent implements OnInit {
 	}
 	error:boolean=false
   submit(){
-		console.log(this.forgotForm.get('new_password')?.value);
+		//console.log(this.forgotForm.get('new_password')?.value);
 		
 if(this.forgotForm.invalid){
 	this.error=true
@@ -90,7 +90,7 @@ else{
 	}
 	else{
 		this.error=true
-		console.log('miss');
+		//console.log('miss');
 		
 	}
 

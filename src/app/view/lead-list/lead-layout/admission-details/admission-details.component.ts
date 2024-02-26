@@ -39,7 +39,7 @@ export class AdmissionDetailsComponent implements OnInit {
     })
   }
   getAdmissionDetails(){
-      this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}`).subscribe((res:any)=>{
+      this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}/`).subscribe((res:any)=>{
         if(res.result){
           let data = res.result[0]
           this.admissionDetailsForm.patchValue({
@@ -70,6 +70,7 @@ export class AdmissionDetailsComponent implements OnInit {
         if(resp){
           this.api.showSuccess(resp.message)
           sessionStorage.setItem('admissionDetails','done')
+          this.emit.triggerGet();
           this.dialogRef.close()
         }
       },(error:any)=>{

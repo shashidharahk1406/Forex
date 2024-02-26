@@ -27,7 +27,7 @@ export class EditAdvanceSettingsPermissionsComponent implements OnInit {
   ) {
     this.user_id = localStorage.getItem('user_id');
     this.id=localStorage.getItem('id');
-    console.log(this.id)
+    //console.log(this.id)
    
   }
 
@@ -67,7 +67,7 @@ export class EditAdvanceSettingsPermissionsComponent implements OnInit {
 
 getAsettingsById(){
   this.api.getAdvanceSettingsPermissions(this.id).subscribe((res:any)=>{
-    console.log(res,"res")
+    //console.log(res,"res")
     this.editForm.patchValue({dropdown_values:res.results[0].adv_sett[0].dropdown_values})
     this.editForm.patchValue({status:res.results[0].adv_sett[0].status})
     this.editForm.patchValue({sources_and_channels:res.results[0].adv_sett[0].sources_and_channels})
@@ -89,7 +89,7 @@ getAsettingsById(){
     this.editForm.patchValue({user_perm:res.results[0].adv_sett[0].user_perm})
     
   },(error:any)=>{
-    console.log(error);
+    //console.log(error);
     this.api.showError(error.error.message)
   })
 }
@@ -97,13 +97,13 @@ getAsettingsById(){
 edit(){
     this.api.updateAdvanceSettingsPermissions(this.id,this.editForm.value).subscribe(
       (resp:any)=>{
-        console.log(resp,"update user permissions")
+        //console.log(resp,"update user permissions")
         this.emit.sendRefresh(true)
         this.dialogRef.close()
         this.api.showSuccess(resp.message)
       },
       (error:any)=>{
-        console.log(error);
+        //console.log(error);
         this.api.showError(error.error.message)
       }
     )

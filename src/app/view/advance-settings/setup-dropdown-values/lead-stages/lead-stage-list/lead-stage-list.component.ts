@@ -67,7 +67,7 @@ export class LeadStageListComponent implements OnInit {
 
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getLeadStage()
@@ -90,14 +90,14 @@ export class LeadStageListComponent implements OnInit {
       )
     }}
   getLeadStage(){
-    this.baseService.getData(environment.leadStage).subscribe((resp:any)=>{
-      console.log(resp.results);
-      this.allCourse= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      this.totalPageLength=resp.total_no_of_record
-     
-    this.dataSource.sort = this.sort;
-      
+    this.baseService.getData(`${environment.leadStage}?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
+      //console.log(resp.results);
+      if(resp.results){
+        this.allCourse= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCourse);
+        this.totalPageLength=resp.total_no_of_record
+       this.dataSource.sort = this.sort;
+      } 
     },(error:any)=>{
       this.api.showError(error.error.message)
     }
@@ -109,12 +109,12 @@ export class LeadStageListComponent implements OnInit {
     this.currentPage = event.pageIndex + 1;
    
     this.baseService.getData(`${environment.leadStage}/?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allCourse= resp.results;
      
       this.dataSource = new MatTableDataSource<any>(this.allCourse);
       this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
       
     },(error:any)=>{
      this.api.showError(error.error.message)
@@ -128,7 +128,7 @@ export class LeadStageListComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(selectedData:any){
@@ -139,7 +139,7 @@ export class LeadStageListComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -152,7 +152,7 @@ export class LeadStageListComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

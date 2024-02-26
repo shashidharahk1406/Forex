@@ -36,6 +36,7 @@ export class LeadCardComponent implements OnInit {
   searchTerm:any;
   user_id: any;
   user_role: string | null;
+  leadFilter: boolean = false;
  
   
   constructor(
@@ -46,7 +47,8 @@ export class LeadCardComponent implements OnInit {
     private emit:EmitService,
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
-      this.user_role = localStorage.getItem('user_role')
+      this.user_role = localStorage.getItem('user_role');
+      this.getLeadIds();
     }
   
    
@@ -63,6 +65,18 @@ export class LeadCardComponent implements OnInit {
       ? `?counsellor_id=${this.user_id}&sort_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
       : `?sort_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
       
+      if(this.leadFilter){
+        this.query  = ""
+        this._addLeadEmitter.leadFilter.subscribe((res) => {
+          if (res) {
+            this.query = (this.user_role === 'counsellor')
+            ? `${res}&counsellor_id=${this.user_id}&sort_by=${this.sortingType}`
+            : `${res}&sort_by=${this.sortingType}`;
+            
+          }
+        });
+
+      }
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results) {
           this.leadCards = res.results;
@@ -88,27 +102,90 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
     
+    // this.setupLeadDataListener();
+    this.setupLeadFilterListener();
+    this.getLeadIds()
     this.getStatus()
     this.getLeadData('tabLabel')
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadData('tabLabel')
+      this.getLeadIds()
     });
     this.emit.allocateSearch.subscribe((res:any)=>{
       if(res){
         this.getLeadData('tabLabel')
       }
     })
-    this.getLeadIds()
-    this._addLeadEmitter.leadFilter.subscribe((res)=>{
-      if(res){
-        this.filterLeads(res)
-      }
-    })
+  
   }
+  
+   setupLeadDataListener(): void {
+    this.getStatus();
+    this.getLeadData('tabLabel');
+    this._addLeadEmitter.triggerGet$.subscribe((res:any) => {
+      if(res){
+        this.getLeadData('tabLabel');
+      }
+    });
+    this.emit.allocateSearch.subscribe((res: any) => {
+      if (res) {
+        this._addLeadEmitter.leadFilter.subscribe((res) => {
+          if (res) {
+           this.leadFilter = true;
+           let query = (this.user_role === 'counsellor')
+            ? `${res}&counsellor_id=${this.user_id}&key=${event}`
+            : `${res}&key=${event}`;
+            this._baseService.getData(`${query}`).subscribe((res: any) => {
+              if (res.results) {
+                this.leadCards = res.results;
+                this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+                this.totalNumberOfRecords = res.total_no_of_record
+              }
+            }, (error: any) => {
+               this.api.showError(this.api.toTitleCase(error.error.message));
+            });
+          }
+        });
+      }
+    });
+  }
+  
+   setupLeadFilterListener(){
+    this._addLeadEmitter.leadFilter.subscribe((res) => {
+      if (res) {
+        //console.log(res, "RES");
+        this.leadFilter = true;
+        this.filterLeads(res);
+      }
+    });
+  }
+  
   applySearch(event:any){
-    this.query = `?key=${event}`
     this.searchTerm = event
-    this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
+    
+    let query: string;
+    query = (this.user_role === 'counsellor')
+    ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}`
+    : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}`;
+    
+      if (this.sorting) {
+        query += `&sort_by=${this.sortingType}`;
+      }
+      else{
+        if(this.leadFilter){
+          this._addLeadEmitter.leadFilter.subscribe((res) => {
+            if (res) {
+              query = ''
+              query = (this.user_role === 'counsellor')
+              ? `${res}&counsellor_id=${this.user_id}&key=${event}`
+              : `${res}&key=${event}`;
+              
+            }
+          });
+        }
+      }
+  
+    this._baseService.getData(`${query}`).subscribe((res: any) => {
       if (res.results) {
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
@@ -128,7 +205,7 @@ export class LeadCardComponent implements OnInit {
     })
    }
    filterLeads(apiUrl:any){
-    this._baseService.getData(apiUrl).subscribe((res:any) => {
+    this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
       if(res){
         this.api.showSuccess(res.message)
         this.leadCards = res.results;
@@ -139,9 +216,9 @@ export class LeadCardComponent implements OnInit {
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
     }));
-
+ 
    }
-   getLeadData(tabLabel: any) {
+   getLeadData(tabLabel: any,filter?:any) {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
   
@@ -150,8 +227,12 @@ export class LeadCardComponent implements OnInit {
       : `${environment.lead_list}?page=1&page_size=${this.pageSize}`;
   
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {
-      apiUrl += `&status=${tabLabel.tab.textLabel}`;
+      let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
+      apiUrl += `&status=${tabId.id}`;
     }
+    //else if(filter){
+    //   apiUrl +=filter
+    // }
    
   
     this._baseService.getData(apiUrl).subscribe(
@@ -179,8 +260,8 @@ export class LeadCardComponent implements OnInit {
 
     let query: string;
     query = (this.user_role === 'counsellor')
-    ? `?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}`
-    : `?page=1&page_size=${this.pageSize}`;
+    ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}`
+    : `?page=${this.currentPage}&page_size=${event.pageSize}`;
     
     if (type === 'All') {
       query = query;
@@ -190,11 +271,29 @@ export class LeadCardComponent implements OnInit {
       } else if (this.searchTerm) {
         query += `&key=${this.searchTerm}`;
       }
+     
+        else if(this.leadFilter){
+          this._addLeadEmitter.selectedFilter.subscribe((res) => {
+            if (res) {
+              query += res
+              
+            }
+          });
+      }
     } else {
       query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}`;
   
       if (this.sorting) {
         query += `&sort_by=${this.sortingType}`;
+      }else{
+        if(this.leadFilter){
+          this._addLeadEmitter.selectedFilter.subscribe((res) => {
+            if (res) {
+              query += res
+              
+            }
+          });
+        }
       }
     }
   
@@ -213,7 +312,7 @@ export class LeadCardComponent implements OnInit {
   }
   
   onChange(event:any){
-    console.log(event,'EVENT')
+    //console.log(event,'EVENT')
   }
    delete(event:any){
    if(event){
@@ -233,6 +332,8 @@ export class LeadCardComponent implements OnInit {
   }
   reLoad(event:any){
     this.totalNumberOfRecords = []
+    this._addLeadEmitter.leadFilter.next('')
+    this._addLeadEmitter.leadFilterIcon.next('false')
     this.getStatus()
     this.getLeadData('tabLabel')
     this.getLeadIds()
