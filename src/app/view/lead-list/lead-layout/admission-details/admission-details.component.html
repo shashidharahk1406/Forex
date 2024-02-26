@@ -18,6 +18,7 @@
                 matInput
                 type="text"
                 formControlName="applicationNumber"
+                appFormSpace
                 required
                 placeholder="Enter Your Application Number"
               />
@@ -29,7 +30,7 @@
              
               <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
               <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
-              <input type="file" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
+              <input type="file" accept=".jpg, .jpeg, .png" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/>
                 <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
                   <mat-error class="er-fs" *ngIf="f['leadUpload'].hasError('required')">Application form Is Required</mat-error>
                 </div>

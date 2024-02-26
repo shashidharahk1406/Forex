@@ -31,6 +31,6 @@ export class CreateEnterpriseTemplateComponent implements OnInit {
   };
 
   submit(){
-    console.log("==Message==",this.message)
+    //console.log("==Message==",this.message)
   }
 }

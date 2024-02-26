@@ -70,7 +70,7 @@ export class ListComponent implements  AfterViewInit {
   }
   searchValue:any
   applyFilter(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getSubStatus()
@@ -81,14 +81,14 @@ export class ListComponent implements  AfterViewInit {
   search() {
     if(this.searchValue?.length>0){
       this.api.getSubStatusSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        console.log(resp.results);
+        //console.log(resp.results);
         this.allSubStatus= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allSubStatus);
         this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        console.log(error);
+        //console.log(error);
         
       }
   
@@ -98,14 +98,14 @@ export class ListComponent implements  AfterViewInit {
   }
   getSubStatus(){
     this.api.getSubStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allSubStatus= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSubStatus);
       this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -114,17 +114,17 @@ export class ListComponent implements  AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    console.log(this.pageSize,this.currentPage);
+    //console.log(this.pageSize,this.currentPage);
     
     this.api.getSubStatus(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      console.log(resp.results);
+      //console.log(resp.results);
       this.allSubStatus= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allSubStatus);
       this.totalPageLength=resp.total_no_of_record
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
       
     },(error:any)=>{
-      console.log(error);
+      //console.log(error);
       
     }
 
@@ -136,7 +136,7 @@ export class ListComponent implements  AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -147,7 +147,7 @@ export class ListComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -160,7 +160,7 @@ export class ListComponent implements  AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   

@@ -114,7 +114,7 @@ export class LeadEmailComponent implements OnInit {
     this.basicTemplate = '';
    if(template && item){
      if(item.id === template){
-      this.basicTemplate = `#Hi# ${item.message} #first_name#`
+      this.basicTemplate = `${item.message}`
       // Check if the followupComment contains hash symbols (#)
       // Use a regular expression to identify and wrap text within hash symbols with read-only attributes
       // const modifiedValue =  this.basicTemplate.replace(/#(.*?)#/g, (match: any, content: any) => {

@@ -77,15 +77,15 @@ export class UserProfileFilterComponent implements OnInit {
     var data:any=localStorage.getItem('userFilter')
     var resp:any= JSON.parse(data)
     if(resp){
-      console.log(resp.reporting_to_ids);
+      //console.log(resp.reporting_to_ids);
       if(resp.reporting_to_ids){
         resp.reporting_to_ids.forEach((element:any) => {
-          console.log(element);
+          //console.log(element);
           this.selectedArray.push(element)
         });
       }
 
-      console.log(this.selectedArray);
+      //console.log(this.selectedArray);
       
       this.filterForm.patchValue({role_id:resp?.role_id})
       this.filterForm.patchValue({is_active:resp?.is_active})
@@ -190,7 +190,7 @@ export class UserProfileFilterComponent implements OnInit {
   
     // Construct the API request URL with query parameters
     var apiUrl = `${queryParams.join('&')}`;
-    console.log(this.filterForm.value);
+    //console.log(this.filterForm.value);
     localStorage.setItem('userFilter',JSON.stringify(this.filterForm.value))
     // Make the API request with the constructed URL
 

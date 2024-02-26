@@ -52,7 +52,7 @@ export class EditCityComponent implements OnInit {
   getCitybyId(){
     this.api.getCityById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({name:resp.result[0].name})
         this.editForm.patchValue({state_id:resp.result[0].state_id})
         this.editForm.patchValue({is_metro_politan:resp.result[0].is_metro_politan})
@@ -71,7 +71,7 @@ export class EditCityComponent implements OnInit {
     )
   }
   onChange(event:any){
-    console.log(event.checked);
+    //console.log(event.checked);
     this.is_metropolitan=event.checked
     
   }
@@ -89,7 +89,7 @@ export class EditCityComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

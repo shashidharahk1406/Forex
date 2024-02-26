@@ -10,7 +10,7 @@ export class CommunicationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("working");
+    //console.log("working");
     
   }
 

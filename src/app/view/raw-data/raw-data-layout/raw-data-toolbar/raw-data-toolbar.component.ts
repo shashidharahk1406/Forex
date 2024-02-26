@@ -24,7 +24,7 @@ export class RawDataToolbarComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openSMS(name:any): void {
@@ -41,7 +41,7 @@ export class RawDataToolbarComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openEmailChat(name?:any){
@@ -67,7 +67,7 @@ export class RawDataToolbarComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 }

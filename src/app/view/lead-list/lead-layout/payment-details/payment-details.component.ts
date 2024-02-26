@@ -6,6 +6,7 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment.prod';
 import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 declare var Razorpay:any;
 @Component({
   selector: 'app-payment-details',
@@ -25,7 +26,8 @@ export class PaymentDetailsComponent implements OnInit {
     private fb:FormBuilder,
     private _baseService:BaseServiceService,
     private api:ApiService,
-    private emitService:EmitService){}
+    private emitService:EmitService,
+    private emit:AddLeadEmitterService){}
 
   ngOnInit(): void {
     this.initForm()
@@ -50,14 +52,7 @@ export class PaymentDetailsComponent implements OnInit {
       this.paymentForm.markAllAsTouched
     }else{
       let formData ={}
-      if(this.data.name === "BULK"){
-      
-      // formData ={
-      //   amount:this.paymentForm.value['amount'],
-      //   channel:this.paymentForm.value['channel'],
-      //   lead_ids: this.data.data,
-      //   counsellor_id:[2] ,
-      // } 
+      if(this.data.name === "BULK"){ 
       formData ={
         amount:this.paymentForm.value['amount'],
         channel:this.paymentForm.value['channel'],
@@ -65,12 +60,7 @@ export class PaymentDetailsComponent implements OnInit {
         counsellor_id:6 ,
       } 
     }else{
-      // formData ={
-      //   amount:(this.paymentForm.value['amount']*100),
-      //   channel:this.paymentForm.value['channel'],
-      //   lead_ids: [this.data.user_data.id],
-      //   counsellor_id:[2] ,
-      // }
+     
       formData ={
         amount:(this.paymentForm.value['amount']*100),
         channel:this.paymentForm.value['channel'],
@@ -78,12 +68,12 @@ export class PaymentDetailsComponent implements OnInit {
         counsellor_id:6,
       }
     }
-    console.log(formData,"FORMDATA")
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
           this.closePopup()
           this.emitService.paymentLink()
+          this.emit.triggerGet();
         }
       },(error:any)=>{
         this.api.showError(error.error.error.message)

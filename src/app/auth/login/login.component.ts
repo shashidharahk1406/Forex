@@ -83,21 +83,21 @@ export class LoginComponent implements OnInit {
 		this.loginForm.patchValue({device_type:"computer"})
 
 		if(this.loginForm.invalid){
-			console.log("Invalid");	
+			//console.log("Invalid");	
 		}
 		else{
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
-				console.log(resp,"login responsssssssssssss",)
+				//console.log(resp,"login responsssssssssssss",)
 				localStorage.setItem('resp',JSON.stringify(resp))
 				// this.api.showSuccess('Login Successfull !!')
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
-				console.log("==userid==",decodedToken);
+				//console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
 				//localStorage.setItem('user_role',decodedToken.user_role);
 				// this.dropDownValues=resp.permissions[0].adv_sett[0].dropdown_values;
-				// console.log(this.dropDownValues)
+				// //console.log(this.dropDownValues)
 				// localStorage.setItem('dropDownValues',this.dropDownValues);
 				// localStorage.setItem('chat_dis_enab',resp.permissions[0].adv_sett[0].chat_dis_enab)
 				// localStorage.setItem('courses',resp.permissions[0].adv_sett[0].courses)
@@ -133,7 +133,7 @@ export class LoginComponent implements OnInit {
 				
 				// localStorage.setItem('token',resp.token.token)
 				// const decodedToken:any = jwtDecode(resp.token.token);
-				// console.log("==userid==",decodedToken);
+				// //console.log("==userid==",decodedToken);
 				// localStorage.setItem('user_id',decodedToken.user_id)
 				localStorage.setItem('user_role',decodedToken.user_role)
 				this.api.showSuccess('Login Successfull!')

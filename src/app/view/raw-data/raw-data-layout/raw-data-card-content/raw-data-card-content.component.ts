@@ -33,7 +33,7 @@ openCall(name:string){
   dialogRef.disableClose=true
 
   dialogRef.afterClosed().subscribe((result:any) => {
-    console.log('The dialog was closed');
+    //console.log('The dialog was closed');
   }); 
 }
 openSMS(name:any): void {
@@ -50,7 +50,7 @@ openWhatsAppChat(){
   });
   dialogRef.disableClose=true
   dialogRef.afterClosed().subscribe((result:any) => {
-    console.log('The dialog was closed');
+    //console.log('The dialog was closed');
   });
 }
 openEmailChat(name:any){
@@ -67,7 +67,7 @@ openVideoCall(){
   });
   dialogRef.disableClose=true
   dialogRef.afterClosed().subscribe((result:any) => {
-    console.log('The dialog was closed');
+    //console.log('The dialog was closed');
   });
 }
 openViewAll(name:any){
@@ -78,7 +78,7 @@ openViewAll(name:any){
   dialogRef.disableClose=true
 
   dialogRef.afterClosed().subscribe((result:any) => {
-    console.log('The dialog was closed');
+    //console.log('The dialog was closed');
   });
 }
 editLead(name:any){

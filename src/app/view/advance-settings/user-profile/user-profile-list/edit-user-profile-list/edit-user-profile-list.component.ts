@@ -205,7 +205,7 @@ getUserbyId(){
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openResetPassword(userdata:any){
@@ -215,7 +215,7 @@ getUserbyId(){
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   newArr:any=[]

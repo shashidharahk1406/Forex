@@ -62,7 +62,7 @@ export class EditTemplateComponent implements OnInit {
   getWhatsAppTemplateById(){
     this.api.getWhatsappTemplateById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({name:resp.result[0].name})
         this.editForm.patchValue({message:resp.result[0].message})
         this.editForm.patchValue({template_category_id:resp.result[0].template_category_id})
@@ -79,7 +79,7 @@ export class EditTemplateComponent implements OnInit {
     const currentEditorData = this.message || '';
     this.message =currentEditorData+ `${selectedValue}`;
     // this.matSelect.value = null; // Reset MatSelect's value
-    console.log(this.message);
+    //console.log(this.message);
   }
   submit(){
     if(this.editForm.invalid){
@@ -92,7 +92,7 @@ export class EditTemplateComponent implements OnInit {
           this.dialogRef.close()
         },
         (error:any)=>{
-          console.log("error");
+          //console.log("error");
           
         }
       )

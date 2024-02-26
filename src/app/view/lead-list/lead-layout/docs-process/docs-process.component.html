@@ -29,11 +29,12 @@
                     Document Status Is Required.
                   </mat-error>
               </mat-form-field>
-              <mat-form-field appearance="outline" class="mb-1" *ngIf="docsProcess.value?.docsStatus == '2'">
+              <mat-form-field appearance="outline" class="mb-1" *ngIf="docsProcess.value?.docsStatus == '1'">
                 <mat-label>Pending Docs</mat-label>
                 <input
                   matInput
                   type="text"
+                  appFormSpace
                   placeholder="Enter Your Pending Docs"
                   formControlName="pendingDocs"
                 />

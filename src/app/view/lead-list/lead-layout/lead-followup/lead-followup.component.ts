@@ -40,7 +40,7 @@ export class LeadFollowupComponent implements OnInit {
   ) {
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
-    console.log(this.data.item.user_data.id,"this.data.item.user;")
+    //console.log(this.data.item.user_data.id,"this.data.item.user;")
     this.getFollowUp()
   }
 
@@ -113,7 +113,7 @@ export class LeadFollowupComponent implements OnInit {
         lead: formData.lead_id,
         created_by: formData.created_by
       });
-       console.log(res.result,'RESULTS')
+       //console.log(res.result,'RESULTS')
       }
     },((error:any)=>{
       this.api.showError(error.error.message)
@@ -146,7 +146,7 @@ export class LeadFollowupComponent implements OnInit {
       (res: any) => {
         if (res.results) {
           this.status = res.results;
-          console.log(this.status,"this.status")
+          //console.log(this.status,"this.status")
         }
       },
       (error: any) => {
@@ -212,7 +212,7 @@ export class LeadFollowupComponent implements OnInit {
   }
   
   onSubmit() {
-    // console.log('api calling', this.data);
+    // //console.log('api calling', this.data);
     this.followupForm.value.lead = this.data.item.user_data.id;
     this.followupForm.value.counsellor = Number(this.counsellor_id);
     this.followupForm.value.created_by = Number(this.createdBy);
@@ -223,7 +223,7 @@ export class LeadFollowupComponent implements OnInit {
     this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
    
 
-    console.log(this.followupForm.valid, this.followupForm.value);
+    //console.log(this.followupForm.valid, this.followupForm.value);
     if (this.followupForm.invalid) {
       // alert('api calling')
       this.followupForm.markAllAsTouched();
@@ -268,7 +268,7 @@ export class LeadFollowupComponent implements OnInit {
     }
   }
   onInput(event: any) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     
     const textarea = event.target;
     const value = textarea.value;
@@ -278,7 +278,7 @@ export class LeadFollowupComponent implements OnInit {
 
     //   return `<span class="non-editable" >${match}</span>`;
     // });
-    //console.log(modifiedValue,"debugger")
+    ////console.log(modifiedValue,"debugger")
     // this.followupForm.patchValue({
     //   followupComment: modifiedValue
     // });
@@ -288,7 +288,7 @@ export class LeadFollowupComponent implements OnInit {
   prioritiesData: any = [];
   getPriorities() {
     this.api.getPriority(this.pageSize, this.page).subscribe((res: any) => {
-      console.log(res, 'priorities');
+      //console.log(res, 'priorities');
       this.prioritiesData = res.results;
     });
   }
@@ -296,7 +296,7 @@ export class LeadFollowupComponent implements OnInit {
 AllFollowupStatuses:any=[]
   getAllFollowupStatuses(){
     this.api.allFollowUpStatuses().subscribe((res:any)=>{
-      console.log(res,"all follwoups")
+      //console.log(res,"all follwoups")
       this.AllFollowupStatuses=res
     })
   }

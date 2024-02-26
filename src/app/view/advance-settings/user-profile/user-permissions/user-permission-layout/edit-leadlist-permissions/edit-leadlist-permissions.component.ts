@@ -26,7 +26,7 @@ export class EditLeadlistPermissionsComponent implements OnInit {
   ) {
     this.user_id = localStorage.getItem('user_id');
     this.id=localStorage.getItem('id');
-    console.log(this.id)
+    //console.log(this.id)
    
   }
 
@@ -57,7 +57,7 @@ export class EditLeadlistPermissionsComponent implements OnInit {
 
 getLeadListPermissionsById(){
   this.api.getLeadListPermissions(this.id).subscribe((res:any)=>{
-    console.log(res,"res")
+    //console.log(res,"res")
     this.editForm.patchValue({edit_lead:res.results[0].lead_list_sett[0].edit_lead})
     this.editForm.patchValue({view_history:res.results[0].lead_list_sett[0].view_history})
     this.editForm.patchValue({add_followup:res.results[0].lead_list_sett[0].add_followup})
@@ -69,7 +69,7 @@ getLeadListPermissionsById(){
     this.editForm.patchValue({whatsapp:res.results[0].lead_list_sett[0].whatsapp})
     this.editForm.patchValue({sms:res.results[0].lead_list_sett[0].sms})
   },(error:any)=>{
-    console.log(error);
+    //console.log(error);
     this.api.showError(error.error.message);
   })
 }
@@ -82,7 +82,7 @@ edit(){
         this.api.showSuccess(resp.message)
       },
       (error:any)=>{
-        console.log(error);
+        //console.log(error);
         this.api.showError(error.error.message)
       }
     )

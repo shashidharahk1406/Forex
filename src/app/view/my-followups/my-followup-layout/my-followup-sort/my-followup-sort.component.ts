@@ -21,9 +21,9 @@ export class MyFollowupSortComponent implements OnInit {
   onChange(event:any){
     this.selected = true
     this.selectedSort.emit(event)
-    // console.log(value[0]?._value,"valueeeee")
+    // //console.log(value[0]?._value,"valueeeee")
     
-    // console.log(this.dateType)
+    // //console.log(this.dateType)
   }
   openNotification(){
     

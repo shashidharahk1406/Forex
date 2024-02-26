@@ -63,7 +63,7 @@ export class QuickAddComponent implements OnInit {
     this.api.getAllChannel().subscribe((resp:any)=>{
       if(resp.results){
         this.channels= resp.results;
-        console.log(this.channels,"this.newChannelOptions")
+        //console.log(this.channels,"this.newChannelOptions")
       }
       else{
         this.api.showError('ERROR')

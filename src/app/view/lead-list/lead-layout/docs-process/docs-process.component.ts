@@ -5,6 +5,7 @@ import { AdmissionDetailsComponent } from '../admission-details/admission-detail
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
 import { environment } from 'src/environments/environment';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 @Component({
   selector: 'app-docs-process',
@@ -16,11 +17,11 @@ export class DocsProcessComponent implements OnInit {
   docStatus:any = [
     {
       id:1,
-      status:'Completed'
+      status:'Pending if any'
     },
     {
       id:2,
-      status:'Pending if any'
+      status:'Completed'
     },
    ]
   constructor(
@@ -28,7 +29,8 @@ export class DocsProcessComponent implements OnInit {
     public dialogRef: MatDialogRef<DocsProcessComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _baseService:BaseServiceService,
-    private api:ApiService
+    private api:ApiService,
+    private emit:AddLeadEmitterService
 
     ) { }
 
@@ -43,7 +45,7 @@ export class DocsProcessComponent implements OnInit {
     })
   }
   getDocsProcess(){
-    this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}`).subscribe((res:any)=>{
+    this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}/`).subscribe((res:any)=>{
       if(res.result){
        let data= res.result[0]
         this.docsProcess.patchValue({
@@ -72,6 +74,7 @@ export class DocsProcessComponent implements OnInit {
       this._baseService.postData(environment.admission_details,data).subscribe((resp:any)=>{
         if(resp){
           this.api.showSuccess(resp.message)
+          this.emit.triggerGet();
           this.dialogRef.close()
         }
       },((error:any)=>{

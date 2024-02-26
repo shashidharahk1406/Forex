@@ -32,7 +32,7 @@ export class EditNewChannelComponent implements OnInit {
   getChannelbyId(){
     this.api.getNewChannelById(this.id).subscribe(
       (resp:any)=>{
-        console.log(resp.result[0].status_group_id);
+        //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({new_channel_name:resp.result[0].new_channel_name})
 
       },
@@ -56,7 +56,7 @@ export class EditNewChannelComponent implements OnInit {
           this.api.showSuccess(this.api.toTitleCase(resp.message))
         },
         (error:any)=>{
-          console.log(error);
+          //console.log(error);
            this.api.showError(this.api.toTitleCase(error.error.message))
         }
       )

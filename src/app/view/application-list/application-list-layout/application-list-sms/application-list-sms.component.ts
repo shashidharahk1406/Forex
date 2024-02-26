@@ -62,7 +62,7 @@ export class ApplicationListSmsComponent implements OnInit {
 
     // Process form data
     const formData = this.smsForm.value;
-    console.log('Form Data:', formData);
+    //console.log('Form Data:', formData);
   }
   closePopup(){
     this._bottomSheetRef.dismiss()

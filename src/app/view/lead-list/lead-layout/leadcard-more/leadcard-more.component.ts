@@ -52,11 +52,11 @@ export class LeadcardMoreComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   addFollowUp(item:any){
-    console.log("===>>",item.user);
+    //console.log("===>>",item.user);
     
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
@@ -73,7 +73,7 @@ export class LeadcardMoreComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   delete(name:any){
@@ -81,8 +81,7 @@ export class LeadcardMoreComponent implements OnInit {
       width:'35%',
       data: {name:name}
     });
-    dialogRef.disableClose=true
-    console.log()
+    //console.log()
     dialogRef.afterClosed().subscribe(result => {
       if(result === 'yes'){ 
       this._baseService.delete(`${environment.lead_list}${this.item.user_data.id}/`).subscribe((res:any)=>{
@@ -113,7 +112,7 @@ export class LeadcardMoreComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openPayment(){
@@ -137,7 +136,7 @@ export class LeadcardMoreComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     });
   }
   docsStatus(){
@@ -147,7 +146,7 @@ export class LeadcardMoreComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
+      ////console.log('The dialog was closed');
     });
   }
   openPaymentStatus(){
@@ -157,7 +156,7 @@ export class LeadcardMoreComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       if(result == 2 ){
         this.openPayment()
       }

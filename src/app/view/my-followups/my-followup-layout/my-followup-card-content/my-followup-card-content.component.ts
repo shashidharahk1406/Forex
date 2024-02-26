@@ -102,7 +102,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
-    console.log(this.counsellor_id, 'counsellor id');
+    //console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
     console.log(this.role, 'roleeeeeeeeeeeeeee');
     console.log(data, 'data');
@@ -247,7 +247,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   selectedDatePicker(event: any) {
     this.countData = [];
     this.followUpsData = [];
-    console.log(event);
+    //console.log(event);
     this.selectedDate = event;
 
     if (this.role == 'Admin') {
@@ -259,7 +259,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
 
       this.api.getFollowupCalenderCountsForAdmin(this.formattedDate1).subscribe(
         (res: any) => {
-          console.log(res, 'followup conts for admin');
+          //console.log(res, 'followup conts for admin');
           this.countData = res.results;
           this.getAllFollowUps('All');
         },
@@ -281,7 +281,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
         .subscribe(
           (res: any) => {
             this.countData = res.results;
-            console.log(this.countData, 'followup count for counsellor');
+            //console.log(this.countData, 'followup count for counsellor');
             // this.followUpsData=res.results
           },
           (error: any) => {
@@ -367,7 +367,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(res, 'calender upcoming followups for counsellor');
+          //console.log(res, 'calender upcoming followups for counsellor');
         });
     }
   }
@@ -402,7 +402,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(res, 'calender done followups for counsellor');
+          //console.log(res, 'calender done followups for counsellor');
         });
     }
   }
@@ -437,7 +437,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(res, 'calender Missed followups for counsellor');
+          //console.log(res, 'calender Missed followups for counsellor');
         });
     }
   }
@@ -546,7 +546,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           )
           .subscribe(
             (res: any) => {
-              console.log(res, 'upcoming response');
+              //console.log(res, 'upcoming response');
               this.upcomingFollowUpData = res.results;
               this.countData.Upcoming = res.results.data_count.Upcoming;
               this.followUpsData = res.results.data;
@@ -609,7 +609,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           )
           .subscribe(
             (res: any) => {
-              console.log(res, 'Missed followups response for counsellor');
+              //console.log(res, 'Missed followups response for counsellor');
               this.missedFolloUpData = res.results;
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
@@ -693,7 +693,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   }
 
   EditFollowups(id: any) {
-    console.log(id, 'leadid');
+    //console.log(id, 'leadid');
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { id: id, data: this.data },

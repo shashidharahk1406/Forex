@@ -106,7 +106,7 @@ async submit(){
 
 
   var apiUrl = `${queryParams.join('&')}`;
-  console.log(this.filterUser.value);
+  //console.log(this.filterUser.value);
   localStorage.setItem('whatsappFilter',JSON.stringify(this.filterUser.value))
 
 

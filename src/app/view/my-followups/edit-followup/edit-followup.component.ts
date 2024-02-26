@@ -42,8 +42,8 @@ export class EditFollowupComponent implements OnInit {
        this.createdBy = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
       // this.leadId=this.data?.item.user;
-      // console.log(this.leadId,"leadid")
-      console.log(data,"dataaaaaaaaaaaaaaaa")
+      // //console.log(this.leadId,"leadid")
+      //console.log(data,"dataaaaaaaaaaaaaaaa")
       // console.log(this.data.item?.user_data?.id,"this.data.item.user;")
       
      }
@@ -61,7 +61,7 @@ formattedDate3=this.datePipe.transform(this.currentDateTime,'yyyy-MM-ddTHH:mm:ss
         }
       }
     )
-    console.log(this.data.id,"data")
+    //console.log(this.data.id,"data")
 this.dropDownValues();
 this.getFollowUpById()
     this.editFollowUpForm = this.fb.group({
@@ -178,7 +178,7 @@ this.getFollowUpById()
   prioritiesData: any = [];
   getPriorities() {
     this.api.getPriority(this.pageSize, this.page).subscribe((res: any) => {
-      console.log(res, 'priorities');
+      //console.log(res, 'priorities');
       this.prioritiesData = res.results;
     });
   }
@@ -195,8 +195,7 @@ AllFollowupStatuses:any=[]
 
   edit() {
     // console.log('api calling', this.data);
-    console.log(this.counsellor_id,"counsellorid")
-    this.editFollowUpForm.patchValue({counsellor:this.counsellor_id})
+    this.editFollowUpForm.patchValue({counsellor:this.counsellor_Id})
     this.editFollowUpForm.patchValue({lead:this.leadId})
     this.editFollowUpForm.patchValue({created_by:this.createdBy})
     let update_date_time = this.datePipe.transform(this.editFollowUpForm.value.action_date_time,  'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
@@ -204,7 +203,7 @@ AllFollowupStatuses:any=[]
     this.editFollowUpForm.value.action_date_time = update_date_time
    
 
-    console.log(this.editFollowUpForm.valid, this.editFollowUpForm.value);
+    //console.log(this.editFollowUpForm.valid, this.editFollowUpForm.value);
     if (this.editFollowUpForm.invalid) {
      
       this.editFollowUpForm.markAllAsTouched();
@@ -231,25 +230,24 @@ leadName:any;
   getFollowUpById(){{
     
     this.api.getFollowUpByLeadId(this.data.id).subscribe((res:any)=>{
-console.log(res,"getbyid");
+//console.log(res,"getbyid");
 this.id=res.id;
 this.leadName=res.lead
 this.leadId=res.lead_id;
 console.log(this.leadId,"this.leadId")
-this.getLeadByID(this.leadId);
-// this.counsellor_Id=res.counsellor_id
-// console.log(this.counsellor_Id,"this.counsellor_Id")
+this.counsellor_Id=res.counsellor_id
+console.log(this.counsellor_Id,"this.counsellor_Id")
 this.created_by=res.counsellor_id
-console.log(this.created_by,"this.created_by")
-console.log(res.priority,"priority")
-console.log(res.lead_status,"lead status")
+//console.log(this.created_by,"this.created_by")
+//console.log(res.priority,"priority")
+//console.log(res.lead_status,"lead status")
 this.status.forEach((element:any) => {
   if(element.name==res.lead_status){
     this.statusId=element.id
   }
 });
 this.formattedDate=this.datePipe.transform(res.action_date_time,'yyyy-MM-ddTHH:mm')
-console.log('formattedDate',this.formattedDate)
+//console.log('formattedDate',this.formattedDate)
 this.editFollowUpForm.patchValue({priority:res.priority})
 this.editFollowUpForm.patchValue({lead_status:this.statusId})
 this.editFollowUpForm.patchValue({follow_up_status:res.follow_up_status})

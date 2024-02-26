@@ -81,9 +81,9 @@ for (let i = 1; i <= 4; i++) {
   // Add an event listener to each checkbox
   checkbox.addEventListener('change', function() {
     if (checkbox.checked) {
-      console.log(`Checkbox ${i} is checked. Value: ${checkbox.value}`);
+      //console.log(`Checkbox ${i} is checked. Value: ${checkbox.value}`);
     } else {
-      console.log(`Checkbox ${i} is unchecked.`);
+      //console.log(`Checkbox ${i} is unchecked.`);
     }
   });
 // Add an event listener to each checkbox
@@ -91,11 +91,11 @@ checkbox.addEventListener('change', function() {
   if (checkbox.checked) {
     checkboxDiv.classList.add('checked-background');
     checkbox.classList.add('checkbox-clr')
-    console.log(`Checkbox ${i} is checked. Value: ${checkbox.value}`);
+    //console.log(`Checkbox ${i} is checked. Value: ${checkbox.value}`);
   } else {
     checkboxDiv.classList.remove('checked-background');
     checkbox.classList.remove('checkbox-clr')
-    console.log(`Checkbox ${i} is unchecked.`);
+    //console.log(`Checkbox ${i} is unchecked.`);
   }
 });
   // Append the checkbox and label to the checkboxDiv

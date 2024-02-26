@@ -20,7 +20,7 @@ export class DeleteComponent implements OnInit {
   ngOnInit(): void {
   }
   delete(){
-
+   //console.log(this.url,"URL")
     this.api.delete(this.url).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)
@@ -28,7 +28,7 @@ export class DeleteComponent implements OnInit {
         this.api.showSuccess(this.api.toTitleCase(resp.message))
       },
       (error:any)=>{
-        console.log(error);
+        //console.log(error);
          this.api.showError(this.api.toTitleCase(error.error.message))
       }
     )

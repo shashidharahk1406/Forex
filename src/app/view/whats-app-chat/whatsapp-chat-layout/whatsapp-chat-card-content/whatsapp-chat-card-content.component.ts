@@ -34,7 +34,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     }); 
   }
   openSMS(name:any): void {
@@ -51,7 +51,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   openEmailChat(name:any){
@@ -68,7 +68,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
     // });
   
     // dialogRef.afterClosed().subscribe((result:any) => {
-    //   console.log('The dialog was closed');
+    //   //console.log('The dialog was closed');
     // });
   }
   openViewAll(name:any){
@@ -79,7 +79,7 @@ export class WhatsappChatCardContentComponent implements OnInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
   editLead(name:any){

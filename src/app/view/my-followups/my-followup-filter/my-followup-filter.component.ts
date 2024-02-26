@@ -182,14 +182,14 @@ export class MyFollowupFilterComponent implements OnInit {
 
 filterCount:any=[]
       onSubmit() {
-      console.log(this.filterLead.value,"filter followup values")
+      //console.log(this.filterLead.value,"filter followup values")
       if (this.filterLead.invalid) {
         this.filterLead.markAllAsTouched()
         this.api.showError('Invalid Form')
       } else{
        const formValues = this.filterLead.value;
       //  this.api.filterFollowupsForAdmin(formValues,this.page,this.pageSize).subscribe((res:any)=>{
-      //   console.log(res,"filtered records")
+      //   //console.log(res,"filtered records")
       //  })
      
        // Create an array of query parameters with non-empty values

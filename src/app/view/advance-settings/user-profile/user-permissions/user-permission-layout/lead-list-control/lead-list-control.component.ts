@@ -56,19 +56,19 @@ export class LeadListControlComponent implements OnInit {
   leadListPermissionsById() {
     this.api.getLeadListPermissions(this.id).subscribe(
       (res: any) => {
-        console.log(res, 'getLeadListPermissions');
+        //console.log(res, 'getLeadListPermissions');
         this.leadListPermissions = res.results[0].lead_list_sett[0];
 
-        console.log(this.leadListPermissions, 'perrrrr');
+        //console.log(this.leadListPermissions, 'perrrrr');
       },
       (error: any) => {
-        console.log(error);
+        //console.log(error);
       }
     );
   }
 
   openEdit(id: any) {
-    console.log(id, 'iddddddddddddd');
+    //console.log(id, 'iddddddddddddd');
     const dialogRef = this.dialog.open(EditLeadlistPermissionsComponent, {
       width: '45%',
 
@@ -78,7 +78,7 @@ export class LeadListControlComponent implements OnInit {
     dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
     });
   }
 
@@ -89,7 +89,7 @@ export class LeadListControlComponent implements OnInit {
   getLeadListPermissionsById() {
     this.api.getLeadListPermissions(this.id).subscribe(
       (res: any) => {
-        console.log(res, 'res');
+        //console.log(res, 'res');
         this.editForm.patchValue({
           edit_lead: res.results[0].lead_list_sett[0].edit_lead,
         });
@@ -120,7 +120,7 @@ export class LeadListControlComponent implements OnInit {
         this.editForm.patchValue({ sms: res.results[0].lead_list_sett[0].sms });
       },
       (error: any) => {
-        console.log(error);
+        //console.log(error);
         this.api.showError(error.error.message);
       }
     );
@@ -134,7 +134,7 @@ export class LeadListControlComponent implements OnInit {
         this.api.showSuccess(resp.message);
       },
       (error: any) => {
-        console.log(error);
+        //console.log(error);
         this.api.showError(error.error.message);
       }
     );
