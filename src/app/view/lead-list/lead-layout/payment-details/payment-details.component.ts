@@ -21,6 +21,7 @@ export class PaymentDetailsComponent implements OnInit {
   channels = ["SMS","EMAIL","WHATSAPP"]
   firstFormGroup: any;
   secondFormGroup: any;
+  user_id: any;
   constructor(public dialogRef: MatDialogRef<PaymentDetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb:FormBuilder,
@@ -31,6 +32,7 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
+    this.user_id = localStorage.getItem('user_id')
   }
  initForm(){
   this.paymentForm = this.fb.group({
@@ -57,7 +59,7 @@ export class PaymentDetailsComponent implements OnInit {
         amount:this.paymentForm.value['amount'],
         channel:this.paymentForm.value['channel'],
         lead_ids: this.data.data,
-        counsellor_id:6 ,
+        counsellor_id:this.user_id,
       } 
     }else{
      
@@ -65,7 +67,7 @@ export class PaymentDetailsComponent implements OnInit {
         amount:(this.paymentForm.value['amount']*100),
         channel:this.paymentForm.value['channel'],
         lead_ids: [this.data.user_data.id],
-        counsellor_id:6,
+        counsellor_id:this.user_id,
       }
     }
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{

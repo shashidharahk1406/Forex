@@ -127,8 +127,8 @@
                       
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Pincode</mat-label>
-                        <input type="number" formControlName="pincode" matInput placeholder="Enter The Pin Code">  
-                        <mat-error *ngIf="addLeadForm.get('pincode')?.hasError('invalidPincodeLength')">Pin code must be 6 digits long.</mat-error>
+                        <input type="text" formControlName="pincode" matInput placeholder="Enter The Pin Code">  
+                        <mat-error *ngIf="addLeadForm.get('pincode')?.hasError('invalidPincodeLength')">Pin code must be 6 digits.</mat-error>
                       </mat-form-field>
                       
                       <mat-form-field class="mb-1" appearance="outline">

@@ -53,7 +53,7 @@ export class EditStageComponent implements OnInit {
         created_date_time:this.data.created_date_time,
         updated_date_time: null
        }
-      this.baseService.postData(environment.leadStage,editData).subscribe(
+      this.baseService.updateData(`${environment.leadStage}${this.data.id}/`,editData).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()

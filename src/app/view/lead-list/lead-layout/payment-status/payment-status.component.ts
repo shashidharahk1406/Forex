@@ -28,7 +28,7 @@ export class PaymentStatusComponent implements OnInit {
     },
     {
      id:2,
-     status:'Inprogress'
+     status:'Done'
     }
    ]
   

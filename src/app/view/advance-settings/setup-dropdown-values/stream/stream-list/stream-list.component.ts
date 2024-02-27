@@ -142,7 +142,7 @@ export class StreamListComponent implements OnInit {
   }
  
   openDelete(id:any){
-    const apiUrl = `${environment.live_url}/${environment.studying_stream}${id}/`;
+    const apiUrl = `${environment.studying_stream}${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
       data:apiUrl
@@ -152,9 +152,4 @@ export class StreamListComponent implements OnInit {
     }); 
   }
   
-  
-  
- 
- 
-
 }

@@ -134,7 +134,7 @@ export class LeadStageListComponent implements OnInit {
   }
   baseurl= environment.live_url;
   openDelete(id:any){
-    const apiUrl = `${this.baseurl}${environment.leadStage}${id}/`;
+    const apiUrl = `${environment.leadStage}${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
       data:apiUrl

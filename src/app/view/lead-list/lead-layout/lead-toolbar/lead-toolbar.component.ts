@@ -221,7 +221,7 @@ export class LeadToolbarComponent implements OnInit {
   }
   downloadLead(){
   if(this.selectedLeads.length >0){
-    this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedLeads}`
+    this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
   }else{
     this.api.showWarning('Please select atleast one lead to download')
   }
