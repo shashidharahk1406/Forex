@@ -22,6 +22,7 @@ export class QuickAddComponent implements OnInit {
   levels:any = [];
   departments:any = [];
   courses:any = [];
+  referredTo: any;
 
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<QuickAddComponent>,
@@ -48,6 +49,7 @@ export class QuickAddComponent implements OnInit {
       level: ['', Validators.required],
       department: ['', Validators.required],
       course: ['', Validators.required],
+      counsellor:['',Validators.required]
     });
   }
   dropDownList(){
@@ -58,6 +60,7 @@ export class QuickAddComponent implements OnInit {
     this.getDepartment()
     this.getLevelOfProgram()
     this.getMedium()
+    this.getCounselor()
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
@@ -117,8 +120,8 @@ export class QuickAddComponent implements OnInit {
   }
   getCourse(){
     this.api.getAllCourse().subscribe((res:any)=>{
-      if(res.results){
-        this.courses = res.results;
+      if(res){
+        this.courses = res;
       }
       else{
         this.api.showError('ERROR')
@@ -151,7 +154,15 @@ export class QuickAddComponent implements OnInit {
     })
   }
 
-
+  getCounselor(){
+    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+      if(res.results){
+      this.referredTo = res.results
+      }
+    },((error:any)=>{
+       this.api.showError(this.api.toTitleCase(error.error.message))
+    }))
+  }
   clearSource() {
     this.quickAddForm.get('source')?.setValue('');
   }
@@ -178,18 +189,20 @@ export class QuickAddComponent implements OnInit {
   clearChannel(){
     this.quickAddForm.get('channel')?.setValue('');
   }
-  
+  clearLeadOwner(){
+    this.quickAddForm.get('counsellor')?.setValue('');
+  }
   onSubmit(){
     let f = this.quickAddForm.value
    
      let data:any ={
-      user_data: {
+      // user_data: {
           first_name: f.firstName,
           last_name: f.lastName,
           email: f.email,
           mobile_number: f.mobile,
-          role:5
-      },
+          role:5,
+      // },
   
       higest_qualification: null,
       campaign_name:null,
@@ -197,7 +210,7 @@ export class QuickAddComponent implements OnInit {
       channel_id:f.channel,
       source_id:f.source,
       priority_id:null,
-      refered_to_id:null,
+      refered_to:f.counsellor,
       lead_list_status_id:null,
       lead_list_substatus_id:null,
       department_id:f.department,

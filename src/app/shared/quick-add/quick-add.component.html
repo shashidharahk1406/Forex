@@ -139,7 +139,26 @@
                     </button>
                   </mat-form-field>
             </div>
-           
+            <div class="col-sm-12 col-md-12 col-lg-6">
+              <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Lead Owner</mat-label>
+                <mat-select formControlName="counsellor" placeholder="Select The Lead Owner">
+                  <mat-option *ngFor="let option of referredTo" [value]="option?.id">{{ option?.first_name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearLeadOwner()"
+                  *ngIf="quickAddForm.get('counsellor')?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="quickAddForm.get('counsellor')?.hasError('required')">Lead Owner Is Required.</mat-error>
+              </mat-form-field>
+             
+            </div>
+          
         </div>
          <!-- <div class="row">
           <div class="col-sm-12 mt-2 col-md-6 col-lg-3">
