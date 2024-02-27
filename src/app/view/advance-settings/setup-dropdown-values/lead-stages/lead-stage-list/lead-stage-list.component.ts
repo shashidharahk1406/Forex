@@ -12,14 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 
-// export interface UserData {
-//   'User Name': string,
-//   'Email': string,
-//   'Mobile': string,
-//   'User Role': string,
-//   'Designation':string,
 
-// }
 @Component({
   selector: 'app-lead-stage-list',
   templateUrl: './lead-stage-list.component.html',
@@ -67,7 +60,6 @@ export class LeadStageListComponent implements OnInit {
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getLeadStage()
@@ -78,10 +70,9 @@ export class LeadStageListComponent implements OnInit {
     if(this.searchValue?.length>0){
       this.baseService.getData(`${environment.leadStage}/?key=${this.searchValue}&page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
         this.allCourse= resp.results;
-        
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         
       },(error:any)=>{
         this.api.showError(error.error.message)
@@ -91,7 +82,6 @@ export class LeadStageListComponent implements OnInit {
     }}
   getLeadStage(){
     this.baseService.getData(`${environment.leadStage}?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
-      //console.log(resp.results);
       if(resp.results){
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
@@ -107,20 +97,20 @@ export class LeadStageListComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-   
-    this.baseService.getData(`${environment.leadStage}/?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allCourse= resp.results;
-     
-      this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-     this.api.showError(error.error.message)
-    }
-
-    )
+    if(this.searchValue?.length>0){
+      this.search()
+     }else{
+      this.baseService.getData(`${environment.leadStage}/?page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
+        this.allCourse= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCourse);
+        this.totalPageLength=resp.total_no_of_record
+      },(error:any)=>{
+       this.api.showError(error.error.message)
+      }
+  
+      )
+     }
+  
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddStagesComponent, {

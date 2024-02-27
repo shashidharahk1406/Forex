@@ -18,7 +18,6 @@
                   <div class="col">
                     <div class="row">
                       <div class="col-12 c-name point-set" (click)="editLead(item)">{{ item.user_data.first_name | titlecase}} {{ item.user_data.last_name | titlecase }} <span class="alightColor badge student-badge">{{ item.badgeCount }}</span></div>
-                      <!-- <div class="col-12 text-muted">{{ item.user_data.mobile_number }} <i class="bi bi-x-circle-fill stu-close-icon"></i></div> -->
                       <div class="col-12 text-muted">{{ item.user_data.mobile_number }} </div>
                     </div>
                   </div>
@@ -27,45 +26,12 @@
               
               <div class="col-sm-12 col-md-6 col-lg-2">
                 <div class="row status-box">
-                  <!-- <div class="col-6 top-bar truncate-text">{{ item.lead_list_status_name }}</div> -->
-                  <div class="col-12 text-center top-bar truncate-text">{{ item.lead_list_status_name }}</div>
-                  <!-- <div class="col-6 top-bar">
-                   
-                  </div> -->
-                  <!-- <div class="col-12 text-muted">{{ item.lead_list_substatus_name }}</div> -->
+                  <div class="col-12 text-center top-bar truncate-text">{{ item.lead_list_status_name || 'NA'}}</div>
                 </div>
               </div>
               <div class="col"></div>
-              <!-- <div class="col-sm-12 col-md-6 col-lg-3 border-r">
-                <div class="row">
-                  <div class="col p-0 text-center">
-                    <i class="bi bi-telephone"></i><span class="ps-1">{{ item.phoneNumber }}</span> 
-                  </div>
-                  <div class="col p-0 text-center">
-                    <i class="bi bi-chat-left"></i><span class="ps-1">{{ item.chatCount }}</span> 
-                  </div>
-                  <div class="col p-0 text-center">
-                    <i class="bi bi-envelope"></i> <span class="ps-1">{{ item.emailCount }}</span> 
-                  </div>
-                  <div class="col p-0 text-center">
-                    <i class="bi bi-chat-left-text"></i><span class="ps-1">{{ item.chatTextCount }}</span> 
-                  </div>
-                </div>
-              </div> -->
-              <!-- <div class="col-sm-12 col-md-6 col-lg-1">
-                <div class="row"> -->
-                  <!-- <div class="col p-0 text-center position-rel">
-                    <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ item.personCounts[0] }}</span>
-                  </div>
-                  <div class="col p-0 text-center  position-rel">
-                    <i class="bi bi-person" title="Lead Responses"></i><span class="badge clr-person-2" title="Lead Responses">{{ item.personCounts[1] }}</span>
-                  </div>
-                  <div class="col p-0 text-center  position-rel">
-                    <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ item.personCounts[2] }}</span>
-                  </div> -->
-                  <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(item.first_name)">View All</div> -->
-                <!-- </div>
-              </div> -->
+              
+             
               <div class="col-sm-0 col-md-0 col-lg-1"></div>
               <div class="col-sm-12 col-md-6 col-lg-4 p-ct">
                 <div class="row">
@@ -93,10 +59,7 @@
                   <div class="col  p-0" (click)="openWhatsAppChat()">
                     <i class="bi bi-whatsapp"></i>
                   </div>
-                  <!-- <div class="col  p-0">
-                    <i class="bi bi-wechat"></i>
-                  </div> -->
-              
+                
                   <div class="col p-0">
                     <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)">expand_more</mat-icon>
                     <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)">expand_less</mat-icon>

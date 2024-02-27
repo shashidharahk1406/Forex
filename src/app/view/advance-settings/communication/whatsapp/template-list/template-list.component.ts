@@ -15,16 +15,7 @@ import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 import { WhatsappTemplateDuplicateComponent } from '../whatsapp-template-duplicate/whatsapp-template-duplicate.component';
 import { WhatsappViewTemplateComponent } from '../whatsapp-view-template/whatsapp-view-template.component';
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
-  'Reporting To':string,
-  'User Status':string,
-  'Action':string
-}
+
 @Component({
   selector: 'app-template-list',
   templateUrl: './template-list.component.html',
@@ -52,15 +43,8 @@ export class TemplateListComponent implements AfterViewInit  {
   currentPage=1;
   totalPageLength:any;
 
-  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-
-    ) {
+  constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService) {
       
-   
-      // Create 100 users
-  
-
-
   }
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
@@ -84,12 +68,10 @@ export class TemplateListComponent implements AfterViewInit  {
 
     this.getTemplate(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
+   
   }
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getTemplate()
@@ -99,15 +81,13 @@ export class TemplateListComponent implements AfterViewInit  {
   search(){
     if(this.searchValue?.length>0){
     this.api.getWhatsappTemplateSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-      //console.log(resp.results);
       this.allTemplate= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allTemplate);
       this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      //console.log(error);
-      
+    this.api.showError(error.error.message)
     }
 
     )
@@ -122,7 +102,7 @@ export class TemplateListComponent implements AfterViewInit  {
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+         this.api.showError(error.error.message)
         
       }
   
@@ -137,7 +117,7 @@ export class TemplateListComponent implements AfterViewInit  {
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+         this.api.showError(error.error.message)
         
       }
   
@@ -149,37 +129,39 @@ export class TemplateListComponent implements AfterViewInit  {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    if(this.params!=null){
-      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
-        this.allTemplate= resp.results;
-        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
-        this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
-        
-      },(error:any)=>{
-        //console.log(error);
-        
+    if(this.searchValue?.length>0){
+     this.search()
+    }else{
+      if(this.params!=null){
+        this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+          this.allTemplate= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+           this.api.showError(error.error.message)
+          
+        }
+    
+        )
       }
-  
-      )
-    }
-    else{
-      this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
-        this.allTemplate= resp.results;
-        this.dataSource = new MatTableDataSource<any>(this.allTemplate);
-        this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
-        
-      },(error:any)=>{
-        //console.log(error);
-        
+      else{
+        this.api.getWhatsappTemplate(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+          this.allTemplate= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allTemplate);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+           this.api.showError(error.error.message)
+          
+        }
+    
+        )
       }
-  
-      )
     }
+    
   }
 
 
@@ -189,7 +171,6 @@ export class TemplateListComponent implements AfterViewInit  {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openCreateTemplate(){
@@ -198,7 +179,6 @@ export class TemplateListComponent implements AfterViewInit  {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -208,7 +188,6 @@ export class TemplateListComponent implements AfterViewInit  {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openView(id:any){
@@ -218,19 +197,15 @@ export class TemplateListComponent implements AfterViewInit  {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openDuplicateTemplate(data:any){
-    //console.log("ll");
-    
     const dialogRef = this.dialog.open(WhatsappTemplateDuplicateComponent, {
       width:'35%',
       data: data
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -242,7 +217,6 @@ export class TemplateListComponent implements AfterViewInit  {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
 

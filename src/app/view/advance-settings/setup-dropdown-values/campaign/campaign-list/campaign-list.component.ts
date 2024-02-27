@@ -78,16 +78,14 @@ export class CampaignListComponent implements  AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getCampignSearch(this.searchValue.value,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
+      this.api.getCampignSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
         this.allCampaign= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCampaign);
         this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
-        
+        this.api.showError(error.error.message) 
       }
   
       )
@@ -110,21 +108,22 @@ export class CampaignListComponent implements  AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getCampign(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allCampaign= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCampaign);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      this.api.getCampign(this.pageSize,this.currentPage).subscribe((resp:any)=>{ 
+        this.allCampaign= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCampaign);
+        this.totalPageLength=resp.total_no_of_record
+       
+      },(error:any)=>{
+        this.api.showError(error.error.message) 
+        
+      }
+  
+      )
     }
-
-    )
+    
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddCampaignComponent, {

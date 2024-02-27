@@ -7,18 +7,11 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { AddLevelOfProgramComponent } from '../add-level-of-program/add-level-of-program.component';
 import { EditLevelOfProgramComponent } from '../edit-level-of-program/edit-level-of-program.component';
 import { ApiService } from 'src/app/service/API/api.service';
-import {PageEvent} from '@angular/material/paginator';
+import { PageEvent} from '@angular/material/paginator';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
-export interface UserData {
-  'User Name': string,
-  'Email': string,
-  'Mobile': string,
-  'User Role': string,
-  'Designation':string,
 
-}
 @Component({
   selector: 'app-level-of-program-list',
   templateUrl: './level-of-program-list.component.html',
@@ -31,7 +24,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     'is_system_value',
     'delete'
   ]
-  dataSource=new MatTableDataSource<UserData>;
+  dataSource=new MatTableDataSource<any>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -59,13 +52,10 @@ export class LevelOfProgramListComponent implements AfterViewInit {
 
     this.getLevel(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getLevel()
@@ -75,14 +65,13 @@ export class LevelOfProgramListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getLevelOfProgramSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allLevel= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allLevel);
         this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+       this.api.showError(error.error.message)
         
       }
   
@@ -90,14 +79,13 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     }}
   getLevel(){
     this.api.getLevelOfProgram(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
       this.allLevel= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allLevel);
       this.totalPageLength=resp.total_no_of_record
     this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -106,21 +94,21 @@ export class LevelOfProgramListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getLevelOfProgram(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allLevel= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allLevel);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      this.api.getLevelOfProgram(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        this.allLevel= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allLevel);
+        this.totalPageLength=resp.total_no_of_record
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+        
+      }
+  
+      )
     }
-
-    )
+    
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddLevelOfProgramComponent, {
@@ -129,7 +117,6 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -140,7 +127,6 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -152,7 +138,6 @@ export class LevelOfProgramListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   

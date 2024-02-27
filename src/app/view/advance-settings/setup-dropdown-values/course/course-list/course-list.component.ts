@@ -44,14 +44,7 @@ export class CourseListComponent implements AfterViewInit {
   totalPageLength:any;
 
   constructor(private dialog: MatDialog, private api:ApiService, private emit:EmitService
-    ) {
-      
-   
-      // Create 100 users
-  
-
-
-  }
+    ) {}
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -65,13 +58,11 @@ export class CourseListComponent implements AfterViewInit {
 
     this.getCourse(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-
+    
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getCourse()
@@ -81,14 +72,13 @@ export class CourseListComponent implements AfterViewInit {
   search(){
     if(this.searchValue?.length>0){
       this.api.getCourseSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
+        this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
@@ -96,14 +86,13 @@ export class CourseListComponent implements AfterViewInit {
     }}
   getCourse(){
     this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
       this.allCourse= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allCourse);
       this.totalPageLength=resp.total_no_of_record
-    this.dataSource.sort = this.sort;
+      this.dataSource.sort = this.sort;
       
     },(error:any)=>{
-      //console.log(error);
+      this.api.showError(error.error.message)
       
     }
 
@@ -112,21 +101,20 @@ export class CourseListComponent implements AfterViewInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    
-    this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
-      //console.log(resp.results);
-      this.allCourse= resp.results;
-      this.dataSource = new MatTableDataSource<any>(this.allCourse);
-      this.totalPageLength=resp.total_no_of_record
-      //console.log(this.dataSource);
-      
-    },(error:any)=>{
-      //console.log(error);
-      
+    if(this.searchValue?.length>0){
+     this.search()
+    }else{
+      this.api.getCourse(this.pageSize,this.currentPage).subscribe((resp:any)=>{
+        this.allCourse= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allCourse);
+        this.totalPageLength=resp.total_no_of_record 
+      },(error:any)=>{
+        this.api.showError(error.error.message)
+      }
+  
+      )
     }
-
-    )
+    
   }
   openAdd(){
     const dialogRef = this.dialog.open(AddCourseComponent, {
@@ -134,7 +122,6 @@ export class CourseListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openEdit(id:any){
@@ -144,7 +131,6 @@ export class CourseListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   baseurl= environment.live_url;
@@ -156,12 +142,7 @@ export class CourseListComponent implements AfterViewInit {
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   
-  
-  
- 
- 
 }

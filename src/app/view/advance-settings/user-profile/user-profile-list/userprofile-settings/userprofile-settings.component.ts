@@ -89,33 +89,27 @@ user:any;
 
     this.getUser(); 
     this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
 
   }
 
   searchValue:any
   applyFilter(event: any) {
-    //console.log(event.target.value);
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getUser()
     }
-    //console.log(event.target.value);
-
   }
   search(){
     if(this.searchValue?.length>0){
       var role="Admin"
       this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
-        
+       this.api.showError(error.error.message)
       }
   
       )
@@ -132,7 +126,7 @@ user:any;
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
@@ -147,7 +141,7 @@ user:any;
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
-        //console.log(error);
+        this.api.showError(error.error.message)
         
       }
   
@@ -158,51 +152,40 @@ user:any;
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    //console.log(this.pageSize,this.currentPage);
-    var role="Admin"
-    let query = `?page_size=${this.pageSize}&page=${this.currentPage}`
-    if(this.params!=null){
-      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
-        this.allUser= resp.results;
-        this.dataSource = new MatTableDataSource<any>(this.allUser);
-        this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
-        
-      },(error:any)=>{
-        //console.log(error);
-        
-      }
-  
-      )
-      // this.baseService.getData(`${environment._user}${query}${this.params}`).subscribe((resp:any)=>{
-      //     //console.log(resp.results);
-      //     this.allUser= resp.results;
-      //     this.dataSource = new MatTableDataSource<any>(this.allUser);
-      //     this.totalPageLength=resp.total_no_of_record
-      //   this.dataSource.sort = this.sort;
-          
-      //   },(error:any)=>{
-      //     //console.log(error);
-          
-      //   }
     
-      //   )
-    }
-    else{
-      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
-        this.allUser= resp.results;
-        this.dataSource = new MatTableDataSource<any>(this.allUser);
-        this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
-        
-      },(error:any)=>{
-        //console.log(error);
+    if(this.searchValue?.length>0){
+      this.search()
+    }else{
+      if(this.params !=null ){
+        this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+          //console.log(resp.results);
+          this.allUser= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allUser);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        }
+    
+        )
         
       }
-  
-      )
+      else{
+        this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+          this.allUser= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allUser);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        }
+    
+        )
+      }
     }
   }
   
@@ -216,7 +199,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     });
   }
   openResetPassword(userdata:any){
@@ -227,7 +209,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     });
   }
   openDisableChat(id:any){
@@ -238,7 +219,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openPauseUser(id:any){
@@ -251,7 +231,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openFilter(){
@@ -261,7 +240,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   openAddUser(){
@@ -271,7 +249,6 @@ user:any;
     dialogRef.disableClose=true
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   editUserProfile(userdata:any){
@@ -281,7 +258,6 @@ user:any;
     })
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
-      //console.log('The dialog was closed');
     }); 
   }
   editForm!:FormGroup
@@ -290,32 +266,19 @@ user:any;
       deactive:["",Validators.required]
     });}
   onSlideToggleChange(id:any,event:any){
-    //console.log(id,event.checked);
-    //console.log(id,event);
     this.editForm.patchValue({deactive:!event.checked})
     this.api.pauseUser(id,this.editForm.value).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)
       },
       (error:any)=>{
-        //console.log("error");
-        
+       this.api.showError(error.error.message)
       }
     )
   }
     
 
-  // deleteUserProfile(id:any){
-  //   this.api.deleteUser(id).subscribe((res:any)=>{
-  //     this.emit.sendRefresh(true);
-  //     this.api.showSuccess(res.message)
-
-  //   },(error:any)=>{
-  //     //console.log(error);
-  //      this.api.showError(this.api.toTitleCase(error.error.message));
-  //   })
-  // }
-
+  
   baseurl= environment.live_url;
   openDelete(id:any){
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
@@ -327,14 +290,13 @@ user:any;
     dialogRef.disableClose = true;
   
     dialogRef.afterClosed().subscribe((result:any) => {
-      console.log('The dialog was closed');
-      
+    
     });
   }
 
 
   somthing(id:any){
-    //console.log('id===',id)
+    
   }
 
   
