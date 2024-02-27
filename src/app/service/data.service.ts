@@ -9,8 +9,8 @@ export class DataService {
   constructor() { }
   private sharedData: any;
 
-  setSharedData(data: any): void {
-    this.sharedData = data;
+  setSharedData(...args : any[]): void {
+    this.sharedData = args;
   }
 
   getSharedData(): any {

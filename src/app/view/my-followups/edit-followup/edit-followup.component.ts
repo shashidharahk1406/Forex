@@ -1,10 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 
@@ -38,7 +39,10 @@ export class EditFollowupComponent implements OnInit {
     private _baseService: BaseServiceService,
     private activateRoute:ActivatedRoute,
     private _bottomSheet:  MatBottomSheet,
-    private emit:EmitService) {
+    private emit:EmitService,
+    private dataService:DataService,
+    private cd: ChangeDetectorRef,
+    private router:Router) {
        this.createdBy = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
       // this.leadId=this.data?.item.user;
@@ -50,6 +54,13 @@ export class EditFollowupComponent implements OnInit {
 currentDateTime=new Date();
 formattedDate3=this.datePipe.transform(this.currentDateTime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
   ngOnInit(): void {
+
+
+
+    this.dataService.dataUpdated.subscribe((res:any)=>{
+      console.log(res,"filtercount")
+      // this.filterCount=res;
+    })
 
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
@@ -193,6 +204,12 @@ AllFollowupStatuses:any=[]
     })
   }
 
+
+  receiveData() {
+    const data = this.dataService.getSharedData();
+    console.log(data);
+  }
+
   edit() {
     // console.log('api calling', this.data);
     this.editFollowUpForm.patchValue({counsellor:this.counsellor_Id})
@@ -215,7 +232,13 @@ AllFollowupStatuses:any=[]
             // alert('api calling');
             if (res) {
               this.api.showSuccess(res.message);
+              this.emit.getRefresh.subscribe(
+                (resp:any)=>{
+                  console.log(resp,"refresh")
+                })
               // window.location.reload()
+              // this.router.navigate(['/myFollowups'])
+              this.receiveData();
               this.closePopup();
             }
           },

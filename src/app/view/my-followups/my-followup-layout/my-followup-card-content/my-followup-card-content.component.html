@@ -16,7 +16,7 @@
             All <span>({{ countData?.All }})</span>
           </p>
           <p
-            style="margin-right: 10px; color: rgb(208, 203, 62)"
+            style="margin-right: 10px; color:rgb(208, 203, 62)"
             (click)="
               filtered == true
                 ? filteredByUpcomingStatus('Upcoming')
@@ -66,30 +66,30 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6">
           <div class="row">
-            <div class="col p-0" (click)="openVideoCall()">
+            <div class="col p-0" (click)="openVideoCall()" title="Videocall">
               <i class="bi bi-camera-video"></i>
             </div>
-            <div class="col p-0 position-rel" (click)="referFollowups()">
+            <div class="col p-0 position-rel" (click)="referFollowups()" title="Refer Followup">
               <i class="bi bi-person-check"></i>
             </div>
-            <div class="col p-0" (click)="openWhatsAppChat()">
+            <div class="col p-0" (click)="openWhatsAppChat()" title="WhatsApp">
               <i class="bi bi-whatsapp"></i>
               <!-- <mat-icon>watsapp</mat-icon> -->
             </div>
-            <div class="col p-0" (click)="openSMS('All')">
+            <div class="col p-0" (click)="openSMS('All')" title="SMS">
               <!-- <i class="bi bi-chat-left-dots"></i> -->
               <i class="bi bi-chat-dots"></i>
               <!-- <mat-icon>sms</mat-icon> -->
             </div>
-            <div class="col p-0" (click)="openEmailChat('All')">
+            <div class="col p-0" (click)="openEmailChat('All')" title="Email">
               <i class="bi bi-envelope"></i>
               <!-- <mat-icon>mail</mat-icon> -->
             </div>
-            <div class="col p-0" (click)="refreshFollowUps()">
+            <div class="col p-0" (click)="refreshFollowUps()" title="Refresh">
               <!-- <mat-icon>autorenew</mat-icon> -->
               <i class="bi bi-repeat"></i>
             </div>
-            <div class="col p-0" (click)="downloadLead()">
+            <div class="col p-0" (click)="downloadLead()" title="Download">
               <a
                 *ngIf="selectedCheckboxIds.length > 0"
                 [href]="exportReference"
@@ -109,14 +109,14 @@
               </a>
             </div>
 
-            <div class="col p-0" (click)="onClickLink()">
+            <div class="col p-0" (click)="onClickLink()" title="Link">
               <mat-icon>link</mat-icon>
             </div>
 
             <div
               class="col p-0 d-flex"
               (click)="filterFollowups()"
-              
+              title="Filter"
             >
               <i class="bi bi-funnel" *ngIf="!filtered"></i>
               <i
@@ -131,13 +131,18 @@
                 style="margin-right: 10px; margin-top: -25px"
                 >close</mat-icon
               >
+           
               <!-- <mat-icon *ngIf="filtered" matBadge="15" matBadgeColor="warn">filter</mat-icon> -->
               <!-- <div matBadge="{followUpsData.totalNumberOfRecords}" matBadgeOverlap="false" class="demo-section" *ngIf="filtered">{{ followUpsData.totalNumberOfRecords }}</div> -->
               <!-- <span class="alightColor badge student-badge">{{ followUpsData.totalNumberOfRecords }}</span> -->
             </div>
+          
           </div>
         </div>
       </div>
+      <div class="col" *ngIf="followUpsData?.length === 0" >
+        <button mat-raised-button (click)="refreshFollowUps()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
+    </div>
     </mat-card>
     <div class="row">
       <div class="col" style="padding-left: 1px">
@@ -167,6 +172,8 @@
       *ngIf="!followUpsData || followUpsData?.length === 0"
     ></app-nodata>
 
+    
+
     <div
       class="col-12 col-md-12"
       *ngFor="
@@ -195,7 +202,7 @@
                 </div> -->
               <div class="col">
                 <div class="row text-start">
-                  <div class="col-12 c-name point-set">
+                  <div class="col-12 c-name point-set" (click)="EditFollowups(followUp.id)">
                     {{ followUp.lead | titlecase }}
                   </div>
                   <div class="col-12 text-muted">
@@ -209,8 +216,12 @@
           <div class="col"></div>
           <div class="col-sm-12 col-md-6 col-lg-2">
             <div class="row">
-              <div class="col-12" >
-                {{ followUp.follow_up_status_name | uppercase }}
+              <div class="col-12"   [ngClass]="{
+                'yellow' : followUp.follow_up_status_name=='Upcoming',
+                'green' : followUp.follow_up_status_name=='Done',
+                'red' : followUp.follow_up_status_name=='Missed'
+             }"><b>
+                {{ followUp.follow_up_status_name | uppercase }}</b>
               </div>
 
               <!-- <div class="col-12 text-muted">{{ followUp.leadStatus }}</div> -->
@@ -377,12 +388,12 @@
                 </div>
                 <div class="col">
                   <div class="row text-start">
-                    <div class="col-12 pannel-label">Channel</div>
-                    <div class="col-12" *ngIf="!followUp.communication_channel">
+                    <div class="col-12 pannel-label">Next Action Date</div>
+                    <div class="col-12" *ngIf="!followUp.action_date_time">
                       {{ "NA" }}
                     </div>
-                    <div class="col-12" *ngIf="followUp.communication_channel">
-                      {{ followUp.communication_channel }}
+                    <div class="col-12" *ngIf="followUp.action_date_time">
+                      {{ followUp.action_date_time }}
                     </div>
                   </div>
                 </div>
@@ -707,7 +718,7 @@
  
     <!-- <div class="col-12"></div> -->
     <input
-    type="search"
+    type="text"
     class="form-control icon-rtl"
     placeholder="Search by Name/Mobile"
     [(ngModel)]="followupSearch"
@@ -715,6 +726,8 @@
     style="width: 89% !important;"
   
   />
+
+ 
     <div class="input-group z-s m-auto m-2" id="calender-col">
      
 

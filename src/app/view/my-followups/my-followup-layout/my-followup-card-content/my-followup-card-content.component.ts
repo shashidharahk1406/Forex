@@ -106,6 +106,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     this.role = localStorage.getItem('user_role');
     console.log(this.role, 'roleeeeeeeeeeeeeee');
     console.log(data, 'data');
+    
    
     
   }
@@ -1301,6 +1302,8 @@ else{
 }
 
   }
+
+  
 
 
 }
