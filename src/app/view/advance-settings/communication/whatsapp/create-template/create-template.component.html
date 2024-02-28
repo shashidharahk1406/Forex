@@ -40,7 +40,7 @@
                             <input formControlName="name" matInput type="text" matInput placeholder="Name">
                             <mat-error *ngIf="f['name'].invalid && f['name'].touched">
                                 <div *ngIf="f['name'].errors && f['name'].errors['required']">
-                                    Template Name Is Required
+                                    Template Title Is Required
                                 </div>
                             </mat-error>
                         </mat-form-field>
@@ -63,6 +63,12 @@
                     <div class="col-lg-12 col-12">
                         <textarea formControlName="message"  [(ngModel)]="message" name="editor"   ></textarea>
                     </div>
+
+                    <mat-error *ngIf="f['message'].invalid && f['message'].touched">
+                        <div *ngIf="f['message'].errors && f['message'].errors['required']">
+                           Message Is Required
+                        </div>
+                    </mat-error>
                 </div>
 
 

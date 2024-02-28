@@ -8,6 +8,7 @@ export const environment = {
   live_url: 'https://fcmdev.thestorywallcafe.com',
   // live_url:'https://fcmtest.thestorywallcafe.com',
   //live_url:'http://localhost:8005',
+  // live_url:'https://admin.firstclassmentor.com',
   lead_list:'/api/lead-list/',
   lead_status:'/api/lead-list-status/',
   lead_subStatus:'/api/lead-list-substatus/',
@@ -31,5 +32,5 @@ export const environment = {
   admission_details:`/api/admission-details/`,
   followUps:`/api/follow-up/`,
   payment_status:`/api/payment-status/`,
-  studying_stream:`api/studying-stream/`
+  studying_stream: `/api/studying_stream/`,
 };

@@ -118,7 +118,7 @@ input:focus{
     background: transparent;
   }
   .custom-calendar {
-    border: 1px solid #ccc; 
+    /* border: 1px solid #ccc;  */
     width: 100%; 
     
 
@@ -143,6 +143,8 @@ i,mat-icon{
     color: var(--appColor);
     
 }
+
+
 .forward-icon{
     position: absolute;
     top: 10px;
@@ -354,6 +356,10 @@ i,mat-icon{
     color: gray !important;
     font-size: 22px;
 }
+
+.bi-whatsapp{
+color:green;
+}
 .dropdown-menu.show{
     
     /* width: 50vw !important;
@@ -395,16 +401,24 @@ font-size: 1 rem !important;
     z-index: 9999 !important;
 } */
 
+.input-group .btn {
+    /* position: relative;
+    z-index: 2; */
+    display: flex !important;
+    justify-content: end !important;
+}
+
 
 .icon-rtl {
-    padding-right: 25px;
-    background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat right;
+    /* padding-right: 32px; */
+    /* margin-right: 30px; */
+    background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat right 25px center;
     background-size: 20px;
   }
 
 
   .yellow{
-    color:  rgb(208, 203, 62);
+    color: orange;
     /* color: yellow; */
   }
   .green{
@@ -419,5 +433,15 @@ font-size: 1 rem !important;
     cursor: pointer;
     border: none !important;
     /* content: attr(title); */
+    font-size: 12px;
+  }
+  img{
+    cursor: pointer;
+  }
+  p{
+    font-size: 14px;
+    font-weight: bolder;
+  }
+  div{
     font-size: 12px;
   }

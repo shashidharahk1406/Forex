@@ -87,7 +87,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
-  receiveFilterCount$!: Observable<any>;
+  // receiveFilterCount$!: Observable<any>;
   constructor(
     private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
@@ -1032,10 +1032,18 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   onSearchInputChange() {
     this.getAllFollowUps('All');
   }
+noData:boolean=false;
+@ViewChild('noResultsSection') noResultsSection:any;
 
   clearSearch(event: any) {
-    console.log('Event', event);
+    
     this.followUpsData = this.followUpsDataTemp;
+    console.log('Event', event.data);
+    console.log(this.followUpsData.length,"length")
+  
+    
+  
+   
   }
 
   onChange(event: any) {
