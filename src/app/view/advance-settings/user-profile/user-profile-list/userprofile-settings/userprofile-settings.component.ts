@@ -115,12 +115,15 @@ user:any;
       )
     }}
   getUser(){
+    console.log("Hello", this.params);
+    
     var role="Admin"
     //console.log("ppp");
     if(this.params!=null){
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
+        console.log(resp.results,"users response");
         this.allUser= resp.results;
+        
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
@@ -133,12 +136,19 @@ user:any;
       )
     }
     else{
+      console.log("coming to else", this.params);
+      
       this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        //console.log(resp.results);
+        console.log("==>>",resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
+
+        console.log("datasource", this.dataSource);
+        
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
+
+      
         
       },(error:any)=>{
         this.api.showError(error.error.message)

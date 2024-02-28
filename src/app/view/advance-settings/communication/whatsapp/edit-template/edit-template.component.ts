@@ -89,6 +89,7 @@ export class EditTemplateComponent implements OnInit {
       this.api.editWhatsappTemplate(this.id,this.editForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
+          this.api.showSuccess(resp.message)
           this.dialogRef.close()
         },
         (error:any)=>{

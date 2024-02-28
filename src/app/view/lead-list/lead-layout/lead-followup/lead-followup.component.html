@@ -2,7 +2,7 @@
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Follow  Up To {{data?.name | titlecase }}</h1></div>
+            <div class="col"><h1 mat-dialog-title class="text-truncate" style="max-width: 280px;">Add Followup To {{data.item.user_data.first_name| titlecase }}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>
@@ -22,7 +22,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('priority')"
-                  *ngIf="followupForm.get('priority')?.value?.length > 0"
+                  *ngIf="followupForm.get('priority')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -40,8 +40,8 @@
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('statuslist')"
-                  *ngIf="followupForm.get('lead_status')?.value?.length > 0"
+                  (click)="clearSelectField('lead_status')"
+                  *ngIf="followupForm.get('lead_status')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -60,8 +60,8 @@
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('followUpStatus')"
-                  *ngIf="followupForm.get('follow_up_status')?.value?.length > 0"
+                  (click)="clearSelectField('follow_up_status')"
+                  *ngIf="followupForm.get('follow_up_status')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -89,17 +89,17 @@
                 </mat-error>
               </mat-form-field> -->
 
-              <mat-form-field class="mb-1" appearance="outline">
+              <mat-form-field class="mb-1" appearance="outline" >
                 <mat-label>Select Communication Channel</mat-label>
-                <mat-select formControlName="communication_channel" >
+                <mat-select formControlName="communication_channel">
                   <mat-option *ngFor="let followuplist of leadCategory" [value]="followuplist.id">{{ followuplist.channel_name }}</mat-option>
                 </mat-select>
                 <button
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('followuplist')"
-                  *ngIf="followupForm.get('communication_channel')?.value?.length > 0"
+                  (click)="clearSelectField('communication_channel')"
+                  *ngIf="followupForm.get('communication_channel')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>

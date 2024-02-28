@@ -419,6 +419,8 @@ export class ApiService implements OnInit {
         `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&${data}`
       );
     } else {
+      console.log("coming else in service ");
+      
       return this.http.get(
         `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}`
       );

@@ -2,15 +2,15 @@
 
 <ng-container >
     <mat-card class="p-0 m-0">
-      <div class="add-users mat-dialog-header">
+      <div class="add-users mat-dialog-header ">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Edit Follow  Up of {{leadName}}</h1></div>
+            <div class="col-11"><h1 class="text-truncate" mat-dialog-title style="max-width: 280px;">Edit Follow  Up of {{leadName |titlecase}}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>
         </div>
       </div>
-        <mat-dialog-content class="mat-typography p-5 m-3">
+        <mat-dialog-content class="mat-typography p-5 m-5">
          <div class="container">
           <form [formGroup]="editFollowUpForm">
            
@@ -24,7 +24,7 @@
                   mat-icon-button
                   aria-label="Clear"
                   (click)="clearSelectField('priority')"
-                  *ngIf="editFollowUpForm.get('priority')?.value?.length > 0"
+                  *ngIf="editFollowUpForm.get('priority')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -42,10 +42,10 @@
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('statuslist')"
-                  *ngIf="editFollowUpForm.get('lead_status')?.value?.length > 0"
+                  (click)="clearSelectField('lead_status')"
+                  *ngIf="editFollowUpForm.get('lead_status')?.value"
                 >
-                  <!-- <mat-icon>clear</mat-icon> -->
+                  <mat-icon>clear</mat-icon>
                 </button>
                 <mat-error *ngIf="f['lead_status'].hasError('required')">
                  Status Is Required.
@@ -63,8 +63,8 @@
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('followUpStatus')"
-                  *ngIf="editFollowUpForm.get('follow_up_status')?.value?.length > 0"
+                  (click)="clearSelectField('follow_up_status')"
+                  *ngIf="editFollowUpForm.get('follow_up_status')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>
@@ -101,8 +101,8 @@
                   matSuffix
                   mat-icon-button
                   aria-label="Clear"
-                  (click)="clearSelectField('followuplist')"
-                  *ngIf="editFollowUpForm.get('communication_channel')?.value?.length > 0"
+                  (click)="clearSelectField('communication_channel')"
+                  *ngIf="editFollowUpForm.get('communication_channel')?.value"
                 >
                   <mat-icon>clear</mat-icon>
                 </button>

@@ -40,7 +40,7 @@ export class LeadFollowupComponent implements OnInit {
   ) {
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
-    //console.log(this.data.item.user_data.id,"this.data.item.user;")
+    console.log(this.data.item.user_data.first_name,"this.data.item.user")
     this.getFollowUp()
   }
 
@@ -196,7 +196,8 @@ export class LeadFollowupComponent implements OnInit {
   get f() {
     return this.followupForm.controls;
   }
-  clearSelectField(fieldName: string) {
+  clearSelectField(fieldName: any) {
+    console.log(fieldName,"field name")
     this.followupForm.get(fieldName)?.reset();
   }
 

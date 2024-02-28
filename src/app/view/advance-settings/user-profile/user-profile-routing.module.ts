@@ -11,7 +11,8 @@ const routes: Routes = [
     },
     {
       path:'', redirectTo:'profileList', pathMatch:'full'
-    },{
+    },
+    {
       path:'user-permissions', loadChildren:()=> import('./user-permissions/user-permissions.module').then(m=>m.UserPermissionsModule)
     }
     

@@ -10,13 +10,30 @@
 @import "./assets/add-new-lead.css";
 @import "./assets/lead-card.css";
 @import "./assets/global.css";
+
 input[type="search"]::-webkit-search-cancel-button:hover{
    cursor:pointer;
   }
 
 
 
+  @font-face {
+   font-family: 'Poppins';
+   src: url('./assets/fonts/Poppins-Regular.ttf');
+  }
+
+  
+:root{
+   --primary-font:"Poppins"
+}
+
+div,span{
+   font-family: 'Poppins' !important;
+   
+}
 
 
-
+/* div{
+   font-size: 12px;
+} */
 

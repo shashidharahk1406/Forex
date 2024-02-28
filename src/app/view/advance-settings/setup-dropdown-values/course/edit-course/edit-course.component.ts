@@ -29,8 +29,8 @@ export class EditCourseComponent implements OnInit {
   initFilter(){
     this.editForm = this._fb.group({
       course_name:['',[Validators.required]],
-      level_of_program_id:['',[Validators.required]],
-      department_id:['',[Validators.required]],
+      // level_of_program_id:['',[Validators.required]],
+      // department_id:['',[Validators.required]],
 
     })
     this.getCoursebyId()
