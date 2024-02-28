@@ -1,4 +1,10 @@
 <app-lead-toolbar  (selectedSearch)="search($event)" [leadData]="leadData2" (refresh)="refreshLead($event)" [totalCount]="totalCount" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
+<div class="row"  *ngIf="!leadData || leadData?.length === 0">
+        
+  <div class="col" >
+      <button mat-raised-button (click)="onSearchInputChange()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
+  </div>
+</div>
 <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!leadData || leadData?.length === 0"></app-nodata>
 
 <mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll($event)" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
@@ -36,7 +42,7 @@
               <div class="col-sm-12 col-md-6 col-lg-4 p-ct">
                 <div class="row">
                   <div class="col  p-0">
-                    <div ngbDropdown class="d-inline-block lead-dropdown">
+                    <div ngbDropdown class="d-inline-block lead-dropdown" title="More options">
                       <mat-icon class="common-class" id="dropdownBasic1" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
                       <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                         <app-leadcard-more [leadName]="item.user_data.first_name" [leadId]="item.user_data.id" [counselor_id]="item.refered_to_id" (deleteEvent)="delete($event)" [item]="item"></app-leadcard-more>
@@ -44,25 +50,25 @@
                     </div>
                   </div>
                   
-                  <div class="col p-0" (click)="openVideoCall()">
+                  <div class="col p-0" (click)="openVideoCall()" title="Send Video Conferencing Invite">
                     <i class="bi bi-camera-video-fill"></i>
                   </div>
-                  <div class="col p-0" (click)="openCall(item)">
+                  <div class="col p-0" (click)="openCall(item)" title="Call Lead">
                     <i class="bi bi-telephone-fill"></i>
                   </div>
-                  <div class="col  p-0 position-rel" (click)="openSMS(item)">
+                  <div class="col  p-0 position-rel" (click)="openSMS(item)" title="Send SMS">
                     <i class="bi bi-chat-left-dots-fill"></i>
                   </div>
-                  <div class="col  p-0" (click)="openEmailChat(item)">
+                  <div class="col  p-0" (click)="openEmailChat(item)" title="Send Email">
                     <i class="bi bi-envelope-fill"></i>
                   </div>
-                  <div class="col  p-0" (click)="openWhatsAppChat()">
+                  <div class="col  p-0" (click)="openWhatsAppChat()" title="WhatsApp Chat">
                     <i class="bi bi-whatsapp"></i>
                   </div>
                 
-                  <div class="col p-0">
-                    <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)">expand_more</mat-icon>
-                    <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)">expand_less</mat-icon>
+                  <div class="col p-0" >
+                    <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)" title="Lead Details">expand_more</mat-icon>
+                    <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)" title="Close">expand_less</mat-icon>
                   </div>                  
                 </div>
               </div>

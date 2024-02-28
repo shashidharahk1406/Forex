@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment.prod';
 import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
 declare var Razorpay:any;
 @Component({
   selector: 'app-payment-details',
@@ -28,7 +29,8 @@ export class PaymentDetailsComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private emitService:EmitService,
-    private emit:AddLeadEmitterService){}
+    private emit:AddLeadEmitterService,
+    private _commonService:CommonServiceService){}
 
   ngOnInit(): void {
     this.initForm()
@@ -36,7 +38,7 @@ export class PaymentDetailsComponent implements OnInit {
   }
  initForm(){
   this.paymentForm = this.fb.group({
-    amount:['',[Validators.required]],
+    amount:['',[Validators.required,Validators.pattern(this._commonService.amountPattern)]],
     channel:['',[Validators.required]]
   })
  }

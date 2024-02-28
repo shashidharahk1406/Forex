@@ -40,8 +40,7 @@
         <mat-step [stepControl]="thirdFormGroup"  [editable]="editable3" >
             <form [formGroup]="thirdFormGroup">
               <ng-template matStepLabel>Completed</ng-template>
-              <p class="mt-3">Upload Payment Proof</p>
-           
+              
               <p class="mb-0">Payment Mode <b class="mandatory-symbol">*</b></p>
               <mat-form-field class="m-0" appearance="outline">
                   <mat-label>Payment Mode</mat-label>
@@ -70,6 +69,9 @@
                   <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectField('admission')" *ngIf="f['admission'].value">
                     <mat-icon>clear</mat-icon>
                   </button>
+                 
+                    <mat-error class="er-fs" *ngIf="f['admission'].hasError('required')">Admission Status Is Required</mat-error>
+                    
                 </mat-form-field>
                 <ng-container>
                

@@ -33,7 +33,7 @@ export class LeadEmailComponent implements OnInit {
  
   initForm(){
     this.emailForm = this.fb.group({
-      emailTemplate: [''],
+      emailTemplate: ['',Validators.required],
       subject: ['', Validators.required],
       followupComment:['',Validators.required],
     });

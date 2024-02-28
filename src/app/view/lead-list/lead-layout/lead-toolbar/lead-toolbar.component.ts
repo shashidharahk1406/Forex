@@ -8,7 +8,7 @@ import { LeadEmailComponent } from '../lead-email/lead-email.component';
 import { ReferLeadComponent } from '../refer-lead/refer-lead.component';
 import { LeadFilterComponent } from '../lead-filter/lead-filter.component';
 import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -30,8 +30,8 @@ export class LeadToolbarComponent implements OnInit {
  @Output()refresh = new EventEmitter()
  @Input()leadData:any = [];
   data!: any;
-  leadSearch:any;
-  serachForm!:FormGroup;
+  
+  searchForm!:FormGroup;
   showBtn: boolean = false;
   exportReference: any;
   filtered = false;
@@ -40,11 +40,13 @@ export class LeadToolbarComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private emit:EmitService,
-    private addEventEmitter:AddLeadEmitterService 
+    private addEventEmitter:AddLeadEmitterService,
+    private fb:FormBuilder
     ) {
   }
 
   ngOnInit():any {
+    this.initForm()
     this.addEventEmitter.leadFilterIcon.subscribe(
       (resp:any)=>{
        //console.log(resp,"RESPONSE")
@@ -53,13 +55,21 @@ export class LeadToolbarComponent implements OnInit {
        }else{
         this.filtered= false
        }
-         
-         
-        
+       
       }
     )
+    this.addEventEmitter.goBack.subscribe((resp:any)=>{
+      if(resp === true){ 
+        this.searchForm.reset()
+      }
+    })
+    
   }
-  
+  initForm(){
+    this.searchForm = this.fb.group({
+      searchText:['']
+    })
+  }
   addCount(){
     if(this.checkAll){
       this.data = 'All'
@@ -68,9 +78,6 @@ export class LeadToolbarComponent implements OnInit {
       }
   }
   onSelect(event:any){
-    // this.leadSearch = ''
-
-    
     this.selectedSort.emit(event)
   }
   applyFilter(event: any) {
@@ -79,20 +86,17 @@ export class LeadToolbarComponent implements OnInit {
       this.selectedSearch.emit('')
       this.emit.allocateSearch.next('init')
     }
-   
+    
   }
-  search(event:any){
-    if(event){
-      this.selectedSearch.emit(event)
-     }
-   
+  search(){
+    this.selectedSearch.emit(this.searchForm.value.searchText)
   }
-   onSearchInputChange() {
-    this.leadSearch = ""
-    if (!this.leadSearch) {
-      this.selectedSearch.emit(this.leadSearch)
-    }
-  }
+  //  onSearchInputChange() {
+  //   this.leadSearch = ""
+  //   if (!this.leadSearch) {
+  //     this.selectedSearch.emit(this.leadSearch)
+  //   }
+  // }
   bulkVideoCall(){
     const dialogRef = this.dialog.open(LeadVideoCallComponent, {
       width:'45%',

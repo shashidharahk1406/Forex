@@ -32,7 +32,3 @@ i,mat-icon{
 .bi-arrow-left-circle-fill{
     color:#FFF
 }
-.go-back{
- background-color: var(--appColor);
- color:white;
-}

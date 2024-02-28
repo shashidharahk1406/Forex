@@ -108,3 +108,7 @@
 .p-ct{
     padding-top: 10px;
 }
+.go-back{
+    background-color: var(--appColor);
+    color:white;
+}

@@ -116,7 +116,7 @@ export class LeadFollowupComponent implements OnInit {
        //console.log(res.result,'RESULTS')
       }
     },((error:any)=>{
-      this.api.showError(error.error.message)
+     // this.api.showError(error.error.message)
     }))
   }
     

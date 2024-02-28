@@ -11,6 +11,9 @@ import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -35,12 +38,15 @@ export class LeadCardContentComponent implements OnInit {
   leadAllIds: any = [];
   @Output()refresh = new EventEmitter;
   leadItem: any;
+  searchEvent: any;
 
   constructor(
     private _bottomSheet:  MatBottomSheet,
     private dialog: MatDialog,
     private _baseService:BaseServiceService,
-    private api:ApiService) {}
+    private api:ApiService,
+    private emit:AddLeadEmitterService
+    ) {}
   delete(event:any){
     this.deleteLead.emit(event);
   }
@@ -143,6 +149,7 @@ export class LeadCardContentComponent implements OnInit {
     this.selectedSort.emit(event)
   }
   search(event:any){
+    this.searchEvent = event
    this.selectedSearch.emit(event)
   }
  
@@ -213,6 +220,15 @@ export class LeadCardContentComponent implements OnInit {
     }
    
   }
-  
+  onSearchInputChange(){
+    this.emit.leadFilterIcon.subscribe((res) => {
+      if (res) {
+        this.emit.goBack.next(true)
+      }else{
+        this.emit.triggerGet()
+      }
+    });
+  }
+
   
 }

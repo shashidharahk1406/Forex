@@ -38,6 +38,7 @@ export class LeadEditComponent implements OnInit {
   leadData: any = [];
   user_id: any;
   streamList: any = [];
+  max!: Date;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -55,6 +56,7 @@ export class LeadEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm()
+    this.max = new Date()
     this.getLeadById()
   }
   getLeadById() {
@@ -110,7 +112,7 @@ export class LeadEditComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
-        email: ['', [Validators.email]],
+        email: ['', [Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:"",
         state: [''],
         zone:[''],

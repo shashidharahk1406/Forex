@@ -225,3 +225,6 @@ app-lead-list{
   width: 100%;
   overflow-y: hidden !important;
 }
+.h1-set-header{
+ cursor:pointer;
+}

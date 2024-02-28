@@ -20,7 +20,7 @@
                 <mat-label>Amount</mat-label>
                 <input
                   matInput
-                  type="number"
+                  type="tel"
                   formControlName="amount"
                   required
                   placeholder="Enter The Amount"
@@ -28,6 +28,7 @@
                 <mat-error *ngIf="f['amount'].hasError('required')">
                   Amount Is Required.
                 </mat-error>
+                <mat-error *ngIf="f['amount'].hasError('pattern')">Please Enter A Valid Amount.</mat-error>
               </mat-form-field>
             </div>
           </div>

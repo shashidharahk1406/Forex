@@ -64,7 +64,7 @@ export class AddNewLeadComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
-        email: ['', [Validators.email]],
+        email: ['', [Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
         zone:[''],
@@ -227,8 +227,8 @@ export class AddNewLeadComponent implements OnInit {
     },(error:any)=>{
       this.api.showError(this.api.toTitleCase(error.error.message))
     })
-   }
-   getCourse(){
+  }
+  getCourse(){
     this.api.getAllCourse().subscribe((res:any)=>{
       if(res){
         this.courseOptions = res;
@@ -262,9 +262,9 @@ export class AddNewLeadComponent implements OnInit {
   }
   clearSelectField(fieldName: string) {
     this.addLeadForm.get(fieldName)?.reset();
-   }
+  }
   
-   getStream(){
+  getStream(){
     this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
     if(resp){
      this.streamList = resp
@@ -276,71 +276,71 @@ export class AddNewLeadComponent implements OnInit {
 
     )
   }
-onSubmit(){
-  let f = this.addLeadForm.value
+  onSubmit(){
+    let f = this.addLeadForm.value
 
-let data:any ={
-  first_name: f['firstName'],
-  last_name: "",
-  email: f['email'] || null,
-  mobile_number:f['mobile'],
-  date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
-  alternate_mobile_number:f['alternateNumber'] || null,
-  role: 5,
-  created_by: this.user_id,
-  refered_to: f['counsellor'],
-  location:  null,
-  pincode: f['pincode'] || null,
-  country:f['countryId'],
-  state: f['state'],
-  city: f['cityName'],
-  zone:f['zone'],
-  reference_name:f['referenceName'],
-  reference_mobile_number:f['referencePhoneNumber'] || null,
-  father_name:f['fatherName'],
-  father_occupation:f['fatherOccupation'],
-  father_mobile_number:f['fatherPhoneNumber'] || null,
-  tenth_per: f['tenthPercentage'] || null,
-  twelfth_per: f['twelthPercentage'] || null,
-  degree_per: f['degree'] || null,
-  stream: f["course"],
-  others: f["otherCourse"],
-  enterance_exam: f["entranceExam"],
-  course_looking_for: f["courseLookingfor"],
-  lead_list_status:f['leadStatus'],
-  lead_list_substatus: null,
-  counselled_by:f['counsellorAdmin'],
-  lead_stage: f['leadStages'],
-  source: f['leadSource'],
-  preferance_college_and_location: 
-          {
-            preferred_college1: f["preferredCollege1"],
-            preferred_college2: f["preferredCollege2"],
-            preferred_location1: f["preferredLocation1"],
-            preferred_location2: f["preferredLocation2"]
-          },
-  note_name:f['notes'],
-  created_note_remark_by:this.user_id,
-  remark_name:f['remarks']
-}
+  let data:any ={
+    first_name: f['firstName'],
+    last_name: "",
+    email: f['email'] || null,
+    mobile_number:f['mobile'],
+    date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
+    alternate_mobile_number:f['alternateNumber'] || null,
+    role: 5,
+    created_by: this.user_id,
+    refered_to: f['counsellor'],
+    location:  null,
+    pincode: f['pincode'] || null,
+    country:f['countryId'],
+    state: f['state'],
+    city: f['cityName'],
+    zone:f['zone'],
+    reference_name:f['referenceName'],
+    reference_mobile_number:f['referencePhoneNumber'] || null,
+    father_name:f['fatherName'],
+    father_occupation:f['fatherOccupation'],
+    father_mobile_number:f['fatherPhoneNumber'] || null,
+    tenth_per: f['tenthPercentage'] || null,
+    twelfth_per: f['twelthPercentage'] || null,
+    degree_per: f['degree'] || null,
+    stream: f["course"],
+    others: f["otherCourse"],
+    enterance_exam: f["entranceExam"],
+    course_looking_for: f["courseLookingfor"],
+    lead_list_status:f['leadStatus'],
+    lead_list_substatus: null,
+    counselled_by:f['counsellorAdmin'],
+    lead_stage: f['leadStages'],
+    source: f['leadSource'],
+    preferance_college_and_location: 
+            {
+              preferred_college1: f["preferredCollege1"],
+              preferred_college2: f["preferredCollege2"],
+              preferred_location1: f["preferredLocation1"],
+              preferred_location2: f["preferredLocation2"]
+            },
+    note_name:f['notes'],
+    created_note_remark_by:this.user_id,
+    remark_name:f['remarks']
+  }
 
-  if(this.addLeadForm.invalid){
-    this.addLeadForm.markAllAsTouched()
-    
+    if(this.addLeadForm.invalid){
+      this.addLeadForm.markAllAsTouched()
+      this.api.showError('Please Fill The Mandatory Fields')
+    }
+    else{
+      this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
+        if(res){
+          this.addLead.emit('ADD')
+          this.api.showSuccess(res.message)
+          this._bottomSheetRef.dismiss('yes');
+          this._addLeadEmitter.triggerGet();
+        }
+      },(error=>{
+        this.api.showError(error?.error.message)
+      }))
+    }
   }
-  else{
-    this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
-      if(res){
-        this.addLead.emit('ADD')
-        this.api.showSuccess(res.message)
-        this._bottomSheetRef.dismiss('yes');
-        this._addLeadEmitter.triggerGet();
-      }
-    },(error=>{
-      this.api.showError(error?.error.message)
-    }))
-  }
-}
 openAddCourse(){
   const dialogRef = this.dialog.open(AddCourseComponent, {
     width:'35%'

@@ -103,7 +103,7 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
     
-    // this.setupLeadDataListener();
+    this.setupLeadDataListener();
     this.setupLeadFilterListener();
     this.getLeadIds()
     this.getStatus()
@@ -112,9 +112,9 @@ export class LeadCardComponent implements OnInit {
       this.getLeadData('tabLabel')
       this.getLeadIds()
     });
-    this.emit.allocateSearch.subscribe((res:any)=>{
+    this._addLeadEmitter.goBack.subscribe((res:any)=>{
       if(res){
-        this.getLeadData('tabLabel')
+        this.setupLeadFilterListener()
       }
     })
   
@@ -149,8 +149,16 @@ export class LeadCardComponent implements OnInit {
         });
       }
     });
+
   }
-  
+  goBack(){
+    this._addLeadEmitter.triggerGetFilter$.subscribe((res:any)=>{
+      if(res){
+        debugger;
+        this.setupLeadFilterListener()
+      }
+    })
+  }
    setupLeadFilterListener(){
     this._addLeadEmitter.leadFilter.subscribe((res) => {
       if (res) {
@@ -159,6 +167,7 @@ export class LeadCardComponent implements OnInit {
         this.filterLeads(res);
       }
     });
+  
   }
   
   applySearch(event:any){

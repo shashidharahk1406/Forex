@@ -5,26 +5,26 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-4" >
             <div class="row">
-                <div class="col p-1" (click)="openVideoCall()">
+                <div class="col p-1" (click)="openVideoCall()" title="Send Video Conferencing Invite">
                     <i class="bi bi-camera-video-fill" ></i>
                 </div>
                 
-                <div class="col p-1 position-rel" (click)="referLead()">
+                <div class="col p-1 position-rel" (click)="referLead()" title="Assign Leads">
                     <i class="bi bi-person-check-fill"></i>
                 </div>
-                <div class="col p-1" (click)="openWhatsAppChat()">
+                <div class="col p-1" (click)="openWhatsAppChat()" title="WhatsApp Chat">
                     <i class="bi bi-whatsapp"></i>
                 </div>
-                <div class="col p-1" (click)="openSMS('All')">
+                <div class="col p-1" (click)="openSMS('All')" title="Send SMS">
                     <i class="bi bi-chat-left-dots-fill"></i>
                 </div>
-                <div class="col p-1" (click)="openEmailChat('All')">
+                <div class="col p-1" (click)="openEmailChat('All')" title="Send Email">
                     <i class="bi bi-envelope-fill"></i>
                 </div>
-                <div class="col p-1" (click)="refreshLead($event)">
+                <div class="col p-1" (click)="refreshLead($event)" title="Page Refresh">
                     <mat-icon>autorenew</mat-icon>
                 </div>
-                <div class="col p-1"  (click)="downloadLead()">
+                <div class="col p-1"  (click)="downloadLead()" title="Download">
                   <a *ngIf="selectedLeads.length >0" [href]="exportReference" target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>
                   <a *ngIf="selectedLeads.length === 0"  target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>    
                 </div>
@@ -39,10 +39,10 @@
                 <div class="col p-1">
                     <mat-icon>list</mat-icon>
                 </div> -->
-                <div class="col p-1" (click)="onClickLink()">
+                <div class="col p-1" (click)="onClickLink()" title="Send Payment Link">
                     <mat-icon>link</mat-icon>
                 </div>
-                <div class="col p-1" (click)="filterLead()">
+                <div class="col p-1" (click)="filterLead()" title="Filter">
                     <i class="bi bi-funnel" *ngIf="!filtered"></i>
                     <i class="bi bi-funnel-fill" *ngIf="filtered"></i>
                 </div>
@@ -51,22 +51,26 @@
         </div>
        
           <!-- <div class="col" *ngIf="totalCount === 0"></div> -->
+         
           <div class="col-sm-12 col-md-12 col-lg-4" >
+            <form [formGroup]="searchForm">
             <div class="input-group z-s">
-              <input [(ngModel)]="leadSearch" (input)="applyFilter($event)" type="search" class="form-control" placeholder="Search by Name/Mobile">
-              <button (click)="search(leadSearch)" class="btn btn-outline-secondary" type="button">
-                <i class="bi bi-search"></i>
-              </button>
-            </div>
+                <input formControlName="searchText" (input)="applyFilter($event)" type="search" class="form-control" placeholder="Search by Name/Mobile">
+                <button (click)="search()" class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+                </div>
+            </form>
+          
           </div>
 
     </div>
-    <div class="row" *ngIf="totalCount === 0 && leadSearch">
+    <!-- <div class="row" *ngIf="totalCount === 0 && leadSearch">
         
         <div class="col" >
             <button mat-raised-button (click)="onSearchInputChange()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
         </div>
-    </div>
+    </div> -->
 </mat-card>
 
 

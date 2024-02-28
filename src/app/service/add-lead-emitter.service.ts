@@ -15,8 +15,8 @@ export class AddLeadEmitterService {
   followUpFilter=new BehaviorSubject('')
   followUpFilterIcon=new BehaviorSubject('')
   selectedFilter = new BehaviorSubject('')
-  // followUpFilter=new BehaviorSubject('')
-  // followUpFilterIcon=new BehaviorSubject('')
+ 
+  goBack = new BehaviorSubject(false)
   triggerGet() {
     this.triggerGetSource.next();
   }
