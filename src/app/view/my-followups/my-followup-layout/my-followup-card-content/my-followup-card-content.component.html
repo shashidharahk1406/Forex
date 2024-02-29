@@ -64,7 +64,7 @@
             (selectedSort)="onChangeSorting($event)"
           ></app-my-followup-sort>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-6">
+        <div class="col-sm-12 col-md-12 col-lg-6" >
           <div class="row">
             <div class="col p-0" (click)="openVideoCall()" title="Videocall">
               <!-- <i class="bi bi-camera-video"></i> -->
@@ -128,16 +128,19 @@
               (click)="filterFollowups()"
               title="Filter"
             >
-              <!-- <i class="bi bi-funnel" *ngIf="!filtered"></i> -->
-              <img src="./assets/images/filter.png" alt="" width="19" height="19" *ngIf="!filtered">
-              <i
+              <i class="bi bi-funnel" style="color: palevioletred;height: 20% !important; width: 20%;font-size: 18px !important;" *ngIf="!filtered"></i>
+              <!-- <img src="./assets/images/filter.png" alt="" width="19" height="19" *ngIf="!filtered">
+              <img src="./assets/images/filter.png" alt="" width="19" height="19" matBadge="{{ filterCount }}" *ngIf="filtered"> -->
+              <i style="color: palevioletred;"
                 class="bi bi-funnel-fill"
+                
                 *ngIf="filtered"
                 matBadge="{{ filterCount }}"
               ></i>
               <mat-icon
                 *ngIf="filtered"
-                matBadgeColor="warn"
+                style="color: palevioletred;"
+                matBadgeColor="pink"
                 (click)="refreshFollowUps()"
                 style="margin-right: 10px; margin-top: -25px"
                 >close</mat-icon
@@ -205,7 +208,7 @@
 
 
  
-  <mat-card class="my-2 p-2">
+  <mat-card class="">
     <div class="row d-flex align-items-center shadow-lg p-3">
       <div class="col-sm-12 col-md-12 col-lg-4 ">
         <div class="row">
@@ -773,7 +776,7 @@
     <i class="bi bi-search"></i>
   </button> -->
           <div class="row reset-calender">
-            <button
+            <button style="outline: none !important; border: none !important;"
             class="btn btn  text-right py-3"
             type="button"
             title="Reset Calender"

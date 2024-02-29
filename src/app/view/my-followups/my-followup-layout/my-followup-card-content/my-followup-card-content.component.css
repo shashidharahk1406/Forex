@@ -280,6 +280,7 @@ i,mat-icon{
     border: 1px solid #e7e7e7;
     margin: 10px 2px;
     padding: 10px !important;
+    /* background-color: #EEF1EA !important; */
 }
 .mat-card:not([class*=mat-elevation-z]) {
     box-shadow: none !important;
@@ -348,9 +349,9 @@ i,mat-icon{
     cursor: pointer;
 }
 .bi-camera-video,.bi-telephone,.bi-chat-dots,.bi-envelope,
-.bi-whatsapp,.bi-wechat{
+.bi-whatsapp,.bi-wechat, .bi-funnel-fill{
     color:var(--appColor);
-    font-size:14px !important;
+    font-size:19px !important;
 }
 .common-class{
     color: gray !important;
@@ -445,3 +446,8 @@ font-size: 1 rem !important;
   div{
     font-size: 12px;
   }
+  .mat-card {
+    background: none !important;
+    color: rgba(0, 0, 0, 0.87);
+   
+}

@@ -30,6 +30,7 @@ export class EditFollowupComponent implements OnInit {
   formattedDate!: any
   statusId: any;
   createdBy:any;
+  currentDate=new Date().toISOString().slice(0, -8);
 
   constructor( private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
