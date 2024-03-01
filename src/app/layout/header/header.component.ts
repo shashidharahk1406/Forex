@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   quickAdd(){
     const dialogRef = this.dialog.open(QuickAddComponent, {
-      width: '50%',
+      width: '35%',
     });
 
     dialogRef.disableClose=true

@@ -25,8 +25,6 @@ export class EditPriorityNameComponent implements OnInit {
   initFilter(){
     this.editForm = this._fb.group({
       name:['',[Validators.required]],
-      priority_group_id:['',[Validators.required]],
-
     })
     this.getPriorityNamebyId()
   this.getPriorityGroup();

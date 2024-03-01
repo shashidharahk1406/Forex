@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
 import { ImageService } from 'src/app/service/image.service';
 import { environment } from 'src/environments/environment';
 
@@ -25,7 +26,8 @@ export class AdmissionDetailsComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private imageService: ImageService,
-    private emit:AddLeadEmitterService
+    private emit:AddLeadEmitterService,
+    private commonService:CommonServiceService
     ) { }
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class AdmissionDetailsComponent implements OnInit {
   }
   initForm(){
     this.admissionDetailsForm = this.fb.group({
-      applicationNumber:['',Validators.required],
+      applicationNumber:['',[Validators.required,Validators.pattern(this.commonService.amountPattern)]],
       leadUpload:['',Validators.required]
     })
   }

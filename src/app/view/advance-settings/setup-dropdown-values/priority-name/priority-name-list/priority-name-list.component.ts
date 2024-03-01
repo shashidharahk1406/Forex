@@ -22,7 +22,6 @@ export class PriorityNameListComponent implements AfterViewInit {
     'name',
     'is_active',
     'is_system_value',
-    'priority_group_name',
     'delete'
 
   ]
@@ -127,7 +126,7 @@ export class PriorityNameListComponent implements AfterViewInit {
   }
   baseurl= environment.live_url;
   openDelete(id:any){
-    const apiUrl = `${this.baseurl}/api/priority-name/${id}/`;
+    const apiUrl = `${this.baseurl}/api/priority/${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
       data:apiUrl

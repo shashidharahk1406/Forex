@@ -20,10 +20,13 @@
                 formControlName="applicationNumber"
                 appFormSpace
                 required
-                placeholder="Enter Your Application Number"
+                placeholder="Enter Application Number"
               />
               <mat-error *ngIf="f['applicationNumber'].hasError('required')">
                 Application Number Is Required.
+              </mat-error>
+              <mat-error *ngIf="f['applicationNumber'].hasError('pattern')">
+                Invalid Application Number.
               </mat-error>
             </mat-form-field>
             <ng-container>

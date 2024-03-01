@@ -377,20 +377,20 @@ export class ApiService implements OnInit {
   }
   getPrioritySearch(search: any, size: any, pageNo: any) {
     return this.http.get(
-      `${this.baseurl}/api/priority-name/?page_size=${size}&page=${pageNo}&key=${search}`
+      `${this.baseurl}/api/priority/?page_size=${size}&page=${pageNo}&key=${search}`
     );
   }
   getAllPriority() {
-    return this.http.get(`${this.baseurl}/api/priority-name/`);
+    return this.http.get(`${this.baseurl}/api/priority/`);
   }
   getPriorityById(id: any) {
-    return this.http.get(`${this.baseurl}/api/priority-name/${id}/`);
+    return this.http.get(`${this.baseurl}/api/priority/${id}/`);
   }
   editPriority(id: any, data: any) {
-    return this.http.put(`${this.baseurl}/api/priority-name/${id}/`, data);
+    return this.http.put(`${this.baseurl}/api/priority/${id}/`, data);
   }
   postPriority(data: any) {
-    return this.http.post(`${this.baseurl}/api/priority-name/`, data);
+    return this.http.post(`${this.baseurl}/api/priority/`, data);
   }
   //Priority
   //Priority Group

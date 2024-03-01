@@ -26,7 +26,7 @@ export class AddPriorityNameComponent implements OnInit {
       name:['',[Validators.required]],
       is_active:[true,[Validators.required]],
       is_system_value:[true,[Validators.required]],
-      priority_group_id:['',[Validators.required]],
+      // priority_group_id:['',[Validators.required]],
 
     })
   }

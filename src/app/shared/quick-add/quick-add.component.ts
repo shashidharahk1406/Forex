@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -23,6 +24,9 @@ export class QuickAddComponent implements OnInit {
   departments:any = [];
   courses:any = [];
   referredTo: any;
+  courseOptions: any = [];
+  streamList: any;
+  userId: any;
 
   constructor(private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<QuickAddComponent>,
@@ -30,7 +34,10 @@ export class QuickAddComponent implements OnInit {
     private api:ApiService,
     private _baseService:BaseServiceService,
     private _commonService:CommonServiceService,
-    private _addLeadEmitter:AddLeadEmitterService) {}
+    private _addLeadEmitter:AddLeadEmitterService,
+    private _datePipe:DatePipe) {
+      this.userId = localStorage.getItem('user_id')
+    }
 
   ngOnInit() {
     this.dropDownList()
@@ -38,29 +45,35 @@ export class QuickAddComponent implements OnInit {
   }
   initForm(){
     this.quickAddForm = this.formBuilder.group({
-      firstName: ['', Validators.required,Validators.pattern(this._commonService.namePattern)],
-      lastName: ['', Validators.required,,Validators.pattern(this._commonService.namePattern)],
-      email: ['', [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
+      email: ['', [Validators.pattern(this._commonService.emailPattern)]],
       mobile:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
-      channel: [''],
-      source: ['', Validators.required],
-      campaign: [''],
-      medium: [''],
-      level: ['', Validators.required],
-      department: ['', Validators.required],
-      course: ['', Validators.required],
-      counsellor:['',Validators.required]
+      source: ['', [Validators.required]],
+      courseLookingfor:[''],
+      course: ['', [Validators.required]],
+      counsellor:['',[Validators.required]]
     });
   }
   dropDownList(){
     this.getChannel()
     this.getSource()
-    this.getCampign()
     this.getCourse()
-    this.getDepartment()
-    this.getLevelOfProgram()
-    this.getMedium()
     this.getCounselor()
+    this.getStream()
+  }
+  getCourse(){
+    this.api.getAllCourse().subscribe((res:any)=>{
+      if(res){
+        this.courseOptions = res;
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      })
+   
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
@@ -91,69 +104,19 @@ export class QuickAddComponent implements OnInit {
       
     })
   }
- 
-  getCampign(){
-    this.api.getAllCampign().subscribe((res:any)=>{
-      if(res.results){
-        this.campaigns = res.results;
-      }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-  }
-  getDepartment(){
-    this.api.getAllDepartment().subscribe((res:any)=>{
-      if(res.results){
-        this.departments = res.results;
-      }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error?.error.message))
-        
-      })
-  }
-  getCourse(){
-    this.api.getAllCourse().subscribe((res:any)=>{
-      if(res){
-        this.courses = res;
-      }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error?.error.message))
-        
-      })
-  }
-  getMedium(){
-    this.api.getAllMedium().subscribe((res:any)=>{
-      if(res.results){
-        this.mediums = res.results
-      } else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error?.error.message))
-    })
-  }
-  getLevelOfProgram(){
-    this.api.getAllLevelOfProgram().subscribe((res:any)=>{
-      if(res.results){
-        this.levels = res.results 
-      } else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error?.error.message))
-    })
-  }
+  getStream(){
+    this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
+    if(resp){
+     this.streamList = resp
+    } 
+    },(error:any)=>{
+      //console.log(error);
+      
+    }
 
+    )
+  }
+ 
   getCounselor(){
     this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
       if(res.results){
@@ -163,84 +126,61 @@ export class QuickAddComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error.error.message))
     }))
   }
-  clearSource() {
-    this.quickAddForm.get('source')?.setValue('');
-  }
-  
-  clearCampaign() {
-    this.quickAddForm.get('campaign')?.setValue('');
-  }
-  
-  clearMedium() {
-    this.quickAddForm.get('medium')?.setValue('');
-  }
-  
-  clearLevel() {
-    this.quickAddForm.get('level')?.setValue('');
-  }
-  
-  clearDepartment() {
-    this.quickAddForm.get('department')?.setValue('');
-  }
-  
-  clearCourse() {
-    this.quickAddForm.get('course')?.setValue('');
-  }
-  clearChannel(){
-    this.quickAddForm.get('channel')?.setValue('');
-  }
-  clearLeadOwner(){
-    this.quickAddForm.get('counsellor')?.setValue('');
+
+ 
+  clearSelectField(fieldName: string) {
+    this.quickAddForm.get(fieldName)?.reset();
   }
   onSubmit(){
     let f = this.quickAddForm.value
    
-     let data:any ={
-      // user_data: {
-          first_name: f.firstName,
-          last_name: f.lastName,
-          email: f.email,
-          mobile_number: f.mobile,
-          role:5,
-      // },
-  
-      higest_qualification: null,
-      campaign_name:null,
-      season_id:f.season,
-      channel_id:f.channel,
-      source_id:f.source,
-      priority_id:null,
-      refered_to:f.counsellor,
-      lead_list_status_id:null,
-      lead_list_substatus_id:null,
-      department_id:f.department,
-      date_of_birth:null,
-      course_id:f.course,
-      location: null,
-      year_of_passing:null,
-      best_time_to_call:null,
-      country_id:null,
-      state_id:null,
-      city_id:null,
-      new_channel_id:null,
-      campaign_id:f.campaign,
-      medium_id:f.medium,
-      level_of_program_id:f.levels,
-      lead_contact:{
-        alternate_phone_number:null,
-        primary_phone_number: null,
-        father_phone_number:null,
-        mother_phone_number:null,
-        alternate_email:null,
-        primary_email:null,
-        father_email:null,
-        mother_email:null,
+    let data:any ={
+      first_name: f['firstName'],
+      last_name: "",
+      email: f['email'] || null,
+      mobile_number:f['mobile'] || null,
+      date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
+      alternate_mobile_number: null,
+      role: 5,
+      created_by: this.userId,
+      refered_to: f['counsellor'],
+      location:  null,
+      pincode: f['pincode'] || null,
+      country:null,
+      state: null,
+      city: null,
+      zone:null,
+      reference_name:null,
+      reference_mobile_number:null,
+      father_name:null,
+      father_occupation:null,
+      father_mobile_number:null,
+      tenth_per: null,
+      twelfth_per: null,
+      degree_per: null,
+      stream: f["course"],
+      others: null,
+      enterance_exam: null,
+      course_looking_for: f["courseLookingfor"],
+      lead_list_status:null,
+      lead_list_substatus: null,
+      counselled_by:null,
+      lead_stage: null,
+      source: f['source'],
+      preferance_college_and_location: 
+              {
+                preferred_college1:null,
+                preferred_college2: null,
+                preferred_location1:null,
+                preferred_location2: null
+              },
+      note_name:null,
+      created_note_remark_by:'',
+      remark_name:null
     }
-    
-     }
     if(this.quickAddForm.invalid){
       this.quickAddForm.markAllAsTouched()
-      
+      this.api.showError('Please Fill The Mandatory Fields')
     }
     else{
       this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{

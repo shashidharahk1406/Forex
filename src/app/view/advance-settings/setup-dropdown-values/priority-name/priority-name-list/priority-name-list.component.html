@@ -40,11 +40,7 @@
         <td mat-cell *matCellDef="let element">{{ element.is_system_value }}</td>
       </ng-container>
     
-      <!-- Define User Role column -->
-      <ng-container matColumnDef="priority_group_name">
-        <th mat-header-cell *matHeaderCellDef >Priority Group Name</th>
-        <td mat-cell *matCellDef="let element">{{ element.priority_group_name || 'NA' }}</td>
-      </ng-container>
+      
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef >Option</th>
         <td mat-cell *matCellDef="let element">        <div ngbDropdown #myDropdown="ngbDropdown">

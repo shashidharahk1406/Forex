@@ -221,7 +221,7 @@ export class LeadCardContentComponent implements OnInit {
    
   }
   onSearchInputChange(){
-    this.emit.leadFilterIcon.subscribe((res) => {
+    this.emit.leadFilter.subscribe((res) => {
       if (res) {
         this.emit.goBack.next(true)
       }else{

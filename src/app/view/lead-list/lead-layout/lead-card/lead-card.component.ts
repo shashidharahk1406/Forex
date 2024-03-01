@@ -109,8 +109,9 @@ export class LeadCardComponent implements OnInit {
     this.getStatus()
     this.getLeadData('tabLabel')
     this._addLeadEmitter.triggerGet$.subscribe(() => {
-      this.getLeadData('tabLabel')
       this.getLeadIds()
+      this.getLeadData('tabLabel')
+      
     });
     this._addLeadEmitter.goBack.subscribe((res:any)=>{
       if(res){
@@ -125,6 +126,7 @@ export class LeadCardComponent implements OnInit {
     this.getLeadData('tabLabel');
     this._addLeadEmitter.triggerGet$.subscribe((res:any) => {
       if(res){
+        this.getLeadIds()
         this.getLeadData('tabLabel');
       }
     });
@@ -222,6 +224,9 @@ export class LeadCardComponent implements OnInit {
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.allLeadCardsDataSource.paginator = this.allPaginator;
         this.totalNumberOfRecords = res.total_no_of_record
+        if(res.results.length === 0){
+          this._addLeadEmitter.leadFilter.next('')
+        }
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -231,7 +236,7 @@ export class LeadCardComponent implements OnInit {
    getLeadData(tabLabel: any,filter?:any) {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
-  
+    this.allLeadCardsDataSource = [];
     let apiUrl = (this.user_role === 'counsellor')
       ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}`
       : `${environment.lead_list}?page=1&page_size=${this.pageSize}`;
@@ -240,11 +245,7 @@ export class LeadCardComponent implements OnInit {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
       apiUrl += `&status=${tabId.id}`;
     }
-    //else if(filter){
-    //   apiUrl +=filter
-    // }
    
-  
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
         if (res.results) {
@@ -341,9 +342,9 @@ export class LeadCardComponent implements OnInit {
     return this.leadAllIds
   }
   reLoad(event:any){
-    this.totalNumberOfRecords = []
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
+    this._addLeadEmitter.leadFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
     this.getLeadIds()
