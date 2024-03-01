@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-        <mat-dialog-content class="mat-typography p-5 m-5">
+        <mat-dialog-content class="mat-typography p-1 m-1">
          <div class="container">
           <form [formGroup]="editFollowUpForm">
            
@@ -113,7 +113,7 @@
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <!-- <input matInput type="datetime-local" placeholder="start date"> -->
-                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time">
+                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="currentDate">
                 <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
                 <!-- <mat-datepicker #picker></mat-datepicker> -->
                 
