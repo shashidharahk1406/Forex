@@ -60,10 +60,18 @@ export class LeadToolbarComponent implements OnInit {
     )
     this.addEventEmitter.goBack.subscribe((resp:any)=>{
       if(resp === true){ 
-        this.searchForm.reset()
+        this.searchForm.patchValue({
+          searchText:''
+        })
       }
     })
-    
+    this.addEventEmitter.leadRefresh.subscribe((resp:any)=>{
+      if(resp === true){ 
+        this.searchForm.patchValue({
+          searchText:''
+        })
+      }
+    })
   }
   initForm(){
     this.searchForm = this.fb.group({
@@ -88,8 +96,11 @@ export class LeadToolbarComponent implements OnInit {
     }
     
   }
-  search(){
-    this.selectedSearch.emit(this.searchForm.value.searchText)
+  search(event:any){
+    // if(event.target.value.length >0){
+      this.selectedSearch.emit(this.searchForm.value.searchText)
+    //}
+   
   }
   //  onSearchInputChange() {
   //   this.leadSearch = ""
@@ -220,7 +231,7 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
-      this.refreshLead('event')
+      //this.refreshLead('event')
     });
   }
   downloadLead(){

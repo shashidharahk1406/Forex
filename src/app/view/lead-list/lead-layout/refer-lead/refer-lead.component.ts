@@ -116,5 +116,8 @@ export class ReferLeadComponent implements OnInit {
         comment:['',Validators.required]
       })
     }
-    
+    close(){
+      debugger;
+      this.dialogRef.close()
+    }
 }

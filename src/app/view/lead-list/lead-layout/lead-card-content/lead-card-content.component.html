@@ -1,19 +1,19 @@
 <app-lead-toolbar  (selectedSearch)="search($event)" [leadData]="leadData2" (refresh)="refreshLead($event)" [totalCount]="totalCount" (selectedSort)="onChange($event)" [selectedLeads]="selectedCheckboxIds" [checkAll]="checkAll"></app-lead-toolbar>
 <div class="row"  *ngIf="!leadData || leadData?.length === 0">
         
-  <div class="col" >
+  <!-- <div class="col" >
       <button mat-raised-button (click)="onSearchInputChange()" class="go-back"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
-  </div>
+  </div> -->
 </div>
 <app-nodata class="d-flex align-items-center justify-content-center" *ngIf="!leadData || leadData?.length === 0"></app-nodata>
 
-<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll($event)" class="ms-4" [checked]="checkAll"><div style="font-size: 12px;" class="ps-3 fw-bold">SELECT ALL</div></mat-checkbox>
+<mat-checkbox *ngIf="leadData?.length > 0"  (change)="selectAll($event)" class="pd-c" [checked]="checkAll"><div style="font-size: 12px;" class="pd-c3 fw-bold">SELECT ALL</div></mat-checkbox>
 
 <div class="container custom-height-set" *ngIf="leadData2?.length > 0">
   <div class="row">
     <div class="col-12" *ngFor="let item of leadData2;let i = index">
         <mat-card class="p-1 lead-card-container">
-            <div class="row d-flex align-items-center">
+            <div class="row d-flex shadow-lg align-items-center">
               <div class="col-sm-12 col-md-12 col-lg-4">
                 <div class="row">
                   <div class="col-2 d-flex align-items-center" >
@@ -51,20 +51,26 @@
                   </div>
                   
                   <div class="col p-0" (click)="openVideoCall()" title="Send Video Conferencing Invite">
-                    <i class="bi bi-camera-video-fill"></i>
-                  </div>
-                  <div class="col p-0" (click)="openCall(item)" title="Call Lead">
-                    <i class="bi bi-telephone-fill"></i>
-                  </div>
-                  <div class="col  p-0 position-rel" (click)="openSMS(item)" title="Send SMS">
-                    <i class="bi bi-chat-left-dots-fill"></i>
-                  </div>
-                  <div class="col  p-0" (click)="openEmailChat(item)" title="Send Email">
-                    <i class="bi bi-envelope-fill"></i>
+                    <!-- <i class="bi bi-camera-video-fill"></i> -->
+                    <img src="./assets/images/videocall.png"  alt="" height="17" width="17">
                   </div>
                   <div class="col  p-0" (click)="openWhatsAppChat()" title="WhatsApp Chat">
-                    <i class="bi bi-whatsapp"></i>
+                    <!-- <i class="bi bi-whatsapp"></i> -->
+                    <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21">
                   </div>
+                  <div class="col p-0" (click)="openCall(item)" title="Call Lead">
+                    <i class="bi bi-telephone-fill" style="color: #fe1550;"></i>
+                  </div>
+                  <div class="col  p-0 position-rel" (click)="openSMS(item)" title="Send SMS">
+                    <!-- <i class="bi bi-chat-left-dots-fill"></i> -->
+                    <img src="./assets/images/chat.png" alt="" height="15" width="18">
+                  </div>
+                 
+                  <div class="col  p-0" (click)="openEmailChat(item)" title="Send Email">
+                    <!-- <i class="bi bi-envelope-fill"></i> -->
+                    <img src="./assets/images/email-icon.png" alt="" height="12" width="16">
+                  </div>
+                 
                 
                   <div class="col p-0" >
                     <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)" title="Lead Details">expand_more</mat-icon>

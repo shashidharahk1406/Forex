@@ -9,8 +9,8 @@
 .lead-card-container{
     font-size: 12px;
     color: black !important;
-    border: 1px solid #e7e7e7;
-    margin: 10px 2px;
+    /* border: 1px solid #e7e7e7; */
+    /* margin: 10px 2px;  */
     padding: 10px !important;
 }
 .mat-card:not([class*=mat-elevation-z]) {
@@ -111,4 +111,22 @@
 .go-back{
     background-color: var(--appColor);
     color:white;
+}
+.shadow-lg {
+    box-shadow: var(--bs-box-shadow-lg) !important;
+    padding: 15px;
+}
+.mat-card {
+    background: none !important;
+    color: rgba(0, 0, 0, 0.87);
+   
+}
+.c-name{
+    font-weight: bold;
+}
+.pd-c{
+    padding-left: 2.1rem !important;
+}
+.pd-c3{
+    padding-left: 1.8rem !important;
 }

@@ -69,7 +69,7 @@ export class AddNewLeadComponent implements OnInit {
         state: [''],
         zone:[''],
         cityName: [''],
-        pincode:['',this.pincodeLengthValidator],
+        pincode:['',Validators.pattern(this._commonService.pincode)],
         countryId:[''],
         referenceName:[''],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
@@ -96,15 +96,7 @@ export class AddNewLeadComponent implements OnInit {
         remarks:['']
       })
   }
-  pincodeLengthValidator(control:FormControl) {
-    const value = control.value;
-
-    if (value && value.toString().length !== 6) {
-      return { invalidPincodeLength: true };
-    }
-
-    return null;
-  }
+  
   setStep(index: number) {
     this.step = index;
   }

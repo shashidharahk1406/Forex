@@ -117,7 +117,7 @@ export class LeadEditComponent implements OnInit {
         state: [''],
         zone:[''],
         cityName: [''],
-        pincode:['',this.pincodeLengthValidator],
+        pincode:['',Validators.pattern(this._commonService.pincode)],
         countryId:[''],
         referenceName:[''],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
@@ -315,15 +315,7 @@ export class LeadEditComponent implements OnInit {
   clearSelectField(fieldName: string) {
     this.editLeadForm.get(fieldName)?.reset();
    }
-   pincodeLengthValidator(control:FormControl) {
-    const value = control.value;
-
-    if (value && value.toString().length !== 6) {
-      return { invalidPincodeLength: true };
-    }
-
-    return null;
-  }
+   
   
 onSubmit(){
  
@@ -332,12 +324,12 @@ const data ={
   first_name: formData.firstName,
   last_name:"",
   email: formData.email,
-  mobile_number: formData.mobile,
-  date_of_birth: this._datePipe.transform(formData.dateOfBirth,'YYYY-MM-dd'),
-  alternate_mobile_number: formData.alternateNumber,
+  mobile_number: formData.mobile || null,
+  date_of_birth: this._datePipe.transform(formData.dateOfBirth,'YYYY-MM-dd') || null,
+  alternate_mobile_number: formData.alternateNumber || null,
   role: 5,
   location:  formData.cityName,
-  pincode: formData.pincode,
+  pincode: formData.pincode || null,
   country: formData.countryId,
   state: formData.state, 
   city: formData.cityName, 

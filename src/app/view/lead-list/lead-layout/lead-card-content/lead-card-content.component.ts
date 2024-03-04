@@ -225,6 +225,7 @@ export class LeadCardContentComponent implements OnInit {
       if (res) {
         this.emit.goBack.next(true)
       }else{
+        this.emit.goBack.next(true)
         this.emit.triggerGet()
       }
     });

@@ -17,7 +17,8 @@
     color: gray;
 }
 i{
-    color:var(--appColor);
+    /* color:var(--appColor); */
+    color: #2675e2;
     margin-right: 10px;  
 }
 .bi-link-45deg{

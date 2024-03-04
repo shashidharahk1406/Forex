@@ -14,24 +14,24 @@
       <form [formGroup]="quickAddForm" >
                   <mat-form-field appearance="outline">
                       <mat-label>Student Name</mat-label>
-                      <input matInput appFormSpace formControlName="firstName" placeholder="Enter Your First Name" required>
+                      <input matInput appFormSpace formControlName="firstName" placeholder="Enter Student Name" required>
                       <mat-error *ngIf="quickAddForm.get('firstName')?.hasError('required')">First Name Is Required</mat-error>
                     </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput appFormSpace formControlName="email"  placeholder="Enter Your Email Id">
+                    <input matInput appFormSpace formControlName="email"  placeholder="Enter Email Id">
                     <!-- <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email Is Required</mat-error> -->
                     <mat-error *ngIf="quickAddForm.get('email')?.hasError('pattern')">Invalid Email Format</mat-error>
                   </mat-form-field> 
                   <mat-form-field appearance="outline" >
                       <mat-label>Mobile Number</mat-label>
-                      <input matInput appFormSpace type="tel" placeholder="Enter Your Mobile Number" formControlName="mobile">
+                      <input matInput appFormSpace type="tel" placeholder="Enter Mobile Number" formControlName="mobile">
                       <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('required')">Mobile Number Is Required</mat-error>
                       <mat-error *ngIf="quickAddForm.get('mobile')?.hasError('pattern')">Please Enter 10-Digits</mat-error>
                     </mat-form-field>
                   <mat-form-field appearance="outline">
                       <mat-label>Source</mat-label>
-                      <mat-select formControlName="source" required placeholder="Enter Your Source">
+                      <mat-select formControlName="source" required placeholder="Enter Source">
                         <mat-option *ngFor="let source of sources" [value]="source.id">{{ source.source_name }}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="quickAddForm.get('source')?.hasError('required')">Source Is Required</mat-error>
@@ -68,7 +68,7 @@
                     </mat-form-field>
                   <mat-form-field class="mb-1" appearance="outline">
                     <mat-label>Lead Owner</mat-label>
-                    <mat-select formControlName="counsellor" placeholder="Select The Lead Owner">
+                    <mat-select formControlName="counsellor" placeholder="Select Lead Owner">
                       <mat-option *ngFor="let option of referredTo" [value]="option?.id">{{ option?.first_name }}</mat-option>
                     </mat-select>
                     <button

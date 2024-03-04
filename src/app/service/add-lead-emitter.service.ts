@@ -14,7 +14,8 @@ export class AddLeadEmitterService {
   leadFilterIcon = new BehaviorSubject('');
   followUpFilter=new BehaviorSubject('')
   followUpFilterIcon=new BehaviorSubject('')
-  selectedFilter = new BehaviorSubject('')
+  selectedFilter = new BehaviorSubject('');
+  leadRefresh = new BehaviorSubject(false)
  
   goBack = new BehaviorSubject(false)
   triggerGet() {

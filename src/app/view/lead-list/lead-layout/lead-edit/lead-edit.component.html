@@ -72,7 +72,7 @@
                    
                     <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Date Of Birth</mat-label>
-                      <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="MM/DD/YYYY" [max]="max">
+                      <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="DD/MM/YYYY" [max]="max">
                       <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
                       <mat-datepicker #dateOfBirth></mat-datepicker>
                     </mat-form-field>
@@ -129,7 +129,7 @@
                     <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Pincode</mat-label>
                       <input type="text" formControlName="pincode" matInput placeholder="Enter The Pincode">  
-                      <mat-error *ngIf="editLeadForm.get('pincode')?.hasError('invalidPincodeLength')">Pincode must be 6 digits.</mat-error>
+                      <mat-error *ngIf="editLeadForm.get('pincode')?.hasError('pincode')">Pincode must be 6 digits.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field class="mb-1" appearance="outline">
