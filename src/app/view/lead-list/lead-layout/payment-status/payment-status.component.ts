@@ -60,6 +60,7 @@ export class PaymentStatusComponent implements OnInit {
   isLinear = false;
   selectedIndex: number = -1;
   @ViewChildren(MatStep) steps!: QueryList<MatStep>;
+  selectedImage: any;
   constructor(
     private fb:FormBuilder,
     public dialogRef: MatDialogRef<PaymentStatusComponent>,
@@ -101,6 +102,7 @@ export class PaymentStatusComponent implements OnInit {
         this.selectedStatus = res.result[0].payment_status;
         let formData = res.result[0]
         this.selectInitialStep();
+        this.selectedImage = formData.upload_payment_proof
         if(res.result[0]){
           this.thirdFormGroup.patchValue({
             paymentMode: formData.payment_mode,

@@ -73,6 +73,17 @@
                     <mat-error class="er-fs" *ngIf="f['admission'].hasError('required')">Admission Status Is Required</mat-error>
                     
                 </mat-form-field>
+                
+                  <div class="img-container" *ngIf="selectedImage || f['uploadProof'].value">
+                    <img [src]="f['uploadProof'].value"  class="uploaded-image" />
+                    <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage && f['uploadProof'].invalid"  (click)="downloadImage()">
+                      <mat-icon class="forward">forward</mat-icon>
+                    </button>
+                    <a mat-mini-fab [href]="f['uploadProof'].value" *ngIf="selectedImage && f['uploadProof'].invalid" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                      <mat-icon class="eye-1">visibility</mat-icon>
+                    </a>
+                  </div>
+                
                 <ng-container>
                
                   <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
@@ -81,17 +92,7 @@
                       <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
                     </div>     
                 </ng-container>
-                <ng-container>
-                  <div class="img-container" *ngIf="f['uploadProof'].value">
-                    <img [src]="f['uploadProof'].value"  class="uploaded-image" />
-                    <button mat-mini-fab class="mat-fab-cus"  (click)="downloadImage()">
-                      <mat-icon class="forward">forward</mat-icon>
-                    </button>
-                    <a mat-mini-fab [href]="f['uploadProof'].value" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
-                      <mat-icon class="eye-1">visibility</mat-icon>
-                    </a>
-                  </div>
-                </ng-container>
+          
 
                
             </form>
