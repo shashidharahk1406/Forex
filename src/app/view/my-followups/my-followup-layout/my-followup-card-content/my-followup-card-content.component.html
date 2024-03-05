@@ -66,32 +66,32 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6" >
           <div class="row">
-            <div class="col p-0" (click)="openVideoCall()" title="Videocall">
+            <div class="col p-0" (click)="openVideoCall()" title="Send Video Conferencing Invite">
               <!-- <i class="bi bi-camera-video"></i> -->
               <img src="./assets/images/videocall.png"  alt="" height="17" width="17">
             </div>
             <!-- <div class="col p-0 position-rel" (click)="referFollowups()" title="Refer Followup">
               <i class="bi bi-person-check"></i>
             </div> -->
-            <div class="col p-0" (click)="openWhatsAppChat()" title="WhatsApp">
+            <div class="col p-0" (click)="openWhatsAppChat()" title="WhatsApp Chat">
               <!-- <i class="bi bi-whatsapp"></i> -->
               <!-- <mat-icon>watsapp</mat-icon> -->
               <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21">
               
             </div>
-            <div class="col p-0" (click)="openSMS('All')" title="SMS">
+            <div class="col p-0" (click)="openSMS('All')" title="Send SMS">
               <!-- <i class="bi bi-chat-left-dots"></i> -->
               <!-- <i class="bi bi-chat-dots"></i>
                -->
                <img src="./assets/images/chat.png" alt="" height="15" width="18">
               <!-- <mat-icon>sms</mat-icon> -->
             </div>
-            <div class="col p-0" (click)="openEmailChat('All')" title="Email">
+            <div class="col p-0" (click)="openEmailChat('All')" title="Send Email">
               <!-- <i class="bi bi-envelope"></i> -->
               <img src="./assets/images/email-icon.png" alt="" height="12" width="16">
               <!-- <mat-icon>mail</mat-icon> -->
             </div>
-            <div class="col p-0" (click)="refreshFollowUps()" title="Refresh">
+            <div class="col p-0" (click)="refreshFollowUps()" title="Page Refresh">
               <!-- <mat-icon>autorenew</mat-icon> -->
               <!-- <i class="bi bi-repeat"></i> -->
               <img src="./assets/images/refresh.svg" alt="" height="18" width="18">
@@ -118,7 +118,7 @@
               </a>
             </div>
 
-            <div class="col p-0" (click)="onClickLink()" title="Link">
+            <div class="col p-0" (click)="onClickLink()" title="Send Payment Link">
               <!-- <mat-icon>link</mat-icon> -->
               <img src="./assets/images/link-icon.png" alt="" width="19" height="19">
             </div>
@@ -762,11 +762,16 @@
 
 
         <mat-card >
+
+
           <input
-          type="search"
+          type="input"
           class="form-control icon-rtl "
           placeholder="Search by Name/Mobile"
           [(ngModel)]="followupSearch"
+         (keyup)="applySearch($event)"
+         (input)="clearSearch($event)"
+        
         />
 
 
