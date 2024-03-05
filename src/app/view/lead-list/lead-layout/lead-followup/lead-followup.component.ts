@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
+import { DataService } from 'src/app/service/data.service';
 
 
 @Component({
@@ -37,11 +38,16 @@ export class LeadFollowupComponent implements OnInit {
     private fb: FormBuilder,
     private api: ApiService,
     private _baseService: BaseServiceService
+   
   ) {
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
     console.log(this.data.item.user_data.first_name,"this.data.item.user")
     this.getFollowUp()
+
+
+
+
   }
 
   ngOnInit(): void {
