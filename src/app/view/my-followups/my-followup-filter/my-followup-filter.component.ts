@@ -172,7 +172,8 @@ export class MyFollowupFilterComponent implements OnInit {
         stream_id:[''],
         course_id:[''],
         city_id:[''],
-        follow_up_status:['']
+        follow_up_status:[''],
+        counselled_by:['']
         // year_of_passing:['']
       })
     }
