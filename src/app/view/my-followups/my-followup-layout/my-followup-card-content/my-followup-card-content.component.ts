@@ -932,6 +932,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
         );
     } else {
       this.followUpsData = [];
+      this.followUpsDataTemp=[];
+      
       this.api
         .searchFollowupsForCounsellor(
           followupSearch.target.value,
