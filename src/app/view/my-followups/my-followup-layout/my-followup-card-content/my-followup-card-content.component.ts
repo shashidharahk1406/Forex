@@ -8,6 +8,7 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
+  AfterViewInit,
 } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -47,7 +48,7 @@ import { Observable, Subscription, map } from 'rxjs';
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit, OnChanges {
+export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterViewInit {
   selectedDate: any = null;
   @ViewChild(DaterangepickerDirective, { static: false })
   @Output()
@@ -108,7 +109,18 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     console.log(data, 'data');
     
    
+    this.dataService.data$.subscribe((data) => {
+      if (data != null) {
+        console.log(data)
+        this.refreshFollowUps();
+      }
+    });
     
+  }
+
+  ngAfterViewInit() {
+    this.allFollowUpDataSource = new MatTableDataSource<any>(this.followUpsData);
+    console.log(this.allFollowUpDataSource,"ngAfterViewInit")
   }
   filteredBaseUrl: any;
 
@@ -116,8 +128,37 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
     const data = this.dataService.getSharedData();
     console.log(data);
   }
-  ngOnInit(): void {
 
+
+  // reverseData() {
+  //   // this.followUpsData.reverse();
+   
+  //   this.followUpsData.sort((a: any, b: any) => new Date(b.modified_datetime).getTime() - new Date(a.modified_datetime).getTime());
+  //   this.followUpsDataTemp.sort((a:any,b:any)=>new Date(b.modified_datetime).getTime()- new Date(a.modified_datetime).getTime())
+  // console.log(this.followUpsData,"latest one");
+  // console.log(this.followUpsDataTemp,"latest one");
+
+
+
+  // }
+
+
+  // reverse(){
+  //   return this.followUpsDataTemp.sort((a:any, b:any) => {
+  //     return <any>new Date(b.modified_datetime) - <any>new Date(a.modified_datetime);
+  //   });
+
+  // }
+
+  // reverseData() {
+  //   return this.followUpsData.sort((a:any, b:any) => {
+  //     return <any>new Date(b.modified_datetime) - <any>new Date(a.modified_datetime);
+  //   });
+   
+  // }
+  ngOnInit(): void {
+// this.reverseData()
+// this.reverse()
     
     this.dataService.dataUpdated.subscribe((res:any)=>{
       console.log(res,"filtercount")
@@ -466,6 +507,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
+            // this.reverseData()
           },
           (error: any) => {
             this.api.showError(error.error.message);
@@ -494,6 +536,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
               );
+              // this.reverseData()
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -526,6 +569,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
               this.countData.Upcoming = res.results.data_count.Upcoming;
+              // this.reverseData()
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -849,30 +893,32 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   searchValue: any;
   applySearch(followupSearch: any) {
     if (this.role == 'Admin') {
-      if (this.filteredFollowUps) {
-        this.api
-          .searchFollowupsForAdmin(
-            this.followupSearch,
-            this.page,
-            this.pageSize
-          )
-          .subscribe((res: any) => {
-            console.log(res, 'search in filtered followups');
-          });
-      } else {
-        console.log('error');
-      }
+      // if (this.filteredFollowUps) {
+      //   this.api
+      //     .searchFollowupsForAdmin(
+      //       this.followupSearch,
+      //       this.page,
+      //       this.pageSize
+      //     )
+      //     .subscribe((res: any) => {
+      //       console.log(res, 'search in filtered followups');
+      //     });
+      // } else {
+      //   console.log('error');
+      // }
       this.followUpsData = [];
-      console.log(followupSearch, 'search value');
-      this.searchValue = followupSearch;
-      console.log(this.searchValue, 'search value');
+      this.followUpsDataTemp=[];
+      this.countData=[]
+     
       this.api
-        .searchFollowupsForAdmin(this.followupSearch, this.page, this.pageSize)
+        .searchFollowupsForAdmin(followupSearch.target.value, this.page, this.pageSize)
         .subscribe(
           (res: any) => {
             console.log(res, 'searched followups for admin');
             this.followUpsData = res.results?.data;
+            this.followUpsDataTemp=res.results?.data;
             this.totalNumberOfRecords = res.total_no_of_record;
+            this.countData.All = res.results.data_count.All;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
@@ -885,7 +931,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
       this.followUpsData = [];
       this.api
         .searchFollowupsForCounsellor(
-          this.followupSearch,
+          followupSearch.target.value,
           this.page,
           this.pageSize,
           this.counsellor_id
@@ -894,6 +940,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
           (res: any) => {
             console.log(res, 'searched followups for counsellor');
             this.followUpsData = res.results?.data;
+            this.followUpsDataTemp=res.results?.data; 
             this.totalNumberOfRecords = res.total_no_of_record;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
@@ -1024,9 +1071,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   exportReference: any;
 
   calenderReset() {
-    // this.selectedDate=null || undefined;
-    window.location.reload();
+    this.selectedDate=null
+    // window.location.reload();
     // this.getAllFollowUps('All')
+    this.refreshFollowUps();
   }
 
   onSearchInputChange() {
@@ -1076,10 +1124,11 @@ noData:boolean=false;
     );
   }
   refreshFollowUps() {
-    this.getUpcoming('Upcoming');
     this.getMissed('Missed');
+    this.getUpcoming('Upcoming');
     this.getDone('Done');
     this.getAllFollowUps('All');
+   
   }
 
   addCount() {

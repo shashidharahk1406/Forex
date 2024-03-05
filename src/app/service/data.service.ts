@@ -6,8 +6,16 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 })
 export class DataService {
 
+
+  private dataSubject = new BehaviorSubject<any>(null);
+  public data$ = this.dataSubject.asObservable();
   constructor() { }
   private sharedData: any;
+
+
+
+
+
 
   setSharedData(...args : any[]): void {
     this.sharedData = args;
@@ -17,5 +25,13 @@ export class DataService {
     return this.sharedData;
   }
   dataUpdated = new EventEmitter<any>();
+
+
+  sendData(data: any) {
+    this.dataSubject.next(data);
+  }
+  resetData(): void {
+    this.dataSubject.next(null);
+  }
 
 }

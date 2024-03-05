@@ -54,18 +54,20 @@
                         </mat-form-field>
                     </div>
                 </div>
+                <div class="col-lg-6 col-12 mx-2 my-0">
+                    <mat-label>Template Message</mat-label>
+            </div>
                 <div class="row">
-                    <div class="col-lg-6 col-12 mx-2 my-2">
-                        <mat-label>Template Message</mat-label>
-                </div>
+                
                     <div class="col-lg-12 col-12">
                         <textarea formControlName="message"  [(ngModel)]="message" name="editor"   ></textarea>
+                        <mat-error *ngIf="f['message'].invalid && f['message'].touched" style="font-size: 75% !important;" class="mx-2">
+                            <div *ngIf="f['message'].errors && f['message'].errors['required']">
+                               Message Is Required
+                            </div>
+                        </mat-error>
                     </div>
-                    <mat-error *ngIf="f['message'].invalid && f['message'].touched">
-                        <div *ngIf="f['message'].errors && f['message'].errors['required']">
-                           Message Is Required
-                        </div>
-                    </mat-error>
+                   
                 </div>
 
 

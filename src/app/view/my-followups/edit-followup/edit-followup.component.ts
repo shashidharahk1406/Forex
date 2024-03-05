@@ -206,10 +206,7 @@ AllFollowupStatuses:any=[]
   }
 
 
-  receiveData() {
-    const data = this.dataService.getSharedData();
-    console.log(data);
-  }
+
 
   edit() {
     // console.log('api calling', this.data);
@@ -233,13 +230,9 @@ AllFollowupStatuses:any=[]
             // alert('api calling');
             if (res) {
               this.api.showSuccess(res.message);
-              this.emit.getRefresh.subscribe(
-                (resp:any)=>{
-                  console.log(resp,"refresh")
-                })
-              // window.location.reload()
-              // this.router.navigate(['/myFollowups'])
-              this.receiveData();
+              this.dataService.sendData(true)
+              
+            
               this.closePopup();
             }
           },

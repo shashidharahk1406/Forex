@@ -26,3 +26,9 @@ textarea{
    width: 100%;
 
 }
+
+.form-container{
+    overflow-y: scroll !important;
+    overflow-y: visible !important;
+
+}
