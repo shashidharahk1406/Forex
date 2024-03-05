@@ -762,11 +762,15 @@
 
 
         <mat-card >
+
+
           <input
           type="search"
           class="form-control icon-rtl "
           placeholder="Search by Name/Mobile"
           [(ngModel)]="followupSearch"
+         (keyup)="applySearch($event)"
+        
         />
 
 

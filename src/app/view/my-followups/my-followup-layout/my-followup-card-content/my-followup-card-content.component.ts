@@ -919,6 +919,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.followUpsDataTemp=res.results?.data;
             this.totalNumberOfRecords = res.total_no_of_record;
             this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
@@ -940,8 +943,12 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           (res: any) => {
             console.log(res, 'searched followups for counsellor');
             this.followUpsData = res.results?.data;
-            this.followUpsDataTemp=res.results?.data; 
+            this.followUpsDataTemp=res.results?.data;
             this.totalNumberOfRecords = res.total_no_of_record;
+            this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
@@ -1258,7 +1265,7 @@ noData:boolean=false;
   // selectedLeads:any=[]
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
-      this.exportReference = `${environment.live_url}/${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
+      this.exportReference = `${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
     } else {
       this.api.showWarning('Please select atleast one lead to download');
     }
