@@ -262,7 +262,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsDataTemp = [];
 
           this.filtered = true;
-          // this.api.showSuccess(res.message)
+          this.api.showSuccess('Filter Applied Successfully')
+          this.selectedTab=res.results.data[0]?.follow_up_status_name;
           this.filteredFollowUps = res.results.data;
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
@@ -352,6 +353,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.followUpsData = res.results.data;
             this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
+            this.followUpsData.paginator = this.allPaginator;
           },
           (error: any) => {
             this.api.showError(error.error.message);
@@ -372,6 +374,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.followUpsData = res.results.data;
             this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
+            this.followUpsData.paginator = this.allPaginator;
           },
           (error: any) => {
             this.api.showError(error.error.message);
@@ -394,6 +397,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
         });
     } else {
       this.followUpsData = [];
@@ -409,6 +413,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
           //console.log(res, 'calender upcoming followups for counsellor');
         });
     }
@@ -429,6 +434,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
         });
     } else {
       this.followUpsData = [];
@@ -444,6 +450,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
           //console.log(res, 'calender done followups for counsellor');
         });
     }
@@ -464,6 +471,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
         });
     } else {
       this.followUpsData = [];
@@ -479,6 +487,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
           //console.log(res, 'calender Missed followups for counsellor');
         });
     }
@@ -507,6 +516,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
+            this.followUpsData.paginator = this.allPaginator;
             // this.reverseData()
           },
           (error: any) => {
@@ -536,6 +546,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
               );
+              this.followUpsData.paginator = this.allPaginator;
               // this.reverseData()
             },
             (error: any) => {
@@ -569,6 +580,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
               this.countData.Upcoming = res.results.data_count.Upcoming;
+              this.followUpsData.paginator = this.allPaginator;
               // this.reverseData()
             },
             (error: any) => {
@@ -597,6 +609,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
               this.allData = res.results;
+              this.followUpsData.paginator = this.allPaginator;
 
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
@@ -633,6 +646,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
               this.countData.Missed = res.results.data_count.Missed;
+              this.followUpsData.paginator = this.allPaginator;
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -659,6 +673,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
               this.allData = res.results;
+              this.followUpsData.paginator = this.allPaginator;
               this.countData.Missed = res.results.data_count.Missed;
               this.allFollowUpDataSource = new MatTableDataSource<any>(
                 this.followUpsData
@@ -688,6 +703,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             console.log(res, 'Done followups for Admin');
             this.followUpsData = res.results.data;
             this.countData.Done = res.results.data_count.Done;
+            this.followUpsData.paginator = this.allPaginator;
             this.totalNumberOfRecords = res.total_no_of_record;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
@@ -717,6 +733,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
                 this.followUpsData
               );
               this.totalNumberOfRecords = res.total_no_of_record;
+              this.followUpsData.paginator = this.allPaginator;
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -751,12 +768,35 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
   onPageChange(event: any, followUpsData: any) {
     this.pageSize = event.pageSize;
     this.page = event.pageIndex + 1;
+
+    // if(this.role === 'Admin' && this.sorting===true && this.sortedType!==''){
+    //   console.log('coming in to sorting')
+    //   this.followUpsData = [];
+    //   this.api.sortForAdmin(this.sortedType, this.page, this.pageSize).subscribe(
+    //     (res: any) => {
+    //       console.log(res, 'sorted results');
+    //       this.followUpsData = res.results.data;
+    //       this.followUpsData.paginator = this.allPaginator;
+    //       this.countData.All = res.results.data_count.All;
+    //         this.countData.Upcoming = res.results.data_count.Upcoming;
+    //         this.countData.Missed = res.results.data_count.Missed;
+    //         this.countData.Done = res.results.data_count.Done;
+    //       this.totalNumberOfRecords = res.total_no_of_record;
+    //       this.allFollowUpDataSource = new MatTableDataSource<any>(
+    //         this.followUpsData
+    //       );
+    //     },
+    //     (error: any) => {
+    //       this.api.showSuccess(error.error.message);
+    //     }
+    //   );
+    // }
     // this.getAllFollowUps('all');
-    if (this.role === 'Admin') {
+     if (this.role === 'Admin' && this.selectedTab=='All') {
+      
       this.followUpsData = [];
       this.totalNumberOfRecords = [];
-      if (this.role === 'Admin') {
-      }
+     
       this.api
         .getAllFollowupsForAdmin(this.page, this.pageSize)
         .subscribe((res: any) => {
@@ -765,8 +805,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.followUpsData
           );
           this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
         });
-    } else {
+    } else if(this.selectedTab=='All') {
       this.totalNumberOfRecords = [];
       this.followUpsData = [];
       this.api
@@ -781,10 +822,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
     }
 
-    if (this.role === 'Admin') {
+    if (this.role === 'Admin' && this.selectedTab=='Upcoming') {
       this.followUpsData = [];
       this.totalNumberOfRecords = [];
       this.api
@@ -803,8 +845,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
-    } else {
+    } else if(this.selectedTab=='Upcoming') {
       this.followUpsData = [];
       this.followUpsDataTemp = [];
       this.api
@@ -820,10 +863,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
     }
 
-    if (this.role === 'Admin') {
+    if (this.role === 'Admin' && this.selectedTab=='Done') {
       this.followUpsData = [];
       this.api
         .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
@@ -833,8 +877,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
-    } else {
+    } else if(this.selectedTab=='Done') {
       this.followUpsData = [];
       this.followUpsDataTemp = [];
       this.api
@@ -850,10 +895,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
     }
 
-    if (this.role === 'Admin') {
+    if (this.role === 'Admin' && this.selectedTab=='Missed') {
       this.followUpsData = [];
       this.api
         .getMissedFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
@@ -863,8 +909,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
-    } else {
+    } else if(this.selectedTab=='Missed') {
       this.followUpsData = [];
       this.followUpsDataTemp = [];
       this.api
@@ -880,6 +927,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
           this.allFollowUpDataSource = new MatTableDataSource<any>(
             this.followUpsData
           );
+          this.followUpsData.paginator = this.allPaginator;
         });
     }
   }
@@ -922,6 +970,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.countData.Upcoming = res.results.data_count.Upcoming;
             this.countData.Missed = res.results.data_count.Missed;
             this.countData.Done = res.results.data_count.Done;
+            this.followUpsData.paginator = this.allPaginator;
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
@@ -954,6 +1003,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
             this.allFollowUpDataSource = new MatTableDataSource<any>(
               this.followUpsData
             );
+            this.followUpsData.paginator = this.allPaginator;
             // this.followupSearch=''
           },
           (error: any) => {
@@ -1113,24 +1163,53 @@ noData:boolean=false;
   sorting: boolean = false;
   sortedType: any;
   onChangeSorting(event: any) {
-    this.sorting = true;
+    
     this.sortedType = event.target.innerText;
     // console.log(event.option.value,event.option.selected)
     console.log(this.sortedType, 'this.sortedType');
-    this.followUpsData = [];
-    this.api.sortForAdmin(this.sortedType, this.page, this.pageSize).subscribe(
-      (res: any) => {
-        console.log(res, 'sorted results');
+    if(this.role=='Admin'){
+      this.followUpsData = [];
+      this.api.sortForAdmin(this.sortedType, this.page, this.pageSize).subscribe(
+        (res: any) => {
+          this.sorting = true;
+          console.log(res, 'sorted results');
+          this.followUpsData = res.results.data;
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        },
+        (error: any) => {
+          
+          this.api.showSuccess(error.error.message);
+        }
+      );
+    } else{
+
+      this.followUpsData=[];
+      this.api.sortForCounsellor(this.sortedType, this.page, this.pageSize,this.counsellor_id).subscribe((res:any)=>{
+        this.sorting=true
         this.followUpsData = res.results.data;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.allFollowUpDataSource = new MatTableDataSource<any>(
-          this.followUpsData
-        );
-      },
-      (error: any) => {
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+      },(error: any) => {
+          
         this.api.showSuccess(error.error.message);
-      }
-    );
+      })
+    }
+  
   }
   refreshFollowUps() {
     this.getMissed('Missed');

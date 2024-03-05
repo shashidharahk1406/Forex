@@ -538,7 +538,7 @@
 
 
 
-<ul *ngFor="let perm of allPermissions; let i = index" >
+<ul *ngFor="let perm of allPermissions; let i = index" class="my-3">
   <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
       
   }}</mat-checkbox> -->
@@ -560,3 +560,4 @@
 </ul>
  <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
  <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button>  -->
+ <button mat-raised-button  class="go-back mat-disable mx-2" (click)="goBack()"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
