@@ -38,16 +38,15 @@
                   <mat-error class="er-fs" *ngIf="f['leadUpload'].hasError('required')">Application form Is Required</mat-error>
                 </div>
               
-                <div class="img-container" *ngIf="f['leadUpload'].value">
+                <div class="img-container" *ngIf="selectedImage">
                   <img [src]="f['leadUpload'].value" class="uploaded-image"/>
-                  <button mat-mini-fab class="mat-fab-cus"  (click)="downloadImage()">
+                  <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage && f['leadUpload'].invalid" (click)="downloadImage()">
                     <mat-icon class="forward">forward</mat-icon>
                   </button>
-                  <a mat-mini-fab [href]="f['leadUpload'].value" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                  <a mat-mini-fab [href]="selectedImage" *ngIf="selectedImage && f['leadUpload'].invalid" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
                     <mat-icon class="eye-1">visibility</mat-icon>
                   </a>
                 </div>
-             
               </ng-container>
       </form>
         </mat-dialog-content>

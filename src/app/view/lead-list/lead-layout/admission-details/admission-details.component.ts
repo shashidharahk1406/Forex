@@ -18,6 +18,7 @@ export class AdmissionDetailsComponent implements OnInit {
   uploadFile: any;
   url: any;
   fileUrl: string | ArrayBuffer | null | undefined;
+  selectedImage: any;
   
   constructor(
     private fb:FormBuilder,
@@ -44,10 +45,13 @@ export class AdmissionDetailsComponent implements OnInit {
       this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}/`).subscribe((res:any)=>{
         if(res.result){
           let data = res.result[0]
+          this.selectedImage = data.application_soft_copy
           this.admissionDetailsForm.patchValue({
           applicationNumber:data.application_number,
           leadUpload:data.application_soft_copy
         })
+       
+       
         }
       },((error:any)=>{
         this.api.showError(error.error.message)
@@ -99,7 +103,7 @@ export class AdmissionDetailsComponent implements OnInit {
    
   }
   downloadImage() {
-    const imageUrl = this.f['leadUpload'].value;
+    const imageUrl = this.f['leadUpload'].value || this.selectedImage;
 
     this.imageService.downloadImage(imageUrl).subscribe((blob: Blob) => {
       const url = window.URL.createObjectURL(blob);
