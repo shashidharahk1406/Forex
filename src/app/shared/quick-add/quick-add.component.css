@@ -1,6 +1,8 @@
 .quickAdd-container{
  font-size: 13px;
  padding: 1rem 20px 0;
+ height: 56vh;
+ overflow-y: auto;
 }
 mat-card{
     box-shadow: none !important;
