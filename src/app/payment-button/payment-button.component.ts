@@ -47,7 +47,8 @@ export class PaymentButtonComponent implements OnInit {
         currency:'INR',
         amount: this.amount,
         name:'Asma',
-        key:'rzp_test_SGLqA6ORuQPThF',
+        // key:'rzp_test_SGLqA6ORuQPThF',
+        key:'rzp_test_GxaJhvoS78ZpIz',
         image:'../assets/images/logo.png',
         order_id:this.orderId,
         prefill:{
