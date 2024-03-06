@@ -151,6 +151,7 @@ export class LeadCardContentComponent implements OnInit {
   search(event:any){
     this.searchEvent = event
    this.selectedSearch.emit(event)
+  //  console.log(event,"lead search")
   }
  
   selectAll(event:any) {

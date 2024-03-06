@@ -72,7 +72,8 @@ export class LeadFollowupComponent implements OnInit {
       counsellor: [''],
       lead: [''],
       created_by: [''],
-      modified_datetime:['']
+      modified_datetime:[''],
+      created_datetime:['']
     });
   }
   getFollowUp(){
@@ -227,7 +228,8 @@ export class LeadFollowupComponent implements OnInit {
     // let formattedModifiedDateTime=this.datePipe.transform(this.followupForm.value.modified_datetime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     
     this.followupForm.value.action_date_time = update_date_time
-    this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
+    this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ');
+    this.followupForm.value.created_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
    
 
     //console.log(this.followupForm.valid, this.followupForm.value);

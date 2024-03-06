@@ -58,9 +58,9 @@
 
         </div> -->
       </div>
-      <div class="row" *ngIf="followUpsData?.length > 0">
-        <div class="col-sm-0 col-md-0 col-lg-6">
-          <app-my-followup-sort
+      <div class="row" >
+        <div class="col-sm-0 col-md-0 col-lg-6" >
+          <app-my-followup-sort *ngIf="followUpsData?.length > 0"
             (selectedSort)="onChangeSorting($event)"
           ></app-my-followup-sort>
         </div>
@@ -765,12 +765,12 @@
 
 
           <input
-          type="input"
+          type="search"
           class="form-control icon-rtl "
           placeholder="Search by Name/Mobile"
           [(ngModel)]="followupSearch"
-         (keyup)="applySearch($event)"
-         (input)="clearSearch($event)"
+         (input)="applySearch($event)"
+         
         
         />
 
