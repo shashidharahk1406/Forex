@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { EditAdvanceSettingsPermissionsComponent } from '../edit-advance-settings-permissions/edit-advance-settings-permissions.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-advance-settings-control',
@@ -19,7 +20,7 @@ export class AdvanceSettingsControlComponent implements OnInit {
   allPermissions:any=[]
   leadListPermissions: any = [];
   checked:boolean=false;
-  constructor(private _fb:FormBuilder,private api:ApiService,private emit:EmitService,private route:ActivatedRoute,private dialog: MatDialog){
+  constructor(private _fb:FormBuilder,private api:ApiService,private emit:EmitService,private route:ActivatedRoute,private dialog: MatDialog,private _location:Location){
   this.id=this.route.snapshot.paramMap.get('id');
   this.user_id=localStorage.getItem('user_id')
   localStorage.setItem('id',this.id);
@@ -138,6 +139,10 @@ edit(){
 
 }
 
+
+goBack() {
+  this._location.back();
+}
 
   // openEdit(id:any){
   //   const dialogRef = this.dialog.open(EditAdvanceSettingsPermissionsComponent, {

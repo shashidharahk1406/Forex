@@ -833,15 +833,15 @@ export class ApiService implements OnInit {
     );
   }
 
-  sortForAdmin(sortType: any, pageNo: any, size: any) {
+  sortForAdmin(sortType: any, pageNo: any, size: any,status:any,date:any) {
     return this.http.get(
-      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}`
+      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&follow_up_status=${status}&action_datetime=${date}`
     );
   }
 
-  sortForCounsellor(sortType: any, pageNo: any, size: any, id: any) {
+  sortForCounsellor(sortType: any, pageNo: any, size: any, id: any,status:any,date:any) {
     return this.http.get(
-      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&counsellor_id=${id}`
+      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}&action_datetime=${date}`
     );
   }
 
