@@ -31,7 +31,7 @@ export class AddNewUserComponent implements OnInit {
   initFilter(){
     this.addForm = this._fb.group({
       first_name:[null,[Validators.required]],
-      last_name:[null],
+      last_name:[''],
       email:[null,[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
       mobile_number:[null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[null],

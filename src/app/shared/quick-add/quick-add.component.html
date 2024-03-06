@@ -15,7 +15,7 @@
                   <mat-form-field appearance="outline">
                       <mat-label>Student Name</mat-label>
                       <input matInput appFormSpace formControlName="firstName" placeholder="Enter Student Name" required>
-                      <mat-error *ngIf="quickAddForm.get('firstName')?.hasError('required')">First Name Is Required</mat-error>
+                      <mat-error *ngIf="quickAddForm.get('firstName')?.hasError('required')">Student Name Is Required</mat-error>
                     </mat-form-field>
                   <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>

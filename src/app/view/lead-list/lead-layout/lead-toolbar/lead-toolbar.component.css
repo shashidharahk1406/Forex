@@ -49,3 +49,6 @@ i,mat-icon{
     display: flex;
     justify-content: right;
 }
+.set-pointer{
+    cursor: pointer;
+}

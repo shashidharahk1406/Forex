@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
 
 import { environment } from 'src/environments/environment';
 
@@ -41,7 +42,8 @@ export class LeadUploadComponent implements OnInit {
     private fb: FormBuilder,
     private api:ApiService,
     private _baseService:BaseServiceService,
-    private _addLeadEmitter:AddLeadEmitterService
+    private _addLeadEmitter:AddLeadEmitterService,
+    private commonService:CommonServiceService
    ){
     this.dropDownValues()
    }
@@ -81,7 +83,7 @@ export class LeadUploadComponent implements OnInit {
      
       referedTo:['',Validators.required],
        
-       leadUpload:['',Validators.required]
+       leadUpload:['',[Validators.required,Validators.pattern(this.commonService.execlPattern)]]
       });
     }
     selectFile(event:any) {
@@ -102,7 +104,6 @@ export class LeadUploadComponent implements OnInit {
        this.formData = new FormData();
         if(this.uploadLeadForm.invalid){
         this.uploadLeadForm.markAllAsTouched();
-        this.api.showError('Invalid Form')
         }else{
           if (this.file) {
             this.formData.set('sample_file',this.file);

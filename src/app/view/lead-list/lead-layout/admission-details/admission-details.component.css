@@ -47,3 +47,8 @@ mat-dialog-content{
     top: -1px;
     right: 3px;
 }
+.text-input{
+    width:100px;
+    border:1px solid #e8e7e7;
+    outline: none;
+}

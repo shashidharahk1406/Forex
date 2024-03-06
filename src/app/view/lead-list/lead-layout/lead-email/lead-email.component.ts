@@ -49,7 +49,6 @@ export class LeadEmailComponent implements OnInit {
   onSubmit() {
     if (this.emailForm.invalid) {
       this.emailForm.markAllAsTouched()
-      this.api.showError("Invalid Form")
     }
     else{
       const fd = this.emailForm.value;

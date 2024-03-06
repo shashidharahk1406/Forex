@@ -219,7 +219,7 @@ export class LeadCardComponent implements OnInit {
    filterLeads(apiUrl:any){
     this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
       if(res.results.length >0){
-        this.api.showSuccess(res.message)
+        // this.api.showSuccess(res.message)
       }
       if(res.results.length === 0){
         this._addLeadEmitter.leadFilter.next('')

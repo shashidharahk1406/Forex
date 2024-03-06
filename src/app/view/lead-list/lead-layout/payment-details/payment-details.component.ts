@@ -53,7 +53,7 @@ export class PaymentDetailsComponent implements OnInit {
   }
   onSubmit(){
     if(this.paymentForm.invalid){
-      this.paymentForm.markAllAsTouched
+      this.paymentForm.markAllAsTouched()
     }else{
       let formData ={}
       if(this.data.name === "BULK"){ 

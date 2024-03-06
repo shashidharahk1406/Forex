@@ -19,6 +19,7 @@ export class AdmissionDetailsComponent implements OnInit {
   url: any;
   fileUrl: string | ArrayBuffer | null | undefined;
   selectedImage: any;
+  type = 'text';
   
   constructor(
     private fb:FormBuilder,
@@ -38,8 +39,15 @@ export class AdmissionDetailsComponent implements OnInit {
   initForm(){
     this.admissionDetailsForm = this.fb.group({
       applicationNumber:['',[Validators.required,Validators.pattern(this.commonService.amountPattern)]],
-      leadUpload:['',Validators.required]
+      leadUpload:['',[Validators.required]]
     })
+  }
+  changeType(){
+    this.admissionDetailsForm.patchValue({
+      leadUpload:''
+    })
+    this.selectedImage =''
+    this.type = 'file'
   }
   getAdmissionDetails(){
       this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}/`).subscribe((res:any)=>{

@@ -151,7 +151,7 @@ export class PaymentStatusComponent implements OnInit {
   onSubmit(){
     if( this.thirdFormGroup.invalid){
       this.thirdFormGroup.markAllAsTouched()
-      this.api.showError('Invalid Form')
+      this.api.showError('Please Fill The Mandatory Fields')
     }else{
       let formData = this.thirdFormGroup.value
       let data = {
@@ -174,12 +174,11 @@ export class PaymentStatusComponent implements OnInit {
    
   }
   onChangeStep(event:any){
-    if(event.target.innerText === 'Completed' || event.target.innerText === '3\nCompleted'){
+    console.log(event,'selectionChange')
+    if(event.selectedIndex == 2 ){
       this.selectedTab = true
     }else{
-      if(event.target.innerText === 'Pending' || event.target.innerText === 'Inprogress'){
         this.selectedTab = false
-      }
     }
   }
   saveAndNext(){

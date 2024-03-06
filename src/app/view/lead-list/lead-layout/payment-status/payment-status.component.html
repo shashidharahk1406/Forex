@@ -10,7 +10,7 @@
       </div>
         <mat-dialog-content class="mat-typography mx-0 my-2">
         
-      <mat-stepper orientation="vertical"  #stepper [selectedIndex]="selectedIndex" (click)="onChangeStep($event)">
+      <mat-stepper orientation="vertical"  #stepper [selectedIndex]="selectedIndex" (selectionChange)="onChangeStep($event)">
         <mat-step [stepControl]="firstFormGroup"   [editable]="editable1" >
           <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel >Pending</ng-template>

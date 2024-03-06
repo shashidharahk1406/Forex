@@ -145,7 +145,7 @@ queryItems: any;
   onSubmit() {
     if (this.filterLead.invalid) {
       this.filterLead.markAllAsTouched()
-      this.api.showError('Invalid Form')
+      this.api.showError('Please Fill the Mandatory Fields')
     } else{
      const formValues = this.filterLead.value;
    
@@ -188,7 +188,7 @@ queryItems: any;
   
   initForm(){
     this.filterLead = this.fb.group({
-      counsellor_id:[''],
+      counsellor_ids:[''],
       counselled_by:[''],
       campaign_id:[''],
       channel_id:[''],
