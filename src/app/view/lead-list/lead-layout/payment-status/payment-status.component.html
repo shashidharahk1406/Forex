@@ -86,12 +86,29 @@
                 
                 <ng-container>
                
-                  <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
-                    <input type="file" accept=".jpg, .jpeg, .png" class="mb-3" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl/>
+                   <p class="mt-1">Upload Payment Proof <b class="mandatory-symbol">*</b></p>
+                  <!--  <input type="file" accept=".jpg, .jpeg, .png" class="mb-3" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl/>
                     <div *ngIf="f['uploadProof'].invalid && f['uploadProof'].touched">
                       <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
-                    </div>     
+                    </div>      -->
+                    <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)" formControlName="uploadProof" #inputEl />
+                    <div *ngIf="f['uploadProof'].invalid && f['uploadProof'].touched">
+                      <mat-error class="er-fs" *ngIf="f['uploadProof'].hasError('required')">Payment Proof Is Required</mat-error>
+                    </div>
+                    <mat-form-field appearance="outline" class="mb-1"  *ngIf="type">
+                      <mat-label>Select an image</mat-label>
+                      <input
+                        matInput
+                        type="text"
+                        placeholder="Select an image"
+                        formControlName="uploadProof"
+                        (click)="changeType();type=!type"
+                       
+                      />
+                      
+                    </mat-form-field>
                 </ng-container>
+               
           
 
                

@@ -33,21 +33,36 @@
              
               <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
               <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
-              <input type="file" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
-             
-              <!-- <input type="text" *ngIf="type == 'text'" [ngClass]="type == 'text' ? 'text-input':''" (click)="changeType()" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl/> -->
-              <div *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
-                <mat-error class="er-fs" *ngIf="f['leadUpload'].hasError('required') && !f['leadUpload'].hasError('pattern')">Application form Is Required</mat-error>
+              <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
+              <mat-form-field appearance="outline" class="mb-1"  *ngIf="type">
+                <mat-label>Select an image</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Select an image"
+                  formControlName="leadUpload"
+                  (click)="changeType();type=!type"
+                 
+                />
+                
+              </mat-form-field>
+              <div *ngIf="admissionDetailsForm.get('leadUpload')?.invalid && admissionDetailsForm.get('leadUpload')?.touched">
+                <mat-error class="er-fs">
+                  <ng-container *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('required')">
+                    Application form Is Required.
+                  </ng-container>
+                  <!-- <ng-container *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('invalidFileType')">
+                    Invalid file type. Accepted types: png, jpg, jpeg, pdf.
+                  </ng-container> -->
+                </mat-error>
               </div>
-              <!-- <div  *ngIf="f['leadUpload'].invalid && f['leadUpload'].touched">
-                <mat-error class="er-fs" *ngIf="!f['leadUpload'].hasError('pattern')">Invalid file format. Accepted formats: jpg, jpeg, png, pdf.</mat-error>
-              </div> -->
-                <div class="img-container" *ngIf="!f['leadUpload'].hasError('pattern') && selectedImage || f['leadUpload'].value">
+              
+                <div class="img-container" *ngIf="f['leadUpload'].value">
                   <img [src]="f['leadUpload'].value" class="uploaded-image"/>
-                  <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage && f['leadUpload'].invalid" (click)="downloadImage()">
+                  <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage" (click)="downloadImage()">
                     <mat-icon class="forward">forward</mat-icon>
                   </button>
-                  <a mat-mini-fab [href]="selectedImage" *ngIf="selectedImage && f['leadUpload'].invalid" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                  <a mat-mini-fab [href]="selectedImage" *ngIf="selectedImage" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
                     <mat-icon class="eye-1">visibility</mat-icon>
                   </a>
                 </div>

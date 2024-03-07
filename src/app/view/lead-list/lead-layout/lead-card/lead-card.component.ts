@@ -63,16 +63,16 @@ export class LeadCardComponent implements OnInit {
     this.sorting = true
      this.sortingType = event.target.innerText
      this.query = (this.user_role === 'counsellor')
-      ? `?counsellor_id=${this.user_id}&sort_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
-      : `?sort_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
+      ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
+      : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
       
       if(this.leadFilter){
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
             this.query = (this.user_role === 'counsellor')
-            ? `${res}&counsellor_id=${this.user_id}&sort_by=${this.sortingType}`
-            : `${res}&sort_by=${this.sortingType}`;
+            ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}`
+            : `${res}&filter_by=${this.sortingType}`;
             
           }
         });

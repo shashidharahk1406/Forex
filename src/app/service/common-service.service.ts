@@ -13,6 +13,7 @@ export class CommonServiceService implements OnInit {
   readonly mobilePattern = /^[0-9]{10}$/;
   readonly amountPattern = /^[1-9][0-9]*\.?[0-9]*$/;
   readonly emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+  //readonly emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/
   readonly execlPattern = /\.xlsx?$/i
   readonly imagePattern = /\.(png|jpe?g|pdf)$/i
   // Regular expression for password validation (at least 8 characters with special characters)

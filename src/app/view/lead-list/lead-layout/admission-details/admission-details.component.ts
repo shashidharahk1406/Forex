@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
@@ -19,7 +19,7 @@ export class AdmissionDetailsComponent implements OnInit {
   url: any;
   fileUrl: string | ArrayBuffer | null | undefined;
   selectedImage: any;
-  type = 'text';
+  type = true;
   
   constructor(
     private fb:FormBuilder,
@@ -42,12 +42,26 @@ export class AdmissionDetailsComponent implements OnInit {
       leadUpload:['',[Validators.required]]
     })
   }
+  // fileTypeValidator() {
+  //   const allowedFileTypes = /\.(pdf|jpe?g|png)$/i;
+
+  //   return (control: FormControl) => {
+  //     const value: string = control.value;
+
+  //     if (!value) {
+  //       return { required: true };
+  //     }
+
+  //     const valid = allowedFileTypes.test(value);
+
+  //     return valid ? null : { invalidFileType: true };
+  //   };
+  // }
+
   changeType(){
-    this.admissionDetailsForm.patchValue({
-      leadUpload:''
-    })
+    this.type = true
     this.selectedImage =''
-    this.type = 'file'
+    
   }
   getAdmissionDetails(){
       this._baseService.getByID(`${environment.admission_details}${this.data.user_data.id}/`).subscribe((res:any)=>{

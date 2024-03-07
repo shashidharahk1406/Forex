@@ -38,7 +38,7 @@ export class PaymentButtonComponent implements OnInit {
         let convetionAmount = Number(paramsAmount) *100
         this.email = params['email'];
         this.leadId = Number(params['lead_id']);
-        this.counsellorId =  2
+        this.counsellorId = params['counsellor_id']
         this.amount = convetionAmount;
         this.orderId = params['order_id']; 
      

@@ -61,6 +61,7 @@ export class PaymentStatusComponent implements OnInit {
   selectedIndex: number = -1;
   @ViewChildren(MatStep) steps!: QueryList<MatStep>;
   selectedImage: any;
+  type = true;
   constructor(
     private fb:FormBuilder,
     public dialogRef: MatDialogRef<PaymentStatusComponent>,
@@ -95,6 +96,11 @@ export class PaymentStatusComponent implements OnInit {
       uploadProof:['',Validators.required],
       admission:['',Validators.required]
     })
+  }
+  changeType(){
+    this.type = true
+    this.selectedImage =''
+    
   }
   getPaymentStatus() {
     this.baseService.getByID(`${environment.payment_status}${this.data.user_data.id}/`).subscribe((res: any) => {
