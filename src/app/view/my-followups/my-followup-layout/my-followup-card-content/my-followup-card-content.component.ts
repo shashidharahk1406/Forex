@@ -908,12 +908,12 @@ export class MyFollowupCardContentComponent
   selectedFollowUps: any = [];
   exportReference: any;
 
-  calenderReset() {
+  // calenderReset() {
     
-    // window.location.reload();
-    // this.getAllFollowUps('All')
-    this.refreshFollowUps();
-  }
+  //   // window.location.reload();
+  //   // this.getAllFollowUps('All')
+  //   this.refreshFollowUps();
+  // }
 
   onSearchInputChange() {
     this.getAllFollowUps('All');
