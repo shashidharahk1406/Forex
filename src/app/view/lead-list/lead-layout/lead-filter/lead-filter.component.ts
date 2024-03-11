@@ -148,7 +148,7 @@ queryItems: any;
       this.api.showError('Please Fill the Mandatory Fields')
     } else{
      const formValues = this.filterLead.value;
-   
+     console.log(formValues,"formValues")
      // Create an array of query parameters with non-empty values
      const queryParams = [];
      for (const key in formValues) {
@@ -157,6 +157,7 @@ queryItems: any;
          if (Array.isArray(value)) {
            // Handle multi-select fields
            if (value.length > 0) {
+            debugger;
              // Convert array of objects to a comma-separated string of IDs
              const ids = value.map((item) => item.id).join(',');
              queryParams.push(`${key}=${ids}`);

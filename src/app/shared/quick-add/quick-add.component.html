@@ -22,6 +22,7 @@
                     <input matInput appFormSpace formControlName="email"  placeholder="Enter Email Id">
                     <!-- <mat-error *ngIf="quickAddForm.get('email')?.hasError('required')">Email Is Required</mat-error> -->
                     <mat-error *ngIf="quickAddForm.get('email')?.hasError('pattern')">Invalid Email Format</mat-error>
+                    <mat-error *ngIf="quickAddForm.get('email')?.hasError('email') && !quickAddForm.get('email')?.hasError('pattern')">Invalid Email Format</mat-error>
                   </mat-form-field> 
                   <mat-form-field appearance="outline" >
                       <mat-label>Mobile Number</mat-label>

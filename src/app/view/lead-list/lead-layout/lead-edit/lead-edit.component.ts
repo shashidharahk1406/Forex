@@ -112,7 +112,7 @@ export class LeadEditComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
-        email: ['', [Validators.pattern(this._commonService.emailPattern)]],
+        email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:"",
         state: [''],
         zone:[''],
@@ -393,6 +393,7 @@ openAddCourse(){
 
   dialogRef.afterClosed().subscribe((result:any) => {
     //console.log('The dialog was closed');
+    this.getCourse()
   }); 
 }
 openAddStream(){

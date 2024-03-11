@@ -46,7 +46,7 @@ export class QuickAddComponent implements OnInit {
   initForm(){
     this.quickAddForm = this.formBuilder.group({
       firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
-      email: ['', [Validators.pattern(this._commonService.emailPattern)]],
+      email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
       mobile:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
       source: ['', [Validators.required]],
       courseLookingfor:[''],

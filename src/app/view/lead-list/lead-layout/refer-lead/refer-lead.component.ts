@@ -90,9 +90,15 @@ export class ReferLeadComponent implements OnInit {
          }
       }
      else{
+      let referTo:any;
+     if(f.referTo.length >2) {
+      referTo = [f.referTo]
+     } else{
+      referTo = f.referTo
+     }
       formData= {
         lead_list: [this.data],
-        counsellor_ids: [f.referTo],
+        counsellor_ids: referTo,
         comment:f.comment
        }
      }
@@ -117,7 +123,6 @@ export class ReferLeadComponent implements OnInit {
       })
     }
     close(){
-      debugger;
       this.dialogRef.close()
     }
 }

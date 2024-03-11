@@ -68,6 +68,7 @@
                         />
                         <mat-error *ngIf="f['email'].hasError('required')">Email Id Is Required.</mat-error>
                         <mat-error *ngIf="f['email'].hasError('pattern')">Invalid Email Format.</mat-error>
+                        <mat-error *ngIf="f['email'].hasError('email') && !f['email'].hasError('pattern')">Invalid Email Format.</mat-error>
                       </mat-form-field>
                      
                       <mat-form-field class="mb-1" appearance="outline">

@@ -113,12 +113,18 @@ export class LeadCardComponent implements OnInit {
       this.getLeadData('tabLabel')
       
     });
-    this._addLeadEmitter.goBack.subscribe((res:any)=>{
-      if(res){
-        this.setupLeadFilterListener()
+    // this._addLeadEmitter.goBack.subscribe((res:any)=>{
+    //   if(res){
+    //     this.setupLeadFilterListener()
+    //   }
+    // })
+    this._addLeadEmitter.leadFilter.subscribe((res) => {
+      if (res) {
+        //console.log(res, "RES");
+        this.leadFilter = true;
+        this.filterLeads(res);
       }
-    })
-  
+    });
   }
   
    setupLeadDataListener(): void {
@@ -162,13 +168,7 @@ export class LeadCardComponent implements OnInit {
     })
   }
    setupLeadFilterListener(){
-    this._addLeadEmitter.leadFilter.subscribe((res) => {
-      if (res) {
-        //console.log(res, "RES");
-        this.leadFilter = true;
-        this.filterLeads(res);
-      }
-    });
+   
   
   }
   

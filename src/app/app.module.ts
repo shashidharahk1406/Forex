@@ -76,7 +76,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
       timeOut: 5000,
       positionClass:"toast-top-right",
       preventDuplicates: true,
-      closeButton:true,
+      // closeButton:true,
     }),
     NgxUiLoaderModule,
     NgxUiLoaderHttpModule.forRoot({
