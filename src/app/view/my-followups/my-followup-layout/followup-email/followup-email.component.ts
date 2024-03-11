@@ -21,7 +21,12 @@ export class FollowupEmailComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
-    private _baseService:BaseServiceService) {}
+    private _baseService:BaseServiceService) {
+      console.log(data.selectedData.lead,"selected data")
+
+      console.log(data.name,"data.selectedData?.user_data?.first_name");
+      
+    }
 
   ngOnInit(): void {
     this.initForm();

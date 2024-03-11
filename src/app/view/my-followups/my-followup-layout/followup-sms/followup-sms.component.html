@@ -2,7 +2,7 @@
     <mat-card class="p-0 m-0">
       <div class="add-users mat-dialog-header">
         <div class="row">
-            <div class="col"><h1 mat-dialog-title>Send SMS To {{data?.user_data?.first_name}}</h1></div>
+            <div class="col " ><h1 class="text-truncate" style="width: 250px !important;" mat-dialog-title>Send SMS To {{data.lead | titlecase}}</h1></div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
           </div>

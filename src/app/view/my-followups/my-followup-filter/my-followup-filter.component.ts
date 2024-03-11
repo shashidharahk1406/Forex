@@ -3,9 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef, MatBottomSheet, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { DataService } from 'src/app/service/data.service';
+import { MyFollowupCardContentComponent } from '../my-followup-layout/my-followup-card-content/my-followup-card-content.component';
+import { FilterFollowUp } from 'src/app/filter/filter';
 
 @Component({
   selector: 'app-my-followup-filter',
@@ -13,6 +15,9 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./my-followup-filter.component.css']
 })
 export class MyFollowupFilterComponent implements OnInit {
+
+  filterFollowUp = new FilterFollowUp();
+
   filterLead!:FormGroup
   @Output()filterApplied = new EventEmitter()
   counselorList:any = [];
@@ -24,7 +29,7 @@ export class MyFollowupFilterComponent implements OnInit {
   cityList:any = [];
   campaignList: any;
   queryItems: any;
-  streamsList:any=[]
+  streamsList:any=[];
   @Output() filter:any = new EventEmitter();
   // @Output() filterCount:any = new EventEmitter();
     counselled_by: any;
@@ -35,14 +40,19 @@ export class MyFollowupFilterComponent implements OnInit {
       private api:ApiService,
       private _baseService:BaseServiceService,
       private _addLeadEmitter:AddLeadEmitterService,
-      private dataService:DataService
+      private dataService:DataService,
+      private bottomsheet: MatBottomSheet
       ) {
         this.role=localStorage.getItem('user_role');
         // this.sendData();
         
       }
+
+    updateFilterByStatusURL:any = null;
   
     ngOnInit(): void {
+
+      this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL()
 
       
       this.dropdownvalues()
@@ -164,7 +174,7 @@ export class MyFollowupFilterComponent implements OnInit {
     
     initForm(){
       this.filterLead = this.fb.group({
-        counsellor_id:[''],
+        counsellor_ids:[''],
         // campaign_id:[''],
         // channel_id:[''],
         source_id:[''],
@@ -181,52 +191,115 @@ export class MyFollowupFilterComponent implements OnInit {
       this._bottomSheetRef.dismiss()
     }
 
-filterCount:any=[]
+
+  filterCount:any=[]
       onSubmit() {
-      //console.log(this.filterLead.value,"filter followup values")
-      if (this.filterLead.invalid) {
-        this.filterLead.markAllAsTouched()
-        this.api.showError('Invalid Form')
-      } else{
-       const formValues = this.filterLead.value;
-      //  this.api.filterFollowupsForAdmin(formValues,this.page,this.pageSize).subscribe((res:any)=>{
-      //   //console.log(res,"filtered records")
-      //  })
-     
-       // Create an array of query parameters with non-empty values
-       const queryParams = [];
-       for (const key in formValues) {
-         const value = formValues[key];
-         console.log(value.length,"form valuesssssssss length")
-         if (value !== '' && value !== undefined && value !== null) {
-           if (Array.isArray(value)) {
-             // Handle multi-select fields
-             if (value.length > 0) {
-               // Convert array of objects to a comma-separated string of IDs
-               const ids = value.map((item) => item.id).join(',');
-               queryParams.push(`${key}=${ids}`);
-               console.log(queryParams,"queryParams")
-             }
-           } else {
-             queryParams.push(`${key}=${value}`);
-             this.filterCount=queryParams.length;
-             console.log(queryParams.length,"queryParams")
-             this.sendData();
+        // console.log("updated url==>", this.updateFilterByStatusURL);
+
+        console.log(this.filterLead.value);
+
+        const nonEmptyKeys = Object.keys(this.filterLead.value).filter(key => this.filterLead.value[key] !== '');
+
+        // console.log("nonEmptyKeys==>",nonEmptyKeys);
         
-           }
-         }
-       }
+
+        // for(const key in nonEmptyKeys){
+        //   const value = this.filterLead.value[key];
+        //   console.log(`Key: ${key}, Value: ${value}`);
+        // }
+        nonEmptyKeys.forEach(key => {
+          const value = this.filterLead.value[key];
+            console.log(`Key: ${key}, Value: ${value}`);
+            
+            this.updateFilterByStatusURL += `&${key}=${value}`
+
+            // let data = this.filterFollowUp.updateUrlParameter(this.updateFilterByStatusURL, key, value)
+
+            // console.log("data==>", data);
+            
+        });
+
+        
+        this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL)
+        
+        console.log("==============>>",this.updateFilterByStatusURL);
+
+        this.bottomsheet.dismiss();
+
+        // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
+        //   console.log(res,"filtered followup  results")
+        //   this.dataService.setFormDataFollowupFilter(res.results.data)
+        // })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+      //console.log(this.filterLead.value,"filter followup values")
+      // if (this.filterLead.invalid) {
+      //   this.filterLead.markAllAsTouched()
+      //   this.api.showError('Invalid Form')
+      // } else{
+      //  const formValues = this.filterLead.value;
+      // //  this.api.filterFollowupsForAdmin(formValues,this.page,this.pageSize).subscribe((res:any)=>{
+      // //   //console.log(res,"filtered records")
+      // //  })
+     
+      //  // Create an array of query parameters with non-empty values
+      //  const queryParams = [];
+      //  for (const key in formValues) {
+      //    const value = formValues[key];
+      //    console.log(value.length,"form valuesssssssss length")
+      //    if (value !== '' && value !== undefined && value !== null) {
+      //      if (Array.isArray(value)) {
+      //        // Handle multi-select fields
+      //        if (value.length > 0) {
+      //          // Convert array of objects to a comma-separated string of IDs
+      //          const ids = value.map((item) => item.id).join(',');
+      //          queryParams.push(`${key}=${ids}`);
+      //          console.log(queryParams,"queryParams")
+      //        }
+      //      } else {
+      //        queryParams.push(`${key}=${value}`);
+      //        this.filterCount=queryParams.length;
+      //        console.log(queryParams.length,"queryParams")
+      //        this.sendData();
+        
+      //      }
+      //    }
+      //  }
      
    
-       // Construct the API request URL with query parameters
-       const apiUrl = `${environment.lead_follow_up}?page=1&page_size=10&${queryParams.join('&')}`;
+      //  // Construct the API request URL with query parameters
+      //  const apiUrl = `${environment.lead_follow_up}?page=1&page_size=10&${queryParams.join('&')}`;
      
-      this._addLeadEmitter.leadFilter.next(apiUrl)
-       this._addLeadEmitter.triggerFilter()
-       this._addLeadEmitter.followUpFilterIcon.next('true')
-       // Make the API request with the constructed URL
-      this.closePopup()
-      }
+      // this._addLeadEmitter.leadFilter.next(apiUrl)
+      //  this._addLeadEmitter.triggerFilter()
+      //  this._addLeadEmitter.followUpFilterIcon.next('true')
+      //  // Make the API request with the constructed URL
+      // this.closePopup();
+
+      
+      this.dataService.sendData(true)
+    
+      // }
   
      
     }
@@ -235,4 +308,8 @@ filterCount:any=[]
       this.dataService.dataUpdated.emit(this.filterCount)
     }
     
+
+
+
+   
 }

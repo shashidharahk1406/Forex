@@ -24,7 +24,10 @@ export class LeadEmailComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
-    private _baseService:BaseServiceService) {}
+    private _baseService:BaseServiceService) {
+
+      console.log(data,"data lead email")
+    }
 
   ngOnInit(): void {
     this.initForm();
