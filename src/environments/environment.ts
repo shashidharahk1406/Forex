@@ -32,5 +32,5 @@ export const environment = {
   admission_details:`https://fcmdev.thestorywallcafe.com/api/admission-details/`,
   followUps:`https://fcmdev.thestorywallcafe.com/api/follow-up/`,
   payment_status:`https://fcmdev.thestorywallcafe.com/api/payment-status/`,
-  studying_stream:`https://fcmdev.thestorywallcafe.com/api/studying-stream/`
+  studying_stream:`https://fcmdev.thestorywallcafe.com/api/studying-stream/`,
 };

@@ -655,6 +655,12 @@ export class ApiService implements OnInit {
 
   // My-Followups
 
+  FollowUpFilterApi(filter_url:any){
+    console.log(filter_url,"urlurlurlurlurlurlurlurl")
+    return this.http.get(filter_url)
+
+  }
+
   getAllFollowUp(id: any, pageNo: any, size: any) {
     return this.http.get(
       `${this.baseurl}/api/follow-up/?counsellor_id=${id}&page=${pageNo}&page_size=${size}`
@@ -833,16 +839,22 @@ export class ApiService implements OnInit {
     );
   }
 
-  sortForAdmin(sortType: any, pageNo: any, size: any,status:any,date:any) {
+  sortForAdmin(sortType:any,pageNo: any, size: any,status:any) {
     return this.http.get(
-      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&follow_up_status=${status}&action_datetime=${date}`
+      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&follow_up_status=${status}`
     );
+    // return this.http.get(
+    //   `${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}`
+    // );
   }
 
-  sortForCounsellor(sortType: any, pageNo: any, size: any, id: any,status:any,date:any) {
+  sortForCounsellor(sortType:any,pageNo: any, size: any,status:any,id:any) {
     return this.http.get(
-      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}&action_datetime=${date}`
+      `${this.baseurl}/api/follow-up/?filter_by=${sortType}&page=${pageNo}&page_size=${size}&counsellor_id=${id}&follow_up_status=${status}`
     );
+    // return this.http.get(
+    //   `${this.baseurl}/api/follow-up/?page=${pageNo}&page_size=${size}&counsellor_id=${id}`
+    // );
   }
 
 // filterFollowupsForAdmin(source:any,stream:any,city:any,pageNo:any,size:any){
@@ -862,4 +874,9 @@ getStreams(){
   return this.http.get(`${this.baseurl}/api/studying-stream/`)
 }
 
+
+
+getLeadFollowUpIds(){
+  return this.http.get(`${this.baseurl}/api/get-lead-ids/?follow_up=true`)
+}
 }

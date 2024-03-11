@@ -50,9 +50,8 @@ import { FilterFollowUp } from 'src/app/filter/filter';
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent
-  implements OnInit, OnChanges, AfterViewInit
-{
+export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterViewInit {
+
   filterFollowUp = new FilterFollowUp();
 
   selectedDate: any = null;
@@ -94,9 +93,6 @@ export class MyFollowupCardContentComponent
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
-  currentPage: any;
-  user_role: any;
-  user_id: any;
   // receiveFilterCount$!: Observable<any>;
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -108,31 +104,29 @@ export class MyFollowupCardContentComponent
     private emit: EmitService,
     private _baseService: BaseServiceService,
     private addEventEmitter: AddLeadEmitterService,
-    private dataService: DataService,
-    private fb: FormBuilder
+    private dataService:DataService,
+    private fb:FormBuilder,
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
-    console.log(this.counsellor_id, 'counsellor id');
+    //console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
-    this.user_id = localStorage.getItem('user_id');
-    this.user_role = localStorage.getItem('user_role');
     console.log(this.role, 'roleeeeeeeeeeeeeee');
     console.log(data, 'data');
-
+    
+   
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
-        console.log(data);
-        // this.refreshFollowUps();
+        console.log(data)
+        this.refreshFollowUps();
       }
     });
+    
   }
 
   ngAfterViewInit() {
-    this.allFollowUpDataSource = new MatTableDataSource<any>(
-      this.followUpsData
-    );
-    console.log(this.allFollowUpDataSource, 'ngAfterViewInit');
+    this.allFollowUpDataSource = new MatTableDataSource<any>(this.followUpsData);
+    console.log(this.allFollowUpDataSource,"ngAfterViewInit")
   }
   filteredBaseUrl: any;
 
@@ -141,20 +135,110 @@ export class MyFollowupCardContentComponent
     console.log(data);
   }
 
-  searchForm!: FormGroup;
 
-  updateAPIURL: any;
-  ngOnInit(): void {
-    console.log("hello");
-  
-
-    this.getFollowupIds();
+  // reverseData() {
+  //   // this.followUpsData.reverse();
    
+  //   this.followUpsData.sort((a: any, b: any) => new Date(b.modified_datetime).getTime() - new Date(a.modified_datetime).getTime());
+  //   this.followUpsDataTemp.sort((a:any,b:any)=>new Date(b.modified_datetime).getTime()- new Date(a.modified_datetime).getTime())
+  // console.log(this.followUpsData,"latest one");
+  // console.log(this.followUpsDataTemp,"latest one");
+
+
+
+  // }
+
+
+  // reverse(){
+  //   return this.followUpsDataTemp.sort((a:any, b:any) => {
+  //     return <any>new Date(b.modified_datetime) - <any>new Date(a.modified_datetime);
+  //   });
+
+  // }
+
+  // reverseData() {
+  //   return this.followUpsData.sort((a:any, b:any) => {
+  //     return <any>new Date(b.modified_datetime) - <any>new Date(a.modified_datetime);
+  //   });
+   
+  // }
+  searchForm!:FormGroup
+  ngOnInit(): void {
+// this.reverseData()
+// this.reverse()
+
+this.searchForm = this.fb.group({
+  searchText:['']
+})
+
     
-    this.updateAPIURL = this.dataService.getFollowupfilterURL();
-    console.log('updated url==>', this.updateAPIURL);
-    this.APICAll();
+    this.dataService.dataUpdated.subscribe((res:any)=>{
+      console.log(res,"filtercount")
+      this.filterCount=res;
+    })
     
+
+    
+    this.selectedCheckboxIds = [];
+    this.addEventEmitter.leadFilter.subscribe((res: any) => {
+      if (res) {
+        this.filteredBaseUrl = res;
+        this.filtered = true;
+        console.log(res, 'resssssssssssssss');
+
+        this.filterFollowUps(res);
+        // res.results.forEach((element:any) => {
+
+        //   if(element.follow_up_status_name=='Done'){
+        //     this.countData=[]
+        //     this.doneFollowUpCounts.push(element.follow_up_status_name)
+        //     this.countData.Done=this.doneFollowUpCounts.length
+        //     console.log(this.doneFollowUpCounts,"allfollowupcounts")
+        //   }else if(element.follow_up_status_name=='Upcomming'){
+        //     this.countData=[]
+        //     this.upcomingFollowUpCounts.push(element.follow_up_status_name)
+        //     this.countData.Upcomming=this.upcomingFollowUpCounts.length
+        //     console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
+        //   }
+        //   else{
+        //     console.log('invalid')
+        //   }
+        // });
+      }
+    });
+    this.addEventEmitter.leadFilterIcon.subscribe((resp: any) => {
+      console.log(resp, 'RESPONSE');
+      if (resp === 'true') {
+        this.filtered = true;
+
+      } else {
+        this.filtered = false;
+      }
+    });
+
+    this.totalCount = this.totalNumberOfRecords;
+    // this.getUpcoming();
+    // this.followUpCounts();
+
+    this.getUpcoming('Upcoming');
+    this.getMissed('Missed');
+    this.getDone('Done');
+    this.getAllFollowUps('All');
+
+    
+
+    this.filterFollowUp.getFilterFollowup('status', 'All')
+
+    // this.selectedDate = null || undefined;
+    this.emit.getRefresh.subscribe((resp: any) => {
+      if (resp == true) {
+        this.getDone('Done');
+        this.getMissed('Missed');
+        this.getUpcoming('Upcoming');
+        this.getAllFollowUps('All');
+      }
+    });
+    // console.log(this.selectedDate, 'this.selectedDate');
   }
 
   expandCard(index: number) {
@@ -168,6 +252,8 @@ export class MyFollowupCardContentComponent
     this.morePanel = !this.morePanel;
   }
 
+
+
   filteredFollowUps: any = [];
   AllFollowUpCounts: any = [];
   upcomingFollowUpCounts: any = [];
@@ -175,19 +261,25 @@ export class MyFollowupCardContentComponent
   doneFollowUpCounts: any = [];
   fitered: boolean = false;
 
-  filterCount = [];
-  sub!: Subscription;
+  filterCount = []
+  sub!: Subscription
   filterFollowUps(apiUrl: any) {
+   
+
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
+       
+      
         if (res) {
+         
+      
           console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
           this.followUpsData = [];
           this.followUpsDataTemp = [];
 
           this.filtered = true;
-          this.api.showSuccess('Filter Applied Successfully');
-          this.selectedTab = res.results.data[0]?.follow_up_status_name;
+          this.api.showSuccess('Filter Applied Successfully')
+          this.selectedTab=res.results.data[0]?.follow_up_status_name;
           this.filteredFollowUps = res.results.data;
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
@@ -214,7 +306,7 @@ export class MyFollowupCardContentComponent
   selectedDatePicker(event: any) {
     this.countData = [];
     this.followUpsData = [];
-    console.log(event);
+    //console.log(event);
     this.selectedDate = event;
 
     if (this.role == 'Admin') {
@@ -226,7 +318,7 @@ export class MyFollowupCardContentComponent
 
       this.api.getFollowupCalenderCountsForAdmin(this.formattedDate1).subscribe(
         (res: any) => {
-          console.log(res, 'followup conts for admin');
+          //console.log(res, 'followup conts for admin');
           this.countData = res.results;
           this.getAllFollowUps('All');
         },
@@ -248,7 +340,7 @@ export class MyFollowupCardContentComponent
         .subscribe(
           (res: any) => {
             this.countData = res.results;
-            console.log(this.countData, 'followup count for counsellor');
+            //console.log(this.countData, 'followup count for counsellor');
             // this.followUpsData=res.results
           },
           (error: any) => {
@@ -338,7 +430,7 @@ export class MyFollowupCardContentComponent
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender upcoming followups for counsellor');
+          //console.log(res, 'calender upcoming followups for counsellor');
         });
     }
   }
@@ -375,7 +467,7 @@ export class MyFollowupCardContentComponent
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender done followups for counsellor');
+          //console.log(res, 'calender done followups for counsellor');
         });
     }
   }
@@ -412,7 +504,7 @@ export class MyFollowupCardContentComponent
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender Missed followups for counsellor');
+          //console.log(res, 'calender Missed followups for counsellor');
         });
     }
   }
@@ -480,10 +572,10 @@ export class MyFollowupCardContentComponent
       }
     }
   }
-
-  upComing: boolean = false;
+upComing:boolean=false
   getUpcoming(data: any) {
-    this.filterFollowUp.getFilterFollowup('status', data);
+
+    this.filterFollowUp.getFilterFollowup('status', data)
 
     console.log('before', this.pageSize);
     this.selectedTab = data;
@@ -502,7 +594,7 @@ export class MyFollowupCardContentComponent
           .subscribe(
             (res: any) => {
               this.filtered = false;
-              this.upComing = true;
+              this.upComing=true
 
               console.log(res, 'upcoming followups for admin');
               this.followUpsData = res.results.data;
@@ -532,7 +624,7 @@ export class MyFollowupCardContentComponent
           )
           .subscribe(
             (res: any) => {
-              console.log(res, 'upcoming response');
+              //console.log(res, 'upcoming response');
               this.upcomingFollowUpData = res.results;
               this.countData.Upcoming = res.results.data_count.Upcoming;
               this.followUpsData = res.results.data;
@@ -553,7 +645,8 @@ export class MyFollowupCardContentComponent
     }
   }
 
-  missed: boolean = false;
+
+  missed:boolean=false
   getMissed(data: any) {
     this.totalNumberOfRecords = [];
     this.selectedTab = data;
@@ -571,7 +664,7 @@ export class MyFollowupCardContentComponent
           )
           .subscribe(
             (res: any) => {
-              this.missed = true;
+              this.missed=true
               console.log(res, 'Missed Followups for Admin');
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
@@ -599,8 +692,8 @@ export class MyFollowupCardContentComponent
           )
           .subscribe(
             (res: any) => {
-              this.missed = true;
-              console.log(res, 'Missed followups response for counsellor');
+              this.missed=true
+              //console.log(res, 'Missed followups response for counsellor');
               this.missedFolloUpData = res.results;
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
@@ -621,7 +714,7 @@ export class MyFollowupCardContentComponent
     }
   }
 
-  done: boolean = false;
+  done:boolean=false
   getDone(data: any) {
     this.selectedTab = data;
     if (this.role == 'Admin') {
@@ -633,7 +726,7 @@ export class MyFollowupCardContentComponent
         this.api
           .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
           .subscribe((res: any) => {
-            this.done = true;
+            this.done=true
             console.log(res, 'Done followups for Admin');
             this.followUpsData = res.results.data;
             this.countData.Done = res.results.data_count.Done;
@@ -660,7 +753,7 @@ export class MyFollowupCardContentComponent
           .subscribe(
             (res: any) => {
               console.log(res, 'Done followups response');
-              this.done = true;
+              this.done=true
               this.followUpsData = res.results?.data;
               this.allData = res.results;
               this.countData.Done = res.results.data.data_count.Done;
@@ -677,121 +770,308 @@ export class MyFollowupCardContentComponent
       }
     }
   }
-  // receiveFilterCount:any=[]
+// receiveFilterCount:any=[]
   filterFollowups() {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
+     
+      
     };
-    let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
-
-    data.afterDismissed().subscribe((dataFromChild) => {
-      this.ngOnInit()
-    });
     
+    this._bottomSheet.open(MyFollowupFilterComponent, config);
   }
 
   EditFollowups(id: any) {
-    console.log(id, 'leadid');
+    //console.log(id, 'leadid');
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { id: id, data: this.data },
-      disableClose: true,
+      disableClose: true
+     
     };
     this._bottomSheet.open(EditFollowupComponent, config);
   }
 
+  onPageChange(event: any, followUpsData: any) {
+    this.pageSize = event.pageSize;
+    this.page = event.pageIndex + 1;
+
+    if(this.role === 'Admin' && this.sorting===true && this.sortedType!=='' && this.filtered===true ){
+      console.log('coming in to sorting')
+      this.followUpsData = [];
+      this.api.sortForAdmin(this.sortedType, this.page, this.pageSize,this.statusType).subscribe(
+        (res: any) => {
+          console.log(res, 'sorted results');
+          this.followUpsData = res.results.data;
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        },
+        (error: any) => {
+          this.api.showSuccess(error.error.message);
+        }
+      );
+    }else if(this.role !== 'Admin' && this.sorting===true && this.sortedType!=='' && this.filtered){
+      this.api.sortForCounsellor(this.sortedType, this.page, this.pageSize,this.counsellor_id,this.statusType).subscribe((res:any)=>{
+        this.sorting=true
+        this.followUpsData = res.results.data;
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+      },(error: any) => {
+          
+        this.api.showSuccess(error.error.message);
+      })
+    }
+    
+
+    else if (this.role === 'Admin' && this.selectedTab==='Upcoming' && this.upComing===true) {
+      this.followUpsData = [];
+      this.totalNumberOfRecords = [];
+      this.api
+        .getUpcomingFollowupsForAdmin(
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          console.log(
+            this.totalNumberOfRecords,
+            ' upcoming pagination totalNumberOfRecords'
+          );
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    } else if(this.selectedTab=='Upcoming'&&  this.upComing===true) {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getUpcomingFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    }
+
+    else if (this.role === 'Admin' && this.selectedTab=='Done' && this.done==true) {
+      this.followUpsData = [];
+      this.api
+        .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    } else if(this.selectedTab=='Done' && this.done==true) {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getDoneFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    }
+
+    else if (this.role === 'Admin' && this.selectedTab==='Missed' && this.missed==true) {
+      this.followUpsData = [];
+      this.api
+        .getMissedFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    } else if(this.selectedTab=='Missed' && this.missed==true) {
+      this.followUpsData = [];
+      this.followUpsDataTemp = [];
+      this.api
+        .getMissedFollowUps(
+          this.counsellor_id,
+          this.page,
+          this.pageSize,
+          this.selectedTab
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    }
+    else{
+// this.getAllFollowUps('all');
+     if (this.role === 'Admin' && this.selectedTab=='All' && this.sorting==true && this.sortedType!==''&& this.filtered==true) {
+      
+      this.followUpsData = [];
+      this.totalNumberOfRecords = [];
+     
+      this.api
+        .getAllFollowupsForAdmin(this.page, this.pageSize)
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    } else if(this.selectedTab=='All') {
+      this.totalNumberOfRecords = [];
+      this.followUpsData = [];
+      this.api
+        .getAllFollowupsForCounsellor(
+          this.page,
+          this.pageSize,
+          this.counsellor_id
+        )
+        .subscribe((res: any) => {
+          this.followUpsData = res.results?.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+          this.followUpsData.paginator = this.allPaginator;
+        });
+    }
+    }
+  }
+
+  filteredSearch() {
+    if (this.filteredFollowUps) {
+    }
+  }
+
   followupSearch: any = '';
   searchValue: any;
-  // applySearch(followupSearch: any) {
-  //   if (this.role == 'Admin') {
-  //     // if (this.filteredFollowUps) {
-  //     //   this.api
-  //     //     .searchFollowupsForAdmin(
-  //     //       this.followupSearch,
-  //     //       this.page,
-  //     //       this.pageSize
-  //     //     )
-  //     //     .subscribe((res: any) => {
-  //     //       console.log(res, 'search in filtered followups');
-  //     //     });
-  //     // } else {
-  //     //   console.log('error');
-  //     // }
-  //     this.followUpsData = [];
-  //     this.followUpsDataTemp = [];
-  //     this.countData = [];
+  applySearch(followupSearch: any) {
+    if (this.role == 'Admin') {
+      // if (this.filteredFollowUps) {
+      //   this.api
+      //     .searchFollowupsForAdmin(
+      //       this.followupSearch,
+      //       this.page,
+      //       this.pageSize
+      //     )
+      //     .subscribe((res: any) => {
+      //       console.log(res, 'search in filtered followups');
+      //     });
+      // } else {
+      //   console.log('error');
+      // }
+      this.followUpsData = [];
+      this.followUpsDataTemp=[];
+      this.countData=[]
+     
+      this.api
+        .searchFollowupsForAdmin(followupSearch.target.value, this.page=1, this.pageSize)
+        .subscribe(
+          (res: any) => {
+            console.log(res, 'searched followups for admin');
+            this.followUpsData = res.results?.data;
+            this.followUpsDataTemp=res.results?.data;
+            this.totalNumberOfRecords = res.total_no_of_record;
+            this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+            this.followUpsData.paginator = this.allPaginator;
+            this.allFollowUpDataSource = new MatTableDataSource<any>(
+              this.followUpsData
+            );
+            // if(this.selectedTab==='Upcoming'){
+            //   this.getUpcoming('Upcoming');
 
-  //     this.api
-  //       .searchFollowupsForAdmin(
-  //         followupSearch.target.value,
-  //         (this.page = 1),
-  //         this.pageSize
-  //       )
-  //       .subscribe(
-  //         (res: any) => {
-  //           console.log(res, 'searched followups for admin');
-  //           this.followUpsData = res.results?.data;
-  //           this.followUpsDataTemp = res.results?.data;
-  //           this.totalNumberOfRecords = res.total_no_of_record;
-  //           this.countData.All = res.results.data_count.All;
-  //           this.countData.Upcoming = res.results.data_count.Upcoming;
-  //           this.countData.Missed = res.results.data_count.Missed;
-  //           this.countData.Done = res.results.data_count.Done;
-  //           this.followUpsData.paginator = this.allPaginator;
-  //           this.allFollowUpDataSource = new MatTableDataSource<any>(
-  //             this.followUpsData
-  //           );
-  //           // if(this.selectedTab==='Upcoming'){
-  //           //   this.getUpcoming('Upcoming');
-
-  //           // }else if(this.selectedTab==='Done'){
-  //           //   this.getDone('Done');
-  //           // }
-  //           // else if(this.selectedTab=='Missed'){
-  //           //   this.getMissed('Missed')
-  //           // }
-  //           // else{
-  //           //   this.getAllFollowUps('All')
-  //           // }
-  //         },
-  //         (error: any) => {
-  //           this.api.showError(error.error.message);
-  //         }
-  //       );
-  //   } else {
-  //     this.followUpsData = [];
-  //     this.followUpsDataTemp = [];
-
-  //     this.api
-  //       .searchFollowupsForCounsellor(
-  //         followupSearch.target.value,
-  //         (this.page = 1),
-  //         this.pageSize,
-  //         this.counsellor_id
-  //       )
-  //       .subscribe(
-  //         (res: any) => {
-  //           console.log(res, 'searched followups for counsellor');
-  //           this.followUpsData = res.results?.data;
-  //           this.followUpsDataTemp = res.results?.data;
-  //           this.totalNumberOfRecords = res.total_no_of_record;
-  //           this.countData.All = res.results.data_count.All;
-  //           this.countData.Upcoming = res.results.data_count.Upcoming;
-  //           this.countData.Missed = res.results.data_count.Missed;
-  //           this.countData.Done = res.results.data_count.Done;
-  //           this.allFollowUpDataSource = new MatTableDataSource<any>(
-  //             this.followUpsData
-  //           );
-  //           this.followUpsData.paginator = this.allPaginator;
-  //           // this.followupSearch=''
-  //         },
-  //         (error: any) => {
-  //           this.api.showError(error.error.message);
-  //         }
-  //       );
-  //   }
-  // }
+            // }else if(this.selectedTab==='Done'){
+            //   this.getDone('Done');
+            // }
+            // else if(this.selectedTab=='Missed'){
+            //   this.getMissed('Missed')
+            // }
+            // else{
+            //   this.getAllFollowUps('All')
+            // }
+          },
+          (error: any) => {
+            this.api.showError(error.error.message);
+          }
+        );
+    } else {
+      this.followUpsData = [];
+      this.followUpsDataTemp=[];
+      
+      this.api
+        .searchFollowupsForCounsellor(
+          followupSearch.target.value,
+          this.page=1,
+          this.pageSize,
+          this.counsellor_id
+        )
+        .subscribe(
+          (res: any) => {
+            console.log(res, 'searched followups for counsellor');
+            this.followUpsData = res.results?.data;
+            this.followUpsDataTemp=res.results?.data;
+            this.totalNumberOfRecords = res.total_no_of_record;
+            this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+            this.allFollowUpDataSource = new MatTableDataSource<any>(
+              this.followUpsData
+            );
+            this.followUpsData.paginator = this.allPaginator;
+            // this.followupSearch=''
+          },
+          (error: any) => {
+            this.api.showError(error.error.message);
+          }
+        );
+    }
+  }
 
   search(event: any) {
     console.log(event, 'eventtttttttttttttt');
@@ -807,7 +1087,7 @@ export class MyFollowupCardContentComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['followUpsData']) {
-      this.followUpsData2 = this.renderingData;
+      this.followUpsData2 = this.followUpsData;
 
       if (this.selectedCheckboxIds.length === this.totalCount) {
         this.checkAll = true;
@@ -818,11 +1098,8 @@ export class MyFollowupCardContentComponent
       }
     }
   }
-  selectedLeadName: any;
-  onCheckboxChange(event: MatCheckboxChange, itemId: string, leadName: any) {
+  onCheckboxChange(event: MatCheckboxChange, itemId: string) {
     console.log(itemId, 'itemId');
-    console.log(leadName, 'from selected lead');
-    this.selectedLeadName = leadName;
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
       if (!this.selectedCheckboxIds) {
@@ -851,19 +1128,23 @@ export class MyFollowupCardContentComponent
     // console.log(event,"EVENT")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
-      this.renderingData.forEach((element: any) => {
+      this.followUpsData.forEach((element: any) => {
         if (element) {
           element.checked = true;
-          this.selectedCheckboxIds = this.followupIds;
+          this.allLeadIds.push(element.lead_id);
+          console.log(this.allLeadIds, 'this.allLeadIds');
         }
       });
       console.log(this.selectedCheckboxIds, 'allleaids');
-
+      // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
+      this.selectedCheckboxIds = this.allLeadIds;
       console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
+      // this.checked = false
     } else {
+      // If "Select All" is unchecked, clear the selectedCheckboxIds array
 
-      this.renderingData.forEach((element: any) => {
+      this.followUpsData.forEach((element: any) => {
         if (element) {
           element.checked = false;
           if (element.checked == false) {
@@ -909,7 +1190,7 @@ export class MyFollowupCardContentComponent
   exportReference: any;
 
   calenderReset() {
-    
+    this.selectedDate=null
     // window.location.reload();
     // this.getAllFollowUps('All')
     this.refreshFollowUps();
@@ -918,13 +1199,18 @@ export class MyFollowupCardContentComponent
   onSearchInputChange() {
     this.getAllFollowUps('All');
   }
-  noData: boolean = false;
-  @ViewChild('noResultsSection') noResultsSection: any;
+noData:boolean=false;
+@ViewChild('noResultsSection') noResultsSection:any;
 
   clearSearch(event: any) {
+    
     this.followUpsData = this.followUpsDataTemp;
     console.log('Event', event.data);
-    console.log(this.followUpsData.length, 'length');
+    console.log(this.followUpsData.length,"length")
+  
+    
+  
+   
   }
 
   onChange(event: any) {
@@ -936,91 +1222,78 @@ export class MyFollowupCardContentComponent
 
   sorting: boolean = false;
   sortedType: any;
-  statusType: any;
+  statusType:any;
 
   onChangeSorting(event: any) {
+
+    
     this.sortedType = event.target.innerText;
     // console.log(event.option.value,event.option.selected)
     console.log(this.sortedType, 'this.sortedType');
-    if (this.selectedTab == 'Upcoming') {
-      this.statusType = 'Upcoming';
-    } else if (this.selectedTab === 'Missed') {
-      this.statusType = 'Missed';
-    } else if (this.selectedTab === 'Done') {
-      this.statusType = 'Done';
-    } else {
-      this.statusType = '';
+    if(this.selectedTab=='Upcoming'){
+    this.statusType='Upcoming'
+
+    }else if(this.selectedTab==='Missed'){
+      this.statusType='Missed'
+    }else if(this.selectedTab==='Done'){
+      this.statusType='Done'
     }
-    if (this.selectedDate === null || undefined) {
-      this.formattedDate1 = this.datePipe.transform(
-        this.currentdate,
-        'yyyy-MM-dd'
+    else{
+      this.statusType=''
+    }
+    if(this.selectedDate===null || undefined){
+      this.formattedDate1=this.datePipe.transform(this.currentdate,'yyyy-MM-dd')
+    }
+    if(this.role=='Admin'){
+      this.followUpsData = [];
+      this.api.sortForAdmin(this.sortedType, this.page, this.pageSize,this.statusType).subscribe(
+        (res: any) => {
+          this.sorting = true;
+          console.log(res, 'sorted results');
+          this.followUpsData = res.results.data;
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
+            this.countData.Upcoming = res.results.data_count.Upcoming;
+            this.countData.Missed = res.results.data_count.Missed;
+            this.countData.Done = res.results.data_count.Done;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+        },
+        (error: any) => {
+          
+          this.api.showSuccess(error.error.message);
+        }
       );
-    }
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.api
-        .sortForAdmin(
-          this.sortedType,
-          this.page,
-          this.pageSize,
-          this.statusType
-        )
-        .subscribe(
-          (res: any) => {
-            this.sorting = true;
-            console.log(res, 'sorted results');
-            this.followUpsData = res.results.data;
-            this.followUpsData.paginator = this.allPaginator;
-            this.countData.All = res.results.data_count.All;
+    } else{
+
+      this.followUpsData=[];
+      this.api.sortForCounsellor(this.sortedType, this.page, this.pageSize,this.counsellor_id,this.statusType).subscribe((res:any)=>{
+        this.sorting=true
+        this.followUpsData = res.results.data;
+          this.followUpsData.paginator = this.allPaginator;
+          this.countData.All = res.results.data_count.All;
             this.countData.Upcoming = res.results.data_count.Upcoming;
             this.countData.Missed = res.results.data_count.Missed;
             this.countData.Done = res.results.data_count.Done;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-          },
-          (error: any) => {
-            this.api.showSuccess(error.error.message);
-          }
-        );
-    } else {
-      this.followUpsData = [];
-      this.api
-        .sortForCounsellor(
-          this.sortedType,
-          this.page,
-          this.pageSize,
-          this.counsellor_id,
-          this.statusType
-        )
-        .subscribe(
-          (res: any) => {
-            this.sorting = true;
-            this.followUpsData = res.results.data;
-            this.followUpsData.paginator = this.allPaginator;
-            this.countData.All = res.results.data_count.All;
-            this.countData.Upcoming = res.results.data_count.Upcoming;
-            this.countData.Missed = res.results.data_count.Missed;
-            this.countData.Done = res.results.data_count.Done;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-          },
-          (error: any) => {
-            this.api.showSuccess(error.error.message);
-          }
-        );
+          this.totalNumberOfRecords = res.total_no_of_record;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.followUpsData
+          );
+      },(error: any) => {
+          
+        this.api.showSuccess(error.error.message);
+      })
     }
+  
   }
   refreshFollowUps() {
-    this.selectedDate = null;
-    this.updateAPIURL = "https://fcmdev.thestorywallcafe.com/api/follow-up/?page=1&page_size=5";
-    // this.ngOnInit();
-    this.APICAll()
-    this.selectedTab = "All"
+    this.getMissed('Missed');
+    this.getUpcoming('Upcoming');
+    this.getDone('Done');
+    this.getAllFollowUps('All');
+   
   }
 
   addCount() {
@@ -1037,7 +1310,7 @@ export class MyFollowupCardContentComponent
       width: '40%',
       data: { leadId: this.selectedCheckboxIds },
     });
-    dialogRef.disableClose = true;
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
       this.refreshFollowUps();
@@ -1052,7 +1325,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.openReferLead();
@@ -1071,7 +1344,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkVideoCall();
@@ -1084,52 +1357,6 @@ export class MyFollowupCardContentComponent
     }
   }
 
-  IndividualopenVideoCall(selectedData: any) {
-    const dialogRef = this.dialog.open(FollowupVideocallComponent, {
-      width: '45%',
-      data: selectedData,
-    });
-    dialogRef.disableClose = true;
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      ////console.log('The dialog was closed');
-    });
-  }
-
-  IndividualopenEmailChat(selectedData: any) {
-    const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet',
-      disableClose: true,
-      data: {
-        selectedData: selectedData,
-        bulkIds: this.selectedCheckboxIds,
-        allChecked: this.checkAll,
-      },
-    };
-    this._bottomSheet.open(FollowupEmailComponent, config);
-  }
-
-  IndividualopenSMS(selectedData: any): void {
-    const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet',
-      disableClose: true,
-      data: selectedData,
-    };
-    this._bottomSheet.open(FollowupSmsComponent, config);
-  }
-
-  IndividualopenWhatsAppChat(selectedData: any) {
-    const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
-      width: '45%',
-      data: selectedData,
-    });
-    dialogRef.disableClose = true;
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      ////console.log('The dialog was closed');
-    });
-  }
-
   openWhatsAppChat() {
     this.addCount();
     if (this.data !== 0) {
@@ -1138,7 +1365,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkWhatsAppChat();
@@ -1159,7 +1386,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
@@ -1181,7 +1408,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkOpenEmailChat();
@@ -1206,7 +1433,7 @@ export class MyFollowupCardContentComponent
     const dialogRef = this.dialog.open(FollowupVideocallComponent, {
       width: '45%',
     });
-    dialogRef.disableClose = true;
+    dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
       this.refreshFollowUps();
@@ -1217,7 +1444,7 @@ export class MyFollowupCardContentComponent
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { name: name },
-      disableClose: true,
+      disableClose: true
     };
     this._bottomSheet.open(FollowupSmsComponent, config);
   }
@@ -1226,7 +1453,7 @@ export class MyFollowupCardContentComponent
     const dialogRef = this.dialog.open(FollowupWhatsappchatComponent, {
       width: '45%',
     });
-    dialogRef.disableClose = true;
+    dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log('The dialog was closed');
@@ -1237,12 +1464,8 @@ export class MyFollowupCardContentComponent
   bulkOpenEmailChat(name?: any) {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
-      data: {
-        bulkIds: this.selectedCheckboxIds,
-        allChecked: this.checkAll,
-        name: this.selectedLeadName,
-      },
-      disableClose: true,
+      data: { bulkIds: this.selectedCheckboxIds, allChecked: this.checkAll },
+      disableClose: true
     };
     this._bottomSheet.open(FollowupEmailComponent, config);
   }
@@ -1254,7 +1477,7 @@ export class MyFollowupCardContentComponent
         width: '40%',
         data: data,
       });
-      dialogRef.disableClose = true;
+      dialogRef.disableClose=true
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
@@ -1271,7 +1494,7 @@ export class MyFollowupCardContentComponent
       height: '70%',
       data: { data: this.selectedCheckboxIds, name: 'BULK' },
     });
-    dialogRef.disableClose = true;
+    dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')
@@ -1282,261 +1505,32 @@ export class MyFollowupCardContentComponent
   filteredByUpcomingStatus(status: any) {
     console.log(status, 'status');
     this.selectedTab = status;
-    if (!status) {
-      this.selectedTab === 'All';
+    if(!status){
+      this.selectedTab==='All'
       const apiUrl = this.filteredBaseUrl + `&follow_up_status=${status}`;
       console.log(apiUrl, 'Base url for All status after filter');
       this.filterFollowUps(apiUrl);
+      
     }
-  }
-
-  selectTab(data: any) {
-    if (data === 'All') {
-      this.selectedTab = 'All';
-    } else if (data === 'Upcoming') {
-      this.selectedTab = 'Upcoming';
-    } else if (data === 'Done') {
-      this.selectedTab = 'Done';
-    } else {
-      this.selectedTab = 'Missed';
-    }
-  }
-
-  // ============================================================================
-
-  renderingData: any;
-  countDataValue: any = {};
-  APICAll() {
-    // this.renderingData
-    // console.log("url to send i  API", url);
-
-    // this.dataService.setFilteredFollowUpURL(url)
-
-    // const data = this.dataService.getFollowupfilterURL()
-    console.log('final data url==>', this.updateAPIURL);
-
-
-
-    this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
-      (res: any) => {
-        console.log(res, 'followup api  filetr all combination');
-        this.renderingData = res.results.data;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        this.countDataValue = res.results.data_count;
-      },
-      (error: any) => {
-        console.log(error, 'error');
-      }
-    );
-  }
-
-  getSort(data: any) {
-
-    let sort_by = this.filterFollowUp.getSortDataBYForm("filter_by", data.target.innerText)
-
-    this.updateAPIURL += sort_by['apistring']
-
-    this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     
-    // this.APICAll();
-    this.ngOnInit()
   }
 
-  getFilter(data: any) {
-    this.selectedTab = data;
+  selectTab(data:any){
+if(data==='All')
+{
+  this.selectedTab='All'
+}else if(data==='Upcoming'){
+  this.selectedTab='Upcoming'
+}else if(data==='Done'){
+  this.selectedTab='Done';
+}
+else{
+  this.selectedTab="Missed"
+}
 
-    const apiurl: any = this.filterFollowUp.getFilterFollowup(
-      'follow_up_status',
-      data,
-      this.updateAPIURL
-    );
-
-    let pageDataKeyValue = [
-      { key: 'page', value: 1 },
-      { key: 'page_size', value: 10 },
-      apiurl
-    ];
-
-    pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
-
-      let value = this.filterFollowUp.updateUrlParameter(
-        this.updateAPIURL,
-        element['key'],
-        element['value']
-      );
-      this.updateAPIURL = value;
-    });
-
-    // let value = this.filterFollowUp.updateUrlParameter(
-    //   this.updateAPIURL,
-    //   apiurl.key,
-    //   apiurl.value
-    // );
-
-    // this.updateAPIURL = value;
-    this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
-    // this.APICAll();
-    this.ngOnInit()
   }
 
-  selectDate(data: any) {
-    const date = this.datePipe.transform(data, 'yyyy-MM-dd');
-
-    const apiurl: any = this.filterFollowUp.getFilteredDate(date);
-    console.log('apiurl', apiurl);
-
-    let pageDataKeyValue = [
-      { key: 'page', value: 1 },
-      { key: 'page_size', value: 10 },
-      apiurl
-    ];
-
-    pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
-
-      let value = this.filterFollowUp.updateUrlParameter(
-        this.updateAPIURL,
-        element['key'],
-        element['value']
-      );
-      this.updateAPIURL = value;
-    });
-
-    // this.APICAll(this.updateAPIURL)
-    console.log("url i  select date", this.updateAPIURL);
-    
-    this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
-    // this.APICAll();
-    this.ngOnInit()
-  }
-
-  getSearchValue(data: any) {
-    const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
-
-    let pageDataKeyValue = [
-      { key: 'page', value: 1 },
-      { key: 'page_size', value: 10 },
-      apiurl
-    ];
-
-    pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
-
-      let value = this.filterFollowUp.updateUrlParameter(
-        this.updateAPIURL,
-        element['key'],
-        element['value']
-      );
-      this.updateAPIURL = value;
-    });
+ 
 
 
-    // let value = this.filterFollowUp.updateUrlParameter(
-    //   this.updateAPIURL,
-    //   apiurl.key,
-    //   apiurl.value
-    // );
-
-
-
-    // this.updateAPIURL = value;
-
-    // this.APICAll(this.updateAPIURL)
-    this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
-    // this.APICAll();
-    this.ngOnInit()
-  }
-
-  followupIds: any;
-  getFollowupIds() {
-    this.api.getLeadFollowUpIds().subscribe((res: any) => {
-      this.followupIds = res.lead_ids;
-      console.log(this.followupIds, 'this.followupIds');
-    });
-  }
-
-  onPageChangeNew(event: any) {
-    event.pageIndex += 1;
-    let pageDataKeyValue = [
-      { key: 'page', value: event.pageIndex },
-      { key: 'page_size', value: event.pageSize },
-    ];
-
-    pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
-
-      let value = this.filterFollowUp.updateUrlParameter(
-        this.updateAPIURL,
-        element['key'],
-        element['value']
-      );
-      this.updateAPIURL = value;
-    });
-    console.log(this.updateAPIURL, 'pagination');
-
-    this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
-    // this.APICAll();
-    this.ngOnInit()
-  }
-  onPageChange(event: any) {
-    if (!event) {
-      return;
-    }
-
-    this.currentPage = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-
-    let query: string;
-    query =
-      this.user_role === 'counsellor'
-        ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}`
-        : `?page=${this.currentPage}&page_size=${event.pageSize}`;
-
-    // if (type === 'All') {
-    //   query = query;
-
-    //   if (this.sorting) {
-    //     query += `&sort_by=${this.sortedType}`;
-    //   } else if (this.searchTerm) {
-    //     query += `&key=${this.searchTerm}`;
-    //   }
-
-    //     else if(this.filtered){
-    //       this.addEventEmitter.selectedFilter.subscribe((res) => {
-    //         if (res) {
-    //           query += res
-
-    //         }
-    //       });
-    //   }
-    // } else {
-    alert(this.selectedTab);
-    query = `?follow_up_status=${this.selectedTab}&page=${this.currentPage}&page_size=${event.pageSize}`;
-
-    if (this.sorting) {
-      query += `&sort_by=${this.sortedType}`;
-    } else {
-      if (this.filtered) {
-        this.addEventEmitter.selectedFilter.subscribe((res) => {
-          if (res) {
-            query += res;
-          }
-        });
-      }
-    }
-    //}
-
-    this._baseService
-      .getData(`${environment.followUps}${query}`)
-      .subscribe((res: any) => {
-        if (res) {
-          let data = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.countData.All = res.results.data_count.All;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.renderingData = new MatTableDataSource<any>(data);
-        }
-      });
-  }
 }

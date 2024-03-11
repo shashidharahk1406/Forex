@@ -96,4 +96,9 @@ else{
 
 }
   }
+
+  getPassword(event:any){
+	console.log(event.target.value,"password")
+
+  }
 }

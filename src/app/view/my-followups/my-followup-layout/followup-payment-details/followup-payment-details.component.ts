@@ -47,7 +47,7 @@ export class FollowupPaymentDetailsComponent implements OnInit {
   }
   onSubmit(){
     if(this.paymentForm.invalid){
-      this.paymentForm.markAllAsTouched
+      this.paymentForm.markAllAsTouched()
     }else{
       let formData ={}
       if(this.data.name === "BULK"){

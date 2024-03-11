@@ -39,12 +39,14 @@
             <mat-form-field class="mb-1" appearance="outline">
               <mat-label>Select The Communication Channel</mat-label>
               <mat-select formControlName="channel" placeholder="Season" multiple>
-                <mat-option *ngFor="let item of channels" [value]="item">{{ item }}</mat-option>
+                <mat-option *ngFor="let item of channels" [value]="item" required>{{ item }}</mat-option>
+
+              
               </mat-select>
-             
               <mat-error *ngIf="f['channel'].hasError('required')">
                 Communication Channel Is Required.
               </mat-error>
+             
             </mat-form-field>
           </div>
         </div>
