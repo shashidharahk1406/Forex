@@ -12,7 +12,9 @@ export class FollowupSmsComponent implements OnInit {
   smsForm!: FormGroup;
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder) {
+      console.log(data.lead,"followup sms")
+    }
 
   ngOnInit(): void {
    

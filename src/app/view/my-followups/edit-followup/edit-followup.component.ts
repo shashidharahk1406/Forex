@@ -87,7 +87,8 @@ this.getFollowUpById()
       counsellor: [''],
       lead: [''],
       created_by: [this.createdBy],
-      modified_datetime:[this.formattedDate3]
+      modified_datetime:[this.formattedDate3],
+      // created_datetime:[]
     });
   }
 
@@ -271,6 +272,7 @@ this.editFollowUpForm.patchValue({follow_up_status:res.follow_up_status})
 this.editFollowUpForm.patchValue({communication_channel:res.communication_channel})
 this.editFollowUpForm.patchValue({action_date_time:this.formattedDate})
 this.editFollowUpForm.patchValue({follow_up_text:res.follow_up_text})
+
 
 
     })

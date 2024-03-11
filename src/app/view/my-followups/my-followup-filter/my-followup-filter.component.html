@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Counselors</mat-label>
-                        <mat-select placeholder="Select Counselors" formControlName="counsellor_id" >
+                        <mat-select placeholder="Select Counselors" formControlName="counsellor_ids" >
                           <mat-option *ngFor="let couselor of counselorList" [value]="couselor.id" >{{couselor.first_name}}</mat-option>
                         </mat-select>
                         <button
@@ -25,12 +25,12 @@
                           matSuffix
                           mat-icon-button
                           aria-label="Clear"
-                          (click)="clearSelectField('counsellor_id')"
-                          *ngIf="f['counsellor_id']?.value"
+                          (click)="clearSelectField('counsellor_ids')"
+                          *ngIf="f['counsellor_ids']?.value"
                         >
                           <mat-icon>clear</mat-icon>
                         </button>
-                        <mat-error *ngIf="f['counsellor_id'].hasError('required')">
+                        <mat-error *ngIf="f['counsellor_ids'].hasError('required')">
                           Counsellor Name Is Required.
                          </mat-error>
                       
