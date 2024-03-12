@@ -174,7 +174,7 @@ export class MyFollowupFilterComponent implements OnInit {
     
     initForm(){
       this.filterLead = this.fb.group({
-        counsellor_ids:[''],
+        counsellor_id:[''],
         // campaign_id:[''],
         // channel_id:[''],
         source_id:[''],
@@ -182,7 +182,7 @@ export class MyFollowupFilterComponent implements OnInit {
         stream_id:[''],
         course_id:[''],
         city_id:[''],
-        follow_up_status:[''],
+        // follow_up_status:[''],
         counselled_by:['']
         // year_of_passing:['']
       })
@@ -193,6 +193,7 @@ export class MyFollowupFilterComponent implements OnInit {
 
 
   filterCount:any=[]
+  filtered:boolean=false;
       onSubmit() {
         // console.log("updated url==>", this.updateFilterByStatusURL);
 
@@ -208,8 +209,11 @@ export class MyFollowupFilterComponent implements OnInit {
         //   console.log(`Key: ${key}, Value: ${value}`);
         // }
         nonEmptyKeys.forEach(key => {
+          console.log(nonEmptyKeys.length,"nonemptykeys.length");
+          this.filterCount=nonEmptyKeys.length;
           const value = this.filterLead.value[key];
             console.log(`Key: ${key}, Value: ${value}`);
+            console.log(value.length,"no of filters applied")
             
             this.updateFilterByStatusURL += `&${key}=${value}`
 
@@ -221,6 +225,7 @@ export class MyFollowupFilterComponent implements OnInit {
 
         
         this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL)
+        this.filtered=true;
         
         console.log("==============>>",this.updateFilterByStatusURL);
 
@@ -298,14 +303,17 @@ export class MyFollowupFilterComponent implements OnInit {
 
       
       this.dataService.sendData(true)
+      this.dataService.setSharedData(this.filterCount,this.filtered);
+      this.dataService.dataUpdated.emit(this.filtered)
+      // this.dataService.dataUpdated.emit(this.filtered)
     
       // }
   
      
     }
     sendData() {
-      this.dataService.setSharedData(this.filterCount);
-      this.dataService.dataUpdated.emit(this.filterCount)
+     
+      
     }
     
 

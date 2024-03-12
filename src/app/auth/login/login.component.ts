@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit {
 				// this.api.showSuccess('Login Successfull !!')
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
-				//console.log("==userid==",decodedToken);
+				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
 				
 				localStorage.setItem('user_role',decodedToken.user_role)

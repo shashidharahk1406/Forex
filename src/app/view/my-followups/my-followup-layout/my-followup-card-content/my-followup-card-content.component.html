@@ -176,7 +176,7 @@
               <i
                 class="bi bi-funnel"
                 style="
-                  color: palevioletred;
+                  color: palevioletred !important;
                   height: 20% !important;
                   width: 20%;
                   font-size: 18px !important;
@@ -186,19 +186,19 @@
               <!-- <img src="./assets/images/filter.png" alt="" width="19" height="19" *ngIf="!filtered">
               <img src="./assets/images/filter.png" alt="" width="19" height="19" matBadge="{{ filterCount }}" *ngIf="filtered"> -->
               <i
-                style="color: palevioletred"
+                style="color: palevioletred !important"
                 class="bi bi-funnel-fill"
                 *ngIf="filtered"
-                matBadge="{{ filterCount }}"
+              
               ></i>
-              <mat-icon
+              <!-- <mat-icon
                 *ngIf="filtered"
                 style="color: palevioletred"
                 matBadgeColor="pink"
                 (click)="refreshFollowUps()"
                 style="margin-right: 10px; margin-top: -25px"
                 >close</mat-icon
-              >
+              > -->
 
               <!-- <mat-icon *ngIf="filtered" matBadge="15" matBadgeColor="warn">filter</mat-icon> -->
               <!-- <div matBadge="{renderingData.totalNumberOfRecords}" matBadgeOverlap="false" class="demo-section" *ngIf="filtered">{{ renderingData.totalNumberOfRecords }}</div> -->
@@ -218,7 +218,7 @@
         <mat-checkbox
           class=""
           *ngIf="
-            (renderingData | filter : followupSearch).length > 0;
+            (renderingData | filter : followupSearch)?.length > 0;
             else noResultsSection
           "
           (change)="selectAll($event, renderingData)"
@@ -244,14 +244,14 @@
       *ngIf="
         !renderingData ||
         renderingData?.length === 0 ||
-        (renderingData | filter : followupSearch).length === 0
+        (renderingData | filter : followupSearch)?.length === 0
       "
     ></app-nodata>
 
     <div
       class="row"
       *ngIf="
-        (renderingData | filter : followupSearch).length > 0;
+        (renderingData | filter : followupSearch)?.length > 0;
         else noResultsSection
       "
     >

@@ -51,7 +51,7 @@ import { FilterFollowUp } from 'src/app/filter/filter';
   styleUrls: ['./my-followup-card-content.component.css'],
 })
 export class MyFollowupCardContentComponent
-  implements OnInit, OnChanges, AfterViewInit
+  implements OnInit, OnChanges
 {
   filterFollowUp = new FilterFollowUp();
 
@@ -97,7 +97,7 @@ export class MyFollowupCardContentComponent
   currentPage: any;
   user_role: any;
   user_id: any;
-  // receiveFilterCount$!: Observable<any>;
+
   constructor(
     private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
@@ -123,28 +123,33 @@ export class MyFollowupCardContentComponent
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
         console.log(data);
-        // this.refreshFollowUps();
+        this.refreshFollowUps()
+    
       }
     });
+
+    
   }
 
-  ngAfterViewInit() {
-    this.allFollowUpDataSource = new MatTableDataSource<any>(
-      this.followUpsData
-    );
-    console.log(this.allFollowUpDataSource, 'ngAfterViewInit');
-  }
+ 
   filteredBaseUrl: any;
 
-  receiveData(): void {
+  receiveData() {
     const data = this.dataService.getSharedData();
-    console.log(data);
+    console.log(data,"filtered count and filterd");
   }
 
   searchForm!: FormGroup;
 
   updateAPIURL: any;
   ngOnInit(): void {
+    this.dataService.dataUpdated.subscribe((res:any)=>{
+      console.log(res,"filtercount")
+      this.filtered=res;
+    })
+
+
+   
     console.log("hello");
   
 
@@ -168,515 +173,7 @@ export class MyFollowupCardContentComponent
     this.morePanel = !this.morePanel;
   }
 
-  filteredFollowUps: any = [];
-  AllFollowUpCounts: any = [];
-  upcomingFollowUpCounts: any = [];
-  missedFollowUpCounts: any = [];
-  doneFollowUpCounts: any = [];
-  fitered: boolean = false;
-
-  filterCount = [];
-  sub!: Subscription;
-  filterFollowUps(apiUrl: any) {
-    this._baseService.getData(apiUrl).subscribe(
-      (res: any) => {
-        if (res) {
-          console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
-          this.followUpsData = [];
-          this.followUpsDataTemp = [];
-
-          this.filtered = true;
-          this.api.showSuccess('Filter Applied Successfully');
-          this.selectedTab = res.results.data[0]?.follow_up_status_name;
-          this.filteredFollowUps = res.results.data;
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-
-          this.allFollowUpDataSource = new MatTableDataSource<any>(
-            this.followUpsData
-          );
-          this.followUpsData.paginator = this.allPaginator;
-          this.totalNumberOfRecords = res.total_no_of_record;
-
-          this.countData.All = res.results.data_count.All;
-          this.countData.Upcoming = res.results.data_count.Upcoming;
-          this.countData.Missed = res.results.data_count.Missed;
-          this.countData.Done = res.results.data_count.Done;
-        }
-      },
-      (error: any) => {
-        this.api.showError(this.api.toTitleCase(error.error.message));
-      }
-    );
-  }
-
-  formattedDate1!: any;
-  selectedDatePicker(event: any) {
-    this.countData = [];
-    this.followUpsData = [];
-    console.log(event);
-    this.selectedDate = event;
-
-    if (this.role == 'Admin') {
-      this.countData = [];
-      this.formattedDate1 = this.datePipe.transform(
-        this.selectedDate,
-        'yyyy-MM-dd'
-      );
-
-      this.api.getFollowupCalenderCountsForAdmin(this.formattedDate1).subscribe(
-        (res: any) => {
-          console.log(res, 'followup conts for admin');
-          this.countData = res.results;
-          this.getAllFollowUps('All');
-        },
-        (error: any) => {
-          this.api.showError(error.error.message);
-        }
-      );
-    } else {
-      this.countData = [];
-      this.formattedDate1 = this.datePipe.transform(
-        this.selectedDate,
-        'yyyy-MM-dd'
-      );
-      this.api
-        .followUpCountsOnCalenderForCounsellor(
-          this.counsellor_id,
-          this.formattedDate1
-        )
-        .subscribe(
-          (res: any) => {
-            this.countData = res.results;
-            console.log(this.countData, 'followup count for counsellor');
-            // this.followUpsData=res.results
-          },
-          (error: any) => {
-            this.api.showError(error.error.message);
-          }
-        );
-    }
-  }
-
-  AllfollowupsByDate() {
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.formattedDate1 = this.datePipe.transform(
-        this.selectedDate,
-        'yyyy-MM-dd'
-      );
-      this.api
-        .getFollowUpsbyDateForAdmin(
-          this.formattedDate1,
-          this.page,
-          this.pageSize
-        )
-        .subscribe(
-          (res: any) => {
-            console.log(res, 'followups by dateeeeeeeeeeeeeee for admin');
-            this.followUpsData = res.results.data;
-            this.followUpsDataTemp = res.results.data;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.followUpsData.paginator = this.allPaginator;
-          },
-          (error: any) => {
-            this.api.showError(error.error.message);
-          }
-        );
-    } else {
-      this.followUpsData = [];
-      this.api
-        .getAllFollowupsByDateForCounsellor(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.counsellor_id
-        )
-        .subscribe(
-          (res: any) => {
-            console.log(res, 'all followups by date for counsellor');
-            this.followUpsData = res.results.data;
-            this.followUpsDataTemp = res.results.data;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.followUpsData.paginator = this.allPaginator;
-          },
-          (error: any) => {
-            this.api.showError(error.error.message);
-          }
-        );
-    }
-  }
-  getCalenderUpcomingFollowups() {
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.api
-        .getCalenderUpcomingFollowupsForAdmin(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          console.log(res, 'calender upcoming follwups for admin');
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-        });
-    } else {
-      this.followUpsData = [];
-      this.api
-        .getCalenderUpcomingFollowupsForCounsellor(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.counsellor_id,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender upcoming followups for counsellor');
-        });
-    }
-  }
-
-  getCalenderDoneFollowups() {
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.api
-        .getCalenderDoneFollowupsForAdmin(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          console.log(res, 'calender done follwups for admin');
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-        });
-    } else {
-      this.followUpsData = [];
-      this.api
-        .getCalenderDoneFollowupsForCounsellor(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.counsellor_id,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender done followups for counsellor');
-        });
-    }
-  }
-
-  getCalenderMissedFollowups() {
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.api
-        .getCalenderMissedFollowupsForAdmin(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          console.log(res, 'calender Missed follwups for admin');
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-        });
-    } else {
-      this.followUpsData = [];
-      this.api
-        .getCalenderMissedFollowupsForCounsellor(
-          this.formattedDate1,
-          this.page,
-          this.pageSize,
-          this.counsellor_id,
-          this.selectedTab
-        )
-        .subscribe((res: any) => {
-          this.followUpsData = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.followUpsData.paginator = this.allPaginator;
-          console.log(res, 'calender Missed followups for counsellor');
-        });
-    }
-  }
-
-  getAllFollowUps(data: any) {
-    this.selectedTab = data;
-    this.followUpsData = [];
-    this.totalNumberOfRecords = [];
-    if (this.role == 'Admin') {
-      if (this.selectedDate !== null || undefined) {
-        console.log(
-          this.selectedDate == null || undefined,
-          '!this.selectedDate == null && undefined'
-        );
-        this.AllfollowupsByDate();
-      } else {
-        this.api.getAllFollowupsForAdmin(this.page, this.pageSize).subscribe(
-          (res: any) => {
-            this.filtered = false;
-            console.log(res, 'All followups for admin');
-            this.followUpsData = res.results.data;
-            this.followUpsDataTemp = res.results.data;
-            this.countData.All = res.results.data_count.All;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-            this.followUpsData.paginator = this.allPaginator;
-            // this.reverseData()
-          },
-          (error: any) => {
-            this.api.showError(error.error.message);
-          }
-        );
-      }
-    } else {
-      if (this.selectedDate !== null || undefined) {
-        this.AllfollowupsByDate();
-      } else {
-        this.followUpsData = [];
-        this.totalNumberOfRecords = [];
-        this.api
-          .getAllFollowupsForCounsellor(
-            this.page,
-            this.pageSize,
-            this.counsellor_id
-          )
-          .subscribe(
-            (res: any) => {
-              console.log(res, 'All followup for counsellor');
-              this.followUpsData = res.results.data;
-              this.followUpsDataTemp = res.results.data;
-              this.totalNumberOfRecords = res.total_no_of_record;
-              this.countData.All = res.results.data_count.All;
-              this.allFollowUpDataSource = new MatTableDataSource<any>(
-                this.followUpsData
-              );
-              this.followUpsData.paginator = this.allPaginator;
-              // this.reverseData()
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    }
-  }
-
-  upComing: boolean = false;
-  getUpcoming(data: any) {
-    this.filterFollowUp.getFilterFollowup('status', data);
-
-    console.log('before', this.pageSize);
-    this.selectedTab = data;
-    if (this.role == 'Admin') {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderUpcomingFollowups();
-      } else {
-        this.followUpsData = [];
-        this.totalNumberOfRecords = [];
-        this.api
-          .getUpcomingFollowupsForAdmin(
-            this.page,
-            this.pageSize,
-            this.selectedTab
-          )
-          .subscribe(
-            (res: any) => {
-              this.filtered = false;
-              this.upComing = true;
-
-              console.log(res, 'upcoming followups for admin');
-              this.followUpsData = res.results.data;
-              this.followUpsDataTemp = res.results.data;
-              this.totalNumberOfRecords = res.total_no_of_record;
-              this.countData.Upcoming = res.results.data_count.Upcoming;
-              this.followUpsData.paginator = this.allPaginator;
-              // this.reverseData()
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    } else {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderUpcomingFollowups();
-      } else {
-        this.followUpsData = [];
-        this.totalNumberOfRecords = [];
-        this.api
-          .getUpcomingFollowUps(
-            this.counsellor_id,
-            this.page,
-            this.pageSize,
-            this.selectedTab
-          )
-          .subscribe(
-            (res: any) => {
-              console.log(res, 'upcoming response');
-              this.upcomingFollowUpData = res.results;
-              this.countData.Upcoming = res.results.data_count.Upcoming;
-              this.followUpsData = res.results.data;
-              this.followUpsDataTemp = res.results.data;
-              this.allData = res.results;
-              this.followUpsData.paginator = this.allPaginator;
-
-              this.allFollowUpDataSource = new MatTableDataSource<any>(
-                this.followUpsData
-              );
-              this.totalNumberOfRecords = res.total_no_of_record;
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    }
-  }
-
-  missed: boolean = false;
-  getMissed(data: any) {
-    this.totalNumberOfRecords = [];
-    this.selectedTab = data;
-    if (this.role == 'Admin') {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderMissedFollowups();
-      } else {
-        this.totalNumberOfRecords = [];
-        this.followUpsData = [];
-        this.api
-          .getMissedFollowupsForAdmin(
-            this.page,
-            this.pageSize,
-            this.selectedTab
-          )
-          .subscribe(
-            (res: any) => {
-              this.missed = true;
-              console.log(res, 'Missed Followups for Admin');
-              this.followUpsData = res.results.data;
-              this.followUpsDataTemp = res.results.data;
-              this.totalNumberOfRecords = res.total_no_of_record;
-              this.countData.Missed = res.results.data_count.Missed;
-              this.followUpsData.paginator = this.allPaginator;
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    } else {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderMissedFollowups();
-      } else {
-        this.followUpsData = [];
-        this.totalNumberOfRecords = [];
-        this.api
-          .getMissedFollowUps(
-            this.counsellor_id,
-            this.page,
-            this.pageSize,
-            this.selectedTab
-          )
-          .subscribe(
-            (res: any) => {
-              this.missed = true;
-              console.log(res, 'Missed followups response for counsellor');
-              this.missedFolloUpData = res.results;
-              this.followUpsData = res.results.data;
-              this.followUpsDataTemp = res.results.data;
-              this.allData = res.results;
-              this.followUpsData.paginator = this.allPaginator;
-              this.countData.Missed = res.results.data_count.Missed;
-              this.allFollowUpDataSource = new MatTableDataSource<any>(
-                this.followUpsData
-              );
-              this.totalNumberOfRecords = res.total_no_of_record;
-              console.log(this.missedFolloUpData, 'this.missedFolloUpData');
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    }
-  }
-
-  done: boolean = false;
-  getDone(data: any) {
-    this.selectedTab = data;
-    if (this.role == 'Admin') {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderDoneFollowups();
-      } else {
-        this.totalNumberOfRecords = [];
-        this.followUpsData = [];
-        this.api
-          .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
-          .subscribe((res: any) => {
-            this.done = true;
-            console.log(res, 'Done followups for Admin');
-            this.followUpsData = res.results.data;
-            this.countData.Done = res.results.data_count.Done;
-            this.followUpsData.paginator = this.allPaginator;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-          });
-      }
-    } else {
-      if (this.selectedDate !== null || undefined) {
-        this.getCalenderDoneFollowups();
-      } else {
-        this.followUpsData = [];
-        this.totalNumberOfRecords = [];
-        this.api
-          .getDoneFollowUps(
-            this.counsellor_id,
-            this.page,
-            this.pageSize,
-            this.selectedTab
-          )
-          .subscribe(
-            (res: any) => {
-              console.log(res, 'Done followups response');
-              this.done = true;
-              this.followUpsData = res.results?.data;
-              this.allData = res.results;
-              this.countData.Done = res.results.data.data_count.Done;
-              this.allFollowUpDataSource = new MatTableDataSource<any>(
-                this.followUpsData
-              );
-              this.totalNumberOfRecords = res.total_no_of_record;
-              this.followUpsData.paginator = this.allPaginator;
-            },
-            (error: any) => {
-              this.api.showError(error.error.message);
-            }
-          );
-      }
-    }
-  }
+  
   // receiveFilterCount:any=[]
   filterFollowups() {
     const config: MatBottomSheetConfig = {
@@ -686,6 +183,7 @@ export class MyFollowupCardContentComponent
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
+      console.log(dataFromChild,"dataFromChild")
       this.ngOnInit()
     });
     
@@ -698,100 +196,16 @@ export class MyFollowupCardContentComponent
       data: { id: id, data: this.data },
       disableClose: true,
     };
-    this._bottomSheet.open(EditFollowupComponent, config);
+    let data=this._bottomSheet.open(EditFollowupComponent, config);
+    data.afterDismissed().subscribe((dataFromChild) => {
+      console.log(dataFromChild,"dataFromChild")
+      this.ngOnInit()
+    });
   }
 
   followupSearch: any = '';
   searchValue: any;
-  // applySearch(followupSearch: any) {
-  //   if (this.role == 'Admin') {
-  //     // if (this.filteredFollowUps) {
-  //     //   this.api
-  //     //     .searchFollowupsForAdmin(
-  //     //       this.followupSearch,
-  //     //       this.page,
-  //     //       this.pageSize
-  //     //     )
-  //     //     .subscribe((res: any) => {
-  //     //       console.log(res, 'search in filtered followups');
-  //     //     });
-  //     // } else {
-  //     //   console.log('error');
-  //     // }
-  //     this.followUpsData = [];
-  //     this.followUpsDataTemp = [];
-  //     this.countData = [];
 
-  //     this.api
-  //       .searchFollowupsForAdmin(
-  //         followupSearch.target.value,
-  //         (this.page = 1),
-  //         this.pageSize
-  //       )
-  //       .subscribe(
-  //         (res: any) => {
-  //           console.log(res, 'searched followups for admin');
-  //           this.followUpsData = res.results?.data;
-  //           this.followUpsDataTemp = res.results?.data;
-  //           this.totalNumberOfRecords = res.total_no_of_record;
-  //           this.countData.All = res.results.data_count.All;
-  //           this.countData.Upcoming = res.results.data_count.Upcoming;
-  //           this.countData.Missed = res.results.data_count.Missed;
-  //           this.countData.Done = res.results.data_count.Done;
-  //           this.followUpsData.paginator = this.allPaginator;
-  //           this.allFollowUpDataSource = new MatTableDataSource<any>(
-  //             this.followUpsData
-  //           );
-  //           // if(this.selectedTab==='Upcoming'){
-  //           //   this.getUpcoming('Upcoming');
-
-  //           // }else if(this.selectedTab==='Done'){
-  //           //   this.getDone('Done');
-  //           // }
-  //           // else if(this.selectedTab=='Missed'){
-  //           //   this.getMissed('Missed')
-  //           // }
-  //           // else{
-  //           //   this.getAllFollowUps('All')
-  //           // }
-  //         },
-  //         (error: any) => {
-  //           this.api.showError(error.error.message);
-  //         }
-  //       );
-  //   } else {
-  //     this.followUpsData = [];
-  //     this.followUpsDataTemp = [];
-
-  //     this.api
-  //       .searchFollowupsForCounsellor(
-  //         followupSearch.target.value,
-  //         (this.page = 1),
-  //         this.pageSize,
-  //         this.counsellor_id
-  //       )
-  //       .subscribe(
-  //         (res: any) => {
-  //           console.log(res, 'searched followups for counsellor');
-  //           this.followUpsData = res.results?.data;
-  //           this.followUpsDataTemp = res.results?.data;
-  //           this.totalNumberOfRecords = res.total_no_of_record;
-  //           this.countData.All = res.results.data_count.All;
-  //           this.countData.Upcoming = res.results.data_count.Upcoming;
-  //           this.countData.Missed = res.results.data_count.Missed;
-  //           this.countData.Done = res.results.data_count.Done;
-  //           this.allFollowUpDataSource = new MatTableDataSource<any>(
-  //             this.followUpsData
-  //           );
-  //           this.followUpsData.paginator = this.allPaginator;
-  //           // this.followupSearch=''
-  //         },
-  //         (error: any) => {
-  //           this.api.showError(error.error.message);
-  //         }
-  //       );
-  //   }
-  // }
 
   search(event: any) {
     console.log(event, 'eventtttttttttttttt');
@@ -802,7 +216,7 @@ export class MyFollowupCardContentComponent
   closePopup() {
     this._bottomSheetRef.dismiss();
   }
-  // selectedCheckBoxesId:any=[];
+ 
   allLeadIds: any = [];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -905,19 +319,12 @@ export class MyFollowupCardContentComponent
         }
       );
   }
-  selectedFollowUps: any = [];
+
   exportReference: any;
 
-  // calenderReset() {
-    
-  //   // window.location.reload();
-  //   // this.getAllFollowUps('All')
-  //   this.refreshFollowUps();
-  // }
+  
 
-  onSearchInputChange() {
-    this.getAllFollowUps('All');
-  }
+ 
   noData: boolean = false;
   @ViewChild('noResultsSection') noResultsSection: any;
 
@@ -934,90 +341,13 @@ export class MyFollowupCardContentComponent
     this.selectedSort.emit(event);
   }
 
-  sorting: boolean = false;
-  sortedType: any;
-  statusType: any;
-
-  onChangeSorting(event: any) {
-    this.sortedType = event.target.innerText;
-    // console.log(event.option.value,event.option.selected)
-    console.log(this.sortedType, 'this.sortedType');
-    if (this.selectedTab == 'Upcoming') {
-      this.statusType = 'Upcoming';
-    } else if (this.selectedTab === 'Missed') {
-      this.statusType = 'Missed';
-    } else if (this.selectedTab === 'Done') {
-      this.statusType = 'Done';
-    } else {
-      this.statusType = '';
-    }
-    if (this.selectedDate === null || undefined) {
-      this.formattedDate1 = this.datePipe.transform(
-        this.currentdate,
-        'yyyy-MM-dd'
-      );
-    }
-    if (this.role == 'Admin') {
-      this.followUpsData = [];
-      this.api
-        .sortForAdmin(
-          this.sortedType,
-          this.page,
-          this.pageSize,
-          this.statusType
-        )
-        .subscribe(
-          (res: any) => {
-            this.sorting = true;
-            console.log(res, 'sorted results');
-            this.followUpsData = res.results.data;
-            this.followUpsData.paginator = this.allPaginator;
-            this.countData.All = res.results.data_count.All;
-            this.countData.Upcoming = res.results.data_count.Upcoming;
-            this.countData.Missed = res.results.data_count.Missed;
-            this.countData.Done = res.results.data_count.Done;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-          },
-          (error: any) => {
-            this.api.showSuccess(error.error.message);
-          }
-        );
-    } else {
-      this.followUpsData = [];
-      this.api
-        .sortForCounsellor(
-          this.sortedType,
-          this.page,
-          this.pageSize,
-          this.counsellor_id,
-          this.statusType
-        )
-        .subscribe(
-          (res: any) => {
-            this.sorting = true;
-            this.followUpsData = res.results.data;
-            this.followUpsData.paginator = this.allPaginator;
-            this.countData.All = res.results.data_count.All;
-            this.countData.Upcoming = res.results.data_count.Upcoming;
-            this.countData.Missed = res.results.data_count.Missed;
-            this.countData.Done = res.results.data_count.Done;
-            this.totalNumberOfRecords = res.total_no_of_record;
-            this.allFollowUpDataSource = new MatTableDataSource<any>(
-              this.followUpsData
-            );
-          },
-          (error: any) => {
-            this.api.showSuccess(error.error.message);
-          }
-        );
-    }
-  }
+ 
+  filterCount:any
+  api_url:any =  environment.live_url;
   refreshFollowUps() {
     this.selectedDate = null;
-    this.updateAPIURL = "https://fcmdev.thestorywallcafe.com/api/follow-up/?page=1&page_size=5";
+    this.filtered=false;
+    this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     // this.ngOnInit();
     this.APICAll()
     this.selectedTab = "All"
@@ -1193,7 +523,7 @@ export class MyFollowupCardContentComponent
       this.api.showWarning('Please select atleast one lead');
     }
   }
-  // selectedLeads:any=[]
+ 
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
       this.exportReference = `${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
@@ -1279,34 +609,17 @@ export class MyFollowupCardContentComponent
     });
   }
 
-  filteredByUpcomingStatus(status: any) {
-    console.log(status, 'status');
-    this.selectedTab = status;
-    if (!status) {
-      this.selectedTab === 'All';
-      const apiUrl = this.filteredBaseUrl + `&follow_up_status=${status}`;
-      console.log(apiUrl, 'Base url for All status after filter');
-      this.filterFollowUps(apiUrl);
-    }
-  }
+  
 
-  selectTab(data: any) {
-    if (data === 'All') {
-      this.selectedTab = 'All';
-    } else if (data === 'Upcoming') {
-      this.selectedTab = 'Upcoming';
-    } else if (data === 'Done') {
-      this.selectedTab = 'Done';
-    } else {
-      this.selectedTab = 'Missed';
-    }
-  }
+ 
 
   // ============================================================================
 
   renderingData: any;
   countDataValue: any = {};
+
   APICAll() {
+    this.totalNumberOfRecords=[]
     // this.renderingData
     // console.log("url to send i  API", url);
 
@@ -1479,64 +792,5 @@ export class MyFollowupCardContentComponent
     // this.APICAll();
     this.ngOnInit()
   }
-  onPageChange(event: any) {
-    if (!event) {
-      return;
-    }
-
-    this.currentPage = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-
-    let query: string;
-    query =
-      this.user_role === 'counsellor'
-        ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}`
-        : `?page=${this.currentPage}&page_size=${event.pageSize}`;
-
-    // if (type === 'All') {
-    //   query = query;
-
-    //   if (this.sorting) {
-    //     query += `&sort_by=${this.sortedType}`;
-    //   } else if (this.searchTerm) {
-    //     query += `&key=${this.searchTerm}`;
-    //   }
-
-    //     else if(this.filtered){
-    //       this.addEventEmitter.selectedFilter.subscribe((res) => {
-    //         if (res) {
-    //           query += res
-
-    //         }
-    //       });
-    //   }
-    // } else {
-    alert(this.selectedTab);
-    query = `?follow_up_status=${this.selectedTab}&page=${this.currentPage}&page_size=${event.pageSize}`;
-
-    if (this.sorting) {
-      query += `&sort_by=${this.sortedType}`;
-    } else {
-      if (this.filtered) {
-        this.addEventEmitter.selectedFilter.subscribe((res) => {
-          if (res) {
-            query += res;
-          }
-        });
-      }
-    }
-    //}
-
-    this._baseService
-      .getData(`${environment.followUps}${query}`)
-      .subscribe((res: any) => {
-        if (res) {
-          let data = res.results.data;
-          this.followUpsDataTemp = res.results.data;
-          this.countData.All = res.results.data_count.All;
-          this.totalNumberOfRecords = res.total_no_of_record;
-          this.renderingData = new MatTableDataSource<any>(data);
-        }
-      });
-  }
+ 
 }

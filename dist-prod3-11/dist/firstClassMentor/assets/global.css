@@ -1,0 +1,230 @@
+:root {
+    --appColor:#f17e33;
+    --lightHeader:#7D7D7D;
+    --allFontColor:#393939;
+    --appLightColor:#FFF2EB;
+    --appWhite:#FFF;
+    --toolBar: rgb(25 24 24 / 71%);
+}
+.btn-link {
+  --bs-btn-color: var(--appColor) !important;
+}
+.btn-link:hover {
+  color: var(--appColor) !important;
+  opacity: 0.9;
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--appColor);
+  --bs-btn-border-color: var(--appColor);
+  --bs-btn-hover-bg: var(--appColor);
+  --bs-btn-hover-border-color: var(--appColor);
+  --bs-btn-active-bg: var(--appColor);
+}
+.point-set{
+  cursor: pointer;
+}
+.alightColor{
+  background: var(--appLightColor);
+}
+.pencil-edit,.forgot-pass{
+  color:var(--appColor);
+  cursor: pointer;
+}
+.primaryColor{
+  color:var(--appColor);
+}
+.pointer-set{
+  cursor: pointer;
+}
+.appCoColor{
+  background-color:var(--appColor) !important;
+  cursor: pointer !important;
+  color:white !important;
+}
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: var(--appColor) !important;
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: var(--appColor) !important;
+}
+.mat-drawer-container {
+  background-color:transparent !important;
+}
+app-sidenav-list i{
+    color:var(--appColor) !important;
+}
+.bi-funnel-fill,.bi-person-plus-fill,.mat-cancel{
+   color:var(--appColor) !important;
+}
+.mat-cancel{
+    color:var(--appColor) !important;
+    border:1px solid var(--appColor) !important;
+}
+.mat-disable{
+    background: var(--appColor) !important;
+    color:var(--appWhite) !important;
+}
+.h1-set-header{
+ color:var(--lightHeader)
+}
+.h1-set-header:hover{
+    color: var(--allFontColor);
+}
+.h-90{
+height: 90%;
+}
+.more-inner-icon,.more-icon{
+    color:var(--appColor);
+}
+.dropdown-menu.show {
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    border: none;
+}
+.dropdown-menu {
+    --bs-dropdown-font-size: 15px;
+}
+.app-list:hover{
+    background:var(--appLightColor) ;
+}
+.app-list:active{
+    background:var(--appLightColor) ;
+}
+.dropdown-toggle::after {
+    border-top: 0; 
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+  }
+  .mat-dialog-actions {
+    justify-content: end !important;
+  }
+  .mandatory-symbol{
+    color:red;
+  }
+  mat-tab{
+   overflow-y: hidden !important;
+  }
+
+
+  html, body {
+    height: 100%;
+    color:#393939;
+   }
+   body {
+     margin: 0;
+     font-family: "Open Sans", sans-serif;
+   }
+   .z-s{
+     zoom: 85%;
+   }
+   .mat-list-base,.mat-list-item:focus {
+     -webkit-tap-highlight-color:white !important;
+   }
+   .mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+     -webkit-tap-highlight-color:white !important;
+   }
+  
+   .mat-drawer:not(.mat-drawer-side) {
+     box-shadow: 0px 30px 0 0 rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 9px 1px rgba(0, 0, 0, 0.12);
+   }
+   .mat-tab-body-content {
+     overflow-x: hidden !important;
+     overflow-y: hidden !important;
+   }
+  
+   .error-msg{
+     color:red;
+   }
+   .position-rel{
+    position: relative;
+   }
+
+   h1.app-name {
+    color: var(--appColor);
+    font-size: 13px;
+    text-align: center;
+  }
+  .mat-paginator-container {
+    justify-content: center !important;
+  }
+   .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color:transparent !important;
+   }
+   .mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon, .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    width: 1.5em !important;
+   }
+   .border-bottom{
+    border-bottom:1px solid #eae9e9;
+   }
+   i:hover,mat-icon:hover{
+    cursor: pointer;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
+/* .carousel-control-next-icon,.carousel-control-prev-icon{
+  background-image:none !important;
+  }
+  */
+  .carousel-indicators [data-bs-target] {
+    height: 8px !important;
+    width: 8px !important;
+    border-radius: 50%;
+  } 
+  .carousel-indicators{
+    margin-right: 0% !important;
+    margin-bottom: 0rem !important;
+    margin-left: 15% !important;
+  }
+  .sort-lead-dropdown .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
+    padding-left: 0px !important;
+   }
+   .set-custom{
+    display: block !important;
+    height: 50vh;
+   }
+   app-lead-card-content,app-raw-data-card-content{
+    display: block !important;
+    width: 93% !important;
+    height: 68vh !important;
+    padding-right: 0;
+   }
+/* app-analytics{
+    display: block !important;
+    width: 99% !important;
+    height: 68vh !important;
+   } */
+   .mat-dialog-content {
+    max-height: 68vh;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+ app-nodata{
+  height: 66vh !important;
+ }
+ button:hover,i:hover{
+ opacity: 0.9 !important;
+ }
+ 
+ .non-editable {
+  pointer-events: none !important;
+  background-color: #f0f0f0 !important; /* You can adjust the background color as needed */
+}
+.dlx-bx .mat-checkbox-layout .mat-checkbox-label {
+  margin-right: 10px !important;
+}
+.head-container{
+  padding: 15px 0 10px 0;
+  padding-left: 0px;
+  border-bottom: 1px solid rgb(216, 216, 216);
+  background-color: transparent !important;
+}
+app-lead-list{
+  /* display: flex; */
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden !important;
+}
+.h1-set-header{
+ cursor:pointer;
+}

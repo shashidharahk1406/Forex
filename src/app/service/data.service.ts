@@ -1,10 +1,13 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  api_url:any =  environment.live_url;
 
 
   private dataSubject = new BehaviorSubject<any>(null);
@@ -13,7 +16,7 @@ export class DataService {
   private sharedData: any;
 
 
-  url:any = "https://fcmdev.thestorywallcafe.com/api/follow-up/?page=1&page_size=5";
+  url:any = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
   setFilteredFollowUpURL(url:string){
     this.url = url
   }
