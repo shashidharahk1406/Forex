@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -26,7 +26,7 @@ export class LeadFollowupComponent implements OnInit {
   templateList: any = [];
   basicTemplate: any;
   isRequired:boolean=false;
-  currentDate=new Date().toISOString().slice(0, -8);
+  currentDate:any
 
   counsellor_id: any;
   statusId: any;
@@ -40,6 +40,9 @@ export class LeadFollowupComponent implements OnInit {
     private _baseService: BaseServiceService
    
   ) {
+    this.currentDate=new Date().toISOString().slice(0, 16);
+    console.log(this.currentDate,"this.currentDate");
+    
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
     console.log(this.data.item.user_data.first_name,"this.data.item.user")
@@ -72,7 +75,7 @@ export class LeadFollowupComponent implements OnInit {
       counsellor: [''],
       lead: [''],
       created_by: [''],
-      modified_datetime:[''],
+      // modified_datetime:[''],
       created_datetime:['']
     });
   }
@@ -219,6 +222,11 @@ export class LeadFollowupComponent implements OnInit {
     )
   }
   
+
+
+ 
+
+
   onSubmit() {
     // //console.log('api calling', this.data);
     this.followupForm.value.lead = this.data.item.user_data.id;
@@ -228,7 +236,7 @@ export class LeadFollowupComponent implements OnInit {
     // let formattedModifiedDateTime=this.datePipe.transform(this.followupForm.value.modified_datetime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
     
     this.followupForm.value.action_date_time = update_date_time
-    this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ');
+    // this.followupForm.value.modified_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ');
     this.followupForm.value.created_datetime=this.datePipe.transform(this.presentDate,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
    
 

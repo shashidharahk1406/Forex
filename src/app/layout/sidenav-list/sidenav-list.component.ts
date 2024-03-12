@@ -43,7 +43,7 @@ this.decodedData.permissions.forEach((element:any) => {
 
     }
   })
-  this.advance_settings=element.perm_status
+  this.advance_settings=element.access_status
   //console.log(this.advance_settings,"this.advance_settings")
   // this.leadList=element.permissions[1].menu_name
   // //console.log(this.leadList,"this.leadList")
@@ -89,7 +89,7 @@ ngOnInit() {
     page:'Lead List',
     path:'/leadList',
     icon:'bi bi-1-square',
-    hidden:true,
+    // hidden:true,
     },
     
     {
@@ -175,7 +175,7 @@ ngOnInit() {
     page:'Advance Settings',
     path:'/advancesettings',
     icon:'bi bi-gear-wide-connected',
-    hidden:true,
+    // hidden:true,
     // key:'adv_comm_sett'
     },
     {
