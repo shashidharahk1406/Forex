@@ -112,7 +112,7 @@ export class LeadEditComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
-        email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
+        email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:"",
         state: [''],
         zone:[''],
@@ -323,7 +323,7 @@ const formData = this.editLeadForm.value;
 const data ={
   first_name: formData.firstName,
   last_name:"",
-  email: formData.email,
+  email: formData.email || '',
   mobile_number: formData.mobile || null,
   date_of_birth: this._datePipe.transform(formData.dateOfBirth,'YYYY-MM-dd') || null,
   alternate_mobile_number: formData.alternateNumber || null,

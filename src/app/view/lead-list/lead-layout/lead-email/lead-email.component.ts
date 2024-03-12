@@ -77,7 +77,7 @@ export class LeadEmailComponent implements OnInit {
         }else{
            emailFormVal ={
             all_users: false,
-            lead_list_ids: [this.data.selectedData.id], 
+            lead_list_ids: [this.data.selectedData.user_data.id], 
             subject: fd.subject,
             message: fd.followupComment,
             template_id: fd.emailTemplate,

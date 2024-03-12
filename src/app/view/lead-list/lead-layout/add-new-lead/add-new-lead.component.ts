@@ -64,7 +64,7 @@ export class AddNewLeadComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
-        email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
+        email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
         zone:[''],
@@ -274,7 +274,7 @@ export class AddNewLeadComponent implements OnInit {
   let data:any ={
     first_name: f['firstName'],
     last_name: "",
-    email: f['email'] || null,
+    email: f['email'] || 'fcmtest@gmail.com',
     mobile_number:f['mobile'],
     date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
     alternate_mobile_number:f['alternateNumber'] || null,

@@ -80,7 +80,7 @@ export class PaymentDetailsComponent implements OnInit {
           this.emit.triggerGet();
         }
       },(error:any)=>{
-        this.api.showError(error.error.error.message)
+        this.api.showError(error.error.message)
       })
     }
   }

@@ -90,15 +90,9 @@ export class ReferLeadComponent implements OnInit {
          }
       }
      else{
-      let referTo:any;
-     if(f.referTo.length >2) {
-      referTo = [f.referTo]
-     } else{
-      referTo = f.referTo
-     }
       formData= {
         lead_list: [this.data],
-        counsellor_ids: referTo,
+        counsellor_ids: [f.referTo],
         comment:f.comment
        }
      }

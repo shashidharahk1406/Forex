@@ -157,7 +157,6 @@ queryItems: any;
          if (Array.isArray(value)) {
            // Handle multi-select fields
            if (value.length > 0) {
-            debugger;
              // Convert array of objects to a comma-separated string of IDs
              const ids = value.map((item) => item.id).join(',');
              queryParams.push(`${key}=${ids}`);
@@ -189,7 +188,7 @@ queryItems: any;
   
   initForm(){
     this.filterLead = this.fb.group({
-      counsellor_ids:[''],
+      counsellor_id:[''],
       counselled_by:[''],
       campaign_id:[''],
       channel_id:[''],

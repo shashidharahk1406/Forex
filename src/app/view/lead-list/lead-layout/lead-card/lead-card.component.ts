@@ -181,7 +181,7 @@ export class LeadCardComponent implements OnInit {
     : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}`;
     
       if (this.sorting) {
-        query += `&sort_by=${this.sortingType}`;
+        query += `&filter_by=${this.sortingType}`;
       }
       else{
         if(this.leadFilter){
@@ -227,7 +227,7 @@ export class LeadCardComponent implements OnInit {
       if(res){
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-        this.allLeadCardsDataSource.paginator = this.allPaginator;
+        // this.allLeadCardsDataSource.paginator = this.allPaginator;
         this.totalNumberOfRecords = res.total_no_of_record
       }
      
@@ -281,7 +281,7 @@ export class LeadCardComponent implements OnInit {
       query = query;
   
       if (this.sorting) {
-        query += `&sort_by=${this.sortingType}`;
+        query += `&filter_by=${this.sortingType}`;
       } else if (this.searchTerm) {
         query += `&key=${this.searchTerm}`;
       }
@@ -298,7 +298,7 @@ export class LeadCardComponent implements OnInit {
       query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}`;
   
       if (this.sorting) {
-        query += `&sort_by=${this.sortingType}`;
+        query += `&filter_by=${this.sortingType}`;
       }else{
         if(this.leadFilter){
           this._addLeadEmitter.selectedFilter.subscribe((res) => {

@@ -242,6 +242,7 @@
                       placeholder="Enter Tenth Percentage"
                       formControlName="tenthPercentage"
                     />
+                    <mat-error *ngIf="f['tenthPercentage'].hasError('pattern')">Invalid Tenth Percentage.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field class="mb-1" appearance="outline">
@@ -253,6 +254,7 @@
                     placeholder="Enter Twelfth Percentage"
                     formControlName="twelthPercentage"
                     />
+                    <mat-error *ngIf="f['twelthPercentage'].hasError('pattern')">Invalid Twelfth Percentage.</mat-error>
                   </mat-form-field>
                   
                   <mat-form-field class="mb-1" appearance="outline">
@@ -264,6 +266,7 @@
                     placeholder="Enter Degree Percentage"
                     formControlName="degree"
                     />
+                    <mat-error *ngIf="f['degree'].hasError('pattern')">Invalid Degree Percentage.</mat-error>
                   </mat-form-field>
 
                   

@@ -30,7 +30,6 @@
               </mat-error>
             </mat-form-field>
             <ng-container>
-             
               <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
               <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
               <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
@@ -44,16 +43,16 @@
                   (click)="changeType();type=!type"
                  
                 />
-                
+                <mat-error  *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('required')&&type">
+                  Application form Is Required.
+                </mat-error>
               </mat-form-field>
-              <div *ngIf="admissionDetailsForm.get('leadUpload')?.invalid && admissionDetailsForm.get('leadUpload')?.touched">
-                <mat-error class="er-fs">
+              <div *ngIf="!type">
+                <mat-error class="er-fs" >
                   <ng-container *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('required')">
                     Application form Is Required.
                   </ng-container>
-                  <!-- <ng-container *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('invalidFileType')">
-                    Invalid file type. Accepted types: png, jpg, jpeg, pdf.
-                  </ng-container> -->
+                 
                 </mat-error>
               </div>
               
