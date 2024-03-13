@@ -75,6 +75,7 @@ export class ResetPasswordComponent implements OnInit {
 		
 if(this.forgotForm.invalid){
 	this.error=true
+	this.forgotForm.markAsTouched()
 }
 else{
 	if(this.forgotForm.get('new_password')?.value === this.forgotForm.get('confirm_password')?.value){

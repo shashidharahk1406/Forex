@@ -50,9 +50,7 @@ import { FilterFollowUp } from 'src/app/filter/filter';
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent
-  implements OnInit, OnChanges
-{
+export class MyFollowupCardContentComponent implements OnInit, OnChanges {
   filterFollowUp = new FilterFollowUp();
 
   selectedDate: any = null;
@@ -123,43 +121,35 @@ export class MyFollowupCardContentComponent
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
         console.log(data);
-        this.refreshFollowUps()
-    
+        this.refreshFollowUps();
       }
     });
-
-    
   }
 
- 
   filteredBaseUrl: any;
 
   receiveData() {
     const data = this.dataService.getSharedData();
-    console.log(data,"filtered count and filterd");
+    console.log(data, 'filtered count and filterd');
   }
 
   searchForm!: FormGroup;
 
   updateAPIURL: any;
   ngOnInit(): void {
-    this.dataService.dataUpdated.subscribe((res:any)=>{
-      console.log(res,"filtercount")
-      this.filtered=res;
-    })
+    this.selectedCheckboxIds=[]
+    this.dataService.dataUpdated.subscribe((res: any) => {
+      console.log(res, 'filtercount');
+      this.filtered = res;
+    });
 
-
-   
-    console.log("hello");
-  
+    console.log('hello');
 
     this.getFollowupIds();
-   
-    
+
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
     console.log('updated url==>', this.updateAPIURL);
     this.APICAll();
-    
   }
 
   expandCard(index: number) {
@@ -173,7 +163,6 @@ export class MyFollowupCardContentComponent
     this.morePanel = !this.morePanel;
   }
 
-  
   // receiveFilterCount:any=[]
   filterFollowups() {
     const config: MatBottomSheetConfig = {
@@ -183,10 +172,9 @@ export class MyFollowupCardContentComponent
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
-      console.log(dataFromChild,"dataFromChild")
-      this.ngOnInit()
+      console.log(dataFromChild, 'dataFromChild');
+      this.ngOnInit();
     });
-    
   }
 
   EditFollowups(id: any) {
@@ -196,16 +184,15 @@ export class MyFollowupCardContentComponent
       data: { id: id, data: this.data },
       disableClose: true,
     };
-    let data=this._bottomSheet.open(EditFollowupComponent, config);
+    let data = this._bottomSheet.open(EditFollowupComponent, config);
     data.afterDismissed().subscribe((dataFromChild) => {
-      console.log(dataFromChild,"dataFromChild")
-      this.ngOnInit()
+      console.log(dataFromChild, 'dataFromChild');
+      this.ngOnInit();
     });
   }
 
   followupSearch: any = '';
   searchValue: any;
-
 
   search(event: any) {
     console.log(event, 'eventtttttttttttttt');
@@ -216,7 +203,7 @@ export class MyFollowupCardContentComponent
   closePopup() {
     this._bottomSheetRef.dismiss();
   }
- 
+
   allLeadIds: any = [];
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -260,14 +247,15 @@ export class MyFollowupCardContentComponent
       }
     }
   }
-
+checkedCheckbox:boolean=false;
   selectAll(event: any, data: any) {
-    // console.log(event,"EVENT")
+    // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
       this.renderingData.forEach((element: any) => {
         if (element) {
           element.checked = true;
+          
           this.selectedCheckboxIds = this.followupIds;
         }
       });
@@ -276,10 +264,11 @@ export class MyFollowupCardContentComponent
       console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
-
+    
       this.renderingData.forEach((element: any) => {
         if (element) {
           element.checked = false;
+          
           if (element.checked == false) {
             this.selectedCheckboxIds = [];
           }
@@ -290,7 +279,7 @@ export class MyFollowupCardContentComponent
 
   checkBoxData() {
     for (let selectedId of this.selectedCheckboxIds) {
-      const leadFollowUpItem = this.followUpsData2.find(
+      const leadFollowUpItem = this.followUpsData2?.find(
         (item: any) => item.lead_id === selectedId
       );
       if (leadFollowUpItem) {
@@ -322,9 +311,6 @@ export class MyFollowupCardContentComponent
 
   exportReference: any;
 
-  
-
- 
   noData: boolean = false;
   @ViewChild('noResultsSection') noResultsSection: any;
 
@@ -341,16 +327,17 @@ export class MyFollowupCardContentComponent
     this.selectedSort.emit(event);
   }
 
- 
-  filterCount:any
-  api_url:any =  environment.live_url;
+  filterCount: any;
+  api_url: any = environment.live_url;
   refreshFollowUps() {
+    this.selectedCheckboxIds=[]
+    this.checkAll = false
     this.selectedDate = null;
-    this.filtered=false;
+    this.filtered = false;
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     // this.ngOnInit();
-    this.APICAll()
-    this.selectedTab = "All"
+    this.APICAll();
+    this.selectedTab = 'All';
   }
 
   addCount() {
@@ -393,7 +380,7 @@ export class MyFollowupCardContentComponent
     }
   }
 
-  openVideoCall() {
+  openVideoCall(data:any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Video Call Link To ${this.data} Leads `;
@@ -426,18 +413,7 @@ export class MyFollowupCardContentComponent
     });
   }
 
-  IndividualopenEmailChat(selectedData: any) {
-    const config: MatBottomSheetConfig = {
-      panelClass: 'lead-bottom-sheet',
-      disableClose: true,
-      data: {
-        selectedData: selectedData,
-        bulkIds: this.selectedCheckboxIds,
-        allChecked: this.checkAll,
-      },
-    };
-    this._bottomSheet.open(FollowupEmailComponent, config);
-  }
+ 
 
   IndividualopenSMS(selectedData: any): void {
     const config: MatBottomSheetConfig = {
@@ -503,27 +479,8 @@ export class MyFollowupCardContentComponent
     }
   }
 
-  openEmailChat(selectedData?: any) {
-    this.addCount();
-    if (this.data !== 0) {
-      let data = `Do You Want To Send Email To ${this.data} Leads`;
-      const dialogRef = this.dialog.open(GenericCountComponent, {
-        width: '40%',
-        data: data,
-      });
-      dialogRef.disableClose = true;
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result === 'yes') {
-          this.bulkOpenEmailChat();
-          //  this.refreshLead('event')
-          this.refreshFollowUps();
-        }
-      });
-    } else {
-      this.api.showWarning('Please select atleast one lead');
-    }
-  }
- 
+
+
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
       this.exportReference = `${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
@@ -609,17 +566,13 @@ export class MyFollowupCardContentComponent
     });
   }
 
-  
-
- 
-
   // ============================================================================
 
   renderingData: any;
   countDataValue: any = {};
 
   APICAll() {
-    this.totalNumberOfRecords=[]
+    this.totalNumberOfRecords = [];
     // this.renderingData
     // console.log("url to send i  API", url);
 
@@ -627,8 +580,6 @@ export class MyFollowupCardContentComponent
 
     // const data = this.dataService.getFollowupfilterURL()
     console.log('final data url==>', this.updateAPIURL);
-
-
 
     this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
       (res: any) => {
@@ -644,15 +595,17 @@ export class MyFollowupCardContentComponent
   }
 
   getSort(data: any) {
+    let sort_by = this.filterFollowUp.getSortDataBYForm(
+      'filter_by',
+      data.target.innerText
+    );
 
-    let sort_by = this.filterFollowUp.getSortDataBYForm("filter_by", data.target.innerText)
-
-    this.updateAPIURL += sort_by['apistring']
+    this.updateAPIURL += sort_by['apistring'];
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
-    
+
     // this.APICAll();
-    this.ngOnInit()
+    this.ngOnInit();
   }
 
   getFilter(data: any) {
@@ -667,7 +620,7 @@ export class MyFollowupCardContentComponent
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
       { key: 'page_size', value: 10 },
-      apiurl
+      apiurl,
     ];
 
     pageDataKeyValue.forEach((element: any) => {
@@ -690,7 +643,7 @@ export class MyFollowupCardContentComponent
     // this.updateAPIURL = value;
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     // this.APICAll();
-    this.ngOnInit()
+    this.ngOnInit();
   }
 
   selectDate(data: any) {
@@ -702,7 +655,7 @@ export class MyFollowupCardContentComponent
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
       { key: 'page_size', value: 10 },
-      apiurl
+      apiurl,
     ];
 
     pageDataKeyValue.forEach((element: any) => {
@@ -717,11 +670,11 @@ export class MyFollowupCardContentComponent
     });
 
     // this.APICAll(this.updateAPIURL)
-    console.log("url i  select date", this.updateAPIURL);
-    
+    console.log('url i  select date', this.updateAPIURL);
+
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     // this.APICAll();
-    this.ngOnInit()
+    this.ngOnInit();
   }
 
   getSearchValue(data: any) {
@@ -730,7 +683,7 @@ export class MyFollowupCardContentComponent
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
       { key: 'page_size', value: 10 },
-      apiurl
+      apiurl,
     ];
 
     pageDataKeyValue.forEach((element: any) => {
@@ -744,22 +697,116 @@ export class MyFollowupCardContentComponent
       this.updateAPIURL = value;
     });
 
-
     // let value = this.filterFollowUp.updateUrlParameter(
     //   this.updateAPIURL,
     //   apiurl.key,
     //   apiurl.value
     // );
 
-
-
     // this.updateAPIURL = value;
 
     // this.APICAll(this.updateAPIURL)
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     // this.APICAll();
-    this.ngOnInit()
+    this.ngOnInit();
   }
+
+  showSendMailForm(data: any, lead_name:any = null) {
+    let data_val = `Do You Want To Send Email To ${lead_name} Leads`;
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width: '40%',
+      data: data_val,
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if(result == "yes"){
+        const config: MatBottomSheetConfig = {
+          panelClass: 'lead-bottom-sheet',
+          disableClose: true,
+          data: {
+            selectedData: data,
+            lead_name: lead_name,
+          },
+        };
+
+        this._bottomSheet.open(FollowupEmailComponent, config);
+      }
+      
+    });
+  }
+
+  openEmailSendoutForm(data: any) {
+    if (data == 'All') {
+      if (this.selectedCheckboxIds.length ==0){
+        this.api.showWarning('Please select atleast one lead');
+      }else{
+        this.showSendMailForm(this.selectedCheckboxIds,  'All')
+      }
+    } else {
+      this.showSendMailForm([data.lead_id], data.lead)
+    }
+  }
+
+
+  sendVideoCallInvite(data: any, lead_name:any = null) {
+    let data_val = `Do You Want To Send Video Call Invite To ${lead_name} Leads`;
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width: '40%',
+      data: data_val,
+    });
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if(result == "yes"){
+        const config: MatBottomSheetConfig = {
+          panelClass: 'lead-bottom-sheet',
+          disableClose: true,
+          data: {
+            selectedData: data,
+            lead_name: lead_name,
+          },
+        };
+
+        this._bottomSheet.open(FollowupVideocallComponent, config);
+      }
+      
+    });
+  }
+
+  openVideoCallForm(data: any) {
+    if (data == 'All') {
+      if (this.selectedCheckboxIds.length ==0){
+        this.api.showWarning('Please select atleast one lead');
+      }else{
+        this.sendVideoCallInvite(this.selectedCheckboxIds)
+      }
+    } else {
+      this.sendVideoCallInvite([data.lead_id], data.lead)
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   followupIds: any;
   getFollowupIds() {
@@ -790,7 +837,6 @@ export class MyFollowupCardContentComponent
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     // this.APICAll();
-    this.ngOnInit()
+    this.ngOnInit();
   }
- 
 }

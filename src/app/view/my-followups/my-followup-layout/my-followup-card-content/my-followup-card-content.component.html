@@ -9,28 +9,32 @@
             (click)="getFilter('All')"
             [class.active_tab]="selectedTab === 'All'"
           >
-            All <span>({{ countDataValue?.All }})</span>
+            <!-- All <span>({{ countDataValue?.All }})</span> -->
+            All
           </p>
           <p
             style="margin-right: 10px; color: orange"
             (click)="getFilter('Upcoming')"
             [class.active_tab]="selectedTab === 'Upcoming'"
           >
-            Upcoming ({{ countDataValue?.Upcoming }})
+            <!-- Upcoming ({{ countDataValue?.Upcoming }}) -->
+            Upcoming
           </p>
           <p
             style="margin-right: 10px; color: green"
             (click)="getFilter('Done')"
             [class.active_tab]="selectedTab === 'Done'"
           >
-            Done ({{ countDataValue?.Done }})
+            <!-- Done ({{ countDataValue?.Done }}) -->
+            Done
           </p>
           <p
             style="margin-right: 10px; color: red"
             (click)="getFilter('Missed')"
             [class.active_tab]="selectedTab === 'Missed'"
           >
-            Missed ({{ countDataValue?.Missed }})
+            <!-- Missed ({{ countDataValue?.Missed }}) -->
+            Missed
           </p>
         </div>
 
@@ -53,7 +57,7 @@
           <div class="row">
             <div
               class="col p-0"
-              (click)="openVideoCall()"
+              (click)=" openVideoCall('All')"
               title="Send Video Conferencing Invite"
             >
               <!-- <i class="bi bi-camera-video"></i> -->
@@ -95,7 +99,7 @@
             </div>
             <div
               class="col p-0"
-              (click)="openEmailChat('All')"
+              (click)="openEmailSendoutForm('All')"
               title="Send Email"
             >
               <!-- <i class="bi bi-envelope"></i> -->
@@ -225,7 +229,7 @@
           class="ms-4"
           [checked]="checkAll"
           ><div style="font-size: 12px" class="ps-3">
-            SELECT ALL
+            SELECT ALL <span >({{totalNumberOfRecords}})</span> 
           </div></mat-checkbox
         >
       </div>
@@ -426,7 +430,7 @@
                 </div>
                 <div
                   class="col p-1"
-                  (click)="IndividualopenEmailChat(followUp)"
+                  (click)="openEmailSendoutForm(followUp)"
                   title="Send Email"
                 >
                   <!-- <i class="bi bi-envelope"></i> -->

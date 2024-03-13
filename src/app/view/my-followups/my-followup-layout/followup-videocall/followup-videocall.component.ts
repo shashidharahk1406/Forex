@@ -12,14 +12,15 @@ export class FollowupVideocallComponent implements OnInit {
 
   followUpvideoCallForm!:FormGroup;
   constructor(
-    public dialogRef: MatDialogRef<FollowupWhatsappchatComponent>,
+    public dialogRef: MatDialogRef<FollowupVideocallComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb:FormBuilder) {
-      console.log(data.lead,"followup-videocall")
+      
      }
   
 
     ngOnInit(): void {
+      console.log(this.data,"followup-videocall")
       this.initForm()
     }
     initForm(){

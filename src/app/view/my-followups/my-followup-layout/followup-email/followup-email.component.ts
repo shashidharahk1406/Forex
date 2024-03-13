@@ -1,6 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { log } from 'console';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
@@ -22,15 +23,16 @@ export class FollowupEmailComponent implements OnInit {
     private fb: FormBuilder,
     private api:ApiService,
     private _baseService:BaseServiceService) {
-      console.log(data.selectedData.lead,"selected data")
-
-      console.log(data.name,"data.selectedData?.user_data?.first_name");
-      
+     
     }
 
   ngOnInit(): void {
+    console.log(this.data,"selected data")
+
+   
+    
     this.initForm();
-    this.getTemplate()
+    this.getTemplate();
   }
  
   initForm(){
@@ -65,10 +67,10 @@ export class FollowupEmailComponent implements OnInit {
           template_type_id:5
          }
       }else{
-        if(this.data.bulkIds?.length > 0 ){
+        if(this.data.selectedData?.length > 1 ){
            emailFormVal ={
             all_users: false,
-            lead_list_ids: this.data.bulkIds, 
+            lead_list_ids: this.data.selectedData, 
             subject: fd.subject,
             message: fd.followupComment,
             template_id: fd.emailTemplate,
@@ -77,7 +79,7 @@ export class FollowupEmailComponent implements OnInit {
         }else{
            emailFormVal ={
             all_users: false,
-            lead_list_ids: [this.data.selectedData.id], 
+            lead_list_ids: this.data.selectedData, 
             subject: fd.subject,
             message: fd.followupComment,
             template_id: fd.emailTemplate,
@@ -107,8 +109,11 @@ export class FollowupEmailComponent implements OnInit {
   }
   getTemplate(){
     this._baseService.getData(`${environment.whatsapp_template}`).subscribe((res:any)=>{
+    console.log(res,"whatsapp template");
+    
       if(res.results){
         this.templateList = res.results
+        console.log(this.templateList," this.templateList")
       }
     })
   }

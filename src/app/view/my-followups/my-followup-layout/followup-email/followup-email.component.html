@@ -3,8 +3,8 @@
       <div class="add-users mat-dialog-header">
         <div class="row">
             <div class="col">
-              <h1 mat-dialog-title *ngIf="data.selectedData.lead" class="text-truncate" style="width: 250px !important;">Send Email To {{data.selectedData.lead| titlecase}}</h1>
-              <h1 mat-dialog-title *ngIf="!data.selectedData.lead">Send Email </h1>
+              <h1 mat-dialog-title *ngIf="data?.lead_name" class="text-truncate" style="width: 250px !important;">Send Email To {{data.lead_name | titlecase}}</h1>
+              <h1 mat-dialog-title *ngIf="!data?.lead_name">Send Email </h1>
             </div>
             <div class="col-1 close-icon">
               <mat-icon (click)="closePopup()">close</mat-icon>
