@@ -15,7 +15,7 @@ export class FollowupWhatsappchatComponent implements OnInit {
     public dialogRef: MatDialogRef<FollowupWhatsappchatComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb:FormBuilder) { 
-      console.log(data.lead,"whtasapp-followup")
+      // console.log(data.lead,"whtasapp-followup")
     }
   
 

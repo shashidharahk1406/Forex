@@ -95,6 +95,10 @@ export class LoginComponent implements OnInit {
 				const decodedToken:any = jwtDecode(resp.token.token);
 				console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
+				localStorage.setItem('decodedToken',JSON.stringify(decodedToken))
+				// localStorage.setItem('Dropdown Values',JSON.stringify(resp.permissions[1].children_status[0].access_status))
+				// localStorage.setItem('User and Roles',resp.permissions[1].children_status[1].access_status)
+				// localStorage.setItem('Communications',resp.permissions[1].children_status[2].access_status)
 				
 				localStorage.setItem('user_role',decodedToken.user_role)
 				this.api.showSuccess('Login Successfull!')

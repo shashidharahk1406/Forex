@@ -10,24 +10,19 @@ import { ApiService } from 'src/app/service/API/api.service';
 export class AdvanceSettingsComponent implements OnInit {
   dropDownValues: any;
   userRolesAndProfiles: any;
-  // userRolesAndProfilesBooleanValue: boolean;
-  // advanceCommunicationSettings: any;
-  // advanceCommunicationSettingsBooleanValue: boolean;
-  // dropDownValuesbooleanvalue: boolean;
+  communications:any;
+  permissions:any;
 
   constructor(private router: Router,private api:ApiService) {
-    // this.dropDownValues = localStorage.getItem('dropDownValues');
-    // this.dropDownValuesbooleanvalue=JSON.parse(this.dropDownValues);
-    // //console.log(this.dropDownValuesbooleanvalue, JSON.parse(this.dropDownValues), 'ddv');
-    // this.userRolesAndProfiles = localStorage.getItem('user_and_roles');
-    // this.userRolesAndProfilesBooleanValue = JSON.parse(this.userRolesAndProfiles);
-    // //console.log(this.userRolesAndProfilesBooleanValue, 'userpro');
-    // this.advanceCommunicationSettings=localStorage.getItem('adv_comm_sett');
-    // this.advanceCommunicationSettingsBooleanValue = JSON.parse(this.advanceCommunicationSettings);
-    // //console.log(this.advanceCommunicationSettingsBooleanValue);
-    // if(this.dropDownValuesbooleanvalue && this.userRolesAndProfilesBooleanValue && this.advanceCommunicationSettingsBooleanValue){
-    //   alert('User does not have Permissions')
-    //   }
+    // this.permissions=localStorage.getItem('decodedToken')
+    console.log(this.permissions,)
+
+   this.dropDownValues=localStorage.getItem('Dropdown Values')
+   console.log(this.dropDownValues,"this.permissions")
+   this.userRolesAndProfiles=localStorage.getItem('User and Roles')
+   console.log(this.userRolesAndProfiles,"this.permissions")
+   this.communications=localStorage.getItem('Communications')
+   console.log(this.communications,"this.permissions")
    
   }
     
