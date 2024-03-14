@@ -111,7 +111,7 @@ export class LeadEditComponent implements OnInit {
       this.editLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
-        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern),this.notSameAsMobileValidator('mobile')]],
+        alternateNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern),this.notSameAsMobileValidator('mobile')]],
         email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:"",
         state: [''],
