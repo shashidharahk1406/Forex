@@ -56,6 +56,7 @@
                       <input matInput appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
                       <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
                       <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
+                      <mat-error *ngIf="f['alternateNumber'].hasError('sameAsMobile')">Alternate Phone Number should not be the same as Mobile Number.</mat-error>
                     </mat-form-field> 
                     <mat-form-field appearance="outline" class="mb-1" >
                       <mat-label>Email Id</mat-label>
@@ -130,7 +131,7 @@
                     <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Pincode</mat-label>
                       <input type="text" formControlName="pincode" matInput placeholder="Enter The Pincode">  
-                      <mat-error *ngIf="editLeadForm.get('pincode')?.hasError('pincode')">Pincode must be 6 digits.</mat-error>
+                      <mat-error *ngIf="editLeadForm.get('pincode')?.hasError('pattern')">Pincode must be 6 digits.</mat-error>
                     </mat-form-field>
                     
                     <mat-form-field class="mb-1" appearance="outline">

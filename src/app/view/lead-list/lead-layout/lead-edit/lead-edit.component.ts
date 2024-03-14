@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -72,7 +72,7 @@ export class LeadEditComponent implements OnInit {
             dateOfBirth: lead.date_of_birth,
             state: lead.state,
             zone: lead.zone,
-            course:lead.course,
+            course:lead.stream,
             cityName: lead.city,
             pincode: lead.pincode,
             countryId: lead.country,
@@ -96,8 +96,8 @@ export class LeadEditComponent implements OnInit {
             leadSource: lead.source,
             leadStages: lead.lead_stage,
             leadStatus: lead.lead_list_status,
-            notes: lead.notes,
-            remarks: lead.remark
+            notes: lead.note_name,
+            remarks: lead.remark_name
           });
         }
       },
@@ -111,7 +111,7 @@ export class LeadEditComponent implements OnInit {
       this.editLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
-        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
+        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern),this.notSameAsMobileValidator('mobile')]],
         email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:"",
         state: [''],
@@ -124,9 +124,9 @@ export class LeadEditComponent implements OnInit {
         fatherName:[''],
         fatherOccupation:[''],
         fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
-        tenthPercentage :[''],
-        twelthPercentage :[''],
-        degree:[''],
+        tenthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
+        twelthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
+        degree:['',Validators.pattern(this._commonService.nonNegativeValidator)],
         course:[''],
         otherCourse:[''],
         entranceExam:[''],
@@ -144,7 +144,13 @@ export class LeadEditComponent implements OnInit {
         remarks:['']
       })
   }
-
+  notSameAsMobileValidator(mobileControlName: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const mobile = control.root.get(mobileControlName)?.value;
+      const alternateNumber = control.value;
+      return mobile === alternateNumber ? { sameAsMobile: true } : null;
+    };
+  }
   setStep(index: number) {
     this.step = index;
   }
@@ -369,10 +375,34 @@ const data ={
   }
 }
 
-  if(this.editLeadForm.invalid){
-    this.editLeadForm.markAllAsTouched()
-    this.api.showError("Please Fill The Mandatory Fields")
+if (this.editLeadForm.invalid) {
+  let mandatoryFieldsEmpty = false;
+  let nonMandatoryFieldsInvalid = false;
+
+  // Check if any mandatory fields are empty
+  const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages'];
+  mandatoryFields.forEach(field => {
+    if (!this.editLeadForm.get(field)?.value) {
+      mandatoryFieldsEmpty = true;
+    }
+  });
+
+  // Check if any non-mandatory fields are invalid
+  Object.keys(this.editLeadForm.controls).forEach(key => {
+    const control = this.editLeadForm.get(key);
+    if (control?.invalid && !mandatoryFields.includes(key)) {
+      nonMandatoryFieldsInvalid = true;
+    }
+  });
+
+  if (mandatoryFieldsEmpty && nonMandatoryFieldsInvalid) {
+    this.api.showError("Please fill the mandatory fields and correct the invalid inputs.");
+  } else if (mandatoryFieldsEmpty) {
+    this.api.showError("Please fill the mandatory fields.");
+  } else if (nonMandatoryFieldsInvalid) {
+    this.api.showError("Correct the invalid inputs.");
   }
+}
   else{
     this._baseService.updateData(`${environment.lead_list}${this.data.user_data.id}/`,data).subscribe((res:any)=>{
       if(res){

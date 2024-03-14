@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -63,7 +63,7 @@ export class AddNewLeadComponent implements OnInit {
       this.addLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
-        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern)]],
+        alternateNumber:['',[Validators.pattern(this._commonService.mobilePattern),this.notSameAsMobileValidator('mobile')]],
         email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
@@ -76,9 +76,9 @@ export class AddNewLeadComponent implements OnInit {
         fatherName:[''],
         fatherOccupation:[''],
         fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
-        tenthPercentage :[''],
-        twelthPercentage :[''],
-        degree:[''],
+        tenthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
+        twelthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
+        degree:['',Validators.pattern(this._commonService.nonNegativeValidator)],
         course:[''],
         otherCourse:[''],
         entranceExam:[''],
@@ -97,6 +97,14 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   
+  notSameAsMobileValidator(mobileControlName: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const mobile = control.root.get(mobileControlName)?.value;
+      const alternateNumber = control.value;
+      return mobile === alternateNumber ? { sameAsMobile: true } : null;
+    };
+  }
+
   setStep(index: number) {
     this.step = index;
   }
@@ -316,10 +324,34 @@ export class AddNewLeadComponent implements OnInit {
     remark_name:f['remarks']
   }
 
-    if(this.addLeadForm.invalid){
-      this.addLeadForm.markAllAsTouched()
-      this.api.showError('Please Fill The Mandatory Fields')
+  if (this.addLeadForm.invalid) {
+    let mandatoryFieldsEmpty = false;
+    let nonMandatoryFieldsInvalid = false;
+  
+    // Check if any mandatory fields are empty
+    const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages'];
+    mandatoryFields.forEach(field => {
+      if (!this.addLeadForm.get(field)?.value) {
+        mandatoryFieldsEmpty = true;
+      }
+    });
+  
+    // Check if any non-mandatory fields are invalid
+    Object.keys(this.addLeadForm.controls).forEach(key => {
+      const control = this.addLeadForm.get(key);
+      if (control?.invalid && !mandatoryFields.includes(key)) {
+        nonMandatoryFieldsInvalid = true;
+      }
+    });
+  
+    if (mandatoryFieldsEmpty && nonMandatoryFieldsInvalid) {
+      this.api.showError("Please fill the mandatory fields and correct the invalid inputs.");
+    } else if (mandatoryFieldsEmpty) {
+      this.api.showError("Please fill the mandatory fields.");
+    } else if (nonMandatoryFieldsInvalid) {
+      this.api.showError("Correct the invalid inputs.");
     }
+  }
     else{
       this._baseService.postData(environment.lead_list,data).subscribe((res:any)=>{
         if(res){

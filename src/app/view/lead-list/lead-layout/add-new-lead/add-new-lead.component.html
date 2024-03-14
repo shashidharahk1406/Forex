@@ -51,11 +51,13 @@
                         <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
                         <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                       </mat-form-field>
+                      
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Alternate Phone Number</mat-label>
                         <input matInput appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
                         <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
                         <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
+                        <mat-error *ngIf="f['alternateNumber'].hasError('sameAsMobile')">Alternate Phone Number should not be the same as Mobile Number.</mat-error>
                       </mat-form-field> 
                       <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Email Id</mat-label>
