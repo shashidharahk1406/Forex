@@ -110,7 +110,8 @@
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <!-- <input matInput type="datetime-local" placeholder="start date"> -->
-                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="currentDate"  min="2024-03-12T16:43" required >
+                <!-- <input type="time" (input)="selectTime($event)" min]=""> -->
+                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="minDateTime"  (keyup)="selectedDate($event)">
                 <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
                 <!-- <mat-datepicker #picker></mat-datepicker> -->
                 

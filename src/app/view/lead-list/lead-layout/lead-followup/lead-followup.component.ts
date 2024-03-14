@@ -9,6 +9,7 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { DataService } from 'src/app/service/data.service';
+import { timestamp } from 'rxjs';
 
 
 @Component({
@@ -26,11 +27,14 @@ export class LeadFollowupComponent implements OnInit {
   templateList: any = [];
   basicTemplate: any;
   isRequired:boolean=false;
-  currentDate:any
+  // currentDate:any
+ 
 
   counsellor_id: any;
   statusId: any;
   createdBy:any
+  format_date:any
+  minDateTime:string
   constructor(
     private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -40,8 +44,20 @@ export class LeadFollowupComponent implements OnInit {
     private _baseService: BaseServiceService
    
   ) {
-    this.currentDate=new Date().toISOString().slice(0, 16);
-    console.log(this.currentDate,"this.currentDate");
+    // this.currentDate=new Date().toISOString().slice(0, 16);
+
+    const currentDate = new Date();
+    // currentDate.setHours(9, 0, 0, 0);
+    this.minDateTime = currentDate.toISOString().slice(0, 16); 
+    console.log(this.minDateTime,"this.minDateTime");
+    
+  // const timestamp=new Date()
+  //   console.log(timestamp,"timestamp");
+  //   const currentDate=new Date(timestamp)
+    
+
+  //   this.format_date=this.datePipe.transform(currentDate,'yyyy-MM-ddTHH:mm')
+  //   console.log(this.format_date,"format_date");
     
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
@@ -50,6 +66,18 @@ export class LeadFollowupComponent implements OnInit {
 
 
 
+
+  }
+
+
+  
+  selectTime(ev:any){
+console.log(ev.target.value);
+
+  }
+  selectedDate(event:any){
+console.log(event.target.value,"selected date");
+event.preventDefault()
 
   }
 
