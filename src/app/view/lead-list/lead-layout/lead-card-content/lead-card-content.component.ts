@@ -55,6 +55,7 @@ export class LeadCardContentComponent implements OnInit {
    }
   ngOnChanges(changes: SimpleChanges) {
     this.api.setLeadData(this.leadData);
+    
    
     if (changes['leadData']) {
       this.leadData2 = this.api.getLeadData();
@@ -214,7 +215,11 @@ export class LeadCardContentComponent implements OnInit {
   }
   checkBoxData(){
     for (const selectedId of this.selectedCheckboxIds) {
+     
+      
       const leadItem = this.leadData2.find((item:any) => item.user_data.id === selectedId);
+     
+      
       if (leadItem ) {
         leadItem.checked = true;
       }

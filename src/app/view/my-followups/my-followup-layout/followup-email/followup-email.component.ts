@@ -53,7 +53,7 @@ export class FollowupEmailComponent implements OnInit {
   onSubmit() {
     if (this.emailForm.invalid) {
       this.emailForm.markAllAsTouched()
-      this.api.showError("Invalid Form")
+      // this.api.showError("Invalid Form")
     }
     else{
       const fd = this.emailForm.value;

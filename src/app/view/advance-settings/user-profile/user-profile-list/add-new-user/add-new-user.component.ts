@@ -112,6 +112,8 @@ onChange(event:any){
   getAllRole(){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
+        console.log(resp,"user roles");
+        
         this.allRole=resp.results
       },
       (error:any)=>{
@@ -134,6 +136,8 @@ onChange(event:any){
   getDesignation(){
     this.api.getAllDesignation().subscribe(
       (resp:any)=>{
+        console.log(resp,"designation");
+        
         this.allDesignation=resp.results
       },
       (error:any)=>{

@@ -161,7 +161,7 @@
     <div class="row">
       <div class="col" >
         <mat-checkbox
-          class=""
+       
           *ngIf="(followUpsData | filter: followupSearch).length > 0; else noResultsSection"
           (change)="selectAll($event, followUpsData)"
           class="ms-4"
