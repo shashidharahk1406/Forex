@@ -18,6 +18,7 @@ export class ReferLeadComponent implements OnInit {
   selectedCounsellor: any;
   currentCounsellor: any;
   previousValues: any = [];
+  user_id: any;
   constructor(
     public dialogRef: MatDialogRef<ReferLeadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,6 +26,7 @@ export class ReferLeadComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService) {
+      this.user_id = localStorage.getItem('user_id')
       this.initForm()
       this.getCounselor()
       this.getReferLead()
@@ -61,7 +63,7 @@ export class ReferLeadComponent implements OnInit {
     getCounselor(){
       this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
         if(res.results){
-        this.referTo = res.results
+        this.referTo = res.results.filter((f:any)=>f.id != this.user_id)
           let selectedObject = this.referTo.find((obj: any) => obj.id === this.previousValues.counsellor);
           this.currentCounsellor = selectedObject.first_name
         }

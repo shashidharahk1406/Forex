@@ -259,7 +259,7 @@ export class LeadEditComponent implements OnInit {
   getCounselor(){
     this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
       if(res.results){
-      this.referredTo = res.results
+      this.referredTo = res.results.filter((f:any)=>f.id != this.user_id)
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))

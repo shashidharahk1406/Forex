@@ -213,7 +213,7 @@ export class AddNewLeadComponent implements OnInit {
   getCounselor(){
     this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
       if(res.results){
-      this.referredTo = res.results
+      this.referredTo = res.results.filter((f:any)=>f.id != this.user_id)
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -242,15 +242,19 @@ export class AddNewLeadComponent implements OnInit {
       })
    
   }
-  getCounselledBy(){
-    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe((res:any)=>{
-      if(res.results){
-      this.adminList = res.results
+  getCounselledBy() {
+    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe(
+      (res: any) => {
+        if (res.results) {
+          this.adminList = res.results
+        }
+      },
+      (error: any) => {
+        this.api.showError(this.api.toTitleCase(error.error.message));
       }
-    },((error:any)=>{
-       this.api.showError(this.api.toTitleCase(error.error.message))
-    }))
+    );
   }
+  
   getLeadStage(){
    this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
     if(res){
