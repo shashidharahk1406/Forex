@@ -329,7 +329,7 @@ export class AddNewLeadComponent implements OnInit {
     let nonMandatoryFieldsInvalid = false;
   
     // Check if any mandatory fields are empty
-    const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages'];
+    const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages','alternateNumber'];
     mandatoryFields.forEach(field => {
       if (!this.addLeadForm.get(field)?.value) {
         mandatoryFieldsEmpty = true;
@@ -346,10 +346,13 @@ export class AddNewLeadComponent implements OnInit {
   
     if (mandatoryFieldsEmpty && nonMandatoryFieldsInvalid) {
       this.api.showError("Please fill the mandatory fields and correct the invalid inputs.");
+      this.addLeadForm.markAllAsTouched()
     } else if (mandatoryFieldsEmpty) {
       this.api.showError("Please fill the mandatory fields.");
+      this.addLeadForm.markAllAsTouched()
     } else if (nonMandatoryFieldsInvalid) {
       this.api.showError("Correct the invalid inputs.");
+      this.addLeadForm.markAllAsTouched()
     }
   }
     else{

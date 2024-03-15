@@ -380,7 +380,7 @@ if (this.editLeadForm.invalid) {
   let nonMandatoryFieldsInvalid = false;
 
   // Check if any mandatory fields are empty
-  const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages'];
+  const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages','alternateNumber'];
   mandatoryFields.forEach(field => {
     if (!this.editLeadForm.get(field)?.value) {
       mandatoryFieldsEmpty = true;
@@ -397,10 +397,13 @@ if (this.editLeadForm.invalid) {
 
   if (mandatoryFieldsEmpty && nonMandatoryFieldsInvalid) {
     this.api.showError("Please fill the mandatory fields and correct the invalid inputs.");
+    this.editLeadForm.markAllAsTouched()
   } else if (mandatoryFieldsEmpty) {
     this.api.showError("Please fill the mandatory fields.");
+    this.editLeadForm.markAllAsTouched()
   } else if (nonMandatoryFieldsInvalid) {
     this.api.showError("Correct the invalid inputs.");
+    this.editLeadForm.markAllAsTouched()
   }
 }
   else{
