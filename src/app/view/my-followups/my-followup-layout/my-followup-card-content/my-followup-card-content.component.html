@@ -225,7 +225,7 @@
             (renderingData | filter : followupSearch)?.length > 0;
             else noResultsSection
           "
-          (change)="checkUncheckAll($event)"
+          (change)="selectAll($event, renderingData)"
           class="ms-4"
           [checked]="checkAll"
           ><div style="font-size: 12px" class="ps-3">
@@ -281,8 +281,8 @@
               <div class="row">
                 <div class="col-2 d-flex align-items-center">
                   <mat-checkbox
-                    (change)="isAllSelected($event, i,followUp.lead)"
-                    [checked]="followUp.checked"
+                    (change)="onCheckboxChange($event, followUp.lead_id,followUp.lead)"
+                    [(ngModel)]="followUp.checked"
                   ></mat-checkbox>
                 </div>
 
@@ -613,7 +613,7 @@
                   </div>
                   <div class="col">
                     <div class="row text-start">
-                      <div class="col-12 pannel-label">Followup Created By</div>
+                      <div class="col-12 pannel-label">Counselled By</div>
                       <div class="col-12" *ngIf="!followUp.created_by">
                         {{ "NA" }}
                       </div>
