@@ -348,4 +348,9 @@ AllFollowupStatuses:any=[]
 
 
   
+
+  onKeyPress(event: KeyboardEvent) {
+    event.preventDefault();
+    // You can add further handling if needed
+  }
 }

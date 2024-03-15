@@ -25,7 +25,7 @@ export class FilterFollowUp {
     apistring += `key=${value}`;
 
     const data: any = {
-      key: 'serach',
+      key: 'key',
       value: value,
     };
 

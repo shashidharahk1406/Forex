@@ -366,8 +366,8 @@ checkedCheckbox:boolean=false;
   checkBoxData() {
     
     for (let selectedId of this.selectedCheckboxIds) {
-      console.log(this.selectedCheckboxIds,"selectedCheckboxIds");
-      console.log(this.followUpsData2,"followUpsData2");
+      // console.log(this.selectedCheckboxIds,"selectedCheckboxIds");
+      // console.log(this.followUpsData2,"followUpsData2");
       
       const leadFollowUpItem = this.followUpsData2?.find(
         (item: any) => item.lead_id === selectedId
@@ -689,6 +689,10 @@ checkedCheckbox:boolean=false;
         this.totalNumberOfRecords = res.total_no_of_record;
         
         this.countDataValue = res.results.data_count;
+
+
+
+        
       },
       (error: any) => {
         console.log(error, 'error');
@@ -1023,9 +1027,17 @@ checkedCheckbox:boolean=false;
  
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
+
+   
+   
+     
+    
     
     // this.APICAll();
     this.ngOnInit();
     
   }
+
+
+  
 }

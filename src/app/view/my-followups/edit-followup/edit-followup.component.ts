@@ -280,4 +280,9 @@ this.editFollowUpForm.patchValue({follow_up_text:res.follow_up_text})
   }
 }
 
+onKeyPress(event: KeyboardEvent) {
+  event.preventDefault();
+  // You can add further handling if needed
+}
+
 }
