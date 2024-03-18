@@ -24,10 +24,16 @@
                   formControlName="amount"
                   required
                   placeholder="Enter The Amount"
+                  (keypress)="validateKeyPress($event)"
+                 
                 />
                 <mat-error *ngIf="f['amount'].hasError('required')">
                   Amount Is Required.
                 </mat-error>
+                <mat-error *ngIf="f['amount'].hasError('pattern')">
+                  Invalid Amount Format. Please enter a valid amount with up to two decimal digits.
+                </mat-error>
+                
               </mat-form-field>
             </div>
           </div>

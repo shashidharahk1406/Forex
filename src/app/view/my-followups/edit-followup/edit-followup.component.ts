@@ -46,12 +46,16 @@ export class EditFollowupComponent implements OnInit {
     private router:Router) {
        this.createdBy = localStorage.getItem('user_id');
       this.id=this.activateRoute.snapshot.paramMap.get('id')
+      this.minDateTime = new Date().toISOString().slice(0, 16); 
       // this.leadId=this.data?.item.user;
       // //console.log(this.leadId,"leadid")
       //console.log(data,"dataaaaaaaaaaaaaaaa")
       // console.log(this.data.item?.user_data?.id,"this.data.item.user;")
       
      }
+
+     selectedDateTime!: string;
+  minDateTime!: string;
 currentDateTime=new Date();
 formattedDate3=this.datePipe.transform(this.currentDateTime,'yyyy-MM-ddTHH:mm:ss.SSSZZZZZ')
   ngOnInit(): void {
@@ -82,7 +86,7 @@ this.getFollowUpById()
       lead_status: ['', Validators.required],
       follow_up_status:['',Validators.required],
       communication_channel: ['', Validators.required],
-      action_date_time: [''],
+      action_date_time: ['',this.dateTimeValidator],
       follow_up_text: [''],
       counsellor: [''],
       lead: [''],
@@ -93,16 +97,23 @@ this.getFollowUpById()
   }
 
 
+  dateTimeValidator(control:any) {
+    const selectedDateTime = new Date(control.value);
+    const now = new Date();
+    return selectedDateTime > now ? null : { pastDateTime: true };
+  }
 
+hideFollowupStatus:boolean=false;
   getLeadByID(lead_id:any = null){
     console.log("get lead by id");
     
     this._baseService.getByID(`${environment.lead_list}${lead_id}/`).subscribe(
       (res: any) => {
         console.log(res.result[0].referred_to,"getleadby id response")
-        this.counsellor_id = res.result[0].referred_to
+        this.counsellor_id = res.result[0].referred_to;
+        
       }
-    )
+    ) 
   }
   get f() {
     return this.editFollowUpForm.controls;
@@ -245,9 +256,23 @@ AllFollowupStatuses:any=[]
   }
 id:any;
 leadName:any;
+individualData:any=[]
   getFollowUpById(){{
     
     this.api.getFollowUpByLeadId(this.data.id).subscribe((res:any)=>{
+      console.log(res,"get by id");
+      this.individualData[0]=res;
+      console.log(this.individualData,"this.individualData")
+      this.individualData?.forEach((element:any) => {
+        console.log(element.follow_up_status,"fssssssssss")
+        if(element.follow_up_status==1 || element.follow_up_status==2){
+          this.hideFollowupStatus=false
+        }
+        else{
+          this.hideFollowupStatus=true
+        }
+      });
+    
 //console.log(res,"getbyid");
 this.id=res.id;
 this.leadName=res.lead

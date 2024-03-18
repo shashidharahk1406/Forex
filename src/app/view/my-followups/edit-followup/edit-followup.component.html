@@ -53,10 +53,11 @@
               </mat-form-field>
              
 
-              <mat-form-field class="mb-1" appearance="outline">
+              <mat-form-field class="mb-1" appearance="outline" *ngIf="hideFollowupStatus">
                 <mat-label>Select Followup Status</mat-label>
-                <mat-select formControlName="follow_up_status"  >
-                  <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id" [ngStyle]="{ display : followUpStatus.id==2 ? 'none' : 'block' }" >
+                <mat-select formControlName="follow_up_status">
+                  
+                  <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id" [ngStyle]="{ display : (followUpStatus.id==1 )? 'block' : 'none' }" >
                     {{ followUpStatus.status_name }}</mat-option>
                 </mat-select>
                 <button
@@ -113,13 +114,16 @@
               <mat-form-field appearance="outline" class="mb-1">
                 <mat-label>Next Action Date</mat-label>
                 <!-- <input matInput type="datetime-local" placeholder="start date"> -->
-                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="currentDate" (keydown)="onKeyPress($event)" >
+                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="minDateTime" (keydown)="onKeyPress($event)" style="cursor: pointer;">
                 <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
                 <!-- <mat-datepicker #picker></mat-datepicker> -->
                 
                 <mat-error *ngIf="f['action_date_time'].hasError('required')">
                     Next Action Date Is Required.
                 </mat-error>
+                <mat-error *ngIf="f['action_date_time'].hasError('pastDateTime')">
+                  Please select a date/time in the future.
+              </mat-error>
               </mat-form-field>
               
           
