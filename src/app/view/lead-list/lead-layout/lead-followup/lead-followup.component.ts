@@ -35,6 +35,8 @@ export class LeadFollowupComponent implements OnInit {
   createdBy:any
   format_date:any
   minDateTime:string
+  minDateTime1:string
+  selectedDateTime!: string;
   constructor(
     private datePipe: DatePipe,
     private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -49,6 +51,7 @@ export class LeadFollowupComponent implements OnInit {
     const currentDate = new Date();
     // currentDate.setHours(9, 0, 0, 0);
     this.minDateTime = currentDate.toISOString().slice(0, 16); 
+    this.minDateTime1 = new Date().toISOString().slice(0, 16); 
     console.log(this.minDateTime,"this.minDateTime");
     
   // const timestamp=new Date()
@@ -98,7 +101,7 @@ event.preventDefault()
       lead_status: ['', Validators.required],
       follow_up_status:['3'],
       communication_channel: ['', Validators.required],
-      action_date_time: ['', Validators.required],
+      action_date_time: ['',this.dateTimeValidator],
       follow_up_text: [''],
       counsellor: [''],
       lead: [''],
@@ -352,5 +355,13 @@ AllFollowupStatuses:any=[]
   onKeyPress(event: KeyboardEvent) {
     event.preventDefault();
     // You can add further handling if needed
+  }
+
+
+
+  dateTimeValidator(control:any) {
+    const selectedDateTime = new Date(control.value);
+    const now = new Date();
+    return selectedDateTime > now ? null : { pastDateTime: true };
   }
 }

@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 export class DataService {
 
   api_url:any =  environment.live_url;
+  public isAllChecked:boolean=false;
 
 
   private dataSubject = new BehaviorSubject<any>(null);
@@ -51,6 +52,8 @@ this.renderingFilterData=data
   getFormDataFollowupFilter(){
     return this.renderingFilterData
       }
+
+
 
 
   

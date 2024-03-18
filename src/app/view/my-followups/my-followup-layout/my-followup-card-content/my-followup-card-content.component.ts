@@ -96,8 +96,8 @@ export class MyFollowupCardContentComponent implements OnInit {
   currentPage: any;
   user_role: any;
   user_id: any;
-  allSelectedCheckBoxes:boolean=false
-  isSelectedcheckBox!:boolean;
+  allSelectedCheckBoxes: boolean = false;
+  isSelectedcheckBox!: boolean;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -114,8 +114,8 @@ export class MyFollowupCardContentComponent implements OnInit {
   ) {
     // this.allSelectedCheckBoxes=false
 
-  // this.isSelectedcheckBox=localStorage.getItem('allSelectedCheckBoxes')
-  //   console.log(this.isSelectedcheckBox,"allSelectedCheckBoxes")
+    // this.isSelectedcheckBox=localStorage.getItem('allSelectedCheckBoxes')
+    //   console.log(this.isSelectedcheckBox,"allSelectedCheckBoxes")
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
     console.log(this.counsellor_id, 'counsellor id');
@@ -131,7 +131,6 @@ export class MyFollowupCardContentComponent implements OnInit {
         this.refreshFollowUps();
       }
     });
-    
   }
 
   filteredBaseUrl: any;
@@ -146,9 +145,9 @@ export class MyFollowupCardContentComponent implements OnInit {
   updateAPIURL: any;
   ngOnInit(): void {
     // this.totalNumberOfRecords=[]
-   
-    this.selectedCheckboxIds=[]
-    
+
+    // this.selectedCheckboxIds = [];
+
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtercount');
       this.filtered = res;
@@ -159,12 +158,10 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.getFollowupIds();
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
-    
+
     console.log('updated url==>', this.updateAPIURL);
-  
+
     this.APICAll();
-    this.resettingDataToOneArray()
-   
   }
 
   expandCard(index: number) {
@@ -183,6 +180,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
+      data:this.renderingData
     };
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
@@ -223,15 +221,14 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   // ngOnChanges(changes: SimpleChanges) {
   //   console.log('coming in to ngonchanges');
-    
+
   //   this.APICAll();
   //   if (changes['renderingData']) {
-      
+
   //     this.followUpsData2 = this.renderingData;
   //     console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
-      
+
   //     console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
-      
 
   //     if (this.selectedCheckboxIds.length === this.totalCount) {
   //       this.checkAll = true;
@@ -245,15 +242,14 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   resettingDataToOneArray() {
     // console.log('coming in to ngonchanges');
-    
+
     // this.APICAll();
     // console.log(this.renderingData,'this.renderingData in to ngonchanges');
     // this.followUpsData2 = this.renderingData;
     // console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
-    
+
     // console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
-    this.followUpsData2=this.renderingData
-    
+    this.followUpsData2 = this.renderingData;
 
     if (this.selectedCheckboxIds.length === this.totalCount) {
       this.checkAll = true;
@@ -263,8 +259,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       this.checkBoxData();
     }
     // if (changes['renderingData']) {
-      
-     
+
     // }
   }
   selectedLeadName: any;
@@ -290,14 +285,12 @@ export class MyFollowupCardContentComponent implements OnInit {
       const index = this.selectedCheckboxIds.indexOf(itemId);
       if (index !== -1) {
         this.selectedCheckboxIds.splice(index, 1);
+
         this.checkAll = false;
         this.checkBoxData();
       }
     }
   }
-
-
-
 
   // onCheckboxChange(event: MatCheckboxChange, itemId: string) {
   //   console.log(itemId,"itemId")
@@ -306,16 +299,16 @@ export class MyFollowupCardContentComponent implements OnInit {
   //     if (!this.selectedCheckboxIds) {
   //       this.selectedCheckboxIds = [];
   //     }
-  
+
   //     else if (!this.selectedCheckboxIds.includes(itemId)) {
   //       this.selectedCheckboxIds.push(itemId);
   //       if (this.selectedCheckboxIds.length === this.totalCount) {
   //         this.checkAll = true;
   //         this.checkBoxData()
-          
-  //       } 
+
+  //       }
   //     }
-      
+
   //     else{
   //       this.checkAll = false;
   //     }
@@ -329,20 +322,16 @@ export class MyFollowupCardContentComponent implements OnInit {
   //     }
   //   }
   // }
-checkedCheckbox:boolean=false;
+  checkedCheckbox: boolean = false;
   selectAll(event: any, data: any) {
-   
     // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
-      this.renderingData.forEach((element: any,index:any) => {
+      this.renderingData.forEach((element: any, index: any) => {
         if (element) {
-          
           element.checked = true;
-          
-          this.selectedCheckboxIds = this.followupIds;
 
-          
+          this.selectedCheckboxIds = this.followupIds;
         }
       });
       console.log(this.selectedCheckboxIds, 'allleaids');
@@ -350,11 +339,10 @@ checkedCheckbox:boolean=false;
       console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
-    
       this.renderingData.forEach((element: any) => {
         if (element) {
           element.checked = false;
-          
+
           if (element.checked == false) {
             this.selectedCheckboxIds = [];
           }
@@ -364,16 +352,15 @@ checkedCheckbox:boolean=false;
   }
 
   checkBoxData() {
-    
     for (let selectedId of this.selectedCheckboxIds) {
       // console.log(this.selectedCheckboxIds,"selectedCheckboxIds");
       // console.log(this.followUpsData2,"followUpsData2");
-      
+
       const leadFollowUpItem = this.followUpsData2?.find(
         (item: any) => item.lead_id === selectedId
       );
-      console.log(leadFollowUpItem,"leadFollowUpItem");
-      
+      console.log(leadFollowUpItem, 'leadFollowUpItem');
+
       if (leadFollowUpItem) {
         leadFollowUpItem.checked = true;
       }
@@ -422,19 +409,17 @@ checkedCheckbox:boolean=false;
   filterCount: any;
   api_url: any = environment.live_url;
   refreshFollowUps() {
-   
-    this.selectedCheckboxIds=[]
-    this.checkAll = false
+    this.selectedCheckboxIds = [];
+    this.checkAll = false;
     this.selectedDate = null;
     this.filtered = false;
-    
+
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     this.allPaginator.pageIndex = 0;
-    this.allPaginator.pageSize=5
+    this.allPaginator.pageSize = 5;
     // this.ngOnInit();
     this.APICAll();
     this.selectedTab = 'All';
-  
   }
 
   addCount() {
@@ -477,7 +462,7 @@ checkedCheckbox:boolean=false;
     }
   }
 
-  openVideoCall(data:any) {
+  openVideoCall(data: any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Video Call Link To ${this.data} Leads `;
@@ -509,8 +494,6 @@ checkedCheckbox:boolean=false;
       ////console.log('The dialog was closed');
     });
   }
-
- 
 
   IndividualopenSMS(selectedData: any): void {
     const config: MatBottomSheetConfig = {
@@ -575,8 +558,6 @@ checkedCheckbox:boolean=false;
       this.api.showWarning('Please select atleast one lead');
     }
   }
-
-
 
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
@@ -672,34 +653,96 @@ checkedCheckbox:boolean=false;
     // this.totalNumberOfRecords = [];
     // this.renderingData
     // console.log("url to send i  API", url);
+    this.renderingData=[]
+    
+
+    console.log('final data url==>', this.updateAPIURL);
+    //   this.totalNumberOfRecords = [];
+    // this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
+    //   (res: any) => {
+    //     console.log(res, 'followup api  filetr all combination');
+    //     this.followUpsData2 = res.results.data;
+    //     this.renderingData = res.results.data;
+    //     this.totalNumberOfRecords = res.total_no_of_record;
+    //     this.countDataValue = res.results.data_count;
+
+    //     this.checkBoxData();
+    //   },
+    //   (error: any) => {
+    //     console.log(error, 'error');
+    //   }
+    // );
 
     // this.dataService.setFilteredFollowUpURL(url)
 
     // const data = this.dataService.getFollowupfilterURL()
-    if(this.role==='counsellor'){
-      this.updateAPIURL+=`&counsellor_id=${this.counsellor_id}`
+    if (this.role === 'counsellor') {
+      this.renderingData=[]
+      this.updateAPIURL += `&counsellor_id=${this.counsellor_id}`;
+      console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
+      
+
+      this.totalNumberOfRecords = [];
+      this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
+        (res: any) => {
+          console.log(res, 'followup api  filetr all combination');
+          this.followUpsData2 = res.results.data;
+          
+          this.renderingData = res.results.data;
+
+          if(this.selectedCheckboxIds.length!==0){
+            console.log(this.selectedCheckboxIds,"data prsent");
+            this.renderingData.forEach((c: any) => {
+              c.checked = true
+              this.checkAll=true
+              localStorage.setItem('allSelectedCheckBoxes', JSON.stringify(true));
+            });
+          }
+          else{
+            this.checkAll=false
+          }
+          
+          this.totalNumberOfRecords = res.total_no_of_record;
+
+          this.countDataValue = res.results.data_count;
+
+        },
+        (error: any) => {
+          console.log(error, 'error');
+        }
+      );
+    
+    } else {
+      this.totalNumberOfRecords = [];
+      this.renderingData=[]
+      console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+      
+      this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
+        (res: any) => {
+          console.log(res, 'followup api  filetr all combination');
+          this.followUpsData2 = res.results.data;
+          this.renderingData = res.results.data;
+          if(this.selectedCheckboxIds.length!==0){
+            console.log(this.selectedCheckboxIds,"data prsent");
+            this.renderingData.forEach((c: any) => {
+              c.checked = true
+              this.checkAll=true
+              localStorage.setItem('allSelectedCheckBoxes', JSON.stringify(true));
+            });
+          }
+          else{
+            this.checkAll=false
+          }
+          console.log(this.renderingData,"sssssssssssssssssssssssssssss");
+          this.totalNumberOfRecords = res.total_no_of_record;
+
+          this.countDataValue = res.results.data_count;
+        },
+        (error: any) => {
+          console.log(error, 'error');
+        }
+      );
     }
-    console.log('final data url==>', this.updateAPIURL);
-    this.totalNumberOfRecords = [];
-    this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
-      (res: any) => {
-        console.log(res, 'followup api  filetr all combination');
-        this.followUpsData2=res.results.data
-        this.renderingData = res.results.data;
-        this.totalNumberOfRecords = res.total_no_of_record;
-        
-        this.countDataValue = res.results.data_count;
-
-
-
-        
-      },
-      (error: any) => {
-        console.log(error, 'error');
-      }
-    );
-
-   
   }
 
   getSort(data: any) {
@@ -819,7 +862,7 @@ checkedCheckbox:boolean=false;
     this.ngOnInit();
   }
 
-  showSendMailForm(data: any, lead_name:any = null) {
+  showSendMailForm(data: any, lead_name: any = null) {
     let data_val = `Do You Want To Send Email To ${lead_name} Leads`;
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width: '40%',
@@ -827,7 +870,7 @@ checkedCheckbox:boolean=false;
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result == "yes"){
+      if (result == 'yes') {
         const config: MatBottomSheetConfig = {
           panelClass: 'lead-bottom-sheet',
           disableClose: true,
@@ -839,24 +882,22 @@ checkedCheckbox:boolean=false;
 
         this._bottomSheet.open(FollowupEmailComponent, config);
       }
-      
     });
   }
 
   openEmailSendoutForm(data: any) {
     if (data == 'All') {
-      if (this.selectedCheckboxIds.length ==0){
+      if (this.selectedCheckboxIds.length == 0) {
         this.api.showWarning('Please select atleast one lead');
-      }else{
-        this.showSendMailForm(this.selectedCheckboxIds,  'All')
+      } else {
+        this.showSendMailForm(this.selectedCheckboxIds, 'All');
       }
     } else {
-      this.showSendMailForm([data.lead_id], data.lead)
+      this.showSendMailForm([data.lead_id], data.lead);
     }
   }
 
-
-  sendVideoCallInvite(data: any, lead_name:any = null) {
+  sendVideoCallInvite(data: any, lead_name: any = null) {
     let data_val = `Do You Want To Send Video Call Invite To ${lead_name} Leads`;
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width: '40%',
@@ -864,7 +905,7 @@ checkedCheckbox:boolean=false;
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result == "yes"){
+      if (result == 'yes') {
         const config: MatBottomSheetConfig = {
           panelClass: 'lead-bottom-sheet',
           disableClose: true,
@@ -876,45 +917,20 @@ checkedCheckbox:boolean=false;
 
         this._bottomSheet.open(FollowupVideocallComponent, config);
       }
-      
     });
   }
 
   openVideoCallForm(data: any) {
     if (data == 'All') {
-      if (this.selectedCheckboxIds.length ==0){
+      if (this.selectedCheckboxIds.length == 0) {
         this.api.showWarning('Please select atleast one lead');
-      }else{
-        this.sendVideoCallInvite(this.selectedCheckboxIds)
+      } else {
+        this.sendVideoCallInvite(this.selectedCheckboxIds);
       }
     } else {
-      this.sendVideoCallInvite([data.lead_id], data.lead)
+      this.sendVideoCallInvite([data.lead_id], data.lead);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   followupIds: any;
   getFollowupIds() {
@@ -924,57 +940,49 @@ checkedCheckbox:boolean=false;
     });
   }
 
- 
-
-
-
-
-  checkUncheckAll(evt:any) {
-    console.log(evt.checked,"evt")
-    if(evt.checked){
-      this.renderingData.forEach((c:any) =>{
-        c.checked = evt.checked
-  
-        this.selectedCheckboxIds = this.followupIds;  
-        localStorage.setItem('allSelectedCheckBoxes',JSON.stringify(true))
-  
-      })
-
+  checkUncheckAll(evt: any, data: any) {
+    console.log(evt.checked, 'evt');
+    if (evt.checked) {
+      this.renderingData.forEach((c: any) => {
+        c.checked = evt.checked;
+      
+      });
+      this.followupIds.forEach((element:any) => {
+        
+      });
+      this.selectedCheckboxIds = this.followupIds;
+      console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
+      console.log(this.renderingData,"checked items");
       this.checkBoxData();
+    } else {
+      if (evt.checked == false) {
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.selectedCheckboxIds = [];
+        });
+      }
     }
-   else{
-    if(evt.checked==false){
-      this.renderingData.forEach((c:any) =>{
-        c.checked = false
-        localStorage.setItem('allSelectedCheckBoxes',JSON.stringify(false))
-        this.selectedCheckboxIds = [];
-  
-      })
-   }
-  
-  }}
-  
-  isAllSelected(evt:any, index:any,lead_name:any) {
-    this.selectedLeadName=lead_name
-      this.renderingData[index].checked = evt.checked
-      this.checkAll = this.renderingData.every((item:any) => item.checked == true);
   }
-  
 
+  isAllSelected(evt: any, index: any, lead_name: any) {
+    this.selectedLeadName = lead_name;
+    // console.log(index,l_id,"id","lead_id");
+    
+    this.renderingData[index].checked = evt.checked;
+    this.checkAll = this.renderingData.every(
+      (item: any) => item.checked == true
+    );
+  }
 
   selectAll1(event: any, data: any) {
-   
     // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
-      this.renderingData.forEach((element: any,index:any) => {
+      this.renderingData.forEach((element: any, index: any) => {
         if (element) {
-          
           element.checked = true;
-          
-          this.selectedCheckboxIds = this.followupIds;
 
-          
+          this.selectedCheckboxIds = this.followupIds;
         }
       });
       console.log(this.selectedCheckboxIds, 'allleaids');
@@ -982,11 +990,10 @@ checkedCheckbox:boolean=false;
       console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
-    
       this.renderingData.forEach((element: any) => {
         if (element) {
           element.checked = false;
-          
+
           if (element.checked == false) {
             this.selectedCheckboxIds = [];
           }
@@ -996,15 +1003,7 @@ checkedCheckbox:boolean=false;
   }
   onPageChangeNew(event: any) {
     // this.isSelectedcheckBox=JSON.parse(localStorage.getItem("allSelectedCheckBoxes" ))
-    console.log( typeof this.isSelectedcheckBox,"this.isSelectedcheckBox with pagination");
-    
-    if(this.isSelectedcheckBox==true){
-      this.checkAll=true
-    }
-    else{
-      this.checkAll=false
-    }
-   
+
     event.pageIndex += 1;
     let pageDataKeyValue = [
       { key: 'page', value: event.pageIndex },
@@ -1020,24 +1019,16 @@ checkedCheckbox:boolean=false;
         element['value']
       );
       this.updateAPIURL = value;
-
     });
     console.log(this.updateAPIURL, 'pagination');
     
- 
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 
-   
-   
-     
-    
-    
     // this.APICAll();
+
+   
     this.ngOnInit();
-    
+   
   }
-
-
-  
 }

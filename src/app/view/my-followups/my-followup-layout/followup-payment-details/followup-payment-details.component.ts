@@ -32,7 +32,7 @@ export class FollowupPaymentDetailsComponent implements OnInit {
   }
  initForm(){
   this.paymentForm = this.fb.group({
-    amount:['',[Validators.required]],
+    amount:['',[Validators.required,Validators.pattern(/^\d*(?:[.,]\d{1,2})?$/)]],
     channel:['',[Validators.required]]
   })
  }
@@ -80,4 +80,11 @@ export class FollowupPaymentDetailsComponent implements OnInit {
   }
   
 
+
+  validateKeyPress(event: KeyboardEvent) {
+    // Prevent entry of '-' (minus sign)
+    if (event.key === '-' || event.key === '+' || event.key==='e') {
+      event.preventDefault();
+    }
+  }
 }

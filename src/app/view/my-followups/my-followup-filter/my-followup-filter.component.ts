@@ -44,6 +44,11 @@ export class MyFollowupFilterComponent implements OnInit {
       private bottomsheet: MatBottomSheet
       ) {
         this.role=localStorage.getItem('user_role');
+        console.log(data,"data from card component");
+
+       
+       
+        
         // this.sendData();
         
       }
@@ -51,6 +56,9 @@ export class MyFollowupFilterComponent implements OnInit {
     updateFilterByStatusURL:any = null;
   
     ngOnInit(): void {
+     
+
+   
 
       this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL()
 
@@ -192,10 +200,15 @@ export class MyFollowupFilterComponent implements OnInit {
     }
 
 
+
+
+
   filterCount:any=[]
   filtered:boolean=false;
+  filterFollowupValues:any;
       onSubmit() {
         // console.log("updated url==>", this.updateFilterByStatusURL);
+        this.filterFollowupValues=this.filterLead.value
 
         console.log(this.filterLead.value);
 
@@ -211,7 +224,9 @@ export class MyFollowupFilterComponent implements OnInit {
         nonEmptyKeys.forEach(key => {
           console.log(nonEmptyKeys.length,"nonemptykeys.length");
           this.filterCount=nonEmptyKeys.length;
+         
           const value = this.filterLead.value[key];
+          this.filterFollowupValues=value
             console.log(`Key: ${key}, Value: ${value}`);
             console.log(value.length,"no of filters applied")
             

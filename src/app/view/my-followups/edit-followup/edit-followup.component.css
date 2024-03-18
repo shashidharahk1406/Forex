@@ -55,3 +55,14 @@ mat-dialog-content{
     border: none !important;
     outline: none !important;
 }
+
+
+
+
+/* .myMatOptions{  position: absolute;  top: 30vh;  left: 30vw; }
+::ng-deep .cdk-overlay-container{left: 30vw;}
+::ng-deep .cdk-overlay-pane { left:0 !important; transform:none !important;}
+::ng-deep .mat-select-panel{left: 0} */
+  
+.myMatOptions{  position: absolute; }
+::ng-deep .cdk-overlay-pane {  transform:none !important;}
