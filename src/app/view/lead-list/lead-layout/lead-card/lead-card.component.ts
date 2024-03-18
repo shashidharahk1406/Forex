@@ -348,6 +348,7 @@ export class LeadCardComponent implements OnInit {
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
     this._addLeadEmitter.leadFilter.next('')
+    this._addLeadEmitter.selectedFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
     this.getLeadIds()

@@ -40,6 +40,22 @@ queryItems: any;
   ngOnInit(): void {
     this.dropdownvalues()
     this.initForm() 
+    this._addLeadEmitter.selectedFilter.subscribe((res:any)=>{
+      if(res){
+        this.filterLead.patchValue({
+          counsellor_id:res.counsellor_id,
+          counselled_by:res.counselled_by,
+          campaign_id:res.campaign_id,
+          channel_id:res.channel_id,
+          source_id:res.source_id,
+          department_id:res.department_id,
+          course_id:res.course_id,
+          stream_id:res.stream_id,
+          city_id:res.city_id,
+          year_of_passing:res.year_of_passing
+        }) 
+      }
+    })
   }
   get f() {
     return this.filterLead.controls;
@@ -176,7 +192,7 @@ queryItems: any;
       filterParams = `&${queryParams.join('&')}`
      }
     this._addLeadEmitter.leadFilter.next(apiUrl)
-    this._addLeadEmitter.selectedFilter.next(filterParams)
+    this._addLeadEmitter.selectedFilter.next(this.filterLead.value)
      this._addLeadEmitter.triggerFilter() 
      this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL
