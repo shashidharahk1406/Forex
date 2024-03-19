@@ -940,39 +940,39 @@ export class MyFollowupCardContentComponent implements OnInit {
     });
   }
 
-  checkUncheckAll(evt: any, data: any) {
-    console.log(evt.checked, 'evt');
-    if (evt.checked) {
-      this.renderingData.forEach((c: any) => {
-        c.checked = evt.checked;
+  // checkUncheckAll(evt: any, data: any) {
+  //   console.log(evt.checked, 'evt');
+  //   if (evt.checked) {
+  //     this.renderingData.forEach((c: any) => {
+  //       c.checked = evt.checked;
       
-      });
-      this.followupIds.forEach((element:any) => {
+  //     });
+  //     this.followupIds.forEach((element:any) => {
         
-      });
-      this.selectedCheckboxIds = this.followupIds;
-      console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
-      console.log(this.renderingData,"checked items");
-      this.checkBoxData();
-    } else {
-      if (evt.checked == false) {
-        this.renderingData.forEach((c: any) => {
-          c.checked = false;
-          this.selectedCheckboxIds = [];
-        });
-      }
-    }
-  }
+  //     });
+  //     this.selectedCheckboxIds = this.followupIds;
+  //     console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
+  //     console.log(this.renderingData,"checked items");
+  //     this.checkBoxData();
+  //   } else {
+  //     if (evt.checked == false) {
+  //       this.renderingData.forEach((c: any) => {
+  //         c.checked = false;
+  //         this.selectedCheckboxIds = [];
+  //       });
+  //     }
+  //   }
+  // }
 
-  isAllSelected(evt: any, index: any, lead_name: any) {
-    this.selectedLeadName = lead_name;
-    // console.log(index,l_id,"id","lead_id");
+  // isAllSelected(evt: any, index: any, lead_name: any,lead_id:any) {
+  //   this.selectedLeadName = lead_name;
+  //   // console.log(index,l_id,"id","lead_id");
     
-    this.renderingData[index].checked = evt.checked;
-    this.checkAll = this.renderingData.every(
-      (item: any) => item.checked == true
-    );
-  }
+  //   this.renderingData[index].checked = evt.checked;
+  //   this.checkAll = this.renderingData.every(
+  //     (item: any) => item.checked == true
+  //   );
+  // }
 
   selectAll1(event: any, data: any) {
     // console.log(data,"EVENT data")
