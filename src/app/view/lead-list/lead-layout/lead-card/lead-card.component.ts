@@ -120,7 +120,7 @@ export class LeadCardComponent implements OnInit {
     // })
     this._addLeadEmitter.leadFilter.subscribe((res) => {
       if (res) {
-        //console.log(res, "RES");
+        console.log(res, "RES");
         this.leadFilter = true;
         this.filterLeads(res);
       }
@@ -218,13 +218,12 @@ export class LeadCardComponent implements OnInit {
    }
    filterLeads(apiUrl:any){
     this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
-      if(res.results.length >0){
-        // this.api.showSuccess(res.message)
-      }
-      if(res.results.length === 0){
-        this._addLeadEmitter.leadFilter.next('')
-      }
+     
+      // if(res.results.length === 0){
+      //   this._addLeadEmitter.leadFilter.next('')
+      // }
       if(res){
+        this.leadFilter = true
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         // this.allLeadCardsDataSource.paginator = this.allPaginator;
@@ -287,7 +286,7 @@ export class LeadCardComponent implements OnInit {
       }
      
         else if(this.leadFilter){
-          this._addLeadEmitter.selectedFilter.subscribe((res) => {
+          this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query += res
               
@@ -301,7 +300,7 @@ export class LeadCardComponent implements OnInit {
         query += `&filter_by=${this.sortingType}`;
       }else{
         if(this.leadFilter){
-          this._addLeadEmitter.selectedFilter.subscribe((res) => {
+          this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query += res
               

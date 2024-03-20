@@ -11,7 +11,7 @@ export class CommonServiceService implements OnInit {
 
   // Regular expression for mobile number validation (exactly 10 digits, no leading spaces)
   readonly mobilePattern = /^[0-9]{10}$/;
-  readonly amountPattern = /^[1-9][0-9]*\.?[0-9]*$/;
+  readonly amountPattern = /^[1-9][0-9]*(\.[0-9]{1,2})?$/;
   readonly emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
   //readonly emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?$/
   readonly execlPattern = /\.xlsx?$/i

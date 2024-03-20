@@ -165,6 +165,13 @@ ngOnInit() {
     icon:'bi bi-person-fill-gear',
     hidden:true
     },
+    ,
+    {
+    page:'Request Reports',
+    path:'/request-report',
+    icon:'bi bi-graph-up-arrow',
+    hidden:true
+    },
     {
     page:'Settings',
     path:'/settings',

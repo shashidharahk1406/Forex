@@ -1,0 +1,92 @@
+<mat-card class="position-rel">
+<form [formGroup]="reportForm">
+<div class="row">
+    <div class="col report-type">
+        <h6 class="mb-4 ms-4">Report Type</h6>
+        <div class="hc-50">
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group text-start"
+            formControlName="reportType">
+              <li>
+                <ul *ngFor="let items of reportType">
+                    <mat-radio-button color="primary"   [value]="items" (click)="selectedReports(items)">{{items}}</mat-radio-button>
+                    
+                    <div>
+                        <li *ngIf="items === 'Lead Stage Report' && show ">
+                            <ul *ngFor="let items of leadStage" class="mt-3">
+                                <mat-radio-button color="primary" class="example-radio-button"  [value]="items.id" >{{items.name}}</mat-radio-button>
+                            </ul>
+                          </li>
+                          <!-- <button mat-raised-button >Close</button> -->
+                    </div>
+                      
+                </ul>
+              
+            
+              </li>
+              
+          
+          </mat-radio-group>
+        </div>
+    
+    </div>
+    
+    <div class="col">
+        <div class="row">
+            <div class="col-12">
+                <h6 class="mt-3">Filter By Counselor</h6>
+                <div >
+                
+                   <mat-form-field class="mb-1" appearance="outline">
+                    <mat-label>Counselor Name</mat-label>
+                    <mat-select formControlName="counselorName" placeholder="Select State" multiple>
+                      <mat-option *ngFor="let option of referredTo" [value]="option.id">{{ option.first_name }}</mat-option>
+                    </mat-select>
+                    <button
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="clearSelectField('counselorName')"
+                    *ngIf="f['counselorName']?.value"
+                    >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  </mat-form-field>
+                
+                </div>  
+            </div>
+        </div>
+        <h6>Date Range</h6>
+        <div>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>Start Date</mat-label>
+                        <input formControlName="startDate" matInput [matDatepicker]="startDate" placeholder="DD/MM/YYYY" [max]="max">
+                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                      </mat-form-field>
+
+                </div>
+                
+                <div class="col-6">
+                    <mat-form-field class="mb-1" appearance="outline">
+                        <mat-label>End Date</mat-label>
+                        <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="DD/MM/YYYY" [max]="max" [min]="reportForm.value.startDate">
+                        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate></mat-datepicker>
+                      </mat-form-field>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <button mat-raised-button color="primary" >Request Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+</mat-card>

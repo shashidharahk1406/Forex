@@ -54,7 +54,7 @@ export class EditStreamComponent implements OnInit {
       this.editForm.markAllAsTouched()
     }
     else{
-      this.baseService.postData(`${environment.studying_stream}`,this.editForm.value).subscribe(
+      this.baseService.updateData(`${environment.studying_stream}`,this.editForm.value).subscribe(
         (resp:any)=>{
           this.emit.sendRefresh(true)
           this.dialogRef.close()

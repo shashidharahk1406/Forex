@@ -104,7 +104,7 @@ export class StreamListComponent implements OnInit {
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
-    let query = `?page_size=${this.pageSize}&page=${this.currentPage}`
+    let query = `page_size=${this.pageSize}&page=${this.currentPage}`
     if(this.searchValue?.length>0){
       query +=`&key=${this.searchValue}`
     }

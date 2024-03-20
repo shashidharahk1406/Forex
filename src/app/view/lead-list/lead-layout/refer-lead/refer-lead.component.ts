@@ -85,9 +85,10 @@ export class ReferLeadComponent implements OnInit {
         let formData:any = {}
       const f = this.referLeadForm.value;
       if(this.data.leadId){
+        let counselor = f.referTo.length > 0 ? f.referTo:[f.referTo]
         formData= {
           lead_list: this.data.leadId,
-          counsellor_ids: f.referTo,
+          counsellor_ids: counselor,
           comment:f.comment
          }
       }

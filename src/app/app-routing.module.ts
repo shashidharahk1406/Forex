@@ -79,6 +79,9 @@ const routes: Routes = [
       path:'report', loadChildren:()=>import('./view/report/report.module').then(m =>m.ReportModule)
     },
     {
+      path:'request-report', loadChildren:()=>import('./view/request-report/request-report.module').then(m =>m.RequestReportModule)
+    },
+    {
       path: 'transaction', 
       component:TransactionDetailsComponent
     },

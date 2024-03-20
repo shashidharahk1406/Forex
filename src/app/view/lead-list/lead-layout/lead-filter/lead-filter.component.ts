@@ -159,10 +159,17 @@ queryItems: any;
   }
 
   onSubmit() {
-    if (this.filterLead.invalid) {
-      this.filterLead.markAllAsTouched()
-      this.api.showError('Please Fill the Mandatory Fields')
+    if (this.isFormEmpty(this.filterLead.value)) {
+      this.filterLead.markAllAsTouched();
+      this.api.showError('Please select at least one field');
+      this.filterLead.reset()
+      this._addLeadEmitter.leadFilter.next('') 
+      this._addLeadEmitter.selectedFilter.next('')
+      this._addLeadEmitter.leadFilterIcon.next('false')
+   
+
     } else{
+   
      const formValues = this.filterLead.value;
      console.log(formValues,"formValues")
      // Create an array of query parameters with non-empty values
@@ -201,7 +208,21 @@ queryItems: any;
 
    
   }
-  
+  reset(){
+   this.filterLead.reset()
+   this._addLeadEmitter.leadFilter.next('') 
+   this._addLeadEmitter.selectedFilter.next('')
+   this._addLeadEmitter.leadFilterIcon.next('false')
+   this._addLeadEmitter.triggerGet()
+  }
+  isFormEmpty(formValues: any): boolean {
+    for (const key in formValues) {
+      if (formValues[key] !== null) {
+        return false;
+      }
+    }
+    return true;
+  }
   initForm(){
     this.filterLead = this.fb.group({
       counsellor_id:[''],
