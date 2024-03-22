@@ -35,7 +35,7 @@ export class WhatsappViewTemplateComponent implements OnInit {
   }
   initFilter(){
     this.editForm = this._fb.group({
-      name: ['',[Validators.required]],
+      name: [''],
       message: ['',[Validators.required]],
       template_category_id: ['',[Validators.required]],
       language_id: [null],
@@ -100,4 +100,5 @@ export class WhatsappViewTemplateComponent implements OnInit {
     }
 
   }
+  
 }

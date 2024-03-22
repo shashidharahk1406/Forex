@@ -211,20 +211,17 @@
           </div>
         </div>
       </div>
-      <div class="col" *ngIf="filtered && renderingData.length === 0">
+      <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
         <button mat-raised-button (click)="refreshFollowUps()" class="go-back">
           <i class="bi bi-arrow-left-circle-fill"></i> GO BACK
         </button>
-      </div>
+      </div> -->
     </mat-card>
     <div class="row">
       <div class="col">
         <mat-checkbox
           class=""
-          *ngIf="
-            (renderingData | filter : followupSearch)?.length > 0;
-            else noResultsSection
-          "
+          
           (change)="selectAll($event, renderingData)"
           class="ms-4"
           [checked]="checkAll"
@@ -886,8 +883,9 @@
             type="search"
             class="form-control icon-rtl"
             placeholder="Search by Name/Mobile"
-            [(ngModel)]="followupSearch"
+            [(ngModel)]="tempSearch"
             (input)="getSearchValue($event)"
+          
           />
 
           <mat-calendar

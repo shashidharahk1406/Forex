@@ -45,12 +45,13 @@
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef >Option</th>
         <td mat-cell *matCellDef="let element">        <div ngbDropdown #myDropdown="ngbDropdown">
-          <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-             <div class="app-list" ngbDropdownToggle   (click)="openDelete(element.id)">
-              <mat-icon class="more-inner-icon" data-bs-toggle="modal">delete</mat-icon> Delete
-             </div>
-            </div>
+          <div class="app-list" ngbDropdownToggle   (click)="openDelete(element.id)" title="Delete">
+            <mat-icon class="more-inner-icon" data-bs-toggle="modal">delete</mat-icon> 
+           </div>
+          <!-- <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon> -->
+            <!-- <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
+           
+            </div> -->
           </div></td>
       </ng-container>
     

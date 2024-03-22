@@ -51,6 +51,7 @@ export class TemplateListComponent implements AfterViewInit  {
       (resp:any)=>{
         if(resp==true){
           this.getTemplate(); 
+          localStorage.removeItem('whatsappFilter')
         }
       }
     )
@@ -58,7 +59,9 @@ export class TemplateListComponent implements AfterViewInit  {
       (resp:any)=>{
        
           this.params=resp
+          localStorage.removeItem('whatsappFilter')
           this.getTemplate(); 
+
           
         
       }

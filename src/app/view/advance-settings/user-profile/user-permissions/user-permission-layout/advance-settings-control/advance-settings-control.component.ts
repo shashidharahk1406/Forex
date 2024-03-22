@@ -129,6 +129,7 @@ edit(){
         this.emit.sendRefresh(true)
         // this.dialogRef.close()
         this.api.showSuccess(resp.message)
+        this.goBack()
       },
       (error:any)=>{
         //console.log(error);

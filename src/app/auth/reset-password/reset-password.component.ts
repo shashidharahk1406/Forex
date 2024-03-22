@@ -74,11 +74,12 @@ export class ResetPasswordComponent implements OnInit {
 		//console.log(this.forgotForm.get('new_password')?.value);
 		
 if(this.forgotForm.invalid){
-	this.error=true
-	this.forgotForm.markAsTouched()
+	// this.error=true
+	this.forgotForm.markAllAsTouched()
 }
 else{
 	if(this.forgotForm.get('new_password')?.value === this.forgotForm.get('confirm_password')?.value){
+		this.error=true
 		this.api.sendNewPassword(this.id,this.forgotForm.value).subscribe(
 			(resp:any)=>{
 				this.route.navigate(['/login'])

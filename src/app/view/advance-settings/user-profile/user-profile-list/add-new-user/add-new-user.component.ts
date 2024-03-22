@@ -74,7 +74,7 @@ onSelectionChange(event: any): void {
       };
       this.newArr.push(data);
     }
-  });
+  }); 
 
   // Remove deselected items
   this.newArr = this.newArr.filter((item: any) => {
@@ -86,6 +86,8 @@ onChange(event:any){
   this.is_allow_for_app=event.checked
   
 }
+
+
 
   getAllDepartment(){
     this.api.getAllDepartment().subscribe(
@@ -147,10 +149,17 @@ onChange(event:any){
     )
   }
 submit(){
-  this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
-  this.addForm.patchValue({created_by:Number(this.user_id)})
-  this.addForm.patchValue({reporting_to_ids:this.newArr})
+  // this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
+  // this.addForm.patchValue({created_by:Number(this.user_id)})
+  // this.addForm.patchValue({reporting_to_ids:this.newArr})
+  this.addForm.patchValue({
+    is_allow_for_app: this.is_allow_for_app,
+    created_by: Number(this.user_id),
+    reporting_to_ids: this.newArr  // Assuming this.newArr contains selected values
+  });
   if(this.addForm.invalid){
+    this.addForm.markAllAsTouched()
+    return
     //console.log("==Invalid==");
     
   }

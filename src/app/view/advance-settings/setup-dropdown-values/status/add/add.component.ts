@@ -23,9 +23,9 @@ export class AddComponent implements OnInit {
   }
   initFilter(){
     this.addForm = this._fb.group({
-      status_name:['',[Validators.required,Validators.pattern(/^[A-Za-z0-9\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/)]],
-      status_group_id:['',[Validators.required]],
-      master_status_id:['',[Validators.required]],
+      name:['',[Validators.required,Validators.pattern(/^[A-Za-z0-9\s!"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]*$/)]],
+      // status_group_id:['',[Validators.required]],
+      // master_status_id:['',[Validators.required]],
       is_active:[true],
       is_system_value:[true],
     })

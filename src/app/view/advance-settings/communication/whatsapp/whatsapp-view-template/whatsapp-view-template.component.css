@@ -26,3 +26,7 @@ textarea{
    width: 100%;
 
 }
+
+::ng-deep .custom-class .mat-form-field-outline  {
+    display: none !important;
+  }

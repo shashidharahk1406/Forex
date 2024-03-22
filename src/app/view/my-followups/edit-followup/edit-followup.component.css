@@ -66,3 +66,12 @@ mat-dialog-content{
   
 .myMatOptions{  position: absolute; }
 ::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+#showCursor:hover{
+cursor: pointer;
+}
+
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}

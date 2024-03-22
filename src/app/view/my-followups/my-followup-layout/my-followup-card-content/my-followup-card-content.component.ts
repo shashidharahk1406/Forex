@@ -129,6 +129,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       if (data != null) {
         console.log(data);
         this.refreshFollowUps();
+
       }
     });
   }
@@ -408,11 +409,17 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   filterCount: any;
   api_url: any = environment.live_url;
+  
   refreshFollowUps() {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
     this.selectedDate = null;
     this.filtered = false;
+    this.tempSearch = ''
+    // localStorage.removeItem('followUpFilter')
+    localStorage.removeItem('data.target.value')
+    console.log("updateAPIURL==>", this.updateAPIURL);
+    
 
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     this.allPaginator.pageIndex = 0;
@@ -695,7 +702,7 @@ export class MyFollowupCardContentComponent implements OnInit {
             this.renderingData.forEach((c: any) => {
               c.checked = true
               this.checkAll=true
-              localStorage.setItem('allSelectedCheckBoxes', JSON.stringify(true));
+              
             });
           }
           else{
@@ -828,8 +835,10 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.ngOnInit();
   }
 
+  tempSearch:any
   getSearchValue(data: any) {
     const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
+    localStorage.setItem('data.target.value',data.target.value)
 
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
