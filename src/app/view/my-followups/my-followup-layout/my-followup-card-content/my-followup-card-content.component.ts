@@ -427,6 +427,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     // this.ngOnInit();
     this.APICAll();
     this.selectedTab = 'All';
+    
   }
 
   addCount() {
@@ -690,12 +691,15 @@ export class MyFollowupCardContentComponent implements OnInit {
       
 
       this.totalNumberOfRecords = [];
+      this.countDataValue=[]
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
         (res: any) => {
           console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           
           this.renderingData = res.results.data;
+          this.countDataValue = res.results.data_count;
+
 
           if(this.selectedCheckboxIds.length!==0){
             console.log(this.selectedCheckboxIds,"data prsent");
@@ -722,6 +726,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     } else {
       this.totalNumberOfRecords = [];
       this.renderingData=[]
+      this.countDataValue=[]
       console.log(this.updateAPIURL,"this.updateAPIURL for admin");
       
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
@@ -729,6 +734,7 @@ export class MyFollowupCardContentComponent implements OnInit {
           console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.renderingData = res.results.data;
+          this.countDataValue = res.results.data_count;
           if(this.selectedCheckboxIds.length!==0){
             console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
@@ -1040,4 +1046,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.ngOnInit();
    
   }
+
+
+  
 }

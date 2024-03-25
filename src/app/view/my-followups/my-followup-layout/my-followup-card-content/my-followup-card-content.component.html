@@ -9,32 +9,42 @@
             (click)="getFilter('All')"
             [class.active_tab]="selectedTab === 'All'"
           >
-            <!-- All <span>({{ countDataValue?.All }})</span> -->
-            All
+            All 
+            <!-- <span>({{ countDataValue?.All }})</span> -->
+            
           </p>
           <p
             style="margin-right: 10px; color: orange"
             (click)="getFilter('Upcoming')"
             [class.active_tab]="selectedTab === 'Upcoming'"
           >
-            <!-- Upcoming ({{ countDataValue?.Upcoming }}) -->
             Upcoming
+             <!-- <span>
+              ({{ countDataValue?.Upcoming }})
+            </span> -->
+            
           </p>
           <p
             style="margin-right: 10px; color: green"
             (click)="getFilter('Done')"
             [class.active_tab]="selectedTab === 'Done'"
           >
-            <!-- Done ({{ countDataValue?.Done }}) -->
-            Done
+            Done  
+             <!-- <span>
+              ({{ countDataValue?.Done }})
+            </span>  -->
+            
           </p>
           <p
             style="margin-right: 10px; color: red"
             (click)="getFilter('Missed')"
             [class.active_tab]="selectedTab === 'Missed'"
           >
-            <!-- Missed ({{ countDataValue?.Missed }}) -->
-            Missed
+            Missed 
+            <!-- <span>
+              ({{ countDataValue?.Missed }})
+            </span> -->
+            
           </p>
         </div>
 
@@ -226,7 +236,8 @@
           class="ms-4"
           [checked]="checkAll"
           ><div style="font-size: 12px" class="ps-3">
-            SELECT ALL <span >({{totalNumberOfRecords}})</span> 
+            SELECT ALL 
+            <span >({{totalNumberOfRecords}})</span> 
           </div></mat-checkbox
         >
       </div>
