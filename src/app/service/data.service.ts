@@ -1,33 +1,46 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { log } from 'console';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
+  api_url: any = environment.live_url;
+  public isAllChecked: boolean = false;
 
-  api_url:any =  environment.live_url;
-  public isAllChecked:boolean=false;
+  filteredData = {
+    counsellor_id: '',
+    // campaign_id:[''],
+    // channel_id:[''],
+    source_id: '',
+    // department_id:[''],
+    stream_id: '',
+    course_id: '',
+    city_id: '',
+    // follow_up_status:[''],
+    counselled_by: '',
+  };
 
+  private filteredValues = new BehaviorSubject<any>(this.filteredData);
+  public filteredValuesData$ = this.filteredValues.asObservable();
 
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
-  constructor() { }
+  constructor() {}
   private sharedData: any;
 
-
-  url:any = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
-  setFilteredFollowUpURL(url:string){
-    this.url = url
+  url: any = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
+  setFilteredFollowUpURL(url: string) {
+    this.url = url;
   }
 
-  getFollowupfilterURL(){
-    return this.url
+  getFollowupfilterURL() {
+    return this.url;
   }
 
-
-  setSharedData(...args : any[]): void {
+  setSharedData(...args: any[]): void {
     this.sharedData = args;
   }
 
@@ -36,7 +49,6 @@ export class DataService {
   }
   dataUpdated = new EventEmitter<any>();
 
-
   sendData(data: any) {
     this.dataSubject.next(data);
   }
@@ -44,17 +56,37 @@ export class DataService {
     this.dataSubject.next(null);
   }
 
-renderingFilterData:any=[]
-  setFormDataFollowupFilter(data:any){
-this.renderingFilterData=data
+  renderingFilterData: any = [];
+  setFormDataFollowupFilter(data: any) {
+    this.renderingFilterData = data;
   }
 
-  getFormDataFollowupFilter(){
-    return this.renderingFilterData
-      }
+  getFormDataFollowupFilter() {
+    return this.renderingFilterData;
+  }
+
+  patchedFilteredValues: any = [];
 
 
+  getfiletredFormValues() {
+    return this.filteredData;
+  }
 
-
+  setFilteredFormValues(data: any) {
+    console.log(data,"data in set filterde values");
+    
+    this.filteredData.counsellor_id = data.counsellor_id;
+    console.log(this.filteredData.counsellor_id,"this.filteredData.counsellor_id ");
+    
+    this.filteredData.counselled_by = data.counselled_by;
+    this.filteredData.source_id = data.source_id;
+    this.filteredData.stream_id = data.stream_id;
+    this.filteredData.stream_id=data.stream_id
+    this.filteredData.city_id=data.city_id
+  }
   
-}
+  }
+
+ 
+  
+

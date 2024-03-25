@@ -1,7 +1,7 @@
 <div class="head-container">
     <h1><span class="h1-set-header" routerLink="/advancesettings">Advance Settings  <i class="bi bi-chevron-right"></i> </span>
       <span class="h1-set-header" routerLink="/advancesettings/communication">Template Settings  <i class="bi bi-chevron-right"></i></span>
-      <span>Whatsapp Templates</span>
+      <span>Templates</span>
     </h1>
 </div>
    
@@ -22,7 +22,7 @@
           </div>
         </i> -->
         <!-- <i (click)="openCreateTemplate()"  data-bs-toggle="tooltip"  title="Add Template" class="bi bi-plus-circle "></i> -->
-        <mat-icon data-bs-toggle="tooltip"  title="Add Status" (click)="openCreateTemplate()"  class="more-inner-icon"> format_list_bulleted_add</mat-icon>
+        <mat-icon data-bs-toggle="tooltip"  title="Add Template" (click)="openCreateTemplate()"  class="more-inner-icon"> format_list_bulleted_add</mat-icon>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
@@ -67,16 +67,16 @@
         <div ngbDropdown #myDropdown="ngbDropdown">
           <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-             <div class="app-list" ngbDropdownToggle (click)="openDuplicateTemplate(element)">
+             <div class="app-list" ngbDropdownToggle (click)="openDuplicateTemplate(element)" style="cursor: pointer;">
               <mat-icon class="more-inner-icon">library_books</mat-icon>Duplicate
               <!-- <mat-icon class="more-inner-icon"><span class="material-icons">
                 content_copy_filled
                 </span></mat-icon> Duplicate -->
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openView(element.id)">
+             <div class="app-list" ngbDropdownToggle (click)="openView(element.id)" style="cursor: pointer;">
               <mat-icon class="more-inner-icon">visibility</mat-icon> View
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id)">
+             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id)" style="cursor: pointer;">
               <mat-icon class="more-inner-icon">delete</mat-icon> Delete
              </div>
              <!-- <div class="app-list"ngbDropdownToggle>

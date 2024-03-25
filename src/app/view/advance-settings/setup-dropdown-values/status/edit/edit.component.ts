@@ -30,9 +30,9 @@ export class EditComponent implements OnInit {
   }
   initFilter(){
     this.editForm = this._fb.group({
-      status_name:['',[Validators.required]],
-      status_group_id:['',[Validators.required]],
-      master_status_id:['',[Validators.required]],
+      name:['',[Validators.required]],
+      // status_group_id:['',[Validators.required]],
+      // master_status_id:['',[Validators.required]],
       is_active:[true],
       is_system_value:[true],
 
@@ -44,10 +44,12 @@ export class EditComponent implements OnInit {
   getStatusbyId(){
     this.api.getStatusById(this.status_id).subscribe(
       (resp:any)=>{
+        console.log(resp,"resp by id");
+        
         //console.log(resp.result[0].status_group_id);
-        this.editForm.patchValue({status_name:resp.result[0].status_name})
-        this.editForm.patchValue({status_group_id:resp.result[0].status_group_id})
-        this.editForm.patchValue({master_status_id:resp.result[0].master_status_id})
+        this.editForm.patchValue({name:resp.result[0].name})
+        // this.editForm.patchValue({status_group_id:resp.result[0].status_group_id})
+        // this.editForm.patchValue({master_status_id:resp.result[0].master_status_id})
         this.editForm.patchValue({is_active:resp.result[0].is_active})
         this.editForm.patchValue({is_system_value:resp.result[0].is_system_value})
 

@@ -186,7 +186,7 @@ ngOnInit() {
     // key:'adv_comm_sett'
     },
     {
-      page:'Report',
+      page:'Request Report',
       path:'report',
       icon:'bi bi-graph-up-arrow',
       hidden:true

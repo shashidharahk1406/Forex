@@ -32,3 +32,8 @@ textarea{
     overflow-y: visible !important;
 
 }
+
+.required:after {
+    content:" *";
+    color: red;
+  }

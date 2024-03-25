@@ -101,6 +101,7 @@ export class LoginComponent implements OnInit {
 				// localStorage.setItem('Communications',resp.permissions[1].children_status[2].access_status)
 				
 				localStorage.setItem('user_role',decodedToken.user_role)
+				localStorage.setItem('username',decodedToken.username)
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()

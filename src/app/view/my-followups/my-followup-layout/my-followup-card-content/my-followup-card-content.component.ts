@@ -129,6 +129,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       if (data != null) {
         console.log(data);
         this.refreshFollowUps();
+
       }
     });
   }
@@ -408,11 +409,17 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   filterCount: any;
   api_url: any = environment.live_url;
+  
   refreshFollowUps() {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
     this.selectedDate = null;
     this.filtered = false;
+    this.tempSearch = ''
+    // localStorage.removeItem('followUpFilter')
+    localStorage.removeItem('data.target.value')
+    console.log("updateAPIURL==>", this.updateAPIURL);
+    
 
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     this.allPaginator.pageIndex = 0;
@@ -420,6 +427,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     // this.ngOnInit();
     this.APICAll();
     this.selectedTab = 'All';
+    
   }
 
   addCount() {
@@ -683,19 +691,22 @@ export class MyFollowupCardContentComponent implements OnInit {
       
 
       this.totalNumberOfRecords = [];
+      this.countDataValue=[]
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
         (res: any) => {
           console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           
           this.renderingData = res.results.data;
+          this.countDataValue = res.results.data_count;
+
 
           if(this.selectedCheckboxIds.length!==0){
             console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
               c.checked = true
               this.checkAll=true
-              localStorage.setItem('allSelectedCheckBoxes', JSON.stringify(true));
+              
             });
           }
           else{
@@ -715,6 +726,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     } else {
       this.totalNumberOfRecords = [];
       this.renderingData=[]
+      this.countDataValue=[]
       console.log(this.updateAPIURL,"this.updateAPIURL for admin");
       
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
@@ -722,6 +734,7 @@ export class MyFollowupCardContentComponent implements OnInit {
           console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.renderingData = res.results.data;
+          this.countDataValue = res.results.data_count;
           if(this.selectedCheckboxIds.length!==0){
             console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
@@ -828,8 +841,10 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.ngOnInit();
   }
 
+  tempSearch:any
   getSearchValue(data: any) {
     const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
+    localStorage.setItem('data.target.value',data.target.value)
 
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
@@ -940,39 +955,39 @@ export class MyFollowupCardContentComponent implements OnInit {
     });
   }
 
-  checkUncheckAll(evt: any, data: any) {
-    console.log(evt.checked, 'evt');
-    if (evt.checked) {
-      this.renderingData.forEach((c: any) => {
-        c.checked = evt.checked;
+  // checkUncheckAll(evt: any, data: any) {
+  //   console.log(evt.checked, 'evt');
+  //   if (evt.checked) {
+  //     this.renderingData.forEach((c: any) => {
+  //       c.checked = evt.checked;
       
-      });
-      this.followupIds.forEach((element:any) => {
+  //     });
+  //     this.followupIds.forEach((element:any) => {
         
-      });
-      this.selectedCheckboxIds = this.followupIds;
-      console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
-      console.log(this.renderingData,"checked items");
-      this.checkBoxData();
-    } else {
-      if (evt.checked == false) {
-        this.renderingData.forEach((c: any) => {
-          c.checked = false;
-          this.selectedCheckboxIds = [];
-        });
-      }
-    }
-  }
+  //     });
+  //     this.selectedCheckboxIds = this.followupIds;
+  //     console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
+  //     console.log(this.renderingData,"checked items");
+  //     this.checkBoxData();
+  //   } else {
+  //     if (evt.checked == false) {
+  //       this.renderingData.forEach((c: any) => {
+  //         c.checked = false;
+  //         this.selectedCheckboxIds = [];
+  //       });
+  //     }
+  //   }
+  // }
 
-  isAllSelected(evt: any, index: any, lead_name: any) {
-    this.selectedLeadName = lead_name;
-    // console.log(index,l_id,"id","lead_id");
+  // isAllSelected(evt: any, index: any, lead_name: any,lead_id:any) {
+  //   this.selectedLeadName = lead_name;
+  //   // console.log(index,l_id,"id","lead_id");
     
-    this.renderingData[index].checked = evt.checked;
-    this.checkAll = this.renderingData.every(
-      (item: any) => item.checked == true
-    );
-  }
+  //   this.renderingData[index].checked = evt.checked;
+  //   this.checkAll = this.renderingData.every(
+  //     (item: any) => item.checked == true
+  //   );
+  // }
 
   selectAll1(event: any, data: any) {
     // console.log(data,"EVENT data")
@@ -1031,4 +1046,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.ngOnInit();
    
   }
+
+
+  
 }

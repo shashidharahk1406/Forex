@@ -9,32 +9,42 @@
             (click)="getFilter('All')"
             [class.active_tab]="selectedTab === 'All'"
           >
-            <!-- All <span>({{ countDataValue?.All }})</span> -->
-            All
+            All 
+            <!-- <span>({{ countDataValue?.All }})</span> -->
+            
           </p>
           <p
             style="margin-right: 10px; color: orange"
             (click)="getFilter('Upcoming')"
             [class.active_tab]="selectedTab === 'Upcoming'"
           >
-            <!-- Upcoming ({{ countDataValue?.Upcoming }}) -->
             Upcoming
+             <!-- <span>
+              ({{ countDataValue?.Upcoming }})
+            </span> -->
+            
           </p>
           <p
             style="margin-right: 10px; color: green"
             (click)="getFilter('Done')"
             [class.active_tab]="selectedTab === 'Done'"
           >
-            <!-- Done ({{ countDataValue?.Done }}) -->
-            Done
+            Done  
+             <!-- <span>
+              ({{ countDataValue?.Done }})
+            </span>  -->
+            
           </p>
           <p
             style="margin-right: 10px; color: red"
             (click)="getFilter('Missed')"
             [class.active_tab]="selectedTab === 'Missed'"
           >
-            <!-- Missed ({{ countDataValue?.Missed }}) -->
-            Missed
+            Missed 
+            <!-- <span>
+              ({{ countDataValue?.Missed }})
+            </span> -->
+            
           </p>
         </div>
 
@@ -211,25 +221,23 @@
           </div>
         </div>
       </div>
-      <div class="col" *ngIf="filtered && renderingData.length === 0">
+      <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
         <button mat-raised-button (click)="refreshFollowUps()" class="go-back">
           <i class="bi bi-arrow-left-circle-fill"></i> GO BACK
         </button>
-      </div>
+      </div> -->
     </mat-card>
     <div class="row">
       <div class="col">
         <mat-checkbox
           class=""
-          *ngIf="
-            (renderingData | filter : followupSearch)?.length > 0;
-            else noResultsSection
-          "
-          (change)="checkUncheckAll($event, renderingData)"
+          
+          (change)="selectAll($event, renderingData)"
           class="ms-4"
           [checked]="checkAll"
           ><div style="font-size: 12px" class="ps-3">
-            SELECT ALL <span >({{totalNumberOfRecords}})</span> 
+            SELECT ALL 
+            <span >({{totalNumberOfRecords}})</span> 
           </div></mat-checkbox
         >
       </div>
@@ -281,7 +289,7 @@
               <div class="row">
                 <div class="col-2 d-flex align-items-center">
                   <mat-checkbox
-                    (change)="isAllSelected($event,i,followUp.lead)"
+                    (change)="onCheckboxChange($event,followUp.lead,followUp.lead_id)"
                     [checked] ="followUp.checked"
                   ></mat-checkbox>
                 </div>
@@ -886,8 +894,9 @@
             type="search"
             class="form-control icon-rtl"
             placeholder="Search by Name/Mobile"
-            [(ngModel)]="followupSearch"
+            [(ngModel)]="tempSearch"
             (input)="getSearchValue($event)"
+          
           />
 
           <mat-calendar

@@ -12,6 +12,9 @@ import { UserProfileFilterComponent } from './user-profile-filter/user-profile-f
 import { EditUserProfileListComponent } from './edit-user-profile-list/edit-user-profile-list.component';
 import { PauseUserComponent } from './pause-user/pause-user.component';
 import { UserProfilePermissionsComponent } from './user-profile-permissions/user-profile-permissions.component';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { UserProfilePermissionsComponent } from './user-profile-permissions/user
     CommonModule,
     UserProfileListRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    MatSelectModule,
+    MatFormFieldModule
+
   ]
 })
 export class UserProfileListModule { }

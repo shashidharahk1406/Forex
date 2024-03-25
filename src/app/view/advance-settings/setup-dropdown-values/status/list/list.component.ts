@@ -146,7 +146,7 @@ export class ListComponent implements AfterViewInit {
   }
   baseurl= environment.live_url;
   openDelete(id:any){
-    const apiUrl = `${this.baseurl}/api/status/${id}/`;
+    const apiUrl = `${this.baseurl}/api/lead-list-status/${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
       data:apiUrl
