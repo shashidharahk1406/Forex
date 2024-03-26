@@ -7,8 +7,10 @@
     font-size: 12px;
 }
 .lead-card-tabs .mat-tab-label-active{
-    background-color: var(--appColor);
-    color:white !important;
+    /* background-color: var(--appColor);
+     */
+     background-color: #f5bd64  !important;
+    color:#12416A !important;
     opacity: 1 !important;
     border-radius: 5px 5px 0 0 ;
 }

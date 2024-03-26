@@ -7,11 +7,12 @@ mat-icon{
 .img-container{
   width: 100%;
   height: 12vh !important;
-  background-image: url(../../assets/images/logo.png);
+  background-image: url(https://firstclassmentor.com/wp-content/uploads/2023/06/Firstclassmentor-final-logo-01-4.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: 50%;
-  transform: scale(0.8);
+
+  /* transform: scale(0.8); */
 }
 
 mat-card{

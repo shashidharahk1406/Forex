@@ -420,7 +420,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     localStorage.removeItem('data.target.value')
     console.log("updateAPIURL==>", this.updateAPIURL);
     
-
+    // this.updateAPIURL = this.filterFollowUp.updateUrlParameter(this.updateAPIURL, this.page=1, this.pageSize=5)
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     this.allPaginator.pageIndex = 0;
     this.allPaginator.pageSize = 5;
@@ -686,6 +686,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     // const data = this.dataService.getFollowupfilterURL()
     if (this.role === 'counsellor') {
       this.renderingData=[]
+     
       this.updateAPIURL += `&counsellor_id=${this.counsellor_id}`;
       console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
       

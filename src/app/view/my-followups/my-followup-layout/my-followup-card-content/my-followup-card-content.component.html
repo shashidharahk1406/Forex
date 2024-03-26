@@ -243,11 +243,15 @@
       </div>
     </div>
     <!-- {{renderingData.length}} -->
-    <div class="row">
-      <div class="col">
-        <p style="color: orange" class="my-2" *ngIf="selectedDate">
+    <div class="row"  *ngIf="selectedDate">
+      <div class="col my-2 text-center ">
+        <p  class="my-2" style="font-size: 12px;font-weight: normal !important;">
           Applied Date &nbsp; : &nbsp; {{ selectedDate | date : "dd-MM-yyyy " }}
         </p>
+        <!-- <div class="card w-50 text-center shadow-lg" >
+          
+        </div>
+      -->
       </div>
     </div>
     <!-- {{(renderingData | filter: followupSearch).length}} -->

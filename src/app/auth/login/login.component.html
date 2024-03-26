@@ -28,24 +28,24 @@
             <div class="container">
                 
                             <mat-card class="formContainer">
-                             <div class="d-flex align-items-center">
-                                <img src="../../../assets/images/logo.png" width="200"  class="logo-tag"/>
+                             <div class="d-flex align-items-center mb-3" >
+                                <img src="https://firstclassmentor.com/wp-content/uploads/2023/06/Firstclassmentor-final-logo-01-4.png" width="140"  class="logo-tag image-fluid"/>
                              </div>
                              <div class="inner-container">
                                 <div class="row ">
                                     <div class="col-12 text-center">
-                                        <h4 class="">LOG IN</h4>
+                                        <h4 class="" style="letter-spacing: 2px;">Login</h4>
                                     </div>
                                 </div>
                                <form [formGroup]="loginForm" (ngSubmit)="login()">
                                 <div class="row">
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
-                                            <mat-label>Email</mat-label>
-                                            <input matInput appFormSpace placeholder="Enter Your Email" formControlName="email" required>
+                                            <mat-label>Email / Phone Number</mat-label>
+                                            <input matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email" required>
                                             <mat-error *ngIf="f['email'].invalid && f['email'].touched">
                                                 <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                                                    Email Is Required
+                                                    Email / Phone Number Is Required
                                                 </div>
                                                 <div *ngIf="f['email'].errors && f['email'].errors['email']">
                                                     Invalid Email
@@ -71,7 +71,7 @@
                                           </mat-form-field>
                                     </div>
                                     <div class="col-12">
-                                        <a><div class="text-end forgot-pass" (click)="goToForgotPassword()">Update/Forgot Password?</div></a>
+                                        <a><div class="text-end forgot-pass" (click)="goToForgotPassword()">Update/Reset Password?</div></a>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -79,7 +79,7 @@
                                 </div>
 
                                 <div class="col-12 my-4">
-                                    <button type="submit" mat-button class="appCoColor" >LOGIN</button>
+                                    <button type="submit" mat-button class="appCoColor fw-bold" >LOGIN</button>
                                 </div>
                                   
                                </form>    

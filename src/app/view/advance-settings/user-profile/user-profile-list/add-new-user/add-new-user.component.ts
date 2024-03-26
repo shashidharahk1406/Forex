@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
-import { first } from 'rxjs';
+import { filter, first } from 'rxjs';
 @Component({
   selector: 'app-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -35,14 +35,14 @@ export class AddNewUserComponent implements OnInit {
       email:[null,[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
       mobile_number:[null, [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[null],
-      target:[null],
+      // target:[null],
       start_date:[null],
       designation_id:[null,[Validators.required]],
       role_id:[null,[Validators.required]],
-      reporting_to_ids:[null,[Validators.required]],
+      reporting_to_ids:[{value: '', disabled: true},[Validators.required]],
       is_allow_for_app:[false],
-      level_of_program_id:[null,[Validators.required]],
-      department_id:[null,[Validators.required]],
+      // level_of_program_id:[null,[Validators.required]],
+      // department_id:[null,[Validators.required]],
       password:[null],
       created_by:[null,[Validators.required]]
     })
@@ -111,12 +111,14 @@ onChange(event:any){
       
     )
   }
+
   getAllRole(){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
         console.log(resp,"user roles");
         
         this.allRole=resp.results
+      
       },
       (error:any)=>{
 
@@ -124,10 +126,18 @@ onChange(event:any){
       
     )
   }
+  filteredUsers:any;
   getAllUser(){
     this.api.getAllUser().subscribe(
       (resp:any)=>{
         this.allUser=resp.results
+        console.log(  this.allUser,"  this.allUser");
+        if(this.roleId===3){
+          this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
+        }
+        
+        
+        
       },
       (error:any)=>{
 
@@ -177,5 +187,16 @@ submit(){
     )
   }
 }
+
+
+
+ roleId:any
+onRoleChange(id:any) {
+   this.roleId= id;
+  console.log(this.roleId,"roleId");
+  
+
+}
+
 
 }

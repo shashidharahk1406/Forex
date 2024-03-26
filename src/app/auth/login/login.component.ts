@@ -29,10 +29,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.initForm()
   }
+
+  validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
   initForm(){
     this.loginForm = this._fb.group({
 		email:['',[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
-      password:['',[Validators.required]],
+      password:['',[Validators.required],Validators.pattern(this.validPattern)],
 	  device_type:['',[Validators.required]]
     })
   }
