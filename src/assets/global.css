@@ -1,5 +1,6 @@
 :root {
-    --appColor:#f17e33;
+    /* --appColor:#f17e33; */
+    --appColor:#12416A;
     --lightHeader:#7D7D7D;
     --allFontColor:#393939;
     --appLightColor:#FFF2EB;
@@ -46,6 +47,7 @@
 }
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: var(--appColor) !important;
+    /* background-color: #E79A22 !important; */
 }
 .mat-drawer-container {
   background-color:transparent !important;
@@ -227,4 +229,10 @@ app-lead-list{
 }
 .h1-set-header{
  cursor:pointer;
+}
+
+.mat-calendar-body-selected {
+  background-color: #12416A !important;;
+  color:#ffff !important ;
+  font-weight: bolder;
 }

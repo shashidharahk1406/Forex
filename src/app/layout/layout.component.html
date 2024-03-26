@@ -13,7 +13,7 @@
     <mat-sidenav-container>
       
       <mat-sidenav *ngIf="mobileView"  #sidenav="matSidenav"   class="pb-4" opened="false" [mode]="mobileView ? 'over':'side'">
-        <div class="img-container"></div>
+        <div class="img-container image-fluid"></div>
         <app-sidenav-list (click)="sidenav.toggle()"></app-sidenav-list>
       </mat-sidenav>
       

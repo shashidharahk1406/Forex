@@ -70,20 +70,20 @@ ngOnInit() {
     hidden:true
    
     },
-    {
-    page:'Upcoming Tasks',
-    path:'/upcomingTasks',
-    icon:'bi bi-columns-gap',
-    hidden:true
+    // {
+    // page:'Upcoming Tasks',
+    // path:'/upcomingTasks',
+    // icon:'bi bi-columns-gap',
+    // hidden:true
    
-    },
-    {
-    page:'Raw Data',
-    path:'/rawData',
-    icon:'bi bi-database-fill',
-    hidden:true
+    // },
+    // {
+    // page:'Raw Data',
+    // path:'/rawData',
+    // icon:'bi bi-database',
+    // hidden:true
    
-    },
+    // },
     
     {
     page:'Lead List',
@@ -95,76 +95,76 @@ ngOnInit() {
     {
     page:'Transaction Details',
     path:'/transaction',
-    icon:'bi bi-1-square',
+    icon:'bi bi-card-checklist',
     hidden:true
     },
-    {
-    page:'Application List',
-    path:'/applicationList',
-    icon:'bi bi-file-earmark-ruled-fill',
-    hidden:true
-    },
-    {
-    page:'Chat List',
-    path:'/chatList',
-    icon:'bi bi-wechat',
-    hidden:true
-    },
+    // {
+    // page:'Application List',
+    // path:'/applicationList',
+    // icon:'bi bi-file-earmark-ruled',
+    // hidden:true
+    // },
+    // {
+    // page:'Chat List',
+    // path:'/chatList',
+    // icon:'bi bi-chat-right',
+    // hidden:true
+    // },
     {
     page:'My Followups',
     path:'/myFollowups',
     icon:'bi bi-calendar2-week',
     hidden:true
     },
-    {
-    page:'Failed Leads',
-    path:'/failedLeads',
-    icon:'bi bi-person-fill-x',
-    hidden:true
-    },
-    {
-    page:'Bulk Actions',
-    path:'/bulkActions',
-    icon:'bi bi-check-square-fill',
-    hidden:true
-    },
-    {
-    page:'WhatsApp Chat',
-    path:'/whatsAppChat',
-    icon:'bi bi-whatsapp',
-    hidden:true
-    },
-    {
-    page:'Marketing Campaign',
-    path:'/marketingCampaign',
-    icon:'bi bi-megaphone-fill',
+    // {
+    // page:'Failed Leads',
+    // path:'/failedLeads',
+    // icon:'bi bi-person-x',
+    // hidden:true
+    // },
+    // {
+    // page:'Bulk Actions',
+    // path:'/bulkActions',
+    // icon:'bi bi-check-square',
+    // hidden:true
+    // },
+    // {
+    // page:'WhatsApp Chat',
+    // path:'/whatsAppChat',
+    // icon:'bi bi-whatsapp',
+    // hidden:true
+    // },
+    // {
+    // page:'Marketing Campaign',
+    // path:'/marketingCampaign',
+    // icon:'bi bi-megaphone',
 
-    hidden:true
-    },
-    {
-    page:'Rule Engine',
-    path:'/ruleEngine',
-    icon:'bi bi-cpu-fill',
-    hidden:true
-    },
-    {
-    page:'Remarketing',
-    path:'/remarketing',
-    icon:'bi bi-dpad-fill',
-    hidden:true
-    },
-    {
-    page:'Custom Reports',
-    path:'/customReports',
-    icon:'bi bi-clipboard2-data',
-    hidden:true
-    },
-    {
-    page:'Connected Accounts',
-    path:'/connectedAccounts',
-    icon:'bi bi-person-fill-gear',
-    hidden:true
-    },
+    // hidden:true
+    // },
+    // {
+    // page:'Rule Engine',
+    // path:'/ruleEngine',
+    // icon:'bi bi-cpu',
+    // hidden:true
+    // },
+    // {
+    // page:'Remarketing',
+    // path:'/remarketing',
+    // icon:'bi bi-dpad',
+    // hidden:true
+    // },
+    // {
+    // page:'Custom Reports',
+    // path:'/customReports',
+    // icon:'bi bi-clipboard2-data',
+    // hidden:true
+    // },
+    // {
+    // page:'Connected Accounts',
+    // path:'/connectedAccounts',
+    // icon:'bi bi-person-gear',
+    // hidden:true
+    // },
     ,
     {
     page:'Request Reports',
@@ -172,25 +172,25 @@ ngOnInit() {
     icon:'bi bi-graph-up-arrow',
     hidden:true
     },
-    {
-    page:'Settings',
-    path:'/settings',
-    icon:'bi bi-gear-wide',
-    hidden:true
-    },
+    // {
+    // page:'Settings',
+    // path:'/settings',
+    // icon:'bi bi-gear-wide',
+    // hidden:true
+    // },
     {
     page:'Advance Settings',
     path:'/advancesettings',
-    icon:'bi bi-gear-wide-connected',
+    icon:"bi bi-gear",
     hidden:true,
     // key:'adv_comm_sett'
     },
-    {
-      page:'Request Report',
-      path:'report',
-      icon:'bi bi-graph-up-arrow',
-      hidden:true
-    }
+    // {
+    //   page:'Request Report',
+    //   path:'report',
+    //   icon:'bi bi-graph-up-arrow',
+    //   hidden:true
+    // }
     ]
     
     mobileQuery: any;

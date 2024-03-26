@@ -9,9 +9,21 @@ import { Router } from '@angular/router';
 export class LoginListComponent implements OnInit {
   notification: boolean = false;
 
-  constructor(private router:Router) { }
+  name:any;
+  lastname:any;
+  initials!: any;
+
+  constructor(private router:Router) { 
+    this.name=localStorage.getItem('username')
+    console.log(this.name,"this.name");
+    
+  }
 
   ngOnInit(): void {
+
+    this.initials = this.name?.charAt(0);
+    console.log(this.initials,"this.initials");
+    
   }
   openNotification(){
     this.notification = !this.notification
@@ -23,4 +35,7 @@ export class LoginListComponent implements OnInit {
   //  this.router.navigate(['/login']);
 
   }
+
+
+   
 }

@@ -24,9 +24,11 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.initForm()
   }
+
+  validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
   initForm(){
     this.forgotForm = this._fb.group({
-      new_password:['',[Validators.required]],
+      new_password:['',[Validators.required],Validators.pattern(this.validPattern)],
       confirm_password:['',[Validators.required]],
     })
   }
