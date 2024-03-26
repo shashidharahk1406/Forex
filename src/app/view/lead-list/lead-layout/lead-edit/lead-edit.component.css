@@ -18,3 +18,17 @@ mat-card{
   top: 10px;
   right: 20px;
 }
+.icon-clr{
+  color: var(--appColor);
+  position: relative;
+  top: 20px;
+  right: 15px;
+  font-weight: bolder;
+}
+.custom-errmsg{
+  position: absolute;
+  top: 2.5rem;
+  font-size: 11px;
+  color: #f5483b;
+  left: 0px;
+}

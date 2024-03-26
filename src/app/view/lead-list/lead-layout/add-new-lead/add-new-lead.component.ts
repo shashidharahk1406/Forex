@@ -40,7 +40,7 @@ export class AddNewLeadComponent implements OnInit {
   max!: Date;
   user_id: any;
   streamList: any = [];
-  
+  min!:Date;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -53,6 +53,7 @@ export class AddNewLeadComponent implements OnInit {
     ) { 
       this.dropDownValues()
       this.user_id = localStorage.getItem('user_id')
+      this.min = new Date('1990-01-01')
     }
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class AddNewLeadComponent implements OnInit {
       this.addLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
-        alternateNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern),this.notSameAsMobileValidator('mobile')]],
+        alternateNumber: ['', [Validators.pattern(this._commonService.mobilePattern)]], 
         email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
@@ -97,14 +98,7 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   
-  notSameAsMobileValidator(mobileControlName: string): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const mobile = control.root.get(mobileControlName)?.value;
-      const alternateNumber = control.value;
-      return mobile === alternateNumber ? { sameAsMobile: true } : null;
-    };
-  }
-
+  
   setStep(index: number) {
     this.step = index;
   }

@@ -54,11 +54,17 @@
                       
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Alternate Phone Number</mat-label>
-                        <input matInput appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+                        <input matInput type="tel" appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
                         <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
-                        <mat-error *ngIf="f['alternateNumber'].hasError('required')">Alternate Phone Number Is Required.</mat-error>
-                        <mat-error *ngIf="!f['alternateNumber'].hasError('required') && f['alternateNumber'].hasError('sameAsMobile')">Alternate Phone Number should not be the same as Mobile Number.</mat-error>
+                        <mat-error *ngIf="f['alternateNumber'].value == f['mobile'].value">Mobile and Alternate Numbers cannot be the same</mat-error> 
+                        <div class="custom-errmsg" *ngIf="f['mobile'].value && f['alternateNumber'].value && f['mobile'].value == f['alternateNumber'].value">
+                          Mobile and Alternate Numbers cannot be the same
+                        </div>
                       </mat-form-field> 
+                    
+                      
+                      
+                    
                       <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Email Id</mat-label>
                         <input
@@ -75,7 +81,7 @@
                      
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Date Of Birth</mat-label>
-                        <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="DD/MM/YYYY" [max]="max">
+                        <input formControlName="dateOfBirth" matInput [matDatepicker]="dateOfBirth" placeholder="DD/MM/YYYY" [min]="min" [max]="max">
                         <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
                         <mat-datepicker #dateOfBirth></mat-datepicker>
                       </mat-form-field>
@@ -304,10 +310,8 @@
                           </button>
                         </mat-form-field> 
                       </div>
-                      <div class="col-1">
-                        <button mat-mini-fab aria-label="Example icon button with a menu icon" class="appCoColor add-btn" (click)="openAddStream()">
-                          <mat-icon>add</mat-icon>
-                        </button>
+                      <div class="col-1" >
+                       <mat-icon class="icon-clr" title="Add Stream" (click)="openAddStream()">add</mat-icon>  
                       </div>
                     </div>
                    
@@ -341,9 +345,7 @@
                     </mat-form-field>
                   </div>
                   <div class="col-1">
-                      <button mat-mini-fab aria-label="Example icon button with a menu icon" class="appCoColor add-btn" (click)="openAddCourse()">
-                        <mat-icon>add</mat-icon>
-                      </button>
+                   <mat-icon class="icon-clr" title="Add Course" (click)="openAddCourse()">add</mat-icon>
                   </div>
                 </div>
               

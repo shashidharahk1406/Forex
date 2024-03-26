@@ -58,3 +58,6 @@ button{
     width: 65%;
   }
 }
+input::-ms-reveal {
+  display: none !important;
+}
