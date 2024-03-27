@@ -54,64 +54,9 @@ export class MyFollowupFilterComponent implements OnInit {
 
     this.initForm();
 
-    this.dataService.filteredValuesData$.subscribe((res: any) => {
-      this.filterPatchedValue = res;
-      console.log(res, 'previous filtered values');
-      console.log(res.counsellor_id, 'cid');
-      this.filterLead.patchValue({
-        cousellor_id: { cousellor_id: res.counsellor_id },
-      });
-      console.log(
-        this.filterLead.get('counsellor_id'),
-        "(this.filterLead.get('counsellor_id')"
-      );
-      if (this.filterPatchedValue.counsellor_id !== '') {
-        console.log(
-          { cousellor_id: this.filterPatchedValue.counsellor_id },
-          '{cousellor_id:this.filterPatchedValue.counsellor_id'
-        );
+   
 
-        this.counselorList.forEach((element: any) => {
-          // console.log(element.id,"element.counsellor_id");
-          console.log(
-            element.id,
-            'element.id',
-            this.filterPatchedValue.counsellor_id,
-            'this.filterPatchedValue.counsellor_id'
-          );
-          console.log(
-            element.id == this.filterPatchedValue.counsellor_id,
-            'element.id==this.filterPatchedValue.counsellor_id'
-          );
-
-          if (element.id == this.filterPatchedValue.counsellor_id)
-            console.log(
-              element.id == this.filterPatchedValue.counsellor_id,
-              'element.id==this.filterPatchedValue.counsellor_id'
-            );
-
-          this.cId = this.filterPatchedValue.counsellor_id;
-          this.cName = element.first_name;
-        });
-      }
-
-      // this.filterLead.patchValue({counsellor_id: res.counsellor_id,
-
-      // })
-      // this.filterLead?.patchValue({
-      //   counsellor_id: res.counsellor_id,
-      //   source_id:res.source_id,
-      //   stream_id:res.stream_id,
-      //   course_id:res.course_id,
-      //   city_id:res.city_id,
-      //   counselled_by:res.counselled_by,
-      // });
-    });
-
-    console.log(
-      this.filterPatchedValue.counsellor_id !== '',
-      "this.filterPatchedValue.counsellor_id!==''"
-    );
+    
 
     // this.sendData();
   }
@@ -156,7 +101,7 @@ export class MyFollowupFilterComponent implements OnInit {
       (res: any) => {
         if (res) {
           this.courseList = res;
-          console.log(res, 'course response');
+          // console.log(res, 'course response');
         } else {
           this.api.showError('ERROR');
         }
@@ -170,7 +115,7 @@ export class MyFollowupFilterComponent implements OnInit {
   getStream() {
     this.api.getStreams().subscribe(
       (res: any) => {
-        console.log(res, 'streams response');
+        // console.log(res, 'streams response');
         this.streamsList = res;
       },
       (error: any) => {
@@ -229,7 +174,7 @@ export class MyFollowupFilterComponent implements OnInit {
         (res: any) => {
           if (res) {
             this.counselorList = res.results;
-            console.log(this.counselorList, 'this.counselorList');
+            // console.log(this.counselorList, 'this.counselorList');
           }
         },
         (error: any) => {
@@ -319,7 +264,7 @@ export class MyFollowupFilterComponent implements OnInit {
     // }
     nonEmptyKeys.forEach((key) => {
       const value = this.filterLead.value[key];
-      console.log(`Key: ${key}, Value: ${value}`);
+      // console.log(`Key: ${key}, Value: ${value}`);
       localStorage.setItem(
         'followUpFilter',
         JSON.stringify(this.filterLead.value)
@@ -341,7 +286,7 @@ export class MyFollowupFilterComponent implements OnInit {
     this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL);
     this.filtered = true;
 
-    console.log('==============>>', this.updateFilterByStatusURL);
+    // console.log('==============>>', this.updateFilterByStatusURL);
 
     // this.updateFilterByStatusURL+=''
     this.bottomsheet.dismiss();

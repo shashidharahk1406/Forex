@@ -118,16 +118,16 @@ export class MyFollowupCardContentComponent implements OnInit {
     //   console.log(this.isSelectedcheckBox,"allSelectedCheckBoxes")
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
-    console.log(this.counsellor_id, 'counsellor id');
+    // console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
     this.user_id = localStorage.getItem('user_id');
     this.user_role = localStorage.getItem('user_role');
-    console.log(this.role, 'roleeeeeeeeeeeeeee');
-    console.log(data, 'data');
+    // console.log(this.role, 'roleeeeeeeeeeeeeee');
+    // console.log(data, 'data');
 
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
-        console.log(data);
+        // console.log(data);
         // this.refreshFollowUps();
         
         this.APICAll();
@@ -140,7 +140,7 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   receiveData() {
     const data = this.dataService.getSharedData();
-    console.log(data, 'filtered count and filterd');
+    // console.log(data, 'filtered count and filterd');
   }
 
   searchForm!: FormGroup;
@@ -153,17 +153,17 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.updateAPIURL+=''
 
     this.dataService.dataUpdated.subscribe((res: any) => {
-      console.log(res, 'filtercount');
+      // console.log(res, 'filtercount');
       this.filtered = res;
     });
 
-    console.log('hello');
+    // console.log('hello');
 
     this.getFollowupIds();
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
 
-    console.log('updated url==>', this.updateAPIURL);
+    // console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
   }
@@ -189,7 +189,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
-      console.log(dataFromChild, 'dataFromChild');
+      // console.log(dataFromChild, 'dataFromChild');
       this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
       this.ngOnInit();
     });
@@ -204,7 +204,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     };
     let data = this._bottomSheet.open(EditFollowupComponent, config);
     data.afterDismissed().subscribe((dataFromChild) => {
-      console.log(dataFromChild, 'dataFromChild');
+      // console.log(dataFromChild, 'dataFromChild');
       this.ngOnInit();
 
     });
@@ -214,7 +214,7 @@ export class MyFollowupCardContentComponent implements OnInit {
   searchValue: any;
 
   search(event: any) {
-    console.log(event, 'eventtttttttttttttt');
+    // console.log(event, 'eventtttttttttttttt');
   }
 
   selectAllCheckboxes: boolean = false;
@@ -270,8 +270,8 @@ export class MyFollowupCardContentComponent implements OnInit {
   }
   selectedLeadName: any;
   onCheckboxChange(event: MatCheckboxChange, itemId: string, leadName: any) {
-    console.log(itemId, 'itemId');
-    console.log(leadName, 'from selected lead');
+    // console.log(itemId, 'itemId');
+    // console.log(leadName, 'from selected lead');
     this.selectedLeadName = leadName;
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
@@ -340,9 +340,9 @@ export class MyFollowupCardContentComponent implements OnInit {
           this.selectedCheckboxIds = this.followupIds;
         }
       });
-      console.log(this.selectedCheckboxIds, 'allleaids');
+      // console.log(this.selectedCheckboxIds, 'allleaids');
 
-      console.log(this.selectedCheckboxIds, 'LEADIDS');
+      // console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
       this.renderingData.forEach((element: any) => {
@@ -365,7 +365,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       const leadFollowUpItem = this.followUpsData2?.find(
         (item: any) => item.lead_id === selectedId
       );
-      console.log(leadFollowUpItem, 'leadFollowUpItem');
+      // console.log(leadFollowUpItem, 'leadFollowUpItem');
 
       if (leadFollowUpItem) {
         leadFollowUpItem.checked = true;
@@ -386,7 +386,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.countData = res.results?.data.data_count;
-          console.log(this.countData, 'followups counts on date');
+          // console.log(this.countData, 'followups counts on date');
         },
         (error: any) => {
           this.api.showError(error.error.message);
@@ -423,7 +423,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.tempSearch = ''
     // localStorage.removeItem('followUpFilter')
     localStorage.removeItem('data.target.value')
-    console.log("updateAPIURL==>", this.updateAPIURL);
+    // console.log("updateAPIURL==>", this.updateAPIURL);
     
     // this.updateAPIURL = this.filterFollowUp.updateUrlParameter(this.updateAPIURL, this.page=1, this.pageSize=5)
     this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
@@ -440,7 +440,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       this.data = 'All';
     } else {
       this.data = this.selectedCheckboxIds.length;
-      console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
+      // console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
     }
   }
 
@@ -451,29 +451,29 @@ export class MyFollowupCardContentComponent implements OnInit {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
 
-  referFollowups() {
-    this.addCount();
-    if (this.data !== 0) {
-      let data = `Do You Want To Refer ${this.data} Leads`;
-      const dialogRef = this.dialog.open(GenericCountComponent, {
-        width: '40%',
-        data: data,
-      });
-      dialogRef.disableClose = true;
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result === 'yes') {
-          this.openReferLead();
-        }
-      });
-    } else {
-      this.api.showWarning('Please select atleast one lead');
-    }
-  }
+  // referFollowups() {
+  //   this.addCount();
+  //   if (this.data !== 0) {
+  //     let data = `Do You Want To Refer ${this.data} Leads`;
+  //     const dialogRef = this.dialog.open(GenericCountComponent, {
+  //       width: '40%',
+  //       data: data,
+  //     });
+  //     dialogRef.disableClose = true;
+  //     dialogRef.afterClosed().subscribe((result: any) => {
+  //       if (result === 'yes') {
+  //         this.openReferLead();
+  //       }
+  //     });
+  //   } else {
+  //     this.api.showWarning('Please select atleast one lead');
+  //   }
+  // }
 
   openVideoCall(data: any) {
     this.addCount();
@@ -586,7 +586,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -607,7 +607,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      // console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -669,7 +669,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.renderingData=[]
     
 
-    console.log('final data url==>', this.updateAPIURL);
+    // console.log('final data url==>', this.updateAPIURL);
     //   this.totalNumberOfRecords = [];
     // this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
     //   (res: any) => {
@@ -693,14 +693,14 @@ export class MyFollowupCardContentComponent implements OnInit {
       this.renderingData=[]
      
       this.updateAPIURL += `&counsellor_id=${this.counsellor_id}`;
-      console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
+      // console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
       
 
       this.totalNumberOfRecords = [];
       this.countDataValue=[]
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
         (res: any) => {
-          console.log(res, 'followup api  filetr all combination');
+          // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           
           this.renderingData = res.results.data;
@@ -709,7 +709,7 @@ export class MyFollowupCardContentComponent implements OnInit {
 
 
           if(this.selectedCheckboxIds.length!==0){
-            console.log(this.selectedCheckboxIds,"data prsent");
+            // console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
               c.checked = true
               this.checkAll=true
@@ -734,17 +734,17 @@ export class MyFollowupCardContentComponent implements OnInit {
       this.totalNumberOfRecords = [];
       this.renderingData=[]
       this.countDataValue=[]
-      console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+      // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
       
       this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
         (res: any) => {
-          console.log(res, 'followup api  filetr all combination');
+          // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.renderingData = res.results.data;
           this.countDataValue = res.results.data_count;
           this.totalNumberOfRecords = res.total_no_of_record;
           if(this.selectedCheckboxIds.length!==0){
-            console.log(this.selectedCheckboxIds,"data prsent");
+            // console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
               c.checked = true
               this.checkAll=true
@@ -754,7 +754,7 @@ export class MyFollowupCardContentComponent implements OnInit {
           else{
             this.checkAll=false
           }
-          console.log(this.renderingData,"sssssssssssssssssssssssssssss");
+          // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
           this.totalNumberOfRecords = res.total_no_of_record;
 
           this.countDataValue = res.results.data_count;
@@ -824,7 +824,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     const date = this.datePipe.transform(data, 'yyyy-MM-dd');
 
     const apiurl: any = this.filterFollowUp.getFilteredDate(date);
-    console.log('apiurl', apiurl);
+    // console.log('apiurl', apiurl);
 
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
@@ -833,7 +833,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
+      // console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -863,7 +863,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
+      // console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -961,7 +961,7 @@ export class MyFollowupCardContentComponent implements OnInit {
   getFollowupIds() {
     this.api.getLeadFollowUpIds().subscribe((res: any) => {
       this.followupIds = res.lead_ids;
-      console.log(this.followupIds, 'this.followupIds');
+      // console.log(this.followupIds, 'this.followupIds');
     });
   }
 
@@ -1010,9 +1010,9 @@ export class MyFollowupCardContentComponent implements OnInit {
           this.selectedCheckboxIds = this.followupIds;
         }
       });
-      console.log(this.selectedCheckboxIds, 'allleaids');
+      // console.log(this.selectedCheckboxIds, 'allleaids');
 
-      console.log(this.selectedCheckboxIds, 'LEADIDS');
+      // console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
       this.renderingData.forEach((element: any) => {
@@ -1036,7 +1036,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
+      // console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -1045,7 +1045,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       );
       this.updateAPIURL = value;
     });
-    console.log(this.updateAPIURL, 'pagination');
+    // console.log(this.updateAPIURL, 'pagination');
     
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
