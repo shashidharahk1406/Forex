@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/service/API/api.service';
 
 @Component({
   selector: 'app-login-list',
@@ -13,7 +14,7 @@ export class LoginListComponent implements OnInit {
   lastname:any;
   initials!: any;
 
-  constructor(private router:Router) { 
+  constructor(private router:Router,private api:ApiService) { 
     this.name=localStorage.getItem('username')
     console.log(this.name,"this.name");
     
@@ -30,7 +31,9 @@ export class LoginListComponent implements OnInit {
   }
   logOut(){
     localStorage.clear();
+    this.api.showSuccess("Logout Successfull")
    this.router.navigate(['/login'])
+   
     // localStorage.clear()
   //  this.router.navigate(['/login']);
 
