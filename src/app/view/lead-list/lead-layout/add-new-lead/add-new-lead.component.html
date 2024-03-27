@@ -38,33 +38,45 @@
                          Invalid Name Format.Please Enter Characters.
                         </mat-error>
                       </mat-form-field>
-                    
-                      <mat-form-field appearance="outline" class="mb-1">
-                        <mat-label>Mobile Number</mat-label>
-                        <input
-                          matInput
-                          type="tel"
-                          placeholder="Enter Mobile Number"
-                          formControlName="mobile"
-                          required
-                        />
-                        <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
-                        <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
-                      </mat-form-field>
+                     <div class="row d-flex justify-content-center align-items-center">
+                      <div class="col-1" >
+                        <div class="" ><strong>{{'+91'}}</strong></div>
+                      </div>
+                      <div class="col-11">
+                        <mat-form-field appearance="outline" class="mb-1">
+                          <mat-label>Mobile Number</mat-label>
+                          <input
+                            maxlength="10"
+                            matInput
+                            type="tel"
+                            placeholder="Enter Mobile Number"
+                            formControlName="mobile"
+                            required
+                          />
+                          <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
+                          <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                        </mat-form-field>
+                        
+                      </div>
+                     </div>
                       
-                      <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Alternate Phone Number</mat-label>
-                        <input matInput type="tel" appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
-                        <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
-                        <mat-error *ngIf="f['alternateNumber'].value == f['mobile'].value">Mobile and Alternate Numbers cannot be the same</mat-error> 
-                        <div class="custom-errmsg" *ngIf="f['mobile'].value && f['alternateNumber'].value && f['mobile'].value == f['alternateNumber'].value">
-                          Mobile and Alternate Numbers cannot be the same
-                        </div>
-                      </mat-form-field> 
-                    
+                     <div class="row d-flex justify-content-center align-items-center">
+                      <div class="col-1" >
+                        <div class="" ><strong>{{'+91'}}</strong></div>
+                      </div>
+                      <div class="col-11">
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>Alternate Phone Number</mat-label>
+                          <input matInput  maxlength="10" type="tel" appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+                          <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
+                          <div class="custom-errmsg" *ngIf="!f['mobile'].hasError('pattern') && f['alternateNumber'].value && f['mobile'].value == f['alternateNumber'].value">
+                            Mobile and Alternate Numbers cannot be the same
+                          </div>
+                        </mat-form-field> 
                       
-                      
-                    
+                      </div>
+                     </div>
+                  
                       <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Email Id</mat-label>
                         <input
@@ -171,7 +183,6 @@
             
                 <ng-container>
                     <div class="container">
-                        
                         <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Reference Name </mat-label>
                         <input
@@ -181,19 +192,29 @@
                         placeholder="Enter Reference Name"
                         formControlName="referenceName"
                       />
+                      <mat-error *ngIf="f['referenceName'].hasError('pattern')">Invalid Reference Name Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
                     
-                    <mat-form-field class="mb-1" appearance="outline">
-                    <mat-label>Reference Phone Number</mat-label>
-                    <input
-                    matInput
-                    appFormSpace
-                    type="text"
-                    placeholder="Enter Reference Phone Number"
-                    formControlName="referencePhoneNumber"
-                    />
-                    <mat-error *ngIf="f['referencePhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
-                      </mat-form-field>
+                      <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-1" >
+                          <div class="" ><strong>{{'+91'}}</strong></div>
+                        </div>
+                        <div class="col-11">
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Reference Phone Number</mat-label>
+                            <input
+                            matInput
+                            maxlength="10"
+                            appFormSpace
+                            type="tel"
+                            placeholder="Enter Reference Phone Number"
+                            formControlName="referencePhoneNumber"
+                            />
+                            <mat-error *ngIf="f['referencePhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                              </mat-form-field>
+                        </div>
+                       </div>
+                
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Father Name</mat-label>
                         <input
@@ -203,6 +224,7 @@
                         placeholder="Enter Father Name"
                         formControlName="fatherName"
                         />
+                        <mat-error *ngIf="f['fatherName'].hasError('pattern')">Invalid Father Name Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Father Occupation</mat-label>
@@ -213,18 +235,29 @@
                         placeholder="Enter Father Occupation"
                         formControlName="fatherOccupation"
                         />
+                        <mat-error *ngIf="f['fatherOccupation'].hasError('pattern')">Invalid Father Occupation Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
-                      <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Father Phone Number</mat-label>
-                        <input
-                        matInput
-                        appFormSpace
-                        type="tel"
-                        placeholder="Enter Father Phone Number"
-                        formControlName="fatherPhoneNumber"
-                        />
-                        <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
-                      </mat-form-field>
+                      
+                      <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-1" >
+                          <div class="" ><strong>{{'+91'}}</strong></div>
+                        </div>
+                        <div class="col-11">
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Father Phone Number</mat-label>
+                            <input
+                            matInput
+                            appFormSpace
+                            maxlength="10"
+                            type="tel"
+                            placeholder="Enter Father Phone Number"
+                            formControlName="fatherPhoneNumber"
+                            />
+                            <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                          </mat-form-field>
+                        
+                        </div>
+                       </div>
                     
                     </div>
                 </ng-container>
@@ -247,7 +280,7 @@
                       matInput
                       appFormSpace
                       type="text"
-                      placeholder="Enter Tenth Percentage"
+                      placeholder="Enter 10th Percentage"
                       formControlName="tenthPercentage"
                     />
                     <mat-error *ngIf="f['tenthPercentage'].hasError('pattern')">Invalid 10th Percentage.</mat-error>
@@ -259,7 +292,7 @@
                     matInput
                     appFormSpace
                     type="text"
-                    placeholder="Enter Twelfth Percentage"
+                    placeholder="Enter 12th Percentage"
                     formControlName="twelthPercentage"
                     />
                     <mat-error *ngIf="f['twelthPercentage'].hasError('pattern')">Invalid 12th Percentage.</mat-error>
@@ -324,6 +357,7 @@
                     placeholder="Enter Entrance Exam"
                     formControlName="entranceExam"
                   />
+                  <mat-error *ngIf="f['entranceExam'].hasError('pattern')">Invalid Entrance Exam Format.Please Enter Characters.</mat-error>
                   </mat-form-field>
                   
                 <div class="row">
@@ -349,7 +383,21 @@
                   </div>
                 </div>
               
-                
+                <mat-form-field class="mb-1" appearance="outline">
+                  <mat-label>Level Of Program</mat-label>
+                  <mat-select formControlName="levelOfProgram" placeholder="Select Course" >
+                    <mat-option *ngFor="let option of levelofProgram" [value]="option.id">{{ option.name }}</mat-option>
+                  </mat-select>
+                  <button
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="clearSelectField('levelOfProgram')"
+                    *ngIf="f['levelOfProgram']?.value"
+                  >
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </mat-form-field>
                 <mat-form-field class="mb-1" appearance="outline">
                   <mat-label>Preferred College 1</mat-label>
                   <input
@@ -359,6 +407,7 @@
                   placeholder="Enter Preferred College 1"
                   formControlName="preferredCollege1"
                   />
+                  <mat-error *ngIf="f['preferredCollege1'].hasError('pattern')">Invalid Preferred College 1 Format.Please Enter Characters.</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="mb-1" appearance="outline">
@@ -370,6 +419,7 @@
                   placeholder="Enter Preferred College 2"
                   formControlName="preferredCollege2"
                   />
+                  <mat-error *ngIf="f['preferredCollege2'].hasError('pattern')">Invalid Preferred College 2 Format.Please Enter Characters.</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="mb-1" appearance="outline">
@@ -381,6 +431,7 @@
                   placeholder="Enter Preferred Location 1"
                   formControlName="preferredLocation1"
                   />
+                  <mat-error *ngIf="f['preferredLocation1'].hasError('pattern')">Invalid Location 1 Format.Please Enter Characters.</mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="mb-1" appearance="outline">
@@ -392,7 +443,9 @@
                   placeholder="Enter Your Preferred Location 2"
                   formControlName="preferredLocation2"
                   />
+                  <mat-error *ngIf="f['preferredLocation2'].hasError('pattern')">Invalid Location 2 Format.Please Enter Characters.</mat-error>
                 </mat-form-field>
+
                 </div>
             </ng-container>
           </mat-expansion-panel>
@@ -499,6 +552,7 @@
                           placeholder="Enter Your Notes"
                           formControlName="notes"
                         />
+                        <mat-error *ngIf="f['notes'].hasError('pattern')">Invalid Notes Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
                       <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Remarks</mat-label>
@@ -509,6 +563,7 @@
                           placeholder="Enter Your Remarks"
                           formControlName="remarks"
                         />
+                        <mat-error *ngIf="f['remarks'].hasError('pattern')">Invalid Remarks Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
                  
                 </div>

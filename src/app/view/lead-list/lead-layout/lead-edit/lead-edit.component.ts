@@ -40,6 +40,7 @@ export class LeadEditComponent implements OnInit {
   streamList: any = [];
   max!: Date;
   min!: Date;
+  levelofProgram: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -113,37 +114,38 @@ export class LeadEditComponent implements OnInit {
       this.editLeadForm = this.fb.group({
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
-        alternateNumber:['',[Validators.required,Validators.pattern(this._commonService.mobilePattern)]],
+        alternateNumber: ['', [Validators.pattern(this._commonService.mobilePattern)]], 
         email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
-        dateOfBirth:[""],
+        dateOfBirth:[''],
         state: [''],
         zone:[''],
         cityName: [''],
         pincode:['',Validators.pattern(this._commonService.pincode)],
         countryId:[''],
-        referenceName:[''],
+        referenceName:['',Validators.pattern(this._commonService.namePattern)],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
-        fatherName:[''],
-        fatherOccupation:[''],
+        fatherName:['',Validators.pattern(this._commonService.namePattern)],
+        fatherOccupation:['',Validators.pattern(this._commonService.namePattern)],
         fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
         tenthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
         twelthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
         degree:['',Validators.pattern(this._commonService.nonNegativeValidator)],
         course:[''],
         otherCourse:[''],
-        entranceExam:[''],
-        courseLookingfor:[''],
-        preferredCollege1:[''],
-        preferredCollege2:[''],
-        preferredLocation1:[''],
-        preferredLocation2:[''],
+        levelOfProgram:[''],
+        entranceExam:['',Validators.pattern(this._commonService.namePattern)],
+        courseLookingfor:['',Validators.pattern(this._commonService.namePattern)],
+        preferredCollege1:['',Validators.pattern(this._commonService.namePattern)],
+        preferredCollege2:['',Validators.pattern(this._commonService.namePattern)],
+        preferredLocation1:['',Validators.pattern(this._commonService.namePattern)],
+        preferredLocation2:['',Validators.pattern(this._commonService.namePattern)],
         counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
         leadSource:['',[Validators.required]],
         leadStages:['',[Validators.required]],
         leadStatus:[''],
-        notes:[''],
-        remarks:['']
+        notes:['',Validators.pattern(this._commonService.namePattern)],
+        remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
   
@@ -173,7 +175,8 @@ export class LeadEditComponent implements OnInit {
     this.getCourse();
     this.getCounselledBy();
     this.getLeadStage();
-    this.getStream()
+    this.getStream();
+    this.getLevelOfProgram()
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
@@ -260,6 +263,13 @@ export class LeadEditComponent implements OnInit {
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
     }))
+  }
+  getLevelOfProgram(){
+    this.api.getAllLevelOfProgram().subscribe((resp:any)=>{
+      if(resp.results){
+        this.levelofProgram = resp.results
+      }
+    })
   }
   getStatus(){
     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{

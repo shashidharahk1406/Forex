@@ -41,6 +41,7 @@ export class AddNewLeadComponent implements OnInit {
   user_id: any;
   streamList: any = [];
   min!:Date;
+  levelofProgram: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -72,29 +73,30 @@ export class AddNewLeadComponent implements OnInit {
         cityName: [''],
         pincode:['',Validators.pattern(this._commonService.pincode)],
         countryId:[''],
-        referenceName:[''],
+        referenceName:['',Validators.pattern(this._commonService.namePattern)],
         referencePhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
-        fatherName:[''],
-        fatherOccupation:[''],
+        fatherName:['',Validators.pattern(this._commonService.namePattern)],
+        fatherOccupation:['',Validators.pattern(this._commonService.namePattern)],
         fatherPhoneNumber:['',Validators.pattern(this._commonService.mobilePattern)],
         tenthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
         twelthPercentage :['',Validators.pattern(this._commonService.nonNegativeValidator)],
         degree:['',Validators.pattern(this._commonService.nonNegativeValidator)],
         course:[''],
         otherCourse:[''],
-        entranceExam:[''],
-        courseLookingfor:[''],
-        preferredCollege1:[''],
-        preferredCollege2:[''],
-        preferredLocation1:[''],
-        preferredLocation2:[''],
+        levelOfProgram:[''],
+        entranceExam:['',Validators.pattern(this._commonService.namePattern)],
+        courseLookingfor:['',Validators.pattern(this._commonService.namePattern)],
+        preferredCollege1:['',Validators.pattern(this._commonService.namePattern)],
+        preferredCollege2:['',Validators.pattern(this._commonService.namePattern)],
+        preferredLocation1:['',Validators.pattern(this._commonService.namePattern)],
+        preferredLocation2:['',Validators.pattern(this._commonService.namePattern)],
         counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
         leadSource:['',[Validators.required]],
         leadStages:['',[Validators.required]],
         leadStatus:[''],
-        notes:[''],
-        remarks:['']
+        notes:['',Validators.pattern(this._commonService.namePattern)],
+        remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
   
@@ -126,6 +128,7 @@ export class AddNewLeadComponent implements OnInit {
     this.getCounselledBy();
     this.getLeadStage();
     this.getStream();
+    this.getLevelOfProgram()
   }
   getCountry(){
     this.api.getAllCountry().subscribe((res:any)=>{
@@ -248,7 +251,13 @@ export class AddNewLeadComponent implements OnInit {
       }
     );
   }
-  
+  getLevelOfProgram(){
+    this.api.getAllLevelOfProgram().subscribe((resp:any)=>{
+      if(resp.results){
+        this.levelofProgram = resp.results
+      }
+    })
+  }
   getLeadStage(){
    this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
     if(res){
