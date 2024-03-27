@@ -115,6 +115,7 @@
 .shadow-lg {
     box-shadow: var(--bs-box-shadow-lg) !important;
     padding: 15px;
+    border-left: 3px solid #f5bd64;
 }
 .mat-card {
     background: none !important;
