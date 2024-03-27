@@ -16,7 +16,7 @@
              
                 <a  target="_blank" rel="nofollow noopener noreferrer">
                     <div class="picsum-img-wrapper">  
-                        <img [src]="img" alt="" />
+                        <img [src]="img" alt="" style="width: 100%;height: 100%;" />
                     </div>
                 </a>
             </ng-template>
@@ -42,14 +42,14 @@
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Email / Phone Number</mat-label>
-                                            <input matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email" required>
+                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email" required> 
                                             <mat-error *ngIf="f['email'].invalid && f['email'].touched">
                                                 <div *ngIf="f['email'].errors && f['email'].errors['required']">
                                                     Email / Phone Number Is Required
                                                 </div>
-                                                <div *ngIf="f['email'].errors && f['email'].errors['email']">
+                                                <!-- <div *ngIf="f['email'].errors && f['email'].errors['email']">
                                                     Invalid Email
-                                                </div>
+                                                </div> -->
                                             </mat-error>
                                         </mat-form-field>
                                     </div>

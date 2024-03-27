@@ -128,7 +128,9 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
         console.log(data);
-        this.refreshFollowUps();
+        // this.refreshFollowUps();
+        
+        this.APICAll();
 
       }
     });
@@ -148,6 +150,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     // this.totalNumberOfRecords=[]
 
     // this.selectedCheckboxIds = [];
+    this.updateAPIURL+=''
 
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtercount');
@@ -187,6 +190,7 @@ export class MyFollowupCardContentComponent implements OnInit {
 
     data.afterDismissed().subscribe((dataFromChild) => {
       console.log(dataFromChild, 'dataFromChild');
+      this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
       this.ngOnInit();
     });
   }
@@ -202,6 +206,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     data.afterDismissed().subscribe((dataFromChild) => {
       console.log(dataFromChild, 'dataFromChild');
       this.ngOnInit();
+
     });
   }
 
@@ -700,6 +705,7 @@ export class MyFollowupCardContentComponent implements OnInit {
           
           this.renderingData = res.results.data;
           this.countDataValue = res.results.data_count;
+          this.totalNumberOfRecords = res.total_no_of_record;
 
 
           if(this.selectedCheckboxIds.length!==0){
@@ -736,6 +742,7 @@ export class MyFollowupCardContentComponent implements OnInit {
           this.followUpsData2 = res.results.data;
           this.renderingData = res.results.data;
           this.countDataValue = res.results.data_count;
+          this.totalNumberOfRecords = res.total_no_of_record;
           if(this.selectedCheckboxIds.length!==0){
             console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
@@ -781,6 +788,8 @@ export class MyFollowupCardContentComponent implements OnInit {
       data,
       this.updateAPIURL
     );
+    this.allPaginator.pageIndex = 0;
+    this.allPaginator.pageSize = 5;
 
     let pageDataKeyValue = [
       { key: 'page', value: 1 },

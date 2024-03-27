@@ -39,7 +39,7 @@ export class AddNewUserComponent implements OnInit {
       start_date:[null],
       designation_id:[null,[Validators.required]],
       role_id:[null,[Validators.required]],
-      reporting_to_ids:[{value: '', disabled: true},[Validators.required]],
+      reporting_to_ids:[[Validators.required]],
       is_allow_for_app:[false],
       // level_of_program_id:[null,[Validators.required]],
       // department_id:[null,[Validators.required]],
@@ -133,7 +133,7 @@ onChange(event:any){
         this.allUser=resp.results
         console.log(  this.allUser,"  this.allUser");
         if(this.roleId===3){
-          this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
+this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
         }
         
         
