@@ -23,9 +23,9 @@
                    
                   </div>
                   <div class="col">
-                    <div class="row">
+                    <div class="row point-set" (click)="editLead(item)">
                       <div class="col-12"><strong>Lead Name</strong></div>
-                      <div class="col-12  point-set text-muted" (click)="editLead(item)">
+                      <div class="col-12 text-muted" >
                         {{ item.user_data.first_name | titlecase}} {{ item.user_data.last_name | titlecase }} 
                       
                       </div>

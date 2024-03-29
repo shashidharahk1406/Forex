@@ -20,6 +20,9 @@
                         <div *ngIf="f['stream_name'].errors && f['stream_name'].errors['required']">
                              Stream Name Is Required
                         </div>
+                        <div *ngIf="f['stream_name'].errors && f['stream_name'].errors['pattern']">
+                          Invalid Stream Name.Please Enter Characters.
+                     </div>
                     </mat-error>
                 </div>
             </div>

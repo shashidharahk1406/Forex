@@ -7,7 +7,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PaymentButtonComponent } from './payment-button/payment-button.component';
 import { TransactionDetailsComponent } from './transaction-details/transaction-details.component';
-import { AuthGuardGuard } from './service/auth-guard/auth-guard.guard';
+
 import { ActivateChildGuard } from './service/auth-guard/activate-child.guard';
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
     component:LoginComponent
   },
  
-  { path: '', component: LayoutComponent},
+  { path: '', component: LayoutComponent },
   { path: '', component: LayoutComponent,canActivateChild:[ActivateChildGuard],children:[
     {
       path:'analytics',loadChildren:()=>import('./view/analytics/analytics.module').then(m=>m.AnalyticsModule)

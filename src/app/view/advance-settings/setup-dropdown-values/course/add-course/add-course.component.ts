@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { CommonServiceService } from 'src/app/service/common-service.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 
 @Component({
@@ -14,7 +15,12 @@ export class AddCourseComponent implements OnInit {
   allDepartment:any=[]
   allLevel:any=[]
 
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddCourseComponent>, private emit:EmitService) { }
+  constructor(
+    private _fb:FormBuilder,
+    private api:ApiService,
+    public dialogRef: MatDialogRef<AddCourseComponent>, 
+    private emit:EmitService,
+    private _commonService:CommonServiceService) { }
 
   ngOnInit(): void {
     this.initFilter()
@@ -23,7 +29,7 @@ export class AddCourseComponent implements OnInit {
   }
   initFilter(){
     this.addForm = this._fb.group({
-      course_name:['',[Validators.required]],
+      course_name:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
       // level_of_program_id:['',[Validators.required]],
       // department_id:['',[Validators.required]],
       is_active:[true],

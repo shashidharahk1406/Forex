@@ -5,6 +5,7 @@ import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } fr
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   }
   constructor(private _fb:FormBuilder,
     private commonService:CommonServiceService,
-	private router:Router,private api:ApiService){
+	private router:Router,private api:ApiService,
+	 private authService: AuthService){
 
 		this.id=localStorage.getItem('id')
 	}
@@ -88,6 +90,8 @@ export class LoginComponent implements OnInit {
 			//console.log("Invalid");	
 		}
 		else{
+		// this.authService.startLogoutTimer(900000);
+		
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
 				//console.log(resp,"login responsssssssssssss",)
@@ -95,7 +99,7 @@ export class LoginComponent implements OnInit {
 				// this.api.showSuccess('Login Successfull !!')
 				localStorage.setItem('token',resp.token.token)
 				const decodedToken:any = jwtDecode(resp.token.token);
-				console.log("==userid==",decodedToken);
+				// console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
 				localStorage.setItem('decodedToken',JSON.stringify(decodedToken))
 				// localStorage.setItem('Dropdown Values',JSON.stringify(resp.permissions[1].children_status[0].access_status))
@@ -107,7 +111,7 @@ export class LoginComponent implements OnInit {
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()
-
+				this.authService.startLogoutTimer(900000);
 			},
 			(error=>{
 			   this.api.showError(this.api.toTitleCase(error.error.message))
