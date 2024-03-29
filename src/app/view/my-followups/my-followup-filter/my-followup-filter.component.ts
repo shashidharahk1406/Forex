@@ -234,13 +234,7 @@ export class MyFollowupFilterComponent implements OnInit {
 
     // this.dialogRef.close()
   }
-  closePopup() {
-    this._bottomSheetRef.dismiss();
-    // this.dataService.getFollowupfilterURL();
-    this.updateFilterByStatusURL = null;
-
-    this.dataService.sendData(true);
-  }
+ 
 
   filterCount: any = [];
   filtered: boolean = false;
@@ -289,7 +283,9 @@ export class MyFollowupFilterComponent implements OnInit {
     // console.log('==============>>', this.updateFilterByStatusURL);
 
     // this.updateFilterByStatusURL+=''
-    this.bottomsheet.dismiss();
+    this.bottomsheet.dismiss({
+      data: this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL)
+    });
 
     // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
     //   console.log(res,"filtered followup  results")
@@ -345,6 +341,16 @@ export class MyFollowupFilterComponent implements OnInit {
     // this.dataService.dataUpdated.emit(this.filtered)
 
     // }
+  }
+
+
+
+  closePopup() {
+    this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
+    // this.dataService.getFollowupfilterURL();
+    this.updateFilterByStatusURL = null;
+
+    this.dataService.sendData(true);
   }
   sendData() {}
 }

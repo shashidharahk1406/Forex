@@ -2,10 +2,10 @@
     <h1>Advance Settings</h1>
     <!-- <h1 class="text-center" *ngIf="dropDownValuesbooleanvalue && userRolesAndProfilesBooleanValue && advanceCommunicationSettingsBooleanValue">User Does not have any permissions</h1> -->
 </div>
-<div class="row h-90" >
+<div class="row d-flex justify-content-around" >
     <div class="col-sm-12 col-md-4 col-lg-4 col-rgt" >
         <h6 class="settings-title" > <i class="bi bi-journal-arrow-down" ></i> Dropdown Values</h6>
-        <mat-card routerLink="./setupDropDownValues">
+        <mat-card routerLink="./setupDropDownValues" routerLinkActive="active" >
             <div class="row">
                 <div class="col-10">
                     <mat-card-content>Setup Dropdown Values</mat-card-content>
@@ -16,7 +16,7 @@
             </div>
         </mat-card>
         <h6 class="settings-title" > <i class="bi bi-person-gear" ></i> Users & Roles</h6>
-        <mat-card routerLink="./userProfileList" >
+        <mat-card routerLink="./userProfileList"  routerLinkActive="active"  >
             <div class="row">
                 <div class="col-10">
                     <mat-card-content>User Profiles</mat-card-content>
@@ -27,7 +27,7 @@
             </div>
         </mat-card>
         <h6 class="settings-title" > <i class="bi bi-chat-square-dots"></i> Communications</h6>
-        <mat-card routerLink="./communication" >
+        <mat-card routerLink="./communication"  routerLinkActive="active" >
             <div class="row">
                 <div class="col-10">
                     <mat-card-content>Template Settings</mat-card-content>

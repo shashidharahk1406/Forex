@@ -42,11 +42,12 @@
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Email / Phone Number</mat-label>
-                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email" required > 
+                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email" required  pattern="[0-9]{10}" > 
                                             <mat-error *ngIf="f['email'].invalid && f['email'].touched">
                                                 <div *ngIf="f['email'].errors && f['email'].errors['required']">
-                                                    Email / Phone Number Is Required
+                                                    Please enter a valid phone number or email address
                                                 </div>
+                                                <!-- <div *ngIf="f['email'].errors.phoneOrEmail">Please enter a valid phone number or email address</div> -->
                                                 <!-- <div *ngIf="f['email'].errors && f['email'].errors['email']">
                                                     Invalid Email
                                                 </div> -->
@@ -80,6 +81,24 @@
 
                                 <div class="col-12 my-4">
                                     <button type="submit" mat-button class="appCoColor fw-bold" >LOGIN</button>
+                                </div>
+
+                                <h6 class="" style="color:  #12416A ;">FOLLOW US ON</h6>
+
+                                <div class="row d-flex justify-content-center" style="color:  #12416A ;">
+                                    <div class="col-1" title="Facebook">
+                                        <i class="bi bi-facebook"></i>
+                                    </div>
+                                    <div class="col-1" title="Instagram">
+                                        <i class="bi bi-instagram"></i>
+                                    </div>
+                                    <div class="col-1" title="Linkedin">
+                                        <i class="bi bi-linkedin"></i>
+                                    </div>
+                                    <div class="col-1" title="Twitter">
+                                        <i class="bi bi-twitter-x"></i>
+                                    </div>
+                                   
                                 </div>
                                   
                                </form>    

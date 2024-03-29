@@ -31,3 +31,15 @@ mat-card:hover{
     box-shadow: none !important;
     margin: 0 10px !important;
 }
+
+
+mat-card:hover{
+    color:  #12416A !important;
+    font-weight: normal !important;
+    background: gainsboro !important;
+}
+.active{
+    background: #f5bd64 !important;
+    /* color: ; */
+}
+

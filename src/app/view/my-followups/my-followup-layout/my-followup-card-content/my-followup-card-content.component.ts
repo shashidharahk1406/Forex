@@ -184,14 +184,18 @@ export class MyFollowupCardContentComponent implements OnInit {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
-      data:this.renderingData
+     
     };
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
-      // console.log(dataFromChild, 'dataFromChild');
-      this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
+      console.log(dataFromChild, 'dataFromChild');
+      if(dataFromChild){
+
+      }
+      // this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
       this.ngOnInit();
+      // this.APICAll()
     });
   }
 
@@ -421,7 +425,8 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.selectedDate = null;
     this.filtered = false;
     this.tempSearch = ''
-    // localStorage.removeItem('followUpFilter')
+    this.renderingData=[]
+    localStorage.removeItem('followUpFilter')
     localStorage.removeItem('data.target.value')
     // console.log("updateAPIURL==>", this.updateAPIURL);
     

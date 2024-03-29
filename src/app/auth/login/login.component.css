@@ -61,3 +61,10 @@ button{
 input::-ms-reveal {
   display: none !important;
 }
+
+title{
+  border: none !important;
+}
+i{
+  font-size: 18px;
+}
