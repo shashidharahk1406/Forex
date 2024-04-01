@@ -183,14 +183,13 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
 
     data.afterDismissed().subscribe((dataFromChild) => {
       console.log(dataFromChild, 'dataFromChild');
-      if(dataFromChild){
-      // this.APICAll()
-       this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
-       console.log( this.updateAPIURL,"url in filterfollowup compo")
-       
+      if(dataFromChild==='Reset'){
+       this.refreshFollowUps()
+      } else if(dataFromChild==='Submitted' || dataFromChild==='Close-ion-clicked'){
+
+        this.ngOnInit();
       }
       
-      this.ngOnInit();
    
      
     });
@@ -899,7 +898,7 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
   }
 
   showSendMailForm(data: any, lead_name: any = null) {
-    let data_val = `Do You Want To Send Email To ${lead_name} Leads`;
+    let data_val = `Do You Want To Send Email To ${lead_name} `;
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width: '40%',
       data: data_val,
