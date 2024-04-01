@@ -111,7 +111,7 @@ export class LeadCardComponent implements OnInit {
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadIds()
       this.getLeadData('tabLabel')
-      
+      this._addLeadEmitter.goBack.next(true)
     });
     // this._addLeadEmitter.goBack.subscribe((res:any)=>{
     //   if(res){
@@ -125,6 +125,7 @@ export class LeadCardComponent implements OnInit {
         this.filterLeads(res);
       }
     });
+   
   }
   
    setupLeadDataListener(): void {

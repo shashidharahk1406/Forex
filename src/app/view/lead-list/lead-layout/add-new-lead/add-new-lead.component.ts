@@ -319,6 +319,7 @@ export class AddNewLeadComponent implements OnInit {
     counselled_by:f['counsellorAdmin'],
     lead_stage: f['leadStages'],
     source: f['leadSource'],
+    level_of_program:f['levelOfProgram'],
     preferance_college_and_location: 
             {
               preferred_college1: f["preferredCollege1"],

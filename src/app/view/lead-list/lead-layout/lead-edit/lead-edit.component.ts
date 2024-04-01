@@ -355,6 +355,7 @@ const data ={
   remark: formData.remarks,
   source: formData.leadSource,
   refered_to: formData.counsellor,
+  level_of_program:formData.levelOfProgram,
   education_details: {
   tenth_per: formData.tenthPercentage || null,
   twelfth_per: formData.twelthPercentage || null,
