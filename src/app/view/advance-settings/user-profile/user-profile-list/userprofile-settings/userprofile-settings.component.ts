@@ -310,4 +310,9 @@ user:any;
   }
 
   
+
+
+  getColor(pause: boolean): string {
+    return pause ? 'red' : 'green'; // Change colors as needed
+  }
 }

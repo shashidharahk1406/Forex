@@ -181,16 +181,14 @@
             </div>
           </mat-error>
         </div>
-        <div class="col-12 col-md-6"  >
+        <div class="col-12 col-md-6"  *ngIf="isReportingToUser">
           <mat-form-field appearance="outline">
             <mat-label>Select Reporting to User</mat-label>
-            <mat-select
+            <mat-select 
               formControlName="reporting_to_ids"
               (selectionChange)="onSelectionChange($event)"
               multiple
-              [disabled]="this.roleId===6"
-              
-             
+              [required]="isReportingToUser" 
             >
               <mat-option *ngFor="let item of allUser" [value]="item">{{
                 item.first_name
@@ -198,19 +196,22 @@
             </mat-select>
           </mat-form-field>
           <mat-error 
+          *ngIf="
+            f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched && f['reporting_to_ids'].errors
+          "
+        >
+          <div
             *ngIf="
-              f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched
+              f['reporting_to_ids'].errors &&
+              f['reporting_to_ids'].errors['required'] &&  f['reporting_to_ids'].errors
             "
           >
-            <div
-              *ngIf="
-                f['reporting_to_ids'].errors &&
-                f['reporting_to_ids'].errors['required']
-              "
-            >
-              Reporting to User Is Required
-            </div>
-          </mat-error>
+            Reporting to User Is Required
+          </div>
+        </mat-error>
+        
+         
+        
         </div>
       </div>
       <div class="row">

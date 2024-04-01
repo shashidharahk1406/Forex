@@ -5,6 +5,7 @@ import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } fr
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 @Component({
   selector: 'app-login',
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
   validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
   initForm(){
     this.loginForm = this._fb.group({
-		email:['',[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
+		email:['',[Validators.required,Validators.email,this.phoneOrEmailValidator()]],
       password:['',[Validators.required],Validators.pattern(this.validPattern)],
 	  device_type:['',[Validators.required]]
     })
@@ -118,7 +119,28 @@ export class LoginComponent implements OnInit {
 			})
 		  )
 		}
+
+		
 	  }
+
+
+
+	 
+
+  phoneOrEmailValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    const phoneRegex = /^\d{10}$/; // Adjust this regex according to your phone number format
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Basic email regex
+
+    if (phoneRegex.test(value) || emailRegex.test(value) || value === '') {
+      return null; // Validation passed
+    } else {
+      return { phoneOrEmail: true }; // Validation failed
+    }
+  };
+}
+	  
 
 
 	  

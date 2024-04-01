@@ -57,13 +57,13 @@ export class EditUserProfileListComponent implements OnInit {
       email:['',[Validators.required,Validators.email,this.api.emailWithTldValidator()]],
       mobile_number:['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[''],
-      target:[''],
+      // target:[''],
       start_date:[''],
       designation_id:['',[Validators.required]],
       role_id:['',[Validators.required]],
       reporting_to_ids:['',[Validators.required]],
-      level_of_program_id:['',[Validators.required]],
-      department_id:['',[Validators.required]],
+      // level_of_program_id:['',[Validators.required]],
+      // department_id:['',[Validators.required]],
       password:[''],
       created_by:['',[Validators.required]]
     });
@@ -195,6 +195,15 @@ getUserbyId(){
       };
       reader.readAsDataURL(fileInput.files[0]);
     }
+  }
+
+  removeImage(): void {
+    this.selectedImage = null;
+  }
+
+
+  removeSelectedFile(){
+    this.selectedImage.splice(1);
   }
   openDisableChat(id:any){
     const dialogRef = this.dialog.open(DisableChatComponent, {

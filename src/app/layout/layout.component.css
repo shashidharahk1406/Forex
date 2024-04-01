@@ -11,6 +11,7 @@ mat-icon{
   background-repeat: no-repeat;
   background-size: contain;
   background-position: 50%;
+  margin: 8px;
 
   /* transform: scale(0.8); */
 }
