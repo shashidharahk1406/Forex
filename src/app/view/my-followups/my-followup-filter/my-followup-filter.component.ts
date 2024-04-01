@@ -229,23 +229,15 @@ isResetFilter:boolean=false
 
 
 
-
-
-
-removeKeyValuePairFromURL(keyToRemove: string) {
-  const url = new URL(this.updateFilterByStatusURL);
-  url.searchParams.delete(keyToRemove);
-  this.updateFilterByStatusURL = url.toString();
-}
   reset() {
     localStorage.removeItem('followUpFilter');
     this.dataService.sendData(true);
     this.isResetFilter=true;
     this.updateFilterByStatusURL=null;
     console.log( this.updateFilterByStatusURL,"resetting filter url");
-    // this.removeKeyValuePairFromURL();
     
-    this._bottomSheetRef.dismiss( this.updateFilterByStatusURL);
+    // this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
+    this._bottomSheetRef.dismiss('Reset');
     // this.filtered=false
 
     // this.dataService.getFollowupfilterURL();
@@ -288,7 +280,6 @@ removeKeyValuePairFromURL(keyToRemove: string) {
         JSON.stringify(this.filterLead.value)
       );
 
-      // this.updateFilterByStatusURL += `&${key}=${value}`;
       this.updateFilterByStatusURL = this.filterFollowUp.updateUrlParameter(
         this.updateFilterByStatusURL,
         key,
@@ -309,7 +300,7 @@ removeKeyValuePairFromURL(keyToRemove: string) {
     // console.log('==============>>', this.updateFilterByStatusURL);
 
     // this.updateFilterByStatusURL+='' 
-    this.bottomsheet.dismiss();
+    this.bottomsheet.dismiss('Submitted');
 
     // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
     //   console.log(res,"filtered followup  results")
@@ -370,7 +361,8 @@ removeKeyValuePairFromURL(keyToRemove: string) {
 
 
   closePopup() {
-    this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
+    this._bottomSheetRef.dismiss('Close-ion-clicked');
+    // this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
     // this.dataService.getFollowupfilterURL();
     this.updateFilterByStatusURL = null;
 
