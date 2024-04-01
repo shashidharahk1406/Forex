@@ -20,6 +20,9 @@
                         <div *ngIf="f['course_name'].errors && f['course_name'].errors['required']">
                              Course Name Is Required
                         </div>
+                        <div *ngIf="f['course_name'].errors && f['course_name'].errors['pattern']">
+                          Invalid Course Name.Please Enter Characters.
+                     </div>
                     </mat-error>
                 </div>
             </div>

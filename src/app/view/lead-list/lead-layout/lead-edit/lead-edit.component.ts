@@ -134,7 +134,7 @@ export class LeadEditComponent implements OnInit {
         otherCourse:[''],
         levelOfProgram:[''],
         entranceExam:['',Validators.pattern(this._commonService.namePattern)],
-        courseLookingfor:['',Validators.pattern(this._commonService.namePattern)],
+        courseLookingfor:[''],
         preferredCollege1:['',Validators.pattern(this._commonService.namePattern)],
         preferredCollege2:['',Validators.pattern(this._commonService.namePattern)],
         preferredLocation1:['',Validators.pattern(this._commonService.namePattern)],
@@ -355,6 +355,7 @@ const data ={
   remark: formData.remarks,
   source: formData.leadSource,
   refered_to: formData.counsellor,
+  level_of_program:formData.levelOfProgram,
   education_details: {
   tenth_per: formData.tenthPercentage || null,
   twelfth_per: formData.twelthPercentage || null,

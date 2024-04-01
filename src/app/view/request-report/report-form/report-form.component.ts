@@ -76,4 +76,13 @@ export class ReportFormComponent implements OnInit {
   get f() {
     return this.reportForm.controls;
   }
+  getReports(){
+    this._baseService.getData(`${environment.reports}?report_type=last-interaction-report&counsellor_id=${this.reportForm.value['counselorName']}`).subscribe((res:any)=>{
+     if(res){
+      this.api.showSuccess(res.message)
+     }
+    },(error:any)=>{
+      this.api.showError(error.error.message)
+    })
+  }
 }
