@@ -47,3 +47,9 @@ table {
 .red{
   color: red;
 }
+
+::ng-deep .mat-table thead {
+position: sticky !important;
+top: 0 !important;
+z-index: 99999 !important;
+}

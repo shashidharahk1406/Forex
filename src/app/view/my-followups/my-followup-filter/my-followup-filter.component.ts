@@ -225,16 +225,40 @@ export class MyFollowupFilterComponent implements OnInit {
       this.filterLead.patchValue({ counselled_by: resp?.counselled_by });
     }
   }
+isResetFilter:boolean=false
 
+
+
+
+
+
+removeKeyValuePairFromURL(keyToRemove: string) {
+  const url = new URL(this.updateFilterByStatusURL);
+  url.searchParams.delete(keyToRemove);
+  this.updateFilterByStatusURL = url.toString();
+}
   reset() {
     localStorage.removeItem('followUpFilter');
     this.dataService.sendData(true);
-    this._bottomSheetRef.dismiss();
+    this.isResetFilter=true;
+    this.updateFilterByStatusURL=null;
+    console.log( this.updateFilterByStatusURL,"resetting filter url");
+    // this.removeKeyValuePairFromURL();
+    
+    this._bottomSheetRef.dismiss( this.updateFilterByStatusURL);
+    // this.filtered=false
+
     // this.dataService.getFollowupfilterURL();
+
+    // this.dataService.dataUpdated.emit(this.isResetFilter);
+    // this.dataService.setSharedData(this.isResetFilter)
 
     // this.dialogRef.close()
   }
  
+
+
+
 
   filterCount: any = [];
   filtered: boolean = false;
@@ -270,6 +294,8 @@ export class MyFollowupFilterComponent implements OnInit {
         key,
         value
       );
+      console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
+      
 
       // let data = this.filterFollowUp.updateUrlParameter(this.updateFilterByStatusURL, key, value)
 
@@ -282,10 +308,8 @@ export class MyFollowupFilterComponent implements OnInit {
 
     // console.log('==============>>', this.updateFilterByStatusURL);
 
-    // this.updateFilterByStatusURL+=''
-    this.bottomsheet.dismiss({
-      data: this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL)
-    });
+    // this.updateFilterByStatusURL+='' 
+    this.bottomsheet.dismiss();
 
     // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
     //   console.log(res,"filtered followup  results")

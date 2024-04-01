@@ -10,6 +10,7 @@ import {
   SimpleChanges,
   AfterViewInit,
   DoCheck,
+  OnDestroy,
 } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -51,7 +52,7 @@ import { FilterFollowUp } from 'src/app/filter/filter';
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit {
+export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
   filterFollowUp = new FilterFollowUp();
 
   selectedDate: any = null;
@@ -112,10 +113,6 @@ export class MyFollowupCardContentComponent implements OnInit {
     private dataService: DataService,
     private fb: FormBuilder
   ) {
-    // this.allSelectedCheckBoxes=false
-
-    // this.isSelectedcheckBox=localStorage.getItem('allSelectedCheckBoxes')
-    //   console.log(this.isSelectedcheckBox,"allSelectedCheckBoxes")
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
     // console.log(this.counsellor_id, 'counsellor id');
@@ -133,6 +130,7 @@ export class MyFollowupCardContentComponent implements OnInit {
         this.APICAll();
 
       }
+  
     });
   }
 
@@ -140,30 +138,24 @@ export class MyFollowupCardContentComponent implements OnInit {
 
   receiveData() {
     const data = this.dataService.getSharedData();
-    // console.log(data, 'filtered count and filterd');
+    console.log(data, 'filter reset');
   }
 
   searchForm!: FormGroup;
 
   updateAPIURL: any;
   ngOnInit(): void {
-    // this.totalNumberOfRecords=[]
-
-    // this.selectedCheckboxIds = [];
-    this.updateAPIURL+=''
-
     this.dataService.dataUpdated.subscribe((res: any) => {
       // console.log(res, 'filtercount');
       this.filtered = res;
     });
 
-    // console.log('hello');
-
     this.getFollowupIds();
+    console.log('Before =============>', this.updateAPIURL);
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
 
-    // console.log('updated url==>', this.updateAPIURL);
+    console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
   }
@@ -183,6 +175,7 @@ export class MyFollowupCardContentComponent implements OnInit {
   filterFollowups() {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
+      
       disableClose: true,
      
     };
@@ -191,11 +184,15 @@ export class MyFollowupCardContentComponent implements OnInit {
     data.afterDismissed().subscribe((dataFromChild) => {
       console.log(dataFromChild, 'dataFromChild');
       if(dataFromChild){
-
-      }
-      // this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
-      this.ngOnInit();
       // this.APICAll()
+       this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
+       console.log( this.updateAPIURL,"url in filterfollowup compo")
+       
+      }
+      
+      this.ngOnInit();
+   
+     
     });
   }
 
@@ -274,7 +271,7 @@ export class MyFollowupCardContentComponent implements OnInit {
   }
   selectedLeadName: any;
   onCheckboxChange(event: MatCheckboxChange, itemId: string, leadName: any) {
-    // console.log(itemId, 'itemId');
+    console.log(itemId, 'itemId');
     // console.log(leadName, 'from selected lead');
     this.selectedLeadName = leadName;
     if (event.checked) {
@@ -333,7 +330,12 @@ export class MyFollowupCardContentComponent implements OnInit {
   //   }
   // }
   checkedCheckbox: boolean = false;
+  selectedCheckboxIdsAll:any=[]
+  selectedCheckboxIdsUpcoming:any=[]
+  selectedCheckboxIdsDone:any=[]
+  selectedCheckboxIdsMissed:any=[]
   selectAll(event: any, data: any) {
+   
     // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
@@ -429,15 +431,16 @@ export class MyFollowupCardContentComponent implements OnInit {
     localStorage.removeItem('followUpFilter')
     localStorage.removeItem('data.target.value')
     // console.log("updateAPIURL==>", this.updateAPIURL);
-    
-    // this.updateAPIURL = this.filterFollowUp.updateUrlParameter(this.updateAPIURL, this.page=1, this.pageSize=5)
-    this.updateAPIURL = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
+    this.dataService.setFilteredFollowUpURL(`${this.api_url}/api/follow-up/?page=1&page_size=5`);
     this.allPaginator.pageIndex = 0;
     this.allPaginator.pageSize = 5;
-    // this.ngOnInit();
-    this.APICAll();
+    this.ngOnInit();
     this.selectedTab = 'All';
     
+  }
+
+  ngOnDestroy(): void {
+    this.refreshFollowUps();
   }
 
   addCount() {
@@ -585,6 +588,9 @@ export class MyFollowupCardContentComponent implements OnInit {
     }
   }
 
+
+  
+
   bulkVideoCall() {
     const dialogRef = this.dialog.open(FollowupVideocallComponent, {
       width: '45%',
@@ -674,7 +680,7 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.renderingData=[]
     
 
-    // console.log('final data url==>', this.updateAPIURL);
+    console.log('final data url==>', this.updateAPIURL);
     //   this.totalNumberOfRecords = [];
     // this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
     //   (res: any) => {
@@ -703,7 +709,7 @@ export class MyFollowupCardContentComponent implements OnInit {
 
       this.totalNumberOfRecords = [];
       this.countDataValue=[]
-      this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
+      this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
@@ -715,7 +721,7 @@ export class MyFollowupCardContentComponent implements OnInit {
 
           if(this.selectedCheckboxIds.length!==0){
             // console.log(this.selectedCheckboxIds,"data prsent");
-            this.renderingData.forEach((c: any) => {
+            this.followUpsData2.forEach((c: any) => {
               c.checked = true
               this.checkAll=true
               
@@ -741,7 +747,7 @@ export class MyFollowupCardContentComponent implements OnInit {
       this.countDataValue=[]
       // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
       
-      this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
+      this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
@@ -915,6 +921,31 @@ export class MyFollowupCardContentComponent implements OnInit {
     });
   }
 
+  openEmailChat(selectedData?:any){
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Send Email To ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data: data
+    });
+    dialogRef.disableClose=true
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+       this.bulkOpenEmailChat()
+       this.refreshFollowUps()
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
+  }
+
+  
+
+
+  
+
   openEmailSendoutForm(data: any) {
     if (data == 'All') {
       if (this.selectedCheckboxIds.length == 0) {
@@ -1061,6 +1092,8 @@ export class MyFollowupCardContentComponent implements OnInit {
     this.ngOnInit();
    
   }
+
+
 
 
   

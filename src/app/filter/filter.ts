@@ -34,6 +34,7 @@ export class FilterFollowUp {
 
   getFilterBYForm(key: any, value: any) {
     var apistring: any = '';
+    console.log('yyyyyyyyyyyyyyyyyyyyyyy',value)
 
     switch (value) {
       case 'counselled_by':
