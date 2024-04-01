@@ -39,7 +39,7 @@ export class AddNewUserComponent implements OnInit {
       start_date:[null],
       designation_id:[null,[Validators.required]],
       role_id:[null,[Validators.required]],
-      reporting_to_ids:[[Validators.required]],
+      reporting_to_ids:[null],
       is_allow_for_app:[false],
       // level_of_program_id:[null,[Validators.required]],
       // department_id:[null,[Validators.required]],
@@ -190,13 +190,41 @@ submit(){
 
 
 
- roleId:any
+ roleId:any;
+ filteredUsers1:any
+ isReportingToUser:boolean=false
 onRoleChange(id:any) {
    this.roleId= id;
   console.log(this.roleId,"roleId");
+  // this.allUser=[]
+  if(this.roleId===3){
+   this.isReportingToUser=true
+    this.allUser=this.allUser.filter((ele:any)=>{
+   return   ele.
+        role_name==
+        "Admin"
+      
+       
+        
+      })
+    
+  }else if(this.roleId===6){
   
+   this.isReportingToUser=false
 
 }
+}
 
+
+customValidation(control: AbstractControl): { [key: string]: boolean } | null {
+  // Implement your custom validation logic based on roleId
+  if (this.roleId === 3) {
+ 
+    if (control.value.length<=0) {
+      return { 'customError': true }; // Return error if validation fails
+    }
+  }
+  return null; // Return null if validation passes
+}
 
 }
