@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.loginForm.reset()
-				this.authService.startLogoutTimer(900000);
+				//this.authService.startLogoutTimer(900000);
 			},
 			(error=>{
 			   this.api.showError(this.api.toTitleCase(error.error.message))
