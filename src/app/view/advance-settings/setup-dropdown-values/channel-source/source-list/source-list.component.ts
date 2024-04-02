@@ -23,8 +23,8 @@ export class SourceListComponent implements AfterViewInit {
     'source_name',
     'is_active',
     'is_system_value',
-    'source_id',
-    'channel_name',
+    // 'source_id',
+    // 'channel_name',
     'delete'
 
   ]

@@ -65,10 +65,16 @@
             </div>
           </mat-error>
         </div>
+        <!-- <div class="col-1 col-md-1" >
+          <div class="" ><strong>{{'+91'}}</strong></div>
+        </div> -->
         <div class="col-12 col-md-6">
+          
           <mat-form-field class="example-full-width" appearance="outline">
+           
             <mat-label>Mobile Number</mat-label>
-            <input
+            <span class="d-flex">{{'+91'}}</span> 
+           <input
               maxlength="10"
               formControlName="mobile_number"
               type="tel"
@@ -228,11 +234,11 @@
           <hr />
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-12 col-md-12">
           <h3><b>Section 3:Default Values to be set</b></h3>
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <!-- <div class="col-12 col-md-6">
           <mat-form-field appearance="outline">
