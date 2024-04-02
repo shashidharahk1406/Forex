@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -32,7 +33,8 @@ export class ReportFormComponent implements OnInit {
   constructor(
     private _baseService:BaseServiceService,
     private api:ApiService,
-    private fb:FormBuilder) {
+    private fb:FormBuilder,
+    private datePipe:DatePipe) {
       this.user_id = localStorage.getItem('user_id')
       this.max = new Date()
      }
@@ -61,12 +63,12 @@ export class ReportFormComponent implements OnInit {
     }))
    }
    getCounselor(){
-    this._baseService.getData(`${environment._user}?lead_exists=True&role_name=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment.counsellor_list_report}?report_type=last-interaction-report&lead_exists=True`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }
     },((error:any)=>{
-       this.api.showError(this.api.toTitleCase(error.error.message))
+       this.api.showError(this.api.toTitleCase(error?.error.message))
     }))
   }
   clearSelectField(fieldName: string) {
@@ -76,7 +78,9 @@ export class ReportFormComponent implements OnInit {
     return this.reportForm.controls;
   }
   getReports(){
-    this._baseService.getData(`${environment.reports}?report_type=last-interaction-report&counsellor_id=${this.reportForm.value['counselorName']}`).subscribe((res:any)=>{
+    const startDate = this.datePipe.transform(this.reportForm.value['startDate'],'yyyy-MM-dd')
+    const endDate = this.datePipe.transform(this.reportForm.value['endDate'],'yyyy-MM-dd')
+    this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=last-interaction-report&counsellor_id=${this.reportForm.value['counselorName']}&start_date=${startDate}&end_date=${endDate}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
      }

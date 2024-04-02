@@ -32,7 +32,8 @@ export const environment = {
   followUps:`https://fcmdev.thestorywallcafe.com/api/follow-up/`,
   payment_status:`https://fcmdev.thestorywallcafe.com/api/payment-status/`,
   studying_stream:`https://fcmdev.thestorywallcafe.com/api/studying-stream/`,
-  reports:`https://fcmdev.thestorywallcafe.com/api/get-reports/`
+  reports:`https://fcmdev.thestorywallcafe.com/api/get-reports/`,
+  counsellor_list_report:`https://fcmdev.thestorywallcafe.com/api/get-counsellor-for-report/`
 
  //Test
   // live_url:'https://fcmtest.thestorywallcafe.com',
@@ -61,6 +62,7 @@ export const environment = {
   // payment_status:`https://fcmtest.thestorywallcafe.com/api/payment-status/`,
   // studying_stream:`https://fcmtest.thestorywallcafe.com/api/studying-stream/`,
   // reports:`https://fcmtest.thestorywallcafe.com/api/get-reports/`
+  //counsellor_list_report:`https://fcmtest.thestorywallcafe.com/api/get-counsellor-for-report/`
   
   //Docker
   // live_url:'http://localhost:8005',
@@ -89,6 +91,7 @@ export const environment = {
   // payment_status:`http://localhost:8005/api/payment-status/`,
   // studying_stream:`http://localhost:8005/api/studying-stream/`,
   // reports:`http://localhost:8005/api/get-reports/`
+  //counsellor_list_report:`http://localhost:8005/api/get-counsellor-for-report/`
 
   //Admin
   // live_url:'https://admin.firstclassmentor.com',
@@ -117,4 +120,5 @@ export const environment = {
   // payment_status:`https://admin.firstclassmentor.com/api/payment-status/`,
   // studying_stream:`https://admin.firstclassmentor.com/api/studying-stream/`,
   // reports:`https://admin.firstclassmentor.com/api/get-reports/`
+  //counsellor_list_report:`https://admin.firstclassmentor.com/get-counsellor-for-report/`
 };

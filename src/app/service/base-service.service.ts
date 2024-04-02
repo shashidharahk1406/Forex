@@ -17,6 +17,9 @@ export class BaseServiceService {
   postData(url:any,data:any){
     return this.http.post(url, data);
   }
+  postDataWithParams(url:any){
+    return this.http.post(url,'');
+  }
   postFile(url:any,data:any){
     this.file = true
     return this.http.post(url, data);

@@ -99,7 +99,7 @@
     cursor: pointer;
 }
 .custom-height-set{
-    height: 85%;
+    height: 80%;
     overflow-y: auto !important;
     padding-bottom:30px ;
 }
