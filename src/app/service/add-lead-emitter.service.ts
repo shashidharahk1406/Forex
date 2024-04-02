@@ -18,6 +18,7 @@ export class AddLeadEmitterService {
   leadRefresh = new BehaviorSubject(false)
  
   goBack = new BehaviorSubject(false)
+  filterWithPageSize:any= new BehaviorSubject([]);
   triggerGet() {
     this.triggerGetSource.next();
   }

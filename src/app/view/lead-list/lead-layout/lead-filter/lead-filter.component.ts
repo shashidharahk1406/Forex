@@ -197,6 +197,7 @@ queryItems: any;
      if(queryParams.length > 0){
       apiUrl +=`&${queryParams.join('&')}`
       filterParams = `&${queryParams.join('&')}`
+      this._addLeadEmitter.filterWithPageSize.next(filterParams)
      }
     this._addLeadEmitter.leadFilter.next(apiUrl)
     this._addLeadEmitter.selectedFilter.next(this.filterLead.value)
