@@ -61,9 +61,8 @@ export class ReportFormComponent implements OnInit {
     }))
    }
    getCounselor(){
-    this._baseService.getData(`${environment._user}`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}?lead_exists=True&role_name=counsellor`).subscribe((res:any)=>{
       if(res.results){
-      // this.referredTo = res.results.filter((f:any)=>f.id != this.user_id)
       this.referredTo = res.results
       }
     },((error:any)=>{
