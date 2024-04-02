@@ -1,7 +1,7 @@
-<div class="row">
-  <div class="col-8">
+<div class="row" >
+  <div class="col-8" >
     <!-- <app-my-followup-tool-bar></app-my-followup-tool-bar> -->
-    <mat-card class="">
+    <mat-card class="" style="position: sticky;top: 0; z-index: 99999999999;">
       <div class="row">
         <div class="col d-flex">
           <p
@@ -221,27 +221,29 @@
           </div>
         </div>
       </div>
+
+      <div class="row ">
+        <div class="col" >
+          <mat-checkbox 
+            class=""
+            
+            (change)="selectAll($event, renderingData)"
+            class="ms-4"
+            [checked]="checkAll"
+            ><div style="font-size: 12px" class="ps-3">
+              SELECT ALL 
+              <span >({{totalNumberOfRecords}})</span> 
+            </div></mat-checkbox
+          >
+        </div>
+      </div>
       <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
         <button mat-raised-button (click)="refreshFollowUps()" class="go-back">
           <i class="bi bi-arrow-left-circle-fill"></i> GO BACK
         </button>
       </div> -->
     </mat-card>
-    <div class="row">
-      <div class="col">
-        <mat-checkbox
-          class=""
-          
-          (change)="selectAll($event, renderingData)"
-          class="ms-4"
-          [checked]="checkAll"
-          ><div style="font-size: 12px" class="ps-3">
-            SELECT ALL 
-            <span >({{totalNumberOfRecords}})</span> 
-          </div></mat-checkbox
-        >
-      </div>
-    </div>
+   
     <!-- {{renderingData.length}} -->
     <div class="row"  *ngIf="selectedDate">
       <div class="col my-2 text-center ">
@@ -882,7 +884,7 @@
       </div>
     </div>
   </div>
-  <div class="col" style="padding: 45px">
+  <div class="col" style="padding: 45px;position: sticky;top: 0;z-index: 9999999999999999;">
     <div class="col d-flex"></div>
 
     <!-- <div class="col-12"></div> -->
