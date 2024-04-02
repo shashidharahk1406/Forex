@@ -41,19 +41,19 @@
       </ng-container>
     
       <!-- Define User Role column -->
-      <ng-container matColumnDef="source_id">
+      <!-- <ng-container matColumnDef="source_id">
         <th mat-header-cell *matHeaderCellDef >Source</th>
         <td mat-cell *matCellDef="let element">{{ element.source_name }}</td>
-      </ng-container>
+      </ng-container> -->
     
       <!-- Define Designation column -->
-      <ng-container matColumnDef="channel_name">
+      <!-- <ng-container matColumnDef="channel_name">
         <th mat-header-cell *matHeaderCellDef >New Channel</th>
         <td mat-cell *matCellDef="let element">{{ element.channel_name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="delete">
+      </ng-container> -->
+      <ng-container matColumnDef="delete" >
         <th mat-header-cell *matHeaderCellDef >Option</th>
-        <td mat-cell *matCellDef="let element">        <div ngbDropdown #myDropdown="ngbDropdown">
+        <td mat-cell *matCellDef="let element" >        <div ngbDropdown #myDropdown="ngbDropdown" style="background: none !important;">
           <div class="app-list" ngbDropdownToggle   (click)="openDelete(element.id)">
             <mat-icon class="more-inner-icon" data-bs-toggle="modal" title="Delete">delete</mat-icon> 
            </div>
@@ -78,6 +78,6 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 
    

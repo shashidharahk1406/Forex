@@ -24,8 +24,8 @@ export class AddSourceComponent implements OnInit {
       source_name:['',[Validators.required]],
       is_active:[true,[Validators.required]],
       is_system_value:[true,[Validators.required]],
-      source_id:['',[Validators.required]],
-      channel_id:['',[Validators.required]],
+      // source_id:['',[Validators.required]],
+      // channel_id:['',[Validators.required]],
 
     })
   }

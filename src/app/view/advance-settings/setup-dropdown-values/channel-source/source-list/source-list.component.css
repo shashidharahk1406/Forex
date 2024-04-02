@@ -30,10 +30,12 @@ table {
   font-size: 20px;
   cursor: pointer;
 }
-.app-list{
+.app-list[_ngcontent-hxi-c389] {
   padding: 3px;
   cursor: pointer;
+  background: none !important;
 }
+
 .user-name:hover{
   cursor:pointer;
   font-weight: bold;
