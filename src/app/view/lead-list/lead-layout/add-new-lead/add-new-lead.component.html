@@ -39,12 +39,10 @@
                         </mat-error>
                       </mat-form-field>
                      <div class="row d-flex justify-content-center align-items-center">
-                      <div class="col-1" >
-                        <div class="" ><strong>{{'+91'}}</strong></div>
-                      </div>
-                      <div class="col-11">
+                      <div class="col-12">
                         <mat-form-field appearance="outline" class="mb-1">
                           <mat-label>Mobile Number</mat-label>
+                          <div matPrefix *ngIf="f['mobile'].value" class="p-r">+91</div>
                           <input
                             maxlength="10"
                             matInput
@@ -61,12 +59,10 @@
                      </div>
                       
                      <div class="row d-flex justify-content-center align-items-center">
-                      <div class="col-1" >
-                        <div class="" ><strong>{{'+91'}}</strong></div>
-                      </div>
-                      <div class="col-11">
+                      <div class="col-12">
                         <mat-form-field class="mb-1" appearance="outline">
                           <mat-label>Alternate Phone Number</mat-label>
+                          <div matPrefix *ngIf="f['alternateNumber'].value" class="p-r">+91</div>
                           <input matInput  maxlength="10" type="tel" appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
                           <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
                           <div class="custom-errmsg" *ngIf="!f['mobile'].hasError('pattern') && f['alternateNumber'].value && f['mobile'].value == f['alternateNumber'].value">
@@ -196,12 +192,11 @@
                       </mat-form-field>
                     
                       <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-1" >
-                          <div class="" ><strong>{{'+91'}}</strong></div>
-                        </div>
-                        <div class="col-11">
+                       
+                        <div class="col-12">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>Reference Phone Number</mat-label>
+                            <div matPrefix *ngIf="f['referencePhoneNumber'].value" class="p-r">+91</div>
                             <input
                             matInput
                             maxlength="10"
@@ -239,12 +234,10 @@
                       </mat-form-field>
                       
                       <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-1" >
-                          <div class="" ><strong>{{'+91'}}</strong></div>
-                        </div>
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>Father Phone Number</mat-label>
+                            <div matPrefix *ngIf="f['fatherPhoneNumber'].value" class="p-r">+91</div>
                             <input
                             matInput
                             appFormSpace
@@ -364,7 +357,7 @@
                   <div class="col-11">
                     <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Course Looking For</mat-label>
-                      <mat-select formControlName="courseLookingfor" placeholder="Select Course" >
+                      <mat-select formControlName="courseLookingfor" placeholder="Select Course" multiple>
                         <mat-option *ngFor="let option of courseOptions" [value]="option.id">{{ option.course_name }}</mat-option>
                       </mat-select>
                       <button

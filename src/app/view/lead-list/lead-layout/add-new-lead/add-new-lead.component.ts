@@ -313,7 +313,7 @@ export class AddNewLeadComponent implements OnInit {
     stream: f["course"],
     others: f["otherCourse"],
     enterance_exam: f["entranceExam"],
-    course_looking_for: f["courseLookingfor"],
+    course_looking_for: f["courseLookingfor"] || [],
     lead_list_status:f['leadStatus'],
     lead_list_substatus: null,
     counselled_by:f['counsellorAdmin'],

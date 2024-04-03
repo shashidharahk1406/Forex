@@ -58,15 +58,14 @@ export class PaymentDetailsComponent implements OnInit {
       let formData ={}
       if(this.data.name === "BULK"){ 
       formData ={
-        amount:this.paymentForm.value['amount'],
+        amount:parseInt(this.paymentForm.value['amount']),
         channel:this.paymentForm.value['channel'],
         lead_ids: this.data.data,
         counsellor_id:this.user_id,
       } 
     }else{
-     
       formData ={
-        amount:(this.paymentForm.value['amount']*100),
+        amount:parseInt(this.paymentForm.value['amount']),
         channel:this.paymentForm.value['channel'],
         lead_ids: [this.data.user_data.id],
         counsellor_id:this.user_id,

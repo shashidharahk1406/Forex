@@ -67,6 +67,7 @@ export class LeadEditComponent implements OnInit {
       (res: any) => {
         if (res && res.result && res.result.length > 0) {
           const lead = res.result[0];
+          const courseId = lead.course_looking_for.map((m:any)=>m.id)
           this.editLeadForm.patchValue({
             firstName: lead.user_data.first_name,
             mobile: lead.user_data.mobile_number,
@@ -89,7 +90,8 @@ export class LeadEditComponent implements OnInit {
             degree: lead.degree_per,
             otherCourse: lead.others,
             entranceExam: lead.enterance_exam,
-            courseLookingfor: lead.course_looking_for_id,
+            courseLookingfor: courseId,
+            levelOfProgram:lead.level_of_program,
             preferredCollege1: lead.preferred_college1,
             preferredCollege2: lead.preferred_college2,
             preferredLocation1: lead.preferred_location1,
@@ -363,7 +365,7 @@ const data ={
   stream: formData.course,
   others: formData.otherCourse,
   enterance_exam: formData.entranceExam,
-  course_looking_for: formData.courseLookingfor,
+  course_looking_for: formData.courseLookingfor || [],
     preferance_college_and_location: 
       {
         preferred_college1: formData.preferredCollege1,

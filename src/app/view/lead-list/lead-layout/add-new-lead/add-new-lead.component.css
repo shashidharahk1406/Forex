@@ -36,3 +36,8 @@ mat-card{
 strong{
 font-weight: 500;
 }
+.p-r{
+  position: relative;
+  top: -0.2rem;
+  right: -10px;
+}

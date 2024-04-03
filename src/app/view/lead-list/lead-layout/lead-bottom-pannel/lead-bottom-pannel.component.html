@@ -32,12 +32,20 @@
           <div class="col-12">{{pannelData.payment_status || 'NA'}}</div>
       </div>
     </div>
-      <div class="col">
+    <div class="col">
         <div class="row text-start">
-            <div class="col-12 pannel-label">Course Looking For</div>
-            <div class="col-12">{{pannelData.course_looking_for_name || 'NA'}}</div>
+          <div class="col-12 pannel-label">Course Looking For</div>
+          <div class="col-12" style="display: inline-block !important;">
+            <ng-container *ngIf="pannelData.course_looking_for && pannelData.course_looking_for.length > 0">
+              <span *ngFor="let item of pannelData.course_looking_for; let last = last">
+                {{item.name || 'NA'}}<span *ngIf="!last">, </span>
+              </span>
+            </ng-container>
+            <span *ngIf="!pannelData.course_looking_for || pannelData.course_looking_for.length === 0">NA</span>
+          </div>
         </div>
       </div>
+      
     </div> 
     
     <div class="row mb-2">

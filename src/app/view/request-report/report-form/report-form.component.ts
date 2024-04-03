@@ -19,7 +19,24 @@ export class ReportFormComponent implements OnInit {
   referredTo: any = [];
   user_id: any;
   reportForm!:FormGroup;
-  reportType:any[] = ['All Interactions Report','Last Interactions Report','Untouched Data Report','Lead Stage Report']
+  reportType:any[] = [ 
+  {
+    type:'All Interactions Report',
+    id:'1'
+  },
+  {
+    type:'Last Interactions Report',
+    id:'last-interaction-report'
+  },
+  {
+    type:'Untouched Data Report',
+    id:'2'
+  },
+  {
+    type:'Lead Stage Report',
+    id:'1'
+  },
+ ]
   leadStage:any[] = [];
   show: boolean = false;
     
@@ -30,6 +47,7 @@ export class ReportFormComponent implements OnInit {
       this.show = false
     }
   }
+  
   constructor(
     private _baseService:BaseServiceService,
     private api:ApiService,
@@ -46,10 +64,10 @@ export class ReportFormComponent implements OnInit {
   }
   initForm(){
     this.reportForm = this.fb.group({
-      reportType:[''],
-      counselorName:[''],
-      startDate:[''],
-      endDate:['']
+      reportType:['',Validators.required],
+      counselorName:['',Validators.required],
+      startDate:['',Validators.required],
+      endDate:['',Validators.required]
     })
   }
   getLeadStage(){
@@ -63,6 +81,7 @@ export class ReportFormComponent implements OnInit {
     }))
    }
    getCounselor(){
+    
     this._baseService.getData(`${environment.counsellor_list_report}?report_type=last-interaction-report&lead_exists=True`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
@@ -78,14 +97,21 @@ export class ReportFormComponent implements OnInit {
     return this.reportForm.controls;
   }
   getReports(){
+    if(this.reportForm.invalid){
+      this.reportForm.markAllAsTouched()
+    }else{
+    
     const startDate = this.datePipe.transform(this.reportForm.value['startDate'],'yyyy-MM-dd')
     const endDate = this.datePipe.transform(this.reportForm.value['endDate'],'yyyy-MM-dd')
-    this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=last-interaction-report&counsellor_id=${this.reportForm.value['counselorName']}&start_date=${startDate}&end_date=${endDate}`).subscribe((res:any)=>{
+    const counsellor = this.reportForm.value['counselorName']
+    const reportType = this.reportForm.value['reportType']
+    this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=${reportType}&counsellor_id=${counsellor}&start_date=${startDate}&end_date=${endDate}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
      }
     },(error:any)=>{
       this.api.showError(error.error.message)
     })
+  }
   }
 }
