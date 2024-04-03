@@ -61,8 +61,8 @@ export const environment = {
   // followUps:`https://fcmtest.thestorywallcafe.com/api/follow-up/`,
   // payment_status:`https://fcmtest.thestorywallcafe.com/api/payment-status/`,
   // studying_stream:`https://fcmtest.thestorywallcafe.com/api/studying-stream/`,
-  // reports:`https://fcmtest.thestorywallcafe.com/api/get-reports/`
-  //counsellor_list_report:`https://fcmtest.thestorywallcafe.com/api/get-counsellor-for-report/`
+  // reports:`https://fcmtest.thestorywallcafe.com/api/get-reports/`,
+  // counsellor_list_report:`https://fcmtest.thestorywallcafe.com/api/get-counsellor-for-report/`
   
   //Docker
   // live_url:'http://localhost:8005',
@@ -119,6 +119,6 @@ export const environment = {
   // followUps:`https://admin.firstclassmentor.com/api/follow-up/`,
   // payment_status:`https://admin.firstclassmentor.com/api/payment-status/`,
   // studying_stream:`https://admin.firstclassmentor.com/api/studying-stream/`,
-  // reports:`https://admin.firstclassmentor.com/api/get-reports/`
-  //counsellor_list_report:`https://admin.firstclassmentor.com/get-counsellor-for-report/`
+  // reports:`https://admin.firstclassmentor.com/api/get-reports/`,
+  // counsellor_list_report:`https://admin.firstclassmentor.com/get-counsellor-for-report/`
 };
