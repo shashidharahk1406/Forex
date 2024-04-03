@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
   initForm(){
     this.loginForm = this._fb.group({
-		email:['',[Validators.required,Validators.email,this.phoneOrEmailValidator()]],
+		email_or_phone:['',[Validators.required,Validators.email,this.phoneOrEmailValidator()]],
       password:['',[Validators.required],Validators.pattern(this.validPattern)],
 	  device_type:['',[Validators.required]]
     })
