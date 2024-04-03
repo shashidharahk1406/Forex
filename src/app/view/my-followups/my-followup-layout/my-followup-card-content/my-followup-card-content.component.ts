@@ -899,6 +899,9 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
   }
 
   showSendMailForm(data: any, lead_name: any = null) {
+    if(this.selectedCheckboxIds<=1){
+      
+    }
     let data_val = `Do You Want To Send Email To ${lead_name} `;
     const dialogRef = this.dialog.open(GenericCountComponent, {
       width: '40%',

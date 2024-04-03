@@ -85,9 +85,9 @@ height: 90%;
 .dropdown-menu {
     --bs-dropdown-font-size: 15px;
 }
-.app-list:hover{
+/* .app-list:hover{
     background:var(--appLightColor) ;
-}
+} */
 .app-list:active{
     background:var(--appLightColor) ;
 }
