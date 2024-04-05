@@ -107,14 +107,14 @@ getUserbyId(){
       this.editForm.patchValue({email:resp.result[0].email})
       this.editForm.patchValue({mobile_number:resp.result[0].mobile_number})
       this.editForm.patchValue({emp_key:resp.result[0].emp_key})
-      this.editForm.patchValue({target:resp.result[0].target})
+      // this.editForm.patchValue({target:resp.result[0].target})
       this.editForm.patchValue({start_date:resp.result[0].start_date})
       this.editForm.patchValue({designation_id:resp.result[0].designation_id})
       this.editForm.patchValue({role_id:resp.result[0].role_id})
       this.editForm.patchValue({reporting_to_ids:this.selectedArray});
       this.editForm.patchValue({is_allow_for_app:resp.result[0].is_allow_for_app})
-      this.editForm.patchValue({level_of_program_id:resp.result[0].level_of_program_id})
-      this.editForm.patchValue({department_id:resp.result[0].department_id})
+      // this.editForm.patchValue({level_of_program_id:resp.result[0].level_of_program_id})
+      // this.editForm.patchValue({department_id:resp.result[0].department_id})
       this.editForm.patchValue({password:resp.result[0].password})
       this.editForm.patchValue({created_by:resp.result[0].created_by})
 
