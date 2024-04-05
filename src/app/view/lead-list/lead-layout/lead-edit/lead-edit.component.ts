@@ -67,7 +67,11 @@ export class LeadEditComponent implements OnInit {
       (res: any) => {
         if (res && res.result && res.result.length > 0) {
           const lead = res.result[0];
-          const courseId = lead.course_looking_for.map((m:any)=>m.id)
+          let courseId = [];
+          if(lead.course_looking_for !== null){
+             courseId = lead.course_looking_for.map((m:any)=>m.id)
+          }
+         
           this.editLeadForm.patchValue({
             firstName: lead.user_data.first_name,
             mobile: lead.user_data.mobile_number,

@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LeadNoteComponent implements OnInit {
   leadNoteForm!:FormGroup;
+  user_id:any;
   constructor(
     public dialogRef: MatDialogRef<LeadNoteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -20,6 +21,7 @@ export class LeadNoteComponent implements OnInit {
     private _commonService:CommonServiceService,
     private _baseService:BaseServiceService,
     private api:ApiService) {
+      this.user_id = localStorage.getItem('user_id')
       this.getNotes()
      }
 
@@ -41,7 +43,8 @@ export class LeadNoteComponent implements OnInit {
     let f = this.leadNoteForm.value
     let obj = {
         note_name:f.leadNote,
-        lead : this.data 
+        lead : this.data,
+        updated_note_by:this.user_id 
     }
     this._baseService.postData(environment.lead_note,obj).subscribe((res:any)=>{
       if(res){
