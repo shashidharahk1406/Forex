@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
 import { DataService } from 'src/app/service/data.service';
 import { timestamp } from 'rxjs';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 
 @Component({
@@ -43,7 +44,9 @@ export class LeadFollowupComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api: ApiService,
-    private _baseService: BaseServiceService
+    private _baseService: BaseServiceService,
+    private addEmit:AddLeadEmitterService
+    
    
   ) {
     // this.currentDate=new Date().toISOString().slice(0, 16);
@@ -284,6 +287,7 @@ event.preventDefault()
             // alert('api calling');
             if (res) {
               this.api.showSuccess(res.message);
+              this.addEmit.triggerGet()
               this.closePopup();
             }
           },

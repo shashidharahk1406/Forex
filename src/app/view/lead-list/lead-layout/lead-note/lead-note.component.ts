@@ -2,6 +2,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { environment } from 'src/environments/environment';
@@ -20,7 +21,8 @@ export class LeadNoteComponent implements OnInit {
     private _fb:FormBuilder,
     private _commonService:CommonServiceService,
     private _baseService:BaseServiceService,
-    private api:ApiService) {
+    private api:ApiService,
+    private addEmit:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
       this.getNotes()
      }
@@ -49,6 +51,7 @@ export class LeadNoteComponent implements OnInit {
     this._baseService.postData(environment.lead_note,obj).subscribe((res:any)=>{
       if(res){
         this.api.showSuccess(res.message)
+        this.addEmit.triggerGet()
         this.dialogRef.close()
       }
     },((error)=>{

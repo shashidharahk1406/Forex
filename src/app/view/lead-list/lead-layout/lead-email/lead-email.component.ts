@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 
@@ -24,7 +25,8 @@ export class LeadEmailComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
-    private _baseService:BaseServiceService) {
+    private _baseService:BaseServiceService,
+    private addEmit:AddLeadEmitterService) {
 
       console.log(data,"data lead email")
     }
@@ -91,7 +93,7 @@ export class LeadEmailComponent implements OnInit {
         if(res){
           this._bottomSheetRef.dismiss()
           this.api.showSuccess(res.message)
-          
+          this.addEmit.triggerGet()
         }
       },((error)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
