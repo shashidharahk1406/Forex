@@ -877,7 +877,7 @@ getStreams(){
 
 
 
-getLeadFollowUpIds(){
-  return this.http.get(`${this.baseurl}/api/get-lead-ids/?follow_up=true`)
+getLeadFollowUpIds(status:any){
+  return this.http.get(`${this.baseurl}/api/get-lead-ids/?follow_up=true&status=${status}`)
 }
 }

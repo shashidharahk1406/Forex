@@ -202,9 +202,10 @@ export class UserProfileFilterComponent implements OnInit {
   }
   reset(){
     localStorage.removeItem('userFilter')
+    this.filterForm.reset()
     this.emit.sendRefreshbyFilter(null)
 
-    this.dialogRef.close()
+    // this.dialogRef.close()
   }
   }
 

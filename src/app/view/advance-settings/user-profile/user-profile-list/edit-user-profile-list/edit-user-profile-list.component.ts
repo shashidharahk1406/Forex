@@ -279,6 +279,35 @@ getUserbyId(){
       )
     }
     }
+
+
+
+
+
+    roleId:any;
+    filteredUsers1:any
+    isReportingToUser:boolean=false
+   onRoleChange(id:any) {
+      this.roleId= id;
+     console.log(this.roleId,"roleId");
+     // this.allUser=[]
+     if(this.roleId===3){
+      this.isReportingToUser=true
+       this.allUser=this.allUser.filter((ele:any)=>{
+      return   ele.
+           role_name==
+           "Admin"
+         
+          
+           
+         })
+       
+     }else if(this.roleId===6){
+     
+      this.isReportingToUser=false
+   
+   }
+   }
   
  
 }

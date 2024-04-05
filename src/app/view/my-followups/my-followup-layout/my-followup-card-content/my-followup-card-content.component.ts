@@ -335,7 +335,12 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
   selectedCheckboxIdsDone:any=[]
   selectedCheckboxIdsMissed:any=[]
   selectAll(event: any, data: any) {
-   
+    console.log(this.selectedTab,"(this.selectedTab");
+    
+    // if(this.selectedTab==='All'){
+    //   console.log(this.selectedTab,"this.selectedTab");
+    // }
+  
     // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
@@ -998,8 +1003,23 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
 
   followupIds: any;
   getFollowupIds() {
-    this.api.getLeadFollowUpIds().subscribe((res: any) => {
+    console.log(this.selectedTab,"this.selectedTab");
+  
+    
+    this.api.getLeadFollowUpIds(this.selectedTab).subscribe((res: any) => {
       this.followupIds = res.lead_ids;
+      console.log(this.followupIds,"this.followupIds");
+      
+      if(this.selectedTab==='Upcoming'){
+        this.upcomingselectedIds=res.lead_ids
+      }else if(this.selectedTab==='Done'){
+        this.doneSelectedIds=res.lead_ids
+      }else if(this.selectedTab==='Missed'){
+        this.missedSelectedIds=res.lead_ids
+        console.log(this.missedSelectedIds,"this.missedSelectedIds");
+        
+      }
+
       // console.log(this.followupIds, 'this.followupIds');
     });
   }
@@ -1038,10 +1058,21 @@ export class MyFollowupCardContentComponent implements OnInit,OnDestroy {
   //   );
   // }
 
+
+  upcomingselectedIds:any=[]
+  doneSelectedIds:any=[]
+  missedSelectedIds:any=[]
   selectAll1(event: any, data: any) {
+   
+    
+    
     // console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
+      if(this.selectedTab==='All'){
+        console.log(this.selectedTab,"this.selectedTab");
+      }
+    
       this.renderingData.forEach((element: any, index: any) => {
         if (element) {
           element.checked = true;

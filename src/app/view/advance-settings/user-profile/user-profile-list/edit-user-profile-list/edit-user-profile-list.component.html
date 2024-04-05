@@ -169,7 +169,8 @@
                   <mat-form-field  appearance="outline">
                     <mat-label>Select User Role</mat-label>
                     <mat-select  formControlName="role_id">
-                      <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
+                      <mat-option *ngFor="let item of allRole" [value]="item.id"  [ngStyle]="{ display: item.id === 7 ? 'none' : 'block' }"
+                      (click)="onRoleChange(item.id)">{{item.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
@@ -178,10 +179,10 @@
                     </div>
                 </mat-error>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                <div class="col-sm-12 col-md-12 col-lg-6 mb-4"   *ngIf="isReportingToUser">
                   <mat-form-field  appearance="outline">
                     <mat-label>Select Reporting to User</mat-label>
-                    <mat-select formControlName="reporting_to_ids" (selectionChange)="onSelectionChange($event)"   multiple>
+                    <mat-select formControlName="reporting_to_ids" (selectionChange)="onSelectionChange($event)"   [required]="isReportingToUser"  multiple>
                       <mat-option *ngFor="let item of allUser" [value]="item.id">{{item.first_name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
