@@ -381,10 +381,10 @@ const data ={
   },
   additional_info: {
     reference_name: formData.referenceName,
-    reference_mobile_number:formData.referencePhoneNumber,
+    reference_mobile_number:formData.referencePhoneNumber || null,
     father_name: formData.fatherName,
     father_occupation: formData.fatherOccupation,
-    father_mobile_number: formData.fatherPhoneNumber
+    father_mobile_number: formData.fatherPhoneNumber || null
   }
 }
 

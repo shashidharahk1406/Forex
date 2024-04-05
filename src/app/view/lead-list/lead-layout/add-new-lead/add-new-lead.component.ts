@@ -376,24 +376,24 @@ export class AddNewLeadComponent implements OnInit {
       }))
     }
   }
-openAddCourse(){
-  const dialogRef = this.dialog.open(AddCourseComponent, {
-    width:'35%'
-  });
+  openAddCourse(){
+    const dialogRef = this.dialog.open(AddCourseComponent, {
+      width:'35%'
+    });
 
-  dialogRef.afterClosed().subscribe((result:any) => {
-    //console.log('The dialog was closed');
-    this.getCourse()
-  }); 
-}
-openAddStream(){
-  const dialogRef = this.dialog.open(AddStreamComponent, {
-    width:'35%'
-  });
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+      this.getCourse()
+    }); 
+  }
+  openAddStream(){
+    const dialogRef = this.dialog.open(AddStreamComponent, {
+      width:'35%'
+    });
 
-  dialogRef.afterClosed().subscribe((result:any) => {
-    //console.log('The dialog was closed');
-    this.getStream()
-  }); 
-}
-}
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+      this.getStream()
+    }); 
+  }
+  }
