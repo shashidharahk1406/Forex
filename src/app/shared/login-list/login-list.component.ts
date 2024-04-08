@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
+import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 
 @Component({
   selector: 'app-login-list',
@@ -14,7 +15,7 @@ export class LoginListComponent implements OnInit {
   lastname:any;
   initials!: any;
 
-  constructor(private router:Router,private api:ApiService) { 
+  constructor(private router:Router,private api:ApiService,private addEmit:AddLeadEmitterService) { 
     this.name=localStorage.getItem('username')
     console.log(this.name,"this.name");
     
@@ -33,9 +34,9 @@ export class LoginListComponent implements OnInit {
     localStorage.clear();
     this.api.showSuccess("Logout Successfull")
    this.router.navigate(['/login'])
-   
-    // localStorage.clear()
-  //  this.router.navigate(['/login']);
+   this.addEmit.leadFilterIcon.next('')
+   this.addEmit.leadFilter.next('')
+   this.addEmit.selectedFilter.next('')
 
   }
 
