@@ -103,9 +103,8 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
   
-    this.getLeadIds()
-    this.getStatus()
-    this.getLeadData('tabLabel')
+      this.getLeadIds()
+      this.getStatus()
     this._addLeadEmitter.triggerGet$.subscribe(() => {
       this.getLeadIds()
       this.getLeadData('tabLabel')
@@ -117,6 +116,8 @@ export class LeadCardComponent implements OnInit {
         console.log(res, "RES");
         this.leadFilter = true;
         this.filterLeads(res);
+      }else{
+        this.getLeadData('tabLabel')
       }
     });
    
@@ -174,14 +175,17 @@ export class LeadCardComponent implements OnInit {
      
       // if(res.results.length === 0){
       //   this._addLeadEmitter.leadFilter.next('')
+      //   this._addLeadEmitter.selectedFilter.next('')
       // }
-      if(res){
+      // else{
+        if(res){
         this.leadFilter = true
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         // this.allLeadCardsDataSource.paginator = this.allPaginator;
         this.totalNumberOfRecords = res.total_no_of_record
       }
+    //}
      
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
