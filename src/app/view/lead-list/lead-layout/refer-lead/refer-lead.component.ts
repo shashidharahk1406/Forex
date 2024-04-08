@@ -113,6 +113,7 @@ export class ReferLeadComponent implements OnInit {
     }
     
     ngOnInit(): void {}
+   
     initForm(){
       this.referLeadForm = this._fb.group({
         referTo:['',Validators.required],
