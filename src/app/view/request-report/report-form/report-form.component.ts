@@ -71,6 +71,11 @@ export class ReportFormComponent implements OnInit {
       startDate:['',Validators.required],
       endDate:['',Validators.required]
     })
+     // Subscribe to start date value changes
+     this.reportForm.get('startDate')?.valueChanges.subscribe(() => {
+      // Clear end date when start date changes
+      this.reportForm.patchValue({ endDate: null });
+    });
   }
   getLeadStage(){
     this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
@@ -92,6 +97,13 @@ export class ReportFormComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error?.error.message))
     }))
   }
+  onChange(event:any){
+    if(event){
+      this.reportForm.patchValue({
+        endDate:['']
+      })
+    }
+  }
   clearSelectField(fieldName: string) {
     this.reportForm.get(fieldName)?.reset();
   }
@@ -102,7 +114,6 @@ export class ReportFormComponent implements OnInit {
     if(this.reportForm.invalid){
       this.reportForm.markAllAsTouched()
     }else{
-    
     const startDate = this.datePipe.transform(this.reportForm.value['startDate'],'yyyy-MM-dd')
     const endDate = this.datePipe.transform(this.reportForm.value['endDate'],'yyyy-MM-dd')
     const counsellor = this.reportForm.value['counselorName']
@@ -110,6 +121,7 @@ export class ReportFormComponent implements OnInit {
     this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=${reportType}&counsellor_id=${counsellor}&start_date=${startDate}&end_date=${endDate}&email=${this.user_email}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
+      this.reportForm.reset()
      }
     },(error:any)=>{
       this.api.showError(error.error.message)
