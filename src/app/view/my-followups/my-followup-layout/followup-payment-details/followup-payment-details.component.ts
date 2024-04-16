@@ -32,7 +32,7 @@ export class FollowupPaymentDetailsComponent implements OnInit {
   }
  initForm(){
   this.paymentForm = this.fb.group({
-    amount:[[Validators.required,Validators.pattern(/^\d*(?:[.,]\d{1,2})?$/)]],
+    amount:['',[Validators.required,Validators.pattern(/^\d*(?:[.,]\d{1,2})?$/)]],
     channel:['',[Validators.required]]
   })
  }

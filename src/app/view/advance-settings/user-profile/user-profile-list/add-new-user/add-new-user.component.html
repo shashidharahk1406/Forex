@@ -122,6 +122,7 @@
               formControlName="start_date"
               matInput
               [matDatepicker]="start_date"
+              [min]="min"
             />
             <mat-datepicker-toggle
               matSuffix
@@ -138,6 +139,7 @@
                 *ngFor="let item of allDesignation"
                 [value]="item.id"
                 [ngStyle]="{ display: item.id === 5 ? 'none' : 'block' }"
+                [ngClass]="[item.id === 3? 'display' : '', item.id===4 ? 'display' : '']"
                 >{{ item.designation_name }}</mat-option
               >
             </mat-select>
@@ -175,7 +177,8 @@
               <mat-option
                 *ngFor="let item of allRole"
                 [value]="item.id"
-                [ngStyle]="{ display: item.id === 7 ? 'none' : 'block' }"
+                [ngStyle]="{ display: item.id === 7  ? 'none' : 'block' }"
+                [ngClass]="[item.id === 5? 'display' : '', item.id===4 ? 'display' : '',item.id===7? 'display' :'']"
                 (click)="onRoleChange(item.id)"
                 >{{ item.name }}</mat-option
               >

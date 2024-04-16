@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
   initForm(){
     this.loginForm = this._fb.group({
-		email_or_phone:['',[Validators.required,Validators.email,this.phoneOrEmailValidator()]],
+		email_or_phone:['',[Validators.required],Validators.email,this.phoneOrEmailValidator()],
       password:['',[Validators.required],Validators.pattern(this.validPattern)],
 	  device_type:['',[Validators.required]]
     })
@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Basic email regex
 
     if (phoneRegex.test(value) || emailRegex.test(value) || value === '') {
-      return null; // Validation passed
+		return { phoneOrEmail: false }; // Validation passed
     } else {
       return { phoneOrEmail: true }; // Validation failed
     }

@@ -224,17 +224,19 @@
 
       <div class="row my-1">
         <div class="col" style="margin-left: -10px;" >
-          <mat-checkbox 
+          <mat-checkbox  
             class=""
-            
+            *ngIf="renderingData.length!==0"
             (change)="selectAll($event, renderingData)"
             class="ms-4"
             [checked]="checkAll"
             ><div style="font-size: 12px" class="ps-3">
               SELECT ALL 
-              <span >({{totalNumberOfRecords}})</span> 
+             
             </div></mat-checkbox
           >
+
+          <span class="mx-2 ">({{totalNumberOfRecords}})</span> 
         </div>
       </div>
       <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
@@ -294,7 +296,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
               <div class="row">
                 <div class="col-2 d-flex align-items-center">
-                  <mat-checkbox
+                  <mat-checkbox  
                     (change)="onCheckboxChange($event,followUp.lead_id,followUp.lead)"
                     [checked] ="followUp.checked"
                   ></mat-checkbox>
@@ -909,6 +911,7 @@
           class="custom-calendar shadow-lg my-5"
           [(selected)]="selectedDate"
           (selectedChange)="selectDate($event)"
+          [minDate]="minDate"
         >
         </mat-calendar>
 

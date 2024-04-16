@@ -96,3 +96,7 @@ mat-card{
      overflow-y: scroll;
      overflow-x: hidden; 
     }
+
+    .display{
+      display: none !important;
+    }

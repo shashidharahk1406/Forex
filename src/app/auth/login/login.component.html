@@ -42,7 +42,7 @@
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Email / Phone Number</mat-label>
-                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email_or_phone" required  pattern="[0-9]{10}" > 
+                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email_or_phone" > 
                                             <mat-error *ngIf="f['email_or_phone'].invalid && f['email_or_phone'].touched">
                                                 <div *ngIf="f['email_or_phone'].errors && f['email_or_phone'].errors['required']">
                                                     Please enter a valid phone number or email address
