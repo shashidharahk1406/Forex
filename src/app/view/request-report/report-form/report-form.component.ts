@@ -40,6 +40,9 @@ export class ReportFormComponent implements OnInit {
  ]
   leadStage:any[] = [];
   show: boolean = false;
+  user_role: string | undefined;
+  endMin: any;
+  
     
   selectedReports(type:any,type2?:any){
     if(type === 'Lead Stage Report' || type2 ){
@@ -55,6 +58,7 @@ export class ReportFormComponent implements OnInit {
     private fb:FormBuilder,
     private datePipe:DatePipe) {
       this.user_id = localStorage.getItem('user_id')
+      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.max = new Date()
       this.user_email = localStorage.getItem('user_email')
      }
@@ -66,16 +70,17 @@ export class ReportFormComponent implements OnInit {
   }
   initForm(){
     this.reportForm = this.fb.group({
-      reportType:['',Validators.required],
-      counselorName:['',Validators.required],
-      startDate:['',Validators.required],
-      endDate:['',Validators.required]
+      reportType:[null,Validators.required],
+      counselorName:[null,Validators.required],
+      endDate:[null,Validators.required],
+      startDate:[null,Validators.required]
+      
     })
-     // Subscribe to start date value changes
-     this.reportForm.get('startDate')?.valueChanges.subscribe(() => {
-      // Clear end date when start date changes
-      this.reportForm.patchValue({ endDate: null });
-    });
+    //  // Subscribe to start date value changes
+    //  this.reportForm.get('startDate')?.valueChanges.subscribe(() => {
+    //   // Clear end date when start date changes
+    //   this.reportForm.patchValue({ endDate: null });
+    // });
   }
   getLeadStage(){
     this._baseService.getData(environment.leadStage).subscribe((res:any)=>{
@@ -99,6 +104,7 @@ export class ReportFormComponent implements OnInit {
   }
   onChange(event:any){
     if(event){
+     // this.endMin = this.reportForm.value.startDate
       this.reportForm.patchValue({
         endDate:['']
       })
@@ -114,6 +120,7 @@ export class ReportFormComponent implements OnInit {
     if(this.reportForm.invalid){
       this.reportForm.markAllAsTouched()
     }else{
+     
     const startDate = this.datePipe.transform(this.reportForm.value['startDate'],'yyyy-MM-dd')
     const endDate = this.datePipe.transform(this.reportForm.value['endDate'],'yyyy-MM-dd')
     const counsellor = this.reportForm.value['counselorName']
@@ -121,7 +128,9 @@ export class ReportFormComponent implements OnInit {
     this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=${reportType}&counsellor_id=${counsellor}&start_date=${startDate}&end_date=${endDate}&email=${this.user_email}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
-      this.reportForm.reset()
+     // Reset the form
+      this.reportForm.reset();
+
      }
     },(error:any)=>{
       this.api.showError(error.error.message)
