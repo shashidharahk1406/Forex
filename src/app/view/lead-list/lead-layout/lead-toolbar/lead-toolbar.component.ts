@@ -249,7 +249,25 @@ export class LeadToolbarComponent implements OnInit {
     };
     this._bottomSheet.open(LeadFilterComponent,config);
   }
+  onDeleteAll(){
+    this.addCount()
+    if(this.data !== 0){
+    let data = `Do You Want To Delete ${this.data} Leads`
+    const dialogRef = this.dialog.open(GenericCountComponent, {
+      width:'40%',
+      data:data,
+    });
+    dialogRef.disableClose=true
   
+    dialogRef.afterClosed().subscribe((result:any) => {
+      if(result === 'yes'){
+       this.emit.deleteAll.next(true)
+      }
+    });
+  }else{
+    this.api.showWarning('Please select atleast one lead')
+  }
+  }
   referLead(){
     this.addCount()
     if(this.data !== 0){

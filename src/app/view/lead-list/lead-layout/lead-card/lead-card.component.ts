@@ -35,8 +35,9 @@ export class LeadCardComponent implements OnInit {
   leadAllIds: any = [];
   searchTerm:any;
   user_id: any;
-  user_role: string | null;
+  
   leadFilter: boolean = false;
+  user_role: any;
  
   
   constructor(
@@ -47,7 +48,7 @@ export class LeadCardComponent implements OnInit {
     private emit:EmitService,
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
-      this.user_role = localStorage.getItem('user_role');
+      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.getLeadIds();
     }
   
@@ -293,13 +294,24 @@ export class LeadCardComponent implements OnInit {
    
    }
    getLeadIds(){
-    this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
-      if(res){
-        this.leadAllIds = res.lead_ids
-      }
-    },((error:any)=>{
-      this.api.showError(error.error.error.message)
-    }))
+    if(this.user_role !== 'counsellor'){
+      this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
+        if(res){
+          this.leadAllIds = res.lead_ids
+        }
+      },((error:any)=>{
+        this.api.showError(error.error.error.message)
+      }))
+    }else{
+      this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
+        if(res){
+          this.leadAllIds = res.lead_ids
+        }
+      },((error:any)=>{
+        this.api.showError(error.error.error.message)
+      }))
+    }
+   
     return this.leadAllIds
   }
   reLoad(event:any){

@@ -233,25 +233,22 @@
                         <mat-error *ngIf="f['fatherOccupation'].hasError('pattern')">Invalid Father Occupation Format.Please Enter Characters.</mat-error>
                       </mat-form-field>
                       
-                      <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-11">
-                          <mat-form-field class="mb-1" appearance="outline">
-                            <mat-label>Father Phone Number</mat-label>
-                            <div matPrefix *ngIf="f['fatherPhoneNumber'].value" class="p-r">+91</div>
-                            <input
-                            matInput
-                            appFormSpace
-                            maxlength="10"
-                            type="tel"
-                            placeholder="Enter Father Phone Number"
-                            formControlName="fatherPhoneNumber"
-                            />
-                            <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
-                          </mat-form-field>
-                        
-                        </div>
-                       </div>
-                    
+                      
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>Father Phone Number</mat-label>
+                          <div matPrefix *ngIf="f['fatherPhoneNumber'].value" class="p-r">+91</div>
+                          <input
+                          matInput
+                          appFormSpace
+                          maxlength="10"
+                          type="tel"
+                          placeholder="Enter Father Phone Number"
+                          formControlName="fatherPhoneNumber"
+                          />
+                          <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                        </mat-form-field>
+                      
+                       
                     </div>
                 </ng-container>
             </mat-expansion-panel>

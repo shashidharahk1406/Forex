@@ -69,6 +69,10 @@
                     <!-- <mat-icon>link</mat-icon> -->
                     <img src="./assets/images/link-icon.png" alt="" width="19" height="19" class="set-pointer">
                 </div>
+                <!-- <div class="col p-1"  title="Delete All" (click)="onDeleteAll()">
+                    <i class="bi bi-trash-fill" style="color: #FF5722;font-size: 15px;"></i> 
+                </div> -->
+              
                 <div class="col p-1" (click)="filterLead()" title="Filter">
                     <i class="bi bi-funnel" *ngIf="!filtered" style="color: palevioletred;"></i>
                     <i class="bi bi-funnel-fill" *ngIf="filtered" style="color: palevioletred !important;"></i>

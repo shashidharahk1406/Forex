@@ -14,6 +14,8 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
+import { EmitService } from 'src/app/service/emit/emit.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-lead-card-content',
@@ -45,12 +47,14 @@ export class LeadCardContentComponent implements OnInit {
     private dialog: MatDialog,
     private _baseService:BaseServiceService,
     private api:ApiService,
-    private emit:AddLeadEmitterService
+    private emit:AddLeadEmitterService,
+    private emit2:EmitService
     ) {}
   delete(event:any){
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
+    this.deleteBulk()
    this.selectedCheckboxIds = [];
    }
   ngOnChanges(changes: SimpleChanges) {
@@ -59,14 +63,15 @@ export class LeadCardContentComponent implements OnInit {
    
     if (changes['leadData']) {
       this.leadData2 = this.api.getLeadData();
-      if (this.selectedCheckboxIds.length === this.totalCount) {
-        this.checkAll = true;
-        this.checkBoxData()
+      this.selectedCheckboxIds = [];
+      // if (this.selectedCheckboxIds.length === this.totalCount) {
+      //   this.checkAll = true;
+      //   this.checkBoxData()
         
-      } else{
-        this.checkAll = false;
-        this.checkBoxData()
-      }
+      // } else{
+      //   this.checkAll = false;
+      //   this.checkBoxData()
+      // }
     }
 
   }
@@ -236,6 +241,22 @@ export class LeadCardContentComponent implements OnInit {
       }
     });
   }
-
+deleteBulk(){
+  this.emit2.deleteAll.subscribe((res:any)=>{
+    if(res === true){
+      // let data = {
+      //   lead_ids: this.selectedCheckboxIds
+      // }
+      // this._baseService.postData(`${environment.lead_bulk_delete}`,data).subscribe((res:any)=>{
+      //   if(res){
+      //    this.api.showSuccess(res.message)
+      //    this.emit.triggerGet()
+      //   }
+      // },((error:any)=>{
+      //   this.api.showError(error.error.message)
+      // }))
+    }
+  })
+}
   
 }
