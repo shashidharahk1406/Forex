@@ -128,18 +128,18 @@
                         <input formControlName="emp_key" type="text" matInput placeholder="Emp Key">
                       </mat-form-field>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Target</mat-label>
                         <input formControlName="target" type="text" matInput placeholder="Target">
                       </mat-form-field>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="row mb-4">
                     <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field appearance="outline">
                         <mat-label>Start Date</mat-label>
-                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date">
+                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date"  [min]="min">
                         <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
                         <mat-datepicker #start_date></mat-datepicker>
                       </mat-form-field>
@@ -148,7 +148,7 @@
                       <mat-form-field  appearance="outline">
                         <mat-label>Designation</mat-label>
                         <mat-select  formControlName="designation_id">
-                          <mat-option *ngFor="let item of allDesignation" [value]="item.id">{{item.designation_name}}</mat-option>
+                          <mat-option *ngFor="let item of allDesignation" [value]="item.id"   [ngStyle]="{ display: item.id === 5 ? 'none' : 'block' }"  [ngClass]="[item.id === 3? 'display' : '', item.id===4 ? 'display' : '']">{{item.designation_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                       <mat-error *ngIf="f['designation_id'].invalid && f['designation_id'].touched">
@@ -157,7 +157,7 @@
                         </div>
                     </mat-error>
                     </div>
-                    
+
                   </div>
                 </div>
               </div>
@@ -169,7 +169,8 @@
                   <mat-form-field  appearance="outline">
                     <mat-label>Select User Role</mat-label>
                     <mat-select  formControlName="role_id">
-                      <mat-option *ngFor="let item of allRole" [value]="item.id">{{item.name}}</mat-option>
+                      <mat-option *ngFor="let item of allRole" [value]="item.id"  [ngStyle]="{ display: item.id === 7 ? 'none' : 'block' }"
+                      (click)="onRoleChange(item.id)"   [ngClass]="[item.id === 5? 'display' : '', item.id===4 ? 'display' : '',item.id===7? 'display' :'']">{{item.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">
@@ -178,10 +179,10 @@
                     </div>
                 </mat-error>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+                <div class="col-sm-12 col-md-12 col-lg-6 mb-4"   *ngIf="isReportingToUser">
                   <mat-form-field  appearance="outline">
                     <mat-label>Select Reporting to User</mat-label>
-                    <mat-select formControlName="reporting_to_ids" (selectionChange)="onSelectionChange($event)"   multiple>
+                    <mat-select formControlName="reporting_to_ids" (selectionChange)="onSelectionChange($event)"   [required]="isReportingToUser"  multiple>
                       <mat-option *ngFor="let item of allUser" [value]="item.id">{{item.first_name}}</mat-option>
                     </mat-select>
                   </mat-form-field>

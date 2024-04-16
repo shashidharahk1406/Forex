@@ -28,6 +28,7 @@ export class EditUserProfileListComponent implements OnInit {
   is_allow_for_app:boolean=false
   user_id:any
   id:any
+  min:Date;
 
   constructor(
     public dialogRef: MatDialogRef<EditUserProfileListComponent>,private api:ApiService, private emit:EmitService,private datePipe:DatePipe,
@@ -37,6 +38,7 @@ export class EditUserProfileListComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.id=data.userdata.id
+    this.min= new Date('1900-01-01')
   }
 
   ngOnInit(): void {
@@ -61,7 +63,7 @@ export class EditUserProfileListComponent implements OnInit {
       start_date:[''],
       designation_id:['',[Validators.required]],
       role_id:['',[Validators.required]],
-      reporting_to_ids:['',[Validators.required]],
+      reporting_to_ids:[null],
       // level_of_program_id:['',[Validators.required]],
       // department_id:['',[Validators.required]],
       password:[''],
@@ -255,6 +257,8 @@ getUserbyId(){
   }
   
   async submit(){
+    console.log(this.editForm.value,"edit form submission");
+    
     // this.editForm.patchValue({reporting_to_ids:this.newArr})
     if(this.newArrFromApi.length==0){
       this.editForm.patchValue({reporting_to_ids:this.newArr})
@@ -279,6 +283,35 @@ getUserbyId(){
       )
     }
     }
+
+
+
+
+
+    roleId:any;
+    filteredUsers1:any
+    isReportingToUser:boolean=false
+   onRoleChange(id:any) {
+      this.roleId= id;
+     console.log(this.roleId,"roleId");
+     // this.allUser=[]
+     if(this.roleId===3){
+      this.isReportingToUser=true
+       this.allUser=this.allUser.filter((ele:any)=>{
+      return   ele.
+           role_name==
+           "Admin"
+         
+          
+           
+         })
+       
+     }else if(this.roleId===6){
+     
+      this.isReportingToUser=false
+   
+   }
+   }
   
  
 }

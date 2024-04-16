@@ -25,3 +25,11 @@
      
    
     }
+
+    .display{
+      display: none !important;
+    }
+
+
+    .myMatOptions{  position: absolute; }
+::ng-deep .cdk-overlay-pane {  transform:none !important;}

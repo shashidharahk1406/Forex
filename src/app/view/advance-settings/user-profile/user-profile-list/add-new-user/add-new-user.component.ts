@@ -20,8 +20,10 @@ export class AddNewUserComponent implements OnInit {
   allDesignation:any=[]
   is_allow_for_app:boolean=false
   user_id:any
+  min!:Date
   constructor(private datePipe:DatePipe,private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddNewUserComponent>,private emit:EmitService) { 
     this.user_id=localStorage.getItem('user_id')
+    this.min= new Date('1900-01-01')
   }
 
   ngOnInit(): void {

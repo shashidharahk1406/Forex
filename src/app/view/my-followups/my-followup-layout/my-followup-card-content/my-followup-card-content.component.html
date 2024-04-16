@@ -56,7 +56,7 @@
 
         </div> -->
       </div>
-      <div class="row">
+      <div class="row" style="">
         <div class="col-sm-0 col-md-0 col-lg-6">
           <app-my-followup-sort
             *ngIf="renderingData?.length > 0"
@@ -224,17 +224,19 @@
 
       <div class="row my-1">
         <div class="col" style="margin-left: -10px;" >
-          <mat-checkbox 
+          <mat-checkbox  
             class=""
-            
+            *ngIf="renderingData.length!==0"
             (change)="selectAll($event, renderingData)"
             class="ms-4"
             [checked]="checkAll"
             ><div style="font-size: 12px" class="ps-3">
               SELECT ALL 
-              <span >({{totalNumberOfRecords}})</span> 
+             
             </div></mat-checkbox
           >
+
+          <span class="mx-2 ">({{totalNumberOfRecords}})</span> 
         </div>
       </div>
       <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
@@ -267,7 +269,7 @@
     ></app-nodata>
 
     <div
-      class="row"
+      class="row" style="height: 50%;overflow-y: auto;padding-bottom: 30px;"
       *ngIf="
         (renderingData | filter : followupSearch)?.length > 0;
         else noResultsSection
@@ -294,7 +296,7 @@
             <div class="col-sm-12 col-md-12 col-lg-4">
               <div class="row">
                 <div class="col-2 d-flex align-items-center">
-                  <mat-checkbox
+                  <mat-checkbox  
                     (change)="onCheckboxChange($event,followUp.lead_id,followUp.lead)"
                     [checked] ="followUp.checked"
                   ></mat-checkbox>
@@ -308,7 +310,7 @@
               </div>
             </div> -->
                 <div class="col">
-                  <div class="row text-start">
+                  <div class="row text-start" >
                     <div
                       class="col-12 c-name point-set fw-bold"
                       (click)="EditFollowups(followUp.id)"
@@ -325,7 +327,7 @@
             </div>
             <div class="col"></div>
             <div class="col-sm-12 col-md-6 col-lg-2">
-              <div class="row">
+              <div class="row" >
                 <div
                   class="col-12"
                   [ngClass]="{
@@ -700,7 +702,7 @@
               </div> -->
                   <div class="col">
                     <div class="row text-start">
-                      <div class="col-12 pannel-label">Course</div>
+                      <div class="col-12 pannel-label">Course Looking For</div>
                       <div class="col-12" *ngIf="!followUp.course_looking_for">
                         NA
                       </div>
@@ -882,8 +884,21 @@
           </ng-container>
         </mat-card>
       </div>
+      
     </div>
+
+    <mat-paginator
+    [length]="totalNumberOfRecords"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+    (page)="onPageChangeNew($event)"
+    #allPaginator
+  >
+  </mat-paginator>
+    
   </div>
+
+  
   <div class="col" style="padding: 45px;position: sticky;top: 0;z-index: 9999999999999999;">
     <div class="col d-flex"></div>
 
@@ -909,6 +924,7 @@
           class="custom-calendar shadow-lg my-5"
           [(selected)]="selectedDate"
           (selectedChange)="selectDate($event)"
+          [minDate]="minDate"
         >
         </mat-calendar>
 
@@ -953,13 +969,8 @@
       </div>
     </div>
   </div>
+ 
+  
 </div>
 
-<mat-paginator
-  [length]="totalNumberOfRecords"
-  [pageSizeOptions]="[5, 10, 25, 100]"
-  aria-label="Select page"
-  (page)="onPageChangeNew($event)"
-  #allPaginator
->
-</mat-paginator>
+

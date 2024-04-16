@@ -100,12 +100,19 @@ user:any;
     }
   }
   search(){
+   
     if(this.searchValue?.length>0){
       var role="Admin"
-      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+     
+      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
+        this.totalPageLength=[]
+        console.log(resp,"search results");
+        
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
+        console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+        
       this.dataSource.sort = this.sort;
         
       },(error:any)=>{
@@ -167,11 +174,13 @@ user:any;
       this.search()
     }else{
       if(this.params !=null ){
-        this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        this.api.getUser(this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
           //console.log(resp.results);
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
           this.totalPageLength=resp.total_no_of_record
+          console.log(resp.total_no_of_record,"resp.total_no_of_record in search with pagination");
+          
         this.dataSource.sort = this.sort;
           
         },(error:any)=>{
