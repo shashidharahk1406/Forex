@@ -42,16 +42,13 @@
                                     <div class="col-12 mb-2">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Email / Phone Number</mat-label>
-                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email_or_phone" required  pattern="[0-9]{10}" > 
-                                            <mat-error *ngIf="f['email_or_phone'].invalid && f['email_or_phone'].touched">
-                                                <div *ngIf="f['email_or_phone'].errors && f['email_or_phone'].errors['required']">
-                                                    Please enter a valid phone number or email address
+                                            <input type="text" matInput appFormSpace placeholder="Enter Your Email / Phone Number" formControlName="email_or_phone" required > 
+                                            <mat-error class="error-msg mb-3" *ngIf="f['email_or_phone'].invalid && f['email_or_phone'].touched">
+                                                <div *ngIf="loginForm.get('email_or_phone')?.hasError('phoneOrEmail')" class="error-msg mb-3">
+                                                  Invalid Email/Mobile Number
                                                 </div>
-                                                <!-- <div *ngIf="f['email'].errors.phoneOrEmail">Please enter a valid phone number or email address</div> -->
-                                                <!-- <div *ngIf="f['email'].errors && f['email'].errors['email']">
-                                                    Invalid Email
-                                                </div> -->
-                                            </mat-error>
+                                                <div *ngIf="loginForm.get('email_or_phone')?.hasError('required')">Email/Mobile Number Is Required</div>
+                                              </mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-12 mb-3">
