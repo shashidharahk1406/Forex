@@ -56,7 +56,7 @@
 
         </div> -->
       </div>
-      <div class="row">
+      <div class="row" style="">
         <div class="col-sm-0 col-md-0 col-lg-6">
           <app-my-followup-sort
             *ngIf="renderingData?.length > 0"
@@ -269,7 +269,7 @@
     ></app-nodata>
 
     <div
-      class="row"
+      class="row" style="height: 50%;overflow-y: auto;padding-bottom: 30px;"
       *ngIf="
         (renderingData | filter : followupSearch)?.length > 0;
         else noResultsSection
@@ -310,7 +310,7 @@
               </div>
             </div> -->
                 <div class="col">
-                  <div class="row text-start">
+                  <div class="row text-start" >
                     <div
                       class="col-12 c-name point-set fw-bold"
                       (click)="EditFollowups(followUp.id)"
@@ -327,7 +327,7 @@
             </div>
             <div class="col"></div>
             <div class="col-sm-12 col-md-6 col-lg-2">
-              <div class="row">
+              <div class="row" >
                 <div
                   class="col-12"
                   [ngClass]="{
@@ -884,8 +884,21 @@
           </ng-container>
         </mat-card>
       </div>
+      
     </div>
+
+    <mat-paginator
+    [length]="totalNumberOfRecords"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page"
+    (page)="onPageChangeNew($event)"
+    #allPaginator
+  >
+  </mat-paginator>
+    
   </div>
+
+  
   <div class="col" style="padding: 45px;position: sticky;top: 0;z-index: 9999999999999999;">
     <div class="col d-flex"></div>
 
@@ -956,13 +969,8 @@
       </div>
     </div>
   </div>
+ 
+  
 </div>
 
-<mat-paginator
-  [length]="totalNumberOfRecords"
-  [pageSizeOptions]="[5, 10, 25, 100]"
-  aria-label="Select page"
-  (page)="onPageChangeNew($event)"
-  #allPaginator
->
-</mat-paginator>
+

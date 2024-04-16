@@ -145,6 +145,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   updateAPIURL: any;
   ngOnInit(): void {
+    this.totalNumberOfRecords=[]
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtered');
       this.filtered = res;
@@ -706,6 +707,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           
           this.countDataValue = res.results.data_count;
           this.totalNumberOfRecords = res.total_no_of_record;
+          console.log( this.totalNumberOfRecords," this.totalNumberOfRecords");
+          
 
           if (this.selectedCheckboxIds.length !== 0) {
             // console.log(this.selectedCheckboxIds,"data prsent");
@@ -984,11 +987,12 @@ this.selectedCheckboxIds=[]
     console.log(this.selectedTab, 'this.selectedTab');
     if(this.role==='counsellor'){
       // this.selectedCheckboxIds=[]
-    }
 
-    this.api.getLeadFollowUpIds(this.selectedTab).subscribe((res: any) => {
+
+
+    this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
       this.followupIds = res.lead_ids;
-      console.log(this.followupIds, 'this.followupIds');
+      console.log(this.followupIds, 'lead ids for counsellor');
 
       if (this.selectedTab === 'Upcoming') {
         console.log(this.upcomingselectedIds, 'this.upcomingselectedIds');
@@ -1006,6 +1010,14 @@ this.selectedCheckboxIds=[]
 
       // console.log(this.followupIds, 'this.followupIds');
     });
+    }else{
+      this.api.getLeadFollowUpIdsForAdmin(this.selectedTab).subscribe((res:any)=>{
+        console.log(res,"leadids for admin");
+        
+        this.followupIds=res.lead_ids
+      })
+    }
+
   }
 
   // checkUncheckAll(evt: any, data: any) {
