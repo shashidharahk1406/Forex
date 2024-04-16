@@ -33,14 +33,18 @@ export class AppComponent implements OnInit {
       }
     });
     // Subscribe to isActive to reset the timer
-    this.idleDetectionService.isActive.subscribe(isActive => {
-      if (isActive) {
+    // this.idleDetectionService.isActive.subscribe(isActive => {
+    //   if (isActive) {
+    //     this.idleDetectionService.resetTimer();
+    //   } else {
+    //     localStorage.clear()
+    //     window.location.reload()
+    //   }
+      this.idleDetectionService.userActivity.subscribe(() => {
         this.idleDetectionService.resetTimer();
-      } else {
-        localStorage.clear()
-        window.location.reload()
-      }
-    });
+      });
+    
+    //});
 
     // Check for idle timeout every minute
     setInterval(() => {
