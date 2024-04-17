@@ -223,10 +223,10 @@
       </div>
 
       <div class="row my-1">
-        <div class="col" style="margin-left: -10px;" >
+        <div class="col" style="margin-left: -10px;"   *ngIf="renderingData.length!==0">
           <mat-checkbox  
             class=""
-            *ngIf="renderingData.length!==0"
+          
             (change)="selectAll($event, renderingData)"
             class="ms-4"
             [checked]="checkAll"

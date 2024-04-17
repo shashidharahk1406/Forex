@@ -38,11 +38,12 @@ export class EditUserProfileListComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.id=data.userdata.id
-    this.min= new Date('1900-01-01')
+    this.min= new Date('1900-01-01');
+    
   }
 
   ngOnInit(): void {
-    this.initForm()
+    this.initForm();
 
   }
   users: string[] = ['User 1', 'User 2', 'User 3'];
@@ -99,6 +100,13 @@ newArrFromApi:any=[]
 getUserbyId(){
   this.api.getUserById(this.id).subscribe(
     (resp:any)=>{
+      console.log(resp,"resp");
+      if(resp.result[0].role_id===3){
+        this.isReportingToUser=true
+      }else{
+        this.isReportingToUser=false
+      }
+      
       this.user_details=resp.result[0]
       resp.result[0].reporting_to_ids.forEach((element:any) => {
         this.selectedArray.push(element.id)
@@ -125,6 +133,9 @@ getUserbyId(){
 
     }
   )
+
+
+  
 }
   getAllDepartment(){
     this.api.getAllDepartment().subscribe(

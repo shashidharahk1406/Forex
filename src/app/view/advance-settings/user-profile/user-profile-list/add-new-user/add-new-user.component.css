@@ -33,3 +33,9 @@
 
     .myMatOptions{  position: absolute; }
 ::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 10px;
+  display: flex !important;
+}

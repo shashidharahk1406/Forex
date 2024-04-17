@@ -68,12 +68,12 @@
         <!-- <div class="col-1 col-md-1" >
           <div class="" ><strong>{{'+91'}}</strong></div>
         </div> -->
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 " >
           
-          <mat-form-field class="example-full-width" appearance="outline">
+          <mat-form-field class="example-full-width " appearance="outline" >
            
             <mat-label>Mobile Number</mat-label>
-            <span class="d-flex">{{'+91'}}</span> 
+            <span class="mx-1" style="margin-top: -1px !important;">{{'+91'}}</span> 
            <input
               maxlength="10"
               formControlName="mobile_number"
@@ -122,7 +122,10 @@
               formControlName="start_date"
               matInput
               [matDatepicker]="start_date"
-              [min]="min"
+          
+              [max]="max"
+              [min]="max"
+             
             />
             <mat-datepicker-toggle
               matSuffix

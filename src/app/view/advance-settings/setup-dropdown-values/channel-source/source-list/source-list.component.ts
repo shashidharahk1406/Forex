@@ -21,8 +21,8 @@ import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export class SourceListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'source_name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
     // 'source_id',
     // 'channel_name',
     'delete'
