@@ -2,3 +2,23 @@
     cursor: pointer;
     background-color: #f6f6f6;
 }
+
+
+
+.card:hover{
+    cursor: pointer;
+   color:  #12416A !important;
+  font-weight: normal !important;
+  background: gainsboro !important;
+}
+
+.card:active{
+    background: #f5bd64 !important;
+}
+
+.drodownValuesCard:hover{
+    cursor: pointer;
+    color:  #12416A !important;
+   font-weight: normal !important;
+   background: gainsboro !important;
+}
