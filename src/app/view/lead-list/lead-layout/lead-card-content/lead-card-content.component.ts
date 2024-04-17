@@ -244,17 +244,17 @@ export class LeadCardContentComponent implements OnInit {
 deleteBulk(){
   this.emit2.deleteAll.subscribe((res:any)=>{
     if(res === true){
-      // let data = {
-      //   lead_ids: this.selectedCheckboxIds
-      // }
-      // this._baseService.postData(`${environment.lead_bulk_delete}`,data).subscribe((res:any)=>{
-      //   if(res){
-      //    this.api.showSuccess(res.message)
-      //    this.emit.triggerGet()
-      //   }
-      // },((error:any)=>{
-      //   this.api.showError(error.error.message)
-      // }))
+      let data = {
+        lead_ids: this.selectedCheckboxIds
+      }
+      this._baseService.postData(`${environment.lead_bulk_delete}`,data).subscribe((res:any)=>{
+        if(res){
+         this.api.showSuccess(res.message)
+         this.emit.triggerGet()
+        }
+      },((error:any)=>{
+        this.api.showError(error.error.message)
+      }))
     }
   })
 }

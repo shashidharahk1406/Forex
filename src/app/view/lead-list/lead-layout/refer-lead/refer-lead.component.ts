@@ -44,17 +44,16 @@ export class ReferLeadComponent implements OnInit {
           if (res) {
             let formVal = res.result[0][0];
             this.previousValues = res.result[0][0]
-            this.referLeadForm.patchValue({
-              referTo: formVal.counsellor,
-              comment: formVal.comment
-            });
-            
+            // this.referLeadForm.patchValue({
+            //   referTo: formVal.counsellor,
+            //   comment: formVal.comment
+            // });
             if (selectedObject) {
               this.selectedCounsellor = selectedObject.first_name;
             }
           }
         }, (error: any) => {
-          this.api.showError(error.error.message);
+         // this.api.showError(error.error.message);
         });
       }
      
@@ -64,10 +63,10 @@ export class ReferLeadComponent implements OnInit {
     getCounselor(){
       this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
         if(res.results){
-        this.referTo = res.results.filter((f:any)=>f.id != this.user_id)
-          let selectedObject = this.referTo.find((obj: any) => obj.id === this.previousValues.counsellor);
+          let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues.counsellor);
           this.currentCounsellor = selectedObject.first_name 
           this.counsellorLastname = selectedObject.last_name
+          this.referTo = res.results.filter((f:any)=>f.id != this.user_id && f.id != this.previousValues.counsellor)
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))

@@ -31,7 +31,7 @@ export class ReportFormComponent implements OnInit {
   },
   {
     type:'Untouched Data Report',
-    id:'2'
+    id:'untouched-report-report'
   },
   {
     type:'Lead Stage Report',
@@ -42,6 +42,7 @@ export class ReportFormComponent implements OnInit {
   show: boolean = false;
   user_role: string | undefined;
   endMin: any;
+  min: Date;
   
     
   selectedReports(type:any,type2?:any){
@@ -60,6 +61,7 @@ export class ReportFormComponent implements OnInit {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.max = new Date()
+      this.min = new Date('1900-01-01')
       this.user_email = localStorage.getItem('user_email')
      }
 
@@ -130,6 +132,9 @@ export class ReportFormComponent implements OnInit {
       this.api.showSuccess(res.message)
      // Reset the form
       this.reportForm.reset();
+      // Object.keys(this.reportForm.controls).forEach(key => {
+      //   this.reportForm.get(key)?.setErrors(null);
+      // });
 
      }
     },(error:any)=>{

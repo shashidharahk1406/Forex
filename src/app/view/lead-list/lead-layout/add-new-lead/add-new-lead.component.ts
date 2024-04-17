@@ -54,7 +54,7 @@ export class AddNewLeadComponent implements OnInit {
     ) { 
       this.dropDownValues()
       this.user_id = localStorage.getItem('user_id')
-      this.min = new Date('1990-01-01')
+      this.min = new Date('1900-01-01')
     }
 
   ngOnInit(): void {

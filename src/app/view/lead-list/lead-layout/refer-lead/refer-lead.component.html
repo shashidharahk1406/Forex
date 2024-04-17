@@ -18,7 +18,7 @@
                     <mat-form-field class="mb-1" appearance="outline" *ngIf="data?.leadId">
                         <mat-label>Select Refer To</mat-label>
                         <mat-select placeholder="Select The Counsellor" formControlName="referTo" [multiple]="data.leadId.length > 1 ? true :false" >
-                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name | titlecase}} {{referer.last_name}}</mat-option>
+                          <mat-option *ngFor="let referer of referTo" [value]="referer?.id">{{referer?.first_name | titlecase}} {{referer?.last_name}}</mat-option>
                         </mat-select>
                         <button
                           mat-button
@@ -37,7 +37,7 @@
                       <mat-form-field class="mb-1" appearance="outline" *ngIf="!data?.leadId">
                         <mat-label>Select Refer To</mat-label>
                         <mat-select placeholder="Select The Counsellor" formControlName="referTo" >
-                          <mat-option *ngFor="let referer of referTo" [value]="referer.id">{{referer.first_name | titlecase }} {{referer.last_name}}</mat-option>
+                          <mat-option *ngFor="let referer of referTo" [value]="referer?.id">{{referer?.first_name | titlecase }} {{referer?.last_name}}</mat-option>
                         </mat-select>
                         <button
                           mat-button
