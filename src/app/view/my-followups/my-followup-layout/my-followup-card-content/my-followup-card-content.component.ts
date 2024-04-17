@@ -701,6 +701,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           console.log(this.totalCount,"this.totalCount for counsellor");
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
+          console.log(this.followUpsData2,"this.followUpsData2");
+          
 
           this.renderingData = res.results.data;
           
@@ -713,12 +715,19 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           if (this.selectedCheckboxIds.length !== 0) {
             // console.log(this.selectedCheckboxIds,"data prsent");
             this.followUpsData2.forEach((c: any) => {
-              c.checked = true;
-              this.checkAll = true;
+            
+              c.checked =   this.selectedCheckboxIds.includes(c.lead_id);
+
+             
             });
+
           } else {
             this.checkAll = false;
           }
+          if(this.selectedCheckboxIds.length===this.totalCount){
+            this.checkAll = true;
+          }
+
 
           this.totalNumberOfRecords = res.total_no_of_record;
 
@@ -738,6 +747,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         (res: any) => {
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
+          console.log(this.followUpsData2,"this.followUpsData2 for admin");
+          
           this.renderingData = res.results.data;
           this.totalCount=res.total_no_of_record;
           console.log( this.totalCount," this.totalCount");
@@ -747,8 +758,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           if (this.selectedCheckboxIds.length !== 0) {
             // console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
-              c.checked = true;
-              this.checkAll = true;
+              
+              c.checked = this.selectedCheckboxIds.includes(c.lead_id);
+            
               localStorage.setItem(
                 'allSelectedCheckBoxes',
                 JSON.stringify(true)
@@ -756,6 +768,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
             });
           } else {
             this.checkAll = false;
+          }
+          if(this.selectedCheckboxIds.length===this.totalCount){
+            this.checkAll = true;
           }
           // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
           this.totalNumberOfRecords = res.total_no_of_record;

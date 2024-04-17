@@ -26,6 +26,8 @@ export class TemplateListComponent implements AfterViewInit  {
     'template_name',
     // 'subject',
     'message',
+    'template_category',
+    'status',
 
     'Action',
 

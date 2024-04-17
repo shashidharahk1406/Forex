@@ -107,18 +107,20 @@ async submit(){
 
   var apiUrl = `${queryParams.join('&')}`;
   //console.log(this.filterUser.value);
-  localStorage.setItem('whatsappFilter',JSON.stringify(this.filterUser.value))
+ 
 
 
     this.emit.sendRefreshbyFilter(apiUrl)
     this.dialogRef.close()
-
+    localStorage.setItem('whatsappFilter',JSON.stringify(this.filterUser.value))
 
 }
 reset(){
   localStorage.removeItem('whatsappFilter')
-  this.emit.sendRefreshbyFilter(null)
+  this.emit.sendRefreshbyFilter(null);
+  this.filterUser.reset();
 
-  this.dialogRef.close()
+
+  // this.dialogRef.close()
 }
 }
