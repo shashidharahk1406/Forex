@@ -237,3 +237,6 @@ app-lead-list{
   color:#ffff !important ;
   font-weight: bolder;
 }
+app-my-followup-card-content{
+  position: relative !important;
+}
