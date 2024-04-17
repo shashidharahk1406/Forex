@@ -13,7 +13,7 @@
             formControlName="reportType">
               <li >
                 <ul *ngFor="let items of reportType">
-                    <mat-radio-button color="primary"  [disabled]="items.id !=='last-interaction-report'" [value]="items.id" (click)="selectedReports(items)">{{items.type}}</mat-radio-button>
+                    <mat-radio-button color="primary"  [disabled]="items.id !=='last-interaction-report' && items.id !== 'untouched-report-report'" [value]="items.id" (click)="selectedReports(items)">{{items.type}}</mat-radio-button>
                     
                     <div>
                         <li *ngIf="items === 'Lead Stage Report' && show ">
@@ -63,7 +63,7 @@
                 <div class="col-6">
                     <mat-form-field class="mb-4" appearance="outline">
                         <mat-label>Start Date</mat-label>
-                        <input formControlName="startDate" matInput [matDatepicker]="startDate" placeholder="DD/MM/YYYY" [max]="max" (dateChange)="onChange($event)">
+                        <input formControlName="startDate" matInput [matDatepicker]="startDate" placeholder="DD/MM/YYYY" [min]="min" [max]="max"  (dateChange)="onChange($event)">
                         <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                         <mat-datepicker #startDate></mat-datepicker>
                         <mat-error style="font-size: 11px;padding-top: 5px;"  *ngIf="f['startDate'].touched && f['startDate'].hasError('required')">Start Date Is Required</mat-error>
@@ -74,7 +74,7 @@
                 <div class="col-6">
                     <mat-form-field class="mb-4" appearance="outline">
                         <mat-label>End Date</mat-label>
-                        <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="DD/MM/YYYY" [min]="reportForm.get('startDate')?.value" [max]="max">
+                        <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="DD/MM/YYYY" [min]="reportForm.get('startDate')?.value || min " [max]="max">
                         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                         <mat-datepicker #endDate></mat-datepicker>
                         <mat-error style="font-size: 11px;padding-top: 5px;"  *ngIf="f['endDate'].touched && f['endDate'].hasError('required')">End Date Is Required</mat-error>
