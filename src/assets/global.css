@@ -176,7 +176,7 @@ height: 90%;
   .carousel-indicators{
     margin-right: 0% !important;
     margin-bottom: 0rem !important;
-    margin-left: 15% !important;
+    margin-left: 0% !important;
   }
   .sort-lead-dropdown .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text, .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text {
     padding-left: 0px !important;
