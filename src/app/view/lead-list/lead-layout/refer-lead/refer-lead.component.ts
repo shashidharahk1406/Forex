@@ -66,7 +66,7 @@ export class ReferLeadComponent implements OnInit {
           let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues.counsellor);
           this.currentCounsellor = selectedObject.first_name 
           this.counsellorLastname = selectedObject.last_name
-          this.referTo = res.results.filter((f:any)=>f.id != this.user_id && f.id != this.previousValues.counsellor)
+          this.referTo = res.results.filter((f:any)=>f.id != this.previousValues.counsellor)
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
