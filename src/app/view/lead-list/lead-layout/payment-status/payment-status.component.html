@@ -66,12 +66,12 @@
                   <mat-select formControlName="admission" placeholder="Select Admission Status">
                     <mat-option *ngFor="let option of admissionStatus" [value]="option.id">{{ option.status }}</mat-option>
                   </mat-select>
-                  <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectField('admission')" *ngIf="f['admission'].value">
+                  <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSelectField('admission')" *ngIf="f['admission']?.value">
                     <mat-icon>clear</mat-icon>
                   </button>
                  
-                    <mat-error class="er-fs" *ngIf="f['admission'].hasError('required')">Admission Status Is Required</mat-error>
-                    
+                    <mat-error *ngIf="f['admission'].hasError('required')">Admission Status Is Required</mat-error>
+                 
                 </mat-form-field>
                 
                   <div class="img-container" *ngIf="f['uploadProof'].value">

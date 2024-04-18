@@ -15,7 +15,7 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
   styleUrls: ['./payment-status.component.css']
 })
 export class PaymentStatusComponent implements OnInit {
-  paymentStatus!:FormGroup;
+  // paymentStatus!:FormGroup;
   editable1 = false;
   editable2 = false;
   editable3 = false;
@@ -82,9 +82,9 @@ export class PaymentStatusComponent implements OnInit {
     this.getPaymentStatus()
   }
   initForm(){
-    this.paymentStatus = this.fb.group({
-      payStatus:['',Validators.required],
-    })
+    // this.paymentStatus = this.fb.group({
+    //   payStatus:['',Validators.required],
+    // })
     this.firstFormGroup = this.fb.group({
       // firstCtrl: [''],
     });
@@ -112,7 +112,7 @@ export class PaymentStatusComponent implements OnInit {
         if(res.result[0]){
           this.thirdFormGroup.patchValue({
             paymentMode: formData.payment_mode,
-            admission: +formData.admission_status,
+            admission: +formData.admission_status || '',
             uploadProof: formData.upload_payment_proof
           });
         }
@@ -155,7 +155,7 @@ export class PaymentStatusComponent implements OnInit {
     return this.thirdFormGroup.controls;
   }
   onSubmit(){
-    if( this.thirdFormGroup.invalid){
+    if(this.thirdFormGroup.invalid){
       this.thirdFormGroup.markAllAsTouched()
       this.api.showError('Please Fill The Mandatory Fields')
     }else{
