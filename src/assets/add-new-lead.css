@@ -9,6 +9,8 @@
     padding: 0px !important;
     min-height: 92vh !important;
     height: 92vh !important;
+    min-width: 400px !important;
+    width: 400px !important;
     
 }
 @media(min-width:1023px){

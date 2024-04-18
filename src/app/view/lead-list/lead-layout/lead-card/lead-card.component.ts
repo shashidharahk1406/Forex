@@ -59,6 +59,7 @@ export class LeadCardComponent implements OnInit {
       disableClose: true
     };
     this._bottomSheet.open(AddNewLeadComponent,config);
+   
   }
   onChangeSorting(event:any){
     this.sorting = true
@@ -215,7 +216,7 @@ export class LeadCardComponent implements OnInit {
         }
       },
       (error: any) => {
-        this.api.showError(error.error.message ? this.api.toTitleCase(error.error.message) : 'An error occurred');
+        this.api.showError(this.api.toTitleCase(error.error.message));
       }
     );
   }
