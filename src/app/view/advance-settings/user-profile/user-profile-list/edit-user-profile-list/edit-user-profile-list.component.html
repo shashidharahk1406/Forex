@@ -139,7 +139,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field appearance="outline">
                         <mat-label>Start Date</mat-label>
-                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date"  [min]="min">
+                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date"  [min]="min" >
                         <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
                         <mat-datepicker #start_date></mat-datepicker>
                       </mat-form-field>

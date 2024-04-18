@@ -173,7 +173,7 @@ submit(){
   });
   if(this.addForm.invalid){
     this.addForm.markAllAsTouched()
-    return
+    // return
     //console.log("==Invalid==");
     
   }
