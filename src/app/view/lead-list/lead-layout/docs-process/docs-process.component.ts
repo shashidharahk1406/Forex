@@ -54,7 +54,7 @@ export class DocsProcessComponent implements OnInit {
         }) 
       }
     },((error:any)=>{
-      this.api.showError(error.error.message)
+      //this.api.showError(error.error.message)
     })
     )
   }

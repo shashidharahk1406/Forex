@@ -68,7 +68,7 @@ export class LeadNoteComponent implements OnInit {
       })
     }
    },((error:any)=>{
-    this.api.showError(error.error.message)
+    // this.api.showError(error.error.message)
    })) 
   }
 }
