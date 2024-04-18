@@ -1,5 +1,5 @@
 <ng-container >
-    <mat-card class="p-0 m-0">
+    <!-- <mat-card class="p-0 m-0"> -->
       <div class="add-users mat-dialog-header">
         <div class="row">
             <div class="col"><h1 mat-dialog-title>Add New Lead</h1></div>
@@ -9,7 +9,7 @@
         </div>
       </div>
         <mat-dialog-content class="mat-typography mx-2">
-         <div class="container">
+         <div class="content-box-inner">
          <form [formGroup]="addLeadForm">
           <mat-accordion class="example-headers-align">
             
@@ -20,7 +20,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>    
               <ng-container>
-                <div class="container">   
+                <div class="content-box-inner">   
                     <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Student Name</mat-label>
                         <input
@@ -178,7 +178,7 @@
                 </mat-expansion-panel-header>
             
                 <ng-container>
-                    <div class="container">
+                    <div class="content-box-inner">
                         <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Reference Name </mat-label>
                         <input
@@ -262,7 +262,7 @@
               </mat-expansion-panel-header>
           
               <ng-container>
-                  <div class="container">
+                  <div class="content-box-inner">
                       
                       <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>10th Percentage</mat-label>
@@ -314,7 +314,7 @@
             </mat-expansion-panel-header>
         
             <ng-container>
-                <div class="container">
+                <div class="content-box-inner">
                     <div class="row">
                       <div class="col-11">
                         <mat-form-field class="mb-1" appearance="outline">
@@ -448,7 +448,7 @@
             </mat-expansion-panel-header>
         
             <ng-container>
-                <div class="container">
+                <div class="content-box-inner">
                     
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Lead Owner</mat-label>
@@ -568,6 +568,6 @@
           <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
           <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">ADD</button>
         </mat-dialog-actions>
-    </mat-card>
+    <!-- </mat-card> -->
 </ng-container>
 
