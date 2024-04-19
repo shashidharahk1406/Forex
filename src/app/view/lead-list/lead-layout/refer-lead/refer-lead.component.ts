@@ -29,8 +29,7 @@ export class ReferLeadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
       this.initForm()
-      this.getReferLead()
-      this.getCounselor()
+     
      }
     
     get f() {
@@ -38,25 +37,16 @@ export class ReferLeadComponent implements OnInit {
     }
     getReferLead() {
       let params = this.data.leadId ? this.data.leadId : this.data;
-      let selectedObject:any;
-      if(!this.data.leadId){
         this._baseService.getByID(`${environment.lead_refer}?lead_id=${params}`).subscribe((res: any) => {
           if (res) {
             let formVal = res.result[0][0];
             this.previousValues = res.result[0][0]
-            // this.referLeadForm.patchValue({
-            //   referTo: formVal.counsellor,
-            //   comment: formVal.comment
-            // });
-            if (selectedObject) {
-              this.selectedCounsellor = selectedObject.first_name;
-            }
+          
           }
         }, (error: any) => {
          // this.api.showError(error.error.message);
         });
-      }
-     
+    
      
     }
     
@@ -113,7 +103,10 @@ export class ReferLeadComponent implements OnInit {
       
     }
     
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.getReferLead()
+      this.getCounselor()
+    }
    
     initForm(){
       this.referLeadForm = this._fb.group({

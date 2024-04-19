@@ -30,7 +30,7 @@
           <mat-form-field class="mb-1" appearance="outline">
             <mat-label>Select Counsellor Name</mat-label>
             <mat-select placeholder="Select Counsellor Name" formControlName="referedTo" multiple>
-              <mat-option *ngFor="let referedTo of referTo" [value]="referedTo.id">{{referedTo.first_name | titlecase}}</mat-option> 
+              <mat-option *ngFor="let referedTo of referTo" [value]="referedTo.id">{{referedTo.first_name | titlecase}} {{referedTo.last_name}} </mat-option> 
             </mat-select>
             <button
               mat-button

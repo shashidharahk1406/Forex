@@ -57,6 +57,7 @@ export class LeadToolbarComponent implements OnInit {
        }
        
       }
+      
     )
     this.addEventEmitter.goBack.subscribe((resp:any)=>{
       if(resp === true){ 
@@ -237,6 +238,7 @@ export class LeadToolbarComponent implements OnInit {
   downloadLead(){
   if(this.selectedLeads.length >0){
     this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
+    this.addEventEmitter.triggerGet()
   }else{
     this.api.showWarning('Please select atleast one lead to download')
   }
