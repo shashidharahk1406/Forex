@@ -70,7 +70,7 @@
                   <mat-form-field class="mb-1" appearance="outline">
                     <mat-label>Lead Owner</mat-label>
                     <mat-select formControlName="counsellor" placeholder="Select Lead Owner">
-                      <mat-option *ngFor="let option of referredTo" [value]="option?.id">{{ option?.first_name }}</mat-option>
+                      <mat-option *ngFor="let option of referredTo" [value]="option?.id">{{ option?.first_name | titlecase}} {{ option?.last_name }}</mat-option>
                     </mat-select>
                     <button
                       matSuffix
