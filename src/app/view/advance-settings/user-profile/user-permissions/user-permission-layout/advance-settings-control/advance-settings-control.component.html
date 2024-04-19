@@ -2,28 +2,119 @@
 
 
 
-
-
-<ul *ngFor="let perm of allPermissions; let i = index" class="my-3">
-  <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
-      
-  }}</mat-checkbox> -->
-   <input type="checkbox" class="form-check-input" (change)="updateParentMenuPermission($event,i,perm)" [checked]="perm.access_status"  #checkBox/><label 
+<div class="row m-2  ">
+  <div class="col-12  d-flex flex-wrap ">
+   
+   
     
-    >&nbsp;{{ perm.menu_name | titlecase
-      
-    }}</label
-  >
-  <ul *ngIf="checkBox.checked" style="list-style-type: none;">
-    <li *ngFor="let child of perm.children_status;let j=index" >
-      <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
-      
+
+
+    <ul *ngFor="let perm of allPermissions; let i = index" class="my-3 " style="width: 33% !important;">
+      <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
+          
       }}</mat-checkbox> -->
-      <label><input type="checkbox" class="form-check-input "  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
-    </li>
-  
-  </ul>
-</ul>
+     
+      <div class="col-4 w-100">
+        <div class="card  ">
+          <div class="card-body ">
+            <input type="checkbox" class="form-check-input" (change)="updateParentMenuPermission($event,i,allPermissions)" [checked]="perm.access_status"  #checkBox style="border: 1px solid #12416A !important;"/><label 
+          
+            >&nbsp;{{ perm.menu_name | titlecase
+              
+            }}</label
+          >
+          </div>
+        </div>
+      </div>
+
+     
+
+      <ul *ngIf="checkBox.checked" style="list-style-type: none;">
+        <li *ngFor="let child of perm.children_status;let j=index" >
+          <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
+          
+          }}</mat-checkbox> -->
+          <label><input type="checkbox" class="form-check-input "  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
+        </li>
+      
+      </ul>
+
+    
+    
+    </ul>
+
+
+    <ul *ngFor="let perm of allPermissions; let i = index" class="my-3 " style="width: 33% !important;">
+      <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
+          
+      }}</mat-checkbox> -->
+     
+      <div class="col-4 w-100">
+        <div class="card  ">
+          <div class="card-body ">
+            <input type="checkbox" class="form-check-input" (change)="updateParentMenuPermission($event,i,allPermissions)" [checked]="perm.access_status"  #checkBox style="border: 1px solid #12416A !important;"/><label 
+          
+            >&nbsp;{{ perm.menu_name | titlecase
+              
+            }}</label
+          >
+          </div>
+        </div>
+      </div>
+
+     
+
+      <ul *ngIf="checkBox.checked" style="list-style-type: none;">
+        <li *ngFor="let child of perm.children_status;let j=index" >
+          <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
+          
+          }}</mat-checkbox> -->
+          <label><input type="checkbox" class="form-check-input "  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
+        </li>
+      
+      </ul>
+
+    
+    
+    </ul>
+
+    <ul *ngFor="let perm of allPermissions; let i = index" class="my-3 " style="width: 33% !important;">
+      <!-- <mat-checkbox  (change)="updateParentMenuPermission($event,i,perm)" aria-checked="perm.access_status"  #checkBox>&nbsp;{{ perm.menu_name | titlecase
+          
+      }}</mat-checkbox> -->
+     
+      <div class="col-4 w-100">
+        <div class="card  ">
+          <div class="card-body ">
+            <input type="checkbox" class="form-check-input" (change)="updateParentMenuPermission($event,i,allPermissions)" [checked]="perm.access_status"  #checkBox style="border: 1px solid #12416A !important;"/><label 
+          
+            >&nbsp;{{ perm.menu_name | titlecase
+              
+            }}</label
+          >
+          </div>
+        </div>
+      </div>
+
+     
+
+      <ul *ngIf="checkBox.checked" style="list-style-type: none;">
+        <li *ngFor="let child of perm.children_status;let j=index" >
+          <!-- <mat-checkbox  (change)="updateChildrenMenuPermission($event,i,j,child)" aria-checked="child.access_status" >&nbsp;{{ child.menu_name | titlecase
+          
+          }}</mat-checkbox> -->
+          <label><input type="checkbox" class="form-check-input "  (change)="updateChildrenMenuPermission($event,i,j,child)" [checked]="child.access_status"/>&nbsp; {{ child.menu_name | titlecase }}</label>
+        </li>
+      
+      </ul>
+
+    
+    
+    </ul>
+  </div>
+</div>
+
+
  <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
  <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button>  -->
  <button mat-raised-button  class="go-back mat-disable mx-2" (click)="goBack()"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>

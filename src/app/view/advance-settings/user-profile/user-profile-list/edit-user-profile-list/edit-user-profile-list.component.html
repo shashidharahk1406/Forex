@@ -122,29 +122,13 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
                       <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Emp Key</mat-label>
                         <input formControlName="emp_key" type="text" matInput placeholder="Emp Key">
                       </mat-form-field>
                     </div>
-                    <!-- <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field class="example-full-width" appearance="outline">
-                        <mat-label>Target</mat-label>
-                        <input formControlName="target" type="text" matInput placeholder="Target">
-                      </mat-form-field>
-                    </div> -->
-                  </div>
-                  <div class="row mb-4">
-                    <div class="col-sm-12 col-md-12 col-lg-6">
-                      <mat-form-field appearance="outline">
-                        <mat-label>Start Date</mat-label>
-                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date"  [min]="min" >
-                        <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
-                        <mat-datepicker #start_date></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
                       <mat-form-field  appearance="outline">
                         <mat-label>Designation</mat-label>
                         <mat-select  formControlName="designation_id">
@@ -157,6 +141,24 @@
                         </div>
                     </mat-error>
                     </div>
+                    <!-- <div class="col-sm-12 col-md-12 col-lg-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Target</mat-label>
+                        <input formControlName="target" type="text" matInput placeholder="Target">
+                      </mat-form-field>
+                    </div> -->
+                  </div>
+                  <div class="row mb-4">
+                    
+                    <!-- <div class="col-sm-12 col-md-12 col-lg-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Start Date</mat-label>
+                        <input (dateInput)="date($event)" formControlName="start_date" matInput [matDatepicker]="start_date"  [min]="min" >
+                        <mat-datepicker-toggle matSuffix [for]="start_date"></mat-datepicker-toggle>
+                        <mat-datepicker #start_date></mat-datepicker>
+                      </mat-form-field>
+                    </div> -->
+                    
 
                   </div>
                 </div>
