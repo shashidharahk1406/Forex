@@ -174,7 +174,7 @@ export class MyFollowupFilterComponent implements OnInit {
         (res: any) => {
           if (res) {
             this.counselorList = res.results;
-            // console.log(this.counselorList, 'this.counselorList');
+            console.log(this.counselorList, 'this.counselorList');
           }
         },
         (error: any) => {

@@ -30,8 +30,8 @@ export class EditSourceComponent implements OnInit {
   initFilter(){
     this.editForm = this._fb.group({
       source_name:['',[Validators.required]],
-      source_id:['',[Validators.required]],
-      channel_id:['',[Validators.required]],
+      // source_id:['',[Validators.required]],
+      // channel_id:['',[Validators.required]],
     })
     this.getSourcebyId()
     this.getAllSourceGroup()
@@ -75,7 +75,7 @@ export class EditSourceComponent implements OnInit {
   }
   edit(){
     if(this.editForm.invalid){
-
+this.editForm.markAllAsTouched()
     }
     else{
       this.api.editSource(this.id,this.editForm.value).subscribe(

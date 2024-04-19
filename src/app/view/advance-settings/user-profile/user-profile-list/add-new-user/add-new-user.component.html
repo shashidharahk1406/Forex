@@ -202,7 +202,7 @@
               multiple
               [required]="isReportingToUser" 
             >
-              <mat-option *ngFor="let item of allUser" [value]="item">{{
+              <mat-option *ngFor="let item of allUser" [value]="item.id">{{
                 item.first_name
               }}</mat-option>
             </mat-select>

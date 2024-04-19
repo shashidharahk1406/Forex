@@ -44,8 +44,14 @@ table {
 label{
     font-size: 12px;
 }
-input{
+/* input{
 background-color: #f17e33 !important;
+} */
+
+
+.form-check-input:checked {
+  background-color: #12416A !important;
+  border-color: #12416A !important;
 }
 
 

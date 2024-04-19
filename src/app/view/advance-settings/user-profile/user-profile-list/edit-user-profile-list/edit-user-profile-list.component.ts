@@ -61,7 +61,7 @@ export class EditUserProfileListComponent implements OnInit {
       mobile_number:['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"),Validators.required]],
       emp_key:[''],
       // target:[''],
-      start_date:[''],
+      // start_date:[''],
       designation_id:['',[Validators.required]],
       role_id:['',[Validators.required]],
       reporting_to_ids:[null],
