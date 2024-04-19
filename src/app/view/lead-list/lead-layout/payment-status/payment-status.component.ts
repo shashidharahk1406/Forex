@@ -225,7 +225,7 @@ export class PaymentStatusComponent implements OnInit {
       // Create a link element and click on it to trigger the download
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'downloaded-image.png';
+      a.download = 'downloaded-image';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

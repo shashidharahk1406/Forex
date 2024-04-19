@@ -63,15 +63,18 @@ export class LeadCardContentComponent implements OnInit {
    
     if (changes['leadData']) {
       this.leadData2 = this.api.getLeadData();
-      this.selectedCheckboxIds = [];
-      // if (this.selectedCheckboxIds.length === this.totalCount) {
-      //   this.checkAll = true;
-      //   this.checkBoxData()
+      // this.selectedCheckboxIds = [];
+      this.emit.triggerGet$.subscribe(() => {
+       this.selectedCheckboxIds = [] 
+      });
+      if (this.selectedCheckboxIds.length === this.totalCount) {
+        this.checkAll = true;
+        this.checkBoxData()
         
-      // } else{
-      //   this.checkAll = false;
-      //   this.checkBoxData()
-      // }
+      } else{
+        this.checkAll = false;
+        this.checkBoxData()
+      }
     }
 
   }

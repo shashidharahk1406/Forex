@@ -87,7 +87,7 @@ export class AdmissionDetailsComponent implements OnInit {
     if(this.admissionDetailsForm.invalid){
       this.admissionDetailsForm.markAllAsTouched()
     }else{
-      const formData =this.admissionDetailsForm.value
+      const formData = this.admissionDetailsForm.value
       const data = {
         lead: this.data.user_data.id,
         application_number: formData.applicationNumber,
@@ -117,7 +117,7 @@ export class AdmissionDetailsComponent implements OnInit {
         reader.readAsDataURL(event.target.files[0])
         reader.onload = (event:any)=>{
           this.url = event.target.result;
-          this.fileUrl= reader.result
+          this.fileUrl = reader.result
          this.admissionDetailsForm.patchValue({leadUpload:this.url})
         }
       }
@@ -133,7 +133,7 @@ export class AdmissionDetailsComponent implements OnInit {
       // Create a link element and click on it to trigger the download
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'downloaded-image.png';
+      a.download = 'downloaded-image';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

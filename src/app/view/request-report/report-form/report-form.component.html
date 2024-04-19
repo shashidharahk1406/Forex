@@ -13,7 +13,7 @@
             formControlName="reportType">
               <li >
                 <ul *ngFor="let items of reportType">
-                    <mat-radio-button color="primary"  [disabled]="items.id !=='last-interaction-report' && items.id !== 'untouched-report-report'" [value]="items.id" (click)="selectedReports(items)">{{items.type}}</mat-radio-button>
+                    <mat-radio-button color="primary"  [disabled]="items.id !=='last-interaction-report' && items.id !== 'untouched-report-report' " [value]="items.id" (click)="selectedReports(items)">{{items.type}}</mat-radio-button>
                     
                     <div>
                         <li *ngIf="items === 'Lead Stage Report' && show ">
