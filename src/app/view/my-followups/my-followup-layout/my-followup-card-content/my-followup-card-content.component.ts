@@ -145,6 +145,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   updateAPIURL: any;
   ngOnInit(): void {
+    var data: any = localStorage.getItem('followUpFilter');
+    var resp: any = JSON.parse(data);
+    if(resp){
+     this.filtered=true
+    }
+    else{
+      this.filtered=false;
+    }
     this.totalNumberOfRecords=[]
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtered');
@@ -448,15 +456,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
     this.selectedDate = null;
-    // this.filtered = true;
+    this.filtered = true;
     this.tempSearch = '';
     this.renderingData = [];
-    this.dataService.setFilteredFollowUpURL(
-      `${this.api_url}/api/follow-up/?page=1&page_size=5`
-    );
+    // this.dataService.setFilteredFollowUpURL(
+    //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
+    // );
     this.allPaginator.pageIndex = 0;
     this.allPaginator.pageSize = 5;
-    this.ngOnInit();
+    // this.ngOnInit();
     this.selectedTab = 'All';
   }
 
@@ -620,7 +628,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       },
       disableClose: true,
     };
-    this._bottomSheet.open(FollowupEmailComponent, config);
+    let data=this._bottomSheet.open(FollowupEmailComponent, config);
+    data.afterDismissed().subscribe((res:any)=>{
+      console.log(res,"pop closed");
+      
+      if(res==true){
+        this.refreshFollowUps();
+      }
+    })
   }
   onClickLink() {
     this.addCount();

@@ -67,10 +67,10 @@ export class FollowupEmailComponent implements OnInit {
           template_type_id:5
          }
       }else{
-        if(this.data.selectedData?.length > 1 ){
+        if(this.data.bulkIds?.length > 0){
            emailFormVal ={
             all_users: false,
-            lead_list_ids: this.data.selectedData, 
+            lead_list_ids: this.data.bulkIds, 
             subject: fd.subject,
             message: fd.followupComment,
             template_id: fd.emailTemplate,
@@ -91,7 +91,7 @@ export class FollowupEmailComponent implements OnInit {
       
       this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
         if(res){
-          this._bottomSheetRef.dismiss()
+          this._bottomSheetRef.dismiss(true)
           this.api.showSuccess(res.message)
           
         }

@@ -73,7 +73,7 @@
           <mat-form-field class="example-full-width " appearance="outline" >
            
             <mat-label>Mobile Number</mat-label>
-            <span class="mx-1" style="margin-top: -1px !important;">{{'+91'}}</span> 
+            <span matPrefix *ngIf="f['mobile_number'].value"  style="top: -3px !important;position: relative;">{{'+91'}}</span> 
            <input
               maxlength="10"
               formControlName="mobile_number"
