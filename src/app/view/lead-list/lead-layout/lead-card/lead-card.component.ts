@@ -130,7 +130,7 @@ export class LeadCardComponent implements OnInit {
   
   applySearch(event:any){
     this.searchTerm = event
-    
+    if(event !==''){
     let query: string;
     query = (this.user_role === 'counsellor')
     ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}`
@@ -155,6 +155,9 @@ export class LeadCardComponent implements OnInit {
   
     this._baseService.getData(`${query}`).subscribe((res: any) => {
       if (res.results) {
+        this.leadCards = []
+        this.allLeadCardsDataSource = []
+        this.totalNumberOfRecords = ''
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
@@ -162,6 +165,41 @@ export class LeadCardComponent implements OnInit {
     }, (error: any) => {
        this.api.showError(this.api.toTitleCase(error.error.message));
     });
+  }else{
+    let query: string;
+    query = (this.user_role === 'counsellor')
+    ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
+    : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}`;
+    
+      if (this.sorting) {
+        query += `&filter_by=${this.sortingType}`;
+      }
+      else{
+        if(this.leadFilter){
+          this._addLeadEmitter.leadFilter.subscribe((res) => {
+            if (res) {
+              query = ''
+              query = (this.user_role === 'counsellor')
+              ? `${res}&counsellor_id=${this.user_id}&key=${event}`
+              : `${res}&key=${event}`;
+              
+            }
+          });
+        }
+      }
+    this._baseService.getData(`${query}`).subscribe((res: any) => {
+      if (res.results) {
+        this.leadCards = []
+        this.allLeadCardsDataSource = []
+        this.totalNumberOfRecords = ''
+        this.leadCards = res.results;
+        this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+        this.totalNumberOfRecords = res.total_no_of_record
+      }
+    }, (error: any) => {
+       this.api.showError(this.api.toTitleCase(error.error.message));
+    });
+  }
   }
   getStatus(){
     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
