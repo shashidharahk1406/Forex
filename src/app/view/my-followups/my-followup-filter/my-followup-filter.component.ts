@@ -353,6 +353,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
+    
     // this.dataService.dataUpdated.emit(this.filtered)
 
     // }
