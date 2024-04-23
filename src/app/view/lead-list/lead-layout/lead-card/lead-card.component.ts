@@ -93,7 +93,7 @@ export class LeadCardComponent implements OnInit {
   uploadLeads(): void{
     
     const dialogRef = this.dialog.open(LeadUploadComponent, {
-      width:'30%',
+      width:'37%',
       height:'64%',
       // data:{data:this.selectedLeads,name:'BULK'},
     });
