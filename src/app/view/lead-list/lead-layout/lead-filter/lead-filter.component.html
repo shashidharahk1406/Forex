@@ -18,7 +18,7 @@
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Counselors</mat-label>
                         <mat-select placeholder="Select Counselors" formControlName="counsellor_id" >
-                          <mat-option *ngFor="let couselor of counselorList" [value]="couselor.id" >{{couselor.first_name}}</mat-option>
+                          <mat-option *ngFor="let couselor of counselorList" [value]="couselor.id" >{{couselor?.first_name | titlecase}} {{couselor?.last_name }}</mat-option>
                         </mat-select>
                         <button
                           mat-button
@@ -27,7 +27,7 @@
                           aria-label="Clear"
                           (click)="clearSelectField('counsellor_id')"
                           *ngIf="f['counsellor_id']?.value"
-                        >
+                         >
                           <mat-icon>clear</mat-icon>
                         </button>
                         <!-- <mat-error *ngIf="f['counsellor_id'].hasError('required')">
