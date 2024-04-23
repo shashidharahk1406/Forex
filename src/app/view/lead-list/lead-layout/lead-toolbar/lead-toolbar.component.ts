@@ -35,6 +35,7 @@ export class LeadToolbarComponent implements OnInit {
   showBtn: boolean = false;
   exportReference: any;
   filtered = false;
+  submitted: boolean = false;
   
   constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
     private _baseService:BaseServiceService,
@@ -236,11 +237,15 @@ export class LeadToolbarComponent implements OnInit {
     });
   }
   downloadLead(){
-  if(this.selectedLeads.length >0){
+  if(this.selectedLeads.length >0 ){
+    this.submitted = true
     this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
-    this.addEventEmitter.triggerGet()
+   this.addEventEmitter.triggerGet()
+  
   }else{
+    if(!this.submitted){
     this.api.showWarning('Please select atleast one lead to download')
+  }
   }
  
   }
