@@ -40,3 +40,21 @@ strong{
   top: -0.2rem;
   right: -10px;
 }
+.prefix-container,.prefix-container2 {
+  position: relative;
+}
+
+.prefix,.prefix-mobile {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -3px;
+  font-size: 14px !important;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.prefix-mobile{
+  top: 49%;
+  transform: translateY(-50%); 
+}

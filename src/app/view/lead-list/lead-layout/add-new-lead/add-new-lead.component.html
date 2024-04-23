@@ -40,21 +40,45 @@
                       </mat-form-field>
                      <div class="row d-flex justify-content-center align-items-center">
                       <div class="col-12">
-                        <mat-form-field appearance="outline" class="mb-1">
+                        <!-- <mat-form-field class="mb-1" appearance="outline" >
                           <mat-label>Mobile Number</mat-label>
-                          <div matPrefix *ngIf="f['mobile'].value" class="p-r">+91</div>
+                          <div class="prefix-container">
+                            <span class="prefix" *ngIf="f['mobile'].value">+91</span>
                           <input
                             maxlength="10"
+                            appFormSpace
                             matInput
                             type="tel"
                             placeholder="Enter Mobile Number"
                             formControlName="mobile"
                             required
+                            [ngStyle]="{'padding-left': f['mobile'].value ? '20px' : ''}"
                           />
+                          </div>
                           <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
                           <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
-                        </mat-form-field>
-                        
+                        </mat-form-field> -->
+                        <div class="row d-flex justify-content-center align-items-center">
+                          <div class="col-12">
+                            <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Mobile Number</mat-label>
+                              <div class="prefix-container2">
+                                <span class="prefix-mobile" *ngIf="f['mobile'].value">+91</span>
+                              <input 
+                              matInput  
+                              maxlength="10" 
+                              type="tel" 
+                              appFormSpace 
+                              formControlName="mobile"
+                              placeholder="Enter A 10-Digit Mobile Number."
+                              [ngStyle]="{'padding-left': f['mobile'].value ? '20px' : '','margin-top': f['mobile'].value ? '-2px' : ''}">
+                              </div>
+                              <mat-error *ngIf="f['mobile'].hasError('required')">Mobile Number Is Required.</mat-error>
+                              <mat-error *ngIf="f['mobile'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                            </mat-form-field> 
+                          
+                          </div>
+                         </div>
                       </div>
                      </div>
                       
@@ -62,8 +86,17 @@
                       <div class="col-12">
                         <mat-form-field class="mb-1" appearance="outline">
                           <mat-label>Alternate Phone Number</mat-label>
-                          <div matPrefix *ngIf="f['alternateNumber'].value" class="p-r">+91</div>
-                          <input matInput  maxlength="10" type="tel" appFormSpace formControlName="alternateNumber" placeholder="Enter A 10-Digit Alternate Phone Number.">
+                          <div class="prefix-container">
+                            <span class="prefix" *ngIf="f['alternateNumber'].value">+91</span>
+                          <input 
+                          matInput  
+                          maxlength="10" 
+                          type="tel" 
+                          appFormSpace 
+                          formControlName="alternateNumber"
+                          placeholder="Enter A 10-Digit Alternate Phone Number."
+                          [ngStyle]="{'padding-left': f['alternateNumber'].value ? '20px' : ''}">
+                          </div>
                           <mat-error *ngIf="f['alternateNumber'].hasError('pattern')">Please Enter A 10-Digit Alternate Phone Number.</mat-error>
                           <div class="custom-errmsg" *ngIf="!f['mobile'].hasError('pattern') && f['alternateNumber'].value && f['mobile'].value == f['alternateNumber'].value">
                             Mobile and Alternate Numbers cannot be the same
@@ -193,7 +226,7 @@
                     
                       <div class="row d-flex justify-content-center align-items-center">
                        
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>Reference Phone Number</mat-label>
                             <div matPrefix *ngIf="f['referencePhoneNumber'].value" class="p-r">+91</div>
@@ -207,7 +240,27 @@
                             />
                             <mat-error *ngIf="f['referencePhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                               </mat-form-field>
-                        </div>
+                        </div> -->
+
+                        <div class="col-12">
+                          <mat-form-field class="mb-1" appearance="outline">
+                              <mat-label>Reference Phone Number</mat-label>
+                              <div class="prefix-container">
+                                  <span class="prefix" *ngIf="f['referencePhoneNumber'].value">+91</span>
+                                  <input
+                                      matInput
+                                      maxlength="10"
+                                      appFormSpace
+                                      type="tel"
+                                      placeholder="Enter Reference Phone Number"
+                                      formControlName="referencePhoneNumber"
+                                      [ngStyle]="{'padding-left': f['referencePhoneNumber'].value ? '20px' : ''}"
+                                  />
+                              </div>
+                              <mat-error *ngIf="f['referencePhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
+                          </mat-form-field>
+                      </div>
+                      
                        </div>
                 
                       <mat-form-field class="mb-1" appearance="outline">
@@ -236,7 +289,8 @@
                       
                         <mat-form-field class="mb-1" appearance="outline">
                           <mat-label>Father Phone Number</mat-label>
-                          <div matPrefix *ngIf="f['fatherPhoneNumber'].value" class="p-r">+91</div>
+                          <div class="prefix-container">
+                            <span class="prefix" *ngIf="f['fatherPhoneNumber'].value">+91</span>
                           <input
                           matInput
                           appFormSpace
@@ -244,7 +298,9 @@
                           type="tel"
                           placeholder="Enter Father Phone Number"
                           formControlName="fatherPhoneNumber"
+                          [ngStyle]="{'padding-left': f['fatherPhoneNumber'].value ? '20px' : ''}"
                           />
+                          </div>
                           <mat-error *ngIf="f['fatherPhoneNumber'].hasError('pattern')">Please Enter A 10-Digit.</mat-error>
                         </mat-form-field>
                       
