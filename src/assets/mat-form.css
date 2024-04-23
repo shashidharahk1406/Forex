@@ -20,6 +20,7 @@
   .custom-mat-form-field .mat-form-field-infix {
     padding: 9px 8px 13px;  /* Adjust the padding value as per your requirement */
     font-size: 12px;
+    line-height: 0 !important;
   }
   
   .custom-mat-form-field .mat-form-field-label {
