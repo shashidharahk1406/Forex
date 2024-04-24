@@ -1,3 +1,12 @@
+#### <i>Prerequisites</i>
+Before you begin, make sure your development environment includes `Node.js®` and an `npm` package manager.
+
+###### Node.js
+Angular 14 requires `Node.js` version `^14.15` or `^16.10`.
+
+- To check your version, run `node -v` in a terminal/console window.
+- To get `Node.js`, go to [nodejs.org](https://nodejs.org/).
+
 # Phase1
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.12.
