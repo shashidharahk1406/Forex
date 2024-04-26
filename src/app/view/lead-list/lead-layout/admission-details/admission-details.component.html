@@ -32,7 +32,7 @@
             <ng-container>
               <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
               <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
-              <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf" (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
+              <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf"  (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
               <mat-form-field appearance="outline" class="mb-1"  *ngIf="type">
                 <mat-label>Select an image</mat-label>
                 <input
@@ -57,7 +57,7 @@
               </div>
               
                 <div class="img-container" *ngIf="f['leadUpload'].value">
-                  <img [src]="f['leadUpload'].value"  class="uploaded-image"/>
+                  <img [src]="selectedImageFormat === 'pdf' ? 'assets/images/pdf_wrapper.svg' :f['leadUpload'].value"  class="uploaded-image"/>
                   <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage" (click)="downloadImage()">
                     <mat-icon class="forward">forward</mat-icon>
                   </button>

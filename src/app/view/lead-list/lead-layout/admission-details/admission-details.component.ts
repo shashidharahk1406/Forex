@@ -20,6 +20,7 @@ export class AdmissionDetailsComponent implements OnInit {
   fileUrl: string | ArrayBuffer | null | undefined;
   selectedImage: any;
   type = true;
+  selectedImageFormat:any;
   
   constructor(
     private fb:FormBuilder,
@@ -72,6 +73,7 @@ export class AdmissionDetailsComponent implements OnInit {
           applicationNumber:data.application_number,
           leadUpload:data.application_soft_copy
         })
+        this.getFileFormatFromUrl(data.application_soft_copy)
        
        
         }
@@ -112,6 +114,17 @@ export class AdmissionDetailsComponent implements OnInit {
   onFileSelected(event:any){
     if(event){
       this.uploadFile=  event.target.files[0];
+        const fileExtension = this.uploadFile.name.split('.').pop().toLowerCase();
+        
+        // Check if the file extension is jpg, jpeg, png, or pdf
+        if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+            this.selectedImageFormat = 'image';
+        } else if (fileExtension === 'pdf') {
+            this.selectedImageFormat = 'pdf';
+        } else {
+            // Handle other file formats as needed
+            this.selectedImageFormat = 'unknown';
+        }
       if(event.target.files && event.target.files[0]){
         const reader =new FileReader();
         reader.readAsDataURL(event.target.files[0])
@@ -140,4 +153,18 @@ export class AdmissionDetailsComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
+  getFileFormatFromUrl(url: any) {
+    // Get the file extension from the URL
+    const fileExtension = url.split('.').pop().toLowerCase();
+    
+    // Check if the file extension is jpg, jpeg, png, or pdf
+    if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+        this.selectedImageFormat = 'image';
+    } else if (fileExtension === 'pdf') {
+        this.selectedImageFormat = 'pdf';
+    } else {
+        // Handle other file formats as needed
+        this.selectedImageFormat = 'unknown';
+    }
+}
 }

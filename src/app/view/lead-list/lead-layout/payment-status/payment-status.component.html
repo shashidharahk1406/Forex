@@ -75,7 +75,7 @@
                 </mat-form-field>
                 
                   <div class="img-container" *ngIf="f['uploadProof'].value">
-                    <img [src]="f['uploadProof'].value"  class="uploaded-image" />
+                    <img [src]="selectedImageFormat === 'pdf' ? 'assets/images/pdf_wrapper.svg' :f['uploadProof'].value"  class="uploaded-image" />
                     <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage"  (click)="downloadImage()">
                       <mat-icon class="forward">forward</mat-icon>
                     </button>
