@@ -23,7 +23,7 @@ export class ReportFormComponent implements OnInit {
   reportType:any[] = [ 
   {
     type:'All Interactions Report',
-    id:'1'
+    id:'all-interaction-report'
   },
   {
     type:'Last Interactions Report',

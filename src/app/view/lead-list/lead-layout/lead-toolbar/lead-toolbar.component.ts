@@ -240,14 +240,14 @@ export class LeadToolbarComponent implements OnInit {
   if(this.selectedLeads.length >0 ){
     this.submitted = true
     this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
-   this.addEventEmitter.triggerGet()
-  
+    this.addEventEmitter.triggerGet()
   }else{
     if(!this.submitted){
     this.api.showWarning('Please select atleast one lead to download')
   }
   }
  
+  
   }
   filterLead(){
     const config: MatBottomSheetConfig = {
