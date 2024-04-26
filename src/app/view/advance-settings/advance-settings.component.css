@@ -14,6 +14,12 @@ h1{
 .col-rgt{
     border-right: 1px solid rgb(189, 189, 189);
     padding-right: 10px;
+    height: 80vh;
+}
+.col-left{
+    height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .bi-chevron-right{
     color: gray;
