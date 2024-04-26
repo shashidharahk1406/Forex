@@ -28,5 +28,8 @@ mat-card{
 .sidenav-list{
   display: block;
   height: 80vh;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+mat-sidenav{
+  width: 14.5%;
 }

@@ -41,5 +41,12 @@ textarea{
    font-size: 12px;
 } */
 
+.layout-h{
+   height: 80vh;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
 
-
+.card{
+   font-size: 13px !important;
+}
