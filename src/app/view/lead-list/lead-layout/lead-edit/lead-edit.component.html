@@ -379,7 +379,7 @@
                        mat-icon-button
                        aria-label="Clear"
                        (click)="clearSelectField('courseLookingfor')"
-                       *ngIf="f['courseLookingfor']?.value"
+                       *ngIf="f['courseLookingfor']?.value && f['courseLookingfor']?.value.length > 0"
                      >
                        <mat-icon>clear</mat-icon>
                      </button>
