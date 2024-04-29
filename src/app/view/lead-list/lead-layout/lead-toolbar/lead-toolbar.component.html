@@ -32,16 +32,12 @@
                     <img src="./assets/images/refresh.svg" alt="" height="18" width="18" class="set-pointer">
                 </div>
                 <div class="col p-1"  (click)="downloadLead()" title="Download">
-                  <!-- <a *ngIf="selectedLeads.length >0" [href]="exportReference" target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>
-                  <a *ngIf="selectedLeads.length === 0"  target="_blank" (click)="downloadLead()"><mat-icon >save_alt</mat-icon></a>     -->
                   <a
                   *ngIf="selectedLeads.length > 0"
                   [href]="exportReference"
                   target="_self"
                   (click)="downloadLead()"
                 >
-                  <!-- <mat-icon >save_alt</mat-icon> -->
-                  <!-- <i class="bi bi-download"></i> -->
                   <img src="./assets/images/download-icon.png" alt="" height="18" width="18" class="set-pointer">
                 </a>
                 <a
