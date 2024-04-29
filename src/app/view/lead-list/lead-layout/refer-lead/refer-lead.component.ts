@@ -53,10 +53,10 @@ export class ReferLeadComponent implements OnInit {
     getCounselor(){
       this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
         if(res.results){
-          let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues.counsellor);
-          this.currentCounsellor = selectedObject.first_name 
-          this.counsellorLastname = selectedObject.last_name
-          this.referTo = res.results.filter((f:any)=>f.id != this.previousValues.counsellor)
+          let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues?.counsellor);
+          this.currentCounsellor = selectedObject?.first_name 
+          this.counsellorLastname = selectedObject?.last_name
+          this.referTo = res.results.filter((f:any)=>f.id != this.previousValues?.counsellor)
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
