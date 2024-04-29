@@ -227,7 +227,7 @@ this.userId=localStorage.getItem('user_id')
       // if()
       console.log("coming to else", this.params);
 
-      if(this.params!=null ){
+      if(this.params!=null ||this.userId ){
        
         this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
           console.log("==>>",resp.results);
@@ -282,7 +282,7 @@ this.userId=localStorage.getItem('user_id')
       this.search()
     }else{
       if(this.role==='Admin'){
-        if(this.params!=null){
+        if(this.params!=null ||this.userId ){
           this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
             console.log(resp.results,"users response");
             this.allUser= resp.results;
@@ -292,6 +292,7 @@ this.userId=localStorage.getItem('user_id')
           this.dataSource.sort = this.sort;
             
           },(error:any)=>{
+
             this.api.showError(error.error.message)
             
           }
@@ -308,7 +309,7 @@ this.userId=localStorage.getItem('user_id')
       // }
       else if(this.role==='counsellor'){
         console.log("coming to else", this.params);
-        if(this.params!=null){
+        if(this.params!=null ||this.userId ){
           this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
             console.log("==>>",resp.results);
             this.allUser= resp.results;
