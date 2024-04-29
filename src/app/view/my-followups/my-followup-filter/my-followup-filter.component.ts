@@ -51,6 +51,7 @@ export class MyFollowupFilterComponent implements OnInit {
   ) {
     this.role = localStorage.getItem('user_role');
     console.log(data, 'data from card component');
+    
 
     this.initForm();
 
@@ -212,7 +213,7 @@ export class MyFollowupFilterComponent implements OnInit {
     });
     this.setValue();
   }
-
+  selectedtab:any;
   setValue() {
     var data: any = localStorage.getItem('followUpFilter');
     var resp: any = JSON.parse(data);
@@ -224,6 +225,11 @@ export class MyFollowupFilterComponent implements OnInit {
       this.filterLead.patchValue({ city_id: resp?.city_id });
       this.filterLead.patchValue({ counselled_by: resp?.counselled_by });
     }
+    var data1: any = localStorage.getItem('selectedTab');
+    var resp1: any = JSON.parse(data1);
+    if(resp1){
+       this.selectedtab=resp1
+    }
   }
 isResetFilter:boolean=false
 
@@ -231,6 +237,7 @@ isResetFilter:boolean=false
 
   reset() {
     localStorage.removeItem('followUpFilter');
+    this.filterLead.reset()
     this.dataService.sendData(true);
     this.isResetFilter=true;
     this.updateFilterByStatusURL=null;
@@ -279,6 +286,12 @@ isResetFilter:boolean=false
         'followUpFilter',
         JSON.stringify(this.filterLead.value)
       );
+
+      localStorage.setItem(
+        'selectedTab',
+        JSON.stringify(this.data)
+      );
+
 
       this.updateFilterByStatusURL = this.filterFollowUp.updateUrlParameter(
         this.updateFilterByStatusURL,
@@ -353,6 +366,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
+    this.dataService.dataUpdated.emit(this.selectedtab);
     
     // this.dataService.dataUpdated.emit(this.filtered)
 

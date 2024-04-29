@@ -66,6 +66,9 @@ export class ListComponent implements AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
+      this.allStatus=[]
+      this.dataSource = new MatTableDataSource<any>(this.allStatus=[]);
+      this.totalPageLength=0
       this.api.getStatusSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
         this.allStatus= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allStatus);

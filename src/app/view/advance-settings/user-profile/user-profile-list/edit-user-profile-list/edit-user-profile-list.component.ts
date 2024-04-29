@@ -91,6 +91,14 @@ date(event: MatDatepickerInputEvent<Date>){
   this.editForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
 
 }
+
+
+onKeyPress(event: KeyboardEvent) {
+  
+  
+  event.preventDefault();
+  // You can add further handling if needed
+}
 onChange(event:any){
 
   this.is_allow_for_app=event.checked

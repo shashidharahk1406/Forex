@@ -1,6 +1,10 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheetRef,
+  MatBottomSheet,
+  MAT_BOTTOM_SHEET_DATA,
+} from '@angular/material/bottom-sheet';
 import { log } from 'console';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
@@ -22,7 +26,8 @@ export class FollowupEmailComponent implements OnInit {
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
-    private _baseService:BaseServiceService) {
+    private _baseService:BaseServiceService,
+    private bottomSheet: MatBottomSheet) {
      
     }
 
@@ -51,6 +56,7 @@ export class FollowupEmailComponent implements OnInit {
   }
 
   onSubmit() {
+   
     if (this.emailForm.invalid) {
       this.emailForm.markAllAsTouched()
       // this.api.showError("Invalid Form")
@@ -91,8 +97,10 @@ export class FollowupEmailComponent implements OnInit {
       
       this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
         if(res){
-          this._bottomSheetRef.dismiss(true)
           this.api.showSuccess(res.message)
+          console.log('about to close');
+          
+          this._bottomSheetRef.dismiss(true);
           
         }
       },((error)=>{
@@ -136,6 +144,8 @@ export class FollowupEmailComponent implements OnInit {
    }
   }
   onInput(event: any) {
+    console.log(event.target.value,"text area contemt");
+    
     const textarea = event.target;
     const value = textarea.value;
   

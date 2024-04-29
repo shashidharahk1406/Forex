@@ -47,7 +47,14 @@
   </div>
 </div>
 
+<div class="row d-flex justify-content-center">
+  <div class="col-12">
+    <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
+    <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button>  -->
+    <button mat-raised-button  class="go-back mat-disable mx-2" (click)="goBack()"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
+   
+  </div>
+</div>
 
- <button class=" my-1 mat-disable" mat-button (click)="edit()" cdkFocusInitial>UPDATE</button>
- <!-- <button class="mat-cancel " mat-button mat-dialog-close>CANCEL</button>  -->
- <button mat-raised-button  class="go-back mat-disable mx-2" (click)="goBack()"> <i class="bi bi-arrow-left-circle-fill"></i> GO BACK</button>
+
+ 

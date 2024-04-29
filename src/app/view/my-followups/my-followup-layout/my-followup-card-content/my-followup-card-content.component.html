@@ -170,7 +170,7 @@
 
             <div
               class="col p-0"
-              (click)="onClickLink()"
+              (click)="onClickLink('All')"
               title="Send Payment Link"
             >
               <!-- <mat-icon>link</mat-icon> -->
@@ -570,11 +570,11 @@
                   <div class="col">
                     <div class="row text-start">
                       <div class="col-12 pannel-label">Next Action Date</div>
-                      <div class="col-12" *ngIf="!followUp.action_date_time">
+                      <div class="col-12" *ngIf="!followUp.next_action_datetime">
                         {{ "NA" }}
                       </div>
-                      <div class="col-12" *ngIf="followUp.action_date_time">
-                        {{ followUp.action_date_time | date : "medium" }}
+                      <div class="col-12" *ngIf="followUp.next_action_datetime">
+                        {{ followUp.next_action_datetime | date : "medium" }}
                       </div>
                     </div>
                   </div>
@@ -887,7 +887,7 @@
       
     </div>
 
-    <mat-paginator
+    <mat-paginator *ngIf="!loading"
     [length]="totalNumberOfRecords"
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page"

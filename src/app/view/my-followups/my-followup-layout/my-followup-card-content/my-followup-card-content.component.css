@@ -457,3 +457,11 @@ font-size: 1 rem !important;
     background-color: #12416A !important;;
     color: rgba(0, 0, 0, 0.87);
 }
+
+.mat-paginator {
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    left: 0;
+}

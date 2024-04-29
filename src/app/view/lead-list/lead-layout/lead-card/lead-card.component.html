@@ -19,6 +19,6 @@
   <button style="background-color: #E79A22 !important;" mat-fab aria-label="Example icon button with a menu icon" title="Add New Lead" class=" add-btn" (click)="openBottomSheet()">
     <mat-icon >add</mat-icon>
   </button>
-  <button style="background-color: #E79A22 !important;" mat-fab aria-label="Example icon button with a menu icon" title="Bulk Upload" class=" upload-btn" (click)="uploadLeads()">
+  <button *ngIf="bulk_Upload" style="background-color: #E79A22 !important;" mat-fab aria-label="Example icon button with a menu icon" title="Bulk Upload" class=" upload-btn" (click)="uploadLeads()">
       <mat-icon  class="forward-icon">forward</mat-icon>
   </button>

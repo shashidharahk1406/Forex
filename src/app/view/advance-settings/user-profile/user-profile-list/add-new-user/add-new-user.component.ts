@@ -62,28 +62,45 @@ export class AddNewUserComponent implements OnInit {
 date(event: MatDatepickerInputEvent<Date>){
 
   this.addForm.patchValue({start_date:this.datePipe.transform(event.value,'yyyy-MM-dd')})
+  // console.log(event.target.value);
+  
 
+}
+
+
+onKeyPress(event: KeyboardEvent) {
+  
+  
+  event.preventDefault();
+  // You can add further handling if needed
 }
 
 newArr:any=[]
 onSelectionChange(event: any): void {
+  console.log(event,"selecting admin");
+  
   event.value.forEach((element: any) => {
-    const itemIndex = this.newArr.findIndex((item: any) => item.id === element.id);
+    const itemIndex = this.newArr.findIndex((item: any) => item.id === element);
 
     if (itemIndex === -1) {
+     const user= this.filteredUsers.find((user:any)=>
+        user.id===element
+      )
       // Item is not in the newArr, so it's selected
       let data = {
-        name: element.first_name,
-        id: element.id,
+        name: user.first_name,
+        id: user.id,
       };
       this.newArr.push(data);
+      console.log(data,"data");
+      
     }
   }); 
 
-  // Remove deselected items
-  this.newArr = this.newArr.filter((item: any) => {
-    return event.value.find((element: any) => element.id === item.id);
-  });
+  // // Remove deselected items
+  // this.newArr = this.newArr.filter((item: any) => {
+  //   return event.value.find((element: any) => element.id === item.id);
+  // });
 
 }
 onChange(event:any){
@@ -136,8 +153,13 @@ onChange(event:any){
       (resp:any)=>{
         this.allUser=resp.results
         console.log(  this.allUser,"  this.allUser");
+        this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
+console.log(this.filteredUsers,"this.filteredUsers");
         if(this.roleId===3){
-this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
+
+          this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
+          console.log(this.filteredUsers,"this.filteredUsers");
+
         }
         
         
@@ -166,11 +188,14 @@ submit(){
   // this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
   // this.addForm.patchValue({created_by:Number(this.user_id)})
   // this.addForm.patchValue({reporting_to_ids:this.newArr})
+  console.log(this.newArr,"this.newArr");
+  
   this.addForm.patchValue({
     is_allow_for_app: this.is_allow_for_app,
     created_by: Number(this.user_id),
     reporting_to_ids: this.newArr  // Assuming this.newArr contains selected values
   });
+
   if(this.addForm.invalid){
     this.addForm.markAllAsTouched()
     // return

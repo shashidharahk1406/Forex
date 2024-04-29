@@ -44,7 +44,7 @@
                   <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Select Counselled By</mat-label>
                       <mat-select placeholder="Select Counselors" formControlName="counselled_by" >
-                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}}</mat-option>
+                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}} {{counselled.last_name}}</mat-option>
                       </mat-select>
                       <button
                         mat-button

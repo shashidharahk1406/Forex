@@ -38,6 +38,8 @@ export class LeadCardComponent implements OnInit {
   
   leadFilter: boolean = false;
   user_role: any;
+  permissions:any;
+  bulk_Upload: any;
  
   
   constructor(
@@ -50,7 +52,23 @@ export class LeadCardComponent implements OnInit {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.getLeadIds();
-    }
+
+
+
+
+      this.permissions=localStorage.getItem('decodedToken')
+      console.log(this.permissions,"this.permissions");
+      
+      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List'),"this.permissions");
+      
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List')
+      accesspermissions.children_status.forEach((element:any) => {
+        if(element.menu_name=='Bulk Upload'){
+          this.bulk_Upload=element.access_status;
+          console.log(this.bulk_Upload,"this.bulk_Upload");
+          
+        }
+    })}
   
    
   openBottomSheet(): void {

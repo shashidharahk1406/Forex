@@ -289,7 +289,7 @@ this.status.forEach((element:any) => {
     this.statusId=element.id
   }
 });
-this.formattedDate=this.datePipe.transform(res.action_date_time,'yyyy-MM-ddTHH:mm')
+this.formattedDate=this.datePipe.transform(res.next_action_datetime,'yyyy-MM-ddTHH:mm')
 //console.log('formattedDate',this.formattedDate)
 this.editFollowUpForm.patchValue({priority:res.priority})
 this.editFollowUpForm.patchValue({lead_status:this.statusId})

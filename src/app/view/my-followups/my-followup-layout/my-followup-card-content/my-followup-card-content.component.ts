@@ -11,6 +11,7 @@ import {
   AfterViewInit,
   DoCheck,
   OnDestroy,
+  HostListener,
 } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -76,7 +77,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   missedFolloUpData: any = [];
   doneFollowUpData: any = [];
 
-  totalNumberOfRecords: any;
+  totalNumberOfRecords: any=0;
   searchTerm: string = '';
   followUpsDataTemp: any = [];
 
@@ -86,7 +87,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   totalCount: any;
   checkAll: boolean = false;
   role: any;
-  selectedTab: any = 'All';
+  selectedTab: any ='All';  
   query!: string;
   followUpsData2: any;
   filtered = false;
@@ -123,6 +124,19 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.user_role = localStorage.getItem('user_role');
     // console.log(this.role, 'roleeeeeeeeeeeeeee');
     // console.log(data, 'data');
+   
+
+    // if (window.performance) {
+      
+    //   if (performance.navigation.type === 1) {
+    //     // This means the page is being hard refreshed
+    //     // this.localStorageService.clearLocalStorage();
+    //     localStorage.removeItem('followUpFilter')
+    //   }}
+
+    
+    
+  
 
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
@@ -148,16 +162,18 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     var data: any = localStorage.getItem('followUpFilter');
     var resp: any = JSON.parse(data);
     if(resp){
-     this.filtered=true
+     this.filtered=true;
     }
     else{
       this.filtered=false;
     }
-    this.totalNumberOfRecords=[]
+   
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtered');
       this.filtered = res;
     });
+    //  this.clearLocalStorageOnHardRefresh();
+    
 
     // this.getFollowupIds();
     console.log('Before =============>', this.updateAPIURL);
@@ -167,6 +183,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
+   
   }
 
   expandCard(index: number) {
@@ -186,6 +203,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       panelClass: 'lead-bottom-sheet',
 
       disableClose: true,
+      data:this.selectedTab
     };
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
@@ -459,13 +477,17 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.filtered = true;
     this.tempSearch = '';
     this.renderingData = [];
-    // this.dataService.setFilteredFollowUpURL(
-    //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
-    // );
+    if(this.isSearched===true){
+   this.dataService.setFilteredFollowUpURL(
+      `${this.api_url}/api/follow-up/?page=1&page_size=5`
+    );
+    }
+    
     this.allPaginator.pageIndex = 0;
+ 
     this.allPaginator.pageSize = 5;
     // this.ngOnInit();
-    this.selectedTab = 'All';
+    // this.selectedTab = 'All';
   }
 
   addCount() {
@@ -628,16 +650,23 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       },
       disableClose: true,
     };
-    let data=this._bottomSheet.open(FollowupEmailComponent, config);
-    data.afterDismissed().subscribe((res:any)=>{
+    let bottomSheetRef=this._bottomSheet.open(FollowupEmailComponent, config);
+    console.log(bottomSheetRef,"bottomSheetRef");
+    
+    bottomSheetRef.afterDismissed().subscribe((res:any)=>{
       console.log(res,"pop closed");
+
       
-      if(res==true){
+      if(res==true){  
         this.refreshFollowUps();
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.checkAll = false;
+        });
       }
     })
   }
-  onClickLink() {
+  onClickLink(data:any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Link To  ${this.data} Leads`;
@@ -666,7 +695,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')
-      this.refreshFollowUps();
+      if(result){
+        this.refreshFollowUps();
+      }
+     
     });
   }
 
@@ -674,9 +706,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   renderingData: any;
   countDataValue: any = {};
+  loading:boolean=true
 
   APICAll() {
-    this.getFollowupIds();
+    // this.getFollowupIds();
     // this.totalNumberOfRecords = [];
     // this.renderingData
     // console.log("url to send i  API", url);
@@ -708,22 +741,25 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.updateAPIURL += `&counsellor_id=${this.counsellor_id}`;
       // console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
 
-      this.totalNumberOfRecords = [];
+      this.totalNumberOfRecords = 0;
+      this.renderingData=[]
       this.countDataValue = [];
+      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
           this.totalCount=res.total_no_of_record;
           console.log(this.totalCount,"this.totalCount for counsellor");
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
+          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
+          this.totalNumberOfRecords = res.total_no_of_record;
           console.log(this.followUpsData2,"this.followUpsData2");
-          
 
           this.renderingData = res.results.data;
-          
-          
+          this.followupIds=res.results.lead_ids
+
           this.countDataValue = res.results.data_count;
-          this.totalNumberOfRecords = res.total_no_of_record;
+          
           console.log( this.totalNumberOfRecords," this.totalNumberOfRecords");
           
 
@@ -744,32 +780,40 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           }
 
 
-          this.totalNumberOfRecords = res.total_no_of_record;
-
-          this.countDataValue = res.results.data_count;
+          
         },
         (error: any) => {
           console.log(error, 'error');
         }
       );
     } else {
-      this.totalNumberOfRecords = [];
+      this.totalNumberOfRecords = 0;
       this.renderingData = [];
       this.countDataValue = [];
+      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
       // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
+          
+         
+          console.log(this.allPaginator,"paginator for admin");
+          
           // console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
-          console.log(this.followUpsData2,"this.followUpsData2 for admin");
+          this.totalNumberOfRecords = res.total_no_of_record;
+          console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
           
           this.renderingData = res.results.data;
+          this.followupIds=res.results.lead_ids
+          console.log(this.followupIds," this.followupIds for admin in api call");
+          
+
           this.totalCount=res.total_no_of_record;
           console.log( this.totalCount," this.totalCount");
-          
+          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
           this.countDataValue = res.results.data_count;
-          this.totalNumberOfRecords = res.total_no_of_record;
+          
           if (this.selectedCheckboxIds.length !== 0) {
             // console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
@@ -787,13 +831,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           if(this.selectedCheckboxIds.length===this.totalCount){
             this.checkAll = true;
           }
+          this.loading=false
           // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
-          this.totalNumberOfRecords = res.total_no_of_record;
-
-          this.countDataValue = res.results.data_count;
+        
         },
         (error: any) => {
           console.log(error, 'error');
+          this.loading=false
+
         }
       );
     }
@@ -815,6 +860,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   getFilter(data: any) {
     this.selectedTab = data;
+    // localStorage.setItem('selectedTab',this.selectedTab)
 this.selectedCheckboxIds=[]
     const apiurl: any = this.filterFollowUp.getFilterFollowup(
       'follow_up_status',
@@ -885,7 +931,10 @@ this.selectedCheckboxIds=[]
   }
 
   tempSearch: any;
+  isSearched:boolean=false;
   getSearchValue(data: any) {
+this.isSearched=true
+    this.loading=true;
     const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
     localStorage.setItem('data.target.value', data.target.value);
 
@@ -957,7 +1006,7 @@ this.selectedCheckboxIds=[]
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkOpenEmailChat();
-          this.refreshFollowUps();
+          
         }
       });
     } else {
@@ -1021,7 +1070,7 @@ this.selectedCheckboxIds=[]
 
 
     this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
-      this.followupIds = res.lead_ids;
+      // this.followupIds = res.lead_ids;
       console.log(this.followupIds, 'lead ids for counsellor');
 
       if (this.selectedTab === 'Upcoming') {
@@ -1145,4 +1194,23 @@ this.selectedCheckboxIds=[]
 
     this.ngOnInit();
   }
+//   @HostListener('document:keydown', ['$event'])
+// keydownHandler(event: KeyboardEvent): void {
+//     if (event && event.ctrlKey && event.keyCode === 116) {
+//         // window.localStorage.clear();
+//       //  window.localStorage.removeItem('followUpFilter')
+//       localStorage.removeItem('followUpFilter')
+//     }
+// }
+
+
+// clearLocalStorageOnHardRefresh() {
+//   if (window.performance) {
+//     if (performance.navigation.type === 1) {
+//       // This means the page is being hard refreshed
+//       // this.localStorageService.clearLocalStorage();
+//       localStorage.removeItem('followUpFilter')
+//     }
+//   }
+// }
 }
