@@ -7,9 +7,14 @@
    <div class="row m-4">
     <div class="col-sm-12 col-md-6 col-lg-8 text-end">
       
-      <i data-bs-toggle="tooltip" *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
 
-      <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
+      <span class="filter-container" *ngIf="this.role==='Admin' || this.role==='SuperAdmin'">
+        <i data-bs-toggle="tooltip" *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
+
+        <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
+      </span>
+      
+     
       <i  data-bs-toggle="tooltip"  title="Add New User" (click)="openAddUser()" class="bi bi-person-plus-fill" ></i>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">

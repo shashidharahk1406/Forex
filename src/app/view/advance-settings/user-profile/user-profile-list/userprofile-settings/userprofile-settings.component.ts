@@ -58,12 +58,26 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   totalPageLength:any;
   params:any=null;
 user:any;
+role:any;
+counsellorId:any;
+userId:any=null;
+
   constructor(
     private dialog: MatDialog, 
     private api:ApiService, 
     private emit:EmitService,private fb:FormBuilder,
     private baseService:BaseServiceService
     ) {
+
+      if (window.performance) {
+      
+          if (performance.navigation.type === 1) {
+            // This means the page is being hard refreshed
+            // this.localStorageService.clearLocalStorage();
+            localStorage.removeItem('userFilter')
+          }}
+this.role=localStorage.getItem('user_role')
+this.userId=localStorage.getItem('user_id')
 
   }
   ngOnInit(): void {
@@ -77,6 +91,8 @@ user:any;
     )
     this.emit.getRefreshByFilter.subscribe(
       (resp:any)=>{
+        console.log(resp,'filetr url params');
+        
        
           this.params=resp
           this.getUser(); 
@@ -101,11 +117,15 @@ user:any;
   }
   search(){
    
+   
     if(this.searchValue?.length>0){
       var role="Admin"
-     
+      this.totalPageLength=0
+      this.allUser= [];
+        this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+
       this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
-        this.totalPageLength=[]
+       
         console.log(resp,"search results");
         
         this.allUser= resp.results;
@@ -121,31 +141,119 @@ user:any;
   
       )
     }}
+  // getUser(){
+  //   console.log("Hello", this.params);
+  //   if(this.role==='Admin'){
+      
+  //   }
+    
+  //   var role="Admin"
+  //   //console.log("ppp");
+  //   if(this.params!=null){
+  //     this.api.getUser(this.pageSize,this.currentPage,this.params,).subscribe((resp:any)=>{
+  //       console.log(resp.results,"users response");
+  //       this.allUser= resp.results;
+        
+  //       this.dataSource = new MatTableDataSource<any>(this.allUser);
+  //       this.totalPageLength=resp.total_no_of_record
+  //     this.dataSource.sort = this.sort;
+        
+  //     },(error:any)=>{
+  //       this.api.showError(error.error.message)
+        
+  //     }
+  
+  //     )
+  //   }
+  //   else{
+  //     // if()
+  //     console.log("coming to else", this.params);
+      
+  //     this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+  //       console.log("==>>",resp.results);
+  //       this.allUser= resp.results;
+  //       this.dataSource = new MatTableDataSource<any>(this.allUser);
+
+  //       console.log("datasource", this.dataSource);
+        
+  //       this.totalPageLength=resp.total_no_of_record
+  //     this.dataSource.sort = this.sort;
+
+      
+        
+  //     },(error:any)=>{
+  //       this.api.showError(error.error.message)
+        
+  //     }
+  
+  //     )
+  //   }
+
+  // }
+
+
   getUser(){
     console.log("Hello", this.params);
+    if(this.role==='Admin'){
+
+
+
+      if(this.params!=null||this.userId){
+        this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+          console.log(resp.results,"users response");
+          this.allUser= resp.results;
+          
+          this.dataSource = new MatTableDataSource<any>(this.allUser);
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        }
     
-    var role="Admin"
-    //console.log("ppp");
-    if(this.params!=null){
-      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
-        console.log(resp.results,"users response");
-        this.allUser= resp.results;
-        
-        this.dataSource = new MatTableDataSource<any>(this.allUser);
-        this.totalPageLength=resp.total_no_of_record
-      this.dataSource.sort = this.sort;
-        
-      },(error:any)=>{
-        this.api.showError(error.error.message)
-        
-      }
+        )
+        }
+     
+    }
+    
+    // var role="Admin"
+    // //console.log("ppp");
+    // if(this.params!=null){
+      
+    // }
+    else if(this.role==='counsellor'){
+
+      // if()
+      console.log("coming to else", this.params);
+
+      if(this.params!=null ){
+       
+        this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+          console.log("==>>",resp.results);
+          this.allUser= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allUser);
   
-      )
+          console.log("datasource", this.dataSource);
+          
+          this.totalPageLength=resp.total_no_of_record
+        this.dataSource.sort = this.sort;
+  
+        
+          
+        },(error:any)=>{
+          this.api.showError(error.error.message)
+          
+        }
+    
+        )
+         }
+      
+     
     }
     else{
-      console.log("coming to else", this.params);
       
-      this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
         console.log("==>>",resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -173,31 +281,60 @@ user:any;
     if(this.searchValue?.length>0){
       this.search()
     }else{
-      if(this.params !=null ){
-        this.api.getUser(this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
-          //console.log(resp.results);
-          this.allUser= resp.results;
-          this.dataSource = new MatTableDataSource<any>(this.allUser);
-          this.totalPageLength=resp.total_no_of_record
-          console.log(resp.total_no_of_record,"resp.total_no_of_record in search with pagination");
-          
-        this.dataSource.sort = this.sort;
-          
-        },(error:any)=>{
-          this.api.showError(error.error.message)
-          
-        }
-    
-        )
+      if(this.role==='Admin'){
+        if(this.params!=null){
+          this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+            console.log(resp.results,"users response");
+            this.allUser= resp.results;
+            
+            this.dataSource = new MatTableDataSource<any>(this.allUser);
+            this.totalPageLength=resp.total_no_of_record
+          this.dataSource.sort = this.sort;
+            
+          },(error:any)=>{
+            this.api.showError(error.error.message)
+            
+          }
+      
+          )
+          }
+       
+      }
+      
+      // var role="Admin"
+      // //console.log("ppp");
+      // if(this.params!=null){
         
+      // }
+      else if(this.role==='counsellor'){
+        console.log("coming to else", this.params);
+        if(this.params!=null){
+          this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+            console.log("==>>",resp.results);
+            this.allUser= resp.results;
+            this.dataSource = new MatTableDataSource<any>(this.allUser);
+            console.log("datasource", this.dataSource);
+            this.totalPageLength=resp.total_no_of_record
+          this.dataSource.sort = this.sort;
+          },(error:any)=>{
+            this.api.showError(error.error.message)
+            
+          }
+      
+          )
+           }
+        
+       
       }
       else{
-        this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+        
+        this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+          console.log("==>>",resp.results);
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
+          console.log("datasource", this.dataSource);
           this.totalPageLength=resp.total_no_of_record
-        this.dataSource.sort = this.sort;
-          
+        this.dataSource.sort = this.sort;  
         },(error:any)=>{
           this.api.showError(error.error.message)
           
@@ -205,6 +342,38 @@ user:any;
     
         )
       }
+      // if(this.params !=null ){
+      //   this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+      //     //console.log(resp.results);
+      //     this.allUser= resp.results;
+      //     this.dataSource = new MatTableDataSource<any>(this.allUser);
+      //     this.totalPageLength=resp.total_no_of_record
+      //     console.log(resp.total_no_of_record,"resp.total_no_of_record in search with pagination");
+          
+      //   this.dataSource.sort = this.sort;
+          
+      //   },(error:any)=>{
+      //     this.api.showError(error.error.message)
+          
+      //   }
+    
+      //   )
+        
+      // }
+      // else{
+      //   this.api.getUser(this.pageSize,this.currentPage,this.params).subscribe((resp:any)=>{
+      //     this.allUser= resp.results;
+      //     this.dataSource = new MatTableDataSource<any>(this.allUser);
+      //     this.totalPageLength=resp.total_no_of_record
+      //   this.dataSource.sort = this.sort;
+          
+      //   },(error:any)=>{
+      //     this.api.showError(error.error.message)
+          
+      //   }
+    
+      //   )
+      // }
     }
   }
   
