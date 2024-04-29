@@ -89,14 +89,14 @@ ngOnInit() {
     page:'Lead List',
     path:'/leadList',
     icon:'bi bi-1-square',
-    hidden:true,
+    hidden:this.showHide,
     },
     
     {
     page:'Transaction Details',
     path:'/transaction',
     icon:'bi bi-card-checklist',
-    hidden:true
+    hidden:this.showHide
     },
     // {
     // page:'Application List',
@@ -182,7 +182,7 @@ ngOnInit() {
     page:'Advance Settings',
     path:'/advancesettings',
     icon:"bi bi-gear",
-    hidden:true,
+    hidden:this.showHide,
     // key:'adv_comm_sett'
     },
     // {

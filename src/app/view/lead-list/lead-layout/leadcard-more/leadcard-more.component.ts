@@ -28,11 +28,70 @@ export class LeadcardMoreComponent implements OnInit {
   @Input()counselor_id:any;
   @Input()item:any;
   @Output()deleteEvent = new EventEmitter()
+  permissions: any;
+  viewHistory:any;
+  edit_Lead:any;
+  add_Followup:any
+  add_Note: any;
+  delete_Lead:any
+  payment_Details: any;
+  download_Leads: any;
+  email: any;
+  whatsapp: any;
+  sms: any;
+  bulk_Upload: any;
   constructor(
     private _bottomSheet:  MatBottomSheet,
     private dialog: MatDialog,
     private _baseService:BaseServiceService,
-    private api:ApiService) { }
+    private api:ApiService) { 
+
+      this.permissions=localStorage.getItem('decodedToken')
+      console.log(this.permissions,"this.permissions");
+      
+      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List'),"this.permissions");
+      
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List')
+      accesspermissions.children_status.forEach((element:any) => {
+        if(element.menu_name=='View History'){
+          this.viewHistory=element.access_status;
+          console.log(this.viewHistory,"this.dropDownValues");
+          
+        }
+        if(element.menu_name=='Edit Lead'){
+          this.edit_Lead=element.access_status
+        }
+        if(element.menu_name=='Add Followup'){
+          this.add_Followup=element.access_status
+        }
+        if(element.menu_name=='Add Note'){
+          this.add_Note=element.access_status
+        }
+        if(element.menu_name=='Delete Lead'){
+          this.delete_Lead=element.access_status
+        }
+        if(element.menu_name=='Payment Details'){
+          this.payment_Details=element.access_status
+        }
+        if(element.menu_name=='Download Leads'){
+          this.download_Leads=element.access_status
+        }
+        if(element.menu_name=='Email'){
+          this.email=element.access_status
+        }
+        if(element.menu_name=='Whatsapp'){
+          this.whatsapp=element.access_status
+        }
+        if(element.menu_name=='Sms'){
+          this.sms=element.access_status
+        }
+        if(element.menu_name=='Bulk Upload'){
+          this.bulk_Upload=element.access_status
+        }
+      });
+
+
+    }
 
   ngOnInit(): void {
   }

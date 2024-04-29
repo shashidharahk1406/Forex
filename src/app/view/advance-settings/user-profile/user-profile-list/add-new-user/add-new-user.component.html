@@ -85,7 +85,7 @@
           <mat-error
             *ngIf="f['mobile_number'].invalid && f['mobile_number'].touched"
           >
-            Mobile Number Is Invalid
+            Mobile Number Is Required
           </mat-error>
         </div>
       </div>
@@ -119,12 +119,12 @@
             <mat-label>Start Date</mat-label>
             <input
               (dateInput)="date($event)"
+              (keydown)="onKeyPress($event)"
               formControlName="start_date"
               matInput
               [matDatepicker]="start_date"
           
-              [max]="max"
-              [min]="max"
+              
              
             />
             <mat-datepicker-toggle

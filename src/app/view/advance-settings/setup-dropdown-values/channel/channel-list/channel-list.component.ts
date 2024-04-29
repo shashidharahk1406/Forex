@@ -71,7 +71,11 @@ export class ChannelListComponent implements  AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getChannelSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.allChannel=[]
+      this.dataSource = new MatTableDataSource<any>(this.allChannel=[]);
+      this.totalPageLength=0
+      
+      this.api.getChannelSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
       this.allChannel= resp.results;
       this.dataSource = new MatTableDataSource<any>(this.allChannel);
       this.totalPageLength=resp.total_no_of_record

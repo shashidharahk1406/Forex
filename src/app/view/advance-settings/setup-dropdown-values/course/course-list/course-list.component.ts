@@ -71,7 +71,7 @@ export class CourseListComponent implements AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getCourseSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.api.getCourseSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record

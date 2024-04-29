@@ -113,11 +113,12 @@
                     <div class="col-sm-12 col-md-12 col-lg-6">
                       <mat-form-field class="example-full-width" appearance="outline">
                         <mat-label>Mobile Number</mat-label>
+                        <span matPrefix *ngIf="f['mobile_number'].value"  style="top: -3px !important;position: relative;">{{'+91'}}</span> 
                         <input maxlength="10" formControlName="mobile_number" type="tel" matInput placeholder="Mobile Number">
                       </mat-form-field>
                       <mat-error *ngIf="f['mobile_number'].invalid && f['mobile_number'].touched">
                                
-                        Mobile Number Is Invalid
+                        Mobile Number Is Required
                 </mat-error>
                     </div>
                   </div>

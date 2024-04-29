@@ -68,7 +68,10 @@ export class LeadStageListComponent implements OnInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.baseService.getData(`${environment.leadStage}/?key=${this.searchValue}&page_size=${this.pageSize}&page=${this.currentPage}`).subscribe((resp:any)=>{
+      this.allCourse= []
+      this.dataSource = new MatTableDataSource<any>(this.allCourse=[]);
+      this.totalPageLength=0
+      this.baseService.getData(`${environment.leadStage}/?key=${this.searchValue}&page_size=${this.pageSize}&page=${this.currentPage=1}`).subscribe((resp:any)=>{
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record

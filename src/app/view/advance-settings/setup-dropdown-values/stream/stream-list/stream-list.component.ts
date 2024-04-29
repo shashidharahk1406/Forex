@@ -71,7 +71,7 @@ export class StreamListComponent implements OnInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.baseService.getData(`${environment.studying_stream}?page_size=${this.pageSize}&page=${this.currentPage}&key=${this.searchValue}`).subscribe((resp:any)=>{
+      this.baseService.getData(`${environment.studying_stream}?page_size=${this.pageSize}&page=${this.currentPage=1}&key=${this.searchValue}`).subscribe((resp:any)=>{
         this.allCourse= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCourse);
         this.totalPageLength=resp.total_no_of_record

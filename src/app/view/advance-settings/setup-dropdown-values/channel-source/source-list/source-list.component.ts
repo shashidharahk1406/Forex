@@ -60,7 +60,10 @@ export class SourceListComponent implements AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-    this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.allSource= []
+      this.dataSource = new MatTableDataSource<any>(this.allSource=[]);
+      this.totalPageLength=0
+    this.api.getSourceSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
     this.allSource= resp.results;
     this.dataSource = new MatTableDataSource<any>(this.allSource);
     this.totalPageLength=resp.total_no_of_record
