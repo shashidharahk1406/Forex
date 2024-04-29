@@ -253,7 +253,7 @@ this.userId=localStorage.getItem('user_id')
     }
     else{
       
-      this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+      this.api.getUser(this.pageSize,this.currentPage,null,null).subscribe((resp:any)=>{
         console.log("==>>",resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -328,7 +328,7 @@ this.userId=localStorage.getItem('user_id')
       }
       else{
         
-        this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
+        this.api.getUser(this.pageSize,this.currentPage,null,null).subscribe((resp:any)=>{
           console.log("==>>",resp.results);
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);

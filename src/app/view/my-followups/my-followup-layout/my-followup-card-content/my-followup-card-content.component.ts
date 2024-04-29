@@ -126,13 +126,13 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     // console.log(data, 'data');
    
 
-    // if (window.performance) {
+    if (window.performance) {
       
-    //   if (performance.navigation.type === 1) {
-    //     // This means the page is being hard refreshed
-    //     // this.localStorageService.clearLocalStorage();
-    //     localStorage.removeItem('followUpFilter')
-    //   }}
+      if (performance.navigation.type === 1) {
+        // This means the page is being hard refreshed
+        // this.localStorageService.clearLocalStorage();
+        localStorage.removeItem('followUpFilter')
+      }}
 
     
     
