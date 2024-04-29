@@ -23,7 +23,7 @@ table {
   cursor: pointer;
 }
 .more-dropdown{
-  width: 205px;
+  width: fit-content;
   padding: 20px; 
   /* background-image: url('../../../../../../assets/images/edit-profile.jpg'); */
 }
