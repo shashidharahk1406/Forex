@@ -39,7 +39,7 @@
                 
                    <mat-form-field class="mb-3" appearance="outline">
                     <mat-label>Counselor Name</mat-label>
-                    <mat-select formControlName="counselorName" placeholder="Select State" multiple>
+                    <mat-select formControlName="counselorName" placeholder="Select Counselor" multiple>
                       <mat-option *ngFor="let option of referredTo" [value]="option.id">{{ option.first_name | titlecase }} {{ option.last_name }}</mat-option>
                     </mat-select>
                     <button
