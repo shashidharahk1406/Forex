@@ -19,8 +19,14 @@ export class UserProfileFilterComponent implements OnInit {
   allUser:any=[]
   allDesignation:any=[]
   allDepartment:any=[]
-  allLevel:any=[]
-  constructor(private _fb:FormBuilder,private api:ApiService,private datePipe:DatePipe,public dialogRef: MatDialogRef<AddNewUserComponent>,private emit:EmitService) { }
+  allLevel:any=[];
+  role:any;
+  user_id:any;
+  constructor(private _fb:FormBuilder,private api:ApiService,private datePipe:DatePipe,public dialogRef: MatDialogRef<AddNewUserComponent>,private emit:EmitService) { 
+this.role=localStorage.getItem('user_role');
+this.user_id=localStorage.getItem('user_id');
+
+  }
 
   ngOnInit(): void {
     this.initFilter()
@@ -160,8 +166,10 @@ export class UserProfileFilterComponent implements OnInit {
   }
 
   status: any = ['True','False'];
-  baseurl= environment.live_url;
+  baseurl= environment._user;
  async submit(){
+  if(this.role==='Admin' || this.role==='SuperAdmin'){
+
     const formValues = this.filterForm.value;
 
     // Create an array of query parameters with non-empty values
@@ -200,6 +208,10 @@ export class UserProfileFilterComponent implements OnInit {
       // this.api.showSuccess(this.api.toTitleCase(resp.message))
 
   }
+
+    
+
+  }
   reset(){
     localStorage.removeItem('userFilter')
     this.filterForm.reset()
@@ -207,5 +219,14 @@ export class UserProfileFilterComponent implements OnInit {
 
     // this.dialogRef.close()
   }
+
+
+  // if (window.performance) {
+  //   if (performance.navigation.type === 1) {
+  //     // This means the page is being hard refreshed
+  //     // this.localStorageService.clearLocalStorage();
+  //     localStorage.removeItem('userFilter')
+  //   }
+  // }
   }
 

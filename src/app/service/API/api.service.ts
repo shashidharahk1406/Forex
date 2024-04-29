@@ -413,23 +413,24 @@ export class ApiService implements OnInit {
   }
   //Priority Group
   //User
-  getUser(size: any, pageNo: any, data: any,id:any) {
-    if (data != null) {
-      return this.http.get(
-        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&user_id=${id}`
-      );
-    } else {
-      console.log("coming else in service ");
+  getUser(size: any, pageNo: any, id:any,data:any) {
+    let apiUrl= `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}`
+    if (id != null) {
+      apiUrl+=`&user_id=${id}`
       
-      return this.http.get(
-        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}`
-      );
     }
+    if(data!=null){
+      apiUrl+=`&${data}`
+    } 
+    
+    return this.http.get(
+      apiUrl
+     );
   }
-  getUserSearch(search: any, size: any, pageNo: any, data: any) {
-    if (data != null) {
+  getUserSearch(search: any, size: any, pageNo: any, id: any) {
+    if (id != null) {
       return this.http.get(
-        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&key=${search}&${data}`
+        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&key=${search}&${id}`
       );
     } else {
       return this.http.get(
