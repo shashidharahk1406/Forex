@@ -178,10 +178,20 @@ getUserbyId(){
       
     )
   }
+  filteredAllUser:any=[]
   getAllUser(){
     this.api.getAllUser().subscribe(
       (resp:any)=>{
-        this.allUser=resp.results
+        this.allUser=resp.results;
+        this.filteredAllUser=this.allUser.filter((ele:any)=>{
+          return   ele.
+               role_name===
+               "Admin"
+             
+              
+               
+             })
+           
       },
       (error:any)=>{
 
@@ -318,7 +328,7 @@ getUserbyId(){
       this.isReportingToUser=true
        this.allUser=this.allUser.filter((ele:any)=>{
       return   ele.
-           role_name==
+           role_name===
            "Admin"
          
           

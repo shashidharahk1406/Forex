@@ -215,8 +215,11 @@ export class MyFollowupFilterComponent implements OnInit {
   }
   selectedtab:any;
   setValue() {
-    var data: any = localStorage.getItem('followUpFilter');
-    var resp: any = JSON.parse(data);
+
+    // var data: any = localStorage.getItem('followUpFilter');
+    var data:any=this.dataService.getfiletredFormValues();
+    // var resp: any = JSON.parse(data);
+    var resp: any = data;
     if (resp) {
       this.filterLead.patchValue({ counsellor_id: resp?.counsellor_id });
       this.filterLead.patchValue({ source_id: resp?.source_id });
@@ -236,10 +239,13 @@ isResetFilter:boolean=false
 
 
   reset() {
-    localStorage.removeItem('followUpFilter');
-    this.filterLead.reset()
+    // localStorage.removeItem('followUpFilter');
+    this.filterLead.reset();
+    this.dataService.resetFilterForm()
+    this.filterLead.updateValueAndValidity();
+    // this.filterLead.reset();
     this.dataService.sendData(true);
-    this.isResetFilter=true;
+    // this.isResetFilter=true;
     this.updateFilterByStatusURL=null;
     console.log( this.updateFilterByStatusURL,"resetting filter url");
     
@@ -282,10 +288,10 @@ isResetFilter:boolean=false
     nonEmptyKeys.forEach((key) => {
       const value = this.filterLead.value[key];
       // console.log(`Key: ${key}, Value: ${value}`);
-      localStorage.setItem(
-        'followUpFilter',
-        JSON.stringify(this.filterLead.value)
-      );
+      // localStorage.setItem(
+      //   'followUpFilter',
+      //   JSON.stringify(this.filterLead.value)
+      // );
 
       localStorage.setItem(
         'selectedTab',

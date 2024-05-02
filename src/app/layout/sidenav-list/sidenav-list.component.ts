@@ -116,12 +116,12 @@ ngOnInit() {
     icon:'bi bi-calendar2-week',
     hidden:true
     },
-    // {
-    // page:'Failed Leads',
-    // path:'/failedLeads',
-    // icon:'bi bi-person-x',
-    // hidden:true
-    // },
+    {
+    page:'Customers',
+    path:'/customer',
+    icon:'bi bi-person-x',
+    hidden:true
+    },
     // {
     // page:'Bulk Actions',
     // path:'/bulkActions',

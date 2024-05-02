@@ -8,14 +8,14 @@
     <div class="col-sm-12 col-md-6 col-lg-8 text-end">
       
 
-      <span class="filter-container" *ngIf="this.role==='Admin' || this.role==='SuperAdmin'">
+      <span class="filter-container" *ngIf="role==='Admin' || role==='SuperAdmin'">
         <i data-bs-toggle="tooltip" *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
 
         <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
       </span>
       
      
-      <i  data-bs-toggle="tooltip"  title="Add New User" (click)="openAddUser()" class="bi bi-person-plus-fill" ></i>
+      <i  data-bs-toggle="tooltip"  title="Add New User" (click)="openAddUser()" class="bi bi-person-plus-fill" *ngIf="role==='Admin' || role==='SuperAdmin'"></i>
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">

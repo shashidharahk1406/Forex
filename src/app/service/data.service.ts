@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { log } from 'console';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
@@ -25,6 +26,9 @@ export class DataService {
 
   private filteredValues = new BehaviorSubject<any>(this.filteredData);
   public filteredValuesData$ = this.filteredValues.asObservable();
+
+
+  
 
   private dataSubject = new BehaviorSubject<any>(null);
   public data$ = this.dataSubject.asObservable();
@@ -84,7 +88,32 @@ export class DataService {
     this.filteredData.stream_id=data.stream_id
     this.filteredData.city_id=data.city_id
   }
+  resetFilterForm(){
+    this.filteredData = {
+      counsellor_id: '',
+      // campaign_id:[''],
+      // channel_id:[''],
+      source_id: '',
+      // department_id:[''],
+      stream_id: '',
+      course_id: '',
+      city_id: '',
+      // follow_up_status:[''],
+      counselled_by: '',
+    };
+  }
+
+ 
+  usersFilterForm={
+    role_id:[''],
+      is_active:[''],
+      designation:[''],
+      reporting_to_ids:[''],
+  }
   
+
+  private userFilteredValues = new BehaviorSubject<any>(this.usersFilterForm);
+  public userFilteredValuesData$ = this.filteredValues.asObservable();
   }
 
  

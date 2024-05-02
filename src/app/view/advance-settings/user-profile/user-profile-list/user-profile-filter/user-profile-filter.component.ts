@@ -57,14 +57,14 @@ this.user_id=localStorage.getItem('user_id');
       is_active:[''],
       designation:[''],
       reporting_to_ids:[''],
-      level_of_program:[''],
-      department:[''],
-      created_date_time_before:[''],
-      created_date_time_after:[''],
-      last_login_before:[''],
-      last_login_after:[''],
-      updated_date_time_before:[''],
-      updated_date_time_after:[''],
+      // level_of_program:[''],
+      // department:[''],
+      // created_date_time_before:[''],
+      // created_date_time_after:[''],
+      // last_login_before:[''],
+      // last_login_after:[''],
+      // updated_date_time_before:[''],
+      // updated_date_time_after:[''],
     })
     this.getAllRole()
     this.getAllUser()
@@ -120,10 +120,20 @@ this.user_id=localStorage.getItem('user_id');
       
     )
   }
+  filteredAllUser:any=[]
   getAllUser(){
     this.api.getAllUser().subscribe(
       (resp:any)=>{
-        this.allUser=resp.results
+        this.allUser=resp.results;
+        this.filteredAllUser=this.allUser.filter((ele:any)=>{
+          return   ele.
+               role_name===
+               "Admin"
+             
+              
+               
+             })
+           
       },
       (error:any)=>{
 
@@ -166,7 +176,7 @@ this.user_id=localStorage.getItem('user_id');
   }
 
   status: any = ['True','False'];
-  baseurl= environment._user;
+  baseurl= environment.live_url;
  async submit(){
   if(this.role==='Admin' || this.role==='SuperAdmin'){
 

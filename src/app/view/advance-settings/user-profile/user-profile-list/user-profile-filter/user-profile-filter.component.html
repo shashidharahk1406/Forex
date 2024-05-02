@@ -56,7 +56,7 @@
                     <mat-form-field  appearance="outline">
                         <mat-label>Select Reporting to User</mat-label>
                         <mat-select formControlName="reporting_to_ids"  multiple>
-                          <mat-option *ngFor="let item of allUser" [value]="item.id">{{item.first_name}}</mat-option>
+                          <mat-option *ngFor="let item of filteredAllUser" [value]="item.id">{{item.first_name}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                       <mat-error *ngIf="f['reporting_to_ids'].invalid && f['reporting_to_ids'].touched">

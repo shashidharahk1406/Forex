@@ -47,6 +47,8 @@ import { DataService } from 'src/app/service/data.service';
 import { Observable, Subscription, map } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterFollowUp } from 'src/app/filter/filter';
+import { NavigationStart, Router } from '@angular/router';
+export let browserRefresh = false;
 
 @Component({
   selector: 'app-my-followup-card-content',
@@ -55,7 +57,7 @@ import { FilterFollowUp } from 'src/app/filter/filter';
 })
 export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   filterFollowUp = new FilterFollowUp();
-
+  subscription!: Subscription;
   selectedDate: any = null;
   @ViewChild(DaterangepickerDirective, { static: false })
   @Output()
@@ -113,7 +115,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     private _baseService: BaseServiceService,
     private addEventEmitter: AddLeadEmitterService,
     private dataService: DataService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router:Router
   ) {
     this.alwaysShowCalendars = true;
     this.minDate = new Date('1900-01-01');
@@ -126,13 +129,24 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     // console.log(data, 'data');
    
 
-    if (window.performance) {
+    // if (window.performance) {
       
-      if (performance.navigation.type === 1) {
-        // This means the page is being hard refreshed
-        // this.localStorageService.clearLocalStorage();
-        localStorage.removeItem('followUpFilter')
-      }}
+    //   if (performance.navigation.type === 1) {
+    //     // This means the page is being hard refreshed
+    //     // this.localStorageService.clearLocalStorage();
+    //     localStorage.removeItem('followUpFilter')
+    //   }}
+
+
+    this.subscription = router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        browserRefresh = !router.navigated;
+        console.log('refresh the page after presssing ctrl shift r');
+        
+       
+      }
+     
+  });
 
     
     
@@ -159,8 +173,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   updateAPIURL: any;
   ngOnInit(): void {
-    var data: any = localStorage.getItem('followUpFilter');
-    var resp: any = JSON.parse(data);
+   console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+   
+    var data: any =this.dataService.getfiletredFormValues();
+    // var resp: any = JSON.parse(data);
+    var resp: any = data
     if(resp){
      this.filtered=true;
     }
@@ -474,7 +491,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
     this.selectedDate = null;
-    this.filtered = true;
+    // this.filtered = true;
     this.tempSearch = '';
     this.renderingData = [];
     if(this.isSearched===true){

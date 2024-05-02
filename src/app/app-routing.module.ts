@@ -36,6 +36,11 @@ const routes: Routes = [
     {
       path:'leadList',loadChildren:()=>import('./view/lead-list/lead-list.module').then(m=>m.LeadListModule)
     },
+
+
+    {
+      path:'customer',loadChildren:()=>import('./view/customer/customer.module').then(m=>m.CustomerModule)
+    },
     {
       path:'applicationList',loadChildren:()=>import('./view/application-list/application-list.module').then(m=>m.ApplicationListModule)
     },
