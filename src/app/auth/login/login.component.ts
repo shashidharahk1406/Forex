@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
 		this.loginForm.patchValue({device_type:"computer"})
 
 		if(this.loginForm.invalid){
-			//console.log("Invalid");	
+		this.loginForm.markAllAsTouched()	
 		}
 		else{
 		// this.authService.startLogoutTimer(900000);
@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
 				localStorage.setItem('username',decodedToken.username)
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
-				this.loginForm.reset()
+				this.resetForm()
 			},
 			(error=>{
 			   this.api.showError(this.api.toTitleCase(error.error.message))
@@ -125,7 +125,13 @@ export class LoginComponent implements OnInit {
 		
 	  }
 
-
+	  resetForm(){
+		this.loginForm = this._fb.group({
+		  email_or_phone:[''],
+		  password:[''],
+		  device_type:['']
+		})
+	  }
 
 	 
 
