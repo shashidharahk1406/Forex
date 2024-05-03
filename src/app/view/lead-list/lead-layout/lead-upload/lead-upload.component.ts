@@ -117,7 +117,7 @@ export class LeadUploadComponent implements OnInit {
                  
                 }
               },((error:any)=>{
-                 this.api.showError(this.api.toTitleCase(error.error.message))
+                 this.api.showError(this.api.toTitleCase(error.error.message || 'Error while uploading the file'))
               }))
             } 
          
