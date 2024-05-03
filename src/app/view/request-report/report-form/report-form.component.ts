@@ -42,7 +42,7 @@ export class ReportFormComponent implements OnInit {
   show: boolean = false;
   user_role: string | undefined;
   endMin: any;
-  min: Date;
+  min: any;
   
     
   selectedReports(type:any,type2?:any){
@@ -67,7 +67,6 @@ export class ReportFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLeadStage()
-    this.getCounselor()
     this.initForm()
   }
   initForm(){
@@ -94,15 +93,25 @@ export class ReportFormComponent implements OnInit {
      this.api.showError(error.error.message)
     }))
    }
-   getCounselor(){
-    
-    this._baseService.getData(`${environment.counsellor_list_report}?report_type=last-interaction-report&lead_exists=True`).subscribe((res:any)=>{
+   getCounselor(items:any){
+   if(items.id && items.id !== 'untouched-report-report'){
+    this._baseService.getData(`${environment.counsellor_list_report}?report_type=${items.id}&lead_exists=True`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error?.error.message))
     }))
+   }else if(items.id === 'untouched-report-report'){
+      this._baseService.getData(`${environment.counsellor_list_report}?report_type=untouched-interaction-report&lead_exists=True`).subscribe((res:any)=>{
+        if(res.results){
+        this.referredTo = res.results
+        }
+      },((error:any)=>{
+         this.api.showError(this.api.toTitleCase(error?.error.message))
+      }))
+    } 
+   
   }
   onChange(event:any){
     if(event){
@@ -120,7 +129,8 @@ export class ReportFormComponent implements OnInit {
   }
   getReports(){
     if(this.reportForm.invalid){
-      this.reportForm.markAllAsTouched()
+      //this.reportForm.markAllAsTouched()
+     
     }else{
      
     const startDate = this.datePipe.transform(this.reportForm.value['startDate'],'yyyy-MM-dd')
@@ -130,16 +140,20 @@ export class ReportFormComponent implements OnInit {
     this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=${reportType}&counsellor_id=${counsellor}&start_date=${startDate}&end_date=${endDate}&email=${this.user_email}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
-     // Reset the form
-      this.reportForm.reset();
-      // Object.keys(this.reportForm.controls).forEach(key => {
-      //   this.reportForm.get(key)?.setErrors(null);
-      // });
-
+      this.resetForm()
      }
     },(error:any)=>{
       this.api.showError(error.error.message)
     })
   }
   }
+  resetForm(){
+  this.reportForm = this.fb.group({
+    reportType:[null],
+    counselorName:[null],
+    endDate:[null],
+    startDate:[null]
+  })
 }
+}
+
