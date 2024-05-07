@@ -34,6 +34,8 @@ export class LeadUploadComponent implements OnInit {
   formData:any;
   inputEl: any;
   referTo: any = [];
+  user_id:any;
+  user_role:any;
   
 
   constructor(
@@ -45,6 +47,8 @@ export class LeadUploadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService,
     private commonService:CommonServiceService
    ){
+    this.user_id = localStorage.getItem('user_id')
+    this.user_role = localStorage.getItem('user_role')?.toUpperCase()
     this.dropDownValues()
    }
 
@@ -58,7 +62,8 @@ export class LeadUploadComponent implements OnInit {
     
    
     getCounselor(){
-      this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ""
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
         this.referTo = res.results
         }
@@ -79,11 +84,9 @@ export class LeadUploadComponent implements OnInit {
     
     initForm(){
       this.uploadLeadForm = this.fb.group({
-       //step-1
-     
-      referedTo:['',Validators.required],
-       
-       leadUpload:['',[Validators.required,Validators.pattern(this.commonService.execlPattern)]]
+       //step-1     
+      referedTo:['',Validators.required], 
+      leadUpload:['',[Validators.required,Validators.pattern(this.commonService.execlPattern)]]
       });
     }
     selectFile(event:any) {
@@ -117,7 +120,7 @@ export class LeadUploadComponent implements OnInit {
                  
                 }
               },((error:any)=>{
-                 this.api.showError(this.api.toTitleCase(error.error.message || 'Error while uploading the file'))
+                 this.api.showError(this.api.toTitleCase(error.error.error))
               }))
             } 
          

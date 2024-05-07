@@ -108,8 +108,6 @@ onChange(event:any){
   
 }
 
-
-
   getAllDepartment(){
     this.api.getAllDepartment().subscribe(
       (resp:any)=>{
@@ -137,9 +135,7 @@ onChange(event:any){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
         console.log(resp,"user roles");
-        
         this.allRole=resp.results
-      
       },
       (error:any)=>{
 

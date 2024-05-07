@@ -59,10 +59,11 @@ export class ReportFormComponent implements OnInit {
     private fb:FormBuilder,
     private datePipe:DatePipe) {
       this.user_id = localStorage.getItem('user_id')
-      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.max = new Date()
       this.min = new Date('1900-01-01')
       this.user_email = localStorage.getItem('user_email')
+      this.getCounselor()
      }
 
   ngOnInit(): void {
@@ -93,24 +94,15 @@ export class ReportFormComponent implements OnInit {
      this.api.showError(error.error.message)
     }))
    }
-   getCounselor(items:any){
-   if(items.id && items.id !== 'untouched-report-report'){
-    this._baseService.getData(`${environment.counsellor_list_report}?report_type=${items.id}&lead_exists=True`).subscribe((res:any)=>{
-      if(res.results){
-      this.referredTo = res.results
-      }
-    },((error:any)=>{
-       this.api.showError(this.api.toTitleCase(error?.error.message))
-    }))
-   }else if(items.id === 'untouched-report-report'){
-      this._baseService.getData(`${environment.counsellor_list_report}?report_type=untouched-interaction-report&lead_exists=True`).subscribe((res:any)=>{
+   getCounselor(){
+      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ``
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
         this.referredTo = res.results
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error?.error.message))
       }))
-    } 
    
   }
   onChange(event:any){
@@ -129,7 +121,7 @@ export class ReportFormComponent implements OnInit {
   }
   getReports(){
     if(this.reportForm.invalid){
-      //this.reportForm.markAllAsTouched()
+      this.reportForm.markAllAsTouched()
      
     }else{
      

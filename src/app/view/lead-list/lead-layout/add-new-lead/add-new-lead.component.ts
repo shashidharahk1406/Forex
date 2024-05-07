@@ -42,6 +42,7 @@ export class AddNewLeadComponent implements OnInit {
   streamList: any = [];
   min!:Date;
   levelofProgram: any = [];
+  user_role:any;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -52,8 +53,9 @@ export class AddNewLeadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService,
     private dialog: MatDialog
     ) { 
-      this.dropDownValues()
       this.user_id = localStorage.getItem('user_id')
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase()
+      this.dropDownValues()
       this.min = new Date('1900-01-01')
     }
 
@@ -208,7 +210,8 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   getCounselor(){
-    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+    let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ""
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }

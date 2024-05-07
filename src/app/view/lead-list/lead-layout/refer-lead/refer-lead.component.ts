@@ -20,6 +20,7 @@ export class ReferLeadComponent implements OnInit {
   previousValues: any = [];
   user_id: any;
   counsellorLastname: any;
+  user_role: any;
   constructor(
     public dialogRef: MatDialogRef<ReferLeadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -28,6 +29,7 @@ export class ReferLeadComponent implements OnInit {
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase()
       this.initForm()
      
      }
@@ -51,7 +53,8 @@ export class ReferLeadComponent implements OnInit {
     }
     
     getCounselor(){
-      this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ""
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
           let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues?.counsellor);
           this.currentCounsellor = selectedObject?.first_name 

@@ -28,6 +28,8 @@ queryItems: any;
 @Output() filter:any = new EventEmitter();
   counselled_by: any;
   streamList: any = [];
+  user_role: any;
+  user_id: any;
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -35,7 +37,10 @@ queryItems: any;
     private api:ApiService,
     private _baseService:BaseServiceService,
     private _addLeadEmitter:AddLeadEmitterService,
-    ) {}
+    ) {
+      this.user_id = localStorage.getItem('user_id')
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase()
+    }
 
   ngOnInit(): void {
     this.dropdownvalues()
@@ -146,7 +151,8 @@ queryItems: any;
   } 
  
   getCounselor(){
-    this._baseService.getData(`${environment._user}/?role_name=counsellor`).subscribe((res:any)=>{
+    let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ""
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res){
       this.counselorList = res.results
       }

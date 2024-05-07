@@ -370,7 +370,7 @@ export class LeadCardComponent implements OnInit {
     }
    
     return this.leadAllIds
-  }
+    }
   reLoad(event:any){
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
