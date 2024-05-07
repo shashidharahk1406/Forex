@@ -185,13 +185,14 @@ height: 90%;
     display: block !important;
     height: 50vh;
    }
-   app-lead-card-content,app-raw-data-card-content{
+   app-lead-card-content,app-raw-data-card-content,app-customer-card-content{
     display: block !important;
     width: 93% !important;
     height: 68vh !important;
     /* padding-right: 0; */
     /* padding: 20px; */
    }
+  
 /* app-analytics{
     display: block !important;
     width: 99% !important;
