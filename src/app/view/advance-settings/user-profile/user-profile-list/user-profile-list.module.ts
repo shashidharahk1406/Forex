@@ -14,6 +14,7 @@ import { PauseUserComponent } from './pause-user/pause-user.component';
 import { UserProfilePermissionsComponent } from './user-profile-permissions/user-profile-permissions.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 
 
 
@@ -35,7 +36,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     SharedModule,
     MaterialModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTableModule,
 
   ]
 })

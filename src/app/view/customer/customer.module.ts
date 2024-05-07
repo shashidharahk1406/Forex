@@ -1,6 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerComponent } from './customer.component';
 import { CustomerLayoutModule } from './customer-layout/customer-layout.module';
@@ -16,8 +15,6 @@ import { CustomerLayoutModule } from './customer-layout/customer-layout.module';
     CustomerLayoutModule
   ],
   
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+
 })
 export class CustomerModule { }

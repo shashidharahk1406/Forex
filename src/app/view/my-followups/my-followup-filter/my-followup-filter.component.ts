@@ -39,6 +39,7 @@ export class MyFollowupFilterComponent implements OnInit {
   counselled_by: any;
   role: any;
   cId: any;
+  user_id:any
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -51,6 +52,7 @@ export class MyFollowupFilterComponent implements OnInit {
   ) {
     this.role = localStorage.getItem('user_role');
     console.log(data, 'data from card component');
+    this.user_id=localStorage.getItem('user_id')
     
 
     this.initForm();
@@ -169,8 +171,12 @@ export class MyFollowupFilterComponent implements OnInit {
   }
 
   getCounselor() {
+    let query
+    if(this.role==='Admin' || this.role==='counsellor'){
+     query =`&user_id=${this.user_id}`
+    }
     this._baseService
-      .getData(`${environment._user}/?role_name=counsellor`)
+      .getData(`${environment._user}/?${query}`)
       .subscribe(
         (res: any) => {
           if (res) {
@@ -372,7 +378,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
-    this.dataService.dataUpdated.emit(this.selectedtab);
+    // this.dataService.dataUpdated.emit(this.selectedtab);
     
     // this.dataService.dataUpdated.emit(this.filtered)
 
@@ -387,7 +393,7 @@ isResetFilter:boolean=false
     // this.dataService.getFollowupfilterURL();
     this.updateFilterByStatusURL = null;
 
-    this.dataService.sendData(true);
+    // this.dataService.sendData(true);
   }
   sendData() {}
 }

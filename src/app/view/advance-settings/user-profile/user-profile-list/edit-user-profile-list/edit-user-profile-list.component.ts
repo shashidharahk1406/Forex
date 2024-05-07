@@ -29,7 +29,7 @@ export class EditUserProfileListComponent implements OnInit {
   user_id:any
   id:any
   min:Date;
-
+role:any
   constructor(
     public dialogRef: MatDialogRef<EditUserProfileListComponent>,private api:ApiService, private emit:EmitService,private datePipe:DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -39,6 +39,7 @@ export class EditUserProfileListComponent implements OnInit {
   ) {
     this.id=data.userdata.id
     this.min= new Date('1900-01-01');
+    this.role=localStorage.getItem('user_role')
     
   }
 
@@ -170,7 +171,16 @@ getUserbyId(){
   getAllRole(){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
-        this.allRole=resp.results
+
+
+        if(this.role==='SuperAdmin'){
+          this.allRole=resp.results.filter((ele:any)=>ele.name==='counsellor' ||ele.name==='Admin' || ele.name==='SuperAdmin' )
+        }
+        if(this.role==='Admin'){
+          this.allRole=resp.results.filter((ele:any)=>ele.name==='counsellor')
+
+        }
+        // this.allRole=resp.results
       },
       (error:any)=>{
 

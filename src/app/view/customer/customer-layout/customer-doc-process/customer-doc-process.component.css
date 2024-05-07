@@ -1,0 +1,6 @@
+mat-card{
+    box-shadow: none !important;
+}
+mat-dialog-content{
+    font-size: 13px;
+}

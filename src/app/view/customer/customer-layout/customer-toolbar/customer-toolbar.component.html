@@ -1,0 +1,109 @@
+<mat-card>
+    <!-- <div class="row" *ngIf="totalCount > 0"> -->
+        <div class="row" >
+        <div class="col-sm-0 col-md-0 col-lg-4" >
+          <app-customer-bulk-sort (selectedSort)="onSelect($event)"></app-customer-bulk-sort> 
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4" >
+            <div class="row">
+                <div class="col p-1" (click)="openVideoCall()" title="Send Video Conferencing Invite">
+                    <!-- <i class="bi bi-camera-video-fill" ></i> -->
+                    <img src="./assets/images/videocall.png"  alt="" height="17" width="17" class="set-pointer">
+                </div>
+                
+                <div class="col p-1" (click)="openWhatsAppChat()" title="WhatsApp Chat">
+                    <!-- <i class="bi bi-whatsapp"></i> -->
+                    <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21" class="set-pointer">
+                </div>
+                
+                <div class="col p-1 position-rel" (click)="referLead()" title="Assign Leads">
+                    <i class="bi bi-person-check-fill" style="color: #fe1550;font-size: 18px;"></i>
+                </div>
+                <div class="col p-1" (click)="openSMS('All')" title="Send SMS">
+                    <!-- <i class="bi bi-chat-left-dots-fill"></i> -->
+                    <img src="./assets/images/chat.png" alt="" height="15" width="18" class="set-pointer">
+                </div>
+                <div class="col p-1" (click)="openEmailChat('All')" title="Send Email">
+                    <!-- <i class="bi bi-envelope-fill"></i> -->
+                    <img src="./assets/images/email-icon.png" alt="" height="12" width="16" class="set-pointer">
+                </div>
+                <div class="col p-1" (click)="refreshLead($event)" title="Page Refresh">
+                    <!-- <mat-icon>autorenew</mat-icon> -->
+                    <img src="./assets/images/refresh.svg" alt="" height="18" width="18" class="set-pointer">
+                </div>
+                <div class="col p-1"  (click)="downloadLead()" title="Download">
+                  <a
+                  *ngIf="selectedLeads.length > 0"
+                  [href]="exportReference"
+                  target="_self"
+                  (click)="downloadLead()"
+                >
+                  <img src="./assets/images/download-icon.png" alt="" height="18" width="18" class="set-pointer">
+                </a>
+                <a
+                  *ngIf="selectedLeads.length === 0"
+                  target="_blank"
+                  (click)="downloadLead()"
+                >
+                  <!-- <mat-icon >save_alt</mat-icon> -->
+                  <!-- <i class="bi bi-download"></i> -->
+                  <img src="./assets/images/download-icon.png" alt="" height="18" width="18" class="set-pointer">
+                </a>
+                </div>
+
+                <!-- <div class="col p-1 position-rel" (click)="referLead()">
+                    <i class="bi bi-person-check-fill"></i>
+                </div> -->
+                <!-- <div class="col p-1 position-rel">
+                    <mat-icon>people</mat-icon>
+                    <mat-icon class="forward-icon">forward</mat-icon>
+                </div>
+                <div class="col p-1">
+                    <mat-icon>list</mat-icon>
+                </div> -->
+                <div class="col p-1" (click)="onClickLink()" title="Send Payment Link">
+                    <!-- <mat-icon>link</mat-icon> -->
+                    <img src="./assets/images/link-icon.png" alt="" width="19" height="19" class="set-pointer">
+                </div>
+                <div class="col p-1"  title="Delete All" (click)="onDeleteAll()">
+                    <i class="bi bi-trash-fill" style="color: #FF5722;font-size: 15px;"></i> 
+                </div>
+              
+                <div class="col p-1" (click)="filterLead()" title="Filter">
+                    <i class="bi bi-funnel" *ngIf="!filtered" style="color: palevioletred;"></i>
+                    <i class="bi bi-funnel-fill" *ngIf="filtered" style="color: palevioletred !important;"></i>
+                </div>
+               
+            </div>
+        </div>
+       
+          <!-- <div class="col" *ngIf="totalCount === 0"></div> -->
+          <div class="col-sm-12 col-md-12 col-lg-4 " >
+            <form [formGroup]="searchForm">
+            <div class="input-group z-s flex-s">
+                <!-- <input formControlName="searchText" (input)="applyFilter($event)" type="search" class="form-control" placeholder="Search by Name/Mobile">
+                <button (click)="search()" class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                </button> -->
+
+                <mat-card class="search-bar-card">
+
+
+                    <input
+                    type="search"
+                    class="form-control icon-rtl "
+                    placeholder="Search by Name/Mobile"
+                    formControlName="searchText"
+                    (input)="search($event)"
+                  />
+                </mat-card>
+                </div>
+            </form>
+          
+          </div>
+
+    </div>
+
+</mat-card>
+
+

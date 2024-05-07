@@ -1,0 +1,52 @@
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Docs Process</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-0 my-2">
+          <form [formGroup]="docsProcess">
+        
+            <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Document Status</mat-label>
+                <mat-select formControlName="docsStatus" placeholder="Select The Document Status">
+                  <mat-option *ngFor="let status of docStatus" [value]="status.id">{{ status.status }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('docsStatus')"
+                  *ngIf="f['docsStatus']?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['docsStatus'].hasError('required')">
+                    Document Status Is Required.
+                  </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="mb-1" *ngIf="docsProcess.value?.docsStatus == '1'">
+                <mat-label>Pending Docs</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  appFormSpace
+                  placeholder="Enter Your Pending Docs"
+                  formControlName="pendingDocs"
+                />
+              </mat-form-field>
+         
+      </form>
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex justify-content-center">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>

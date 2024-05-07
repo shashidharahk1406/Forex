@@ -92,7 +92,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   selectedTab: any ='All';  
   query!: string;
   followUpsData2: any;
-  filtered = false;
+  filtered:boolean = false;
 
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
@@ -156,6 +156,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       if (data != null) {
         // console.log(data);
         // this.refreshFollowUps();
+        this.filtered=data;
 
         this.APICAll();
       }
@@ -175,20 +176,43 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
    console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
    
-    var data: any =this.dataService.getfiletredFormValues();
-    // var resp: any = JSON.parse(data);
-    var resp: any = data
-    if(resp){
-     this.filtered=true;
-    }
-    else{
-      this.filtered=false;
-    }
+  
    
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtered');
       this.filtered = res;
     });
+
+
+    // var data: any =this.dataService.getfiletredFormValues();
+    // // var resp: any = JSON.parse(data);
+    // console.log(data.value,"data");
+    
+    // var resp: any = data
+    // let result=Object.values(data);
+    // console.log(result,"result");
+    
+
+    // result.forEach((res:any)=>{
+    //   console.log(this.filtered,'filtered');
+      
+    //   if(res!==''){
+    //     console.log(res!=='',"res!==''");
+    //     console.log(this.filtered,'filtered in if block');
+        
+    //     this.filtered=true;
+    //   }
+    //   else{
+    //     console.log(this.filtered,'filtered in else block');
+    //     this.filtered=false;
+    //   }
+    // })
+
+   
+
+
+
+
     //  this.clearLocalStorageOnHardRefresh();
     
 
@@ -384,6 +408,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     // }
 
     // console.log(data,"EVENT data")
+    // this.selectedCheckboxIds=[]
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
       this.renderingData.forEach((element: any, index: any) => {
@@ -486,6 +511,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.ngOnInit();
     this.selectedTab = 'All';
   }
+
 
   ngOnDestroy(): void {
     this.selectedCheckboxIds = [];
@@ -755,7 +781,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     if (this.role === 'counsellor') {
       this.renderingData = [];
 
-      this.updateAPIURL += `&counsellor_id=${this.counsellor_id}`;
+      this.updateAPIURL += `&counsellor_id=${this.user_id}`;
       // console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
 
       this.totalNumberOfRecords = 0;
@@ -764,6 +790,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
+
           this.totalCount=res.total_no_of_record;
           console.log(this.totalCount,"this.totalCount for counsellor");
           // console.log(res, 'followup api  filetr all combination');
@@ -797,18 +824,24 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           }
 
 
+          this.loading=false
+
+
           
         },
         (error: any) => {
           console.log(error, 'error');
         }
       );
-    } else {
+    } else if(this.role==='Admin') {
       this.totalNumberOfRecords = 0;
       this.renderingData = [];
       this.countDataValue = [];
       this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
+
       // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+
+      // this.updateAPIURL += `&user_id=${this.user_id}`;
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
@@ -859,6 +892,67 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         }
       );
     }
+    else{
+
+      this.totalNumberOfRecords = 0;
+      this.renderingData = [];
+      this.countDataValue = [];
+      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
+
+      // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+
+     
+
+      this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
+        (res: any) => {
+          
+         
+          console.log(this.allPaginator,"paginator for admin");
+          
+          // console.log(res, 'followup api  filetr all combination');
+          this.followUpsData2 = res.results.data;
+          this.totalNumberOfRecords = res.total_no_of_record;
+          console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
+          
+          this.renderingData = res.results.data;
+          this.followupIds=res.results.lead_ids
+          console.log(this.followupIds," this.followupIds for admin in api call");
+          
+
+          this.totalCount=res.total_no_of_record;
+          console.log( this.totalCount," this.totalCount");
+          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
+          this.countDataValue = res.results.data_count;
+          
+          if (this.selectedCheckboxIds.length !== 0) {
+            // console.log(this.selectedCheckboxIds,"data prsent");
+            this.renderingData.forEach((c: any) => {
+              
+              c.checked = this.selectedCheckboxIds.includes(c.lead_id);
+            
+              localStorage.setItem(
+                'allSelectedCheckBoxes',
+                JSON.stringify(true)
+              );
+            });
+          } else {
+            this.checkAll = false;
+          }
+          if(this.selectedCheckboxIds.length===this.totalCount){
+            this.checkAll = true;
+          }
+          this.loading=false
+          // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
+        
+        },
+        (error: any) => {
+          console.log(error, 'error');
+          this.loading=false
+
+        }
+      );
+
+    }
   }
 
   getSort(data: any) {
@@ -876,6 +970,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   }
 
   getFilter(data: any) {
+    
     this.selectedTab = data;
     // localStorage.setItem('selectedTab',this.selectedTab)
 this.selectedCheckboxIds=[]
@@ -1079,42 +1174,42 @@ this.isSearched=true
   }
 
   followupIds: any;
-  getFollowupIds() {
-    console.log(this.selectedTab, 'this.selectedTab');
-    if(this.role==='counsellor'){
-      // this.selectedCheckboxIds=[]
+  // getFollowupIds() {
+  //   console.log(this.selectedTab, 'this.selectedTab');
+  //   if(this.role==='counsellor'){
+  //     // this.selectedCheckboxIds=[]
 
 
 
-    this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
-      // this.followupIds = res.lead_ids;
-      console.log(this.followupIds, 'lead ids for counsellor');
+  //   this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
+  //     // this.followupIds = res.lead_ids;
+  //     console.log(this.followupIds, 'lead ids for counsellor');
 
-      if (this.selectedTab === 'Upcoming') {
-        console.log(this.upcomingselectedIds, 'this.upcomingselectedIds');
+  //     if (this.selectedTab === 'Upcoming') {
+  //       console.log(this.upcomingselectedIds, 'this.upcomingselectedIds');
 
-        this.upcomingselectedIds = res.lead_ids;
-      } else if (this.selectedTab === 'Done') {
-        console.log(this.doneSelectedIds, 'this.doneSelectedIds');
-        this.doneSelectedIds = res.lead_ids;
-      } else if (this.selectedTab === 'Missed') {
-        this.missedSelectedIds = res.lead_ids;
-        console.log();
+  //       this.upcomingselectedIds = res.lead_ids;
+  //     } else if (this.selectedTab === 'Done') {
+  //       console.log(this.doneSelectedIds, 'this.doneSelectedIds');
+  //       this.doneSelectedIds = res.lead_ids;
+  //     } else if (this.selectedTab === 'Missed') {
+  //       this.missedSelectedIds = res.lead_ids;
+  //       console.log();
 
-        console.log(this.missedSelectedIds, 'this.missedSelectedIds');
-      }
+  //       console.log(this.missedSelectedIds, 'this.missedSelectedIds');
+  //     }
 
-      // console.log(this.followupIds, 'this.followupIds');
-    });
-    }else{
-      this.api.getLeadFollowUpIdsForAdmin(this.selectedTab).subscribe((res:any)=>{
-        console.log(res,"leadids for admin");
+  //     // console.log(this.followupIds, 'this.followupIds');
+  //   });
+  //   }else{
+  //     this.api.getLeadFollowUpIdsForAdmin(this.selectedTab).subscribe((res:any)=>{
+  //       console.log(res,"leadids for admin");
         
-        this.followupIds=res.lead_ids
-      })
-    }
+  //       this.followupIds=res.lead_ids
+  //     })
+  //   }
 
-  }
+  // }
 
   // checkUncheckAll(evt: any, data: any) {
   //   console.log(evt.checked, 'evt');

@@ -19,6 +19,7 @@ import { error } from 'console';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
+import { DataService } from 'src/app/service/data.service';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -45,8 +46,9 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     'designation_id',
     'reporting_to_ids',
     'Action',
-    'is_allow_for_app',
+    // 'is_allow_for_app',
   ]
+
 
   dataSource = new MatTableDataSource<any>;
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
@@ -66,24 +68,36 @@ userId:any=null;
     private dialog: MatDialog, 
     private api:ApiService, 
     private emit:EmitService,private fb:FormBuilder,
-    private baseService:BaseServiceService
+    private baseService:BaseServiceService,
+    private dataService:DataService
     ) {
 
-      if (window.performance) {
+      // if (window.performance) {
       
-          if (performance.navigation.type === 1) {
-            // This means the page is being hard refreshed
-            // this.localStorageService.clearLocalStorage();
-            localStorage.removeItem('userFilter')
-          }}
+      //     if (performance.navigation.type === 1) {
+      //       // This means the page is being hard refreshed
+      //       // this.localStorageService.clearLocalStorage();
+      //       localStorage.removeItem('userFilter')
+      //     }}
 this.role=localStorage.getItem('user_role')
-this.userId=localStorage.getItem('user_id')
+this.userId=localStorage.getItem('user_id');
+if(this.role!=='counsellor'){
+  this.displayedColumns.push('is_allow_for_app')
+    
+}
+
+
 
   }
   ngOnInit(): void {
+
+    
     this.initForm()
+    
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
+        console.log(resp,"response in ng oniinit ");
+        
         if(resp==true){
           this.getUser(); 
         }
@@ -100,6 +114,40 @@ this.userId=localStorage.getItem('user_id')
         
       }
     )
+
+    console.log( this.dataService.getUsersfiletredFormValues()," this.dataService.getfiletredFormValues()");
+   
+  
+   
+    this.dataService.dataUpdated.subscribe((res: any) => {
+      console.log(res, 'filtered');
+      this.params = res;
+    });
+
+
+    var data: any =this.dataService.getUsersfiletredFormValues();
+    // var resp: any = JSON.parse(data);
+    console.log(data,"data users fileter");
+    
+    var resp: any = data
+    let result=Object.values(data);
+    console.log(result,"result");
+    this.params=this.filterUrlConstruction(result);
+    // this.getUser()
+    
+
+    result.forEach((res:any)=>{
+      if(res!==''){
+        this.params=true;
+      }
+      else{
+        this.params=null;
+      }
+    })
+
+
+
+
   }
   ngAfterViewInit() {
 
@@ -193,7 +241,7 @@ this.userId=localStorage.getItem('user_id')
 
 
   getUser(){
-    console.log("Hello", this.params);
+    // console.log("Hello", this.params);
     if(this.role==='Admin'){
 
 
@@ -223,11 +271,12 @@ this.userId=localStorage.getItem('user_id')
       
     // }
     else if(this.role==='counsellor'){
+      try{
 
-      // if()
+         // if()
       console.log("coming to else", this.params);
 
-      if(this.params!=null ||this.userId ){
+      if(this.params!=null || this.userId ){
        
         this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
           console.log("==>>",resp.results);
@@ -242,18 +291,28 @@ this.userId=localStorage.getItem('user_id')
         
           
         },(error:any)=>{
+          console.log(error);
+          
           this.api.showError(error.error.message)
           
         }
     
         )
          }
+        
+      }
+      catch(error){
+        console.log(error);
+        
+      }
+
+     
       
      
     }
     else{
-      
-      this.api.getUser(this.pageSize,this.currentPage,null,null).subscribe((resp:any)=>{
+      //  if(this.params!=null)
+      this.api.getUser(this.pageSize,this.currentPage,null,this.params).subscribe((resp:any)=>{
         console.log("==>>",resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -307,7 +366,10 @@ this.userId=localStorage.getItem('user_id')
       // if(this.params!=null){
         
       // }
+
+      
       else if(this.role==='counsellor'){
+        
         console.log("coming to else", this.params);
         if(this.params!=null ||this.userId ){
           this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
@@ -329,7 +391,7 @@ this.userId=localStorage.getItem('user_id')
       }
       else{
         
-        this.api.getUser(this.pageSize,this.currentPage,null,null).subscribe((resp:any)=>{
+        this.api.getUser(this.pageSize,this.currentPage,null,this.params).subscribe((resp:any)=>{
           console.log("==>>",resp.results);
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -441,6 +503,9 @@ this.userId=localStorage.getItem('user_id')
     }); 
   }
   editUserProfile(userdata:any){
+    if((this.role==='Admin' && this.userId===userdata.id) || this.role==='counsellor'){
+      return
+    }
     const dialogRef = this.dialog.open(EditUserProfileListComponent, {
       width: '45%',
       data: { userdata: userdata }
@@ -493,5 +558,37 @@ this.userId=localStorage.getItem('user_id')
 
   getColor(pause: boolean): string {
     return pause ? 'red' : 'green'; // Change colors as needed
+  }
+
+  filterUrlConstruction(formValues:any){
+    // const formValues = this.filterForm.value;
+
+    // Create an array of query parameters with non-empty values
+    const queryParams = [];
+    for (const key in formValues) {
+      const value = formValues[key];
+      if (value !== '' && value !== undefined) {
+        if (Array.isArray(value)) {
+          // Handle multi-select fields
+          if (value.length > 0) {
+            // Convert array of objects to a comma-separated string of IDs
+            if (key === 'reporting_to_ids') {
+              const ids = value.map((item) => item).join(',');
+              queryParams.push(`${key}=[${ids}]`);
+            } else {
+              const values = value.join(',');
+              queryParams.push(`${key}=${values}`);
+            }
+          }
+        } else {
+          queryParams.push(`${key}=${value}`);
+        }
+      }
+    }
+  
+  
+    // Construct the API request URL with query parameters
+    var apiUrl = `${queryParams.join('&')}`;
+    return apiUrl
   }
 }

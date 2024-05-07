@@ -172,8 +172,8 @@
                   <mat-form-field  appearance="outline">
                     <mat-label>Select User Role</mat-label>
                     <mat-select  formControlName="role_id">
-                      <mat-option *ngFor="let item of allRole" [value]="item.id"  [ngStyle]="{ display: item.id === 7 ? 'none' : 'block' }"
-                      (click)="onRoleChange(item.id)"   [ngClass]="[item.id === 5? 'display' : '', item.id===4 ? 'display' : '',item.id===7? 'display' :'']">{{item.name}}</mat-option>
+                      <mat-option *ngFor="let item of allRole" [value]="item.id"  
+                      (click)="onRoleChange(item.id)"   >{{item.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">

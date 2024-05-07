@@ -1,0 +1,78 @@
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title>Admission Details</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-0 my-2">
+          <form [formGroup]="admissionDetailsForm">
+        
+            <mat-label >Application Number <b class="mandatory-symbol">*</b></mat-label>
+            <mat-form-field class="mb-1" appearance="outline">
+              <mat-label>Application Number</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="applicationNumber"
+                appFormSpace
+                required
+                placeholder="Enter Application Number"
+              />
+              <mat-error *ngIf="f['applicationNumber'].hasError('required')">
+                Application Number Is Required.
+              </mat-error>
+              <mat-error *ngIf="f['applicationNumber'].hasError('pattern')">
+                Invalid Application Number.
+              </mat-error>
+            </mat-form-field>
+            <ng-container>
+              <p class="mt-1" *ngIf="!f['leadUpload'].value">Application form soft copy - upload form (filled by lead) <b class="mandatory-symbol">*</b></p>
+              <p class="mt-1" *ngIf="f['leadUpload'].value">Select an image to replace the form soft copy - (upload form) <b class="mandatory-symbol">*</b></p>
+              <input type="file"  *ngIf="!type" accept=".jpg, .jpeg, .png, .pdf"  (change)="onFileSelected($event)" formControlName="leadUpload" #inputEl />
+              <mat-form-field appearance="outline" class="mb-1"  *ngIf="type">
+                <mat-label>Select an image</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="Select an image"
+                  formControlName="leadUpload"
+                  (click)="changeType();type=!type"
+                 
+                />
+                <mat-error  *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('required')&&type">
+                  Application form Is Required.
+                </mat-error>
+              </mat-form-field>
+              <div *ngIf="!type">
+                <mat-error class="er-fs" >
+                  <ng-container *ngIf="admissionDetailsForm.get('leadUpload')?.hasError('required')">
+                    Application form Is Required.
+                  </ng-container>
+                 
+                </mat-error>
+              </div>
+              
+                <div class="img-container" *ngIf="f['leadUpload'].value">
+                  <img [src]="selectedImageFormat === 'pdf' ? 'assets/images/pdf_wrapper.svg' :f['leadUpload'].value"  class="uploaded-image"/>
+                  <button mat-mini-fab class="mat-fab-cus" *ngIf="selectedImage" (click)="downloadImage()">
+                    <mat-icon class="forward">forward</mat-icon>
+                  </button>
+                  <a mat-mini-fab [href]="selectedImage" *ngIf="selectedImage" target="_blank" class="mat-fab-cus mx-2"  aria-label="">
+                    <mat-icon class="eye-1">visibility</mat-icon>
+                  </a>
+                </div>
+              </ng-container>
+      </form>
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex justify-content-center">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>SUBMIT</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>

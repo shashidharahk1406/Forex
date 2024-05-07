@@ -1,0 +1,152 @@
+<ng-container>
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col"><h1 mat-dialog-title class="text-truncate" style="max-width: 280px;">Add Followup To {{data.item.user_data.first_name| titlecase }}</h1></div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography">
+         <div class="container">
+          <form [formGroup]="followupForm">
+           
+            <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Select Priority</mat-label>
+                <mat-select formControlName="priority" >
+                  <mat-option *ngFor="let priority of prioritiesData" [value]="priority.id">{{  priority.name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('priority')"
+                  *ngIf="followupForm.get('priority')?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['priority'].hasError('required')">
+                Priority Is Required.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Select Status</mat-label>
+                <mat-select formControlName="lead_status" >
+                  <mat-option *ngFor="let statuslist of status" [value]="statuslist.id">{{ statuslist.name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('lead_status')"
+                  *ngIf="followupForm.get('lead_status')?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['lead_status'].hasError('required')">
+                 Status Is Required.
+                </mat-error>
+              </mat-form-field>
+             
+
+              <mat-form-field class="mb-1" appearance="outline" *ngIf="isRequired" >
+                <mat-label>Select Followup Status</mat-label>
+                <mat-select formControlName="follow_up_status"  [required]="isRequired">
+                  <mat-option *ngFor="let followUpStatus of AllFollowupStatuses" [value]="followUpStatus.id">{{ followUpStatus.status_name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('follow_up_status')"
+                  *ngIf="followupForm.get('follow_up_status')?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['follow_up_status'].hasError('required')">
+                Followup Status Is Required.
+                </mat-error>
+              </mat-form-field>
+              <!-- <mat-form-field class="mb-1" appearance="outline">
+                <mat-label>Select Communication Channel</mat-label>
+                <mat-select formControlName="subStatus" >
+                  <mat-option *ngFor="let subStatuslist of subStatus" [value]="subStatuslist.id">{{ subStatuslist.name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('subStatus')"
+                  *ngIf="followupForm.get('subStatus')?.value?.length > 0"
+                  follow_up_status
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['subStatus'].hasError('required')">
+                Sub Status Is Required.
+                </mat-error>
+              </mat-form-field> -->
+
+              <mat-form-field class="mb-1" appearance="outline" >
+                <mat-label>Select Communication Channel</mat-label>
+                <mat-select formControlName="communication_channel">
+                  <mat-option *ngFor="let followuplist of leadCategory" [value]="followuplist.id">{{ followuplist.channel_name }}</mat-option>
+                </mat-select>
+                <button
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="clearSelectField('communication_channel')"
+                  *ngIf="followupForm.get('communication_channel')?.value"
+                >
+                  <mat-icon>clear</mat-icon>
+                </button>
+                <mat-error *ngIf="f['communication_channel'].hasError('required')">
+               Communication Channel Is Required.
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="mb-1">
+                <mat-label>Next Action Date</mat-label>
+                <!-- <input matInput type="datetime-local" placeholder="start date"> -->
+                <!-- <input type="time" (input)="selectTime($event)" min]=""> -->
+                <input matInput appFormSpace type="datetime-local"  placeholder="Date and Time" formControlName="action_date_time" [min]="minDateTime1"  (keydown)="onKeyPress($event)" style="cursor: pointer; " webkitdirectory>
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <!-- <mat-datepicker #picker></mat-datepicker> -->
+                
+                <mat-error *ngIf="f['action_date_time'].hasError('required')">
+                    Next Action Date Is Required.
+                </mat-error>
+                <mat-error *ngIf="f['action_date_time'].hasError('pastDateTime')">
+                  Please select a date/time in the future.
+              </mat-error>
+              </mat-form-field>
+              
+          
+              <div class="mat-input-container">
+                <label for="Comment Box"> Comment Box</label>
+                <textarea name="" formControlName="follow_up_text" id="" cols="30" rows="10"></textarea>
+               
+              </div>
+
+             
+              
+              
+              
+             
+             
+          </form>
+        </div>
+      
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button mat-dialog-close (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">ADD FOLLOWUP</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  
+  
