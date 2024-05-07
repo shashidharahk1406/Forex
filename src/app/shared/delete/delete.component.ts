@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 
@@ -13,7 +14,7 @@ export class DeleteComponent implements OnInit {
   url:any;
   // disableClose:boolean=true
   constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<DeleteComponent>,private emit:EmitService,
-    @Inject(MAT_DIALOG_DATA) public _url: any,   ) {
+    @Inject(MAT_DIALOG_DATA) public _url: any, private router:Router  ) {
       this.url=_url
      
      }
@@ -21,6 +22,7 @@ export class DeleteComponent implements OnInit {
   }
   delete(){
    //console.log(this.url,"URL")
+   
     this.api.delete(this.url).subscribe(
       (resp:any)=>{
         this.emit.sendRefresh(true)

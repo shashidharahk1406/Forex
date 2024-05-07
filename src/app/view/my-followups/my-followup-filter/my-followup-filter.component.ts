@@ -39,6 +39,7 @@ export class MyFollowupFilterComponent implements OnInit {
   counselled_by: any;
   role: any;
   cId: any;
+  user_id:any
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -51,6 +52,7 @@ export class MyFollowupFilterComponent implements OnInit {
   ) {
     this.role = localStorage.getItem('user_role');
     console.log(data, 'data from card component');
+    this.user_id=localStorage.getItem('user_id')
     
 
     this.initForm();
@@ -169,8 +171,12 @@ export class MyFollowupFilterComponent implements OnInit {
   }
 
   getCounselor() {
+    let query
+    if(this.role==='Admin' || this.role==='counsellor'){
+     query =`&user_id=${this.user_id}`
+    }
     this._baseService
-      .getData(`${environment._user}/?role_name=counsellor`)
+      .getData(`${environment._user}/?${query}`)
       .subscribe(
         (res: any) => {
           if (res) {
@@ -215,8 +221,11 @@ export class MyFollowupFilterComponent implements OnInit {
   }
   selectedtab:any;
   setValue() {
-    var data: any = localStorage.getItem('followUpFilter');
-    var resp: any = JSON.parse(data);
+
+    // var data: any = localStorage.getItem('followUpFilter');
+    var data:any=this.dataService.getfiletredFormValues();
+    // var resp: any = JSON.parse(data);
+    var resp: any = data;
     if (resp) {
       this.filterLead.patchValue({ counsellor_id: resp?.counsellor_id });
       this.filterLead.patchValue({ source_id: resp?.source_id });
@@ -236,10 +245,13 @@ isResetFilter:boolean=false
 
 
   reset() {
-    localStorage.removeItem('followUpFilter');
-    this.filterLead.reset()
+    // localStorage.removeItem('followUpFilter');
+    this.filterLead.reset();
+    this.dataService.resetFilterForm()
+    this.filterLead.updateValueAndValidity();
+    // this.filterLead.reset();
     this.dataService.sendData(true);
-    this.isResetFilter=true;
+    // this.isResetFilter=true;
     this.updateFilterByStatusURL=null;
     console.log( this.updateFilterByStatusURL,"resetting filter url");
     
@@ -282,10 +294,10 @@ isResetFilter:boolean=false
     nonEmptyKeys.forEach((key) => {
       const value = this.filterLead.value[key];
       // console.log(`Key: ${key}, Value: ${value}`);
-      localStorage.setItem(
-        'followUpFilter',
-        JSON.stringify(this.filterLead.value)
-      );
+      // localStorage.setItem(
+      //   'followUpFilter',
+      //   JSON.stringify(this.filterLead.value)
+      // );
 
       localStorage.setItem(
         'selectedTab',
@@ -366,7 +378,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
-    this.dataService.dataUpdated.emit(this.selectedtab);
+    // this.dataService.dataUpdated.emit(this.selectedtab);
     
     // this.dataService.dataUpdated.emit(this.filtered)
 
@@ -381,7 +393,7 @@ isResetFilter:boolean=false
     // this.dataService.getFollowupfilterURL();
     this.updateFilterByStatusURL = null;
 
-    this.dataService.sendData(true);
+    // this.dataService.sendData(true);
   }
   sendData() {}
 }

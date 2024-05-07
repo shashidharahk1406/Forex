@@ -68,7 +68,7 @@ export class AddNewLeadComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber: ['', [Validators.pattern(this._commonService.mobilePattern)]], 
-        email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
+        email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
         zone:[''],
@@ -94,11 +94,11 @@ export class AddNewLeadComponent implements OnInit {
         preferredLocation2:['',Validators.pattern(this._commonService.namePattern)],
         counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
-        leadSource:['',[Validators.required]],
-        leadStages:['',[Validators.required]],
-        leadStatus:[''],
-        notes:['',Validators.pattern(this._commonService.namePattern)],
-        remarks:['',Validators.pattern(this._commonService.namePattern)]
+        leadSource:[''],
+        leadStages:[''],
+        leadStatus:['',Validators.required],
+        notes:['',Validators.required,Validators.pattern(this._commonService.namePattern)],
+        // remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
   

@@ -1,0 +1,35 @@
+.bi-arrow-down-up{
+    font-size: x-large;
+    color: var(--appColor);
+}
+.app-list{
+    font-size: 13px !important;
+    /* color:gray; */
+    padding: 3px;
+    cursor: pointer;
+    background: none !important;
+    color: rgb(102 102 102) !important;
+}
+.more-dropdown{
+   padding-bottom: 12px !important; 
+}
+  .more-inner-icon{
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+  }
+  .mat-list-base .mat-list-item.mat-list-item-with-avatar, .mat-list-base .mat-list-option.mat-list-item-with-avatar {
+    height: 30px !important;
+}
+.mat-list-base .mat-list-item .mat-list-icon, .mat-list-base .mat-list-option .mat-list-icon {
+    font-size: 16px !important;
+    padding: 0px !important;   
+}
+mat-list-item:hover{
+  background: var(--appLightColor) !important;
+}
+
+

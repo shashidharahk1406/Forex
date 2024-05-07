@@ -1,0 +1,16 @@
+.add-btn{
+    position: fixed;
+    bottom: 7rem;
+    right: 15px;
+    z-index: 1;
+}
+.upload-btn{
+    position: fixed;
+    bottom: 3rem;
+    right: 15px;
+    z-index: 1;
+}
+.forward-icon{
+    border-left: 2px solid #12416A;
+    transform: rotate(-90deg);
+}

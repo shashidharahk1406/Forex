@@ -40,6 +40,7 @@ export class LeadCardComponent implements OnInit {
   user_role: any;
   permissions:any;
   bulk_Upload: any;
+  allocation:any
  
   
   constructor(
@@ -59,10 +60,10 @@ export class LeadCardComponent implements OnInit {
       this.permissions=localStorage.getItem('decodedToken')
       console.log(this.permissions,"this.permissions");
       
-      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List'),"this.permissions");
+      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
-      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List')
-      accesspermissions.children_status.forEach((element:any) => {
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
+      accesspermissions?.children_status.forEach((element:any) => {
         if(element.menu_name=='Bulk Upload'){
           this.bulk_Upload=element.access_status;
           console.log(this.bulk_Upload,"this.bulk_Upload");
@@ -82,17 +83,25 @@ export class LeadCardComponent implements OnInit {
   onChangeSorting(event:any){
     this.sorting = true
      this.sortingType = event.target.innerText
-     this.query = (this.user_role === 'counsellor')
-      ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
-      : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
+
+    //  this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&allocation_type=allocation&page=1&page_size=10`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?allocation_type=allocation&page=1&page_size=10`:`?user_id=${this.user_id}&allocation_type=allocation&page=1&page_size=10`;
+
+
+
+    //  this.query = (this.user_role === 'counsellor')
+    //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
+    //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
+    this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`
       
       if(this.leadFilter){
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
-            this.query = (this.user_role === 'counsellor')
-            ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}`
-            : `${res}&filter_by=${this.sortingType}`;
+
+           this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&allocation_type=allocation`:`${res}&filter_by=${this.sortingType}&allocation_type=allocation&user_id=${this.user_id}`
+            // this.query = (this.user_role === 'counsellor')
+            // ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=allocation`
+            // : `${res}&filter_by=${this.sortingType}&allocation_type=allocation&user_id=${this.user_id}`;
             
           }
         });
@@ -150,9 +159,10 @@ export class LeadCardComponent implements OnInit {
     this.searchTerm = event
     if(event !==''){
     let query: string;
-    query = (this.user_role === 'counsellor')
-    ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}`
-    : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}`;
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
+    // query = (this.user_role === 'counsellor')
+    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=allocation`
+    // : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=allocation&user_id${this.user_id}`;
     
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
@@ -162,9 +172,11 @@ export class LeadCardComponent implements OnInit {
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query = ''
-              query = (this.user_role === 'counsellor')
-              ? `${res}&counsellor_id=${this.user_id}&key=${event}`
-              : `${res}&key=${event}`;
+              // query = (this.user_role === 'counsellor')
+              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`
+              // : `${res}&key=${event}&allocation_type=allocation&user_id${this.user_id}`;
+
+              this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=allocation`:`${res}&key=${event}&allocation_type=allocation&user_id${this.user_id}`
               
             }
           });
@@ -185,9 +197,10 @@ export class LeadCardComponent implements OnInit {
     });
   }else{
     let query: string;
-    query = (this.user_role === 'counsellor')
-    ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
-    : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}`;
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
+    // query = (this.user_role === 'counsellor')
+    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=allocation`
+    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
     
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
@@ -197,9 +210,12 @@ export class LeadCardComponent implements OnInit {
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query = ''
-              query = (this.user_role === 'counsellor')
-              ? `${res}&counsellor_id=${this.user_id}&key=${event}`
-              : `${res}&key=${event}`;
+
+
+              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=allocation`:`${res}&key=${event}&allocation_type=allocation&user_id=${this.user_id}`;
+              // query = (this.user_role === 'counsellor')
+              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`
+              // : `${res}&key=${event}&allocation_type=allocation&user_id=${this.user_id}`;
               
             }
           });
@@ -254,9 +270,10 @@ export class LeadCardComponent implements OnInit {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
-    let apiUrl = (this.user_role === 'counsellor')
-      ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}`
-      : `${environment.lead_list}?page=1&page_size=${this.pageSize}`;
+    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`;
+    // let apiUrl = (this.user_role === 'counsellor')
+    //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
+    //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
   
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
@@ -287,9 +304,11 @@ export class LeadCardComponent implements OnInit {
    
 
     let query: string;
-    query = (this.user_role === 'counsellor')
-    ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}`
-    : `?page=${this.currentPage}&page_size=${event.pageSize}`;
+
+    query= this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
+    // query = (this.user_role === 'counsellor')
+    // ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation`
+    // : `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
     
     if (type === 'All') {
       query = query;

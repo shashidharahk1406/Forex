@@ -1,0 +1,25 @@
+
+<mat-tab-group class="lead-card-tabs" (selectedTabChange)="getLeadData($event)">
+    <mat-card class="p-0 m-0">
+     <div class="row">
+      <mat-tab label="All">
+        <app-customer-card-content (selectedSort)="onChangeSorting($event)" (selectedSearch)="applySearch($event)" (refresh)="reLoad($event)" [allLeadIds]="leadAllIds" [totalCount]="totalNumberOfRecords" (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-customer-card-content>
+        <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
+      </mat-tab>
+      <!-- <div class="col-12" *ngFor="let items of statusArray">
+        <mat-tab [label]="items.name">
+          <app-lead-card-content (selectedSort)="onChangeSorting($event)" (deleteLead)="delete($event)" [allLeadIds]="leadAllIds" [totalCount]="totalNumberOfRecords" [leadData]="allLeadCardsDataSource.data" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-lead-card-content>
+          <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
+        </mat-tab>
+      </div> -->
+     </div>    
+    </mat-card>
+  </mat-tab-group>
+  
+    <!-- <button style="background-color: #E79A22 !important;" mat-fab aria-label="Example icon button with a menu icon" title="Add New Lead" class=" add-btn" (click)="openBottomSheet()">
+      <mat-icon >add</mat-icon>
+    </button>
+    <button *ngIf="bulk_Upload" style="background-color: #E79A22 !important;" mat-fab aria-label="Example icon button with a menu icon" title="Bulk Upload" class=" upload-btn" (click)="uploadLeads()">
+        <mat-icon  class="forward-icon">forward</mat-icon>
+    </button> -->
+  

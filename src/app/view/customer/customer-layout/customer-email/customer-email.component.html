@@ -1,0 +1,82 @@
+<ng-container >
+    <mat-card class="p-0 m-0">
+      <div class="add-users mat-dialog-header">
+        <div class="row">
+            <div class="col">
+              <h1 mat-dialog-title *ngIf="data.selectedData?.user_data?.first_name">Send Email To {{data?.selectedData?.user_data?.first_name | titlecase}}</h1>
+              <h1 mat-dialog-title *ngIf="!data.selectedData?.user_data?.first_name">Send Email </h1>
+            </div>
+            <div class="col-1 close-icon">
+              <mat-icon (click)="closePopup()">close</mat-icon>
+          </div>
+        </div>
+      </div>
+        <mat-dialog-content class="mat-typography mx-2">
+        <form [formGroup]="emailForm">
+                  <div class="container">
+                      <!-- <div class="row">
+                        <div class="col"><mat-checkbox>Primary Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Father's Email</mat-checkbox></div>
+                      </div>
+                      <div class="row">
+                        <div class="col"><mat-checkbox>Mother's Email</mat-checkbox></div>
+                        <div class="col"><mat-checkbox>Alternate Email</mat-checkbox></div>
+                      </div> -->
+               
+                       
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Select Email Template</mat-label>
+                            <mat-select placeholder="Select Email Template" formControlName="emailTemplate">
+                              <mat-option *ngFor="let temp of templateList" [value]="temp.id" (click)="onChanges(temp,f['emailTemplate'].value)">{{ temp.name }}</mat-option>
+                            </mat-select>
+                            <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="clearSelectField('emailTemplate')"
+                              *ngIf="emailForm.get('emailTemplate')?.value?.length > 0"
+                            >
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                            <mat-error *ngIf="f['emailTemplate'].hasError('required')">
+                              Template Is Required.
+                            </mat-error>
+                          </mat-form-field>
+                          
+                      
+                          <div class="mat-input-container">
+                            <label for="followupComment">Comment</label>
+                            <div
+                              matInput
+                              appFormSpace
+                              contenteditable="true"
+                              (input)="onInput($event)"
+                              readonlyTextarea
+                              formControlName="followupComment"
+                              [innerHtml]="f['followupComment'].value"
+                            ></div>
+                           
+                          </div>
+            
+                         
+                   
+              
+                <mat-form-field  appearance="outline">
+                    <mat-label>Subject</mat-label>
+                    <input matInput appFormSpace appFormSpace placeholder="Enter The Subject" formControlName="subject">
+                    <mat-error *ngIf="f['subject'].hasError('required')"> Subject Is Required</mat-error>
+                    </mat-form-field>
+              </div> 
+            
+        </form>
+        
+        </mat-dialog-content>
+     
+      <mat-dialog-actions class="d-flex">
+        <button class="mat-cancel m-1" mat-button (click)="closePopup()">CANCEL</button>
+        <button class="mat-disable m-1" mat-button  cdkFocusInitial (click)="onSubmit()">SEND EMAIL</button>
+      </mat-dialog-actions>
+    </mat-card>
+     
+  </ng-container>
+  

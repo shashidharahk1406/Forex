@@ -22,10 +22,12 @@ export class AddNewUserComponent implements OnInit {
   user_id:any
   min!:Date
   max:Date;
+  role:any;
   constructor(private datePipe:DatePipe,private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<AddNewUserComponent>,private emit:EmitService) { 
     this.user_id=localStorage.getItem('user_id')
     this.min= new Date('1900-01-01')
     this.max=new Date();
+    this.role=localStorage.getItem('user_role')
   }
 
   ngOnInit(): void {
@@ -135,7 +137,16 @@ onChange(event:any){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
         console.log(resp,"user roles");
-        this.allRole=resp.results
+        if(this.role==='SuperAdmin'){
+          this.allRole=resp.results.filter((ele:any)=>ele.name==='counsellor' ||ele.name==='Admin' || ele.name==='SuperAdmin' )
+        }
+        if(this.role==='Admin'){
+          this.allRole=resp.results.filter((ele:any)=>ele.name==='counsellor')
+
+        }
+        
+        
+      
       },
       (error:any)=>{
 

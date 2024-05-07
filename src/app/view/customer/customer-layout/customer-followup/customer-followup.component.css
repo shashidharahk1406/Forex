@@ -1,0 +1,57 @@
+mat-card{
+    box-shadow: none !important;
+}
+mat-dialog-content{
+    font-size: 12px;
+}
+.container{
+    padding: 0.2rem 3rem;
+    margin: 0;
+}
+.time-label{
+    color: #6c6c6c;
+}
+.time-label-error{
+    color:red;
+}
+.mat-input-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto, sans-serif;
+  }
+  
+  label {
+    margin-bottom: 4px;
+  }
+  
+  div[contenteditable="true"] {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    resize: none;
+    overflow: auto;
+    white-space: pre-wrap;
+    min-height: 100px;
+    background-color: transparent;
+  }
+
+  textarea{
+    border: none !important;
+  }
+
+  textarea:hover{
+    border: none !important;
+  }
+
+  textarea{
+    border: none !important;
+    outline: none !important;
+}
+
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}

@@ -40,6 +40,10 @@ table {
   cursor:pointer;
   font-weight: bold;
 }
+.removeCursor{
+  cursor: auto !important;
+  font-weight: normal !important;
+}
 
 .green{
   color: green;

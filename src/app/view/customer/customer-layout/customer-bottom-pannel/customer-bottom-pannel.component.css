@@ -1,0 +1,13 @@
+.inner-expansion{
+    box-shadow: 0 !important;
+    border: 1px solid #f3f3f3;
+    font-size: 11px;
+    /* background-color: #fff9f5; */
+    box-shadow: none !important;
+    margin-top: 10px;
+}
+.col-12.pannel-label {
+    color: gray;
+    line-height: 22px;
+    font-weight: bold;
+}
