@@ -538,7 +538,7 @@ if(this.role!=='counsellor'){
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
-      data:apiUrl
+      data:apiUrl,id
 
     });
     dialogRef.disableClose = true;
@@ -553,6 +553,9 @@ if(this.role!=='counsellor'){
     
   }
 
+
+
+  
   
 
 
