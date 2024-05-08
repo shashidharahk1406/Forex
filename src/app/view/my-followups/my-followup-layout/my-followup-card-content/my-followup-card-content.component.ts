@@ -559,7 +559,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.api.showWarning('Please select atleast one lead');
+      this.api.showWarning('Please select atleast one Followup');
     }
   }
 
@@ -599,7 +599,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   openWhatsAppChat() {
     this.addCount();
     if (this.data !== 0) {
-      let data = `Do You Want To Send WhatsApp To ${this.data} Leads`;
+      let data = `Do You Want To Send WhatsApp To ${this.data} Followups`;
       const dialogRef = this.dialog.open(GenericCountComponent, {
         width: '40%',
         data: data,
@@ -613,14 +613,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.api.showWarning('Please select atleast one lead to download');
+      this.api.showWarning('Please select atleast one Followup to download');
     }
   }
 
   openSMS(name: any): void {
     this.addCount();
     if (this.data !== 0) {
-      let data = `Do You Want To Send SMS To ${this.data} Leads`;
+      let data = `Do You Want To Send SMS To ${this.data} Followup`;
       const dialogRef = this.dialog.open(GenericCountComponent, {
         width: '40%',
         data: data,
@@ -635,7 +635,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.api.showWarning('Please select atleast one lead');
+      this.api.showWarning('Please select atleast one Followup');
     }
   }
 
@@ -647,7 +647,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         this.checkAll = false;
       });
     } else {
-      this.api.showWarning('Please select atleast one lead to download');
+      this.api.showWarning('Please select atleast one Followup to download');
     }
   }
 
@@ -725,7 +725,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      this.api.showWarning('Please select atleast one lead');
+      this.api.showWarning('Please select atleast one Followup');
     }
   }
   paymentDetailsLink() {
@@ -1109,7 +1109,7 @@ this.isSearched=true
   openEmailChat(selectedData?: any) {
     this.addCount();
     if (this.data !== 0) {
-      let data = `Do You Want To Send Email To ${this.data} Leads`;
+      let data = `Do You Want To Send Email To ${this.data} Followups`;
       const dialogRef = this.dialog.open(GenericCountComponent, {
         width: '40%',
         data: data,
@@ -1122,14 +1122,14 @@ this.isSearched=true
         }
       });
     } else {
-      this.api.showWarning('Please select atleast one lead');
+      this.api.showWarning('Please select atleast one Followup');
     }
   }
 
   openEmailSendoutForm(data: any) {
     if (data == 'All') {
       if (this.selectedCheckboxIds.length == 0) {
-        this.api.showWarning('Please select atleast one lead');
+        this.api.showWarning('Please select atleast one Followup');
       } else {
         this.showSendMailForm(this.selectedCheckboxIds, 'All');
       }
@@ -1164,7 +1164,7 @@ this.isSearched=true
   openVideoCallForm(data: any) {
     if (data == 'All') {
       if (this.selectedCheckboxIds.length == 0) {
-        this.api.showWarning('Please select atleast one lead');
+        this.api.showWarning('Please select atleast one Followup');
       } else {
         this.sendVideoCallInvite(this.selectedCheckboxIds);
       }
