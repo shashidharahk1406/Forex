@@ -97,7 +97,7 @@ export class AddNewLeadComponent implements OnInit {
         leadSource:[''],
         leadStages:[''],
         leadStatus:['',Validators.required],
-        notes:['',Validators.required,Validators.pattern(this._commonService.namePattern)],
+        notes:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
         // remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
@@ -332,7 +332,7 @@ export class AddNewLeadComponent implements OnInit {
             },
     note_name:f['notes'],
     created_note_remark_by:this.user_id,
-    remark_name:f['remarks']
+    // remark_name:f['remarks']
   }
 
   if (this.addLeadForm.invalid) {
@@ -340,7 +340,7 @@ export class AddNewLeadComponent implements OnInit {
     let nonMandatoryFieldsInvalid = false;
   
     // Check if any mandatory fields are empty
-    const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages','alternateNumber'];
+    const mandatoryFields = ['firstName', 'mobile', 'counsellor','leadStatus','notes'];
     mandatoryFields.forEach(field => {
       if (!this.addLeadForm.get(field)?.value) {
         mandatoryFieldsEmpty = true;

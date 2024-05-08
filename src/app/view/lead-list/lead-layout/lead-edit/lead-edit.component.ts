@@ -153,7 +153,7 @@ export class LeadEditComponent implements OnInit {
         leadSource:['',],
         leadStages:[''],
         leadStatus:['',Validators.required],
-        notes:['',Validators.required,Validators.pattern(this._commonService.namePattern)],
+        notes:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
         // remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
@@ -362,7 +362,7 @@ const data ={
   lead_stage: formData.leadStages,
   updated_by:this.user_id,
   note: formData.notes,
-  remark: formData.remarks,
+  remark: formData.remarks || null,
   source: formData.leadSource,
   refered_to: formData.counsellor,
   level_of_program:formData.levelOfProgram,
@@ -397,7 +397,7 @@ if (this.editLeadForm.invalid) {
   let nonMandatoryFieldsInvalid = false;
 
   // Check if any mandatory fields are empty
-  const mandatoryFields = ['firstName', 'mobile', 'email', 'counsellor', 'leadSource', 'leadStages','alternateNumber'];
+  const mandatoryFields = ['firstName', 'mobile', 'counsellor','leadStatus','notes'];
   mandatoryFields.forEach(field => {
     if (!this.editLeadForm.get(field)?.value) {
       mandatoryFieldsEmpty = true;

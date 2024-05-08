@@ -51,7 +51,7 @@ export class LeadCardComponent implements OnInit {
     private emit:EmitService,
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
-      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.getLeadIds();
 
 
