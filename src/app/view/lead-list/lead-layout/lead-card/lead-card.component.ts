@@ -40,7 +40,6 @@ export class LeadCardComponent implements OnInit {
   user_role: any;
   permissions:any;
   bulk_Upload: any;
-  allocation:any
  
   
   constructor(
@@ -51,7 +50,7 @@ export class LeadCardComponent implements OnInit {
     private emit:EmitService,
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
-      this.user_role = localStorage.getItem('user_role')?.toUpperCase();
+      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.getLeadIds();
 
 
@@ -60,9 +59,9 @@ export class LeadCardComponent implements OnInit {
       this.permissions=localStorage.getItem('decodedToken')
       console.log(this.permissions,"this.permissions");
       
-      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
+      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List'),"this.permissions");
       
-      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List')
       accesspermissions?.children_status.forEach((element:any) => {
         if(element.menu_name=='Bulk Upload'){
           this.bulk_Upload=element.access_status;
@@ -83,25 +82,17 @@ export class LeadCardComponent implements OnInit {
   onChangeSorting(event:any){
     this.sorting = true
      this.sortingType = event.target.innerText
-
-    //  this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&allocation_type=allocation&page=1&page_size=10`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?allocation_type=allocation&page=1&page_size=10`:`?user_id=${this.user_id}&allocation_type=allocation&page=1&page_size=10`;
-
-
-
-    //  this.query = (this.user_role === 'counsellor')
-    //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
-    //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
-    this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`
+     this.query = (this.user_role === 'counsellor')
+      ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
+      : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
       
       if(this.leadFilter){
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
-
-           this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&allocation_type=allocation`:`${res}&filter_by=${this.sortingType}&allocation_type=allocation&user_id=${this.user_id}`
-            // this.query = (this.user_role === 'counsellor')
-            // ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=allocation`
-            // : `${res}&filter_by=${this.sortingType}&allocation_type=allocation&user_id=${this.user_id}`;
+            this.query = (this.user_role === 'counsellor')
+            ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}`
+            : `${res}&filter_by=${this.sortingType}`;
             
           }
         });
@@ -134,11 +125,11 @@ export class LeadCardComponent implements OnInit {
   
       this.getLeadIds()
       this.getStatus()
-    this._addLeadEmitter.triggerGet$.subscribe(() => {
-      this.getLeadIds()
-      this.getLeadData('tabLabel')
-      this._addLeadEmitter.goBack.next(true)
-    });
+      this._addLeadEmitter.triggerGet$.subscribe(() => {
+        this.getLeadIds()
+        this.getLeadData('tabLabel')
+        this._addLeadEmitter.goBack.next(true)
+      });
     
     this._addLeadEmitter.leadFilter.subscribe((res) => {
       if (res) {
@@ -159,11 +150,13 @@ export class LeadCardComponent implements OnInit {
     this.searchTerm = event
     if(event !==''){
     let query: string;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
-    // query = (this.user_role === 'counsellor')
-    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=allocation`
-    // : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=allocation&user_id${this.user_id}`;
+    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation&key=${event}`
     
+      if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+        query += `&counsellor_id=${this.user_id}`;
+      } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+        query += `&user_id=${this.user_id}`;
+      }
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       }
@@ -172,11 +165,12 @@ export class LeadCardComponent implements OnInit {
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query = ''
-              // query = (this.user_role === 'counsellor')
-              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`
-              // : `${res}&key=${event}&allocation_type=allocation&user_id${this.user_id}`;
-
-              this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=allocation`:`${res}&key=${event}&allocation_type=allocation&user_id${this.user_id}`
+              query = `${res}&allocation_type=allocation&key=${event}`
+              if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+                query += `&counsellor_id=${this.user_id}`;
+              } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+                query += `&user_id=${this.user_id}`;
+              }
               
             }
           });
@@ -197,11 +191,16 @@ export class LeadCardComponent implements OnInit {
     });
   }else{
     let query: string;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
     // query = (this.user_role === 'counsellor')
-    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=allocation`
-    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
+    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
+    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}`;
+    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation`
     
+    if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+      query += `&counsellor_id=${this.user_id}`;
+    } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+      query += `&user_id=${this.user_id}`;
+    }
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       }
@@ -210,13 +209,15 @@ export class LeadCardComponent implements OnInit {
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query = ''
-
-
-              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=allocation`:`${res}&key=${event}&allocation_type=allocation&user_id=${this.user_id}`;
               // query = (this.user_role === 'counsellor')
-              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=allocation`
-              // : `${res}&key=${event}&allocation_type=allocation&user_id=${this.user_id}`;
-              
+              // ? `${res}&counsellor_id=${this.user_id}&key=${event}`
+              // : `${res}&key=${event}`;
+              query = `${res}&allocation_type=allocation`
+              if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+                query += `&counsellor_id=${this.user_id}`;
+              } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+                query += `&user_id=${this.user_id}`;
+              }
             }
           });
         }
@@ -246,21 +247,13 @@ export class LeadCardComponent implements OnInit {
    }
    filterLeads(apiUrl:any){
     this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
-     
-      // if(res.results.length === 0){
-      //   this._addLeadEmitter.leadFilter.next('')
-      //   this._addLeadEmitter.selectedFilter.next('')
-      // }
-      // else{
         if(res){
         this.leadFilter = true
         this.leadCards = res.results;
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-        // this.allLeadCardsDataSource.paginator = this.allPaginator;
+        
         this.totalNumberOfRecords = res.total_no_of_record
       }
-    //}
-     
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
     }));
@@ -270,11 +263,15 @@ export class LeadCardComponent implements OnInit {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
-    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`;
-    // let apiUrl = (this.user_role === 'counsellor')
-    //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
-    //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
-  
+    let apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation`;
+
+    if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+      apiUrl += `&counsellor_id=${this.user_id}`;
+    } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+      apiUrl += `&user_id=${this.user_id}`;
+    }
+    
+    
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
       apiUrl += `&status=${tabId.id}`;
@@ -302,13 +299,15 @@ export class LeadCardComponent implements OnInit {
     this.currentPage = event.pageIndex + 1;
     this.pageSize = event.pageSize;
    
-
     let query: string;
+    query = `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation`;
 
-    query= this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`
-    // query = (this.user_role === 'counsellor')
-    // ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation`
-    // : `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;
+    if (this.user_role === 'counsellor' || this.user_role === 'counselor') {
+      query += `&counsellor_id=${this.user_id}`;
+    } else if (this.user_role !== 'superadmin' && this.user_role !== 'super admin') {
+      query += `&user_id=${this.user_id}`;
+    }
+
     
     if (type === 'All') {
       query = query;
