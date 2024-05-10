@@ -534,12 +534,18 @@ if(this.role!=='counsellor'){
 
   
   baseurl= environment.live_url;
-  openDelete(id:any){
+  id:any;
+  user_name:any;
+  openDelete(id:any,name:any){
+    this.id=id;
+    this.user_name=name;
+    console.log(this.user_name,"username");
+    
+
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
     const dialogRef = this.dialog.open(DeleteComponent, {
       width:'35%',
-      data:apiUrl,id
-
+      data:{apiUrl,id:this.id,user_name:this.user_name}
     });
     dialogRef.disableClose = true;
   

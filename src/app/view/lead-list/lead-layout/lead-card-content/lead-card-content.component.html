@@ -16,16 +16,18 @@
           <div class="shadow-lg " style="font-size: 12px !important;">
             <div class="row d-flex align-items-center">
               
-              <div class="col-10 align-items-center">
+              <div class="col-12 align-items-center">
                 <div class="row align-items-center">
                   
-                  <div class="col-sm-12 col-md-12 col-lg-3">
+                  <div class="col-sm-12 col-md-12 col-lg-2">
                     <div class="row">
                       <div class="col-1 d-flex  align-items-center">
                         <mat-checkbox (change)="onCheckboxChange($event, item.user_data.id);"  [(ngModel)]="item.checked"></mat-checkbox>
                       </div>
                       <div class="col" style="padding-left: 20px !important;">
                         <div class="row point-set" (click)="editLead(item)">
+
+                          
                           <div class="col-12" ><strong> {{ item.user_data.first_name | titlecase}} {{ item.user_data.last_name | titlecase }}</strong></div>
                           <div class="col-12 text-muted" >
                            {{ item.user_data.mobile_number }} 
@@ -35,22 +37,75 @@
                       </div>
                     </div>
                   </div>
-                 
-                  <div class="col-sm-12 col-md-6 col-lg-3">
+
+
+
+                  <div class="col-sm-12 col-md-6 col-lg-2 p-1">
                     <div class="row">
                       
                       <div class="col-10">
+
+                        
                         <div class="row">
-                          <div class="col-12"><strong>Source</strong></div>
-                          <div class="col-12 text-muted">{{item.source_name || 'NA'}}</div>
+                          <div class="col-12"><strong>Lead Number</strong></div>
+                          <div class="col-12 text-muted">{{item.lead_number || 'NA'}}</div>
                         </div>
                        
                       </div>
                      
                     </div>
+
+                    
                   </div>
+
                  
-                  <div class="col-sm-12 col-md-6 col-lg-2">
+                 
+                  <div class="col-sm-12 col-md-6 col-lg-1 p-0">
+                    <div class="row">
+                     
+                     
+                      <div class="col-8">
+
+                        
+                        <div class="row">
+                          <div class="col-12"><strong>Source</strong></div>
+                          <div class="col-12 text-muted">{{item.source_name || 'NA'}}</div>
+
+
+                         
+                          
+                        
+                        </div>
+                       
+                      </div>
+                      
+                     
+                    </div>
+
+                    
+                  </div>
+
+                  <!-- <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="row">
+                      
+                      <div class="col-10">
+
+                        
+                        <div class="row">
+                          <div class="col-12"><strong>Lead Number</strong></div>
+                          <div class="col-12 text-muted">{{item.lead_number || 'NA'}}</div>
+                        </div>
+                       
+                      </div>
+                     
+                    </div>
+
+                    
+                  </div> -->
+
+                  
+                 
+                  <div class="col-sm-12 col-md-6 col-lg-1 p-0">
                     <div class="row status-box">
                       <div class="col-12"><strong>Status</strong></div>
                       <div class="col-12 text-muted">{{item.lead_list_status_name || 'NA'}}</div>
@@ -67,53 +122,72 @@
                         <div class="col-12 text-muted">{{item.referred_to_name || 'NA'}}</div>
                       </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-2">
+                   
+                    <div class="col-sm-12 col-md-6 col-lg-2 ">
+                      <div class="row">
+                        <div class="col-12"><strong>Creation Date</strong></div>
+                        <div class="col-12 text-muted">{{item.user_data?.created_date_time | date :'medium' ||  'NA'  }}</div>
+                      </div>
+                    </div>
+
+
+                     <div class="col-sm-12 col-md-6 col-lg-1 ">
                       <div class="row">
                         <div class="col-12"><strong>Counselled By</strong></div>
                         <div class="col-12 text-muted">{{item.counselled_by_name ||  'NA'  }}</div>
                       </div>
                     </div>
-                   
-                  </div>
-              </div>
-              <div class="col-2">
-                <!-- <div class="col-sm-12 col-md-6 col-lg-3 p-ct"> -->
-                  <div class="row">
-                    <div class="col p-0">
-                      <div ngbDropdown class="d-inline-block lead-dropdown">
-                        <mat-icon class="common-class" id="dropdownBasic1" title="More options" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                          <app-leadcard-more [leadName]="item.user_data.first_name" [leadId]="item.user_data.id" [counselor_id]="item.refered_to_id" (deleteEvent)="delete($event)" [item]="item"></app-leadcard-more>
+                    <div class="col-lg-1">
+                      <div class="row">
+                        <div ngbDropdown class="d-inline-block lead-dropdown">
+                          <mat-icon class="common-class" id="dropdownBasic1" title="More options" ngbDropdownToggle (click)="openMorePanel()">more_vert</mat-icon>
+                          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <app-leadcard-more [leadName]="item.user_data.first_name" [leadId]="item.user_data.id" [counselor_id]="item.refered_to_id" (deleteEvent)="delete($event)" [item]="item"></app-leadcard-more>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    
-                    <div class="col p-0" (click)="openVideoCall()" title="Send Video Conferencing Invite">
-                      <!-- <i class="bi bi-camera-video-fill"></i> -->
-                      <img src="./assets/images/videocall.png"  alt="" height="17" width="17" class="set-pointer">
-                    </div>
-                    <div class="col  p-0" (click)="openWhatsAppChat()" title="WhatsApp Chat" >
-                      <!-- <i class="bi bi-whatsapp"></i> -->
-                      <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21" class="set-pointer">
-                    </div>
-                    <div class="col p-0" (click)="openCall(item)" title="Call Lead" >
-                      <i class="bi bi-telephone-fill" style="color: #fe1550;" ></i>
-                    </div>
-                    <div class="col  p-0 position-rel" (click)="openSMS(item)" title="Send SMS">
-                      <!-- <i class="bi bi-chat-left-dots-fill"></i> -->
-                      <img src="./assets/images/chat.png" alt="" height="15" width="18" class="set-pointer">
-                    </div>
+
                    
-                    <div class="col  p-0" (click)="openEmailChat(item)" title="Send Email">
-                      <!-- <i class="bi bi-envelope-fill"></i> -->
-                      <img src="./assets/images/email-icon.png" alt="" height="12" width="16" class="set-pointer">
+                   
+                  </div>
+              </div>
+
+
+              
+              <div class="col-2">
+                <!-- <div class="col-sm-12 col-md-6 col-lg-3 p-ct"> -->
+                  <div class="row">
+                    <div class="row">
+                     
                     </div>
+                    
+                    <!-- <div class="col p-0" (click)="openVideoCall()" title="Send Video Conferencing Invite"> -->
+                      <!-- <i class="bi bi-camera-video-fill"></i> -->
+                      <!-- <img src="./assets/images/videocall.png"  alt="" height="17" width="17" class="set-pointer">
+                    </div> -->
+                    <!-- <div class="col  p-0" (click)="openWhatsAppChat()" title="WhatsApp Chat" > -->
+                      <!-- <i class="bi bi-whatsapp"></i> -->
+                      <!-- <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21" class="set-pointer">
+                    </div> -->
+                    <!-- <div class="col p-0" (click)="openCall(item)" title="Call Lead" >
+                      <i class="bi bi-telephone-fill" style="color: #fe1550;" ></i>
+                    </div> -->
+                    <!-- <div class="col  p-0 position-rel" (click)="openSMS(item)" title="Send SMS"> -->
+                      <!-- <i class="bi bi-chat-left-dots-fill"></i> -->
+                      <!-- <img src="./assets/images/chat.png" alt="" height="15" width="18" class="set-pointer">
+                    </div> -->
+                   
+                    <!-- <div class="col  p-0" (click)="openEmailChat(item)" title="Send Email"> -->
+                      <!-- <i class="bi bi-envelope-fill"></i> -->
+                      <!-- <img src="./assets/images/email-icon.png" alt="" height="12" width="16" class="set-pointer">
+                    </div> -->
                    
                   
-                    <div class="col p-0" >
+                    <!-- <div class="col p-0" >
                       <mat-icon class="common-class" *ngIf="expandedCardIndex !== i" (click)="expandCard(i)" title="Lead Details">expand_more</mat-icon>
                       <mat-icon class="common-class" *ngIf="expandedCardIndex === i" (click)="expandCard(i)" title="Close">expand_less</mat-icon>
-                    </div>                  
+                    </div>                   -->
                   </div>
                 <!-- </div> -->
               </div>

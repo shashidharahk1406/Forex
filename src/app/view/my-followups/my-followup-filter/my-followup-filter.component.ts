@@ -39,7 +39,8 @@ export class MyFollowupFilterComponent implements OnInit {
   counselled_by: any;
   role: any;
   cId: any;
-  user_id:any
+  user_id:any;
+  counsellors_ids:any;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -53,6 +54,8 @@ export class MyFollowupFilterComponent implements OnInit {
     this.role = localStorage.getItem('user_role');
     console.log(data, 'data from card component');
     this.user_id=localStorage.getItem('user_id')
+    this.counsellors_ids=localStorage.getItem('counsellor_ids');
+    console.log(this.counsellors_ids,"counsellor ids");
     
 
     this.initForm();
@@ -172,11 +175,12 @@ export class MyFollowupFilterComponent implements OnInit {
 
   getCounselor() {
     let query
-    if(this.role==='Admin' || this.role==='counsellor'){
-     query =`&user_id=${this.user_id}`
+    
+    if(this.role==='Admin'){
+     query =`admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
     }
     this._baseService
-      .getData(`${environment._user}/?${query}`)
+      .getData(`${environment._user}?${query}`)
       .subscribe(
         (res: any) => {
           if (res) {

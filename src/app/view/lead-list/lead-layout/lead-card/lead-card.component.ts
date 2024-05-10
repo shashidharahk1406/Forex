@@ -40,7 +40,8 @@ export class LeadCardComponent implements OnInit {
   user_role: any;
   permissions:any;
   bulk_Upload: any;
-  allocation:any
+  allocation:any;
+  counsellors_ids:any;
  
   
   constructor(
@@ -54,6 +55,7 @@ export class LeadCardComponent implements OnInit {
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.getLeadIds();
 
+      this.counsellors_ids=localStorage.getItem('counsellor_ids')
 
 
 
@@ -270,7 +272,7 @@ export class LeadCardComponent implements OnInit {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
-    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&user_id=${this.user_id}`;
+    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=10&allocation_type=allocation`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`:`${environment.lead_list}?page=1&page_size=10&allocation_type=allocation&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`;
     // let apiUrl = (this.user_role === 'counsellor')
     //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
     //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation&user_id=${this.user_id}`;

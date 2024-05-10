@@ -34,9 +34,9 @@ export class LoginListComponent implements OnInit {
     localStorage.clear();
     this.api.showSuccess("Logout Successfull")
    this.router.navigate(['/login'])
-   this.addEmit.leadFilterIcon.next('')
-   this.addEmit.leadFilter.next('')
-   this.addEmit.selectedFilter.next('')
+  //  this.addEmit.leadFilterIcon.next('')
+  //  this.addEmit.leadFilter.next('')
+  //  this.addEmit.selectedFilter.next('')
 
   }
 

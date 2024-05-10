@@ -29,7 +29,10 @@ export class ReferLeadComponent implements OnInit {
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
-      this.user_role = localStorage.getItem('user_role')?.toUpperCase()
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase();
+      console.log(data,"data in referlead componennt");
+      
+
       this.initForm()
      
      }
@@ -38,7 +41,9 @@ export class ReferLeadComponent implements OnInit {
       return this.referLeadForm.controls;
     }
     getReferLead() {
-      let params = this.data.leadId ? this.data.leadId : this.data;
+      let params = this.data.leadId ? this.data.leadId : this.data.id? this.data.id: this.data;
+      console.log(params,"params for bulk lead refer");
+      
         this._baseService.getByID(`${environment.lead_refer}?lead_id=${params}`).subscribe((res: any) => {
           if (res) {
             let formVal = res.result[0][0];
@@ -88,7 +93,7 @@ export class ReferLeadComponent implements OnInit {
       }
      else{
       formData= {
-        lead_list: [this.data],
+        lead_list: [this.data.id? this.data.id:this.data],
         counsellor_ids: [f.referTo],
         comment:f.comment
        }
@@ -97,6 +102,10 @@ export class ReferLeadComponent implements OnInit {
         if(res){
           this.api.showSuccess(res.message)
           this._addLeadEmitter.triggerGet();
+          if(this.data.callback){
+            this.data.callback();
+          }
+          
           this.dialogRef.close()
         }
        },((error:any)=>{
