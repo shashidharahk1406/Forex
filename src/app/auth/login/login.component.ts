@@ -93,10 +93,10 @@ export class LoginComponent implements OnInit {
 		this.loginForm.markAllAsTouched()	
 		}
 		else{
-		// this.authService.startLogoutTimer(900000);
 		
 		  this.api.login(this.loginForm.value).subscribe(
 			(resp:any)=>{
+				if(resp){
 				//console.log(resp,"login responsssssssssssss",)
 				localStorage.setItem('resp',JSON.stringify(resp))
 				// this.api.showSuccess('Login Successfull !!')
@@ -104,6 +104,7 @@ export class LoginComponent implements OnInit {
 				const decodedToken:any = jwtDecode(resp.token.token);
 				// console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
+				localStorage.setItem('counsellor_ids',resp.counsellor_ids);
 				localStorage.setItem('user_email',decodedToken.email);
 				localStorage.setItem('decodedToken',JSON.stringify(decodedToken))
 				// localStorage.setItem('Dropdown Values',JSON.stringify(resp.permissions[1].children_status[0].access_status))
@@ -115,7 +116,8 @@ export class LoginComponent implements OnInit {
 				this.api.showSuccess('Login Successfull!')
 				this.router.navigate(['/analytics'])
 				this.resetForm()
-			},
+			}
+		   },
 			(error=>{
 			   this.api.showError(this.api.toTitleCase(error.error.message))
 			})

@@ -556,7 +556,7 @@
                       <!-- <mat-error *ngIf="f['leadSource'].hasError('required')">Source Is Required.</mat-error> -->
                       </mat-form-field>
 
-                      <mat-form-field class="mb-1" appearance="outline">
+                      <!-- <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Lead Stage</mat-label>
                         <mat-select formControlName="leadStages"  placeholder="Select The Lead Stage">
                           <mat-option *ngFor="let stage of leadStage" [value]="stage.id">{{stage.name}}</mat-option>
@@ -570,10 +570,9 @@
                       >
                         <mat-icon>clear</mat-icon>
                       </button>
-                      <!-- <mat-error *ngIf="f['leadStages'].hasError('required')">Lead Stage Is Required.</mat-error> -->
-                      </mat-form-field>
+                      </mat-form-field> -->
 
-                      <mat-form-field class="mb-1" appearance="outline">
+                      <!-- <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="leadStatus" placeholder="Select The Status">
                           <mat-option *ngFor="let status of leadStatus" [value]="status.id">{{ status.name}}</mat-option>
@@ -590,8 +589,8 @@
 
                         <mat-error *ngIf="f['leadStatus'].hasError('required')">Lead Status Is Required.</mat-error>
                        
-                      </mat-form-field>
-                      <mat-form-field appearance="outline" class="mb-1" >
+                      </mat-form-field> -->
+                      <!-- <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Notes</mat-label>
                         <input
                           matInput
@@ -602,7 +601,7 @@
                         />
                         <mat-error *ngIf="f['notes'].hasError('required')">Note Is Required.</mat-error>
                         <mat-error *ngIf="f['notes'].hasError('pattern')">Invalid Notes Format.Please Enter Characters.</mat-error>
-                      </mat-form-field>
+                      </mat-form-field> -->
                       <!-- <mat-form-field appearance="outline" class="mb-1" >
                         <mat-label>Remarks</mat-label>
                         <input

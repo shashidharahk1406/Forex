@@ -95,9 +95,9 @@ export class AddNewLeadComponent implements OnInit {
         counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
         leadSource:[''],
-        leadStages:[''],
-        leadStatus:['',Validators.required],
-        notes:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
+        // leadStages:[''],
+        // leadStatus:['',Validators.required],
+        // notes:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
         // remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
@@ -317,10 +317,10 @@ export class AddNewLeadComponent implements OnInit {
     others: f["otherCourse"],
     enterance_exam: f["entranceExam"],
     course_looking_for: f["courseLookingfor"] || [],
-    lead_list_status:f['leadStatus'],
+    //lead_list_status:f['leadStatus'],
     lead_list_substatus: null,
     counselled_by:f['counsellorAdmin'],
-    lead_stage: f['leadStages'],
+    //lead_stage: f['leadStages'],
     source: f['leadSource'],
     level_of_program:f['levelOfProgram'],
     preferance_college_and_location: 
@@ -330,7 +330,7 @@ export class AddNewLeadComponent implements OnInit {
               preferred_location1: f["preferredLocation1"],
               preferred_location2: f["preferredLocation2"]
             },
-    note_name:f['notes'],
+    //note_name:f['notes'],
     created_note_remark_by:this.user_id,
     // remark_name:f['remarks']
   }
