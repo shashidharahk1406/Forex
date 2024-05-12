@@ -38,6 +38,7 @@ export class CustomerCardComponent implements OnInit {
   user_role: any;
   permissions:any;
   bulk_Upload: any;
+  counsellors_ids:any;
  
   
   constructor(
@@ -51,6 +52,7 @@ export class CustomerCardComponent implements OnInit {
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.getLeadIds();
 
+      this.counsellors_ids=localStorage.getItem('counsellor_ids')
 
 
 
@@ -81,7 +83,7 @@ export class CustomerCardComponent implements OnInit {
     this.sorting = true
      this.sortingType = event.target.innerText
 
-     this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`
+     this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
     //  this.query = (this.user_role === 'counsellor')
     //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`
     //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
@@ -92,7 +94,7 @@ export class CustomerCardComponent implements OnInit {
           if (res) {
 
 
-            this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&allocation_type=customers`:`${res}&filter_by=${this.sortingType}&allocation_type=customers&user_id=${this.user_id}`
+            this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&allocation_type=customers`:`${res}&filter_by=${this.sortingType}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
             // this.query = (this.user_role === 'counsellor')
             // ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=customers`
             // : `${res}&filter_by=${this.sortingType}&allocation_type=customers&user_id=${this.user_id}`;
@@ -154,7 +156,7 @@ export class CustomerCardComponent implements OnInit {
     if(event !==''){
     let query: string;
 
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers&user_id=${this.user_id}`
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
     // query = (this.user_role === 'counsellor')
     // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`
     // : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
@@ -168,7 +170,7 @@ export class CustomerCardComponent implements OnInit {
             if (res) {
               query = ''
 
-              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`
+              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
               // query = (this.user_role === 'counsellor')
               // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`
               // : `${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
@@ -195,7 +197,7 @@ export class CustomerCardComponent implements OnInit {
     // query = (this.user_role === 'counsellor')
     // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`
     // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
 
 
       if (this.sorting) {
@@ -210,7 +212,7 @@ export class CustomerCardComponent implements OnInit {
               // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`
               // : `${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
 
-              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`
+              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
               
             }
           });
@@ -266,7 +268,7 @@ export class CustomerCardComponent implements OnInit {
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
 
-    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role === 'SUPERADMIN' || this.user_role === 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`
+    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role === 'SUPERADMIN' || this.user_role === 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
     // let apiUrl = (this.user_role === 'counsellor')
     //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=customers`
     //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
@@ -303,7 +305,7 @@ export class CustomerCardComponent implements OnInit {
     // query = (this.user_role === 'counsellor')
     // ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`
     // : `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers&user_id=${this.user_id}`
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
     
     if (type === 'All') {
       query = query;

@@ -148,6 +148,8 @@ export class CustomerFilterComponent implements OnInit {
          this.api.showError(this.api.toTitleCase(error.error.message))
       }))
     } 
+
+    apiUrl:any
    
     getCounselor(){
 
@@ -202,14 +204,21 @@ export class CustomerFilterComponent implements OnInit {
      
    
        // Construct the API request URL with query parameters
-       let apiUrl = `${environment.lead_list}?page=1&page_size=10`;
+       
+      
+       if(this.role==='Admin'){
+         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&user_id=${this.user_id}`;
+       }
+       if(this.role==='counsellor'){
+        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&counsellor_id=${this.user_id}`;
+       }
        let filterParams:any;
        if(queryParams.length > 0){
-        apiUrl +=`&${queryParams.join('&')}`
+        this.apiUrl +=`&${queryParams.join('&')}`
         filterParams = `&${queryParams.join('&')}`
         this._addLeadEmitter.filterWithPageSize.next(filterParams)
        }
-      this._addLeadEmitter.leadFilter.next(apiUrl)
+      this._addLeadEmitter.leadFilter.next(this.apiUrl)
       this._addLeadEmitter.selectedFilter.next(this.filterLead.value)
        this._addLeadEmitter.triggerFilter() 
        this._addLeadEmitter.leadFilterIcon.next('true')

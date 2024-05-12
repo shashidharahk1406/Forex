@@ -106,7 +106,7 @@
              <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
               <mat-icon class="more-inner-icon">speaker_notes_off</mat-icon> Chat Disable/Enable
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id,element.first_name)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
               <mat-icon class="more-inner-icon" data-bs-toggle="modal">delete</mat-icon> Delete
              </div>
              <div class="app-list" ngbDropdownToggle  [routerLink]="'/advancesettings/userProfileList/user-permissions/permissions-layout/'+element.user_management[0].user"  *ngIf="role==='Admin' || role==='SuperAdmin'" >

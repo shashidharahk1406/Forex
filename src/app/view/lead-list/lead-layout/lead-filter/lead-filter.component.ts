@@ -198,7 +198,7 @@ queryItems: any;
    
  
      // Construct the API request URL with query parameters
-     let apiUrl = `${environment.lead_list}?page=1&page_size=10`;
+     let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
      let filterParams:any;
      if(queryParams.length > 0){
       apiUrl +=`&${queryParams.join('&')}`

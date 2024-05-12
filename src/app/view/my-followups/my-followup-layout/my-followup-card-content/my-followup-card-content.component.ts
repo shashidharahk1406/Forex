@@ -103,6 +103,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   allSelectedCheckBoxes: boolean = false;
   isSelectedcheckBox!: boolean;
   minDate!: Date;
+  counsellors_ids:any;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -125,6 +126,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.role = localStorage.getItem('user_role');
     this.user_id = localStorage.getItem('user_id');
     this.user_role = localStorage.getItem('user_role');
+    this.counsellors_ids=localStorage.getItem('counsellor_ids')
     // console.log(this.role, 'roleeeeeeeeeeeeeee');
     // console.log(data, 'data');
    
@@ -841,7 +843,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
       // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
-      // this.updateAPIURL += `&user_id=${this.user_id}`;
+      this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`;
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {

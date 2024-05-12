@@ -123,8 +123,10 @@ export class CustomerToolbarComponent implements OnInit {
      
    }
    openVideoCall(){
+    console.log(this.data,"data in video call");
+    
      this.addCount()
-     if(this.data !== 0){
+     if(this.data !== 0||this.data==undefined){
      let data = `Do You Want To Send A Video Call Link To ${this.data} Leads`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
