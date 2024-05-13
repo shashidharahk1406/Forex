@@ -30,7 +30,7 @@ export class ReferLeadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
-      console.log(data,"data in referlead componennt");
+      //console.log(data,"data in referlead componennt");
       
 
       this.initForm()
@@ -42,7 +42,7 @@ export class ReferLeadComponent implements OnInit {
     }
     getReferLead() {
       let params = this.data.leadId ? this.data.leadId : this.data.id? this.data.id: this.data;
-      console.log(params,"params for bulk lead refer");
+      //console.log(params,"params for bulk lead refer");
       
         this._baseService.getByID(`${environment.lead_refer}?lead_id=${params}`).subscribe((res: any) => {
           if (res) {

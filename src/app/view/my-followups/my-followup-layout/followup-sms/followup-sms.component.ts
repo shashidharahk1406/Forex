@@ -13,7 +13,7 @@ export class FollowupSmsComponent implements OnInit {
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder) {
-      console.log(data.lead,"followup sms")
+      //console.log(data.lead,"followup sms")
     }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class FollowupSmsComponent implements OnInit {
 
     // Process form data
     const formData = this.smsForm.value;
-    //console.log('Form Data:', formData);
+    ////console.log('Form Data:', formData);
   }
   closePopup(){
     this._bottomSheetRef.dismiss()

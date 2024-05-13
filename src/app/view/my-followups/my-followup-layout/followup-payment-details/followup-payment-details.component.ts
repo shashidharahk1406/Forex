@@ -66,7 +66,7 @@ export class FollowupPaymentDetailsComponent implements OnInit {
         counsellor_id:[2] ,
       }
     }
-    console.log(formData,"FORMDATA")
+    //console.log(formData,"FORMDATA")
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)

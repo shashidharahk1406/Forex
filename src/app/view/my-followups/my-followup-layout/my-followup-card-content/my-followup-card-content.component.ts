@@ -122,13 +122,13 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.alwaysShowCalendars = true;
     this.minDate = new Date('1900-01-01');
     this.counsellor_id = localStorage.getItem('user_id');
-    // console.log(this.counsellor_id, 'counsellor id');
+    // //console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
     this.user_id = localStorage.getItem('user_id');
     this.user_role = localStorage.getItem('user_role');
     this.counsellors_ids=localStorage.getItem('counsellor_ids')
-    // console.log(this.role, 'roleeeeeeeeeeeeeee');
-    // console.log(data, 'data');
+    // //console.log(this.role, 'roleeeeeeeeeeeeeee');
+    // //console.log(data, 'data');
    
 
     // if (window.performance) {
@@ -143,7 +143,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
-        console.log('refresh the page after presssing ctrl shift r');
+       // //console.log('refresh the page after presssing ctrl shift r');
         
        
       }
@@ -156,7 +156,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
-        // console.log(data);
+        // //console.log(data);
         // this.refreshFollowUps();
         this.filtered=data;
 
@@ -169,43 +169,43 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   receiveData() {
     const data = this.dataService.getSharedData();
-    console.log(data, 'filter reset');
+    //console.log(data, 'filter reset');
   }
 
   searchForm!: FormGroup;
 
   updateAPIURL: any;
   ngOnInit(): void {
-   console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+   //console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
    
   
    
     this.dataService.dataUpdated.subscribe((res: any) => {
-      console.log(res, 'filtered');
+      //console.log(res, 'filtered');
       this.filtered = res;
     });
 
 
     // var data: any =this.dataService.getfiletredFormValues();
     // // var resp: any = JSON.parse(data);
-    // console.log(data.value,"data");
+    // //console.log(data.value,"data");
     
     // var resp: any = data
     // let result=Object.values(data);
-    // console.log(result,"result");
+    // //console.log(result,"result");
     
 
     // result.forEach((res:any)=>{
-    //   console.log(this.filtered,'filtered');
+    //   //console.log(this.filtered,'filtered');
       
     //   if(res!==''){
-    //     console.log(res!=='',"res!==''");
-    //     console.log(this.filtered,'filtered in if block');
+    //     //console.log(res!=='',"res!==''");
+    //     //console.log(this.filtered,'filtered in if block');
         
     //     this.filtered=true;
     //   }
     //   else{
-    //     console.log(this.filtered,'filtered in else block');
+    //     //console.log(this.filtered,'filtered in else block');
     //     this.filtered=false;
     //   }
     // })
@@ -219,11 +219,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     
 
     // this.getFollowupIds();
-    console.log('Before =============>', this.updateAPIURL);
+    //console.log('Before =============>', this.updateAPIURL);
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
 
-    console.log('updated url==>', this.updateAPIURL);
+    //console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
    
@@ -251,7 +251,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
-      console.log(dataFromChild, 'dataFromChild');
+      //console.log(dataFromChild, 'dataFromChild');
       if (dataFromChild === 'Reset') {
         this.refreshFollowUps();
       } else if (
@@ -264,7 +264,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   }
 
   EditFollowups(id: any) {
-    console.log(id, 'leadid');
+    //console.log(id, 'leadid');
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { id: id, data: this.data },
@@ -272,7 +272,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     };
     let data = this._bottomSheet.open(EditFollowupComponent, config);
     data.afterDismissed().subscribe((dataFromChild) => {
-      // console.log(dataFromChild, 'dataFromChild');
+      // //console.log(dataFromChild, 'dataFromChild');
       this.ngOnInit();
     });
   }
@@ -281,7 +281,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   searchValue: any;
 
   search(event: any) {
-    // console.log(event, 'eventtttttttttttttt');
+    // //console.log(event, 'eventtttttttttttttt');
   }
 
   selectAllCheckboxes: boolean = false;
@@ -293,15 +293,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   allLeadIds: any = [];
 
   // ngOnChanges(changes: SimpleChanges) {
-  //   console.log('coming in to ngonchanges');
+  //   //console.log('coming in to ngonchanges');
 
   //   this.APICAll();
   //   if (changes['renderingData']) {
 
   //     this.followUpsData2 = this.renderingData;
-  //     console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
+  //     //console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
 
-  //     console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
+  //     //console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
 
   //     if (this.selectedCheckboxIds.length === this.totalCount) {
   //       this.checkAll = true;
@@ -314,14 +314,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   // }
 
   resettingDataToOneArray() {
-    // console.log('coming in to ngonchanges');
+    // //console.log('coming in to ngonchanges');
 
     // this.APICAll();
-    // console.log(this.renderingData,'this.renderingData in to ngonchanges');
+    // //console.log(this.renderingData,'this.renderingData in to ngonchanges');
     // this.followUpsData2 = this.renderingData;
-    // console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
+    // //console.log(this.followUpsData2,"followUpsData2 in ng onchanges");
 
-    // console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
+    // //console.log(this.selectedCheckboxIds.length,"this.selectedCheckboxIds.length");
     this.followUpsData2 = this.renderingData;
 
     if (this.selectedCheckboxIds.length === this.totalCount) {
@@ -337,8 +337,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   }
   selectedLeadName: any;
   onCheckboxChange(event: MatCheckboxChange, itemId: string, leadName: any) {
-    console.log(itemId, 'itemId');
-    // console.log(leadName, 'from selected lead');
+    //console.log(itemId, 'itemId');
+    // //console.log(leadName, 'from selected lead');
     
     
     this.selectedLeadName = leadName;
@@ -368,7 +368,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   }
 
   // onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-  //   console.log(itemId,"itemId")
+  //   //console.log(itemId,"itemId")
   //   if (event.checked) {
   //     // Checkbox is checked, add the item ID to the array if it's not already there
   //     if (!this.selectedCheckboxIds) {
@@ -403,13 +403,13 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   selectedCheckboxIdsDone: any = [];
   selectedCheckboxIdsMissed: any = [];
   selectAll(event: any, data: any) {
-    console.log(this.selectedTab, '(this.selectedTab');
+    //console.log(this.selectedTab, '(this.selectedTab');
 
     // if(this.selectedTab==='All'){
-    //   console.log(this.selectedTab,"this.selectedTab");
+    //   //console.log(this.selectedTab,"this.selectedTab");
     // }
 
-    // console.log(data,"EVENT data")
+    // //console.log(data,"EVENT data")
     // this.selectedCheckboxIds=[]
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
@@ -420,9 +420,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           this.selectedCheckboxIds = this.followupIds;
         }
       });
-      // console.log(this.selectedCheckboxIds, 'allleaids');
+      // //console.log(this.selectedCheckboxIds, 'allleaids');
 
-      // console.log(this.selectedCheckboxIds, 'LEADIDS');
+      // //console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
       this.renderingData.forEach((element: any) => {
@@ -439,13 +439,13 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   checkBoxData() {
     for (let selectedId of this.selectedCheckboxIds) {
-      // console.log(this.selectedCheckboxIds,"selectedCheckboxIds");
-      // console.log(this.followUpsData2,"followUpsData2");
+      // //console.log(this.selectedCheckboxIds,"selectedCheckboxIds");
+      // //console.log(this.followUpsData2,"followUpsData2");
 
       const leadFollowUpItem = this.followUpsData2?.find(
         (item: any) => item.lead_id === selectedId
       );
-      // console.log(leadFollowUpItem, 'leadFollowUpItem');
+      // //console.log(leadFollowUpItem, 'leadFollowUpItem');
 
       if (leadFollowUpItem) {
         leadFollowUpItem.checked = true;
@@ -466,7 +466,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: any) => {
           this.countData = res.results?.data.data_count;
-          // console.log(this.countData, 'followups counts on date');
+          // //console.log(this.countData, 'followups counts on date');
         },
         (error: any) => {
           this.api.showError(error.error.message);
@@ -481,8 +481,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   clearSearch(event: any) {
     this.followUpsData = this.followUpsDataTemp;
-    console.log('Event', event.data);
-    console.log(this.followUpsData.length, 'length');
+    //console.log('Event', event.data);
+    //console.log(this.followUpsData.length, 'length');
   }
 
   onChange(event: any) {
@@ -504,7 +504,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.renderingData = [];
     localStorage.removeItem('followUpFilter');
     localStorage.removeItem('data.target.value');
-    // console.log("updateAPIURL==>", this.updateAPIURL);
+    // //console.log("updateAPIURL==>", this.updateAPIURL);
     this.dataService.setFilteredFollowUpURL(
       `${this.api_url}/api/follow-up/?page=1&page_size=5`
     );
@@ -540,7 +540,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.data = 'All';
     } else {
       this.data = this.selectedCheckboxIds.length;
-      // console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
+      // //console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
     }
   }
 
@@ -573,7 +573,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      ////console.log('The dialog was closed');
+      //////console.log('The dialog was closed');
     });
   }
 
@@ -594,7 +594,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      ////console.log('The dialog was closed');
+      //////console.log('The dialog was closed');
     });
   }
 
@@ -659,7 +659,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      // console.log('The dialog was closed');
+      // //console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -680,7 +680,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      // console.log('The dialog was closed');
+      // //console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -696,10 +696,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       disableClose: true,
     };
     let bottomSheetRef=this._bottomSheet.open(FollowupEmailComponent, config);
-    console.log(bottomSheetRef,"bottomSheetRef");
+    //console.log(bottomSheetRef,"bottomSheetRef");
     
     bottomSheetRef.afterDismissed().subscribe((res:any)=>{
-      console.log(res,"pop closed");
+      //console.log(res,"pop closed");
 
       
       if(res==true){  
@@ -757,14 +757,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     // this.getFollowupIds();
     // this.totalNumberOfRecords = [];
     // this.renderingData
-    // console.log("url to send i  API", url);
+    // //console.log("url to send i  API", url);
     this.renderingData = [];
 
-    console.log('final data url==>', this.updateAPIURL);
+    //console.log('final data url==>', this.updateAPIURL);
     //   this.totalNumberOfRecords = [];
     // this.api.FollowUpFilterApi(this.updateAPIURL).subscribe(
     //   (res: any) => {
-    //     console.log(res, 'followup api  filetr all combination');
+    //     //console.log(res, 'followup api  filetr all combination');
     //     this.followUpsData2 = res.results.data;
     //     this.renderingData = res.results.data;
     //     this.totalNumberOfRecords = res.total_no_of_record;
@@ -773,7 +773,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     //     this.checkBoxData();
     //   },
     //   (error: any) => {
-    //     console.log(error, 'error');
+    //     //console.log(error, 'error');
     //   }
     // );
 
@@ -784,7 +784,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.renderingData = [];
 
       this.updateAPIURL += `&counsellor_id=${this.user_id}`;
-      // console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
+      // //console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
 
       this.totalNumberOfRecords = 0;
       this.renderingData=[]
@@ -794,23 +794,23 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         (res: any) => {
 
           this.totalCount=res.total_no_of_record;
-          console.log(this.totalCount,"this.totalCount for counsellor");
-          // console.log(res, 'followup api  filetr all combination');
+          //console.log(this.totalCount,"this.totalCount for counsellor");
+          // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(this.followUpsData2,"this.followUpsData2");
+          //console.log(this.followUpsData2,"this.followUpsData2");
 
           this.renderingData = res.results.data;
           this.followupIds=res.results.lead_ids
 
           this.countDataValue = res.results.data_count;
           
-          console.log( this.totalNumberOfRecords," this.totalNumberOfRecords");
+          //console.log( this.totalNumberOfRecords," this.totalNumberOfRecords");
           
 
           if (this.selectedCheckboxIds.length !== 0) {
-            // console.log(this.selectedCheckboxIds,"data prsent");
+            // //console.log(this.selectedCheckboxIds,"data prsent");
             this.followUpsData2.forEach((c: any) => {
             
               c.checked =   this.selectedCheckboxIds.includes(c.lead_id);
@@ -832,7 +832,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
           
         },
         (error: any) => {
-          console.log(error, 'error');
+          //console.log(error, 'error');
         }
       );
     } else if(this.role==='Admin') {
@@ -841,7 +841,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.countDataValue = [];
       this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
 
-      // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+      // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
       this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`;
 
@@ -849,25 +849,25 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         (res: any) => {
           
          
-          console.log(this.allPaginator,"paginator for admin");
+          //console.log(this.allPaginator,"paginator for admin");
           
-          // console.log(res, 'followup api  filetr all combination');
+          // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
+          //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
           
           this.renderingData = res.results.data;
           this.followupIds=res.results.lead_ids
-          console.log(this.followupIds," this.followupIds for admin in api call");
+          //console.log(this.followupIds," this.followupIds for admin in api call");
           
 
           this.totalCount=res.total_no_of_record;
-          console.log( this.totalCount," this.totalCount");
+          //console.log( this.totalCount," this.totalCount");
           this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
           this.countDataValue = res.results.data_count;
           
           if (this.selectedCheckboxIds.length !== 0) {
-            // console.log(this.selectedCheckboxIds,"data prsent");
+            // //console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
               
               c.checked = this.selectedCheckboxIds.includes(c.lead_id);
@@ -884,11 +884,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
             this.checkAll = true;
           }
           this.loading=false
-          // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
+          // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
         
         },
         (error: any) => {
-          console.log(error, 'error');
+          //console.log(error, 'error');
           this.loading=false
 
         }
@@ -901,7 +901,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.countDataValue = [];
       this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
 
-      // console.log(this.updateAPIURL,"this.updateAPIURL for admin");
+      // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
      
 
@@ -909,25 +909,25 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         (res: any) => {
           
          
-          console.log(this.allPaginator,"paginator for admin");
+          //console.log(this.allPaginator,"paginator for admin");
           
-          // console.log(res, 'followup api  filetr all combination');
+          // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
+          //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
           
           this.renderingData = res.results.data;
           this.followupIds=res.results.lead_ids
-          console.log(this.followupIds," this.followupIds for admin in api call");
+          //console.log(this.followupIds," this.followupIds for admin in api call");
           
 
           this.totalCount=res.total_no_of_record;
-          console.log( this.totalCount," this.totalCount");
+          //console.log( this.totalCount," this.totalCount");
           this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
           this.countDataValue = res.results.data_count;
           
           if (this.selectedCheckboxIds.length !== 0) {
-            // console.log(this.selectedCheckboxIds,"data prsent");
+            // //console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
               
               c.checked = this.selectedCheckboxIds.includes(c.lead_id);
@@ -944,11 +944,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
             this.checkAll = true;
           }
           this.loading=false
-          // console.log(this.renderingData,"sssssssssssssssssssssssssssss");
+          // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
         
         },
         (error: any) => {
-          console.log(error, 'error');
+          //console.log(error, 'error');
           this.loading=false
 
         }
@@ -991,7 +991,7 @@ this.selectedCheckboxIds=[]
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      console.log(element);
+      //console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -1017,7 +1017,7 @@ this.selectedCheckboxIds=[]
     const date = this.datePipe.transform(data, 'yyyy-MM-dd');
 
     const apiurl: any = this.filterFollowUp.getFilteredDate(date);
-    // console.log('apiurl', apiurl);
+    // //console.log('apiurl', apiurl);
 
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
@@ -1026,7 +1026,7 @@ this.selectedCheckboxIds=[]
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      // console.log(element);
+      // //console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -1037,7 +1037,7 @@ this.selectedCheckboxIds=[]
     });
 
     // this.APICAll(this.updateAPIURL)
-    console.log('url i  select date', this.updateAPIURL);
+    //console.log('url i  select date', this.updateAPIURL);
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
     // this.APICAll();
@@ -1059,7 +1059,7 @@ this.isSearched=true
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      // console.log(element);
+      // //console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -1177,7 +1177,7 @@ this.isSearched=true
 
   followupIds: any;
   // getFollowupIds() {
-  //   console.log(this.selectedTab, 'this.selectedTab');
+  //   //console.log(this.selectedTab, 'this.selectedTab');
   //   if(this.role==='counsellor'){
   //     // this.selectedCheckboxIds=[]
 
@@ -1185,27 +1185,27 @@ this.isSearched=true
 
   //   this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
   //     // this.followupIds = res.lead_ids;
-  //     console.log(this.followupIds, 'lead ids for counsellor');
+  //     //console.log(this.followupIds, 'lead ids for counsellor');
 
   //     if (this.selectedTab === 'Upcoming') {
-  //       console.log(this.upcomingselectedIds, 'this.upcomingselectedIds');
+  //       //console.log(this.upcomingselectedIds, 'this.upcomingselectedIds');
 
   //       this.upcomingselectedIds = res.lead_ids;
   //     } else if (this.selectedTab === 'Done') {
-  //       console.log(this.doneSelectedIds, 'this.doneSelectedIds');
+  //       //console.log(this.doneSelectedIds, 'this.doneSelectedIds');
   //       this.doneSelectedIds = res.lead_ids;
   //     } else if (this.selectedTab === 'Missed') {
   //       this.missedSelectedIds = res.lead_ids;
-  //       console.log();
+  //       //console.log();
 
-  //       console.log(this.missedSelectedIds, 'this.missedSelectedIds');
+  //       //console.log(this.missedSelectedIds, 'this.missedSelectedIds');
   //     }
 
-  //     // console.log(this.followupIds, 'this.followupIds');
+  //     // //console.log(this.followupIds, 'this.followupIds');
   //   });
   //   }else{
   //     this.api.getLeadFollowUpIdsForAdmin(this.selectedTab).subscribe((res:any)=>{
-  //       console.log(res,"leadids for admin");
+  //       //console.log(res,"leadids for admin");
         
   //       this.followupIds=res.lead_ids
   //     })
@@ -1214,7 +1214,7 @@ this.isSearched=true
   // }
 
   // checkUncheckAll(evt: any, data: any) {
-  //   console.log(evt.checked, 'evt');
+  //   //console.log(evt.checked, 'evt');
   //   if (evt.checked) {
   //     this.renderingData.forEach((c: any) => {
   //       c.checked = evt.checked;
@@ -1224,8 +1224,8 @@ this.isSearched=true
 
   //     });
   //     this.selectedCheckboxIds = this.followupIds;
-  //     console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
-  //     console.log(this.renderingData,"checked items");
+  //     //console.log(this.selectedCheckboxIds,"this.selectedCheckboxIds");
+  //     //console.log(this.renderingData,"checked items");
   //     this.checkBoxData();
   //   } else {
   //     if (evt.checked == false) {
@@ -1239,7 +1239,7 @@ this.isSearched=true
 
   // isAllSelected(evt: any, index: any, lead_name: any,lead_id:any) {
   //   this.selectedLeadName = lead_name;
-  //   // console.log(index,l_id,"id","lead_id");
+  //   // //console.log(index,l_id,"id","lead_id");
 
   //   this.renderingData[index].checked = evt.checked;
   //   this.checkAll = this.renderingData.every(
@@ -1251,11 +1251,11 @@ this.isSearched=true
   doneSelectedIds: any = [];
   missedSelectedIds: any = [];
   selectAll1(event: any, data: any) {
-    // console.log(data,"EVENT data")
+    // //console.log(data,"EVENT data")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
       if (this.selectedTab === 'All') {
-        console.log(this.selectedTab, 'this.selectedTab');
+        //console.log(this.selectedTab, 'this.selectedTab');
       }
 
       this.renderingData.forEach((element: any, index: any) => {
@@ -1265,9 +1265,9 @@ this.isSearched=true
           this.selectedCheckboxIds = this.followupIds;
         }
       });
-      // console.log(this.selectedCheckboxIds, 'allleaids');
+      // //console.log(this.selectedCheckboxIds, 'allleaids');
 
-      // console.log(this.selectedCheckboxIds, 'LEADIDS');
+      // //console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
     } else {
       this.renderingData.forEach((element: any) => {
@@ -1291,7 +1291,7 @@ this.isSearched=true
     ];
 
     pageDataKeyValue.forEach((element: any) => {
-      // console.log(element);
+      // //console.log(element);
 
       let value = this.filterFollowUp.updateUrlParameter(
         this.updateAPIURL,
@@ -1300,7 +1300,7 @@ this.isSearched=true
       );
       this.updateAPIURL = value;
     });
-    // console.log(this.updateAPIURL, 'pagination');
+    // //console.log(this.updateAPIURL, 'pagination');
 
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 

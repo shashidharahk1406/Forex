@@ -244,7 +244,7 @@ export class UserProfileFilterComponent implements OnInit {
       // Make the API request with the constructed URL
 
       // Handle the API response
-      console.log(apiUrl, 'apiurl in users filetr');
+      //console.log(apiUrl, 'apiurl in users filetr');
 
       this.emit.sendRefreshbyFilter(apiUrl);
       this.dataService.dataUpdated.emit(this.filtered);

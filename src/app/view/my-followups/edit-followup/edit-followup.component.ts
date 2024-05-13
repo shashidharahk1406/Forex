@@ -63,7 +63,7 @@ formattedDate3=this.datePipe.transform(this.currentDateTime,'yyyy-MM-ddTHH:mm:ss
 
 
     this.dataService.dataUpdated.subscribe((res:any)=>{
-      console.log(res,"filtercount")
+      //console.log(res,"filtercount")
       // this.filterCount=res;
     })
 
@@ -105,11 +105,11 @@ this.getFollowUpById()
 
 hideFollowupStatus:boolean=false;
   getLeadByID(lead_id:any = null){
-    console.log("get lead by id");
+    //console.log("get lead by id");
     
     this._baseService.getByID(`${environment.lead_list}${lead_id}/`).subscribe(
       (res: any) => {
-        console.log(res.result[0].referred_to,"getleadby id response")
+       // console.log(res.result[0].referred_to,"getleadby id response")
         this.counsellor_id = res.result[0].referred_to;
         
       }
@@ -211,7 +211,7 @@ AllFollowupStatuses:any=[]
 
   getAllFollowupStatuses(){
     this.api.allFollowUpStatuses().subscribe((res:any)=>{
-      console.log(res,"all folloups")
+      //console.log(res,"all folloups")
      
       this.AllFollowupStatuses=res
     })
@@ -260,11 +260,11 @@ individualData:any=[]
   getFollowUpById(){{
     
     this.api.getFollowUpByLeadId(this.data.id).subscribe((res:any)=>{
-      console.log(res,"get by id");
+      //console.log(res,"get by id");
       this.individualData[0]=res;
-      console.log(this.individualData,"this.individualData")
+      //console.log(this.individualData,"this.individualData")
       this.individualData?.forEach((element:any) => {
-        console.log(element.follow_up_status,"fssssssssss")
+       // console.log(element.follow_up_status,"fssssssssss")
         if(element.follow_up_status==1 || element.follow_up_status==2){
           this.hideFollowupStatus=false
         }
@@ -277,9 +277,9 @@ individualData:any=[]
 this.id=res.id;
 this.leadName=res.lead
 this.leadId=res.lead_id;
-console.log(this.leadId,"this.leadId")
+//console.log(this.leadId,"this.leadId")
 this.counsellor_Id=res.counsellor_id
-console.log(this.counsellor_Id,"this.counsellor_Id")
+//console.log(this.counsellor_Id,"this.counsellor_Id")
 this.created_by=res.counsellor_id
 //console.log(this.created_by,"this.created_by")
 //console.log(res.priority,"priority")

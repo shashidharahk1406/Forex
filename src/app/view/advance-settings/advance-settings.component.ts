@@ -15,13 +15,13 @@ export class AdvanceSettingsComponent implements OnInit {
 
   constructor(private router: Router,private api:ApiService) {
     this.permissions=localStorage.getItem('decodedToken')
-    console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Advance Settings'),"this.permissions");
+    //console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Advance Settings'),"this.permissions");
     
     let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Advance Settings')
     accesspermissions.children_status.forEach((element:any) => {
       if(element.menu_name=='Dropdown Values'){
         this.dropDownValues=element.access_status;
-        console.log(this.dropDownValues,"this.dropDownValues");
+      //  console.log(this.dropDownValues,"this.dropDownValues");
         
       }
       if(element.menu_name=='User and Roles'){

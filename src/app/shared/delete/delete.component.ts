@@ -21,8 +21,8 @@ export class DeleteComponent implements OnInit {
       this.url=data.apiUrl;
       this.id=data.id;
       this.user_name=data.user_name
-      console.log(this.url,"data from pc");
-      console.log(this.user_name,"name in delete");
+     // console.log(this.url,"data from pc");
+     // console.log(this.user_name,"name in delete");
       
       
       // this.id=id

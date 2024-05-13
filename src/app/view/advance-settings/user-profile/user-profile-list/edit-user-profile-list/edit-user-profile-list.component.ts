@@ -109,7 +109,7 @@ newArrFromApi:any=[]
 getUserbyId(){
   this.api.getUserById(this.id).subscribe(
     (resp:any)=>{
-      console.log(resp,"resp");
+     // console.log(resp,"resp");
       if(resp.result[0].role_id===3){
         this.isReportingToUser=true
       }else{
@@ -296,7 +296,7 @@ getUserbyId(){
   }
   
   async submit(){
-    console.log(this.editForm.value,"edit form submission");
+    //console.log(this.editForm.value,"edit form submission");
     
     // this.editForm.patchValue({reporting_to_ids:this.newArr})
     if(this.newArrFromApi.length==0){
@@ -332,7 +332,7 @@ getUserbyId(){
     isReportingToUser:boolean=false
    onRoleChange(id:any) {
       this.roleId= id;
-     console.log(this.roleId,"roleId");
+     //console.log(this.roleId,"roleId");
      // this.allUser=[]
      if(this.roleId===3){
       this.isReportingToUser=true

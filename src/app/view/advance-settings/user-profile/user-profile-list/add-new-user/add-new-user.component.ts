@@ -79,7 +79,7 @@ onKeyPress(event: KeyboardEvent) {
 
 newArr:any=[]
 onSelectionChange(event: any): void {
-  console.log(event,"selecting admin");
+ // console.log(event,"selecting admin");
   
   event.value.forEach((element: any) => {
     const itemIndex = this.newArr.findIndex((item: any) => item.id === element);
@@ -94,7 +94,7 @@ onSelectionChange(event: any): void {
         id: user.id,
       };
       this.newArr.push(data);
-      console.log(data,"data");
+      //console.log(data,"data");
       
     }
   }); 
@@ -136,7 +136,7 @@ onChange(event:any){
   getAllRole(){
     this.api.getAllRole().subscribe(
       (resp:any)=>{
-        console.log(resp,"user roles");
+       // console.log(resp,"user roles");
         if(this.role==='SuperAdmin'){
           this.allRole=resp.results.filter((ele:any)=>ele.name==='counsellor' ||ele.name==='Admin' || ele.name==='SuperAdmin' )
         }
@@ -159,13 +159,13 @@ onChange(event:any){
     this.api.getAllUser().subscribe(
       (resp:any)=>{
         this.allUser=resp.results
-        console.log(  this.allUser,"  this.allUser");
+       // console.log(  this.allUser,"  this.allUser");
         this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
-console.log(this.filteredUsers,"this.filteredUsers");
+       //console.log(this.filteredUsers,"this.filteredUsers");
         if(this.roleId===3){
 
           this.filteredUsers = this.allUser.filter((user:any) => user.role_name !== 'counsellor');
-          console.log(this.filteredUsers,"this.filteredUsers");
+          //console.log(this.filteredUsers,"this.filteredUsers");
 
         }
         
@@ -181,7 +181,7 @@ console.log(this.filteredUsers,"this.filteredUsers");
   getDesignation(){
     this.api.getAllDesignation().subscribe(
       (resp:any)=>{
-        console.log(resp,"designation");
+        //console.log(resp,"designation");
         
         this.allDesignation=resp.results
       },
@@ -195,7 +195,7 @@ submit(){
   // this.addForm.patchValue({is_allow_for_app:this.is_allow_for_app})
   // this.addForm.patchValue({created_by:Number(this.user_id)})
   // this.addForm.patchValue({reporting_to_ids:this.newArr})
-  console.log(this.newArr,"this.newArr");
+  //console.log(this.newArr,"this.newArr");
   
   this.addForm.patchValue({
     is_allow_for_app: this.is_allow_for_app,
@@ -231,7 +231,7 @@ submit(){
  isReportingToUser:boolean=false
 onRoleChange(id:any) {
    this.roleId= id;
-  console.log(this.roleId,"roleId");
+  //console.log(this.roleId,"roleId");
   // this.allUser=[]
   if(this.roleId===3){
    this.isReportingToUser=true

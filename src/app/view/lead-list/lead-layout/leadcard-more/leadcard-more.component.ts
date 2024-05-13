@@ -47,15 +47,15 @@ export class LeadcardMoreComponent implements OnInit {
     private api:ApiService) { 
 
       this.permissions=localStorage.getItem('decodedToken')
-      console.log(this.permissions,"this.permissions");
+      //console.log(this.permissions,"this.permissions");
       
-      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
+      //console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
       let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
       accesspermissions.children_status.forEach((element:any) => {
         if(element.menu_name=='View History'){
           this.viewHistory=element.access_status;
-          console.log(this.viewHistory,"this.dropDownValues");
+          //console.log(this.viewHistory,"this.dropDownValues");
           
         }
         if(element.menu_name=='Edit Lead'){

@@ -186,7 +186,7 @@ export class CustomerCardContentComponent implements OnInit {
   
  
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-    console.log(itemId,"itemId")
+   // console.log(itemId,"itemId")
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
       if (!this.selectedCheckboxIds) {

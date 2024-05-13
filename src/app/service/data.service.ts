@@ -77,10 +77,10 @@ export class DataService {
   }
 
   setFilteredFormValues(data: any) {
-    console.log(data,"data in set filterde values");
+    //console.log(data,"data in set filterde values");
     
     this.filteredData.counsellor_id = data.counsellor_id;
-    console.log(this.filteredData.counsellor_id,"this.filteredData.counsellor_id ");
+    //console.log(this.filteredData.counsellor_id,"this.filteredData.counsellor_id ");
     this.filteredData.counselled_by = data.counselled_by;
     this.filteredData.source_id = data.source_id;
     this.filteredData.stream_id = data.stream_id;
@@ -115,9 +115,9 @@ export class DataService {
   public userFilteredValuesData$ = this.userFilteredValues.asObservable();
 
   setUsersFilteredFormValues(data: any) {
-    console.log(data,"data in set users filterde values");
+    //console.log(data,"data in set users filterde values");
     this.usersFilterForm.role_id = data.role_id;
-    console.log(this.usersFilterForm.role_id,"this.usersFilterForm.counsellor_id ");
+    //console.log(this.usersFilterForm.role_id,"this.usersFilterForm.counsellor_id ");
     this.usersFilterForm.is_active = data.is_active;
     this.usersFilterForm.designation = data.designation;
     this.usersFilterForm.reporting_to_ids = data.reporting_to_ids;

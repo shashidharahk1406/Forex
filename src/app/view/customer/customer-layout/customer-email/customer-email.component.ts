@@ -25,7 +25,7 @@ export class CustomerEmailComponent implements OnInit {
     private _baseService:BaseServiceService,
     private addEmit:AddLeadEmitterService) {
 
-      console.log(data,"data lead email")
+     // console.log(data,"data lead email")
     }
 
   ngOnInit(): void {

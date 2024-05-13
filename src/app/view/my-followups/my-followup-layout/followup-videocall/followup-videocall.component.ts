@@ -20,7 +20,7 @@ export class FollowupVideocallComponent implements OnInit {
   
 
     ngOnInit(): void {
-      console.log(this.data,"followup-videocall")
+      //console.log(this.data,"followup-videocall")
       this.initForm()
     }
     initForm(){
