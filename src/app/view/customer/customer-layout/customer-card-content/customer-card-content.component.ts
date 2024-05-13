@@ -65,7 +65,7 @@ export class CustomerCardContentComponent implements OnInit {
       this.emit.triggerGet$.subscribe(() => {
        this.selectedCheckboxIds = [] 
       });
-      if (this.selectedCheckboxIds.length === this.totalCount) {
+      if (this.selectedCheckboxIds.length > 0 && this.selectedCheckboxIds.length === this.totalCount) {
         this.checkAll = true;
         this.checkBoxData()
         

@@ -1,6 +1,6 @@
-<app-nodata class="d-flex align-items-center justify-content-center" *ngIf="user_role === 'counsellor'"></app-nodata>
+<app-nodata class="d-flex align-items-center justify-content-center" *ngIf="user_role === 'COUNSELLOR'"></app-nodata>
 
-<mat-card class="position-rel" *ngIf="user_role !== 'counsellor'">
+<mat-card class="position-rel" *ngIf="user_role !== 'COUNSELLOR'">
 <form [formGroup]="reportForm">
 <div class="row">
     <div class="col report-type">
