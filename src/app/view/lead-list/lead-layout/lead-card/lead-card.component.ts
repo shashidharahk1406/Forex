@@ -58,9 +58,9 @@ export class LeadCardComponent implements OnInit {
       this.permissions=localStorage.getItem('decodedToken')
       console.log(this.permissions,"this.permissions");
       
-      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List'),"this.permissions");
+      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
-      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Lead List')
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
       accesspermissions?.children_status.forEach((element:any) => {
         if(element.menu_name=='Bulk Upload'){
           this.bulk_Upload=element.access_status;
