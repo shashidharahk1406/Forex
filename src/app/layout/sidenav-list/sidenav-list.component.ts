@@ -86,7 +86,7 @@ ngOnInit() {
     // },
     
     {
-    page:'Allocations',
+    page:"Allocations",
     path:'/leadList',
     icon:'bi bi-1-square',
     hidden:this.showHide,
