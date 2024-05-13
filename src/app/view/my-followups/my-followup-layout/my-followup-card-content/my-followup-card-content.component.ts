@@ -528,9 +528,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     );
     }
     
-    this.allPaginator.pageIndex = 0;
+    // this.allPaginator.pageIndex = 0;
  
-    this.allPaginator.pageSize = 5;
+    // this.allPaginator.pageSize = 5;
     // this.ngOnInit();
     // this.selectedTab = 'All';
   }

@@ -393,7 +393,7 @@ if(this.role!=='counsellor'){
         
         this.api.getUser(this.pageSize,this.currentPage,null,this.params).subscribe((resp:any)=>{
           console.log("==>>",resp.results);
-          this.allUser= resp.results;
+          this.allUser= resp?.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
           console.log("datasource", this.dataSource);
           this.totalPageLength=resp.total_no_of_record

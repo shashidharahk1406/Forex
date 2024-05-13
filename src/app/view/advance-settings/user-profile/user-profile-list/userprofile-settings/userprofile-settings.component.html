@@ -42,7 +42,7 @@
       <ng-container matColumnDef="first_name">
         <th mat-header-cell *matHeaderCellDef >User Name</th>
 
-        <td mat-cell *matCellDef="let element" class="user-name"  (click)="editUserProfile(element)"  [ngClass]="[element?.user_management[0]?.pause?'red':'green',(role==='Admin' && userId===element.id)|| role==='counsellor' ? 'removeCursor':'']">{{ element.first_name | titlecase }}</td>
+        <td mat-cell *matCellDef="let element" class="user-name"  (click)="editUserProfile(element)"  [ngClass]="[element?.user_management[0]?.pause?'red':'green',(role==='Admin' && userId===element.id)|| role==='counsellor' ? 'removeCursor':'']">{{ element.first_name | titlecase }}  {{element.last_name}}</td>
       </ng-container>
     
       <!-- Define Email column -->
@@ -82,40 +82,53 @@
       <!-- Define User Status column -->
       <ng-container matColumnDef="is_allow_for_app"  *ngIf="role=='Admin'||role=='SuperAdmin'" >
         <th mat-header-cell *matHeaderCellDef>User Status</th>
-        <td mat-cell  *matCellDef="let element"  [ngClass]="element?.user_management[0]?.pause?'red':'green'"><mat-slide-toggle data-bs-toggle="tooltip"  title="User Status" *ngIf="element?.user_management" (change)="onSlideToggleChange(element.id,$event)" [(ngModel)]="!element?.user_management[0].deactive" class="z-s"></mat-slide-toggle>
+        <td mat-cell  *matCellDef="let element"  [ngClass]="element?.user_management[0]?.pause?'red':'green'"><mat-slide-toggle data-bs-toggle="tooltip"  title="User Status" *ngIf="element?.is_superuser==false" (change)="onSlideToggleChange(element?.id,$event)" [(ngModel)]="!element.user_management[0].deactive" class="z-s"></mat-slide-toggle>
+        
           </td>
        
       </ng-container>
+
+      
     
       <!-- Define Action column -->
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let element">
-        <div ngbDropdown #myDropdown="ngbDropdown">
-          <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
+        <div ngbDropdown #myDropdown="ngbDropdown" >
+         
+            <mat-icon title="More" matBadgeColor="warn" id="dropdownBasic1" class="more-icon" ngbDropdownToggle >more_vert</mat-icon>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="more-dropdown">
-             <div class="app-list"ngbDropdownToggle (click)="openPauseUser(element)"  *ngIf="(role==='Admin' && this.userId===element.id) || role==='SuperAdmin'" >
-              <mat-icon class="more-inner-icon" >pause_circle_filled</mat-icon> Resume/Pause User
-             </div>
-             <div class="app-list" *ngIf="role==='Admin' || role==='SuperAdmin'" ngbDropdownToggle (click)="openReplaceUser(element)">
-              <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
-             </div>
-             <div class="app-list" ngbDropdownToggle (click)="openResetPassword(element)">
+              <ng-container *ngIf="element.id==userId && role!=='SuperAdmin';else allOptions">
+            
+            <div class="app-list" ngbDropdownToggle (click)="openResetPassword(element)">
               <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
              </div>
-             <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+          </ng-container>
+          <ng-template #allOptions>
+            <div class="app-list"ngbDropdownToggle (click)="openPauseUser(element)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+              <mat-icon class="more-inner-icon" >pause_circle_filled</mat-icon> Resume/Pause User
+             </div>
+             <div class="app-list" *ngIf="role==='Admin'  || role==='SuperAdmin'" ngbDropdownToggle (click)="openReplaceUser(element)">
+              <mat-icon class="more-inner-icon">swap_vertical_circle</mat-icon> Replace User
+             </div>
+             <div class="app-list" ngbDropdownToggle (click)="openResetPassword(element)" *ngIf="role==='SuperAdmin'">
+              <mat-icon class="more-inner-icon">autorenew</mat-icon> Reset Password
+             </div>
+             <div class="app-list"ngbDropdownToggle (click)="openDisableChat(element)"  *ngIf="role==='Admin'  || role==='SuperAdmin'" >
               <mat-icon class="more-inner-icon">speaker_notes_off</mat-icon> Chat Disable/Enable
              </div>
-             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id,element.first_name)"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+             <div class="app-list" ngbDropdownToggle (click)="openDelete(element.id,element.first_name)"  *ngIf="role==='Admin'  || role==='SuperAdmin'" >
               <mat-icon class="more-inner-icon" data-bs-toggle="modal">delete</mat-icon> Delete
              </div>
-             <div class="app-list" ngbDropdownToggle  [routerLink]="'/advancesettings/userProfileList/user-permissions/permissions-layout/'+element?.user_management[0]?.user"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+             <div class="app-list" ngbDropdownToggle  [routerLink]="'/advancesettings/userProfileList/user-permissions/permissions-layout/'+element?.user_management[0]?.user"  *ngIf="role==='Admin'  || role==='SuperAdmin'" >
               <mat-icon class="more-inner-icon">lock_open</mat-icon>Permissions
               <!-- <app-advance-settings-control []></app-advance-settings-control> -->
               <!-- (click)="somthing(element.user_management[0].user)" -->
               <!-- routerLink="'/advancesettings/userProfileList/user-permissions/permissions-layout/'+element.id"  -->
              </div>
+          </ng-template >
             </div>
+         
           </div>
         </td>
       </ng-container>

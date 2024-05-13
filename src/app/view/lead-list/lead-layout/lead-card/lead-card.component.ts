@@ -53,7 +53,7 @@ export class LeadCardComponent implements OnInit {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids')
-      alert(this.assigned_counsellor_ids)
+      // alert(this.assigned_counsellor_ids)
       this.getLeadIds();
 
       this.permissions=localStorage.getItem('decodedToken')
