@@ -53,7 +53,7 @@ export class LeadCardComponent implements OnInit {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids')
-      this.getLeadIds();
+      // this.getLeadIds();
 
       this.permissions=localStorage.getItem('decodedToken')
       console.log(this.permissions,"this.permissions");
@@ -122,8 +122,9 @@ export class LeadCardComponent implements OnInit {
 
       }
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
-        if (res.results) {
-          this.leadCards = res.results;
+        if (res.results.data) {
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record
         }
@@ -146,10 +147,10 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
   
-      this.getLeadIds()
+      // this.getLeadIds()
       this.getStatus()
       this._addLeadEmitter.triggerGet$.subscribe(() => {
-        this.getLeadIds()
+        // this.getLeadIds()
         this.getLeadData('tabLabel')
         this._addLeadEmitter.goBack.next(true)
       });
@@ -217,11 +218,12 @@ export class LeadCardComponent implements OnInit {
       }
   
     this._baseService.getData(`${query}`).subscribe((res: any) => {
-      if (res.results) {
+      if (res.results.data) {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -278,11 +280,12 @@ export class LeadCardComponent implements OnInit {
         }
       }
     this._baseService.getData(`${query}`).subscribe((res: any) => {
-      if (res.results) {
+      if (res.results.data) {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -302,9 +305,10 @@ export class LeadCardComponent implements OnInit {
    }
    filterLeads(apiUrl:any){
     this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
-        if(res){
+        if(res.results.data){
         this.leadFilter = true
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         
         this.totalNumberOfRecords = res.total_no_of_record
@@ -340,9 +344,17 @@ export class LeadCardComponent implements OnInit {
    
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
-        if (res.results) {
-          this.leadCards = res.results;
+        if (res.results.data) {
+          this.leadCards = res.results.data;
+          // console.log(res.results.data,"res.results.data");
+          
+          
+          this.leadAllIds = res.results.lead_ids;
+          // console.log(this.leadAllIds, res.results.lead_ids,"this.leadAllIds");
+          
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+          console.log( this.allLeadCardsDataSource," this.allLeadCardsDataSource");
+          
           this.totalNumberOfRecords = res.total_no_of_record;
         }
       },
@@ -430,7 +442,10 @@ export class LeadCardComponent implements OnInit {
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids;
+          console.log(this.leadAllIds,"this.leadAllIds");
+          
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -451,27 +466,27 @@ export class LeadCardComponent implements OnInit {
    }
    
    }
-   getLeadIds(){
-    if(this.user_role !== 'counsellor'){
-      this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }else{
-      this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }
+  //  getLeadIds(){
+  //   if(this.user_role !== 'counsellor'){
+  //     this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }else{
+  //     this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }
    
-    return this.leadAllIds
-    }
+  //   return this.leadAllIds
+  //   }
   reLoad(event:any){
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
@@ -479,7 +494,7 @@ export class LeadCardComponent implements OnInit {
     this._addLeadEmitter.selectedFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
-    this.getLeadIds()
+    // this.getLeadIds()
     this._addLeadEmitter.leadRefresh.next(true)
   }
 }

@@ -427,12 +427,13 @@ export class ApiService implements OnInit {
       apiUrl
      );
   }
-  getUserSearch(search: any, size: any, pageNo: any, id: any) {
-    if (id != null) {
+  getUserSearch(search: any, size: any, pageNo: any,user_id:any) {
+    if(user_id!=null){
       return this.http.get(
-        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&key=${search}&${id}`
+        `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&key=${search}&user_id=${user_id}`
       );
-    } else {
+    }
+   else {
       return this.http.get(
         `${this.baseurl}/api/user/?page_size=${size}&page=${pageNo}&key=${search}`
       );

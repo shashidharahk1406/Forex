@@ -50,7 +50,7 @@ export class CustomerCardComponent implements OnInit {
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
-      this.getLeadIds();
+      // this.getLeadIds();
 
       this.counsellors_ids=localStorage.getItem('counsellor_ids')
 
@@ -105,7 +105,8 @@ export class CustomerCardComponent implements OnInit {
       }
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record
         }
@@ -128,10 +129,10 @@ export class CustomerCardComponent implements OnInit {
   // }
   ngOnInit(): void {
   
-      this.getLeadIds()
+      // this.getLeadIds()
       this.getStatus()
     this._addLeadEmitter.triggerGet$.subscribe(() => {
-      this.getLeadIds()
+      // this.getLeadIds()
       this.getLeadData('tabLabel')
       this._addLeadEmitter.goBack.next(true)
     });
@@ -185,7 +186,8 @@ export class CustomerCardComponent implements OnInit {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -223,7 +225,8 @@ export class CustomerCardComponent implements OnInit {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -251,7 +254,8 @@ export class CustomerCardComponent implements OnInit {
       // else{
         if(res){
         this.leadFilter = true
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         // this.allLeadCardsDataSource.paginator = this.allPaginator;
         this.totalNumberOfRecords = res.total_no_of_record
@@ -281,7 +285,8 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -345,7 +350,8 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -366,27 +372,27 @@ export class CustomerCardComponent implements OnInit {
    }
    
    }
-   getLeadIds(){
-    if(this.user_role !== 'counsellor'){
-      this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }else{
-      this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }
+  //  getLeadIds(){
+  //   if(this.user_role !== 'counsellor'){
+  //     this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }else{
+  //     this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }
    
-    return this.leadAllIds
-  }
+  //   return this.leadAllIds
+  // }
   reLoad(event:any){
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
@@ -394,7 +400,7 @@ export class CustomerCardComponent implements OnInit {
     this._addLeadEmitter.selectedFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
-    this.getLeadIds()
+    // this.getLeadIds()
     this._addLeadEmitter.leadRefresh.next(true)
   }
 

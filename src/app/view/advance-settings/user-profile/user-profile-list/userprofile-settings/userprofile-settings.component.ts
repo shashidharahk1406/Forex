@@ -91,7 +91,7 @@ if(this.role!=='counsellor'){
   }
   ngOnInit(): void {
 
-    
+    this.searchValue=''
     this.initForm()
     
     this.emit.getRefresh.subscribe(
@@ -100,6 +100,7 @@ if(this.role!=='counsellor'){
         
         if(resp==true){
           this.getUser(); 
+          this.searchValue=''
         }
       }
     )
@@ -110,6 +111,7 @@ if(this.role!=='counsellor'){
        
           this.params=resp
           this.getUser(); 
+          this.searchValue=''
           
         
       }
@@ -165,14 +167,16 @@ if(this.role!=='counsellor'){
   }
   search(){
    
-   
-    if(this.searchValue?.length>0){
-      var role="Admin"
+   if(this.role==='Admin'){
+
+     if(this.searchValue?.length>0){
+      let admin_id=this.userId
+      // var role="Admin"
       this.totalPageLength=0
       this.allUser= [];
         this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
 
-      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
+      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,admin_id).subscribe((resp:any)=>{
        
         console.log(resp,"search results");
         
@@ -189,6 +193,92 @@ if(this.role!=='counsellor'){
   
       )
     }}
+
+
+   else if(this.role==='counsellor'){
+    if(this.searchValue?.length>0){
+     let counsellor_id=this.userId
+      // var role="Admin"
+      this.totalPageLength=0
+      this.allUser= [];
+        this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+
+      this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,counsellor_id).subscribe((resp:any)=>{
+       
+        console.log(resp,"search results");
+        
+        this.allUser= resp.results;
+        this.dataSource = new MatTableDataSource<any>(this.allUser);
+        this.totalPageLength=resp.total_no_of_record
+        console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+        
+      this.dataSource.sort = this.sort;
+        
+      },(error:any)=>{
+       this.api.showError(error.error.message)
+      }
+  
+      )
+    }
+    }
+
+    else{
+      if(this.searchValue?.length>0){
+        if(this.params==null||this.userId==null){
+          
+        }
+        // this.params=this.userId
+        // var role="Admin"
+        // let admin_id=null
+        this.totalPageLength=0
+        this.allUser= [];
+          this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+  
+        this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
+         
+          console.log(resp,"search results");
+          
+          this.allUser= resp.results;
+          this.dataSource = new MatTableDataSource<any>(this.allUser);
+          this.totalPageLength=resp.total_no_of_record
+          console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+          
+        this.dataSource.sort = this.sort;
+          
+        },(error:any)=>{
+         this.api.showError(error.error.message)
+        }
+    
+        )
+      }
+    }
+   } 
+
+
+  
+    // if(this.searchValue?.length>0){
+    //   var role="Admin"
+    //   this.totalPageLength=0
+    //   this.allUser= [];
+    //     this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+
+    //   this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
+       
+    //     console.log(resp,"search results");
+        
+    //     this.allUser= resp.results;
+    //     this.dataSource = new MatTableDataSource<any>(this.allUser);
+    //     this.totalPageLength=resp.total_no_of_record
+    //     console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+        
+    //   this.dataSource.sort = this.sort;
+        
+    //   },(error:any)=>{
+    //    this.api.showError(error.error.message)
+    //   }
+  
+    //   )
+    // }}
   // getUser(){
   //   console.log("Hello", this.params);
   //   if(this.role==='Admin'){
