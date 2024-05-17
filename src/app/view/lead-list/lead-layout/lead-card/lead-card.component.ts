@@ -113,7 +113,7 @@ export class LeadCardComponent implements OnInit {
              if(this.assigned_counsellor_ids){
                 this.query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
               }else{
-                this.query += `&user_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                this.query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
               }
               
             }
@@ -186,7 +186,7 @@ export class LeadCardComponent implements OnInit {
      if(this.assigned_counsellor_ids){
         query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
       }else{
-        query += `&user_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -271,7 +271,7 @@ export class LeadCardComponent implements OnInit {
                if(this.assigned_counsellor_ids){
                   query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
                 }else{
-                  query += `&user_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
                 }
                 
               }
@@ -385,7 +385,7 @@ export class LeadCardComponent implements OnInit {
      if(this.assigned_counsellor_ids){
         query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
       }else{
-        query += `&user_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -422,7 +422,7 @@ export class LeadCardComponent implements OnInit {
        if(this.assigned_counsellor_ids){
           query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
         }else{
-          query += `&user_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+          query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
         }
         
       }

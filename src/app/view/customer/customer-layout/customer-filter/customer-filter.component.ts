@@ -28,7 +28,8 @@ export class CustomerFilterComponent implements OnInit {
   @Output() filter:any = new EventEmitter();
     counselled_by: any;
     streamList: any = [];
-    role:any
+    role:any;
+    counsellor_ids:any
   
     constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
       @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -38,7 +39,8 @@ export class CustomerFilterComponent implements OnInit {
       private _addLeadEmitter:AddLeadEmitterService,
       ) {
         this.user_id=localStorage.getItem('user_id')
-        this.role=localStorage.getItem('user_role')
+        this.role=localStorage.getItem('user_role');
+        this.counsellor_ids=localStorage.getItem('counsellor_ids')
       }
   
     ngOnInit(): void {
@@ -155,8 +157,8 @@ export class CustomerFilterComponent implements OnInit {
 
 
       let query=''
-    if(this.role==='Admin' || this.role==='counsellor'){
-     query =`&user_id=${this.user_id}`
+    if(this.role==='Admin'){
+     query =`&admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`
     }
       this._baseService.getData(`${environment._user}/?${query}`).subscribe((res:any)=>{
         if(res){
@@ -207,10 +209,13 @@ export class CustomerFilterComponent implements OnInit {
        
       
        if(this.role==='Admin'){
-         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&user_id=${this.user_id}`;
+         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`;
        }
        if(this.role==='counsellor'){
         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&counsellor_id=${this.user_id}`;
+       }
+       else{
+        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers`
        }
        let filterParams:any;
        if(queryParams.length > 0){

@@ -42,7 +42,7 @@
       <ng-container matColumnDef="first_name">
         <th mat-header-cell *matHeaderCellDef >User Name</th>
 
-        <td mat-cell *matCellDef="let element" class="user-name"  (click)="editUserProfile(element)"  [ngClass]="[element?.user_management[0]?.pause?'red':'green',(role==='Admin' && userId===element.id)|| role==='counsellor' ? 'removeCursor':'']">{{ element.first_name | titlecase }}  {{element.last_name}}</td>
+        <td mat-cell *matCellDef="let element" class="user-name"  (click)="editUserProfile(element)"  [ngClass]="[element?.user_management[0]?.pause?'red':'green',(role==='Admin' && userId==element.id)|| role==='counsellor' ? 'removeCursor':'']">{{ element.first_name | titlecase }}  {{element.last_name}}</td>
       </ng-container>
     
       <!-- Define Email column -->
@@ -143,5 +143,5 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator *ngIf="!loading" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
    

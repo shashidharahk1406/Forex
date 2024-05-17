@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 
 
 
+
 @NgModule({
   declarations: [
     ResetPasswordComponent,
@@ -29,6 +30,7 @@ import { MatTableModule } from '@angular/material/table';
     EditUserProfileListComponent,
     PauseUserComponent,
     UserProfilePermissionsComponent,
+
   ],
   imports: [
     CommonModule,
@@ -40,5 +42,6 @@ import { MatTableModule } from '@angular/material/table';
     MatTableModule,
 
   ]
+  
 })
 export class UserProfileListModule { }

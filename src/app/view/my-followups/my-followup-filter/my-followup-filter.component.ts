@@ -254,13 +254,14 @@ isResetFilter:boolean=false
     this.dataService.resetFilterForm()
     this.filterLead.updateValueAndValidity();
     // this.filterLead.reset();
-    this.dataService.sendData(true);
+    // this.dataService.sendData(true);
+    this.dataService.resettingFilter.next(true)
     // this.isResetFilter=true;
     this.updateFilterByStatusURL=null;
-    console.log( this.updateFilterByStatusURL,"resetting filter url");
+    // console.log( this.updateFilterByStatusURL,"resetting filter url");
     
     // this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
-    this._bottomSheetRef.dismiss('Reset');
+    // this._bottomSheetRef.dismiss('Reset');
     // this.filtered=false
 
     // this.dataService.getFollowupfilterURL();
@@ -382,6 +383,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
+    // this.dataService.dataSubject.next(false)
     // this.dataService.dataUpdated.emit(this.selectedtab);
     
     // this.dataService.dataUpdated.emit(this.filtered)

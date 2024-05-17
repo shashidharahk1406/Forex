@@ -264,7 +264,7 @@ export class CustomerEditComponent implements OnInit {
       })
   }
   getCounselor(){
-    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }

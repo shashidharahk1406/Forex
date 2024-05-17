@@ -6,39 +6,35 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
 @Component({
   selector: 'app-login-list',
   templateUrl: './login-list.component.html',
-  styleUrls: ['./login-list.component.css']
+  styleUrls: ['./login-list.component.css'],
 })
 export class LoginListComponent implements OnInit {
   notification: boolean = false;
 
-  name:any;
-  lastname:any;
+  name: any;
+  lastname: any;
   initials!: any;
 
-  constructor(private router:Router,private api:ApiService,private addEmit:AddLeadEmitterService) { 
-    this.name=localStorage.getItem('username')
-    console.log(this.name,"this.name");
-    
+  constructor(
+    private router: Router,
+    private api: ApiService,
+    private addEmit: AddLeadEmitterService
+  ) {
+    this.name = localStorage.getItem('username');
+    console.log(this.name, 'this.name');
   }
 
   ngOnInit(): void {
-
     this.initials = this.name?.charAt(0);
-    console.log(this.initials,"this.initials");
-    
+    console.log(this.initials, 'this.initials');
   }
-  openNotification(){
-    this.notification = !this.notification
+  openNotification() {
+    this.notification = !this.notification;
   }
-  logOut(){
-  
+  logOut() {
+    window.location.reload();
     localStorage.clear();
-    this.api.showSuccess("Logout Successfull")
-   this.router.navigate(['/login'])
-   
-
+    this.api.showSuccess('Logout Successfull');
+    this.router.navigate(['/login']);
   }
-
-
-   
 }

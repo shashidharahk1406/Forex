@@ -42,6 +42,7 @@ table {
 }
 .removeCursor{
   cursor: auto !important;
+  pointer-events: none !important;
   font-weight: normal !important;
 }
 

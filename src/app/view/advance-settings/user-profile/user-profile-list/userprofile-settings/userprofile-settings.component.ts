@@ -20,6 +20,7 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
 import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 import { DataService } from 'src/app/service/data.service';
+import { DeleteUsersComponent } from '../../delete-users/delete-users.component';
 export interface UserData {
   'User Name': string,
   'Email': string,
@@ -165,7 +166,11 @@ if(this.role!=='counsellor'){
       this.getUser()
     }
   }
+
+
+  loading:boolean=true
   search(){
+    this.loading=true;
    
    if(this.role==='Admin'){
 
@@ -186,6 +191,7 @@ if(this.role!=='counsellor'){
         console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
         
       this.dataSource.sort = this.sort;
+      this.loading=false
         
       },(error:any)=>{
        this.api.showError(error.error.message)
@@ -213,6 +219,7 @@ if(this.role!=='counsellor'){
         console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
         
       this.dataSource.sort = this.sort;
+      this.loading=false
         
       },(error:any)=>{
        this.api.showError(error.error.message)
@@ -244,6 +251,7 @@ if(this.role!=='counsellor'){
           console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
           
         this.dataSource.sort = this.sort;
+        this.loading=false
           
         },(error:any)=>{
          this.api.showError(error.error.message)
@@ -344,6 +352,7 @@ if(this.role!=='counsellor'){
           this.dataSource = new MatTableDataSource<any>(this.allUser);
           this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;
+        this.loading=false
           
         },(error:any)=>{
           this.api.showError(error.error.message)
@@ -377,6 +386,7 @@ if(this.role!=='counsellor'){
           
           this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;
+        this.loading=false
   
         
           
@@ -411,6 +421,7 @@ if(this.role!=='counsellor'){
         
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
+      this.loading=false
 
       
         
@@ -633,9 +644,10 @@ if(this.role!=='counsellor'){
     
 
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
-    const dialogRef = this.dialog.open(DeleteComponent, {
+    const dialogRef = this.dialog.open(DeleteUsersComponent, {
       width:'35%',
-      data:{apiUrl,id:this.id,user_name:this.user_name}
+      // data:{apiUrl,id:this.id,user_name:this.user_name}
+      data:apiUrl
     });
     dialogRef.disableClose = true;
   

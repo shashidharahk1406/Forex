@@ -256,6 +256,8 @@ export class UserProfileFilterComponent implements OnInit {
   reset() {
     localStorage.removeItem('userFilter');
     this.filterForm.reset();
+    this.filterForm.updateValueAndValidity();
+    this.dataService.resetUserFilterForm()
     this.emit.sendRefreshbyFilter(null);
 
     // this.dialogRef.close()
