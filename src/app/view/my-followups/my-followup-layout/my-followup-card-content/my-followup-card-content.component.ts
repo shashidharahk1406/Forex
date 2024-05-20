@@ -178,14 +178,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   unsubscribe!:Subscription;
   
   ngOnInit(): void {
-<<<<<<< HEAD
-   //console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
-=======
     if(this.unsubscribe){
       this.unsubscribe.unsubscribe();
     }
    console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
->>>>>>> dev-1
    
   
    
@@ -250,17 +246,7 @@ this.gettingUrl();
     
 
     // this.getFollowupIds();
-<<<<<<< HEAD
-    //console.log('Before =============>', this.updateAPIURL);
-
-    this.updateAPIURL = this.dataService.getFollowupfilterURL();
-
-    //console.log('updated url==>', this.updateAPIURL);
-
-    this.APICAll();
-=======
   
->>>>>>> dev-1
    
   }
 
