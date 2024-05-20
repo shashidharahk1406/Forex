@@ -28,8 +28,8 @@ export interface UserData {
 export class CampaignListComponent implements  AfterViewInit {
   displayedColumns: string[] = [
     'campaign_name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
     'source_name',
     'delete'
 
