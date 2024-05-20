@@ -269,7 +269,7 @@
     ></app-nodata>
 
     <div
-      class="row" style="height: 425px;overflow-y: scroll;"
+      class="row" style="height: 50%;overflow-y: auto;padding-bottom: 30px;"
       *ngIf="
         (renderingData | filter : followupSearch)?.length > 0;
         else noResultsSection
