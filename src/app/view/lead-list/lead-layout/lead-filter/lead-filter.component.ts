@@ -39,7 +39,7 @@ queryItems: any;
     private _addLeadEmitter:AddLeadEmitterService,
     ) {
       this.user_id = localStorage.getItem('user_id')
-      this.user_role = localStorage.getItem('user_role')?.toUpperCase()
+      this.user_role = localStorage.getItem('user_role')
     }
 
   ngOnInit(): void {
