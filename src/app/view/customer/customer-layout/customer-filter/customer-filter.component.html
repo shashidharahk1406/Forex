@@ -13,8 +13,8 @@
         <mat-dialog-content class="mat-typography mx-2">
          <div class="container">
           <form [formGroup]="filterLead">
-            <div class="row">
-                <div class="col-12">
+            <div class="row"  *ngIf="role==='Admin' || role==='SuperAdmin'" >
+                <div class="col-12" >
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select Counselors</mat-label>
                         <mat-select placeholder="Select Counselors" formControlName="counsellor_id" >

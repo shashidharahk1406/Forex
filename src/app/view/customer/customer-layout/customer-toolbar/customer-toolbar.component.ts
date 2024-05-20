@@ -37,6 +37,7 @@ export class CustomerToolbarComponent implements OnInit {
    exportReference: any;
    filtered = false;
    submitted: boolean = false;
+   user_role:any;
    
    constructor(private _bottomSheet:  MatBottomSheet,private dialog: MatDialog,
      private _baseService:BaseServiceService,
@@ -45,6 +46,8 @@ export class CustomerToolbarComponent implements OnInit {
      private addEventEmitter:AddLeadEmitterService,
      private fb:FormBuilder
      ) {
+
+      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
    }
  
    ngOnInit():any {

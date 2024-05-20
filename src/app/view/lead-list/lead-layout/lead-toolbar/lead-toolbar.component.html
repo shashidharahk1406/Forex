@@ -16,7 +16,7 @@
                     <!-- <img src="./assets/images/WhatsApp_icon.png" alt="" height="21" width="21" class="set-pointer">
                 </div> -->
                 
-                <div class="col p-1 position-rel" (click)="referLead()" title="Assign Leads">
+                <div class="col p-1 position-rel" (click)="referLead()" title="Assign Leads" *ngIf="user_role=='Admin' || user_role=='SuperAdmin'">
                     <i class="bi bi-person-check-fill" style="color: #fe1550;font-size: 18px;"></i>
                 </div>
                 <!-- <div class="col p-1" (click)="openSMS('All')" title="Send SMS"> -->

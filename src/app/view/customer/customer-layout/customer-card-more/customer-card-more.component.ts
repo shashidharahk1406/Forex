@@ -37,6 +37,7 @@ export class CustomerCardMoreComponent implements OnInit {
   whatsapp: any;
   sms: any;
   bulk_Upload: any;
+  user_role:any
   constructor(
     private _bottomSheet:  MatBottomSheet,
     private dialog: MatDialog,
@@ -86,6 +87,8 @@ export class CustomerCardMoreComponent implements OnInit {
           this.bulk_Upload=element.access_status
         }
       });
+
+      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
 
 
     }
