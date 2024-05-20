@@ -123,7 +123,7 @@ export class CustomerEditComponent implements OnInit {
         firstName: ['', [Validators.required,Validators.pattern(this._commonService.namePattern)]],
         mobile: ['', [Validators.required, Validators.pattern(this._commonService.mobilePattern)]],
         alternateNumber: ['', [Validators.pattern(this._commonService.mobilePattern)]], 
-        email: ['', [Validators.required,Validators.email,Validators.pattern(this._commonService.emailPattern)]],
+        email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
         state: [''],
         zone:[''],
@@ -149,11 +149,11 @@ export class CustomerEditComponent implements OnInit {
         preferredLocation2:['',Validators.pattern(this._commonService.namePattern)],
         counsellor:['',[Validators.required]],
         counsellorAdmin:[''],
-        leadSource:['',[Validators.required]],
-        leadStages:['',[Validators.required]],
-        leadStatus:[''],
-        notes:['',Validators.pattern(this._commonService.namePattern)],
-        remarks:['',Validators.pattern(this._commonService.namePattern)]
+        leadSource:[''],
+        leadStages:[''],
+        leadStatus:['',[Validators.required]],
+        notes:['',[Validators.required,Validators.pattern(this._commonService.namePattern)]],
+        // remarks:['',Validators.pattern(this._commonService.namePattern)]
       })
   }
   
@@ -264,7 +264,7 @@ export class CustomerEditComponent implements OnInit {
       })
   }
   getCounselor(){
-    this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+    this._baseService.getData(`${environment._user}`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }

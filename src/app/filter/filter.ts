@@ -50,7 +50,7 @@ export class FilterFollowUp {
         break;
 
       case 'course':
-        apistring += `course=${value}`;
+        apistring += `course_id=${value}`;
         break;
 
       case 'source_id':

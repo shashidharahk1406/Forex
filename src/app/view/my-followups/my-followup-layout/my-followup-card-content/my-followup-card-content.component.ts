@@ -44,7 +44,7 @@ import { FollowupEmailComponent } from '../followup-email/followup-email.compone
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { FollowupPaymentDetailsComponent } from '../followup-payment-details/followup-payment-details.component';
 import { DataService } from 'src/app/service/data.service';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, skip } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterFollowUp } from 'src/app/filter/filter';
 import { NavigationStart, Router } from '@angular/router';
@@ -175,8 +175,17 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   searchForm!: FormGroup;
 
   updateAPIURL: any;
+  unsubscribe!:Subscription;
+  
   ngOnInit(): void {
+<<<<<<< HEAD
    //console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+=======
+    if(this.unsubscribe){
+      this.unsubscribe.unsubscribe();
+    }
+   console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+>>>>>>> dev-1
    
   
    
@@ -185,6 +194,28 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.filtered = res;
     });
 
+    this.unsubscribe=this.dataService.resettingFilter.pipe(skip(1)).subscribe((res:any)=>{
+      if(res==true){
+        this.filtered=false;
+        this.refreshFollowUps();
+      }
+      // console.log(res,"response after reseting the fup filter");
+      // console.log(this.filtered,"this.filtered before changing");
+      // this.filtered=!res;
+      // console.log(this.filtered,"this.filtered after changing");
+      
+      // if(this.filtered==false){
+      
+      //   // this.refreshFollowUps();
+      //   // this.dataService.setFilteredFollowUpURL(
+      //   //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
+      //   // );
+      // }
+      
+    })
+
+
+    
 
     // var data: any =this.dataService.getfiletredFormValues();
     // // var resp: any = JSON.parse(data);
@@ -212,13 +243,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
    
 
-
+this.gettingUrl();
 
 
     //  this.clearLocalStorageOnHardRefresh();
     
 
     // this.getFollowupIds();
+<<<<<<< HEAD
     //console.log('Before =============>', this.updateAPIURL);
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
@@ -226,6 +258,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     //console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
+=======
+  
+>>>>>>> dev-1
    
   }
 
@@ -258,9 +293,22 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         dataFromChild === 'Submitted' ||
         dataFromChild === 'Close-ion-clicked'
       ) {
-        this.ngOnInit();
+        // this.ngOnInit();
+        this.gettingUrl();
       }
     });
+  }
+
+
+
+  gettingUrl(){
+    console.log('Before =============>', this.updateAPIURL);
+
+    this.updateAPIURL = this.dataService.getFollowupfilterURL();
+
+    console.log('updated url==>', this.updateAPIURL);
+
+    this.APICAll();
   }
 
   EditFollowups(id: any) {
@@ -528,9 +576,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     );
     }
     
-    this.allPaginator.pageIndex = 0;
+    // this.allPaginator.pageIndex = 0;
  
-    this.allPaginator.pageSize = 5;
+    // this.allPaginator.pageSize = 5;
     // this.ngOnInit();
     // this.selectedTab = 'All';
   }

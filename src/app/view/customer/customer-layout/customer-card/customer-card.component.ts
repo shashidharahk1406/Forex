@@ -50,7 +50,7 @@ export class CustomerCardComponent implements OnInit {
     private dialog:MatDialog) {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
-      this.getLeadIds();
+      // this.getLeadIds();
 
       this.counsellors_ids=localStorage.getItem('counsellor_ids')
 
@@ -83,10 +83,10 @@ export class CustomerCardComponent implements OnInit {
     this.sorting = true
      this.sortingType = event.target.innerText
 
-     this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+     this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`:`?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
     //  this.query = (this.user_role === 'counsellor')
-    //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers`
-    //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
+    //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`
+    //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers&user_id=${this.user_id}`;
       
       if(this.leadFilter){
         this.query  = ""
@@ -94,10 +94,10 @@ export class CustomerCardComponent implements OnInit {
           if (res) {
 
 
-            this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&allocation_type=customers`:`${res}&filter_by=${this.sortingType}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+            this.query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&filter_by=${this.sortingType}&user_type=customers`:`${res}&filter_by=${this.sortingType}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
             // this.query = (this.user_role === 'counsellor')
-            // ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&allocation_type=customers`
-            // : `${res}&filter_by=${this.sortingType}&allocation_type=customers&user_id=${this.user_id}`;
+            // ? `${res}&counsellor_id=${this.user_id}&filter_by=${this.sortingType}&user_type=customers`
+            // : `${res}&filter_by=${this.sortingType}&user_type=customers&user_id=${this.user_id}`;
             
           }
         });
@@ -105,7 +105,8 @@ export class CustomerCardComponent implements OnInit {
       }
       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record
         }
@@ -128,10 +129,10 @@ export class CustomerCardComponent implements OnInit {
   // }
   ngOnInit(): void {
   
-      this.getLeadIds()
+      // this.getLeadIds()
       this.getStatus()
     this._addLeadEmitter.triggerGet$.subscribe(() => {
-      this.getLeadIds()
+      // this.getLeadIds()
       this.getLeadData('tabLabel')
       this._addLeadEmitter.goBack.next(true)
     });
@@ -156,10 +157,10 @@ export class CustomerCardComponent implements OnInit {
     if(event !==''){
     let query: string;
 
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&user_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
     // query = (this.user_role === 'counsellor')
-    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers`
-    // : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
+    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&key=${event}&user_type=customers`
+    // : `${environment.lead_list}?page=1&page_size=${this.pageSize}&key=${event}&user_type=customers&user_id=${this.user_id}`;
     
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
@@ -170,10 +171,10 @@ export class CustomerCardComponent implements OnInit {
             if (res) {
               query = ''
 
-              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&user_type=customers`:`${res}&key=${event}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
               // query = (this.user_role === 'counsellor')
-              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`
-              // : `${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
+              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&user_type=customers`
+              // : `${res}&key=${event}&user_type=customers&user_id=${this.user_id}`;
               
             }
           });
@@ -185,7 +186,8 @@ export class CustomerCardComponent implements OnInit {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -195,9 +197,9 @@ export class CustomerCardComponent implements OnInit {
   }else{
     let query: string;
     // query = (this.user_role === 'counsellor')
-    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`
-    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&user_type=customers`
+    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&user_type=customers&user_id=${this.user_id}`;
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&user_type=customers`:`${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
 
 
       if (this.sorting) {
@@ -209,10 +211,10 @@ export class CustomerCardComponent implements OnInit {
             if (res) {
               query = ''
               // query = (this.user_role === 'counsellor')
-              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`
-              // : `${res}&key=${event}&allocation_type=customers&user_id=${this.user_id}`;
+              // ? `${res}&counsellor_id=${this.user_id}&key=${event}&user_type=customers`
+              // : `${res}&key=${event}&user_type=customers&user_id=${this.user_id}`;
 
-              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&allocation_type=customers`:`${res}&key=${event}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+              query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${res}&counsellor_id=${this.user_id}&key=${event}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`${res}&key=${event}&user_type=customers`:`${res}&key=${event}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
               
             }
           });
@@ -223,7 +225,8 @@ export class CustomerCardComponent implements OnInit {
         this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         this.totalNumberOfRecords = res.total_no_of_record
       }
@@ -251,7 +254,8 @@ export class CustomerCardComponent implements OnInit {
       // else{
         if(res){
         this.leadFilter = true
-        this.leadCards = res.results;
+        this.leadCards = res.results.data;
+        this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
         // this.allLeadCardsDataSource.paginator = this.allPaginator;
         this.totalNumberOfRecords = res.total_no_of_record
@@ -268,10 +272,10 @@ export class CustomerCardComponent implements OnInit {
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
 
-    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=customers`:this.user_role === 'SUPERADMIN' || this.user_role === 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+    let apiUrl=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&user_type=customers`:this.user_role === 'SUPERADMIN' || this.user_role === 'SUPER ADMIN' ?`${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=customers`:`${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
     // let apiUrl = (this.user_role === 'counsellor')
-    //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&allocation_type=customers`
-    //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
+    //   ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=1&page_size=${this.pageSize}&user_type=customers`
+    //   : `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=customers&user_id=${this.user_id}`;
   
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
@@ -281,7 +285,8 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -303,9 +308,9 @@ export class CustomerCardComponent implements OnInit {
 
     let query: string;
     // query = (this.user_role === 'counsellor')
-    // ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`
-    // : `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers&user_id=${this.user_id}`;
-    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers`:`?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+    // ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers`
+    // : `?page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers&user_id=${this.user_id}`;
+    query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?`?page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers`:`?page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`
     
     if (type === 'All') {
       query = query;
@@ -345,7 +350,8 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
-          this.leadCards = res.results;
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -366,27 +372,27 @@ export class CustomerCardComponent implements OnInit {
    }
    
    }
-   getLeadIds(){
-    if(this.user_role !== 'counsellor'){
-      this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }else{
-      this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
-        if(res){
-          this.leadAllIds = res.lead_ids
-        }
-      },((error:any)=>{
-        this.api.showError(error.error.error.message)
-      }))
-    }
+  //  getLeadIds(){
+  //   if(this.user_role !== 'counsellor'){
+  //     this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }else{
+  //     this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
+  //       if(res){
+  //         this.leadAllIds = res.lead_ids
+  //       }
+  //     },((error:any)=>{
+  //       this.api.showError(error.error.error.message)
+  //     }))
+  //   }
    
-    return this.leadAllIds
-  }
+  //   return this.leadAllIds
+  // }
   reLoad(event:any){
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
@@ -394,7 +400,7 @@ export class CustomerCardComponent implements OnInit {
     this._addLeadEmitter.selectedFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
-    this.getLeadIds()
+    // this.getLeadIds()
     this._addLeadEmitter.leadRefresh.next(true)
   }
 

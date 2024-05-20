@@ -11,7 +11,7 @@ export class LeadBulkSortComponent implements OnInit {
  @ViewChild('dateType')dateType!:MatListModule
   selected: boolean = false;
   constructor() { }
-  typesOfDate: string[] = ['Ascending','Descending','Creation Date', 'Modification Date'];
+  typesOfDate: string[] = ['Ascending','Descending','Creation Date'];
   ngOnInit(): void {}
  
   onChange(event:any){

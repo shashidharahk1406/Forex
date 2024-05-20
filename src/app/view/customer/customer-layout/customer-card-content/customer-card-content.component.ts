@@ -65,7 +65,7 @@ export class CustomerCardContentComponent implements OnInit {
       this.emit.triggerGet$.subscribe(() => {
        this.selectedCheckboxIds = [] 
       });
-      if (this.selectedCheckboxIds.length > 0 && this.selectedCheckboxIds.length === this.totalCount) {
+      if (this.selectedCheckboxIds.length > 0 && this.selectedCheckboxIds.length === this.totalCount&&this.totalCount>0) {
         this.checkAll = true;
         this.checkBoxData()
         
@@ -167,7 +167,14 @@ export class CustomerCardContentComponent implements OnInit {
     if (event.checked == true) {
       //console.log(this.allLeadIds,"allleaids")
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-     this.selectedCheckboxIds = this.allLeadIds
+
+      this.leadData2.forEach((element:any) => {
+        if (element ) {
+          element.checked = true;
+          this.selectedCheckboxIds = this.allLeadIds
+        }
+      });
+    
     // //console.log(this.selectedCheckboxIds,"LEADIDS")
       this.checkBoxData()
      // this.checked = false

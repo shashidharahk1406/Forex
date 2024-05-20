@@ -26,12 +26,15 @@ export class DataService {
 
   private filteredValues = new BehaviorSubject<any>(this.filteredData);
   public filteredValuesData$ = this.filteredValues.asObservable();
+  resettingFilter=new BehaviorSubject<any>(false)
 
 
   
 
-  private dataSubject = new BehaviorSubject<any>(null);
+ dataSubject = new BehaviorSubject<any>(false);
   public data$ = this.dataSubject.asObservable();
+
+ 
   constructor() {}
   private sharedData: any;
 
@@ -82,8 +85,8 @@ export class DataService {
     this.filteredData.counsellor_id = data.counsellor_id;
     //console.log(this.filteredData.counsellor_id,"this.filteredData.counsellor_id ");
     this.filteredData.counselled_by = data.counselled_by;
+    this.filteredData.course_id = data.course_id;
     this.filteredData.source_id = data.source_id;
-    this.filteredData.stream_id = data.stream_id;
     this.filteredData.stream_id=data.stream_id
     this.filteredData.city_id=data.city_id
   }
@@ -128,12 +131,19 @@ export class DataService {
     return this.usersFilterForm;
   }
 
+  resetUserFilterForm(){
+    this.usersFilterForm={
+      role_id:'',
+        is_active:'',
+        designation:'',
+        reporting_to_ids:'',
+    }
 
 
   
  
   }
 
- 
+} 
   
 
