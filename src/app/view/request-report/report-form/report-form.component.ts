@@ -1,6 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSelect } from '@angular/material/select';
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { environment } from 'src/environments/environment';
@@ -11,8 +13,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent implements OnInit {
+  @ViewChild('select') select!: MatSelect;
+
   startDate:any;
   max:any;
+  checkAll = false;
   counselorName:any;
   statusArray: any = [];
   selectedStatus:any;
@@ -44,6 +49,19 @@ export class ReportFormComponent implements OnInit {
   endMin: any;
   min: any;
   
+  toggleAllSelection(event:MatCheckboxChange): void {
+    const isChecked = event.checked;
+    if (isChecked) {
+      this.reportForm?.controls['counselorName'].setValue(this.referredTo?.map((option:any) => option.id));
+    } else {
+      this.reportForm?.controls['counselorName'].setValue([]);
+    }
+  }
+
+  isAllSelected(): boolean {
+    const selectedOptions = this.reportForm?.controls['counselorName'].value;
+    return selectedOptions?.length === this.referredTo?.length;
+  }
     
   selectedReports(type:any,type2?:any){
     if(type === 'Lead Stage Report' || type2 ){
@@ -95,7 +113,7 @@ export class ReportFormComponent implements OnInit {
     }))
    }
    getCounselor(){
-      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}&role_name=counsellor` : `?role_name=counsellor`
+      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ``
       this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
         this.referredTo = res.results
@@ -147,5 +165,6 @@ export class ReportFormComponent implements OnInit {
     startDate:[null]
   })
 }
+
 }
 

@@ -102,7 +102,23 @@
                        <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
                        <mat-datepicker #dateOfBirth></mat-datepicker>
                      </mat-form-field>
-
+             
+                     <mat-form-field class="mb-1" appearance="outline">
+                      <mat-label>Select Country </mat-label>
+                      <mat-select formControlName="countryId" placeholder="Select Country">
+                        <mat-option *ngFor="let option of countryOptions" [value]="option.id">{{ option.name }}</mat-option>
+                      </mat-select>
+                      <button
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSelectField('countryId')"
+                        *ngIf="f['countryId']?.value"
+                      >
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                    </mat-form-field>
+                
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>State</mat-label>
                        <mat-select formControlName="state" placeholder="Select State">
@@ -120,6 +136,22 @@
                      </mat-form-field>
                    
                      <mat-form-field class="mb-1" appearance="outline">
+                      <mat-label>City Name</mat-label>
+                      <mat-select formControlName="cityName" placeholder="Select City">
+                        <mat-option *ngFor="let option of cityOptions" [value]="option.id">{{ option.name}}</mat-option>
+                      </mat-select>
+                      <button
+                        matSuffix
+                        mat-icon-button
+                        aria-label="Clear"
+                        (click)="clearSelectField('cityName')"
+                        *ngIf="f['cityName']?.value"
+                      >
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                    </mat-form-field>
+                   
+                     <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Zone</mat-label>
                        <mat-select formControlName="zone" placeholder="Select Zone">
                          <mat-option *ngFor="let option of zone" [value]="option">{{ option}}</mat-option>
@@ -135,22 +167,7 @@
                        </button>
                      </mat-form-field>
                     
-                     <mat-form-field class="mb-1" appearance="outline">
-                       <mat-label>City Name</mat-label>
-                       <mat-select formControlName="cityName" placeholder="Select City">
-                         <mat-option *ngFor="let option of cityOptions" [value]="option.id">{{ option.name}}</mat-option>
-                       </mat-select>
-                       <button
-                         matSuffix
-                         mat-icon-button
-                         aria-label="Clear"
-                         (click)="clearSelectField('cityName')"
-                         *ngIf="f['cityName']?.value"
-                       >
-                         <mat-icon>clear</mat-icon>
-                       </button>
-                     </mat-form-field>
-                    
+                     
                      
                      <mat-form-field class="mb-1" appearance="outline">
                        <mat-label>Pincode</mat-label>
@@ -158,22 +175,7 @@
                        <mat-error *ngIf="editLeadForm.get('pincode')?.hasError('pattern')">Pincode must be 6 digits.</mat-error>
                      </mat-form-field>
                      
-                     <mat-form-field class="mb-1" appearance="outline">
-                       <mat-label>Select Country </mat-label>
-                       <mat-select formControlName="countryId" placeholder="Select Country">
-                         <mat-option *ngFor="let option of countryOptions" [value]="option.id">{{ option.name }}</mat-option>
-                       </mat-select>
-                       <button
-                         matSuffix
-                         mat-icon-button
-                         aria-label="Clear"
-                         (click)="clearSelectField('countryId')"
-                         *ngIf="f['countryId']?.value"
-                       >
-                         <mat-icon>clear</mat-icon>
-                       </button>
-                     </mat-form-field>
-                 
+                  
                    </div>
                
               </ng-container>
@@ -482,11 +484,17 @@
                        </button>
                        <mat-error *ngIf="f['counsellor'].hasError('required')">Lead Owner Is Required.</mat-error>
                      </mat-form-field>
-                     <mat-form-field class="mb-1" appearance="outline">
+                     <mat-form-field class="mb-1" appearance="outline" class="counselled-by">
                        <mat-label>Counselled By</mat-label>
-                       <mat-select formControlName="counsellorAdmin" placeholder="Select Counselled By">
-                         <mat-option *ngFor="let option of adminList" [value]="option?.id">{{ option?.first_name }} {{ option?.last_name }}</mat-option>
-                       </mat-select>
+                       <mat-select 
+                       formControlName="counsellorAdmin" 
+                       placeholder="Select Counselled By" 
+                       [disabled]="user_role !== 'SUPERADMIN'">
+                       <mat-option *ngFor="let option of adminList" [value]="option?.id">
+                         {{ option?.first_name }} {{ option?.last_name }}
+                       </mat-option>
+                     </mat-select>
+                     
                        <button
                          matSuffix
                          mat-icon-button

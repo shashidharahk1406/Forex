@@ -43,7 +43,12 @@
   color:white !important;
 }
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: var(--appColor) !important;
+    /* background-color: var(--appColor) !important; */
+    background-color: rgb(255, 143, 0) !important;
+}
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background, .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: rgb(255, 143, 0) !important;
+/* background-color: var(--appColor) !important; */
 }
 .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: var(--appColor) !important;

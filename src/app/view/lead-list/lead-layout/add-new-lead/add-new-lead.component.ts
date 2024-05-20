@@ -212,8 +212,18 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   getCounselor(){
-    // let query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `counsellor_id=${this.user_id}`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?``:`admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`
-    let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}` : `?role_name=counsellor`
+    let query = ""
+    const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+      const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+      const adminRoles = ['ADMIN'];
+    
+      if (counsellorRoles.includes(this.user_role)) {
+       query = `?role_name=counsellor`
+      } else if (superAdminRoles.includes(this.user_role)) {
+        query = `?role_name=superadmin`
+      } else if (adminRoles.includes(this.user_role)) {
+        query = `?user_id=${this.user_id}`
+      } 
     this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
@@ -246,7 +256,7 @@ export class AddNewLeadComponent implements OnInit {
    
   }
   getCounselledBy() {
-    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe(
+    this._baseService.getData(`${environment._user}`).subscribe(
       (res: any) => {
         if (res.results) {
           this.adminList = res.results
