@@ -97,7 +97,7 @@ if(this.role!=='counsellor'){
     
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
-        console.log(resp,"response in ng oniinit ");
+        //console.log(resp,"response in ng oniinit ");
         
         if(resp==true){
           this.getUser(); 
@@ -107,7 +107,7 @@ if(this.role!=='counsellor'){
     )
     this.emit.getRefreshByFilter.subscribe(
       (resp:any)=>{
-        console.log(resp,'filetr url params');
+        //console.log(resp,'filetr url params');
         
        
           this.params=resp
@@ -118,23 +118,23 @@ if(this.role!=='counsellor'){
       }
     )
 
-    console.log( this.dataService.getUsersfiletredFormValues()," this.dataService.getfiletredFormValues()");
+   // console.log( this.dataService.getUsersfiletredFormValues()," this.dataService.getfiletredFormValues()");
    
   
    
     this.dataService.dataUpdated.subscribe((res: any) => {
-      console.log(res, 'filtered');
+     // console.log(res, 'filtered');
       this.params = res;
     });
 
 
     var data: any =this.dataService.getUsersfiletredFormValues();
     // var resp: any = JSON.parse(data);
-    console.log(data,"data users fileter");
+    //console.log(data,"data users fileter");
     
     var resp: any = data
     let result=Object.values(data);
-    console.log(result,"result");
+   // console.log(result,"result");
     this.params=this.filterUrlConstruction(result);
     // this.getUser()
     
@@ -183,12 +183,12 @@ if(this.role!=='counsellor'){
 
       this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,admin_id).subscribe((resp:any)=>{
        
-        console.log(resp,"search results");
+        //console.log(resp,"search results");
         
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
-        console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+        //console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
         
       this.dataSource.sort = this.sort;
       this.loading=false
@@ -346,7 +346,7 @@ if(this.role!=='counsellor'){
 
       if(this.params!=null||this.userId){
         this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
-          console.log(resp.results,"users response");
+          //console.log(resp.results,"users response");
           this.allUser= resp.results;
           
           this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -373,16 +373,16 @@ if(this.role!=='counsellor'){
       try{
 
          // if()
-      console.log("coming to else", this.params);
+      //console.log("coming to else", this.params);
 
       if(this.params!=null || this.userId ){
        
         this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
-          console.log("==>>",resp.results);
+       //   console.log("==>>",resp.results);
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
   
-          console.log("datasource", this.dataSource);
+         // console.log("datasource", this.dataSource);
           
           this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;
@@ -391,7 +391,7 @@ if(this.role!=='counsellor'){
         
           
         },(error:any)=>{
-          console.log(error);
+         // console.log(error);
           
           this.api.showError(error.error.message)
           
@@ -402,7 +402,7 @@ if(this.role!=='counsellor'){
         
       }
       catch(error){
-        console.log(error);
+       // console.log(error);
         
       }
 
@@ -413,11 +413,11 @@ if(this.role!=='counsellor'){
     else{
       //  if(this.params!=null)
       this.api.getUser(this.pageSize,this.currentPage,null,this.params).subscribe((resp:any)=>{
-        console.log("==>>",resp.results);
+        //console.log("==>>",resp.results);
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
 
-        console.log("datasource", this.dataSource);
+        //console.log("datasource", this.dataSource);
         
         this.totalPageLength=resp.total_no_of_record
       this.dataSource.sort = this.sort;
@@ -444,7 +444,7 @@ if(this.role!=='counsellor'){
       if(this.role==='Admin'){
         if(this.params!=null ||this.userId ){
           this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
-            console.log(resp.results,"users response");
+           // console.log(resp.results,"users response");
             this.allUser= resp.results;
             
             this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -471,13 +471,13 @@ if(this.role!=='counsellor'){
       
       else if(this.role==='counsellor'){
         
-        console.log("coming to else", this.params);
+       // console.log("coming to else", this.params);
         if(this.params!=null ||this.userId ){
           this.api.getUser(this.pageSize,this.currentPage,this.userId,this.params).subscribe((resp:any)=>{
-            console.log("==>>",resp.results);
+           // console.log("==>>",resp.results);
             this.allUser= resp.results;
             this.dataSource = new MatTableDataSource<any>(this.allUser);
-            console.log("datasource", this.dataSource);
+           // console.log("datasource", this.dataSource);
             this.totalPageLength=resp.total_no_of_record
           this.dataSource.sort = this.sort;
           },(error:any)=>{
@@ -493,10 +493,10 @@ if(this.role!=='counsellor'){
       else{
         
         this.api.getUser(this.pageSize,this.currentPage,null,this.params).subscribe((resp:any)=>{
-          console.log("==>>",resp.results);
-          this.allUser= resp?.results;
+         // console.log("==>>",resp.results);
+          this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
-          console.log("datasource", this.dataSource);
+        //  console.log("datasource", this.dataSource);
           this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;  
         },(error:any)=>{
@@ -640,7 +640,7 @@ if(this.role!=='counsellor'){
   openDelete(id:any,name:any){
     this.id=id;
     this.user_name=name;
-    console.log(this.user_name,"username");
+    //console.log(this.user_name,"username");
     
 
     const apiUrl = `${this.baseurl}/api/user/${id}/`;

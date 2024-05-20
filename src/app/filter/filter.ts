@@ -34,7 +34,7 @@ export class FilterFollowUp {
 
   getFilterBYForm(key: any, value: any) {
     var apistring: any = '';
-    console.log('yyyyyyyyyyyyyyyyyyyyyyy',value)
+   // console.log('yyyyyyyyyyyyyyyyyyyyyyy',value)
 
     switch (value) {
       case 'counselled_by':
@@ -118,7 +118,7 @@ export class FilterFollowUp {
   }
 
   getFilterFollowup(key: any, value: any, url: any = null): void {
-    console.log('ke value in filter class ', key, value);
+    //console.log('ke value in filter class ', key, value);
     var apistring: any = '';
     switch (value) {
       case 'Upcoming':

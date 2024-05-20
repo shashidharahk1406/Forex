@@ -109,15 +109,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
   ) {
     this.alwaysShowCalendars = true;
     this.counsellor_id = localStorage.getItem('user_id');
-    //console.log(this.counsellor_id, 'counsellor id');
+    ////console.log(this.counsellor_id, 'counsellor id');
     this.role = localStorage.getItem('user_role');
-    console.log(this.role, 'roleeeeeeeeeeeeeee');
-    console.log(data, 'data');
+    //console.log(this.role, 'roleeeeeeeeeeeeeee');
+    //console.log(data, 'data');
     
    
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
-        console.log(data)
+        //console.log(data)
         this.refreshFollowUps();
       }
     });
@@ -126,13 +126,13 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
 
   ngAfterViewInit() {
     this.allFollowUpDataSource = new MatTableDataSource<any>(this.followUpsData);
-    console.log(this.allFollowUpDataSource,"ngAfterViewInit")
+    //console.log(this.allFollowUpDataSource,"ngAfterViewInit")
   }
   filteredBaseUrl: any;
 
   receiveData(): void {
     const data = this.dataService.getSharedData();
-    console.log(data);
+    //console.log(data);
   }
 
 
@@ -141,8 +141,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnChanges,AfterVi
    
   //   this.followUpsData.sort((a: any, b: any) => new Date(b.modified_datetime).getTime() - new Date(a.modified_datetime).getTime());
   //   this.followUpsDataTemp.sort((a:any,b:any)=>new Date(b.modified_datetime).getTime()- new Date(a.modified_datetime).getTime())
-  // console.log(this.followUpsData,"latest one");
-  // console.log(this.followUpsDataTemp,"latest one");
+  // //console.log(this.followUpsData,"latest one");
+  // //console.log(this.followUpsDataTemp,"latest one");
 
 
 
@@ -173,7 +173,7 @@ this.searchForm = this.fb.group({
 
     
     this.dataService.dataUpdated.subscribe((res:any)=>{
-      console.log(res,"filtercount")
+      //console.log(res,"filtercount")
       this.filterCount=res;
     })
     
@@ -184,7 +184,7 @@ this.searchForm = this.fb.group({
       if (res) {
         this.filteredBaseUrl = res;
         this.filtered = true;
-        console.log(res, 'resssssssssssssss');
+        //console.log(res, 'resssssssssssssss');
 
         this.filterFollowUps(res);
         // res.results.forEach((element:any) => {
@@ -193,21 +193,21 @@ this.searchForm = this.fb.group({
         //     this.countData=[]
         //     this.doneFollowUpCounts.push(element.follow_up_status_name)
         //     this.countData.Done=this.doneFollowUpCounts.length
-        //     console.log(this.doneFollowUpCounts,"allfollowupcounts")
+        //     //console.log(this.doneFollowUpCounts,"allfollowupcounts")
         //   }else if(element.follow_up_status_name=='Upcomming'){
         //     this.countData=[]
         //     this.upcomingFollowUpCounts.push(element.follow_up_status_name)
         //     this.countData.Upcomming=this.upcomingFollowUpCounts.length
-        //     console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
+        //     //console.log(this.upcomingFollowUpCounts,"this.upcomingFollowUpCounts")
         //   }
         //   else{
-        //     console.log('invalid')
+        //     //console.log('invalid')
         //   }
         // });
       }
     });
     this.addEventEmitter.leadFilterIcon.subscribe((resp: any) => {
-      console.log(resp, 'RESPONSE');
+      //console.log(resp, 'RESPONSE');
       if (resp === 'true') {
         this.filtered = true;
 
@@ -238,7 +238,7 @@ this.searchForm = this.fb.group({
         this.getAllFollowUps('All');
       }
     });
-    // console.log(this.selectedDate, 'this.selectedDate');
+    // //console.log(this.selectedDate, 'this.selectedDate');
   }
 
   expandCard(index: number) {
@@ -273,7 +273,7 @@ this.searchForm = this.fb.group({
         if (res) {
          
       
-          console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+          //console.log(res, 'filterrrrrrrrrrrrrrrrrrrrrrrrrrrr');
           this.followUpsData = [];
           this.followUpsDataTemp = [];
 
@@ -306,7 +306,7 @@ this.searchForm = this.fb.group({
   selectedDatePicker(event: any) {
     this.countData = [];
     this.followUpsData = [];
-    //console.log(event);
+    ////console.log(event);
     this.selectedDate = event;
 
     if (this.role == 'Admin') {
@@ -318,7 +318,7 @@ this.searchForm = this.fb.group({
 
       this.api.getFollowupCalenderCountsForAdmin(this.formattedDate1).subscribe(
         (res: any) => {
-          //console.log(res, 'followup conts for admin');
+          ////console.log(res, 'followup conts for admin');
           this.countData = res.results;
           this.getAllFollowUps('All');
         },
@@ -340,7 +340,7 @@ this.searchForm = this.fb.group({
         .subscribe(
           (res: any) => {
             this.countData = res.results;
-            //console.log(this.countData, 'followup count for counsellor');
+            ////console.log(this.countData, 'followup count for counsellor');
             // this.followUpsData=res.results
           },
           (error: any) => {
@@ -365,7 +365,7 @@ this.searchForm = this.fb.group({
         )
         .subscribe(
           (res: any) => {
-            console.log(res, 'followups by dateeeeeeeeeeeeeee for admin');
+            //console.log(res, 'followups by dateeeeeeeeeeeeeee for admin');
             this.followUpsData = res.results.data;
             this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
@@ -386,7 +386,7 @@ this.searchForm = this.fb.group({
         )
         .subscribe(
           (res: any) => {
-            console.log(res, 'all followups by date for counsellor');
+            //console.log(res, 'all followups by date for counsellor');
             this.followUpsData = res.results.data;
             this.followUpsDataTemp = res.results.data;
             this.totalNumberOfRecords = res.total_no_of_record;
@@ -409,7 +409,7 @@ this.searchForm = this.fb.group({
           this.selectedTab
         )
         .subscribe((res: any) => {
-          console.log(res, 'calender upcoming follwups for admin');
+          //console.log(res, 'calender upcoming follwups for admin');
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
@@ -430,7 +430,7 @@ this.searchForm = this.fb.group({
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          //console.log(res, 'calender upcoming followups for counsellor');
+          ////console.log(res, 'calender upcoming followups for counsellor');
         });
     }
   }
@@ -446,7 +446,7 @@ this.searchForm = this.fb.group({
           this.selectedTab
         )
         .subscribe((res: any) => {
-          console.log(res, 'calender done follwups for admin');
+          //console.log(res, 'calender done follwups for admin');
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
@@ -467,7 +467,7 @@ this.searchForm = this.fb.group({
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          //console.log(res, 'calender done followups for counsellor');
+          ////console.log(res, 'calender done followups for counsellor');
         });
     }
   }
@@ -483,7 +483,7 @@ this.searchForm = this.fb.group({
           this.selectedTab
         )
         .subscribe((res: any) => {
-          console.log(res, 'calender Missed follwups for admin');
+          //console.log(res, 'calender Missed follwups for admin');
           this.followUpsData = res.results.data;
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
@@ -504,7 +504,7 @@ this.searchForm = this.fb.group({
           this.followUpsDataTemp = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           this.followUpsData.paginator = this.allPaginator;
-          //console.log(res, 'calender Missed followups for counsellor');
+          ////console.log(res, 'calender Missed followups for counsellor');
         });
     }
   }
@@ -515,7 +515,7 @@ this.searchForm = this.fb.group({
     this.totalNumberOfRecords = [];
     if (this.role == 'Admin') {
       if (this.selectedDate !== null || undefined) {
-        console.log(
+        //console.log(
           this.selectedDate == null || undefined,
           '!this.selectedDate == null && undefined'
         );
@@ -524,7 +524,7 @@ this.searchForm = this.fb.group({
         this.api.getAllFollowupsForAdmin(this.page, this.pageSize).subscribe(
           (res: any) => {
             this.filtered = false;
-            console.log(res, 'All followups for admin');
+            //console.log(res, 'All followups for admin');
             this.followUpsData = res.results.data;
             this.followUpsDataTemp = res.results.data;
             this.countData.All = res.results.data_count.All;
@@ -554,7 +554,7 @@ this.searchForm = this.fb.group({
           )
           .subscribe(
             (res: any) => {
-              console.log(res, 'All followup for counsellor');
+              //console.log(res, 'All followup for counsellor');
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
@@ -577,7 +577,7 @@ upComing:boolean=false
 
     this.filterFollowUp.getFilterFollowup('status', data)
 
-    console.log('before', this.pageSize);
+    //console.log('before', this.pageSize);
     this.selectedTab = data;
     if (this.role == 'Admin') {
       if (this.selectedDate !== null || undefined) {
@@ -596,7 +596,7 @@ upComing:boolean=false
               this.filtered = false;
               this.upComing=true
 
-              console.log(res, 'upcoming followups for admin');
+              //console.log(res, 'upcoming followups for admin');
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
@@ -624,7 +624,7 @@ upComing:boolean=false
           )
           .subscribe(
             (res: any) => {
-              //console.log(res, 'upcoming response');
+              ////console.log(res, 'upcoming response');
               this.upcomingFollowUpData = res.results;
               this.countData.Upcoming = res.results.data_count.Upcoming;
               this.followUpsData = res.results.data;
@@ -665,7 +665,7 @@ upComing:boolean=false
           .subscribe(
             (res: any) => {
               this.missed=true
-              console.log(res, 'Missed Followups for Admin');
+              //console.log(res, 'Missed Followups for Admin');
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
               this.totalNumberOfRecords = res.total_no_of_record;
@@ -693,7 +693,7 @@ upComing:boolean=false
           .subscribe(
             (res: any) => {
               this.missed=true
-              //console.log(res, 'Missed followups response for counsellor');
+              ////console.log(res, 'Missed followups response for counsellor');
               this.missedFolloUpData = res.results;
               this.followUpsData = res.results.data;
               this.followUpsDataTemp = res.results.data;
@@ -704,7 +704,7 @@ upComing:boolean=false
                 this.followUpsData
               );
               this.totalNumberOfRecords = res.total_no_of_record;
-              console.log(this.missedFolloUpData, 'this.missedFolloUpData');
+              //console.log(this.missedFolloUpData, 'this.missedFolloUpData');
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -727,7 +727,7 @@ upComing:boolean=false
           .getDoneFollowupsForAdmin(this.page, this.pageSize, this.selectedTab)
           .subscribe((res: any) => {
             this.done=true
-            console.log(res, 'Done followups for Admin');
+            //console.log(res, 'Done followups for Admin');
             this.followUpsData = res.results.data;
             this.countData.Done = res.results.data_count.Done;
             this.followUpsData.paginator = this.allPaginator;
@@ -752,7 +752,7 @@ upComing:boolean=false
           )
           .subscribe(
             (res: any) => {
-              console.log(res, 'Done followups response');
+              //console.log(res, 'Done followups response');
               this.done=true
               this.followUpsData = res.results?.data;
               this.allData = res.results;
@@ -783,7 +783,7 @@ upComing:boolean=false
   }
 
   EditFollowups(id: any) {
-    //console.log(id, 'leadid');
+    ////console.log(id, 'leadid');
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: { id: id, data: this.data },
@@ -798,11 +798,11 @@ upComing:boolean=false
     this.page = event.pageIndex + 1;
 
     if(this.role === 'Admin' && this.sorting===true && this.sortedType!=='' && this.filtered===true ){
-      console.log('coming in to sorting')
+      //console.log('coming in to sorting')
       this.followUpsData = [];
       this.api.sortForAdmin(this.sortedType, this.page, this.pageSize,this.statusType).subscribe(
         (res: any) => {
-          console.log(res, 'sorted results');
+          //console.log(res, 'sorted results');
           this.followUpsData = res.results.data;
           this.followUpsData.paginator = this.allPaginator;
           this.countData.All = res.results.data_count.All;
@@ -850,7 +850,7 @@ upComing:boolean=false
         .subscribe((res: any) => {
           this.followUpsData = res.results?.data;
           this.totalNumberOfRecords = res.total_no_of_record;
-          console.log(
+          //console.log(
             this.totalNumberOfRecords,
             ' upcoming pagination totalNumberOfRecords'
           );
@@ -997,10 +997,10 @@ upComing:boolean=false
       //       this.pageSize
       //     )
       //     .subscribe((res: any) => {
-      //       console.log(res, 'search in filtered followups');
+      //       //console.log(res, 'search in filtered followups');
       //     });
       // } else {
-      //   console.log('error');
+      //   //console.log('error');
       // }
       this.followUpsData = [];
       this.followUpsDataTemp=[];
@@ -1010,7 +1010,7 @@ upComing:boolean=false
         .searchFollowupsForAdmin(followupSearch.target.value, this.page=1, this.pageSize)
         .subscribe(
           (res: any) => {
-            console.log(res, 'searched followups for admin');
+            //console.log(res, 'searched followups for admin');
             this.followUpsData = res.results?.data;
             this.followUpsDataTemp=res.results?.data;
             this.totalNumberOfRecords = res.total_no_of_record;
@@ -1052,7 +1052,7 @@ upComing:boolean=false
         )
         .subscribe(
           (res: any) => {
-            console.log(res, 'searched followups for counsellor');
+            //console.log(res, 'searched followups for counsellor');
             this.followUpsData = res.results?.data;
             this.followUpsDataTemp=res.results?.data;
             this.totalNumberOfRecords = res.total_no_of_record;
@@ -1074,7 +1074,7 @@ upComing:boolean=false
   }
 
   search(event: any) {
-    console.log(event, 'eventtttttttttttttt');
+    //console.log(event, 'eventtttttttttttttt');
   }
 
   selectAllCheckboxes: boolean = false;
@@ -1099,7 +1099,7 @@ upComing:boolean=false
     }
   }
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-    console.log(itemId, 'itemId');
+    //console.log(itemId, 'itemId');
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
       if (!this.selectedCheckboxIds) {
@@ -1125,20 +1125,20 @@ upComing:boolean=false
   }
 
   selectAll(event: any, data: any) {
-    // console.log(event,"EVENT")
+    // //console.log(event,"EVENT")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
       this.followUpsData.forEach((element: any) => {
         if (element) {
           element.checked = true;
           this.allLeadIds.push(element.lead_id);
-          console.log(this.allLeadIds, 'this.allLeadIds');
+          //console.log(this.allLeadIds, 'this.allLeadIds');
         }
       });
-      console.log(this.selectedCheckboxIds, 'allleaids');
+      //console.log(this.selectedCheckboxIds, 'allleaids');
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
       this.selectedCheckboxIds = this.allLeadIds;
-      console.log(this.selectedCheckboxIds, 'LEADIDS');
+      //console.log(this.selectedCheckboxIds, 'LEADIDS');
       this.checkBoxData();
       // this.checked = false
     } else {
@@ -1179,7 +1179,7 @@ upComing:boolean=false
       .subscribe(
         (res: any) => {
           this.countData = res.results?.data.data_count;
-          console.log(this.countData, 'followups counts on date');
+          //console.log(this.countData, 'followups counts on date');
         },
         (error: any) => {
           this.api.showError(error.error.message);
@@ -1205,8 +1205,8 @@ noData:boolean=false;
   clearSearch(event: any) {
     
     this.followUpsData = this.followUpsDataTemp;
-    console.log('Event', event.data);
-    console.log(this.followUpsData.length,"length")
+    //console.log('Event', event.data);
+    //console.log(this.followUpsData.length,"length")
   
     
   
@@ -1228,8 +1228,8 @@ noData:boolean=false;
 
     
     this.sortedType = event.target.innerText;
-    // console.log(event.option.value,event.option.selected)
-    console.log(this.sortedType, 'this.sortedType');
+    // //console.log(event.option.value,event.option.selected)
+    //console.log(this.sortedType, 'this.sortedType');
     if(this.selectedTab=='Upcoming'){
     this.statusType='Upcoming'
 
@@ -1249,7 +1249,7 @@ noData:boolean=false;
       this.api.sortForAdmin(this.sortedType, this.page, this.pageSize,this.statusType).subscribe(
         (res: any) => {
           this.sorting = true;
-          console.log(res, 'sorted results');
+          //console.log(res, 'sorted results');
           this.followUpsData = res.results.data;
           this.followUpsData.paginator = this.allPaginator;
           this.countData.All = res.results.data_count.All;
@@ -1301,7 +1301,7 @@ noData:boolean=false;
       this.data = 'All';
     } else {
       this.data = this.selectedCheckboxIds.length;
-      console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
+      //console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
     }
   }
 
@@ -1312,7 +1312,7 @@ noData:boolean=false;
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -1435,7 +1435,7 @@ noData:boolean=false;
     });
     dialogRef.disableClose=true
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -1456,7 +1456,7 @@ noData:boolean=false;
     dialogRef.disableClose=true
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed');
+      //console.log('The dialog was closed');
       this.refreshFollowUps();
     });
   }
@@ -1503,12 +1503,12 @@ noData:boolean=false;
   }
 
   filteredByUpcomingStatus(status: any) {
-    console.log(status, 'status');
+    //console.log(status, 'status');
     this.selectedTab = status;
     if(!status){
       this.selectedTab==='All'
       const apiUrl = this.filteredBaseUrl + `&follow_up_status=${status}`;
-      console.log(apiUrl, 'Base url for All status after filter');
+      //console.log(apiUrl, 'Base url for All status after filter');
       this.filterFollowUps(apiUrl);
       
     }

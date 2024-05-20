@@ -52,10 +52,10 @@ export class MyFollowupFilterComponent implements OnInit {
     private bottomsheet: MatBottomSheet
   ) {
     this.role = localStorage.getItem('user_role');
-    console.log(data, 'data from card component');
+    //console.log(data, 'data from card component');
     this.user_id=localStorage.getItem('user_id')
     this.counsellors_ids=localStorage.getItem('counsellor_ids');
-    console.log(this.counsellors_ids,"counsellor ids");
+    //console.log(this.counsellors_ids,"counsellor ids");
     
 
     this.initForm();
@@ -107,7 +107,7 @@ export class MyFollowupFilterComponent implements OnInit {
       (res: any) => {
         if (res) {
           this.courseList = res;
-          // console.log(res, 'course response');
+          // //console.log(res, 'course response');
         } else {
           this.api.showError('ERROR');
         }
@@ -121,7 +121,7 @@ export class MyFollowupFilterComponent implements OnInit {
   getStream() {
     this.api.getStreams().subscribe(
       (res: any) => {
-        // console.log(res, 'streams response');
+        // //console.log(res, 'streams response');
         this.streamsList = res;
       },
       (error: any) => {
@@ -185,7 +185,7 @@ export class MyFollowupFilterComponent implements OnInit {
         (res: any) => {
           if (res) {
             this.counselorList = res.results;
-            console.log(this.counselorList, 'this.counselorList');
+            ////console.log(this.counselorList, 'this.counselorList');
           }
         },
         (error: any) => {
@@ -197,7 +197,7 @@ export class MyFollowupFilterComponent implements OnInit {
   AllFollowupStatuses: any = [];
   getAllFollowupStatuses() {
     this.api.allFollowUpStatuses().subscribe((res: any) => {
-      console.log(res, 'all folloups');
+      ////console.log(res, 'all folloups');
       this.AllFollowupStatuses = res;
     });
   }
@@ -281,24 +281,24 @@ isResetFilter:boolean=false
   filterFollowupValues: any;
   cName: any;
   onSubmit() {
-    // console.log("updated url==>", this.updateFilterByStatusURL);
+    // //console.log("updated url==>", this.updateFilterByStatusURL);
     // this.filterFollowupValues = this.filterLead.value;
 
-    // console.log(this.filterLead.value);
+    // //console.log(this.filterLead.value);
 
     const nonEmptyKeys = Object.keys(this.filterLead.value).filter(
       (key) => this.filterLead.value[key] !== ''
     );
 
-    // console.log('nonEmptyKeys==>', nonEmptyKeys);
+    // //console.log('nonEmptyKeys==>', nonEmptyKeys);
 
     // for(const key in nonEmptyKeys){
     //   const value = this.filterLead.value[key];
-    //   console.log(`Key: ${key}, Value: ${value}`);
+    //   //console.log(`Key: ${key}, Value: ${value}`);
     // }
     nonEmptyKeys.forEach((key) => {
       const value = this.filterLead.value[key];
-      // console.log(`Key: ${key}, Value: ${value}`);
+      // //console.log(`Key: ${key}, Value: ${value}`);
       // localStorage.setItem(
       //   'followUpFilter',
       //   JSON.stringify(this.filterLead.value)
@@ -315,43 +315,43 @@ isResetFilter:boolean=false
         key,
         value
       );
-      console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
+      //console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
       
 
       // let data = this.filterFollowUp.updateUrlParameter(this.updateFilterByStatusURL, key, value)
 
-      // console.log("data==>", data);
+      // //console.log("data==>", data);
     });
     this.dataService.setFilteredFormValues(this.filterLead.value);
 
     this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL);
     this.filtered = true;
 
-    // console.log('==============>>', this.updateFilterByStatusURL);
+    // //console.log('==============>>', this.updateFilterByStatusURL);
 
     // this.updateFilterByStatusURL+='' 
     this.bottomsheet.dismiss('Submitted');
 
     // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
-    //   console.log(res,"filtered followup  results")
+    //   //console.log(res,"filtered followup  results")
     //   this.dataService.setFormDataFollowupFilter(res.results.data)
     // })
 
-    //console.log(this.filterLead.value,"filter followup values")
+    ////console.log(this.filterLead.value,"filter followup values")
     // if (this.filterLead.invalid) {
     //   this.filterLead.markAllAsTouched()
     //   this.api.showError('Invalid Form')
     // } else{
     //  const formValues = this.filterLead.value;
     // //  this.api.filterFollowupsForAdmin(formValues,this.page,this.pageSize).subscribe((res:any)=>{
-    // //   //console.log(res,"filtered records")
+    // //   ////console.log(res,"filtered records")
     // //  })
 
     //  // Create an array of query parameters with non-empty values
     //  const queryParams = [];
     //  for (const key in formValues) {
     //    const value = formValues[key];
-    //    console.log(value.length,"form valuesssssssss length")
+    //    //console.log(value.length,"form valuesssssssss length")
     //    if (value !== '' && value !== undefined && value !== null) {
     //      if (Array.isArray(value)) {
     //        // Handle multi-select fields
@@ -359,12 +359,12 @@ isResetFilter:boolean=false
     //          // Convert array of objects to a comma-separated string of IDs
     //          const ids = value.map((item) => item.id).join(',');
     //          queryParams.push(`${key}=${ids}`);
-    //          console.log(queryParams,"queryParams")
+    //          //console.log(queryParams,"queryParams")
     //        }
     //      } else {
     //        queryParams.push(`${key}=${value}`);
     //        this.filterCount=queryParams.length;
-    //        console.log(queryParams.length,"queryParams")
+    //        //console.log(queryParams.length,"queryParams")
     //        this.sendData();
 
     //      }

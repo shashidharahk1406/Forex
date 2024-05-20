@@ -15,18 +15,16 @@ export class LoginListComponent implements OnInit {
   lastname: any;
   initials!: any;
 
-  constructor(
-    private router: Router,
-    private api: ApiService,
-    private addEmit: AddLeadEmitterService
-  ) {
-    this.name = localStorage.getItem('username');
-    console.log(this.name, 'this.name');
+  constructor(private router:Router,private api:ApiService,private addEmit:AddLeadEmitterService) { 
+    this.name=localStorage.getItem('username')
+    //console.log(this.name,"this.name");
+    
   }
 
   ngOnInit(): void {
     this.initials = this.name?.charAt(0);
-    console.log(this.initials, 'this.initials');
+    //console.log(this.initials,"this.initials");
+    
   }
   openNotification() {
     this.notification = !this.notification;

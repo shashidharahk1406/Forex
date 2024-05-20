@@ -79,7 +79,7 @@ export class AdvanceSettingsControlComponent implements OnInit {
 
   advancedSettingsById() {
     this.api.getAdvanceSettingsPermissions(this.id).subscribe((res: any) => {
-      console.log(res, 'responseeeeeeeeeee');
+     // console.log(res, 'responseeeeeeeeeee');
       this.allPermissions = res.results;
       this.leadListPermissions = res.results;
       //console.log(this.allPermissions,"perrrrr")
@@ -184,9 +184,9 @@ export class AdvanceSettingsControlComponent implements OnInit {
   }
 
   updateParentMenuPermission(event: any, index: any, data: any) {
-    console.log('Checked Data', event?.target.checked);
-    console.log('Index Value', index);
-    console.log('Data Value', data);
+    // console.log('Checked Data', event?.target.checked);
+    // console.log('Index Value', index);
+    // console.log('Data Value', data);
     if (event.target.checked === true) {
       data[index].access_status = true;
       data[index].children_status.forEach((ele: any) => {

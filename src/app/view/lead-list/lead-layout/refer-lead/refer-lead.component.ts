@@ -30,7 +30,7 @@ export class ReferLeadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
-      console.log(data,"data in referlead componennt");
+      //console.log(data,"data in referlead componennt");
       
 
       this.initForm()
@@ -42,7 +42,7 @@ export class ReferLeadComponent implements OnInit {
     }
     getReferLead() {
       let params = this.data.leadId ? this.data.leadId : this.data.id? this.data.id: this.data;
-      console.log(params,"params for bulk lead refer");
+      //console.log(params,"params for bulk lead refer");
       
         this._baseService.getByID(`${environment.lead_refer}?lead_id=${params}`).subscribe((res: any) => {
           if (res) {
@@ -58,16 +58,18 @@ export class ReferLeadComponent implements OnInit {
     }
     
     getCounselor(){
-      // let query=''
-      // if(this.user_role=='counsellor'){
-      //   query+=`?user_id=${this.user_id}`
-      // }
-      //  if(this.user_role=='Admin'){
-      //   query+=`?user_id=${this.user_id}`
-      // }
+      let query = ""
+      const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+        const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+        const adminRoles = ['ADMIN'];
       
-      let query=this.user_role==='counsellor' ?`?user_id=${this.user_id}`:this.user_role=='Admin'?`?user=${this.user_id}`:''
-      // let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}&role_name=counsellor` : `?role_name=counsellor`
+        if (counsellorRoles.includes(this.user_role)) {
+         query = `?role_name=counsellor`
+        } else if (superAdminRoles.includes(this.user_role)) {
+          query = `?role_name=superadmin`
+        } else if (adminRoles.includes(this.user_role)) {
+          query = `?user_id=${this.user_id}`
+        } 
       this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
           let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues?.counsellor);

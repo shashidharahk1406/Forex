@@ -185,7 +185,7 @@ export class CustomerFilterComponent implements OnInit {
       } else{
      
        const formValues = this.filterLead.value;
-       console.log(formValues,"formValues")
+       //console.log(formValues,"formValues")
        // Create an array of query parameters with non-empty values
        const queryParams = [];
        for (const key in formValues) {

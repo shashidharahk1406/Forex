@@ -283,7 +283,6 @@ export class LeadToolbarComponent implements OnInit {
   }
   referLead(){
     this.addCount()
-    // alert(this.data)
     if(this.data !== 0){
      
     let data = `Do You Want To Refer ${this.data} Leads`
@@ -296,7 +295,6 @@ export class LeadToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       if(result === 'yes'){
        this.openReferLead()
-       alert(this.data)
       }
     });
   }else{

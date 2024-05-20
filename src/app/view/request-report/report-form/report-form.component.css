@@ -32,3 +32,8 @@ h6{
     background-color: #f3f3f3;
     padding: 10px 0;
 }
+.report-chxbox{
+ font-weight: bold;
+ font-size: 14px;
+ /* color: rgb(255, 143, 0) */
+}

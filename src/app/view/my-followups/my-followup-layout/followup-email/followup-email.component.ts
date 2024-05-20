@@ -32,7 +32,7 @@ export class FollowupEmailComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log(this.data,"selected data")
+    //console.log(this.data,"selected data")
 
    
     
@@ -98,7 +98,7 @@ export class FollowupEmailComponent implements OnInit {
       this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          console.log('about to close');
+          //console.log('about to close');
           
           this._bottomSheetRef.dismiss(true);
           
@@ -117,11 +117,11 @@ export class FollowupEmailComponent implements OnInit {
   }
   getTemplate(){
     this._baseService.getData(`${environment.whatsapp_template}`).subscribe((res:any)=>{
-    console.log(res,"whatsapp template");
+    //console.log(res,"whatsapp template");
     
       if(res.results){
         this.templateList = res.results
-        console.log(this.templateList," this.templateList")
+        //console.log(this.templateList," this.templateList")
       }
     })
   }
@@ -144,7 +144,7 @@ export class FollowupEmailComponent implements OnInit {
    }
   }
   onInput(event: any) {
-    console.log(event.target.value,"text area contemt");
+    //console.log(event.target.value,"text area contemt");
     
     const textarea = event.target;
     const value = textarea.value;

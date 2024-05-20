@@ -57,15 +57,15 @@ export class CustomerCardComponent implements OnInit {
 
 
       this.permissions=localStorage.getItem('decodedToken')
-      console.log(this.permissions,"this.permissions");
+      //console.log(this.permissions,"this.permissions");
       
-      console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
+     // console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
       let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
       accesspermissions.children_status.forEach((element:any) => {
         if(element.menu_name=='Bulk Upload'){
           this.bulk_Upload=element.access_status;
-          console.log(this.bulk_Upload,"this.bulk_Upload");
+        //  console.log(this.bulk_Upload,"this.bulk_Upload");
           
         }
     })}
@@ -139,7 +139,7 @@ export class CustomerCardComponent implements OnInit {
     
     this._addLeadEmitter.leadFilter.subscribe((res:any) => {
       if (res) {
-        console.log(res, "RES");
+      //  console.log(res, "RES");
         this.leadFilter = true;
         this.filterLeads(res);
       }else{

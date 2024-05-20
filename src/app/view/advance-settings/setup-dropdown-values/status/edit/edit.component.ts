@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
   getStatusbyId(){
     this.api.getStatusById(this.status_id).subscribe(
       (resp:any)=>{
-        console.log(resp,"resp by id");
+       // console.log(resp,"resp by id");
         
         //console.log(resp.result[0].status_group_id);
         this.editForm.patchValue({name:resp.result[0].name})

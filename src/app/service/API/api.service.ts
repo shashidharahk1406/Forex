@@ -659,7 +659,7 @@ export class ApiService implements OnInit {
   // My-Followups
 
   FollowUpFilterApi(filter_url:any){
-    console.log(filter_url,"urlurlurlurlurlurlurlurl")
+    //console.log(filter_url,"urlurlurlurlurlurlurlurl")
     return this.http.get(filter_url)
 
   }

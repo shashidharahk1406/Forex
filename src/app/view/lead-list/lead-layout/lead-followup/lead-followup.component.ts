@@ -55,7 +55,7 @@ export class LeadFollowupComponent implements OnInit {
     // currentDate.setHours(9, 0, 0, 0);
     this.minDateTime = currentDate.toISOString().slice(0, 16); 
     this.minDateTime1 = new Date().toISOString().slice(0, 16); 
-    console.log(this.minDateTime,"this.minDateTime");
+   // console.log(this.minDateTime,"this.minDateTime");
     
   // const timestamp=new Date()
   //   console.log(timestamp,"timestamp");
@@ -67,7 +67,7 @@ export class LeadFollowupComponent implements OnInit {
     
     this.createdBy = localStorage.getItem('user_id');
     this.initForm();
-    console.log(this.data.item.user_data.first_name,"this.data.item.user")
+    //console.log(this.data.item.user_data.first_name,"this.data.item.user")
     this.getFollowUp()
 
 
@@ -78,11 +78,11 @@ export class LeadFollowupComponent implements OnInit {
 
   
   selectTime(ev:any){
-console.log(ev.target.value);
+//console.log(ev.target.value);
 
   }
   selectedDate(event:any){
-console.log(event.target.value,"selected date");
+//console.log(event.target.value,"selected date");
 event.preventDefault()
 
   }
@@ -241,16 +241,16 @@ event.preventDefault()
     return this.followupForm.controls;
   }
   clearSelectField(fieldName: any) {
-    console.log(fieldName,"field name")
+    //console.log(fieldName,"field name")
     this.followupForm.get(fieldName)?.reset();
   }
 
   getLeadByID(lead_id:any = null){
-    console.log("get lead by id");
+    //console.log("get lead by id");
     
     this._baseService.getByID(`${environment.lead_list}${lead_id}/`).subscribe(
       (res: any) => {
-        console.log(res.result[0].referred_to,"getleadby id response")
+       // console.log(res.result[0].referred_to,"getleadby id response")
         this.counsellor_id = res.result[0].referred_to
       }
     )
