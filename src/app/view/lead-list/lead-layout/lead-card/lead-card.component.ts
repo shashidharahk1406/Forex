@@ -81,16 +81,16 @@ export class LeadCardComponent implements OnInit {
   onChangeSorting(event:any){
     this.sorting = true
      this.sortingType = event.target.innerText
-     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&allocation_type=allocation`
+     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=allocation`
      if (['counsellor','counselor'].includes(this.user_role) === true) {
       this.query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      if(this.assigned_counsellor_ids){
-        this.query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+        this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
-        this.query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -102,18 +102,18 @@ export class LeadCardComponent implements OnInit {
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
-            this.query = `${res}&filter_by=${this.sortingType}&allocation_type=allocation`
+            this.query = `${res}&filter_by=${this.sortingType}&user_type=allocation`
             if (['counsellor','counselor'].includes(this.user_role) === true) {
               this.query += `&counsellor_id=${this.user_id}`;
             } else if (['superadmin','super admin'].includes(this.user_role) === true) {
              if(this.assigned_counsellor_ids){
-                this.query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+                this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
               }
             }else if (['admin'].includes(this.user_role) === true){
              if(this.assigned_counsellor_ids){
-                this.query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
               }else{
-                this.query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
               }
               
             }
@@ -174,19 +174,19 @@ export class LeadCardComponent implements OnInit {
     this.searchTerm = event
     if(event !==''){
     let query: string;
-    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation&key=${event}`
+    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation&key=${event}`
     
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      if(this.assigned_counsellor_ids){
-        query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
-        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }else{
-        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -198,16 +198,16 @@ export class LeadCardComponent implements OnInit {
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
               query = ''
-              query = `${res}&allocation_type=allocation&key=${event}`
+              query = `${res}&user_type=allocation&key=${event}`
               if (['counsellor','counselor'].includes(this.user_role) === true) {
                 query += `&counsellor_id=${this.user_id}`;
               } else if (['superadmin','super admin'].includes(this.user_role) === true) {
                if(this.assigned_counsellor_ids){
-                  query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&counsellor_id=${this.assigned_counsellor_ids}`;
                 }
               }else if (['admin'].includes(this.user_role) === true){
                if(this.assigned_counsellor_ids){
-                  query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
                 }
                 
               }
@@ -235,17 +235,17 @@ export class LeadCardComponent implements OnInit {
     // query = (this.user_role === 'counsellor')
     // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
     // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}`;
-    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation`
+    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation`
     
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      if(this.assigned_counsellor_ids){
-        query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
-        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -260,18 +260,18 @@ export class LeadCardComponent implements OnInit {
               // query = (this.user_role === 'counsellor')
               // ? `${res}&counsellor_id=${this.user_id}&key=${event}`
               // : `${res}&key=${event}`;
-              query = `${res}&allocation_type=allocation`
+              query = `${res}&user_type=allocation`
               if (['counsellor','counselor'].includes(this.user_role) === true) {
                 query += `&counsellor_id=${this.user_id}`;
               } else if (['superadmin','super admin'].includes(this.user_role) === true) {
                if(this.assigned_counsellor_ids){
-                  query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&counsellor_id=${this.assigned_counsellor_ids}`;
                 }
               }else if (['admin'].includes(this.user_role) === true){
                if(this.assigned_counsellor_ids){
-                  query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
                 }else{
-                  query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+                  query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
                 }
                 
               }
@@ -322,17 +322,17 @@ export class LeadCardComponent implements OnInit {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
-    let apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&allocation_type=allocation`;
+    let apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation`;
    
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       apiUrl += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      if(this.assigned_counsellor_ids){
-        apiUrl += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+        apiUrl += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
-        apiUrl += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -373,19 +373,19 @@ export class LeadCardComponent implements OnInit {
     this.pageSize = event.pageSize;
    
     let query: string;
-    query = `?page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation`;
+    query = `?page=${this.currentPage}&page_size=${event.pageSize}&user_type=allocation`;
 
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      if(this.assigned_counsellor_ids){
-        query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
-        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }else{
-        query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
     }
@@ -411,18 +411,18 @@ export class LeadCardComponent implements OnInit {
       }
     } 
     else {
-      query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}&allocation_type=allocation`;
+      query = `?status=${type}&page=${this.currentPage}&page_size=${event.pageSize}&user_type=allocation`;
       if (['counsellor','counselor'].includes(this.user_role) === true) {
         query += `&counsellor_id=${this.user_id}`;
       } else if (['superadmin','super admin'].includes(this.user_role) === true) {
        if(this.assigned_counsellor_ids){
-          query += `&counsellor_ids=${this.assigned_counsellor_ids}`;
+          query += `&counsellor_id=${this.assigned_counsellor_ids}`;
         }
       }else if (['admin'].includes(this.user_role) === true){
        if(this.assigned_counsellor_ids){
-          query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+          query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
         }else{
-          query += `&admin_id=${this.user_id}&counsellor_ids=${this.assigned_counsellor_ids}`;
+          query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
         }
         
       }

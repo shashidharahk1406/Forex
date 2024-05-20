@@ -43,6 +43,7 @@ export class AddNewLeadComponent implements OnInit {
   min!:Date;
   levelofProgram: any = [];
   user_role:any;
+  counsellor_ids:any;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -56,7 +57,8 @@ export class AddNewLeadComponent implements OnInit {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase()
       this.dropDownValues()
-      this.min = new Date('1900-01-01')
+      this.min = new Date('1900-01-01');
+      this.counsellor_ids=localStorage.getItem('counsellor_ids')
     }
 
   ngOnInit(): void {
@@ -210,8 +212,9 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   getCounselor(){
-    // let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}&role_name=counsellor` : `?role_name=counsellor`
-    this._baseService.getData(`${environment._user}`).subscribe((res:any)=>{
+    // let query=this.user_role == 'COUNSELLOR' || this.user_role == 'COUNSELOR' ? `counsellor_id=${this.user_id}`:this.user_role == 'SUPERADMIN' || this.user_role == 'SUPER ADMIN' ?``:`admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`
+    let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}` : `?role_name=counsellor`
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
       this.referredTo = res.results
       }
