@@ -40,12 +40,13 @@ export class LeadcardMoreComponent implements OnInit {
   whatsapp: any;
   sms: any;
   bulk_Upload: any;
+  user_role:any;
   constructor(
     private _bottomSheet:  MatBottomSheet,
     private dialog: MatDialog,
     private _baseService:BaseServiceService,
     private api:ApiService) { 
-
+      this.user_role = localStorage.getItem('user_role')
       this.permissions=localStorage.getItem('decodedToken')
       console.log(this.permissions,"this.permissions");
       

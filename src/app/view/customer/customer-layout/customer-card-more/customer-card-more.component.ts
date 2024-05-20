@@ -88,7 +88,7 @@ export class CustomerCardMoreComponent implements OnInit {
         }
       });
 
-      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
+      this.user_role = localStorage.getItem('user_role')
 
 
     }
