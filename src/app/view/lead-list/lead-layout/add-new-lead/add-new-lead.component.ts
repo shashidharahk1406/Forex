@@ -307,7 +307,7 @@ export class AddNewLeadComponent implements OnInit {
   let data:any ={
     first_name: f['firstName'],
     last_name: "",
-    email: f['email'],
+    email: f['email'] || null,
     mobile_number:f['mobile'],
     date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
     alternate_mobile_number:f['alternateNumber'] || null,
