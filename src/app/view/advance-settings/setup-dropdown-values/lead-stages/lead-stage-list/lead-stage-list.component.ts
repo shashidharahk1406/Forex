@@ -45,6 +45,7 @@ export class LeadStageListComponent implements OnInit {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
+          this.searchValue=''
           this.getLeadStage(); 
         }
       }

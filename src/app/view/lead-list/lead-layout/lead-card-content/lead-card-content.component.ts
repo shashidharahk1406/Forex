@@ -56,11 +56,11 @@ export class LeadCardContentComponent implements OnInit {
   ngOnInit(): void {
     this.deleteBulk()
    this.selectedCheckboxIds = [];
-   console.log(this.leadData,"this.leadData in ngoninit");
+  //  console.log(this.leadData,"this.leadData in ngoninit");
    }
   ngOnChanges(changes: SimpleChanges) {
     this.api.setLeadData(this.leadData);
-    console.log(this.leadData,"this.leadData in ngonchnages");
+    // console.log(this.leadData,"this.leadData in ngonchnages");
     
     
    
@@ -68,7 +68,7 @@ export class LeadCardContentComponent implements OnInit {
      
       
       this.leadData2 = this.api.getLeadData();
-      console.log(this.leadData2,"this.leadData2");
+      // console.log(this.leadData2,"this.leadData2");
       // this.selectedCheckboxIds = [];
       this.emit.triggerGet$.subscribe(() => {
        this.selectedCheckboxIds = [] 
@@ -175,7 +175,7 @@ export class LeadCardContentComponent implements OnInit {
     if (event.checked == true) {
       //console.log(this.allLeadIds,"allleaids")
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
-      console.log(this.allLeadIds,"this.allLeadIds in select all function");
+      // console.log(this.allLeadIds,"this.allLeadIds in select all function");
       
     
      this.leadData2.forEach((element:any) => {
@@ -202,7 +202,7 @@ export class LeadCardContentComponent implements OnInit {
   
  
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-    console.log(itemId,"itemId")
+    // console.log(itemId,"itemId")
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
       if (!this.selectedCheckboxIds) {

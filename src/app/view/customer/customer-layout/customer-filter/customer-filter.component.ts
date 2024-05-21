@@ -158,7 +158,7 @@ export class CustomerFilterComponent implements OnInit {
 
       let query=''
     if(this.role==='Admin'){
-     query =`&admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`
+     query =`&user_id=${this.user_id}`
     }
       this._baseService.getData(`${environment._user}/?${query}`).subscribe((res:any)=>{
         if(res){
@@ -209,16 +209,21 @@ export class CustomerFilterComponent implements OnInit {
        
       
        if(this.role==='Admin'){
-         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&admin_id=${this.user_id}&counsellor_ids=${this.counsellor_ids}`;
+         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
        }
-       if(this.role==='counsellor'){
-        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers&counsellor_id=${this.user_id}`;
+      else if(this.role==='counsellor'){
+        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&counsellor_id=${this.user_id}`;
        }
        else{
-        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=customers`
+        this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers`
        }
+      //  console.log(this.apiUrl,"apiurl in customer filetr");
+      //  console.log(this.role,"role");
+       
        let filterParams:any;
        if(queryParams.length > 0){
+        // console.log(this.apiUrl,"apiurl in customer filetr");
+        
         this.apiUrl +=`&${queryParams.join('&')}`
         filterParams = `&${queryParams.join('&')}`
         this._addLeadEmitter.filterWithPageSize.next(filterParams)

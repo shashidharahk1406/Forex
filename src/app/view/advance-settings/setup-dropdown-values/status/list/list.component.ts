@@ -46,6 +46,7 @@ export class ListComponent implements AfterViewInit {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
         if(resp==true){
+          this.searchValue=''
           this.getStatus(); 
         }
       }

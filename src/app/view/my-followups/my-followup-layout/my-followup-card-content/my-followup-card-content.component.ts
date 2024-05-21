@@ -181,7 +181,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     if(this.unsubscribe){
       this.unsubscribe.unsubscribe();
     }
-   console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+  //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
    
   
    
@@ -288,11 +288,11 @@ this.gettingUrl();
 
 
   gettingUrl(){
-    console.log('Before =============>', this.updateAPIURL);
+    // console.log('Before =============>', this.updateAPIURL);
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL();
 
-    console.log('updated url==>', this.updateAPIURL);
+    // console.log('updated url==>', this.updateAPIURL);
 
     this.APICAll();
   }
