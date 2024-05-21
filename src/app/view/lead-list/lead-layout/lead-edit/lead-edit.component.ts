@@ -271,9 +271,9 @@ export class LeadEditComponent implements OnInit {
       const adminRoles = ['ADMIN'];
     
       if (counsellorRoles.includes(this.user_role)) {
-       query = `?role_name=counsellor`
+       query = `?user_id=${this.user_id}`
       } else if (superAdminRoles.includes(this.user_role)) {
-        query = `?role_name=superadmin`
+        query = ``
       } else if (adminRoles.includes(this.user_role)) {
         query = `?user_id=${this.user_id}`
       } 
@@ -316,7 +316,9 @@ export class LeadEditComponent implements OnInit {
    
   }
   getCounselledBy(){
-    this._baseService.getData(`${environment._user}`).subscribe((res:any)=>{
+    let query = "?role_name=${superadmin}"
+  
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
       this.adminList = res.results
       }

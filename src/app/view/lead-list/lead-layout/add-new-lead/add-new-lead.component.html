@@ -527,7 +527,7 @@
                         <mat-select 
                         formControlName="counsellorAdmin" 
                         placeholder="Select Counselled By" 
-                        [disabled]="user_role !== 'SUPERADMIN'">
+                        >
                         <mat-option *ngFor="let option of adminList" [value]="option?.id">
                           {{ option?.first_name }} {{ option?.last_name }}
                         </mat-option>
