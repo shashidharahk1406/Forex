@@ -353,7 +353,7 @@ export class LeadCardComponent implements OnInit {
           // console.log(this.leadAllIds, res.results.lead_ids,"this.leadAllIds");
           
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-          console.log( this.allLeadCardsDataSource," this.allLeadCardsDataSource");
+          // console.log( this.allLeadCardsDataSource," this.allLeadCardsDataSource");
           
           this.totalNumberOfRecords = res.total_no_of_record;
         }

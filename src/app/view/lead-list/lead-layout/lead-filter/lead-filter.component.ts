@@ -30,6 +30,8 @@ queryItems: any;
   streamList: any = [];
   user_role: any;
   user_id: any;
+  apiUrl:any
+  counsellor_ids:any;
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -40,6 +42,7 @@ queryItems: any;
     ) {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')
+      this.counsellor_ids=localStorage.getItem('counsellor_ids')
     }
 
   ngOnInit(): void {
@@ -198,14 +201,24 @@ queryItems: any;
    
  
      // Construct the API request URL with query parameters
-     let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
+    //  let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
+    
+    if(this.user_role==='Admin'){
+      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+    }
+   else if(this.user_role==='counsellor'){
+     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&counsellor_id=${this.user_id}`;
+    }
+    else{
+     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations`
+    }
      let filterParams:any;
      if(queryParams.length > 0){
-      apiUrl +=`&${queryParams.join('&')}`
+      this.apiUrl +=`&${queryParams.join('&')}`
       filterParams = `&${queryParams.join('&')}`
       this._addLeadEmitter.filterWithPageSize.next(filterParams)
      }
-    this._addLeadEmitter.leadFilter.next(apiUrl)
+    this._addLeadEmitter.leadFilter.next(this.apiUrl)
     this._addLeadEmitter.selectedFilter.next(this.filterLead.value)
      this._addLeadEmitter.triggerFilter() 
      this._addLeadEmitter.leadFilterIcon.next('true')

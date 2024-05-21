@@ -177,7 +177,7 @@ export class MyFollowupFilterComponent implements OnInit {
     let query
     
     if(this.role==='Admin'){
-     query =`admin_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`
+     query =`user_id=${this.user_id}`
     }
     this._baseService
       .getData(`${environment._user}?${query}`)

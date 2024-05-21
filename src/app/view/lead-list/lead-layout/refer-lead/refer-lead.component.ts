@@ -30,7 +30,7 @@ export class ReferLeadComponent implements OnInit {
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
-      //console.log(data,"data in referlead componennt");
+      // console.log(data,"data in referlead componennt");
       
 
       this.initForm()
