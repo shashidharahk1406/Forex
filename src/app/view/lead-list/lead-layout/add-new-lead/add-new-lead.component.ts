@@ -218,9 +218,9 @@ export class AddNewLeadComponent implements OnInit {
       const adminRoles = ['ADMIN'];
     
       if (counsellorRoles.includes(this.user_role)) {
-       query = `?role_name=counsellor`
+       query = `?user_id=${this.user_id}`
       } else if (superAdminRoles.includes(this.user_role)) {
-        query = `?role_name=superadmin`
+        query = ``
       } else if (adminRoles.includes(this.user_role)) {
         query = `?user_id=${this.user_id}`
       } 
@@ -256,7 +256,9 @@ export class AddNewLeadComponent implements OnInit {
    
   }
   getCounselledBy() {
-    this._baseService.getData(`${environment._user}`).subscribe(
+    let query = "?role_name=${superadmin}"
+    
+    this._baseService.getData(`${environment._user}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
           this.adminList = res.results
@@ -305,7 +307,7 @@ export class AddNewLeadComponent implements OnInit {
   let data:any ={
     first_name: f['firstName'],
     last_name: "",
-    email: f['email'] || 'fcmtest@gmail.com',
+    email: f['email'],
     mobile_number:f['mobile'],
     date_of_birth:this._datePipe.transform(f['dateOfBirth'],'YYYY-MM-dd') || null,
     alternate_mobile_number:f['alternateNumber'] || null,
@@ -330,10 +332,8 @@ export class AddNewLeadComponent implements OnInit {
     others: f["otherCourse"],
     enterance_exam: f["entranceExam"],
     course_looking_for: f["courseLookingfor"] || [],
-    //lead_list_status:f['leadStatus'],
     lead_list_substatus: null,
     counselled_by:f['counsellorAdmin'],
-    //lead_stage: f['leadStages'],
     source: f['leadSource'],
     level_of_program:f['levelOfProgram'],
     preferance_college_and_location: 
@@ -343,9 +343,7 @@ export class AddNewLeadComponent implements OnInit {
               preferred_location1: f["preferredLocation1"],
               preferred_location2: f["preferredLocation2"]
             },
-    //note_name:f['notes'],
     created_note_remark_by:this.user_id,
-    // remark_name:f['remarks']
   }
 
   if (this.addLeadForm.invalid) {

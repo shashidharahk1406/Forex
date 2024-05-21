@@ -62,7 +62,18 @@ export class LeadUploadComponent implements OnInit {
     
    
     getCounselor(){
-      let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}` : ""
+      let query = ""
+      const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+        const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+        const adminRoles = ['ADMIN'];
+      
+        if (counsellorRoles.includes(this.user_role)) {
+         query = `?user_id=${this.user_id}`
+        } else if (superAdminRoles.includes(this.user_role)) {
+          query = ``
+        } else if (adminRoles.includes(this.user_role)) {
+          query = `?user_id=${this.user_id}`
+        } 
       this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
         this.referTo = res.results

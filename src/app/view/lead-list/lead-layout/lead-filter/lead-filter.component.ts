@@ -141,7 +141,9 @@ queryItems: any;
     )
   }
   getCounselledBy(){
-    this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+    let query = "?role_name=${superadmin}"
+  
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res){
       this.counselled_by = res.results
       }
@@ -151,7 +153,19 @@ queryItems: any;
   } 
  
   getCounselor(){
-    let query = this.user_role === "COUNSELLOR" || this.user_role === "COUNSELOR"  || this.user_role === "ADMIN"  ?`?user_id=${this.user_id}&role_name=counsellor` : `?role_name=counsellor`
+    let query = ""
+    const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+      const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+      const adminRoles = ['ADMIN'];
+    
+      if (counsellorRoles.includes(this.user_role)) {
+       query = `?user_id=${this.user_id}`
+      } else if (superAdminRoles.includes(this.user_role)) {
+        query = ``
+      } else if (adminRoles.includes(this.user_role)) {
+        query = `?user_id=${this.user_id}`
+      } 
+   
     this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res){
       this.counselorList = res.results

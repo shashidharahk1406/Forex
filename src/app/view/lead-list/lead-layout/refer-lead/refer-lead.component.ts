@@ -64,9 +64,9 @@ export class ReferLeadComponent implements OnInit {
         const adminRoles = ['ADMIN'];
       
         if (counsellorRoles.includes(this.user_role)) {
-         query = `?role_name=counsellor`
+         query = `?user_id=${this.user_id}`
         } else if (superAdminRoles.includes(this.user_role)) {
-          query = `?role_name=superadmin`
+          query = ``
         } else if (adminRoles.includes(this.user_role)) {
           query = `?user_id=${this.user_id}`
         } 
