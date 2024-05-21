@@ -71,7 +71,7 @@
     
       <!-- Define Reporting To column -->
       <ng-container matColumnDef="reporting_to_ids">
-        <th mat-header-cell *matHeaderCellDef >Reporting To</th>
+        <th mat-header-cell *matHeaderCellDef >Reporting User</th>
         <td mat-cell *matCellDef="let element"    [ngClass]="element?.user_management[0]?.pause?'red':'green'">
           <div  *ngFor="let item of element.reporting_to_ids">
             {{item.name}}

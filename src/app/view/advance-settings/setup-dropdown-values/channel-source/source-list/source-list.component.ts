@@ -42,6 +42,7 @@ export class SourceListComponent implements AfterViewInit {
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
+        this.searchValue=''
         if(resp==true){
           this.getSource(); 
         }

@@ -176,11 +176,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   updateAPIURL: any;
   unsubscribe!:Subscription;
-  
+ previousSelectedTab:any; 
   ngOnInit(): void {
     if(this.unsubscribe){
       this.unsubscribe.unsubscribe();
     }
+
+  //  this.previousSelectedTab=this.dataService.getSelectedTab()
+   this.selectedTab=this.dataService.getSelectedTab()
   //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
    
   
@@ -560,6 +563,7 @@ this.gettingUrl();
    this.dataService.setFilteredFollowUpURL(
       `${this.api_url}/api/follow-up/?page=1&page_size=5`
     );
+    // this.selectedTab=this.previousSelectedTab;
     }
     
     // this.allPaginator.pageIndex = 0;
@@ -1006,7 +1010,7 @@ this.gettingUrl();
   }
 
   getFilter(data: any) {
-    
+    this.dataService.setSelectedTabData(data)
     this.selectedTab = data;
     // localStorage.setItem('selectedTab',this.selectedTab)
 this.selectedCheckboxIds=[]

@@ -51,6 +51,8 @@ export class TemplateListComponent implements AfterViewInit  {
   ngOnInit(): void {
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
+
+        this.searchValue=''
         if(resp==true){
           this.getTemplate(); 
           localStorage.removeItem('whatsappFilter')
@@ -59,7 +61,7 @@ export class TemplateListComponent implements AfterViewInit  {
     )
     this.emit.getRefreshByFilter.subscribe(
       (resp:any)=>{
-       
+      
           this.params=resp
           localStorage.removeItem('whatsappFilter')
           this.getTemplate(); 

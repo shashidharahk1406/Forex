@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 export class DataService {
   api_url: any = environment.live_url;
   public isAllChecked: boolean = false;
+  selectedTab:any='All';
 
   filteredData = {
     counsellor_id: '',
@@ -142,6 +143,19 @@ export class DataService {
 
   
  
+  }
+
+
+  private selectedTabs = new BehaviorSubject<any>(this.selectedTab);
+  public selectedTabValues$ = this.selectedTabs.asObservable();
+ 
+  setSelectedTabData(data:any){
+this.selectedTab=data
+// console.log(data,"selected tab data in service file");
+
+  }
+  getSelectedTab(){
+    return this.selectedTab
   }
 
 } 

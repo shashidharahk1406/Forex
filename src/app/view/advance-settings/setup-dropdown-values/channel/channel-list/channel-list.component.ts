@@ -50,6 +50,7 @@ export class ChannelListComponent implements  AfterViewInit {
   ngOnInit(){
     this.emit.getRefresh.subscribe(
       (resp:any)=>{
+        this.searchValue=''
         if(resp==true){
           this.getChannel(); 
         }
