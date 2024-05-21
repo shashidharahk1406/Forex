@@ -20,9 +20,10 @@ import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export class DepartmentListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
     'level_of_program_name',
+    'created_date_time',
     'delete'
 
   ]

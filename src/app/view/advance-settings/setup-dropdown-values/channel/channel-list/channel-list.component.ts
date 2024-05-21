@@ -27,8 +27,9 @@ export interface UserData {
 export class ChannelListComponent implements  AfterViewInit {
   displayedColumns: string[] = [
     'channel_name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
+    'created_date_time',
     'delete'
   ]
   dataSource=new MatTableDataSource<UserData>;

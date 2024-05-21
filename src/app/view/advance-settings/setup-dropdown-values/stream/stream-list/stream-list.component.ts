@@ -22,8 +22,9 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 export class StreamListComponent implements OnInit {
   displayedColumns: string[] = [
     'stream_name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
+    'created_date_time',
     'delete'
   ]
 

@@ -20,8 +20,8 @@ import { DeleteComponent } from 'src/app/shared/delete/delete.component';
 export class CountryIdListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    'created_date_time',
     'delete'
   ]
   dataSource=new MatTableDataSource<any>;

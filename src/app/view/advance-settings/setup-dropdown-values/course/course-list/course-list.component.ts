@@ -29,8 +29,8 @@ export interface UserData {
 export class CourseListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'course_name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    'created_date_time',
     'delete'
   ]
 

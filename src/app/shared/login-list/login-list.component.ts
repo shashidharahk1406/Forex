@@ -14,9 +14,11 @@ export class LoginListComponent implements OnInit {
   name: any;
   lastname: any;
   initials!: any;
+  role:any;
 
   constructor(private router:Router,private api:ApiService,private addEmit:AddLeadEmitterService) { 
-    this.name=localStorage.getItem('username')
+    this.name=localStorage.getItem('username');
+    this.role=localStorage.getItem('user_role')
     //console.log(this.name,"this.name");
     
   }

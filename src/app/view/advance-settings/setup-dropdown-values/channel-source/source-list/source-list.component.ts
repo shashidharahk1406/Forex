@@ -25,6 +25,7 @@ export class SourceListComponent implements AfterViewInit {
     // 'is_system_value',
     // 'source_id',
     // 'channel_name',
+    'created_date_time',
     'delete'
 
   ]

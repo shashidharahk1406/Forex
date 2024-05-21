@@ -23,8 +23,9 @@ import { BaseServiceService } from 'src/app/service/base-service.service';
 export class ListComponent implements AfterViewInit {
   displayedColumns: string[] = [
     'name',
-    'is_active',
-    'is_system_value',
+    // 'is_active',
+    // 'is_system_value',
+    'created_date_time',
     'delete'
   ]
 
