@@ -47,7 +47,7 @@ export class CustomerToolbarComponent implements OnInit {
      private fb:FormBuilder
      ) {
 
-      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
+      this.user_role = localStorage.getItem('user_role')
    }
  
    ngOnInit():any {
