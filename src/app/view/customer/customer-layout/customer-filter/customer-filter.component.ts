@@ -167,6 +167,8 @@ export class CustomerFilterComponent implements OnInit {
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
       }))
+
+      
     }
     clearSelectField(fieldName: string) {
       this.filterLead.get(fieldName)?.reset();
