@@ -316,7 +316,7 @@ export class LeadEditComponent implements OnInit {
    
   }
   getCounselledBy(){
-    let query = "?role_name=${superadmin}"
+    let query = `?role_name=superadmin`
   
     this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
