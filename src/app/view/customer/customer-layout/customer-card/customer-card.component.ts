@@ -90,7 +90,7 @@ export class CustomerCardComponent implements OnInit {
       
       if(this.leadFilter){
         this.query  = ""
-        this._addLeadEmitter.leadFilter.subscribe((res:any) => {
+        this._addLeadEmitter.customerFilter.subscribe((res:any) => {
           if (res) {
 
 
@@ -131,13 +131,13 @@ export class CustomerCardComponent implements OnInit {
   
       // this.getLeadIds()
       this.getStatus()
-    this._addLeadEmitter.triggerGet$.subscribe(() => {
+    this._addLeadEmitter.customerTriggerGet$.subscribe(() => {
       // this.getLeadIds()
       this.getLeadData('tabLabel')
       this._addLeadEmitter.goBack.next(true)
     });
     
-    this._addLeadEmitter.leadFilter.subscribe((res:any) => {
+    this._addLeadEmitter.customerFilter.subscribe((res:any) => {
       if (res) {
       //  console.log(res, "RES");
         this.leadFilter = true;
@@ -167,7 +167,7 @@ export class CustomerCardComponent implements OnInit {
       }
       else{
         if(this.leadFilter){
-          this._addLeadEmitter.leadFilter.subscribe((res:any) => {
+          this._addLeadEmitter.customerFilter.subscribe((res:any) => {
             if (res) {
               query = ''
 
@@ -207,7 +207,7 @@ export class CustomerCardComponent implements OnInit {
       }
       else{
         if(this.leadFilter){
-          this._addLeadEmitter.leadFilter.subscribe((res:any) => {
+          this._addLeadEmitter.customerFilter.subscribe((res:any) => {
             if (res) {
               query = ''
               // query = (this.user_role === 'counsellor')
@@ -394,10 +394,10 @@ export class CustomerCardComponent implements OnInit {
   //   return this.leadAllIds
   // }
   reLoad(event:any){
-    this._addLeadEmitter.leadFilter.next('')
-    this._addLeadEmitter.leadFilterIcon.next('false')
-    this._addLeadEmitter.leadFilter.next('')
-    this._addLeadEmitter.selectedFilter.next('')
+    this._addLeadEmitter.customerFilter.next('')
+    this._addLeadEmitter.customerFilterIcon.next('false')
+    this._addLeadEmitter.customerFilter.next('')
+    this._addLeadEmitter.selectedCustomerFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
     // this.getLeadIds()

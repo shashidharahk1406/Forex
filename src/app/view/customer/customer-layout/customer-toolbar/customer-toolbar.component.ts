@@ -52,7 +52,7 @@ export class CustomerToolbarComponent implements OnInit {
  
    ngOnInit():any {
      this.initForm()
-     this.addEventEmitter.leadFilterIcon.subscribe(
+     this.addEventEmitter.customerFilterIcon.subscribe(
        (resp:any)=>{
         //console.log(resp,"RESPONSE")
         if(resp === 'true'){
