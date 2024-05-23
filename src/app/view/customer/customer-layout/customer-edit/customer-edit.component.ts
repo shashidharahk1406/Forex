@@ -427,7 +427,7 @@ if (this.editLeadForm.invalid) {
         this.addLead.emit('ADD')
         this.api.showSuccess(res.message)
         this._bottomSheetRef.dismiss('yes');
-        this._addLeadEmitter.triggerGet();
+        this._addLeadEmitter.customerFiltertriggerGet();
       }
     },((error:any)=>{
       this.api.showError(error?.error.message)

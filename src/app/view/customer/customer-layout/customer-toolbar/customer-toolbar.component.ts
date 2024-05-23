@@ -335,7 +335,11 @@ export class CustomerToolbarComponent implements OnInit {
      dialogRef.disableClose=true
    
      dialogRef.afterClosed().subscribe((result:any) => {
-       this.refresh.emit('event')
+      if(result){
+        this.refresh.emit('event')
+      }
+
+       
      });
    }
  }

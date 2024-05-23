@@ -37,7 +37,7 @@ export class FollowupPaymentDetailsComponent implements OnInit {
   })
  }
   closePopup(){
-    this.dialogRef.close(true)
+    this.dialogRef.close()
   }
   get f() {
     return this.paymentForm.controls;

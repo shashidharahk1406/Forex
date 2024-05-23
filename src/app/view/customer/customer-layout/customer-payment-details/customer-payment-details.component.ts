@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -30,7 +30,7 @@ export class CustomerPaymentDetailsComponent implements OnInit {
     private emitService:EmitService,
     private emit:AddLeadEmitterService,
     private _commonService:CommonServiceService){}
-
+    @Output()refresh = new EventEmitter()
   ngOnInit(): void {
     this.initForm()
     this.user_id = localStorage.getItem('user_id')
@@ -73,7 +73,9 @@ export class CustomerPaymentDetailsComponent implements OnInit {
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          this.closePopup()
+          // this.closePopup()
+          this.dialogRef.close(true)
+          this.refresh.emit('event')
           this.emitService.paymentLink()
           this.emit.triggerGet();
         }
