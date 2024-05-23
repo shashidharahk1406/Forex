@@ -47,12 +47,12 @@ export class CustomerToolbarComponent implements OnInit {
      private fb:FormBuilder
      ) {
 
-      this.user_role = localStorage.getItem('user_role')?.toLowerCase();
+      this.user_role = localStorage.getItem('user_role')
    }
  
    ngOnInit():any {
      this.initForm()
-     this.addEventEmitter.leadFilterIcon.subscribe(
+     this.addEventEmitter.customerFilterIcon.subscribe(
        (resp:any)=>{
         //console.log(resp,"RESPONSE")
         if(resp === 'true'){

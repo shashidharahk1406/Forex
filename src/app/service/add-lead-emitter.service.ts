@@ -16,6 +16,15 @@ export class AddLeadEmitterService {
   followUpFilterIcon=new BehaviorSubject('')
   selectedFilter = new BehaviorSubject('');
   leadRefresh = new BehaviorSubject(false)
+  customerFilter = new BehaviorSubject('');
+  customerFilterIcon = new BehaviorSubject('');
+  selectedCustomerFilter = new BehaviorSubject('');
+  private CustomertriggerGetSource = new Subject<void>();
+  customerTriggerGet$ = this.CustomertriggerGetSource.asObservable();
+  private customerTriggerGetFilter = new Subject<void>();
+  customerTriggerGetFilter$ = this.customerTriggerGetFilter.asObservable();
+ 
+  
  
   goBack = new BehaviorSubject(false)
   filterWithPageSize:any= new BehaviorSubject([]);
@@ -23,6 +32,18 @@ export class AddLeadEmitterService {
     this.triggerGetSource.next();
   }
   triggerFilter():any {
+    this.customerTriggerGetFilter.next();
+  }
+
+
+
+
+
+
+  customerFiltertriggerGet() {
+    this.CustomertriggerGetSource.next();
+  }
+  customerfilterTriggerFilter():any {
     this.triggerGetFilter.next();
   }
 

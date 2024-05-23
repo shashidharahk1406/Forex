@@ -217,10 +217,10 @@ queryItems: any;
      // Construct the API request URL with query parameters
     //  let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
     
-    if(this.user_role==='Admin'){
+    if(this.user_role==='Admin'||this.user_role==='ADMIN'){
       this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&user_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
     }
-   else if(this.user_role==='counsellor'){
+   else if(this.user_role==='COUNSELLOR'||this.user_role==='counsellor'){
      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&counsellor_id=${this.user_id}`;
     }
     else{

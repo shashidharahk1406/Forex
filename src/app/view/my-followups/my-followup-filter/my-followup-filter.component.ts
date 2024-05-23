@@ -160,7 +160,7 @@ export class MyFollowupFilterComponent implements OnInit {
 
   getCounselledBy() {
     this._baseService
-      .getData(`${environment._user}/?role_name=Admin`)
+      .getData(`${environment._user}/?role_name=superadmin`)
       .subscribe(
         (res: any) => {
           if (res) {

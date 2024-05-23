@@ -46,7 +46,7 @@ export class CustomerFilterComponent implements OnInit {
     ngOnInit(): void {
       this.dropdownvalues()
       this.initForm() 
-      this._addLeadEmitter.selectedFilter.subscribe((res:any)=>{
+      this._addLeadEmitter.selectedCustomerFilter.subscribe((res:any)=>{
         if(res){
           this.filterLead.patchValue({
             counsellor_id:res.counsellor_id,
@@ -167,6 +167,8 @@ export class CustomerFilterComponent implements OnInit {
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
       }))
+
+      
     }
     clearSelectField(fieldName: string) {
       this.filterLead.get(fieldName)?.reset();
@@ -177,9 +179,9 @@ export class CustomerFilterComponent implements OnInit {
         this.filterLead.markAllAsTouched();
         this.api.showError('Please select at least one field');
         this.filterLead.reset()
-        this._addLeadEmitter.leadFilter.next('') 
-        this._addLeadEmitter.selectedFilter.next('')
-        this._addLeadEmitter.leadFilterIcon.next('false')
+        this._addLeadEmitter.customerFilter.next('') 
+        this._addLeadEmitter.selectedCustomerFilter.next('')
+        this._addLeadEmitter.customerFilterIcon.next('false')
      
   
       } else{
@@ -228,10 +230,10 @@ export class CustomerFilterComponent implements OnInit {
         filterParams = `&${queryParams.join('&')}`
         this._addLeadEmitter.filterWithPageSize.next(filterParams)
        }
-      this._addLeadEmitter.leadFilter.next(this.apiUrl)
-      this._addLeadEmitter.selectedFilter.next(this.filterLead.value)
-       this._addLeadEmitter.triggerFilter() 
-       this._addLeadEmitter.leadFilterIcon.next('true')
+      this._addLeadEmitter.customerFilter.next(this.apiUrl)
+      this._addLeadEmitter.selectedCustomerFilter.next(this.filterLead.value)
+       this._addLeadEmitter.customerfilterTriggerFilter() 
+       this._addLeadEmitter.customerFilterIcon.next('true')
        // Make the API request with the constructed URL
       this.closePopup()
       }
@@ -240,10 +242,10 @@ export class CustomerFilterComponent implements OnInit {
     }
     reset(){
      this.filterLead.reset()
-     this._addLeadEmitter.leadFilter.next('') 
-     this._addLeadEmitter.selectedFilter.next('')
-     this._addLeadEmitter.leadFilterIcon.next('false')
-     this._addLeadEmitter.triggerGet()
+     this._addLeadEmitter.customerFilter.next('') 
+     this._addLeadEmitter.selectedCustomerFilter.next('')
+     this._addLeadEmitter.customerFilterIcon.next('false')
+     this._addLeadEmitter.customerFiltertriggerGet()
     }
     isFormEmpty(formValues: any): boolean {
       for (const key in formValues) {
