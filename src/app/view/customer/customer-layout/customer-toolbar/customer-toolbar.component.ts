@@ -132,7 +132,7 @@ export class CustomerToolbarComponent implements OnInit {
     
      this.addCount()
      if(this.data !== 0||this.data==undefined){
-     let data = `Do You Want To Send A Video Call Link To ${this.data} Leads`
+     let data = `Do You Want To Send A Video Call Link To ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data:data
@@ -146,7 +146,7 @@ export class CustomerToolbarComponent implements OnInit {
        }
      });
    }else{
-     this.api.showWarning('Please select atleast one lead')
+     this.api.showWarning('Please select atleast one Customer')
    }
    }
    bulkSMS(){
@@ -160,7 +160,7 @@ export class CustomerToolbarComponent implements OnInit {
    openSMS(name:any): void {
      this.addCount()
      if(this.data !== 0){
-     let data = `Do You Want To Send SMS To ${this.data} Leads`
+     let data = `Do You Want To Send SMS To ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data:data
@@ -173,13 +173,13 @@ export class CustomerToolbarComponent implements OnInit {
        }
      })}
      else{
-       this.api.showWarning('Please select atleast one lead')
+       this.api.showWarning('Please select atleast one Customer')
      }
    }
    openWhatsAppChat(){
      this.addCount()
      if(this.data !== 0){
-     let data = `Do You Want To Send WhatsApp To ${this.data} Leads`
+     let data = `Do You Want To Send WhatsApp To ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data:data
@@ -193,7 +193,7 @@ export class CustomerToolbarComponent implements OnInit {
        }
      });
    }else{
-     this.api.showWarning('Please select atleast one lead to download')
+     this.api.showWarning('Please select atleast one Customer ')
    }
    }
    bulkWhatsAppChat(){
@@ -228,7 +228,7 @@ export class CustomerToolbarComponent implements OnInit {
    openEmailChat(selectedData?:any){
      this.addCount()
      if(this.data !== 0){
-     let data = `Do You Want To Send Email To ${this.data} Leads`
+     let data = `Do You Want To Send Email To ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data: data
@@ -241,7 +241,7 @@ export class CustomerToolbarComponent implements OnInit {
        }
      });
    }else{
-     this.api.showWarning('Please select atleast one lead')
+     this.api.showWarning('Please select atleast one Customer')
    }
    }
    openReferLead(){
@@ -269,7 +269,7 @@ export class CustomerToolbarComponent implements OnInit {
      
    }else{
      if(!this.submitted){
-     this.api.showWarning('Please select atleast one lead to download')
+     this.api.showWarning('Please select atleast one Customer to download')
    }
    }
   
@@ -285,7 +285,7 @@ export class CustomerToolbarComponent implements OnInit {
    onDeleteAll(){
      this.addCount()
      if(this.data !== 0){
-     let data = `Do You Want To Delete ${this.data} Leads`
+     let data = `Do You Want To Delete ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data:data,
@@ -299,13 +299,13 @@ export class CustomerToolbarComponent implements OnInit {
        }
      });
    }else{
-     this.api.showWarning('Please select atleast one lead')
+     this.api.showWarning('Please select atleast one Customer')
    }
    }
    referLead(){
      this.addCount()
      if(this.data !== 0){
-     let data = `Do You Want To Refer ${this.data} Leads`
+     let data = `Do You Want To Refer ${this.data} Customers`
      const dialogRef = this.dialog.open(GenericCountComponent, {
        width:'40%',
        data:data,
@@ -318,7 +318,7 @@ export class CustomerToolbarComponent implements OnInit {
        }
      });
    }else{
-     this.api.showWarning('Please select atleast one lead')
+     this.api.showWarning('Please select atleast one Customer')
    }
    }
    refreshLead(event:any){
@@ -327,7 +327,7 @@ export class CustomerToolbarComponent implements OnInit {
    onClickLink(){
      this.addCount()
      if(this.data !== 0){
-       let data = `Do You Want To Send A Link To  ${this.data} Leads`
+       let data = `Do You Want To Send A Link To  ${this.data} Customers`
        const dialogRef = this.dialog.open(GenericCountComponent, {
          width:'40%',
          data:data,
@@ -340,7 +340,7 @@ export class CustomerToolbarComponent implements OnInit {
          }
        });
      }else{
-       this.api.showWarning('Please select atleast one lead')
+       this.api.showWarning('Please select atleast one Customer')
      }
     
    }
