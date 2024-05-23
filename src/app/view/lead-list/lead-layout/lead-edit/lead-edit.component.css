@@ -58,3 +58,7 @@ strong{
   top: 49%;
   transform: translateY(-50%); 
 }
+.search-bar{
+  border-bottom: 1px solid #dfdbdb;
+  padding: 15px;
+}

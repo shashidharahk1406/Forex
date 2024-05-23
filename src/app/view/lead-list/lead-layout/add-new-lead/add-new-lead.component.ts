@@ -44,6 +44,10 @@ export class AddNewLeadComponent implements OnInit {
   levelofProgram: any = [];
   user_role:any;
   counsellor_ids:any;
+  filteredCountryOptions: any = [];
+  selectedCountry: any;
+  filteredStateOptions: any = [];
+  filteredCityOptions: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -64,6 +68,9 @@ export class AddNewLeadComponent implements OnInit {
   ngOnInit(): void {
     this.initForm()
     this.max = new Date()
+    // this.addLeadForm.get('countryId')?.valueChanges.subscribe(value => {
+    //   this.selectedCountry = this.countryOptions.find((option:any) => option.id === value);
+    // });
   }
   initForm(){
       this.addLeadForm = this.fb.group({
@@ -138,17 +145,32 @@ export class AddNewLeadComponent implements OnInit {
     this.api.getAllCountry().subscribe((res:any)=>{
       if(res.results){
       this.countryOptions = res.results
-      //console.log(res)
+      this.filteredCountryOptions = this.countryOptions
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
+  getCity(){
+    this.api.getAllCity().subscribe((res:any)=>{
+      if(res.results){
+        this.cityOptions = res.results;
+        this.filteredCityOptions = this.cityOptions
+      }
+      else{
+        this.api.showError('ERROR')
+       }
+      },(error:any)=>{
+         this.api.showError(this.api.toTitleCase(error.error.message))
+        
+      })
+  }
   getState(){
     this.api.getAllState().subscribe((res:any)=>{
       if(res.results){
         this.stateOptions = res.results
+        this.filteredStateOptions =  this.stateOptions
         //console.log(res)
       }
     },(error:any)=>{
@@ -185,19 +207,7 @@ export class AddNewLeadComponent implements OnInit {
       
     })
   }
-  getCity(){
-    this.api.getAllCity().subscribe((res:any)=>{
-      if(res.results){
-        this.cityOptions = res.results;
-      }
-      else{
-        this.api.showError('ERROR')
-       }
-      },(error:any)=>{
-         this.api.showError(this.api.toTitleCase(error.error.message))
-        
-      })
-  }
+ 
   getCampign(){
     this.api.getAllCampign().subscribe((res:any)=>{
       if(res.results){
@@ -288,7 +298,40 @@ export class AddNewLeadComponent implements OnInit {
   clearSelectField(fieldName: string) {
     this.addLeadForm.get(fieldName)?.reset();
   }
-  
+  filterCountries(event:any,type:any,countryOptions:any){
+    let searchTerm:any = '';
+    if(event){
+       searchTerm = event.target.value.toLowerCase();
+
+       if(searchTerm === '' && type === 'country'){
+        this.filteredCountryOptions = countryOptions
+        return this.filteredCountryOptions
+       }if(searchTerm === '' && type === 'state'){
+        this.filteredStateOptions = countryOptions
+        return this.filteredStateOptions
+       }if(searchTerm === '' && type === 'city'){
+        this.filteredCityOptions = countryOptions
+        return this.filteredCityOptions
+       }
+    
+      let filteredCountries = countryOptions.filter((option:any) =>{
+       const name:any = option.name.toLowerCase()
+       return name.includes(searchTerm)
+       });
+
+       if(!filteredCountries.length){
+        filteredCountries = [{name: `No ${type} found`}]
+       }
+       if(type === 'country'){
+        this.filteredCountryOptions = filteredCountries
+       }if(type === 'state'){
+        this.filteredStateOptions = filteredCountries
+       }if(type === 'city'){
+        this.filteredCityOptions = filteredCountries
+       }
+       
+  }
+  }
   getStream(){
     this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
     if(resp){
