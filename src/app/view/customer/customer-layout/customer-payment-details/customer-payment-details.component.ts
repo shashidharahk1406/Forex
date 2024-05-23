@@ -77,7 +77,7 @@ export class CustomerPaymentDetailsComponent implements OnInit {
           this.dialogRef.close(true)
           this.refresh.emit('event')
           this.emitService.paymentLink()
-          this.emit.triggerGet();
+          this.emit.customerFiltertriggerGet();
         }
       },(error:any)=>{
         this.api.showError(error.error.message)

@@ -142,7 +142,9 @@ export class CustomerFilterComponent implements OnInit {
       )
     }
     getCounselledBy(){
-      this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+
+      let query = `?role_name=superadmin`
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res){
         this.counselled_by = res.results
         }

@@ -294,7 +294,8 @@ export class CustomerToolbarComponent implements OnInit {
    
      dialogRef.afterClosed().subscribe((result:any) => {
        if(result === 'yes'){
-        this.emit.deleteAll.next(true)
+        this.emit.deleteAll.next(true);
+        this.refresh.emit('event')
        }
      });
    }else{

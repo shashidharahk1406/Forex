@@ -170,7 +170,7 @@ export class CustomerPaymentStatusComponent implements OnInit {
       this.baseService.postData(environment.payment_status,data).subscribe((res:any)=>{
        if(res){
          this.api.showSuccess(res.message)
-         this._addLeadEmitter.triggerGet();
+         this._addLeadEmitter.customerFiltertriggerGet();
          this.dialogRef.close()
        }
       },((error:any)=>{

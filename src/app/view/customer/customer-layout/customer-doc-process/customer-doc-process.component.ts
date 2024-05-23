@@ -74,7 +74,7 @@ export class CustomerDocProcessComponent implements OnInit {
       this._baseService.postData(environment.admission_details,data).subscribe((resp:any)=>{
         if(resp){
           this.api.showSuccess(resp.message)
-          this.emit.triggerGet();
+          this.emit.customerFiltertriggerGet();
           this.dialogRef.close()
         }
       },((error:any)=>{
