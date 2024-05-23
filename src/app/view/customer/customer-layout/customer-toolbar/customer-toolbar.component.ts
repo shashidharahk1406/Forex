@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CustomerPaymentDetailsComponent } from '../customer-payment-details/customer-payment-details.component';
 import { GenericCountComponent } from 'src/app/shared/generic-count/generic-count.component';
 import { CustomerFilterComponent } from '../customer-filter/customer-filter.component';
-import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import { MatBottomSheet, MatBottomSheetConfig, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { environment } from 'src/environments/environment';
 import { CustomerReferLeadComponent } from '../customer-refer-lead/customer-refer-lead.component';
 import { CustomerEmailComponent } from '../customer-email/customer-email.component';
@@ -44,7 +44,9 @@ export class CustomerToolbarComponent implements OnInit {
      private api:ApiService,
      private emit:EmitService,
      private addEventEmitter:AddLeadEmitterService,
-     private fb:FormBuilder
+     private fb:FormBuilder,
+
+   
      ) {
 
       this.user_role = localStorage.getItem('user_role')
@@ -210,7 +212,18 @@ export class CustomerToolbarComponent implements OnInit {
        disableClose: true,
        data: {bulkIds:this.selectedLeads,allChecked:this.checkAll}
      };
-     this._bottomSheet.open(CustomerEmailComponent,config);
+     let _bottomSheetRef=this._bottomSheet.open(CustomerEmailComponent,config);
+    //  console.log(_bottomSheetRef,"data in bttomsheet");
+     
+     _bottomSheetRef.afterDismissed().subscribe((res:any)=>{
+      // console.log(res,"res from email bottom,sheet");
+      
+      if(res){
+        this.refresh.emit('event');
+       
+        // this.refreshLead('event')
+      }
+    })
    }
    openEmailChat(selectedData?:any){
      this.addCount()
@@ -224,7 +237,7 @@ export class CustomerToolbarComponent implements OnInit {
      dialogRef.afterClosed().subscribe((result:any) => {
        if(result === 'yes'){
         this.bulkOpenEmailChat()
-        this.refreshLead('event')
+        // this.refreshLead('event')
        }
      });
    }else{
@@ -240,6 +253,9 @@ export class CustomerToolbarComponent implements OnInit {
      dialogRef.afterClosed().subscribe((result:any) => {
        //console.log('The dialog was closed');
        //this.refreshLead('event')
+       if(result){
+        this.refresh.emit('event')
+       }
      });
    }
    downloadLead(){
@@ -247,7 +263,8 @@ export class CustomerToolbarComponent implements OnInit {
      this.submitted = true
      this.exportReference = `${environment.export_leads}?ids=${this.selectedLeads}`
      setTimeout(() => {
-       this.addEventEmitter.triggerGet() 
+       this.addEventEmitter.triggerGet() ;
+       this.refresh.emit('event')
      },2000);
      
    }else{

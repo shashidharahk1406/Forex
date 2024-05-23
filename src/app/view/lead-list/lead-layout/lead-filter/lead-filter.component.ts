@@ -218,13 +218,13 @@ queryItems: any;
     //  let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
     
     if(this.user_role==='Admin'||this.user_role==='ADMIN'){
-      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
     }
    else if(this.user_role==='COUNSELLOR'||this.user_role==='counsellor'){
-     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations&counsellor_id=${this.user_id}`;
+     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&counsellor_id=${this.user_id}`;
     }
     else{
-     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocations`
+     this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation`
     }
      let filterParams:any;
      if(queryParams.length > 0){

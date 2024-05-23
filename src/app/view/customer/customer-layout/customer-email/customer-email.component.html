@@ -44,7 +44,7 @@
                           </mat-form-field>
                           
                       
-                          <div class="mat-input-container">
+                          <!-- <div class="mat-input-container">
                             <label for="followupComment">Comment</label>
                             <div
                               matInput
@@ -55,6 +55,13 @@
                               formControlName="followupComment"
                               [innerHtml]="f['followupComment'].value"
                             ></div>
+                           
+                          </div> -->
+
+
+                          <div class="mat-input-container">
+                            <label for="Follow Up Comment">Follow Up Comment</label>
+                            <textarea name="" formControlName="followupComment" id="" cols="30" rows="10"  (input)="onInput($event)"   readonlyTextarea></textarea>
                            
                           </div>
             

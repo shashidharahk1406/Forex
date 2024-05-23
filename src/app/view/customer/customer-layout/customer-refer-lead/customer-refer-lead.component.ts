@@ -94,8 +94,8 @@ export class CustomerReferLeadComponent implements OnInit {
        this._baseService.postData(`${environment.lead_refer}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          this._addLeadEmitter.triggerGet();
-          this.dialogRef.close()
+          this._addLeadEmitter.customerFiltertriggerGet();
+          this.dialogRef.close(true)
         }
        },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
