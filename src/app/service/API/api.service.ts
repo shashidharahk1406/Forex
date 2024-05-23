@@ -332,9 +332,10 @@ export class ApiService implements OnInit {
       `${this.baseurl}/api/state/?page_size=${size}&page=${pageNo}&key=${search}`
     );
   }
-  getAllState() {
-    return this.http.get(`${this.baseurl}/api/state/`);
+  getAllState(params?:any) {
+    return this.http.get(`${this.baseurl}/api/state/${params}`);
   }
+  
   getStateById(id: any) {
     return this.http.get(`${this.baseurl}/api/state/${id}/`);
   }
@@ -356,8 +357,8 @@ export class ApiService implements OnInit {
       `${this.baseurl}/api/city/?page_size=${size}&page=${pageNo}&key=${search}`
     );
   }
-  getAllCity() {
-    return this.http.get(`${this.baseurl}/api/city/`);
+  getAllCity(params?:any) {
+    return this.http.get(`${this.baseurl}/api/city/${params}`);
   }
   getCityById(id: any) {
     return this.http.get(`${this.baseurl}/api/city/${id}/`);

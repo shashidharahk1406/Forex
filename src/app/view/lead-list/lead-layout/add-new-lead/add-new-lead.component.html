@@ -108,63 +108,87 @@
                         <mat-datepicker-toggle matSuffix [for]="dateOfBirth"></mat-datepicker-toggle>
                         <mat-datepicker #dateOfBirth></mat-datepicker>
                       </mat-form-field>
-                      <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>Select Country </mat-label>
-                        <mat-select formControlName="countryId" placeholder="Select Country">
-                          <div>
-                            <input type="text" matInput  (input)="filterCountries($event,'country',countryOptions)" placeholder="Search" class="my-2 search-bar">
-                         
+                      <div class="row">
+                        <div class="col-11">
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>Select Country </mat-label>
+                            <mat-select formControlName="countryId" placeholder="Select Country" (selectionChange)="getState()">
+                              <div>
+                                <input type="text" matInput  (input)="filterCountries($event,'country',countryOptions)" placeholder="Search" class="my-2 search-bar">
+                             
+                              </div>
+                              <mat-option *ngFor="let option of filteredCountryOptions" [value]="option.id">{{ option.name }}</mat-option>
+                            </mat-select>
+                            <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="clearSelectField('countryId')"
+                              *ngIf="f['countryId']?.value"
+                            >
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                          </mat-form-field>
+                      
+                        </div>
+                        <div class="col-1">
+                          <mat-icon class="icon-clr" title="Add Country" (click)="openAddCountry()">add</mat-icon>
                           </div>
-                          <mat-option *ngFor="let option of filteredCountryOptions" [value]="option.id">{{ option.name }}</mat-option>
-                        </mat-select>
-                        <button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('countryId')"
-                          *ngIf="f['countryId']?.value"
-                        >
-                          <mat-icon>clear</mat-icon>
-                        </button>
-                      </mat-form-field>
-                  
-                      <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>State</mat-label>
-                        <mat-select formControlName="state" placeholder="Select State">
-                          <div>
-                            <input type="text" matInput  (input)="filterCountries($event,'state',stateOptions)" placeholder="Search" class="my-2 search-bar">
-                          </div>
-                          <mat-option *ngFor="let option of filteredStateOptions" [value]="option.id">{{ option.name }}</mat-option>
-                        </mat-select>
-                        <button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('state')"
-                          *ngIf="f['state']?.value"
-                          >
-                          <mat-icon>clear</mat-icon>
-                        </button>
-                      </mat-form-field>
-                      <mat-form-field class="mb-1" appearance="outline">
-                        <mat-label>City Name</mat-label>
-                        <mat-select formControlName="cityName" placeholder="Select City">
-                          <div>
-                            <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
-                          </div>
-                          <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>
-                        </mat-select>
-                        <button
-                          matSuffix
-                          mat-icon-button
-                          aria-label="Clear"
-                          (click)="clearSelectField('cityName')"
-                          *ngIf="f['cityName']?.value"
-                        >
-                          <mat-icon>clear</mat-icon>
-                        </button>
-                      </mat-form-field>
+                      </div>
                      
+                      <div class="row">
+                        <div class="col-11">
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity()">
+                              <div>
+                                <input type="text" matInput  (input)="filterCountries($event,'state',stateOptions)" placeholder="Search" class="my-2 search-bar">
+                              </div>
+                              <mat-option *ngFor="let option of filteredStateOptions" [value]="option.id">{{ option.name }}</mat-option>
+                            </mat-select>
+                            <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="clearSelectField('state')"
+                              *ngIf="f['state']?.value"
+                              >
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-1">
+                          <mat-icon class="icon-clr" title="Add State" (click)="openAddState()">add</mat-icon>
+                          </div>
+                      </div>
+                     
+                      <div class="row">
+                        <div class="col-11">
+                          <mat-form-field class="mb-1" appearance="outline">
+                            <mat-label>City Name</mat-label>
+                            <mat-select formControlName="cityName" placeholder="Select City">
+                              <div>
+                                <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
+                              </div>
+                              <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>
+                            </mat-select>
+                            <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="clearSelectField('cityName')"
+                              *ngIf="f['cityName']?.value"
+                            >
+                              <mat-icon>clear</mat-icon>
+                            </button>
+                          </mat-form-field>
+                         
+                        </div>
+                        <div class="col-1">
+                          <mat-icon class="icon-clr" title="Add City" (click)="openAddCity()">add</mat-icon>
+                          </div>
+                      </div>
+                      
                       
                       <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Zone</mat-label>

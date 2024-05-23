@@ -7,7 +7,10 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { AddCityComponent } from 'src/app/view/advance-settings/setup-dropdown-values/city/add-city/add-city.component';
+import { AddCountryComponent } from 'src/app/view/advance-settings/setup-dropdown-values/country-id/add-country/add-country.component';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
+import { AddStateComponent } from 'src/app/view/advance-settings/setup-dropdown-values/state/add-state/add-state.component';
 import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
 
@@ -60,17 +63,15 @@ export class AddNewLeadComponent implements OnInit {
     ) { 
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase()
+      this.initForm()
       this.dropDownValues()
       this.min = new Date('1900-01-01');
       this.counsellor_ids=localStorage.getItem('counsellor_ids')
     }
 
   ngOnInit(): void {
-    this.initForm()
     this.max = new Date()
-    // this.addLeadForm.get('countryId')?.valueChanges.subscribe(value => {
-    //   this.selectedCountry = this.countryOptions.find((option:any) => option.id === value);
-    // });
+   
   }
   initForm(){
       this.addLeadForm = this.fb.group({
@@ -129,10 +130,10 @@ export class AddNewLeadComponent implements OnInit {
   }
   dropDownValues(){
     this.getCountry();
-    this.getState();
+    // this.getState();
     this.getChannel();
     this.getSource();
-    this.getCity();
+    // this.getCity();
     this.getCounselor();
     this.getStatus();
     this.getCourse();
@@ -153,7 +154,21 @@ export class AddNewLeadComponent implements OnInit {
     })
   }
   getCity(){
-    this.api.getAllCity().subscribe((res:any)=>{
+    let selectedStateName:any;
+    if(this.addLeadForm?.value.state && this.stateOptions.length >0){
+    this.stateOptions.forEach((f:any)=>{
+      if(f.id == this.addLeadForm?.value.state){
+        selectedStateName = f.name
+      }
+      
+    })
+      
+    }
+    
+    let state = selectedStateName
+      let params = `?state_name=${state}`
+   
+    this.api.getAllCity(params).subscribe((res:any)=>{
       if(res.results){
         this.cityOptions = res.results;
         this.filteredCityOptions = this.cityOptions
@@ -167,7 +182,21 @@ export class AddNewLeadComponent implements OnInit {
       })
   }
   getState(){
-    this.api.getAllState().subscribe((res:any)=>{
+    let selectedCountryName:any;
+    if(this.addLeadForm?.value.countryId && this.countryOptions.length >0){
+     this.countryOptions.forEach((f:any)=>{
+      if(f.id == this.addLeadForm?.value.countryId){
+        selectedCountryName = f.name
+      }
+      
+    })
+      
+    }
+    
+    let country = selectedCountryName
+      let params = `?country_name=${country}`
+   
+    this.api.getAllState(params).subscribe((res:any)=>{
       if(res.results){
         this.stateOptions = res.results
         this.filteredStateOptions =  this.stateOptions
@@ -451,6 +480,36 @@ export class AddNewLeadComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result:any) => {
       //console.log('The dialog was closed');
       this.getStream()
+    }); 
+  }
+  openAddCountry(){
+    const dialogRef = this.dialog.open(AddCountryComponent, {
+      width:'35%'
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+      this.getCountry()
+    }); 
+  }
+  openAddCity(){
+    const dialogRef = this.dialog.open(AddCityComponent, {
+      width:'35%'
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+      this.getCity()
+    }); 
+  }
+  openAddState(){
+    const dialogRef = this.dialog.open(AddStateComponent, {
+      width:'35%'
+    });
+
+    dialogRef.afterClosed().subscribe((result:any) => {
+      //console.log('The dialog was closed');
+      this.getState()
     }); 
   }
   }
