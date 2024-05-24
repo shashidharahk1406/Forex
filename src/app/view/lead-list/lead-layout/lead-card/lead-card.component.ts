@@ -81,19 +81,7 @@ export class LeadCardComponent implements OnInit {
   onChangeSorting(event:any){
     this.sorting = true
      this.sortingType = event.target.innerText
-     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=allocation`
-     if (['counsellor','counselor'].includes(this.user_role) === true) {
-      this.query += `&counsellor_id=${this.user_id}`;
-    } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     if(this.assigned_counsellor_ids){
-        this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
-    }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids){
-        this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
-      
-    }
+    
     //  this.query = (this.user_role === 'counsellor')
     //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
     //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
@@ -102,7 +90,8 @@ export class LeadCardComponent implements OnInit {
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
-            this.query = `${res}&filter_by=${this.sortingType}&user_type=allocation`
+            this.query = `${res}&filter_by=${this.sortingType}`
+            alert(this.query)
             if (['counsellor','counselor'].includes(this.user_role) === true) {
               this.query += `&counsellor_id=${this.user_id}`;
             } else if (['superadmin','super admin'].includes(this.user_role) === true) {
@@ -113,15 +102,38 @@ export class LeadCardComponent implements OnInit {
              if(this.assigned_counsellor_ids){
                 this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
               }else{
-                this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
+                this.query += `&admin_id=${this.user_id}`;
               }
               
             }
           }
         });
+        this._baseService.getData(`${this.query}`).subscribe((res: any) => {
+          if (res.results.data) {
+            this.leadCards = res.results.data;
+            this.leadAllIds = res.results.lead_ids
+            this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+            this.totalNumberOfRecords = res.total_no_of_record
+          }
+        }, (error: any) => {
+          this.api.showError(this.api.toTitleCase(error.error.message));
+        });
 
-      }
-      this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
+      }else{
+        this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=allocation`
+        if (['counsellor','counselor'].includes(this.user_role) === true) {
+         this.query += `&counsellor_id=${this.user_id}`;
+       } else if (['superadmin','super admin'].includes(this.user_role) === true) {
+        if(this.assigned_counsellor_ids){
+           this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
+         }
+       }else if (['admin'].includes(this.user_role) === true){
+        if(this.assigned_counsellor_ids){
+           this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
+         }
+         
+       }
+       this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results.data) {
           this.leadCards = res.results.data;
           this.leadAllIds = res.results.lead_ids
@@ -131,6 +143,8 @@ export class LeadCardComponent implements OnInit {
       }, (error: any) => {
         this.api.showError(this.api.toTitleCase(error.error.message));
       });
+      }
+     
   }
   uploadLeads(): void{
     
@@ -216,12 +230,13 @@ export class LeadCardComponent implements OnInit {
           });
         }
       }
-  
+      this.leadCards = []
+      this.allLeadCardsDataSource = []
+      this.totalNumberOfRecords = ''
+   if(!this.allLeadCardsDataSource.length)
     this._baseService.getData(`${query}`).subscribe((res: any) => {
       if (res.results.data) {
-        this.leadCards = []
-        this.allLeadCardsDataSource = []
-        this.totalNumberOfRecords = ''
+        
         this.leadCards = res.results.data;
         this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
@@ -279,11 +294,13 @@ export class LeadCardComponent implements OnInit {
           });
         }
       }
-    this._baseService.getData(`${query}`).subscribe((res: any) => {
-      if (res.results.data) {
-        this.leadCards = []
+      this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
+      if(!this.allLeadCardsDataSource.length){
+    this._baseService.getData(`${query}`).subscribe((res: any) => {
+      if (res.results.data) {
+        
         this.leadCards = res.results.data;
         this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
@@ -292,6 +309,7 @@ export class LeadCardComponent implements OnInit {
     }, (error: any) => {
        this.api.showError(this.api.toTitleCase(error.error.message));
     });
+  }
   }
   }
   getStatus(){
@@ -304,18 +322,23 @@ export class LeadCardComponent implements OnInit {
     })
    }
    filterLeads(apiUrl:any){
-    this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
+    this.leadCards = []
+    this.totalNumberOfRecords = 0
+    this.allLeadCardsDataSource = []
+    if(!this.allLeadCardsDataSource.length){
+      this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
         if(res.results.data){
         this.leadFilter = true
         this.leadCards = res.results.data;
         this.leadAllIds = res.results.lead_ids
         this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-        
         this.totalNumberOfRecords = res.total_no_of_record
       }
     },((error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
     }));
+    }
+   
  
    }
    getLeadData(tabLabel: any,filter?:any) {
@@ -341,7 +364,10 @@ export class LeadCardComponent implements OnInit {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
       apiUrl += `&status=${tabId.id}`;
     }
-   
+    this.allLeadCardsDataSource = []
+    this.leadCards = []
+    this.totalNumberOfRecords = 0
+   if(!this.allLeadCardsDataSource.length){
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
         if (res.results.data) {
@@ -362,6 +388,7 @@ export class LeadCardComponent implements OnInit {
         this.api.showError(this.api.toTitleCase(error.error.message));
       }
     );
+  }
   }
  
   onPageChange(event: any, dataSource: MatTableDataSource<any>, type?: any) {
@@ -466,27 +493,7 @@ export class LeadCardComponent implements OnInit {
    }
    
    }
-  //  getLeadIds(){
-  //   if(this.user_role !== 'counsellor'){
-  //     this._baseService.getData(environment.lead_ids).subscribe((res:any)=>{
-  //       if(res){
-  //         this.leadAllIds = res.lead_ids
-  //       }
-  //     },((error:any)=>{
-  //       this.api.showError(error.error.error.message)
-  //     }))
-  //   }else{
-  //     this._baseService.getData(`${environment.lead_ids}?counsellor_id=${this.user_id}`).subscribe((res:any)=>{
-  //       if(res){
-  //         this.leadAllIds = res.lead_ids
-  //       }
-  //     },((error:any)=>{
-  //       this.api.showError(error.error.error.message)
-  //     }))
-  //   }
-   
-  //   return this.leadAllIds
-  //   }
+  
   reLoad(event:any){
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
@@ -494,7 +501,6 @@ export class LeadCardComponent implements OnInit {
     this._addLeadEmitter.selectedFilter.next('')
     this.getStatus()
     this.getLeadData('tabLabel')
-    // this.getLeadIds()
     this._addLeadEmitter.leadRefresh.next(true)
   }
 }
