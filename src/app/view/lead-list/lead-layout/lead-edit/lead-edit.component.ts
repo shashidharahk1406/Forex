@@ -59,7 +59,6 @@ export class LeadEditComponent implements OnInit {
   filteredCityOptions: any = [];
   filteredStateOptions: any = [];
   lead: any = [];
-  addthis: any;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService: CommonServiceService,
@@ -616,8 +615,8 @@ export class LeadEditComponent implements OnInit {
         .updateData(`${environment.lead_list}${this.data.user_data.id}/`, data)
         .subscribe(
           (res: any) => {
-            if (res) {
-              this.addthis.lead.emit('ADD');
+           if (res) {
+            this.addLead.emit('ADD')
               this.api.showSuccess(res.message);
               this._bottomSheetRef.dismiss('yes');
               this._addLeadEmitter.triggerGet();

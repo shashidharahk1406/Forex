@@ -69,14 +69,8 @@ queryItems: any;
     return this.filterLead.controls;
   }
   dropdownvalues(){
-    this.getChannel()
-    this.getSource()
-    this.getCity()
     this.getCounselor()
-    this.getChannel()
-    this.getCourse()
-    this.getCounselledBy()
-    this.getStream()
+    this.getCounselledBy()  
   }
   getChannel(){
     this.api.getAllChannel().subscribe((resp:any)=>{
