@@ -33,3 +33,9 @@ mat-list-item:hover{
 }
 
 
+.dropdown-menu.show{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(5%, 0px) !important;
+}
