@@ -52,7 +52,7 @@ export class CustomerNoteComponent implements OnInit {
     this._baseService.postData(environment.lead_note,obj).subscribe((res:any)=>{
       if(res){
         this.api.showSuccess(res.message)
-        this.addEmit.triggerGet()
+        this.addEmit.customerFiltertriggerGet()
         this.dialogRef.close()
       }
     },((error:any)=>{

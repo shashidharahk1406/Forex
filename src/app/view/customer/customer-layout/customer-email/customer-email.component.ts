@@ -1,6 +1,6 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
@@ -17,13 +17,15 @@ export class CustomerEmailComponent implements OnInit {
   emailForm!: FormGroup;
   templateList: any;
   basicTemplate: any;
+  @Output()refresh = new EventEmitter()
   
-  constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
+  constructor(private _bottomSheetRef: MatBottomSheetRef<CustomerEmailComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
     private fb: FormBuilder,
     private api:ApiService,
     private _baseService:BaseServiceService,
-    private addEmit:AddLeadEmitterService) {
+    private addEmit:AddLeadEmitterService,
+    private bottomSheet:MatBottomSheet) {
 
      // console.log(data,"data lead email")
     }
@@ -76,7 +78,7 @@ export class CustomerEmailComponent implements OnInit {
         }else{
            emailFormVal ={
             all_users: false,
-            lead_list_ids: [this.data.selectedData.user_data.id], 
+            lead_list_ids: [this.data?.selectedData?.user_data?.id], 
             subject: fd.subject,
             message: fd.followupComment,
             template_id: fd.emailTemplate,
@@ -88,9 +90,11 @@ export class CustomerEmailComponent implements OnInit {
       
       this._baseService.postData(environment.lead_email,emailFormVal).subscribe((res:any)=>{
         if(res){
-          this._bottomSheetRef.dismiss()
+         
           this.api.showSuccess(res.message)
-          this.addEmit.triggerGet()
+          this._bottomSheetRef.dismiss(true)
+          this.refresh.emit('event')
+          this.addEmit.customerFiltertriggerGet()
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))

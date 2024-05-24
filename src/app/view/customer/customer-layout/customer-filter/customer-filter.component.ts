@@ -142,7 +142,9 @@ export class CustomerFilterComponent implements OnInit {
       )
     }
     getCounselledBy(){
-      this._baseService.getData(`${environment._user}/?role_name=Admin`).subscribe((res:any)=>{
+
+      let query = `?role_name=superadmin`
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res){
         this.counselled_by = res.results
         }
@@ -211,7 +213,7 @@ export class CustomerFilterComponent implements OnInit {
        
       
        if(this.role==='Admin'){
-         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&user_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
        }
       else if(this.role==='counsellor'){
         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&counsellor_id=${this.user_id}`;

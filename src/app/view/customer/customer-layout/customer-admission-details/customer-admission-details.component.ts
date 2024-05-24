@@ -102,7 +102,7 @@ export class CustomerAdmissionDetailsComponent implements OnInit {
         if(resp){
           this.api.showSuccess(resp.message)
           sessionStorage.setItem('admissionDetails','done')
-          this.emit.triggerGet();
+          this.emit.customerFiltertriggerGet();
           this.dialogRef.close()
         }
       },(error:any)=>{

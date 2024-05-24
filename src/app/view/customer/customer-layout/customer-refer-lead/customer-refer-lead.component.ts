@@ -20,6 +20,7 @@ export class CustomerReferLeadComponent implements OnInit {
   currentCounsellor: any;
   previousValues: any = [];
   user_id: any;
+  user_role:any;
   counsellorLastname: any;
   constructor(
     public dialogRef: MatDialogRef<CustomerReferLeadComponent>,
@@ -29,6 +30,7 @@ export class CustomerReferLeadComponent implements OnInit {
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService) {
       this.user_id = localStorage.getItem('user_id')
+      this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.initForm()
      
      }
@@ -52,7 +54,20 @@ export class CustomerReferLeadComponent implements OnInit {
     }
     
     getCounselor(){
-      this._baseService.getData(`${environment._user}?role_name=counsellor`).subscribe((res:any)=>{
+
+      let query = ""
+      const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+        const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+        const adminRoles = ['ADMIN'];
+      
+        if (counsellorRoles.includes(this.user_role)) {
+         query = `?user_id=${this.user_id}`
+        } else if (superAdminRoles.includes(this.user_role)) {
+          query = ``
+        } else if (adminRoles.includes(this.user_role)) {
+          query = `?user_id=${this.user_id}`
+        } 
+      this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
         if(res.results){
           let selectedObject = res.results.find((obj: any) => obj.id === this.previousValues?.counsellor);
           this.currentCounsellor = selectedObject?.first_name 
@@ -94,8 +109,8 @@ export class CustomerReferLeadComponent implements OnInit {
        this._baseService.postData(`${environment.lead_refer}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          this._addLeadEmitter.triggerGet();
-          this.dialogRef.close()
+          this._addLeadEmitter.customerFiltertriggerGet();
+          this.dialogRef.close(true)
         }
        },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))

@@ -50,3 +50,10 @@ textarea{
 .card{
    font-size: 13px !important;
 }
+
+.dropdown-menu.show{
+   position: absolute;
+   inset: 0px auto auto 0px;
+   margin: 0px;
+   transform: translate(-50%, 0px) !important;
+}
