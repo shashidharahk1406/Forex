@@ -23,7 +23,7 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 })
 export class LeadToolbarComponent implements OnInit {
  @Input()selectedLeads:any = [];
- @Input()checkAll:any;
+ @Input() checkAll:any;
  @Input()totalCount:any;
  @Output()selectedSort = new EventEmitter()
  @Output()selectedSearch = new EventEmitter()

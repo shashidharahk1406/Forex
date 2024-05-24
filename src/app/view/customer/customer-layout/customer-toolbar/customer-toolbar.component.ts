@@ -87,6 +87,10 @@ export class CustomerToolbarComponent implements OnInit {
      })
    }
    addCount(){
+    console.log(this.checkAll,"check all in customer");
+    console.log(this.data,"data in customer");
+    
+    
      if(this.checkAll){
        this.data = 'All'
        }else{
