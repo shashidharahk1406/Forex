@@ -91,7 +91,6 @@ export class LeadCardComponent implements OnInit {
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
             this.query = `${res}&filter_by=${this.sortingType}`
-            alert(this.query)
             if (['counsellor','counselor'].includes(this.user_role) === true) {
               this.query += `&counsellor_id=${this.user_id}`;
             } else if (['superadmin','super admin'].includes(this.user_role) === true) {
