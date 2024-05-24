@@ -104,6 +104,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   isSelectedcheckBox!: boolean;
   minDate!: Date;
   counsellors_ids:any;
+  data2!:any;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -574,6 +575,11 @@ this.gettingUrl();
   }
 
   addCount() {
+  
+    console.log(this.data,"data in add count");
+    console.log(this.checkAll,"checkall");
+  
+    console.log(this.selectedCheckboxIds.length,"checkall");
     if (this.checkAll) {
       this.data = 'All';
     } else {
@@ -582,7 +588,7 @@ this.gettingUrl();
     }
   }
 
-  openVideoCall(data: any) {
+  openVideoCall(data:any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Video Call Link To ${this.data} Leads `;
@@ -859,7 +865,7 @@ this.gettingUrl();
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount){
+          if(this.selectedCheckboxIds.length===this.totalCount&&this.totalCount>0){
             this.checkAll = true;
           }
 
@@ -918,7 +924,7 @@ this.gettingUrl();
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount){
+          if(this.selectedCheckboxIds.length===this.totalCount &&this.totalCount>0){
             this.checkAll = true;
           }
           this.loading=false
@@ -1285,40 +1291,40 @@ this.isSearched=true
   //   );
   // }
 
-  upcomingselectedIds: any = [];
-  doneSelectedIds: any = [];
-  missedSelectedIds: any = [];
-  selectAll1(event: any, data: any) {
-    // //console.log(data,"EVENT data")
-    this.checkAll = !this.checkAll;
-    if (event.checked == true) {
-      if (this.selectedTab === 'All') {
-        //console.log(this.selectedTab, 'this.selectedTab');
-      }
+  // upcomingselectedIds: any = [];
+  // doneSelectedIds: any = [];
+  // missedSelectedIds: any = [];
+  // selectAll1(event: any, data: any) {
+  //   // //console.log(data,"EVENT data")
+  //   this.checkAll = !this.checkAll;
+  //   if (event.checked == true) {
+  //     if (this.selectedTab === 'All') {
+  //       //console.log(this.selectedTab, 'this.selectedTab');
+  //     }
 
-      this.renderingData.forEach((element: any, index: any) => {
-        if (element) {
-          element.checked = true;
+  //     this.renderingData.forEach((element: any, index: any) => {
+  //       if (element) {
+  //         element.checked = true;
 
-          this.selectedCheckboxIds = this.followupIds;
-        }
-      });
-      // //console.log(this.selectedCheckboxIds, 'allleaids');
+  //         this.selectedCheckboxIds = this.followupIds;
+  //       }
+  //     });
+  //     // //console.log(this.selectedCheckboxIds, 'allleaids');
 
-      // //console.log(this.selectedCheckboxIds, 'LEADIDS');
-      this.checkBoxData();
-    } else {
-      this.renderingData.forEach((element: any) => {
-        if (element) {
-          element.checked = false;
+  //     // //console.log(this.selectedCheckboxIds, 'LEADIDS');
+  //     this.checkBoxData();
+  //   } else {
+  //     this.renderingData.forEach((element: any) => {
+  //       if (element) {
+  //         element.checked = false;
 
-          if (element.checked == false) {
-            this.selectedCheckboxIds = [];
-          }
-        }
-      });
-    }
-  }
+  //         if (element.checked == false) {
+  //           this.selectedCheckboxIds = [];
+  //         }
+  //       }
+  //     });
+  //   }
+  // }
   onPageChangeNew(event: any) {
     // this.isSelectedcheckBox=JSON.parse(localStorage.getItem("allSelectedCheckBoxes" ))
 
