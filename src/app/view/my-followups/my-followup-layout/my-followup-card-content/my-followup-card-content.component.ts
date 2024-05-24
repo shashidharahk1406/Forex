@@ -881,7 +881,7 @@ this.gettingUrl();
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
-      this.updateAPIURL += `&user_id=${this.user_id}&counsellor_ids=${this.counsellors_ids}`;
+      this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
