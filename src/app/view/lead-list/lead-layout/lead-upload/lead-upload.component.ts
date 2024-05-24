@@ -122,6 +122,7 @@ export class LeadUploadComponent implements OnInit {
           if (this.file) {
             this.formData.set('sample_file',this.file);
             this.formData.set('counsellor_ids',JSON.stringify(selected_counsellor_id))
+            this.formData.set('created_by',this.user_id);
             
               this._baseService.postFile(`${environment.lead_upload}`,this.formData).subscribe((res:any)=>{
                 if(res){

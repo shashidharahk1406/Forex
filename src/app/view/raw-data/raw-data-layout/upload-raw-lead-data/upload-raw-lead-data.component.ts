@@ -47,6 +47,7 @@ export class UploadRawLeadDataComponent implements OnInit {
   file!:File;
   formData:any;
   inputEl: any;
+  user_id: string | null;
   
 
   constructor(private _bottomSheetRef: MatBottomSheetRef<any>,
@@ -55,6 +56,7 @@ export class UploadRawLeadDataComponent implements OnInit {
     private api:ApiService,
     private _baseService:BaseServiceService,
    ){
+    this.user_id = localStorage.getItem('user_id')
     this.dropDownValues()
    }
 
@@ -230,6 +232,8 @@ export class UploadRawLeadDataComponent implements OnInit {
         }else{
           if (this.file) {
             this.formData.set('sample_file',this.file);
+            this.formData.set('created_by',this.user_id);
+            this.formData.set('refered_to_ids', [Number(f.referedTo)]);
             // this.formData.set('name',this.file.name);
              // Append other fields to the formData
               this.formData.set('channel_id', f.channel);
@@ -237,7 +241,7 @@ export class UploadRawLeadDataComponent implements OnInit {
               this.formData.set('priority_id', f.priority);
               this.formData.set('status_id', f.status);
               this.formData.set('lead_owner', f.leadOwner);
-              this.formData.set('refered_to_ids', [Number(f.referedTo)]);
+             
               this.formData.set('departent_id', f.department);
               this.formData.set('course_id', f.course);
               this.formData.set('country_id', f.country);
