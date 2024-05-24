@@ -124,5 +124,5 @@ export const environment = {
   studying_stream:`https://admin.firstclassmentor.com/api/studying-stream/`,
   reports:`https://admin.firstclassmentor.com/api/get-reports/`,
   counsellor_list_report:`https://admin.firstclassmentor.com/api/get-counsellor-for-report/`,
-  lead_bulk_delete:`https://admin.firstclassmentor.com.thestorywallcafe.com/api/bulk-delete/`
+  lead_bulk_delete:`https://admin.firstclassmentor.com/api/bulk-delete/`
 };
