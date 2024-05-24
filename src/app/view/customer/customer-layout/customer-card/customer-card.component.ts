@@ -691,7 +691,7 @@ export class CustomerCardComponent implements OnInit {
         if (res.results) {
           this.leadCards = res.results.data;
           this.leadAllIds = res.results.lead_ids;
-          console.log(this.leadAllIds,"this.leadAllIds");
+          //console.log(this.leadAllIds,"this.leadAllIds");
           
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;

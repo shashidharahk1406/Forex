@@ -235,7 +235,7 @@ event.preventDefault()
     return this.followupForm.controls;
   }
   clearSelectField(fieldName: any) {
-    console.log(fieldName,"field name")
+    //console.log(fieldName,"field name")
     this.followupForm.get(fieldName)?.reset();
   }
 

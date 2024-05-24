@@ -211,12 +211,12 @@ if(this.role!=='counsellor'){
 
       this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,counsellor_id).subscribe((resp:any)=>{
        
-        console.log(resp,"search results");
+       // console.log(resp,"search results");
         
         this.allUser= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength=resp.total_no_of_record
-        console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+       // console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
         
       this.dataSource.sort = this.sort;
       this.loading=false
@@ -243,12 +243,12 @@ if(this.role!=='counsellor'){
   
         this.api.getUserSearch(this.searchValue,this.pageSize,this.currentPage=1,this.params).subscribe((resp:any)=>{
          
-          console.log(resp,"search results");
+         // console.log(resp,"search results");
           
           this.allUser= resp.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
           this.totalPageLength=resp.total_no_of_record
-          console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
+          //console.log(resp.total_no_of_record,"resp.total_no_of_record in search");
           
         this.dataSource.sort = this.sort;
         this.loading=false

@@ -576,10 +576,10 @@ this.gettingUrl();
 
   addCount() {
   
-    console.log(this.data,"data in add count");
-    console.log(this.checkAll,"checkall");
+    // console.log(this.data,"data in add count");
+    // console.log(this.checkAll,"checkall");
   
-    console.log(this.selectedCheckboxIds.length,"checkall");
+    // console.log(this.selectedCheckboxIds.length,"checkall");
     if (this.checkAll) {
       this.data = 'All';
     } else {

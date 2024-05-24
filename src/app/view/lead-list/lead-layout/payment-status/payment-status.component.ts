@@ -181,7 +181,7 @@ export class PaymentStatusComponent implements OnInit {
    
   }
   onChangeStep(event:any){
-    console.log(event,'selectionChange')
+    //console.log(event,'selectionChange')
     if(event.selectedIndex == 2 ){
       this.selectedTab = true
     }else{
