@@ -78,6 +78,6 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator  *ngIf="dataSource.data.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" pagearia-label="Select page of users"></mat-paginator>
 
    

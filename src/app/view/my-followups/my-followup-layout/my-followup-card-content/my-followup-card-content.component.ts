@@ -1000,7 +1000,7 @@ this.gettingUrl();
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount){
+          if(this.selectedCheckboxIds.length===this.totalCount &&this.totalCount>0){
             this.checkAll = true;
           }
           this.loading=false
