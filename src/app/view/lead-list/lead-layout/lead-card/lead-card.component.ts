@@ -152,6 +152,7 @@ export class LeadCardComponent implements OnInit {
       // this.getLeadIds()
       this.getStatus()
       this._addLeadEmitter.triggerGet$.subscribe(() => {
+        this.searchTerm=''
         // this.getLeadIds()
         this.getLeadData('tabLabel')
         this._addLeadEmitter.goBack.next(true)

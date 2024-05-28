@@ -252,7 +252,7 @@ this.gettingUrl();
 
     // this.getFollowupIds();
 
-   
+    
   
    
   }
@@ -892,7 +892,16 @@ this.gettingUrl();
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
-      
+      if(this.role==='Admin'&&this.filtered==true)
+      this.dataService.followUpdataSubject.subscribe((res:any)=>{
+        if(res){
+          this.updateAPIURL=null
+          // this.updateAPIURL+=this.updateAPIURLOnlyForFilter;
+          this.updateAPIURL=this.dataService.getFollowupfilterURL()
+          console.log( this.updateAPIURL," this.updateAPIURL filetred");
+          
+        }
+      })
 
       this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
 
