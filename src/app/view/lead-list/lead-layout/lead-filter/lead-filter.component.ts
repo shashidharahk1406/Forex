@@ -188,7 +188,9 @@ queryItems: any;
     } else{
    
      const formValues = this.filterLead.value;
-     //console.log(formValues,"formValues")
+    
+     
+    //  console.log(formValues,"formValues")
      // Create an array of query parameters with non-empty values
      const queryParams = [];
      for (const key in formValues) {
@@ -212,7 +214,7 @@ queryItems: any;
     //  let apiUrl = `${environment.lead_list}?page=1&page_size=10&allocation_type=allocation`;
     
     if(this.user_role==='Admin'||this.user_role==='ADMIN'){
-      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation`;
     }
    else if(this.user_role==='COUNSELLOR'||this.user_role==='counsellor'){
      this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=allocation&counsellor_id=${this.user_id}`;

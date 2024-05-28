@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
 import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
@@ -51,7 +52,8 @@ export class CustomerEditComponent implements OnInit {
     private _baseService:BaseServiceService,
     private _datePipe:DatePipe,
     private _addLeadEmitter:AddLeadEmitterService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private dataService:DataService
     ) { 
       this.dropDownValues()
       this.user_id = localStorage.getItem('user_id')
@@ -303,7 +305,9 @@ export class CustomerEditComponent implements OnInit {
    
   }
   getCounselledBy(){
-    this._baseService.getData(`${environment._user}?role_name=Admin`).subscribe((res:any)=>{
+
+    let query = `?role_name=superadmin`
+    this._baseService.getData(`${environment._user}${query}`).subscribe((res:any)=>{
       if(res.results){
       this.adminList = res.results
       }
@@ -428,6 +432,8 @@ if (this.editLeadForm.invalid) {
         this.api.showSuccess(res.message)
         this._bottomSheetRef.dismiss('yes');
         this._addLeadEmitter.customerFiltertriggerGet();
+        this.dataService.dataSubject.next(true)
+       
       }
     },((error:any)=>{
       this.api.showError(error?.error.message)

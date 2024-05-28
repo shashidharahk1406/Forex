@@ -35,6 +35,10 @@ export class DataService {
  dataSubject = new BehaviorSubject<any>(false);
   public data$ = this.dataSubject.asObservable();
 
+
+ followUpdataSubject = new BehaviorSubject<any>(false);
+ public data1$ = this.followUpdataSubject.asObservable();
+
  
   constructor() {}
   private sharedData: any;

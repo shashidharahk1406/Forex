@@ -183,7 +183,7 @@ export class CustomerFilterComponent implements OnInit {
         this.filterLead.reset()
         this._addLeadEmitter.customerFilter.next('') 
         this._addLeadEmitter.selectedCustomerFilter.next('')
-        this._addLeadEmitter.customerFilterIcon.next('false')
+        this._addLeadEmitter.customerFilterIcon.next(false)
      
   
       } else{
@@ -213,7 +213,7 @@ export class CustomerFilterComponent implements OnInit {
        
       
        if(this.role==='Admin'){
-         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers`;
        }
       else if(this.role==='counsellor'){
         this.apiUrl = `${environment.lead_list}?page=1&page_size=10&user_type=customers&counsellor_id=${this.user_id}`;
@@ -235,7 +235,7 @@ export class CustomerFilterComponent implements OnInit {
       this._addLeadEmitter.customerFilter.next(this.apiUrl)
       this._addLeadEmitter.selectedCustomerFilter.next(this.filterLead.value)
        this._addLeadEmitter.customerfilterTriggerFilter() 
-       this._addLeadEmitter.customerFilterIcon.next('true')
+       this._addLeadEmitter.customerFilterIcon.next(true)
        // Make the API request with the constructed URL
       this.closePopup()
       }
@@ -246,7 +246,7 @@ export class CustomerFilterComponent implements OnInit {
      this.filterLead.reset()
      this._addLeadEmitter.customerFilter.next('') 
      this._addLeadEmitter.selectedCustomerFilter.next('')
-     this._addLeadEmitter.customerFilterIcon.next('false')
+     this._addLeadEmitter.customerFilterIcon.next(false)
      this._addLeadEmitter.customerFiltertriggerGet()
     }
     isFormEmpty(formValues: any): boolean {

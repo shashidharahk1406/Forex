@@ -15,6 +15,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { PaymentDetailsComponent } from '../payment-details/payment-details.component';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-lead-toolbar',
@@ -43,7 +44,8 @@ export class LeadToolbarComponent implements OnInit {
     private api:ApiService,
     private emit:EmitService,
     private addEventEmitter:AddLeadEmitterService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private dataService:DataService
     ) {
 
       this.user_role = localStorage.getItem('user_role')
@@ -75,6 +77,12 @@ export class LeadToolbarComponent implements OnInit {
         this.searchForm.patchValue({
           searchText:''
         })
+      }
+    })
+
+    this.dataService.dataSubject.subscribe((res:any)=>{
+      if(res){
+        this.filtered=false
       }
     })
   }

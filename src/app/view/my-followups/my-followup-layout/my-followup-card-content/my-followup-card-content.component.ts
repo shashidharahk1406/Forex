@@ -176,6 +176,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   searchForm!: FormGroup;
 
   updateAPIURL: any;
+  updateAPIURLOnlyForFilter: any;
   unsubscribe!:Subscription;
  previousSelectedTab:any; 
   ngOnInit(): void {
@@ -250,6 +251,8 @@ this.gettingUrl();
     
 
     // this.getFollowupIds();
+
+   
   
    
   }
@@ -550,6 +553,8 @@ this.gettingUrl();
     this.allPaginator.pageSize = 5;
     this.ngOnInit();
     this.selectedTab = 'All';
+    this.dataService.resetFilterForm()
+
   }
 
 
@@ -887,6 +892,8 @@ this.gettingUrl();
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
+      
+
       this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
@@ -1043,6 +1050,7 @@ this.selectedCheckboxIds=[]
         element['value']
       );
       this.updateAPIURL = value;
+      this.updateAPIURLOnlyForFilter=value;
     });
 
     // let value = this.filterFollowUp.updateUrlParameter(
