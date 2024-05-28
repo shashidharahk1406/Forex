@@ -44,12 +44,18 @@ export class DataService {
   private sharedData: any;
 
   url: any = `${this.api_url}/api/follow-up/?page=1&page_size=5`;
+  is_filtered = false;
   setFilteredFollowUpURL(url: string) {
     this.url = url;
+    this.is_filtered = true;
+    
   }
 
   getFollowupfilterURL() {
-    return this.url;
+    return {
+      'url': this.url,
+      'is_filtered':this.is_filtered
+    };
   }
 
   setSharedData(...args: any[]): void {

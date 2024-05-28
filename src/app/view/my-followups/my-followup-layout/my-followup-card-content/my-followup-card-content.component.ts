@@ -295,9 +295,9 @@ this.gettingUrl();
 
 
   gettingUrl(){
-    // console.log('Before =============>', this.updateAPIURL);
+    console.log('Before =============>', this.dataService.getFollowupfilterURL().url);
 
-    this.updateAPIURL = this.dataService.getFollowupfilterURL();
+    this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
 
     // console.log('updated url==>', this.updateAPIURL);
 
@@ -892,18 +892,23 @@ this.gettingUrl();
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
-      if(this.role==='Admin'&&this.filtered==true)
-      this.dataService.followUpdataSubject.subscribe((res:any)=>{
-        if(res){
-          this.updateAPIURL=null
-          // this.updateAPIURL+=this.updateAPIURLOnlyForFilter;
-          this.updateAPIURL=this.dataService.getFollowupfilterURL()
-          console.log( this.updateAPIURL," this.updateAPIURL filetred");
+      // if(this.role==='Admin'&&this.filtered==true)
+      // this.dataService.followUpdataSubject.subscribe((res:any)=>{
+      //   if(res){
+      //     this.updateAPIURL=''
+      //     // this.updateAPIURL+=this.updateAPIURLOnlyForFilter;
+      //     this.updateAPIURL=this.dataService.getFollowupfilterURL()
+      //     console.log( this.updateAPIURL," this.updateAPIURL filetred");
           
-        }
-      })
+      //   }
+      // })
 
-      this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
+      if(this.dataService.getFollowupfilterURL().is_filtered){
+
+      }else{
+        this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
+      }
+
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
@@ -1060,6 +1065,8 @@ this.selectedCheckboxIds=[]
       );
       this.updateAPIURL = value;
       this.updateAPIURLOnlyForFilter=value;
+     
+      
     });
 
     // let value = this.filterFollowUp.updateUrlParameter(
@@ -1070,8 +1077,12 @@ this.selectedCheckboxIds=[]
 
     // this.updateAPIURL = value;
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
+
+   
+    
     // this.APICAll();
     this.ngOnInit();
+    console.log("new==>", this.updateAPIURL);
   }
 
   selectDate(data: any) {

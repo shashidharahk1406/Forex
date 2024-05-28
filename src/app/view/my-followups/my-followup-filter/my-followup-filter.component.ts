@@ -70,7 +70,7 @@ export class MyFollowupFilterComponent implements OnInit {
   updateFilterByStatusURL: any = null;
 
   ngOnInit(): void {
-    this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL();
+    this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL().url;
 
     this.dropdownvalues();
   }
