@@ -43,6 +43,7 @@ export class StateListComponent implements  AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getState(); 
+          this.searchValue=''
         }
       }
     )
