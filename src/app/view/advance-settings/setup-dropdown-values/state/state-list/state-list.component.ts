@@ -62,7 +62,7 @@ export class StateListComponent implements  AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getStateSearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.api.getStateSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
         this.allState= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allState);
         this.totalPageLength=resp.total_no_of_record
