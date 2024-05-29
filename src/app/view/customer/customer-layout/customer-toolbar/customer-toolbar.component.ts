@@ -139,7 +139,7 @@ export class CustomerToolbarComponent implements OnInit {
      
    }
    openVideoCall(){
-    console.log(this.data,"data in video call");
+   // console.log(this.data,"data in video call");
     
      this.addCount()
      if(this.data !== 0||this.data==undefined){
