@@ -17,6 +17,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { AddCityComponent } from 'src/app/view/advance-settings/setup-dropdown-values/city/add-city/add-city.component';
 import { AddCountryComponent } from 'src/app/view/advance-settings/setup-dropdown-values/country-id/add-country/add-country.component';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
@@ -68,7 +69,8 @@ export class LeadEditComponent implements OnInit {
     private _baseService: BaseServiceService,
     private _datePipe: DatePipe,
     private _addLeadEmitter: AddLeadEmitterService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private dataService:DataService
   ) {
     this.user_id = localStorage.getItem('user_id');
     this.user_role = localStorage.getItem('user_role')?.toUpperCase();
@@ -620,6 +622,7 @@ export class LeadEditComponent implements OnInit {
               this.api.showSuccess(res.message);
               this._bottomSheetRef.dismiss('yes');
               this._addLeadEmitter.triggerGet();
+              this.dataService.dataSubject.next(true)
             }
           },
           (error) => {

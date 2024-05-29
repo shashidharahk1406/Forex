@@ -70,7 +70,7 @@ export class MyFollowupFilterComponent implements OnInit {
   updateFilterByStatusURL: any = null;
 
   ngOnInit(): void {
-    this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL();
+    this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL().url;
 
     this.dropdownvalues();
   }
@@ -315,7 +315,7 @@ isResetFilter:boolean=false
         key,
         value
       );
-      //console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
+      console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
       
 
       // let data = this.filterFollowUp.updateUrlParameter(this.updateFilterByStatusURL, key, value)
@@ -383,6 +383,7 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
+    this.dataService.followUpdataSubject.next(true)
     // this.dataService.dataSubject.next(false)
     // this.dataService.dataUpdated.emit(this.selectedtab);
     

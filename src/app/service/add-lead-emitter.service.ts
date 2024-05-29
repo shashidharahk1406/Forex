@@ -17,7 +17,7 @@ export class AddLeadEmitterService {
   selectedFilter = new BehaviorSubject('');
   leadRefresh = new BehaviorSubject(false)
   customerFilter = new BehaviorSubject('');
-  customerFilterIcon = new BehaviorSubject('');
+  customerFilterIcon = new BehaviorSubject(false);
   selectedCustomerFilter = new BehaviorSubject('');
   private CustomertriggerGetSource = new Subject<void>();
   customerTriggerGet$ = this.CustomertriggerGetSource.asObservable();

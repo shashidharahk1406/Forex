@@ -230,6 +230,7 @@ if(this.role!=='counsellor'){
     }
 
     else{
+      
       if(this.searchValue?.length>0){
         if(this.params==null||this.userId==null){
           
@@ -435,6 +436,8 @@ if(this.role!=='counsellor'){
 
   }
   pageChanged(event: PageEvent) {
+    console.log(event,"page event");
+    
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     
@@ -450,6 +453,7 @@ if(this.role!=='counsellor'){
             this.dataSource = new MatTableDataSource<any>(this.allUser);
             this.totalPageLength=resp.total_no_of_record
           this.dataSource.sort = this.sort;
+          this.loading=false
             
           },(error:any)=>{
 
@@ -480,6 +484,7 @@ if(this.role!=='counsellor'){
            // console.log("datasource", this.dataSource);
             this.totalPageLength=resp.total_no_of_record
           this.dataSource.sort = this.sort;
+          this.loading=false
           },(error:any)=>{
             this.api.showError(error.error.message)
             
@@ -499,6 +504,7 @@ if(this.role!=='counsellor'){
         //  console.log("datasource", this.dataSource);
           this.totalPageLength=resp.total_no_of_record
         this.dataSource.sort = this.sort;  
+        this.loading=false
         },(error:any)=>{
           this.api.showError(error.error.message)
           

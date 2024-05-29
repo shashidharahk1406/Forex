@@ -11,6 +11,7 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
 import { AddNewLeadComponent } from '../add-new-lead/add-new-lead.component';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDialog } from '@angular/material/dialog';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-lead-card',
@@ -49,7 +50,8 @@ export class LeadCardComponent implements OnInit {
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService,
     private emit:EmitService,
-    private dialog:MatDialog) {
+    private dialog:MatDialog,
+    private dataService:DataService) {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids')
@@ -163,6 +165,7 @@ export class LeadCardComponent implements OnInit {
       // this.getLeadIds()
       this.getStatus()
       this._addLeadEmitter.triggerGet$.subscribe(() => {
+        this.searchTerm=''
         // this.getLeadIds()
         this.getLeadData('tabLabel')
         this._addLeadEmitter.goBack.next(true)
@@ -177,6 +180,11 @@ export class LeadCardComponent implements OnInit {
         this.getLeadData('tabLabel')
       }
     });
+    this.dataService.dataSubject.subscribe((res:any)=>{
+      if(res){
+        this._addLeadEmitter.selectedFilter.next('')
+      }
+    })
    
   }
   
@@ -390,7 +398,10 @@ export class LeadCardComponent implements OnInit {
   }
   }
  
+
+  
   onPageChange(event: any, dataSource: MatTableDataSource<any>, type?: any) {
+    
     if (!event) {
       return;
     }
@@ -399,6 +410,7 @@ export class LeadCardComponent implements OnInit {
     this.pageSize = event.pageSize;
    
     let query: string;
+    
     query = `?page=${this.currentPage}&page_size=${event.pageSize}&user_type=allocation`;
 
     if (['counsellor','counselor'].includes(this.user_role) === true) {
@@ -415,6 +427,8 @@ export class LeadCardComponent implements OnInit {
       }
       
     }
+
+    
 
     
     if (type === 'All') {
@@ -465,6 +479,9 @@ export class LeadCardComponent implements OnInit {
         }
       }
     }
+
+    
+    
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {

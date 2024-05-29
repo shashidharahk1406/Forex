@@ -15,6 +15,7 @@ import { EmitService } from 'src/app/service/emit/emit.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/service/API/api.service';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-customer-toolbar',
@@ -45,6 +46,7 @@ export class CustomerToolbarComponent implements OnInit {
      private emit:EmitService,
      private addEventEmitter:AddLeadEmitterService,
      private fb:FormBuilder,
+     private dataService:DataService
 
    
      ) {
@@ -57,7 +59,7 @@ export class CustomerToolbarComponent implements OnInit {
      this.addEventEmitter.customerFilterIcon.subscribe(
        (resp:any)=>{
         //console.log(resp,"RESPONSE")
-        if(resp === 'true'){
+        if(resp){
          this.filtered= true
         }else{
          this.filtered= false
@@ -66,6 +68,11 @@ export class CustomerToolbarComponent implements OnInit {
        }
        
      )
+     this.dataService.dataSubject.subscribe((res:any)=>{
+      if(res){
+        this.filtered=false
+      }
+     })
      this.addEventEmitter.goBack.subscribe((resp:any)=>{
        if(resp === true){ 
          this.searchForm.patchValue({
@@ -87,8 +94,8 @@ export class CustomerToolbarComponent implements OnInit {
      })
    }
    addCount(){
-    console.log(this.checkAll,"check all in customer");
-    console.log(this.data,"data in customer");
+    // console.log(this.checkAll,"check all in customer");
+    // console.log(this.data,"data in customer");
     
     
      if(this.checkAll){
