@@ -754,6 +754,11 @@ export class CustomerCardComponent implements OnInit {
     this.getLeadData('tabLabel')
     // this.getLeadIds()
     this._addLeadEmitter.leadRefresh.next(true);
+
+    this.leadCards = [];
+    this.totalNumberOfRecords = [];
+    this.allLeadCardsDataSource = [];
+    // this.query=''
  
     
   }

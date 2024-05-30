@@ -70,7 +70,8 @@ export class FollowupPaymentDetailsComponent implements OnInit {
       this._baseService.postData(`${environment.leadPayment}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          this.closePopup()
+          // this.closePopup()
+          this.dialogRef.close(true)
           this.emitService.paymentLink()
         }
       },(error:any)=>{

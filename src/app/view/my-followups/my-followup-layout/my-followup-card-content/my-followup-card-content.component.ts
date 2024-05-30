@@ -791,6 +791,10 @@ this.gettingUrl();
       // this.refresh.emit('event')
       if(result){
         this.refreshFollowUps();
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.checkAll = false;
+        });
       }
      
     });
