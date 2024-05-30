@@ -38,10 +38,10 @@ export class ReportFormComponent implements OnInit {
     type:'Untouched Data Report',
     id:'untouched-report-report'
   },
-  // {
-  //   type:'Followups Report',
-  //   id:'follow-up-report'
-  // },
+  {
+    type:'Followups Report',
+    id:'follow-up-report'
+  },
   {
     type:'Lead Stage Report',
     id:'1'
