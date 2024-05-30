@@ -161,7 +161,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         // this.refreshFollowUps();
         this.filtered=data;
 
-        this.APICAll();
+        // this.APICAll();
       }
     });
   }
@@ -190,8 +190,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
    
   
    
-    this.dataService.dataUpdated.subscribe((res: any) => {
-      //console.log(res, 'filtered');
+    this.dataService.followUpdataSubject.subscribe((res: any) => {
+      console.log(res, 'dataUpdated');
       this.filtered = res;
     });
 
@@ -553,7 +553,8 @@ this.gettingUrl();
     this.allPaginator.pageSize = 5;
     this.ngOnInit();
     this.selectedTab = 'All';
-    this.dataService.resetFilterForm()
+    this.dataService.resetFilterForm();
+    this.dataService.followUpdataSubject.next(false)
 
   }
 
@@ -908,6 +909,7 @@ this.gettingUrl();
       // })
 
       if(this.dataService.getFollowupfilterURL().is_filtered){
+
 
       }else{
         this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
