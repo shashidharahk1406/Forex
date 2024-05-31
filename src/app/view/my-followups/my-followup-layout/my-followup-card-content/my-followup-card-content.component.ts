@@ -180,6 +180,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   unsubscribe!:Subscription;
  previousSelectedTab:any; 
   ngOnInit(): void {
+
+    
+   
     if(this.unsubscribe){
       this.unsubscribe.unsubscribe();
     }
