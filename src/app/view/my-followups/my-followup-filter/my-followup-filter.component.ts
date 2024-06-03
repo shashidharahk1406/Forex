@@ -280,6 +280,8 @@ isResetFilter:boolean=false
   filtered: boolean = false;
   filterFollowupValues: any;
   cName: any;
+  defaultPage:any =1;
+  defaultPageSize:any = 5;
   onSubmit() {
     // //console.log("updated url==>", this.updateFilterByStatusURL);
     // this.filterFollowupValues = this.filterLead.value;
@@ -322,12 +324,18 @@ isResetFilter:boolean=false
 
       // //console.log("data==>", data);
     });
-    this.dataService.setFilteredFormValues(this.filterLead.value);
 
+    this.dataService.setFilteredFormValues(this.filterLead.value);
+    const tempurl = new URL(this.updateFilterByStatusURL);
+    const page :any= "page";
+    const page_size:any = "page_size";
+    tempurl.searchParams.set(page,this.defaultPage);
+    tempurl.searchParams.set(page_size,this.defaultPageSize);
+    this.updateFilterByStatusURL = tempurl.toString().replace(/%26/g,"&");
     this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL);
     this.filtered = true;
 
-    // //console.log('==============>>', this.updateFilterByStatusURL);
+    console.log('==============>>', this.updateFilterByStatusURL);
 
     // this.updateFilterByStatusURL+='' 
     this.bottomsheet.dismiss('Submitted');

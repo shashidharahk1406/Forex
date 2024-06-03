@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { NgbCarousel, NgbCarouselModule, NgbSlideEvent, NgbSlideEventSource } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -25,13 +25,37 @@ export class ResetPasswordComponent implements OnInit {
     this.initForm()
   }
 
-  validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
+
+ strongPasswordValidator(): ValidatorFn {
+	return (control: AbstractControl): ValidationErrors | null => {
+	  const value = control.value;
+	  
+	  if (!value) {
+		return null;
+	  }
+  
+	  const hasUpperCase = /[A-Z]/.test(value);
+	  const hasLowerCase = /[a-z]/.test(value);
+	  const hasNumber = /\d/.test(value);
+	  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+	  const minLength = value.length >= 8;
+  
+	  const passwordValid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && minLength;
+  
+	  return !passwordValid ? { strongPassword: true } : null;
+	};
+  }
+
+//   validPattern="/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/"
+//   validPattern="('(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[`~!@#$%^&\\\\*\\\\(\\\\)\\\\-_=\\\\+\\\\{\\\\}\\\\[\\\\]|\\\\\\\\:;"\\'<>,\\\\.?\\\\/]).{8,}')
   initForm(){
     this.forgotForm = this._fb.group({
-      new_password:['',[Validators.required],Validators.pattern(this.validPattern)],
+      new_password:['',[Validators.required,this.strongPasswordValidator()]],
+
       confirm_password:['',[Validators.required]],
     })
   }
+
   get f() {
     return this.forgotForm.controls;
   }

@@ -720,6 +720,7 @@
                       </div>
                     </div>
                   </div>
+              
                 </div>
                 <!-- <div class="col ">
                 <div class="row text-start">
@@ -881,10 +882,11 @@
             </div> 
           </div>   -->
             </mat-card>
+         
           </ng-container>
         </mat-card>
       </div>
-      
+   
     </div>
 
     <mat-paginator *ngIf="!loading"
@@ -892,9 +894,12 @@
     [pageSizeOptions]="[5, 10, 25, 100]"
     aria-label="Select page"
     (page)="onPageChangeNew($event)"
+    [pageIndex]="currentPage"
     #allPaginator
   >
   </mat-paginator>
+
+ 
     
   </div>
 
@@ -911,6 +916,7 @@
     <div class="input-group z-s m-auto m-2" id="calender-col">
       <div class="col-12">
         <mat-card>
+       
           <input
             type="search"
             class="form-control icon-rtl"

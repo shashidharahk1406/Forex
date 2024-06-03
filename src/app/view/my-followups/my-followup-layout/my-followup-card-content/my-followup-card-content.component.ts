@@ -97,7 +97,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
-  currentPage: any;
+  currentPage: any=0;
   user_role: any;
   user_id: any;
   allSelectedCheckBoxes: boolean = false;
@@ -161,7 +161,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         // this.refreshFollowUps();
         this.filtered=data;
 
-        this.APICAll();
+        // this.APICAll();
       }
     });
   }
@@ -180,6 +180,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   unsubscribe!:Subscription;
  previousSelectedTab:any; 
   ngOnInit(): void {
+
+    
+   
     if(this.unsubscribe){
       this.unsubscribe.unsubscribe();
     }
@@ -190,8 +193,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
    
   
    
-    this.dataService.dataUpdated.subscribe((res: any) => {
-      //console.log(res, 'filtered');
+    this.dataService.followUpdataSubject.subscribe((res: any) => {
+      console.log(res, 'dataUpdated');
       this.filtered = res;
     });
 
@@ -279,6 +282,7 @@ this.gettingUrl();
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
+      this.currentPage=0
       //console.log(dataFromChild, 'dataFromChild');
       if (dataFromChild === 'Reset') {
         this.refreshFollowUps();
@@ -286,6 +290,7 @@ this.gettingUrl();
         dataFromChild === 'Submitted' ||
         dataFromChild === 'Close-ion-clicked'
       ) {
+        
         // this.ngOnInit();
         this.gettingUrl();
       }
@@ -553,7 +558,8 @@ this.gettingUrl();
     this.allPaginator.pageSize = 5;
     this.ngOnInit();
     this.selectedTab = 'All';
-    this.dataService.resetFilterForm()
+    this.dataService.resetFilterForm();
+    this.dataService.followUpdataSubject.next(false)
 
   }
 
@@ -909,6 +915,7 @@ this.gettingUrl();
 
       if(this.dataService.getFollowupfilterURL().is_filtered){
 
+
       }else{
         this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
       }
@@ -969,6 +976,7 @@ this.gettingUrl();
       this.renderingData = [];
       this.countDataValue = [];
       this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
+      this.allFollowUpDataSource=[]
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
@@ -1360,6 +1368,7 @@ this.isSearched=true
   onPageChangeNew(event: any) {
     // this.isSelectedcheckBox=JSON.parse(localStorage.getItem("allSelectedCheckBoxes" ))
 
+    this.currentPage=event.pageIndex
     event.pageIndex += 1;
     let pageDataKeyValue = [
       { key: 'page', value: event.pageIndex },
