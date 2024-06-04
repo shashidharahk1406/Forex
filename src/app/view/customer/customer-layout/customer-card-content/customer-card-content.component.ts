@@ -258,8 +258,7 @@ deleteBulk(){
       this._baseService.postData(`${environment.lead_bulk_delete}`,data).subscribe((res:any)=>{
         if(res){
          this.api.showSuccess(res.message)
-         this.emit.triggerGet()
-        }
+         this.emit.customerFiltertriggerGet();        }
       },((error:any)=>{
         this.api.showError(error.error.message)
       }))

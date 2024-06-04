@@ -79,7 +79,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   missedFolloUpData: any = [];
   doneFollowUpData: any = [];
 
-  totalNumberOfRecords: any=0;
+  totalNumberOfRecords: any = 0;
   searchTerm: string = '';
   followUpsDataTemp: any = [];
 
@@ -89,22 +89,22 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   totalCount: any;
   checkAll: boolean = false;
   role: any;
-  selectedTab: any ='All';  
+  selectedTab: any = 'All';
   query!: string;
   followUpsData2: any;
-  filtered:boolean = false;
+  filtered: boolean = false;
 
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
-  currentPage: any=0;
+  currentPage: any = 0;
   user_role: any;
   user_id: any;
   allSelectedCheckBoxes: boolean = false;
   isSelectedcheckBox!: boolean;
   minDate!: Date;
-  counsellors_ids:any;
-  data2!:any;
+  counsellors_ids: any;
+  data2!: any;
 
   constructor(
     private _bottomSheet: MatBottomSheet,
@@ -118,7 +118,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     private addEventEmitter: AddLeadEmitterService,
     private dataService: DataService,
     private fb: FormBuilder,
-    private router:Router
+    private router: Router
   ) {
     this.alwaysShowCalendars = true;
     this.minDate = new Date('1900-01-01');
@@ -127,39 +127,30 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.role = localStorage.getItem('user_role');
     this.user_id = localStorage.getItem('user_id');
     this.user_role = localStorage.getItem('user_role');
-    this.counsellors_ids=localStorage.getItem('counsellor_ids')
+    this.counsellors_ids = localStorage.getItem('counsellor_ids');
     // //console.log(this.role, 'roleeeeeeeeeeeeeee');
     // //console.log(data, 'data');
-   
 
     // if (window.performance) {
-      
+
     //   if (performance.navigation.type === 1) {
     //     // This means the page is being hard refreshed
     //     // this.localStorageService.clearLocalStorage();
     //     localStorage.removeItem('followUpFilter')
     //   }}
 
-
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
-       // //console.log('refresh the page after presssing ctrl shift r');
-        
-       
+        // //console.log('refresh the page after presssing ctrl shift r');
       }
-     
-  });
-
-    
-    
-  
+    });
 
     this.dataService.data$.subscribe((data) => {
       if (data != null) {
         // //console.log(data);
         // this.refreshFollowUps();
-        this.filtered=data;
+        this.filtered = data;
 
         // this.APICAll();
       }
@@ -177,66 +168,64 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
   updateAPIURL: any;
   updateAPIURLOnlyForFilter: any;
-  unsubscribe!:Subscription;
- previousSelectedTab:any; 
+  unsubscribe!: Subscription;
+  previousSelectedTab: any;
   ngOnInit(): void {
+    this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
+      if (res) {
+        window.location.reload();
+      }
+    });
 
-    
-   
-    if(this.unsubscribe){
+    if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
 
-  //  this.previousSelectedTab=this.dataService.getSelectedTab()
-   this.selectedTab=this.dataService.getSelectedTab()
-  //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
-   
-  
-   
+    //  this.previousSelectedTab=this.dataService.getSelectedTab()
+    this.selectedTab = this.dataService.getSelectedTab();
+    //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
+
     this.dataService.followUpdataSubject.subscribe((res: any) => {
       console.log(res, 'dataUpdated');
       this.filtered = res;
     });
 
-    this.unsubscribe=this.dataService.resettingFilter.pipe(skip(1)).subscribe((res:any)=>{
-      if(res==true){
-        this.filtered=false;
-        this.refreshFollowUps();
-      }
-      // console.log(res,"response after reseting the fup filter");
-      // console.log(this.filtered,"this.filtered before changing");
-      // this.filtered=!res;
-      // console.log(this.filtered,"this.filtered after changing");
-      
-      // if(this.filtered==false){
-      
-      //   // this.refreshFollowUps();
-      //   // this.dataService.setFilteredFollowUpURL(
-      //   //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
-      //   // );
-      // }
-      
-    })
+    this.unsubscribe = this.dataService.resettingFilter
+      .pipe(skip(1))
+      .subscribe((res: any) => {
+        if (res == true) {
+          this.filtered = false;
+          this.refreshFollowUps();
+        }
+        // console.log(res,"response after reseting the fup filter");
+        // console.log(this.filtered,"this.filtered before changing");
+        // this.filtered=!res;
+        // console.log(this.filtered,"this.filtered after changing");
 
+        // if(this.filtered==false){
 
-    
+        //   // this.refreshFollowUps();
+        //   // this.dataService.setFilteredFollowUpURL(
+        //   //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
+        //   // );
+        // }
+      });
 
     // var data: any =this.dataService.getfiletredFormValues();
     // // var resp: any = JSON.parse(data);
     // //console.log(data.value,"data");
-    
+
     // var resp: any = data
     // let result=Object.values(data);
     // //console.log(result,"result");
-    
 
     // result.forEach((res:any)=>{
     //   //console.log(this.filtered,'filtered');
-      
+
     //   if(res!==''){
     //     //console.log(res!=='',"res!==''");
     //     //console.log(this.filtered,'filtered in if block');
-        
+
     //     this.filtered=true;
     //   }
     //   else{
@@ -245,19 +234,11 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     //   }
     // })
 
-   
-
-this.gettingUrl();
-
+    this.gettingUrl();
 
     //  this.clearLocalStorageOnHardRefresh();
-    
 
     // this.getFollowupIds();
-
-    
-  
-   
   }
 
   expandCard(index: number) {
@@ -277,12 +258,12 @@ this.gettingUrl();
       panelClass: 'lead-bottom-sheet',
 
       disableClose: true,
-      data:this.selectedTab
+      data: this.selectedTab,
     };
     let data = this._bottomSheet.open(MyFollowupFilterComponent, config);
 
     data.afterDismissed().subscribe((dataFromChild) => {
-      this.currentPage=0
+      this.currentPage = 0;
       //console.log(dataFromChild, 'dataFromChild');
       if (dataFromChild === 'Reset') {
         this.refreshFollowUps();
@@ -290,17 +271,17 @@ this.gettingUrl();
         dataFromChild === 'Submitted' ||
         dataFromChild === 'Close-ion-clicked'
       ) {
-        
         // this.ngOnInit();
         this.gettingUrl();
       }
     });
   }
 
-
-
-  gettingUrl(){
-    console.log('Before =============>', this.dataService.getFollowupfilterURL().url);
+  gettingUrl() {
+    console.log(
+      'Before =============>',
+      this.dataService.getFollowupfilterURL().url
+    );
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
 
@@ -385,8 +366,7 @@ this.gettingUrl();
   onCheckboxChange(event: MatCheckboxChange, itemId: string, leadName: any) {
     //console.log(itemId, 'itemId');
     // //console.log(leadName, 'from selected lead');
-    
-    
+
     this.selectedLeadName = leadName;
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
@@ -394,7 +374,10 @@ this.gettingUrl();
         this.selectedCheckboxIds = [];
       } else if (!this.selectedCheckboxIds.includes(itemId)) {
         this.selectedCheckboxIds.push(itemId);
-        if (this.selectedCheckboxIds.length === this.totalCount && this.totalCount>0) {
+        if (
+          this.selectedCheckboxIds.length === this.totalCount &&
+          this.totalCount > 0
+        ) {
           this.checkAll = true;
           this.checkBoxData();
         }
@@ -559,10 +542,8 @@ this.gettingUrl();
     this.ngOnInit();
     this.selectedTab = 'All';
     this.dataService.resetFilterForm();
-    this.dataService.followUpdataSubject.next(false)
-
+    this.dataService.followUpdataSubject.next(false);
   }
-
 
   ngOnDestroy(): void {
     this.selectedCheckboxIds = [];
@@ -571,25 +552,24 @@ this.gettingUrl();
     // this.filtered = true;
     this.tempSearch = '';
     this.renderingData = [];
-    if(this.isSearched===true){
-   this.dataService.setFilteredFollowUpURL(
-      `${this.api_url}/api/follow-up/?page=1&page_size=5`
-    );
-    // this.selectedTab=this.previousSelectedTab;
+    if (this.isSearched === true) {
+      this.dataService.setFilteredFollowUpURL(
+        `${this.api_url}/api/follow-up/?page=1&page_size=5`
+      );
+      // this.selectedTab=this.previousSelectedTab;
     }
-    
+
     // this.allPaginator.pageIndex = 0;
- 
+
     // this.allPaginator.pageSize = 5;
     // this.ngOnInit();
     // this.selectedTab = 'All';
   }
 
   addCount() {
-  
     // console.log(this.data,"data in add count");
     // console.log(this.checkAll,"checkall");
-  
+
     // console.log(this.selectedCheckboxIds.length,"checkall");
     if (this.checkAll) {
       this.data = 'All';
@@ -599,7 +579,7 @@ this.gettingUrl();
     }
   }
 
-  openVideoCall(data:any) {
+  openVideoCall(data: any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Video Call Link To ${this.data} Leads `;
@@ -750,23 +730,22 @@ this.gettingUrl();
       },
       disableClose: true,
     };
-    let bottomSheetRef=this._bottomSheet.open(FollowupEmailComponent, config);
+    let bottomSheetRef = this._bottomSheet.open(FollowupEmailComponent, config);
     //console.log(bottomSheetRef,"bottomSheetRef");
-    
-    bottomSheetRef.afterDismissed().subscribe((res:any)=>{
+
+    bottomSheetRef.afterDismissed().subscribe((res: any) => {
       //console.log(res,"pop closed");
 
-      
-      if(res==true){  
+      if (res == true) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
       }
-    })
+    });
   }
-  onClickLink(data:any) {
+  onClickLink(data: any) {
     this.addCount();
     if (this.data !== 0) {
       let data = `Do You Want To Send A Link To  ${this.data} Leads`;
@@ -795,14 +774,13 @@ this.gettingUrl();
 
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')
-      if(result){
+      if (result) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
       }
-     
     });
   }
 
@@ -810,7 +788,7 @@ this.gettingUrl();
 
   renderingData: any;
   countDataValue: any = {};
-  loading:boolean=true
+  loading: boolean = true;
 
   APICAll() {
     // this.getFollowupIds();
@@ -846,59 +824,58 @@ this.gettingUrl();
       // //console.log( this.updateAPIURL," this.updateAPIURL for counsellor");
 
       this.totalNumberOfRecords = 0;
-      this.renderingData=[]
+      this.renderingData = [];
       this.countDataValue = [];
-      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
+      this.allFollowUpDataSource = new MatTableDataSource<any>(
+        (this.renderingData = [])
+      );
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
-
-          this.totalCount=res.total_no_of_record;
+          this.totalCount = res.total_no_of_record;
           //console.log(this.totalCount,"this.totalCount for counsellor");
           // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
-          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.renderingData
+          );
           this.totalNumberOfRecords = res.total_no_of_record;
           //console.log(this.followUpsData2,"this.followUpsData2");
 
           this.renderingData = res.results.data;
-          this.followupIds=res.results.lead_ids
+          this.followupIds = res.results.lead_ids;
 
           this.countDataValue = res.results.data_count;
-          
+
           //console.log( this.totalNumberOfRecords," this.totalNumberOfRecords");
-          
 
           if (this.selectedCheckboxIds.length !== 0) {
             // //console.log(this.selectedCheckboxIds,"data prsent");
             this.followUpsData2.forEach((c: any) => {
-            
-              c.checked =   this.selectedCheckboxIds.includes(c.lead_id);
-
-             
+              c.checked = this.selectedCheckboxIds.includes(c.lead_id);
             });
-
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount&&this.totalCount>0){
+          if (
+            this.selectedCheckboxIds.length === this.totalCount &&
+            this.totalCount > 0
+          ) {
             this.checkAll = true;
           }
 
-
-          this.loading=false
-
-
-          
+          this.loading = false;
         },
         (error: any) => {
           //console.log(error, 'error');
         }
       );
-    } else if(this.role==='Admin') {
+    } else if (this.role === 'Admin') {
       this.totalNumberOfRecords = 0;
       this.renderingData = [];
       this.countDataValue = [];
-      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
+      this.allFollowUpDataSource = new MatTableDataSource<any>(
+        (this.renderingData = [])
+      );
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
@@ -909,45 +886,40 @@ this.gettingUrl();
       //     // this.updateAPIURL+=this.updateAPIURLOnlyForFilter;
       //     this.updateAPIURL=this.dataService.getFollowupfilterURL()
       //     console.log( this.updateAPIURL," this.updateAPIURL filetred");
-          
+
       //   }
       // })
 
-      if(this.dataService.getFollowupfilterURL().is_filtered){
-
-
-      }else{
+      if (this.dataService.getFollowupfilterURL().is_filtered) {
+      } else {
         this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
       }
 
-
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
-          
-         
           //console.log(this.allPaginator,"paginator for admin");
-          
+
           // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
-          
-          this.renderingData = res.results.data;
-          this.followupIds=res.results.lead_ids
-          //console.log(this.followupIds," this.followupIds for admin in api call");
-          
 
-          this.totalCount=res.total_no_of_record;
+          this.renderingData = res.results.data;
+          this.followupIds = res.results.lead_ids;
+          //console.log(this.followupIds," this.followupIds for admin in api call");
+
+          this.totalCount = res.total_no_of_record;
           //console.log( this.totalCount," this.totalCount");
-          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.renderingData
+          );
           this.countDataValue = res.results.data_count;
-          
+
           if (this.selectedCheckboxIds.length !== 0) {
             // //console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
-              
               c.checked = this.selectedCheckboxIds.includes(c.lead_id);
-            
+
               localStorage.setItem(
                 'allSelectedCheckBoxes',
                 JSON.stringify(true)
@@ -956,59 +928,56 @@ this.gettingUrl();
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount &&this.totalCount>0){
+          if (
+            this.selectedCheckboxIds.length === this.totalCount &&
+            this.totalCount > 0
+          ) {
             this.checkAll = true;
           }
-          this.loading=false
+          this.loading = false;
           // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
-        
         },
         (error: any) => {
           //console.log(error, 'error');
-          this.loading=false
-
+          this.loading = false;
         }
       );
-    }
-    else{
-
+    } else {
       this.totalNumberOfRecords = 0;
       this.renderingData = [];
       this.countDataValue = [];
-      this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData=[]);
-      this.allFollowUpDataSource=[]
+      this.allFollowUpDataSource = new MatTableDataSource<any>(
+        (this.renderingData = [])
+      );
+      this.allFollowUpDataSource = [];
 
       // //console.log(this.updateAPIURL,"this.updateAPIURL for admin");
 
-     
-
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
-          
-         
           //console.log(this.allPaginator,"paginator for admin");
-          
+
           // //console.log(res, 'followup api  filetr all combination');
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
-          
-          this.renderingData = res.results.data;
-          this.followupIds=res.results.lead_ids
-          //console.log(this.followupIds," this.followupIds for admin in api call");
-          
 
-          this.totalCount=res.total_no_of_record;
+          this.renderingData = res.results.data;
+          this.followupIds = res.results.lead_ids;
+          //console.log(this.followupIds," this.followupIds for admin in api call");
+
+          this.totalCount = res.total_no_of_record;
           //console.log( this.totalCount," this.totalCount");
-          this.allFollowUpDataSource = new MatTableDataSource<any>(this.renderingData);
+          this.allFollowUpDataSource = new MatTableDataSource<any>(
+            this.renderingData
+          );
           this.countDataValue = res.results.data_count;
-          
+
           if (this.selectedCheckboxIds.length !== 0) {
             // //console.log(this.selectedCheckboxIds,"data prsent");
             this.renderingData.forEach((c: any) => {
-              
               c.checked = this.selectedCheckboxIds.includes(c.lead_id);
-            
+
               localStorage.setItem(
                 'allSelectedCheckBoxes',
                 JSON.stringify(true)
@@ -1017,20 +986,20 @@ this.gettingUrl();
           } else {
             this.checkAll = false;
           }
-          if(this.selectedCheckboxIds.length===this.totalCount &&this.totalCount>0){
+          if (
+            this.selectedCheckboxIds.length === this.totalCount &&
+            this.totalCount > 0
+          ) {
             this.checkAll = true;
           }
-          this.loading=false
+          this.loading = false;
           // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
-        
         },
         (error: any) => {
           //console.log(error, 'error');
-          this.loading=false
-
+          this.loading = false;
         }
       );
-
     }
   }
 
@@ -1049,10 +1018,10 @@ this.gettingUrl();
   }
 
   getFilter(data: any) {
-    this.dataService.setSelectedTabData(data)
+    this.dataService.setSelectedTabData(data);
     this.selectedTab = data;
     // localStorage.setItem('selectedTab',this.selectedTab)
-this.selectedCheckboxIds=[]
+    this.selectedCheckboxIds = [];
     const apiurl: any = this.filterFollowUp.getFilterFollowup(
       'follow_up_status',
       data,
@@ -1076,9 +1045,7 @@ this.selectedCheckboxIds=[]
         element['value']
       );
       this.updateAPIURL = value;
-      this.updateAPIURLOnlyForFilter=value;
-     
-      
+      this.updateAPIURLOnlyForFilter = value;
     });
 
     // let value = this.filterFollowUp.updateUrlParameter(
@@ -1090,11 +1057,9 @@ this.selectedCheckboxIds=[]
     // this.updateAPIURL = value;
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 
-   
-    
     // this.APICAll();
     this.ngOnInit();
-    console.log("new==>", this.updateAPIURL);
+    console.log('new==>', this.updateAPIURL);
   }
 
   selectDate(data: any) {
@@ -1129,10 +1094,10 @@ this.selectedCheckboxIds=[]
   }
 
   tempSearch: any;
-  isSearched:boolean=false;
+  isSearched: boolean = false;
   getSearchValue(data: any) {
-this.isSearched=true
-    this.loading=true;
+    this.isSearched = true;
+    this.loading = true;
     const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
     localStorage.setItem('data.target.value', data.target.value);
 
@@ -1204,7 +1169,6 @@ this.isSearched=true
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkOpenEmailChat();
-          
         }
       });
     } else {
@@ -1265,8 +1229,6 @@ this.isSearched=true
   //   if(this.role==='counsellor'){
   //     // this.selectedCheckboxIds=[]
 
-
-
   //   this.api.getLeadFollowUpIdsForCounsellor(this.selectedTab,this.counsellor_id).subscribe((res: any) => {
   //     // this.followupIds = res.lead_ids;
   //     //console.log(this.followupIds, 'lead ids for counsellor');
@@ -1290,7 +1252,7 @@ this.isSearched=true
   //   }else{
   //     this.api.getLeadFollowUpIdsForAdmin(this.selectedTab).subscribe((res:any)=>{
   //       //console.log(res,"leadids for admin");
-        
+
   //       this.followupIds=res.lead_ids
   //     })
   //   }
@@ -1368,7 +1330,7 @@ this.isSearched=true
   onPageChangeNew(event: any) {
     // this.isSelectedcheckBox=JSON.parse(localStorage.getItem("allSelectedCheckBoxes" ))
 
-    this.currentPage=event.pageIndex
+    this.currentPage = event.pageIndex;
     event.pageIndex += 1;
     let pageDataKeyValue = [
       { key: 'page', value: event.pageIndex },
@@ -1393,23 +1355,22 @@ this.isSearched=true
 
     this.ngOnInit();
   }
-//   @HostListener('document:keydown', ['$event'])
-// keydownHandler(event: KeyboardEvent): void {
-//     if (event && event.ctrlKey && event.keyCode === 116) {
-//         // window.localStorage.clear();
-//       //  window.localStorage.removeItem('followUpFilter')
-//       localStorage.removeItem('followUpFilter')
-//     }
-// }
+  //   @HostListener('document:keydown', ['$event'])
+  // keydownHandler(event: KeyboardEvent): void {
+  //     if (event && event.ctrlKey && event.keyCode === 116) {
+  //         // window.localStorage.clear();
+  //       //  window.localStorage.removeItem('followUpFilter')
+  //       localStorage.removeItem('followUpFilter')
+  //     }
+  // }
 
-
-// clearLocalStorageOnHardRefresh() {
-//   if (window.performance) {
-//     if (performance.navigation.type === 1) {
-//       // This means the page is being hard refreshed
-//       // this.localStorageService.clearLocalStorage();
-//       localStorage.removeItem('followUpFilter')
-//     }
-//   }
-// }
+  // clearLocalStorageOnHardRefresh() {
+  //   if (window.performance) {
+  //     if (performance.navigation.type === 1) {
+  //       // This means the page is being hard refreshed
+  //       // this.localStorageService.clearLocalStorage();
+  //       localStorage.removeItem('followUpFilter')
+  //     }
+  //   }
+  // }
 }
