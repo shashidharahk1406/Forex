@@ -249,6 +249,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
 this.gettingUrl();
 
+this.dataService.EditFollowupRefreshdataSubject.subscribe((res:any)=>{
+  if(res==true){
+    this.APICAll();
+    this.dataService.setFilteredFollowUpURL(
+      `${this.api_url}/api/follow-up/?page=1&page_size=5`
+    );
+    this.tempSearch=''
+  }
+})
 
     //  this.clearLocalStorageOnHardRefresh();
     

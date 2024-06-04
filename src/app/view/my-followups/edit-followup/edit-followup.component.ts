@@ -242,7 +242,7 @@ AllFollowupStatuses:any=[]
             // alert('api calling');
             if (res) {
               this.api.showSuccess(res.message);
-              this.dataService.sendData(true)
+              this.dataService.EditFollowupRefreshdataSubject.next(true)
               
             
               this.closePopup();

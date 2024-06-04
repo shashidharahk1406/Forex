@@ -36,6 +36,10 @@ export class DataService {
   public data$ = this.dataSubject.asObservable();
 
 
+  EditFollowupRefreshdataSubject = new BehaviorSubject<any>(false);
+  public dataEdit$ = this.EditFollowupRefreshdataSubject.asObservable();
+
+
  followUpdataSubject = new BehaviorSubject<any>(false);
  public data1$ = this.followUpdataSubject.asObservable();
 
