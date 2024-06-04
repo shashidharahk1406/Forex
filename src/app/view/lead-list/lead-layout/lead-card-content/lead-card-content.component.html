@@ -58,14 +58,22 @@
                     
                   </div>
 
-                 
-                 
-                  <div class="col-sm-12 col-md-6 col-lg-1 p-0">
+                  <div class="col-sm-12 col-md-6 col-lg-2 p-0">
                     <div class="row">
-                     
-                     
-                      <div class="col-8">
+                      <div class="col-12"><strong>Lead Owner</strong></div>
+                      <div class="col-12 text-muted">{{item.referred_to_name || 'NA'}}</div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="row">
+                      <div class="col-12"><strong>Creation Date</strong></div>
+                      <div class="col-12 text-muted">{{(item.user_data?.created_date_time | date:'medium') ||  'NA'  }}</div>
+                      <!-- <div class="col-12 text-muted">{{(item.user_data?.created_date_time | date :'HH:MM:SS') ||  'NA'  }}</div> -->
+                    </div>
+                  </div>
 
+                  <div class="col-sm-12 col-md-6 col-lg-1 p-0">
+                  
                         
                         <div class="row">
                           <div class="col-12"><strong>Source</strong></div>
@@ -77,33 +85,11 @@
                         
                         </div>
                        
-                      </div>
-                      
                      
-                    </div>
 
                     
                   </div>
 
-                  <!-- <div class="col-sm-12 col-md-6 col-lg-3">
-                    <div class="row">
-                      
-                      <div class="col-10">
-
-                        
-                        <div class="row">
-                          <div class="col-12"><strong>Lead Number</strong></div>
-                          <div class="col-12 text-muted">{{item.lead_number || 'NA'}}</div>
-                        </div>
-                       
-                      </div>
-                     
-                    </div>
-
-                    
-                  </div> -->
-
-                  
                  
                   <div class="col-sm-12 col-md-6 col-lg-1 p-0">
                     <div class="row status-box">
@@ -116,22 +102,11 @@
               
                     
                     
-                    <div class="col-sm-12 col-md-6 col-lg-2 p-0">
-                      <div class="row">
-                        <div class="col-12"><strong>Lead Owner</strong></div>
-                        <div class="col-12 text-muted">{{item.referred_to_name || 'NA'}}</div>
-                      </div>
-                    </div>
                    
-                    <div class="col-sm-12 col-md-6 col-lg-2 ">
-                      <div class="row">
-                        <div class="col-12"><strong>Creation Date</strong></div>
-                        <div class="col-12 text-muted">{{item.user_data?.created_date_time | date :'medium' ||  'NA'  }}</div>
-                      </div>
-                    </div>
+                   
+                 
 
-
-                     <div class="col-sm-12 col-md-6 col-lg-1 ">
+                     <div class="col-sm-12 col-md-6 col-lg-1 p-0">
                       <div class="row">
                         <div class="col-12"><strong>Created By</strong></div>
                         <div class="col-12 text-muted">{{item.user_data?.created_by_name|titlecase    }}</div>

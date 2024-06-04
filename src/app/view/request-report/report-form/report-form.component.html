@@ -80,7 +80,7 @@
                 <div class="col-6">
                     <mat-form-field class="mb-4" appearance="outline">
                         <mat-label>End Date</mat-label>
-                        <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="DD/MM/YYYY" [min]="reportForm.get('startDate')?.value || min "   readonly>
+                        <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="DD/MM/YYYY" [min]="reportForm.get('startDate')?.value || min" [max]="max"   readonly>
                         <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                         <mat-datepicker #endDate></mat-datepicker>
                         <mat-error style="font-size: 11px;padding-top: 5px;"  *ngIf="f['endDate'].touched && f['endDate'].hasError('required')">End Date Is Required</mat-error>

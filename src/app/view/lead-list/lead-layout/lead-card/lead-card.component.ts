@@ -204,9 +204,7 @@ export class LeadCardComponent implements OnInit {
         query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids){
-        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-      }else{
+     if(this.assigned_counsellor_ids && !this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
@@ -266,7 +264,7 @@ export class LeadCardComponent implements OnInit {
         query += `&counsellor_id=${this.assigned_counsellor_ids}`;
       }
     }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids){
+     if(this.assigned_counsellor_ids && !this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
@@ -420,9 +418,7 @@ export class LeadCardComponent implements OnInit {
         query += ``;
       }
     }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids){
-        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-      }else{
+     if(this.assigned_counsellor_ids && !this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
@@ -456,12 +452,10 @@ export class LeadCardComponent implements OnInit {
         query += `&counsellor_id=${this.user_id}`;
       } else if (['superadmin','super admin'].includes(this.user_role) === true) {
        if(this.assigned_counsellor_ids){
-          query += `&counsellor_id=${this.assigned_counsellor_ids}`;
+          query += ``;
         }
       }else if (['admin'].includes(this.user_role) === true){
-       if(this.assigned_counsellor_ids){
-          query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-        }else{
+       if(this.assigned_counsellor_ids && !this.leadFilter){
           query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
         }
         
