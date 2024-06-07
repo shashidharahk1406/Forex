@@ -94,10 +94,10 @@ export class ReportFormComponent implements OnInit {
   }
   initForm(){
     this.reportForm = this.fb.group({
-      reportType:[null,Validators.required],
-      counselorName:[null,Validators.required],
-      endDate:[null,Validators.required],
-      startDate:[null,Validators.required]
+      reportType:['',Validators.required],
+      counselorName:['',Validators.required],
+      endDate:['',Validators.required],
+      startDate:['',Validators.required]
       
     })
     //  // Subscribe to start date value changes
@@ -154,21 +154,15 @@ export class ReportFormComponent implements OnInit {
     this._baseService.postDataWithParams(`${environment.counsellor_list_report}?report_type=${reportType}&counsellor_id=${counsellor}&start_date=${startDate}&end_date=${endDate}&email=${this.user_email}`).subscribe((res:any)=>{
      if(res){
       this.api.showSuccess(res.message)
-      this.resetForm()
+      this.reportForm.reset()
+      this.reportForm.markAllAsTouched()
      }
     },(error:any)=>{
       this.api.showError(error.error.message)
     })
   }
   }
-  resetForm(){
-  this.reportForm = this.fb.group({
-    reportType:[null],
-    counselorName:[null],
-    endDate:[null],
-    startDate:[null]
-  })
-}
+ 
 
 }
 

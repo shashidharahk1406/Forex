@@ -53,14 +53,14 @@ queryItems: any;
         this.filterLead.patchValue({
           counsellor_id:res.counsellor_id,
           counselled_by:res.counselled_by,
-          campaign_id:res.campaign_id,
-          channel_id:res.channel_id,
-          source_id:res.source_id,
-          department_id:res.department_id,
-          course_id:res.course_id,
-          stream_id:res.stream_id,
-          city_id:res.city_id,
-          year_of_passing:res.year_of_passing
+          // campaign_id:res.campaign_id,
+          // channel_id:res.channel_id,
+          // source_id:res.source_id,
+          // department_id:res.department_id,
+          // course_id:res.course_id,
+          // stream_id:res.stream_id,
+          // city_id:res.city_id,
+          // year_of_passing:res.year_of_passing
         }) 
       }
     })
@@ -186,7 +186,8 @@ queryItems: any;
    
 
     } else{
-   
+      if (this.filterLead.value['counselled_by'] || this.filterLead.value['counsellor_id']){
+      
      const formValues = this.filterLead.value;
     
      
@@ -239,6 +240,7 @@ queryItems: any;
      this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL
     this.closePopup()
+      }
     }
 
    

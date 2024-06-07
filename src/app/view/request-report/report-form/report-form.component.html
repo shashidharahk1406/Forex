@@ -91,7 +91,7 @@
         </div>
         <div class="row">
             <div class="col text-center">
-                <button mat-raised-button color="primary" (click)="getReports()">Request Report</button>
+                <button mat-raised-button color="primary" (click)="getReports()" [disabled]="reportForm.invalid">Request Report</button>
             </div>
         </div>
     </div>
