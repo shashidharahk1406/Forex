@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment.prod';
 export class DataService {
   api_url: any = environment.live_url;
   public isAllChecked: boolean = false;
-  selectedTab:any='All';
+  selectedTab: any = 'All';
 
   filteredData = {
     counsellor_id: '',
@@ -27,23 +27,29 @@ export class DataService {
 
   private filteredValues = new BehaviorSubject<any>(this.filteredData);
   public filteredValuesData$ = this.filteredValues.asObservable();
-  resettingFilter=new BehaviorSubject<any>(false)
+  resettingFilter = new BehaviorSubject<any>(false);
 
-
-  
-
- dataSubject = new BehaviorSubject<any>(false);
+  dataSubject = new BehaviorSubject<any>(false);
   public data$ = this.dataSubject.asObservable();
-
 
   EditFollowupRefreshdataSubject = new BehaviorSubject<any>(false);
   public dataEdit$ = this.EditFollowupRefreshdataSubject.asObservable();
 
+  filterAndSearchCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
+  public filterAndSearchdata$ =
+    this.EditFollowupRefreshdataSubject.asObservable();
 
- followUpdataSubject = new BehaviorSubject<any>(false);
- public data1$ = this.followUpdataSubject.asObservable();
+    filterCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
+    public filterdata$ =
+      this.filterCustomerRefreshdataSubject.asObservable();
 
- 
+      searchCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
+    public searhdata$ =
+      this.searchCustomerRefreshdataSubject.asObservable();
+
+  followUpdataSubject = new BehaviorSubject<any>(false);
+  public data1$ = this.followUpdataSubject.asObservable();
+
   constructor() {}
   private sharedData: any;
 
@@ -52,13 +58,12 @@ export class DataService {
   setFilteredFollowUpURL(url: string) {
     this.url = url;
     this.is_filtered = true;
-    
   }
 
   getFollowupfilterURL() {
     return {
-      'url': this.url,
-      'is_filtered':this.is_filtered
+      url: this.url,
+      is_filtered: this.is_filtered,
     };
   }
 
@@ -89,23 +94,22 @@ export class DataService {
 
   patchedFilteredValues: any = [];
 
-
   getfiletredFormValues() {
     return this.filteredData;
   }
 
   setFilteredFormValues(data: any) {
     //console.log(data,"data in set filterde values");
-    
+
     this.filteredData.counsellor_id = data.counsellor_id;
     //console.log(this.filteredData.counsellor_id,"this.filteredData.counsellor_id ");
     this.filteredData.counselled_by = data.counselled_by;
     this.filteredData.course_id = data.course_id;
     this.filteredData.source_id = data.source_id;
-    this.filteredData.stream_id=data.stream_id
-    this.filteredData.city_id=data.city_id
+    this.filteredData.stream_id = data.stream_id;
+    this.filteredData.city_id = data.city_id;
   }
-  resetFilterForm(){
+  resetFilterForm() {
     this.filteredData = {
       counsellor_id: '',
       // campaign_id:[''],
@@ -120,14 +124,12 @@ export class DataService {
     };
   }
 
- 
-  usersFilterForm={
-    role_id:'',
-      is_active:'',
-      designation:'',
-      reporting_to_ids:'',
-  }
-  
+  usersFilterForm = {
+    role_id: '',
+    is_active: '',
+    designation: '',
+    reporting_to_ids: '',
+  };
 
   private userFilteredValues = new BehaviorSubject<any>(this.usersFilterForm);
   public userFilteredValuesData$ = this.userFilteredValues.asObservable();
@@ -139,39 +141,29 @@ export class DataService {
     this.usersFilterForm.is_active = data.is_active;
     this.usersFilterForm.designation = data.designation;
     this.usersFilterForm.reporting_to_ids = data.reporting_to_ids;
-    
   }
 
   getUsersfiletredFormValues() {
     return this.usersFilterForm;
   }
 
-  resetUserFilterForm(){
-    this.usersFilterForm={
-      role_id:'',
-        is_active:'',
-        designation:'',
-        reporting_to_ids:'',
-    }
-
-
-  
- 
+  resetUserFilterForm() {
+    this.usersFilterForm = {
+      role_id: '',
+      is_active: '',
+      designation: '',
+      reporting_to_ids: '',
+    };
   }
-
 
   private selectedTabs = new BehaviorSubject<any>(this.selectedTab);
   public selectedTabValues$ = this.selectedTabs.asObservable();
- 
-  setSelectedTabData(data:any){
-this.selectedTab=data
-// console.log(data,"selected tab data in service file");
 
+  setSelectedTabData(data: any) {
+    this.selectedTab = data;
+    // console.log(data,"selected tab data in service file");
   }
-  getSelectedTab(){
-    return this.selectedTab
+  getSelectedTab() {
+    return this.selectedTab;
   }
-
-} 
-  
-
+}

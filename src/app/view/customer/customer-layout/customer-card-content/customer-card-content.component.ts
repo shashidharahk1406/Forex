@@ -13,6 +13,7 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
 import { ApiService } from 'src/app/service/API/api.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { MatDialog } from '@angular/material/dialog';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-customer-card-content',
@@ -39,6 +40,8 @@ export class CustomerCardContentComponent implements OnInit {
   @Output()refresh = new EventEmitter;
   leadItem: any;
   searchEvent: any;
+  isFiltered!: boolean;
+  isSearched!: boolean;
 
   constructor(
     private _bottomSheet:  MatBottomSheet,
@@ -46,14 +49,31 @@ export class CustomerCardContentComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private emit:AddLeadEmitterService,
-    private emit2:EmitService
+    private emit2:EmitService,
+    private dataService:DataService
     ) {}
   delete(event:any){
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
+    console.log(this.isFiltered,this.isSearched,"search and filetr");
+    
     this.deleteBulk()
    this.selectedCheckboxIds = [];
+
+
+
+   this.dataService.filterCustomerRefreshdataSubject.subscribe((res:any)=>{
+    console.log(res,"filter");
+    
+    this.isFiltered=res;
+    
+  })
+ this.dataService.searchCustomerRefreshdataSubject.subscribe((res:any)=>{
+  console.log(res,"search");
+  
+  this.isSearched=res;
+ })
    }
   ngOnChanges(changes: SimpleChanges) {
     this.api.setLeadData(this.leadData);
@@ -147,7 +167,28 @@ export class CustomerCardContentComponent implements OnInit {
       data: name,
       disableClose: true
     };
-    this._bottomSheet.open(CustomerEditComponent,config);
+    let data=this._bottomSheet.open(CustomerEditComponent,config);
+    data.afterDismissed().subscribe((res:any)=>{
+      console.log(res,"res from edit");
+      
+      if(res=='yes'){
+        console.log(this.isSearched,this.isFiltered,"this.isSearched==true && this.isFiltered==false");
+        
+        if((this.isSearched==true && this.isFiltered==false) || (this.isSearched==false && this.isFiltered==false)){
+          this.emit.customerFiltertriggerGet();
+          console.log(res,"if res from edit");
+      
+          this.refresh.emit(true)
+          
+        }
+        else{
+          console.log(res,"else res from edit");
+      
+          this.refresh.emit(false)
+        }
+
+      }
+    })
   }
   openMorePanel(){
     this.morePanel = !this.morePanel
@@ -158,6 +199,7 @@ export class CustomerCardContentComponent implements OnInit {
   search(event:any){
     this.searchEvent = event
    this.selectedSearch.emit(event)
+
   //  console.log(event,"lead search")
   }
  

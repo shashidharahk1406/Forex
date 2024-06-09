@@ -72,6 +72,12 @@ export class CustomerToolbarComponent implements OnInit {
       if(res){
         this.filtered=false
       }
+      this.dataService.filterAndSearchCustomerRefreshdataSubject.subscribe((res:any)=>{
+        if(res==true){
+          this.filtered=true
+        }
+      })
+
      })
      this.addEventEmitter.goBack.subscribe((resp:any)=>{
        if(resp === true){ 
@@ -115,9 +121,20 @@ export class CustomerToolbarComponent implements OnInit {
      }
      
    }
+   isSearched=false;
    search(event:any){
+    console.log(event.data,"search event");
+    if(event.data==''){
+      this.isSearched=false;
+    }else{
+      this.isSearched=true;
+      this.dataService.searchCustomerRefreshdataSubject.next(true)
+    }
+    
+
      // if(event.target.value.length >0){
        this.selectedSearch.emit(this.searchForm.value.searchText)
+       
      //}
     
    }
@@ -286,12 +303,22 @@ export class CustomerToolbarComponent implements OnInit {
   
    
    }
+
+   isfiltered=false;
    filterLead(){
      const config: MatBottomSheetConfig = {
        panelClass: 'lead-bottom-sheet',
        disableClose: true
      };
-     this._bottomSheet.open(CustomerFilterComponent,config);
+     let data=this._bottomSheet.open(CustomerFilterComponent,config);
+     data.afterDismissed().subscribe((res:any)=>{
+
+      if(res==true){
+        this.isfiltered=true
+      }
+    
+     })
+
    }
    onDeleteAll(){
      this.addCount()

@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
+import { log } from 'util';
 @Component({
   selector: 'app-edit-user-profile-list',
   templateUrl: './edit-user-profile-list.component.html',
@@ -270,6 +271,8 @@ getUserbyId(){
   }
   newArr:any=[]
   onSelectionChange(event: any): void {
+    console.log(event.value,"selecting uusers");
+    
     this.newArrFromApi=[];
     event.value.forEach((element: any) => {
       const itemIndex = this.newArr.findIndex((item: any) => item.id === element);
@@ -289,9 +292,14 @@ getUserbyId(){
     });
   
     // Remove deselected items
+    // this.newArr = this.newArr.filter((item: any) => {
+    //   // Check if the ID exists in allUser array
+    //   console.log(this.newArr,"new arr");
+      
+    //   return this.allUser.find((user: any) => user.id === item.id);
+    // });
     this.newArr = this.newArr.filter((item: any) => {
-      // Check if the ID exists in allUser array
-      return this.allUser.find((user: any) => user.id === item.id);
+      return event.value.find((element: any) => element=== item.id);
     });
   }
   

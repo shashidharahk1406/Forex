@@ -7,6 +7,7 @@ import {
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -39,7 +40,9 @@ export class CustomerFilterComponent implements OnInit {
     private fb: FormBuilder,
     private api: ApiService,
     private _baseService: BaseServiceService,
-    private _addLeadEmitter: AddLeadEmitterService
+    private _addLeadEmitter: AddLeadEmitterService,
+    private dataService:DataService
+
   ) {
     this.user_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('user_role');
@@ -247,8 +250,10 @@ export class CustomerFilterComponent implements OnInit {
       this._addLeadEmitter.selectedCustomerFilter.next(this.filterLead.value);
       this._addLeadEmitter.customerfilterTriggerFilter();
       this._addLeadEmitter.customerFilterIcon.next(true);
+      this.dataService.filterCustomerRefreshdataSubject.next(true)
+      
       // Make the API request with the constructed URL
-      this.closePopup();
+      this._bottomSheetRef.dismiss(true);
     }
   }
   reset() {

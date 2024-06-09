@@ -79,7 +79,7 @@ onKeyPress(event: KeyboardEvent) {
 
 newArr:any=[]
 onSelectionChange(event: any): void {
- // console.log(event,"selecting admin");
+ console.log(event,"selecting admin");
   
   event.value.forEach((element: any) => {
     const itemIndex = this.newArr.findIndex((item: any) => item.id === element);
@@ -99,10 +99,10 @@ onSelectionChange(event: any): void {
     }
   }); 
 
-  // // Remove deselected items
-  // this.newArr = this.newArr.filter((item: any) => {
-  //   return event.value.find((element: any) => element.id === item.id);
-  // });
+  // Remove deselected items
+  this.newArr = this.newArr.filter((item: any) => {
+    return event.value.find((element: any) => element=== item.id);
+  });
 
 }
 onChange(event:any){
