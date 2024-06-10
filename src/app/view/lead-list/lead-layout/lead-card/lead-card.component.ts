@@ -363,9 +363,7 @@ export class LeadCardComponent implements OnInit {
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       apiUrl += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     if(this.assigned_counsellor_ids){
-        apiUrl += `&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
+     apiUrl += ``;
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids){
         apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;

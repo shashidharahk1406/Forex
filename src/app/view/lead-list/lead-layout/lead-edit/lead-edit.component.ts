@@ -18,13 +18,12 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { DataService } from 'src/app/service/data.service';
-import { AddCityComponent } from 'src/app/view/advance-settings/setup-dropdown-values/city/add-city/add-city.component';
 import { AddCountryComponent } from 'src/app/view/advance-settings/setup-dropdown-values/country-id/add-country/add-country.component';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
-import { AddStateComponent } from 'src/app/view/advance-settings/setup-dropdown-values/state/add-state/add-state.component';
 import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
-
+import { AddStateComponent } from '../add-state/add-state.component';
+import { AddCityComponent } from '../add-city/add-city.component';
 @Component({
   selector: 'app-lead-edit',
   templateUrl: './lead-edit.component.html',
@@ -664,6 +663,7 @@ export class LeadEditComponent implements OnInit {
   openAddCity() {
     const dialogRef = this.dialog.open(AddCityComponent, {
       width: '35%',
+      data:this.editLeadForm.value.state
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -674,6 +674,7 @@ export class LeadEditComponent implements OnInit {
   openAddState() {
     const dialogRef = this.dialog.open(AddStateComponent, {
       width: '35%',
+      data:this.editLeadForm.value.country
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

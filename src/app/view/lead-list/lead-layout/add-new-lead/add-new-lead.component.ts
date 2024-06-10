@@ -7,10 +7,10 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
-import { AddCityComponent } from 'src/app/view/advance-settings/setup-dropdown-values/city/add-city/add-city.component';
 import { AddCountryComponent } from 'src/app/view/advance-settings/setup-dropdown-values/country-id/add-country/add-country.component';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
-import { AddStateComponent } from 'src/app/view/advance-settings/setup-dropdown-values/state/add-state/add-state.component';
+import { AddStateComponent } from '../add-state/add-state.component';
+import { AddCityComponent } from '../add-city/add-city.component';
 import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
 import { environment } from 'src/environments/environment';
 
@@ -494,7 +494,8 @@ export class AddNewLeadComponent implements OnInit {
   }
   openAddCity(){
     const dialogRef = this.dialog.open(AddCityComponent, {
-      width:'35%'
+      width:'35%',
+      data:this.addLeadForm.value.state
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {
@@ -504,7 +505,8 @@ export class AddNewLeadComponent implements OnInit {
   }
   openAddState(){
     const dialogRef = this.dialog.open(AddStateComponent, {
-      width:'35%'
+      width:'35%',
+      data:this.addLeadForm.value.countryId
     });
 
     dialogRef.afterClosed().subscribe((result:any) => {

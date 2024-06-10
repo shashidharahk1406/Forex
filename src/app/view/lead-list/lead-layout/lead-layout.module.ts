@@ -32,6 +32,8 @@ import { DocsProcessComponent } from './docs-process/docs-process.component';
 import { PaymentStatusComponent } from './payment-status/payment-status.component';
 import { PaymentProofComponent } from './payment-proof/payment-proof.component';
 import { EidtDocProcessComponent } from './eidt-doc-process/eidt-doc-process.component';
+import { AddStateComponent } from './add-state/add-state.component';
+import { AddCityComponent } from './add-city/add-city.component';
 // import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 
@@ -63,7 +65,9 @@ import { EidtDocProcessComponent } from './eidt-doc-process/eidt-doc-process.com
     DocsProcessComponent,
     PaymentStatusComponent,
     PaymentProofComponent,
-    EidtDocProcessComponent
+    EidtDocProcessComponent,
+    AddStateComponent,
+    AddCityComponent
   ],
   imports: [
     CommonModule,

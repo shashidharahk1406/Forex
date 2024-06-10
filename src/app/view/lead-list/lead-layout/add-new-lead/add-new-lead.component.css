@@ -63,3 +63,7 @@ font-weight: 500;
   border-bottom: 1px solid #dfdbdb;
   padding: 15px;
 }
+.add-icon-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

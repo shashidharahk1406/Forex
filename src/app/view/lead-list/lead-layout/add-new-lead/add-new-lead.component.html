@@ -140,7 +140,7 @@
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>State</mat-label>
-                            <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity()">
+                            <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity()" [class.add-icon-disabled]="!f['countryId'].value">
                               <div>
                                 <input type="text" matInput  (input)="filterCountries($event,'state',stateOptions)" placeholder="Search" class="my-2 search-bar">
                               </div>
@@ -158,7 +158,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-1">
-                          <mat-icon class="icon-clr" title="Add State" (click)="openAddState()">add</mat-icon>
+                          <mat-icon class="icon-clr" title="Add State" (click)="openAddState()" [class.add-icon-disabled]="!f['countryId'].value">add</mat-icon>
                           </div>
                       </div>
                      
@@ -166,7 +166,7 @@
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>City Name</mat-label>
-                            <mat-select formControlName="cityName" placeholder="Select City">
+                            <mat-select formControlName="cityName" placeholder="Select City" [class.add-icon-disabled]="!f['state'].value">
                               <div>
                                 <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
                               </div>
@@ -184,8 +184,8 @@
                           </mat-form-field>
                          
                         </div>
-                        <div class="col-1">
-                          <mat-icon class="icon-clr" title="Add City" (click)="openAddCity()">add</mat-icon>
+                        <div class="col-1" >
+                          <mat-icon class="icon-clr" title="Add City" (click)="openAddCity()" [class.add-icon-disabled]="!f['state'].value">add</mat-icon>
                           </div>
                       </div>
                       
