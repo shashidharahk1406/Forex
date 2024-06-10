@@ -29,7 +29,7 @@ export class LeadcardMoreComponent implements OnInit {
   @Input()item:any;
   @Output()deleteEvent = new EventEmitter()
   permissions: any;
-  viewHistory:any;
+  assign_allocation:any;
   edit_Lead:any;
   add_Followup:any
   add_Note: any;
@@ -54,12 +54,12 @@ export class LeadcardMoreComponent implements OnInit {
       
       let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
       accesspermissions.children_status.forEach((element:any) => {
-        if(element.menu_name=='View History'){
-          this.viewHistory=element.access_status;
-          //console.log(this.viewHistory,"this.dropDownValues");
+        if(element.menu_name=='Assign Allocation'){
+          this.assign_allocation=element.access_status;
+          //console.log(this.assign_allocation,"this.dropDownValues");
           
         }
-        if(element.menu_name=='Edit Lead'){
+        if(element.menu_name=='Edit Allocation'){
           this.edit_Lead=element.access_status
         }
         if(element.menu_name=='Add Followup'){
@@ -68,7 +68,7 @@ export class LeadcardMoreComponent implements OnInit {
         if(element.menu_name=='Add Note'){
           this.add_Note=element.access_status
         }
-        if(element.menu_name=='Delete Lead'){
+        if(element.menu_name=='Delete Allocation'){
           this.delete_Lead=element.access_status
         }
         if(element.menu_name=='Payment Details'){

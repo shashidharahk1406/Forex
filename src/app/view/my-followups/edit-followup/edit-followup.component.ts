@@ -243,9 +243,8 @@ AllFollowupStatuses:any=[]
             if (res) {
               this.api.showSuccess(res.message);
               this.dataService.EditFollowupRefreshdataSubject.next(true)
-              
-            
-              this.closePopup();
+              // this.closePopup();
+              this._bottomSheetRef.dismiss(true);
             }
           },
           (error: any) => {

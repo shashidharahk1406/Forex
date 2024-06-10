@@ -1,5 +1,5 @@
 <div class="border-table">
-    <div class="border-row" *ngIf="edit_Lead">
+    <div class="border-row" *ngIf="edit_customer">
         <div class="border-cell" ngbDropdownToggle (click)="editLead(leadName)"><i class="bi bi-pencil-square"></i>Edit Lead</div>
     </div>
     <!-- <div class="border-row" *ngIf="viewHistory">
@@ -8,25 +8,25 @@
     <div class="border-row" *ngIf="add_Followup">
         <div class="border-cell" ngbDropdownToggle (click)="addFollowUp(item)"><i class="bi bi-flag-fill"></i>Add Followup</div>
     </div>
-    <div class="border-row" *ngIf="user_role==='Admin' || user_role==='SuperAdmin'">
+    <div class="border-row" *ngIf="user_role==='Admin' || user_role==='SuperAdmin' || assign_customer">
         <div class="border-cell" ngbDropdownToggle (click)="referLead()"><i class="bi bi-person-check-fill"></i>Assign Leads</div>
     </div>
     <div class="border-row" *ngIf="add_Note">
         <div class="border-cell" ngbDropdownToggle (click)="addNote()"><i class="bi bi-flag-fill"></i>Add Note</div>
     </div>
-    <div class="border-row" *ngIf="delete_Lead">
+    <div class="border-row" *ngIf="delete_customer">
         <div class="border-cell" ngbDropdownToggle (click)="delete(leadName)"><i class="bi bi-trash-fill"></i>Delete</div>
     </div>
-    <div class="border-row">
+    <div class="border-row" *ngIf="doc_process">
         <div class="border-cell" ngbDropdownToggle (click)="docsStatus()"><i class="bi bi-file-earmark-text"></i>Docs Process</div>
     </div>
-    <div class="border-row">
+    <div class="border-row" *ngIf="admission_details">
         <div class="border-cell" ngbDropdownToggle (click)="admissionDetails()"><i class="bi bi-card-list"></i>Admission Details</div>
     </div>
     <div class="border-row" *ngIf="payment_Details">
         <div class="border-cell" ngbDropdownToggle (click)="openPaymentStatus()"><i class="bi bi-card-list"></i>Payment Details</div>
     </div>
-    <div class="border-row">
+    <div class="border-row" *ngIf="send_payment_link">
         <div class="border-cell" ngbDropdownToggle (click)="openPayment()"><i class="bi bi-link-45deg"></i>Send Payment Link</div>
     </div>
     <!-- <div class="border-row">

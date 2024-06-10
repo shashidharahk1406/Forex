@@ -26,11 +26,11 @@ export class CustomerCardMoreComponent implements OnInit {
   @Input()item:any;
   @Output()deleteEvent = new EventEmitter()
   permissions: any;
-  viewHistory:any;
-  edit_Lead:any;
+  assign_customer:any;
+  edit_customer:any;
   add_Followup:any
   add_Note: any;
-  delete_Lead:any
+  delete_customer:any
   payment_Details: any;
   download_Leads: any;
   email: any;
@@ -38,6 +38,9 @@ export class CustomerCardMoreComponent implements OnInit {
   sms: any;
   bulk_Upload: any;
   user_role:any
+  admission_details: any;
+  doc_process: any;
+  send_payment_link: any;
   constructor(
     private _bottomSheet:  MatBottomSheet,
     private dialog: MatDialog,
@@ -49,15 +52,15 @@ export class CustomerCardMoreComponent implements OnInit {
       
      // console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
-      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
+      let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Customers')
       accesspermissions.children_status.forEach((element:any) => {
-        if(element.menu_name=='View History'){
-          this.viewHistory=element.access_status;
-       //   console.log(this.viewHistory,"this.dropDownValues");
+        if(element.menu_name=='Assign Customer'){
+          this.assign_customer=element.access_status;
+       //   console.log(this.assign_customer,"this.dropDownValues");
           
         }
-        if(element.menu_name=='Edit Lead'){
-          this.edit_Lead=element.access_status
+        if(element.menu_name=='Edit Customer'){
+          this.edit_customer=element.access_status
         }
         if(element.menu_name=='Add Followup'){
           this.add_Followup=element.access_status
@@ -65,12 +68,22 @@ export class CustomerCardMoreComponent implements OnInit {
         if(element.menu_name=='Add Note'){
           this.add_Note=element.access_status
         }
-        if(element.menu_name=='Delete Lead'){
-          this.delete_Lead=element.access_status
+        if(element.menu_name=='Delete Customer'){
+          this.delete_customer=element.access_status
         }
         if(element.menu_name=='Payment Details'){
           this.payment_Details=element.access_status
         }
+        if(element.menu_name=='Admission Details'){
+          this.admission_details=element.access_status
+        }
+        if(element.menu_name=='Docs Process'){
+          this.doc_process=element.access_status
+        }
+        if(element.menu_name=='Send Payment Link'){
+          this.send_payment_link=element.access_status
+        }
+      
         if(element.menu_name=='Download Leads'){
           this.download_Leads=element.access_status
         }
