@@ -161,7 +161,7 @@
                           <mat-icon class="icon-clr" title="Add State" (click)="openAddState()" [class.add-icon-disabled]="!f['countryId'].value">add</mat-icon>
                           </div>
                       </div>
-                     
+                    
                       <div class="row">
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
@@ -170,7 +170,7 @@
                               <div>
                                 <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
                               </div>
-                              <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>
+                                <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>  
                             </mat-select>
                             <button
                               matSuffix

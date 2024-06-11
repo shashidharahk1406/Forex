@@ -147,6 +147,8 @@ export class AddNewLeadComponent implements OnInit {
       if(res.results){
       this.countryOptions = res.results
       this.filteredCountryOptions = this.countryOptions
+     
+      
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
@@ -184,6 +186,10 @@ export class AddNewLeadComponent implements OnInit {
   getState(){
     let selectedCountryName:any;
     if(this.addLeadForm?.value.countryId && this.countryOptions.length >0){
+      this.addLeadForm.patchValue({
+        state:'',
+        cityName:''
+      })
      this.countryOptions.forEach((f:any)=>{
       if(f.id == this.addLeadForm?.value.countryId){
         selectedCountryName = f.name
@@ -334,6 +340,7 @@ export class AddNewLeadComponent implements OnInit {
 
        if(searchTerm === '' && type === 'country'){
         this.filteredCountryOptions = countryOptions
+        this.addLeadForm
         return this.filteredCountryOptions
        }if(searchTerm === '' && type === 'state'){
         this.filteredStateOptions = countryOptions

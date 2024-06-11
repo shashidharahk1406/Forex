@@ -275,6 +275,10 @@ export class LeadEditComponent implements OnInit {
   }
   getState(lead?:any) {
     let selectedCountryName: any;
+    this.editLeadForm.patchValue({
+      state:'',
+      cityName:''
+    })
     if (this.countryOptions.length > 0) {
       if (this.editLeadForm?.value.countryId || lead?.country) {
         this.countryOptions.forEach((f: any) => {
