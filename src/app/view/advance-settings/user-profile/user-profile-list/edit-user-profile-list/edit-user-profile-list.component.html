@@ -99,7 +99,8 @@
                         <mat-label>Email</mat-label>
                         <input formControlName="email" type="email" matInput placeholder="Email">
                       </mat-form-field>
-                      <mat-error *ngIf="f['email'].invalid && f['email'].touched">
+                      <mat-error *ngIf="f['email'].invalid && f['email'].touched &&  f['email'].touched">
+                        Invalid email format
                         <div *ngIf="f['email'].errors">
                           <div *ngIf="f['email'].errors['required']">
                             Email is required

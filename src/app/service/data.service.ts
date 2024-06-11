@@ -166,4 +166,15 @@ export class DataService {
   getSelectedTab() {
     return this.selectedTab;
   }
+
+
+
+  filterUrl:any;
+  setFilteredUrl(data: any) {
+    this.filterUrl = data;
+    console.log(data,"setFilteredUrl");
+  }
+  getFilteredUrl() {
+    return this.filterUrl;
+  }
 }

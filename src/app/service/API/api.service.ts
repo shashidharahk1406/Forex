@@ -653,7 +653,7 @@ export class ApiService implements OnInit {
       }
 
       // Check if the email has a valid TLD
-      const tldRegex = /\.[a-zA-Z]{2,}$/;
+      const tldRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/
       // const tldRegex=/^(\(^[0-9]{10})$/
       if (!tldRegex.test(email)) {
         // If the TLD is invalid, return the error

@@ -247,9 +247,10 @@ export class UserProfileFilterComponent implements OnInit {
       //console.log(apiUrl, 'apiurl in users filetr');
 
       this.emit.sendRefreshbyFilter(apiUrl);
-      this.dataService.dataUpdated.emit(this.filtered);
+      this.dataService.setFilteredUrl(apiUrl)
+      this.dataService.dataUpdated.emit(true);
 
-      this.dialogRef.close();
+      this.dialogRef.close(true);
       // this.api.showSuccess(this.api.toTitleCase(resp.message))
     }
   }
@@ -259,6 +260,7 @@ export class UserProfileFilterComponent implements OnInit {
     this.filterForm.updateValueAndValidity();
     this.dataService.resetUserFilterForm()
     this.emit.sendRefreshbyFilter(null);
+    this.dataService.dataUpdated.emit(false);
 
     // this.dialogRef.close()
   }
