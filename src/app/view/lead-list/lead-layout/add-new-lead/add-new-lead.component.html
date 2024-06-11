@@ -123,7 +123,7 @@
                               matSuffix
                               mat-icon-button
                               aria-label="Clear"
-                              (click)="clearSelectField('countryId')"
+                              (click)="clearSelectField('countryId');resetVal();"
                               *ngIf="f['countryId']?.value"
                             >
                               <mat-icon>clear</mat-icon>
@@ -150,7 +150,7 @@
                               matSuffix
                               mat-icon-button
                               aria-label="Clear"
-                              (click)="clearSelectField('state')"
+                              (click)="clearSelectField('state');resetVal2()"
                               *ngIf="f['state']?.value"
                               >
                               <mat-icon>clear</mat-icon>

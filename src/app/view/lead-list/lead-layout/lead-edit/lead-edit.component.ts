@@ -273,12 +273,17 @@ export class LeadEditComponent implements OnInit {
       }
     );
   }
-  getState(lead?:any) {
-    let selectedCountryName: any;
+  resetVal(){
+    this.filteredStateOptions = []
+    this.filteredCityOptions = []
     this.editLeadForm.patchValue({
       state:'',
       cityName:''
     })
+  }
+  getState(lead?:any) {
+    let selectedCountryName: any;
+    this.resetVal()
     if (this.countryOptions.length > 0) {
       if (this.editLeadForm?.value.countryId || lead?.country) {
         this.countryOptions.forEach((f: any) => {
@@ -310,8 +315,14 @@ export class LeadEditComponent implements OnInit {
     );
     
   }
+  resetVal2(){
+    this.filteredCityOptions = []
+    this.editLeadForm.patchValue({
+      cityName:''
+    })
+  }
   getCity(lead?:any) {
-    
+    this.resetVal2()
     let selectedStateName: any;
     if (this.stateOptions.length > 0) {
 

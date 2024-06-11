@@ -178,7 +178,7 @@ queryItems: any;
   onSubmit() {
     if (this.isFormEmpty(this.filterLead.value)) {
       this.filterLead.markAllAsTouched();
-      this.api.showError('Please select at least one field');
+      // this.api.showError('Please select at least one field');
       this.filterLead.reset()
       this._addLeadEmitter.leadFilter.next('') 
       this._addLeadEmitter.selectedFilter.next('')
@@ -240,6 +240,8 @@ queryItems: any;
      this._addLeadEmitter.leadFilterIcon.next('true')
      // Make the API request with the constructed URL
     this.closePopup()
+      }else{
+        this.api.showError('Please select at least one field');
       }
     }
 

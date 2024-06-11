@@ -147,16 +147,21 @@ export class AddNewLeadComponent implements OnInit {
       if(res.results){
       this.countryOptions = res.results
       this.filteredCountryOptions = this.countryOptions
-     
-      
       }
     },(error:any)=>{
        this.api.showError(this.api.toTitleCase(error.error.message))
       
     })
   }
+  resetVal2(){
+    this.filteredCityOptions = []
+    this.addLeadForm.patchValue({
+      cityName:''
+    })
+  }
   getCity(){
     let selectedStateName:any;
+    this.resetVal2()
     if(this.addLeadForm?.value.state && this.stateOptions.length >0){
     this.stateOptions.forEach((f:any)=>{
       if(f.id == this.addLeadForm?.value.state){
@@ -183,13 +188,18 @@ export class AddNewLeadComponent implements OnInit {
         
       })
   }
+  resetVal(){
+    this.filteredStateOptions = []
+    this.filteredCityOptions = []
+    this.addLeadForm.patchValue({
+      state:'',
+      cityName:''
+    })
+  }
   getState(){
     let selectedCountryName:any;
     if(this.addLeadForm?.value.countryId && this.countryOptions.length >0){
-      this.addLeadForm.patchValue({
-        state:'',
-        cityName:''
-      })
+      this.resetVal()
      this.countryOptions.forEach((f:any)=>{
       if(f.id == this.addLeadForm?.value.countryId){
         selectedCountryName = f.name
