@@ -57,6 +57,7 @@ export class SourceListComponent implements AfterViewInit {
   applyFilter(event: any) {
     this.searchValue=event.target.value
     if(event.target.value==''){
+      this.currentPage=0
       this.getSource()
     }
   }

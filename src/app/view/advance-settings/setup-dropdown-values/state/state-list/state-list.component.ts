@@ -54,14 +54,12 @@ export class StateListComponent implements  AfterViewInit {
   }
 
   searchValue:any
-  applyFilter(event: any) {
-    this.searchValue=event.target.value
+  
+  applyFilter(event: any){
     if(event.target.value==''){
       this.getState()
     }
-   
-  }
-  search(){
+    this.searchValue=event.target.value
     if(this.searchValue?.length>0){
       this.api.getStateSearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
         this.allState= resp.results;
@@ -92,7 +90,7 @@ export class StateListComponent implements  AfterViewInit {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     if(this.searchValue?.length>0){
-      this.search()
+      this.applyFilter(this.searchValue)
     }else{
       this.api.getState(this.pageSize,this.currentPage).subscribe((resp:any)=>{
         this.allState= resp.results;

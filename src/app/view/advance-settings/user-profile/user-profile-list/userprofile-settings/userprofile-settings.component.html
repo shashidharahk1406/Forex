@@ -9,9 +9,9 @@
       
 
       <span class="filter-container" *ngIf="role==='Admin' || role==='SuperAdmin'">
-        <i data-bs-toggle="tooltip" *ngIf="params===null" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
+        <i data-bs-toggle="tooltip" *ngIf="!filter" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
 
-        <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
+        <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="filter" class="bi bi-funnel-fill" (click)="openFilter()"></i>
       </span>
       
      

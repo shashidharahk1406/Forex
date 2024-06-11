@@ -69,6 +69,9 @@ export class ChannelListComponent implements  AfterViewInit {
     this.searchValue=event.target.value
     if(event.target.value==''){
       this.getChannel()
+      this.currentPage=0;
+      this.pageSize=10
+
     }
   }
   search(){
