@@ -67,10 +67,28 @@
       
         </mat-dialog-content>
      
-      <mat-dialog-actions class="d-flex">
-        <button class="mat-cancel m-1" mat-button (click)="reset()">RESET</button>
-        <button class="mat-disable m-1"  mat-button (click)="onSubmit()" cdkFocusInitial >APPLY FILTER</button>
-      </mat-dialog-actions>
+        <mat-dialog-actions class="d-flex">
+          <button 
+            class="mat-cancel m-1" 
+            mat-button 
+            [class.cl-disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id']" 
+            (click)="reset()" 
+            [disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id']"
+          >
+            RESET
+          </button>
+          <button 
+            class="mat-disable m-1"  
+            mat-button 
+            [class.cl-disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id']" 
+            (click)="onSubmit()" 
+            cdkFocusInitial 
+            [disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id']"
+          >
+            APPLY FILTER
+          </button>
+        </mat-dialog-actions>
+        
     </mat-card>
      
   </ng-container>
