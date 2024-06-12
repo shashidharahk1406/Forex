@@ -58,8 +58,6 @@ export class LeadToolbarComponent implements OnInit {
        //console.log(resp,"RESPONSE")
        if(resp === 'true'){
         this.filtered= true
-       }else{
-        this.filtered= false
        }
        
       }
@@ -80,11 +78,11 @@ export class LeadToolbarComponent implements OnInit {
       }
     })
 
-    this.dataService.dataSubject.subscribe((res:any)=>{
-      if(res){
-        this.filtered=false
-      }
-    })
+    // this.dataService.dataSubject.subscribe((res:any)=>{
+    //   if(res){
+    //     this.filtered=false
+    //   }
+    // })
   }
   initForm(){
     this.searchForm = this.fb.group({
