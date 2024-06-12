@@ -71,7 +71,16 @@ export class AddNewLeadComponent implements OnInit {
 
   ngOnInit(): void {
     this.max = new Date()
-   
+    this.addLeadForm.get('countryId')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.addLeadForm.get('state')?.enable();  
+      }
+    });
+    this.addLeadForm.get('state')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.addLeadForm.get('cityName')?.enable();  
+      } 
+    });
   }
   initForm(){
       this.addLeadForm = this.fb.group({
@@ -80,9 +89,9 @@ export class AddNewLeadComponent implements OnInit {
         alternateNumber: ['', [Validators.pattern(this._commonService.mobilePattern)]], 
         email: ['', [Validators.email,Validators.pattern(this._commonService.emailPattern)]],
         dateOfBirth:[''],
-        state: [''],
-        zone:[''],
-        cityName: [''],
+        state: [{ value: '', disabled: true }],
+        cityName: [{ value: '', disabled: true }],
+        zone:[''], 
         pincode:['',Validators.pattern(this._commonService.pincode)],
         countryId:[''],
         referenceName:['',Validators.pattern(this._commonService.namePattern)],

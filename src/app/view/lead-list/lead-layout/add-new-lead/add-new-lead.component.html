@@ -113,11 +113,15 @@
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>Select Country </mat-label>
                             <mat-select formControlName="countryId" placeholder="Select Country" (selectionChange)="getState()">
-                              <div>
+                              <div *ngIf="filteredCountryOptions.length >0">
                                 <input type="text" matInput  (input)="filterCountries($event,'country',countryOptions)" placeholder="Search" class="my-2 search-bar">
-                             
                               </div>
+                              <ng-container *ngIf="filteredCountryOptions.length >0">
                               <mat-option *ngFor="let option of filteredCountryOptions" [value]="option.id">{{ option.name }}</mat-option>
+                            </ng-container>
+                              <ng-container *ngIf="filteredCountryOptions.length ===0">
+                                <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                              </ng-container>
                             </mat-select>
                             <button
                               matSuffix
@@ -140,11 +144,16 @@
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>State</mat-label>
-                            <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity()" [class.add-icon-disabled]="!f['countryId'].value">
-                              <div>
+                            <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity()" >
+                              <div *ngIf="filteredStateOptions.length >0">
                                 <input type="text" matInput  (input)="filterCountries($event,'state',stateOptions)" placeholder="Search" class="my-2 search-bar">
                               </div>
-                              <mat-option *ngFor="let option of filteredStateOptions" [value]="option.id">{{ option.name }}</mat-option>
+                              <ng-container *ngIf="filteredStateOptions.length >0" >
+                                <mat-option  *ngFor="let option of filteredStateOptions" [value]="option.id">{{ option.name }}</mat-option>
+                              </ng-container>
+                              <ng-container *ngIf="filteredStateOptions.length ===0">
+                                <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                              </ng-container>
                             </mat-select>
                             <button
                               matSuffix
@@ -166,12 +175,17 @@
                         <div class="col-11">
                           <mat-form-field class="mb-1" appearance="outline">
                             <mat-label>City Name</mat-label>
-                            <mat-select formControlName="cityName" placeholder="Select City" [class.add-icon-disabled]="!f['state'].value">
-                              <div>
+                            <mat-select formControlName="cityName" placeholder="Select City" >
+                              <div *ngIf="filteredCityOptions.length >0">
                                 <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
                               </div>
+                              <ng-container *ngIf="filteredCityOptions.length >0">
                                 <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>  
-                            </mat-select>
+                              </ng-container>
+                                <ng-container *ngIf="filteredCityOptions.length ===0">
+                                  <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                                </ng-container>
+                              </mat-select>
                             <button
                               matSuffix
                               mat-icon-button

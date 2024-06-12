@@ -11,8 +11,11 @@ import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service'
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
 import { DataService } from 'src/app/service/data.service';
+import { AddCountryComponent } from 'src/app/view/advance-settings/setup-dropdown-values/country-id/add-country/add-country.component';
 import { AddCourseComponent } from 'src/app/view/advance-settings/setup-dropdown-values/course/add-course/add-course.component';
 import { AddStreamComponent } from 'src/app/view/advance-settings/setup-dropdown-values/stream/add-stream/add-stream.component';
+import { AddCityComponent } from 'src/app/view/lead-list/lead-layout/add-city/add-city.component';
+import { AddStateComponent } from 'src/app/view/lead-list/lead-layout/add-state/add-state.component';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -45,6 +48,11 @@ export class CustomerEditComponent implements OnInit {
   max!: Date;
   min!: Date;
   levelofProgram: any = [];
+  user_role: any;
+  filteredCountryOptions: any = [];
+  filteredCityOptions: any = [];
+  filteredStateOptions: any = [];
+  lead: any = [];
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService: CommonServiceService,
@@ -55,17 +63,29 @@ export class CustomerEditComponent implements OnInit {
     private _datePipe: DatePipe,
     private _addLeadEmitter: AddLeadEmitterService,
     private dialog: MatDialog,
-    private dataService: DataService
+    private dataService:DataService
   ) {
-    this.dropDownValues();
     this.user_id = localStorage.getItem('user_id');
+    this.user_role = localStorage.getItem('user_role')?.toUpperCase();
+    this.initForm();
+    this.dropDownValues();
+    this.getLeadById();
+
     this.min = new Date('1900-01-01');
   }
 
   ngOnInit(): void {
-    this.initForm();
     this.max = new Date();
-    this.getLeadById();
+    this.editLeadForm.get('countryId')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.editLeadForm.get('state')?.enable();  
+      }
+    });
+    this.editLeadForm.get('state')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.editLeadForm.get('cityName')?.enable();  
+      } 
+    });
   }
   getLeadById() {
     this._baseService
@@ -73,52 +93,53 @@ export class CustomerEditComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res && res.result && res.result.length > 0) {
-            const lead = res.result[0];
+            this.lead = res.result[0];
             let courseId = [];
 
-            if (lead.course_looking_for?.length > 0) {
-              courseId = lead.course_looking_for.map((m: any) => m.id);
+            if (this.lead.course_looking_for?.length > 0) {
+              courseId = this.lead.course_looking_for.map((m: any) => m.id);
             }
-
+            this.getState(this.lead)
+            this.getCity(this.lead);
             this.editLeadForm.patchValue({
-              firstName: lead.user_data.first_name,
-              mobile: lead.user_data.mobile_number,
-              alternateNumber: lead.alternate_mobile_number,
-              email: lead.user_data.email,
-              dateOfBirth: lead.date_of_birth,
-              state: lead.state,
-              zone: lead.zone,
-              course: lead.stream,
-              cityName: lead.city,
-              pincode: lead.pincode,
-              countryId: lead.country,
-              referenceName: lead.reference_name,
-              referencePhoneNumber: lead.reference_mobile_number,
-              fatherName: lead.father_name,
-              fatherOccupation: lead.father_occupation,
-              fatherPhoneNumber: lead.father_mobile_number,
-              tenthPercentage: lead.tenth_per,
-              twelthPercentage: lead.twelfth_per,
-              degree: lead.degree_per,
-              otherCourse: lead.others,
-              entranceExam: lead.enterance_exam,
+              firstName: this.lead.user_data.first_name,
+              mobile: this.lead.user_data.mobile_number,
+              alternateNumber: this.lead.alternate_mobile_number,
+              email: this.lead.user_data.email,
+              dateOfBirth: this.lead.date_of_birth,
+              state: this.lead.state,
+              zone: this.lead.zone,
+              course: this.lead.stream,
+              cityName: this.lead.city,
+              pincode: this.lead.pincode,
+              countryId: this.lead.country,
+              referenceName: this.lead.reference_name,
+              referencePhoneNumber: this.lead.reference_mobile_number,
+              fatherName: this.lead.father_name,
+              fatherOccupation: this.lead.father_occupation,
+              fatherPhoneNumber: this.lead.father_mobile_number,
+              tenthPercentage: this.lead.tenth_per,
+              twelthPercentage: this.lead.twelfth_per,
+              degree: this.lead.degree_per,
+              otherCourse: this.lead.others,
+              entranceExam: this.lead.enterance_exam,
               courseLookingfor: courseId,
-              levelOfProgram: lead.level_of_program,
-              preferredCollege1: lead.preferred_college1,
-              preferredCollege2: lead.preferred_college2,
-              preferredLocation1: lead.preferred_location1,
-              preferredLocation2: lead.preferred_location2,
-              counsellor: lead.referred_to,
-              counsellorAdmin: lead.counselled_by,
-              leadSource: lead.source,
-              leadStages: lead.lead_stage,
-              leadStatus: lead.lead_list_status,
-              notes: lead.note_name,
-              remarks: lead.remark_name,
+              levelOfProgram: this.lead.level_of_program,
+              preferredCollege1: this.lead.preferred_college1,
+              preferredCollege2: this.lead.preferred_college2,
+              preferredLocation1: this.lead.preferred_location1,
+              preferredLocation2: this.lead.preferred_location2,
+              counsellor: this.lead.referred_to,
+              counsellorAdmin: this.lead.counselled_by,
+              leadSource: this.lead.source,
+              leadStages: this.lead.lead_stage,
+              leadStatus: this.lead.lead_list_status,
+              notes: this.lead.note_name,
+              remarks: this.lead.remark_name,
             });
           }
         },
-        (error: any) => {
+        (error) => {
           this.api.showError(error.error.message);
         }
       );
@@ -144,17 +165,11 @@ export class CustomerEditComponent implements OnInit {
         '',
         [Validators.pattern(this._commonService.mobilePattern)],
       ],
-      email: [
-        '',
-        [
-          Validators.email,
-          Validators.pattern(this._commonService.emailPattern),
-        ],
-      ],
+      email: ['', [Validators.pattern(this._commonService.emailPattern)]],
       dateOfBirth: [''],
-      state: [''],
       zone: [''],
-      cityName: [''],
+      state: [{ value: '', disabled: true }],
+      cityName: [{ value: '', disabled: true }],
       pincode: ['', Validators.pattern(this._commonService.pincode)],
       countryId: [''],
       referenceName: ['', Validators.pattern(this._commonService.namePattern)],
@@ -208,7 +223,7 @@ export class CustomerEditComponent implements OnInit {
       counsellorAdmin: [''],
       leadSource: [''],
       leadStages: [''],
-      leadStatus: ['', [Validators.required]],
+      leadStatus: ['', Validators.required],
       notes: [
         '',
         [
@@ -237,10 +252,10 @@ export class CustomerEditComponent implements OnInit {
   }
   dropDownValues() {
     this.getCountry();
-    this.getState();
+    // this.getState();
+    // this.getCity();
     this.getChannel();
     this.getSource();
-    this.getCity();
     this.getCounselor();
     this.getStatus();
     this.getCourse();
@@ -254,7 +269,7 @@ export class CustomerEditComponent implements OnInit {
       (res: any) => {
         if (res.results) {
           this.countryOptions = res.results;
-          //console.log(res)
+          this.filteredCountryOptions = this.countryOptions;
         }
       },
       (error: any) => {
@@ -262,12 +277,82 @@ export class CustomerEditComponent implements OnInit {
       }
     );
   }
-  getState() {
-    this.api.getAllState().subscribe(
+  resetVal(){
+    this.filteredStateOptions = []
+    this.filteredCityOptions = []
+    this.editLeadForm.patchValue({
+      state:'',
+      cityName:''
+    })
+  }
+  getState(lead?:any) {
+    let selectedCountryName: any;
+    this.resetVal()
+    if (this.countryOptions.length > 0) {
+      if (this.editLeadForm?.value.countryId || lead?.country) {
+        this.countryOptions.forEach((f: any) => {
+          if (
+            f.id == this.editLeadForm?.value.countryId ||
+            f.id == lead?.country
+          ) {
+            selectedCountryName = f.name;
+          }
+        });
+      }
+    }
+
+    let country = selectedCountryName;
+    let params = `?country_name=${country}`;
+
+    this.api.getAllState(params).subscribe(
       (res: any) => {
         if (res.results) {
           this.stateOptions = res.results;
+          this.filteredStateOptions = this.stateOptions;
           //console.log(res)
+          this.getCity(lead)
+        }
+      },
+      (error: any) => {
+        this.api.showError(this.api.toTitleCase(error.error.message));
+      }
+    );
+    
+  }
+  resetVal2(){
+    this.filteredCityOptions = []
+    this.editLeadForm.patchValue({
+      cityName:''
+    })
+  }
+  getCity(lead?:any) {
+    this.resetVal2()
+    let selectedStateName: any;
+    if (this.stateOptions.length > 0) {
+
+      if (this.editLeadForm?.value.state || lead?.state) {
+        
+        this.stateOptions.forEach((f: any) => {
+          if (
+            f.id == this.editLeadForm?.value.state ||
+            f.id == lead?.state
+          ) {
+            selectedStateName = f.name;
+          }
+        });
+      }
+    }
+
+    let state = selectedStateName;
+    let params = `?state_name=${state}`;
+
+    this.api.getAllCity(params).subscribe(
+      (res: any) => {
+        if (res.results) {
+          this.cityOptions = res.results;
+          this.filteredCityOptions = this.cityOptions;
+        } else {
+          this.api.showError('ERROR');
         }
       },
       (error: any) => {
@@ -275,6 +360,7 @@ export class CustomerEditComponent implements OnInit {
       }
     );
   }
+
   getChannel() {
     this.api.getAllChannel().subscribe(
       (resp: any) => {
@@ -304,20 +390,7 @@ export class CustomerEditComponent implements OnInit {
       }
     );
   }
-  getCity() {
-    this.api.getAllCity().subscribe(
-      (res: any) => {
-        if (res.results) {
-          this.cityOptions = res.results;
-        } else {
-          this.api.showError('ERROR');
-        }
-      },
-      (error: any) => {
-        this.api.showError(this.api.toTitleCase(error.error.message));
-      }
-    );
-  }
+
   getCampign() {
     this.api.getAllCampign().subscribe(
       (res: any) => {
@@ -333,7 +406,19 @@ export class CustomerEditComponent implements OnInit {
     );
   }
   getCounselor() {
-    this._baseService.getData(`${environment._user}`).subscribe(
+    let query = '';
+    const counsellorRoles = ['COUNSELLOR', 'COUNSELOR'];
+    const superAdminRoles = ['SUPERADMIN', 'SUPER ADMIN'];
+    const adminRoles = ['ADMIN'];
+
+    if (counsellorRoles.includes(this.user_role)) {
+      query = `?user_id=${this.user_id}`;
+    } else if (superAdminRoles.includes(this.user_role)) {
+      query = ``;
+    } else if (adminRoles.includes(this.user_role)) {
+      query = `?user_id=${this.user_id}`;
+    }
+    this._baseService.getData(`${environment._user}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
           this.referredTo = res.results;
@@ -379,6 +464,7 @@ export class CustomerEditComponent implements OnInit {
   }
   getCounselledBy() {
     let query = `?role_name=superadmin`;
+
     this._baseService.getData(`${environment._user}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
@@ -418,8 +504,43 @@ export class CustomerEditComponent implements OnInit {
     this.editLeadForm.get(fieldName)?.reset();
   }
 
-  isSearched: any;
-  isFiltered: any;
+  filterCountries(event: any, type: any, countryOptions: any) {
+    let searchTerm: any = '';
+    if (event) {
+      searchTerm = event.target.value.toLowerCase();
+
+      if (searchTerm === '' && type === 'country') {
+        this.filteredCountryOptions = countryOptions;
+        return this.filteredCountryOptions;
+      }
+      if (searchTerm === '' && type === 'state') {
+        this.filteredStateOptions = countryOptions;
+        return this.filteredStateOptions;
+      }
+      if (searchTerm === '' && type === 'city') {
+        this.filteredCityOptions = countryOptions;
+        return this.filteredCityOptions;
+      }
+
+      let filteredCountries = countryOptions.filter((option: any) => {
+        const name: any = option.name.toLowerCase();
+        return name.includes(searchTerm);
+      });
+
+      if (!filteredCountries.length) {
+        filteredCountries = [{ name: `No ${type} found` }];
+      }
+      if (type === 'country') {
+        this.filteredCountryOptions = filteredCountries;
+      }
+      if (type === 'state') {
+        this.filteredStateOptions = filteredCountries;
+      }
+      if (type === 'city') {
+        this.filteredCityOptions = filteredCountries;
+      }
+    }
+  }
   onSubmit() {
     const formData = this.editLeadForm.value;
     const data = {
@@ -443,7 +564,7 @@ export class CustomerEditComponent implements OnInit {
       lead_stage: formData.leadStages,
       updated_by: this.user_id,
       note: formData.notes,
-      remark: formData.remarks,
+      remark: formData.remarks || null,
       source: formData.leadSource,
       refered_to: formData.counsellor,
       level_of_program: formData.levelOfProgram,
@@ -479,11 +600,9 @@ export class CustomerEditComponent implements OnInit {
       const mandatoryFields = [
         'firstName',
         'mobile',
-        'email',
         'counsellor',
-        'leadSource',
-        'leadStages',
-        'alternateNumber',
+        'leadStatus',
+        'notes',
       ];
       mandatoryFields.forEach((field) => {
         if (!this.editLeadForm.get(field)?.value) {
@@ -516,17 +635,15 @@ export class CustomerEditComponent implements OnInit {
         .updateData(`${environment.lead_list}${this.data.user_data.id}/`, data)
         .subscribe(
           (res: any) => {
-            if (res) {
-              this.addLead.emit('ADD');
+           if (res) {
+            this.addLead.emit('ADD')
               this.api.showSuccess(res.message);
               this._bottomSheetRef.dismiss('yes');
-              
-              this.dataService.dataSubject.next(true);
-
-              // this._addLeadEmitter.customerFiltertriggerGet();
+              this._addLeadEmitter.triggerGet();
+              this.dataService.dataSubject.next(true)
             }
           },
-          (error: any) => {
+          (error) => {
             this.api.showError(error?.error.message);
           }
         );
@@ -550,6 +667,38 @@ export class CustomerEditComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       //console.log('The dialog was closed');
       this.getStream();
+    });
+  }
+  openAddCountry() {
+    const dialogRef = this.dialog.open(AddCountryComponent, {
+      width: '35%',
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      //console.log('The dialog was closed');
+      this.getCountry();
+    });
+  }
+  openAddCity() {
+    const dialogRef = this.dialog.open(AddCityComponent, {
+      width: '35%',
+      data:this.editLeadForm.value.state
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      //console.log('The dialog was closed');
+      this.getCity();
+    });
+  }
+  openAddState() {
+    const dialogRef = this.dialog.open(AddStateComponent, {
+      width: '35%',
+      data:this.editLeadForm.value.country
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      //console.log('The dialog was closed');
+      this.getState();
     });
   }
 }

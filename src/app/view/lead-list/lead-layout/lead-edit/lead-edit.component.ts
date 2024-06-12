@@ -82,6 +82,16 @@ export class LeadEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.max = new Date();
+    this.editLeadForm.get('countryId')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.editLeadForm.get('state')?.enable();  
+      }
+    });
+    this.editLeadForm.get('state')?.valueChanges.subscribe((value:any) => {
+      if (value) {
+        this.editLeadForm.get('cityName')?.enable();  
+      } 
+    });
   }
   getLeadById() {
     this._baseService
@@ -163,9 +173,9 @@ export class LeadEditComponent implements OnInit {
       ],
       email: ['', [Validators.pattern(this._commonService.emailPattern)]],
       dateOfBirth: [''],
-      state: [''],
       zone: [''],
-      cityName: [''],
+      state: [{ value: '', disabled: true }],
+      cityName: [{ value: '', disabled: true }],
       pincode: ['', Validators.pattern(this._commonService.pincode)],
       countryId: [''],
       referenceName: ['', Validators.pattern(this._commonService.namePattern)],
