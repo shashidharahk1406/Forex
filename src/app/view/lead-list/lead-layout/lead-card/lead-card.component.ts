@@ -166,11 +166,12 @@ export class LeadCardComponent implements OnInit {
       this.getStatus()
       this._addLeadEmitter.triggerGet$.subscribe(() => {
         this.searchTerm=''
+        
         // this.getLeadIds()
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
-          //  console.log(res, "RES");
             this.leadFilter = true;
+            this._addLeadEmitter.leadFilterIcon.next('true')
             this.filterLeads(res);
           }else{
             this.getLeadData('tabLabel')
@@ -188,11 +189,11 @@ export class LeadCardComponent implements OnInit {
         this.getLeadData('tabLabel')
       }
     });
-    this.dataService.dataSubject.subscribe((res:any)=>{
-      if(res){
-        this._addLeadEmitter.selectedFilter.next('')
-      }
-    })
+    // this.dataService.dataSubject.subscribe((res:any)=>{
+    //   if(res){
+    //     this._addLeadEmitter.selectedFilter.next('')
+    //   }
+    // })
    
   }
   
