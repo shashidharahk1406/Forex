@@ -58,6 +58,8 @@ export class LeadToolbarComponent implements OnInit {
        //console.log(resp,"RESPONSE")
        if(resp === 'true'){
         this.filtered= true
+       }else{
+        this.filtered= false
        }
        
       }
