@@ -1,8 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { environment } from 'src/environments/environment';
 import { CustomerEditComponent } from '../customer-edit/customer-edit.component';
-import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
 import { CustomerVideoCallComponent } from '../customer-video-call/customer-video-call.component';
 import { CustomerEmailComponent } from '../customer-email/customer-email.component';
 import { CustomerWhatsappChatComponent } from '../customer-whatsapp-chat/customer-whatsapp-chat.component';
@@ -18,83 +28,80 @@ import { DataService } from 'src/app/service/data.service';
 @Component({
   selector: 'app-customer-card-content',
   templateUrl: './customer-card-content.component.html',
-  styleUrls: ['./customer-card-content.component.css']
+  styleUrls: ['./customer-card-content.component.css'],
 })
 export class CustomerCardContentComponent implements OnInit {
-
-  @Input()leadData:any = [];
-  public leadData2:any;
-  @Output()deleteLead = new EventEmitter()
-  @Output()selectedSort = new EventEmitter()
+  @Input() leadData: any = [];
+  public leadData2: any;
+  @Output() deleteLead = new EventEmitter();
+  @Output() selectedSort = new EventEmitter();
   // @Output()expandPanel=false;
-  @Input()totalCount:any;
-  @Input()allLeadIds:any = [];
+  @Input() totalCount: any;
+  @Input() allLeadIds: any = [];
   morePanel: boolean = false;
-  expandedCardIndex: number = -1; 
+  expandedCardIndex: number = -1;
   selectedCheckboxIds: any = [];
-  checked:boolean = false;
+  checked: boolean = false;
   selectAllChecked: boolean = false;
-  checkAll:boolean = false;
-  @Output()selectedSearch = new EventEmitter;
+  checkAll: boolean = false;
+  @Output() selectedSearch = new EventEmitter();
   leadAllIds: any = [];
-  @Output()refresh = new EventEmitter;
+  @Output() refresh = new EventEmitter();
   leadItem: any;
   searchEvent: any;
   isFiltered!: boolean;
   isSearched!: boolean;
 
   constructor(
-    private _bottomSheet:  MatBottomSheet,
+    private _bottomSheet: MatBottomSheet,
     private dialog: MatDialog,
-    private _baseService:BaseServiceService,
-    private api:ApiService,
-    private emit:AddLeadEmitterService,
-    private emit2:EmitService,
-    private dataService:DataService
-    ) {}
-  delete(event:any){
+    private _baseService: BaseServiceService,
+    private api: ApiService,
+    private emit: AddLeadEmitterService,
+    private emit2: EmitService,
+    private dataService: DataService
+  ) {}
+  delete(event: any) {
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
-    console.log(this.isFiltered,this.isSearched,"search and filetr");
-    
-    this.deleteBulk()
-   this.selectedCheckboxIds = [];
+    console.log(this.isFiltered, this.isSearched, 'search and filetr');
 
+    this.deleteBulk();
+    this.selectedCheckboxIds = [];
 
+    this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
+      console.log(res, 'filter');
 
-   this.dataService.filterCustomerRefreshdataSubject.subscribe((res:any)=>{
-    console.log(res,"filter");
-    
-    this.isFiltered=res;
-    
-  })
- this.dataService.searchCustomerRefreshdataSubject.subscribe((res:any)=>{
-  console.log(res,"search");
-  
-  this.isSearched=res;
- })
-   }
+      this.isFiltered = res;
+    });
+    this.dataService.searchCustomerRefreshdataSubject.subscribe((res: any) => {
+      console.log(res, 'search');
+
+      this.isSearched = res;
+    });
+  }
   ngOnChanges(changes: SimpleChanges) {
     this.api.setLeadData(this.leadData);
-    
-   
+
     if (changes['leadData']) {
       this.leadData2 = this.api.getLeadData();
       // this.selectedCheckboxIds = [];
       this.emit.triggerGet$.subscribe(() => {
-       this.selectedCheckboxIds = [] 
+        this.selectedCheckboxIds = [];
       });
-      if (this.selectedCheckboxIds.length > 0 && this.selectedCheckboxIds.length === this.totalCount&&this.totalCount>0) {
+      if (
+        this.selectedCheckboxIds.length > 0 &&
+        this.selectedCheckboxIds.length === this.totalCount &&
+        this.totalCount > 0
+      ) {
         this.checkAll = true;
-        this.checkBoxData()
-        
-      } else{
+        this.checkBoxData();
+      } else {
         this.checkAll = false;
-        this.checkBoxData()
+        this.checkBoxData();
       }
     }
-
   }
   expandCard(index: number) {
     if (this.expandedCardIndex === index) {
@@ -103,54 +110,58 @@ export class CustomerCardContentComponent implements OnInit {
       this.expandedCardIndex = index;
     }
   }
-  openCall(selectedData:string){
+  openCall(selectedData: string) {
     const dialogRef = this.dialog.open(CustomerCallComponent, {
-      width:'30%',
-      data: selectedData
+      width: '30%',
+      data: selectedData,
     });
-    dialogRef.disableClose=true
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {
       ////console.log('The dialog was closed');
-    }); 
+    });
   }
-  openSMS(selectedData:any): void {
+  openSMS(selectedData: any): void {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
-      data:selectedData
+      data: selectedData,
     };
-    this._bottomSheet.open(CustomerSmsComponent,config);
+    this._bottomSheet.open(CustomerSmsComponent, config);
   }
-  openWhatsAppChat(){
+  openWhatsAppChat() {
     const dialogRef = this.dialog.open(CustomerWhatsappChatComponent, {
-      width:'45%',
+      width: '45%',
     });
-    dialogRef.disableClose=true
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {
       ////console.log('The dialog was closed');
     });
   }
-  openEmailChat(selectedData:any){
+  openEmailChat(selectedData: any) {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
-      data: {selectedData:selectedData,bulkIds:this.selectedCheckboxIds,allChecked:this.checked}
+      data: {
+        selectedData: selectedData,
+        bulkIds: this.selectedCheckboxIds,
+        allChecked: this.checked,
+      },
     };
-    this._bottomSheet.open(CustomerEmailComponent,config);
+    this._bottomSheet.open(CustomerEmailComponent, config);
   }
-  openVideoCall(){
+  openVideoCall() {
     const dialogRef = this.dialog.open(CustomerVideoCallComponent, {
-      width:'45%',
+      width: '45%',
     });
-    dialogRef.disableClose=true
-  
-    dialogRef.afterClosed().subscribe((result:any) => {
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {
       ////console.log('The dialog was closed');
     });
   }
-  
+
   // openViewAll(name:any){
   //   const dialogRef = this.dialog.open(LeadViewAllComponent, {
   //     width:'60%',
@@ -161,97 +172,93 @@ export class CustomerCardContentComponent implements OnInit {
   //     ////console.log('The dialog was closed');
   //   });
   // }
-  editLead(name:any){
+  editLead(name: any) {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       data: name,
-      disableClose: true
+      disableClose: true,
     };
-    let data=this._bottomSheet.open(CustomerEditComponent,config);
-    data.afterDismissed().subscribe((res:any)=>{
-      console.log(res,"res from edit");
-      
-      if(res=='yes'){
-        console.log(this.isSearched,this.isFiltered,"this.isSearched==true && this.isFiltered==false");
-        
-        if((this.isSearched==true && this.isFiltered==false) || (this.isSearched==false && this.isFiltered==false)){
+    let data = this._bottomSheet.open(CustomerEditComponent, config);
+    data.afterDismissed().subscribe((res: any) => {
+      console.log(res, 'res from edit');
+
+      if (res == 'yes') {
+        console.log(
+          this.isSearched,
+          this.isFiltered,
+          'this.isSearched==true && this.isFiltered==false'
+        );
+
+        if (
+          (this.isSearched == true && this.isFiltered == false) ||
+          (this.isSearched == false && this.isFiltered == false)
+        ) {
           this.emit.customerFiltertriggerGet();
-          console.log(res,"if res from edit");
-      
-          this.refresh.emit(true)
-          
-        }
-        else{
-          console.log(res,"else res from edit");
-      
-          this.refresh.emit(false)
-        }
+          console.log(res, 'if res from edit');
 
+          this.refresh.emit(true);
+        } else {
+          console.log(res, 'else res from edit');
+
+          this.refresh.emit(false);
+        }
       }
-    })
+    });
   }
-  openMorePanel(){
-    this.morePanel = !this.morePanel
+  openMorePanel() {
+    this.morePanel = !this.morePanel;
   }
-  onChange(event:any){
-    this.selectedSort.emit(event)
+  onChange(event: any) {
+    this.selectedSort.emit(event);
   }
-  search(event:any){
-    this.searchEvent = event
-   this.selectedSearch.emit(event)
+  search(event: any) {
+    this.searchEvent = event;
+    this.selectedSearch.emit(event);
 
-  //  console.log(event,"lead search")
+    //  console.log(event,"lead search")
   }
- 
-  selectAll(event:any) {
-   // //console.log(event,"EVENT")
+
+  selectAll(event: any) {
+    // //console.log(event,"EVENT")
     this.checkAll = !this.checkAll;
     if (event.checked == true) {
       //console.log(this.allLeadIds,"allleaids")
       // If "Select All" is checked, add all IDs to the selectedCheckboxIds array
 
-      this.leadData2.forEach((element:any) => {
-        if (element ) {
+      this.leadData2.forEach((element: any) => {
+        if (element) {
           element.checked = true;
-          this.selectedCheckboxIds = this.allLeadIds
+          this.selectedCheckboxIds = this.allLeadIds;
         }
       });
-    
-    // //console.log(this.selectedCheckboxIds,"LEADIDS")
-      this.checkBoxData()
-     // this.checked = false
-    } else  {
+
+      // //console.log(this.selectedCheckboxIds,"LEADIDS")
+      this.checkBoxData();
+      // this.checked = false
+    } else {
       // If "Select All" is unchecked, clear the selectedCheckboxIds array
       this.selectedCheckboxIds = [];
-      this.leadData2.forEach((element:any) => {
-        if (element ) {
+      this.leadData2.forEach((element: any) => {
+        if (element) {
           element.checked = false;
         }
       });
-        
     }
-    
   }
-  
- 
+
   onCheckboxChange(event: MatCheckboxChange, itemId: string) {
-   // console.log(itemId,"itemId")
+    // console.log(itemId,"itemId")
     if (event.checked) {
       // Checkbox is checked, add the item ID to the array if it's not already there
       if (!this.selectedCheckboxIds) {
         this.selectedCheckboxIds = [];
-      }
-  
-      else if (!this.selectedCheckboxIds.includes(itemId)) {
+      } else if (!this.selectedCheckboxIds.includes(itemId)) {
         this.selectedCheckboxIds.push(itemId);
         if (this.selectedCheckboxIds.length === this.totalCount) {
           this.checkAll = true;
-          this.checkBoxData()
-          
-        } 
-      }
-      
-      else{
+          this.checkBoxData();
+        }
+      } else {
         this.checkAll = false;
       }
     } else {
@@ -260,53 +267,55 @@ export class CustomerCardContentComponent implements OnInit {
       if (index !== -1) {
         this.selectedCheckboxIds.splice(index, 1);
         this.checkAll = false;
-        this.checkBoxData()
+        this.checkBoxData();
       }
     }
   }
-  refreshLead(event:any){
-    this.refresh.emit(event)
-    this.selectedCheckboxIds = []
+  refreshLead(event: any) {
+    this.refresh.emit(event);
+    this.selectedCheckboxIds = [];
   }
-  checkBoxData(){
+  checkBoxData() {
     for (const selectedId of this.selectedCheckboxIds) {
-     
-      
-      const leadItem = this.leadData2.find((item:any) => item.user_data.id === selectedId);
-     
-      
-      if (leadItem ) {
+      const leadItem = this.leadData2.find(
+        (item: any) => item.user_data.id === selectedId
+      );
+
+      if (leadItem) {
         leadItem.checked = true;
       }
     }
-   
   }
-  onSearchInputChange(){
-    this.emit.leadFilter.subscribe((res:any) => {
+  onSearchInputChange() {
+    this.emit.leadFilter.subscribe((res: any) => {
       if (res) {
-        this.emit.goBack.next(true)
-      }else{
-        this.emit.goBack.next(true)
-        this.emit.triggerGet()
+        this.emit.goBack.next(true);
+      } else {
+        this.emit.goBack.next(true);
+        this.emit.triggerGet();
       }
     });
   }
-deleteBulk(){
-  this.emit2.deleteAll.subscribe((res:any)=>{
-    if(res === true){
-      let data = {
-        lead_ids: this.selectedCheckboxIds
+  deleteBulk() {
+    this.emit2.deleteAll.subscribe((res: any) => {
+      if (res === true) {
+        let data = {
+          lead_ids: this.selectedCheckboxIds,
+        };
+        this._baseService
+          .postData(`${environment.lead_bulk_delete}`, data)
+          .subscribe(
+            (res: any) => {
+              if (res) {
+                this.api.showSuccess(res.message);
+                this.emit.customerFiltertriggerGet();
+              }
+            },
+            (error: any) => {
+              this.api.showError(error.error.message);
+            }
+          );
       }
-      this._baseService.postData(`${environment.lead_bulk_delete}`,data).subscribe((res:any)=>{
-        if(res){
-         this.api.showSuccess(res.message)
-         this.emit.customerFiltertriggerGet();        }
-      },((error:any)=>{
-        this.api.showError(error.error.message)
-      }))
-    }
-  })
-}
-  
-
+    });
+  }
 }

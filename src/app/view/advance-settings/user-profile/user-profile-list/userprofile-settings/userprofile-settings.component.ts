@@ -105,12 +105,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       }
     });
     this.emit.getRefreshByFilter.subscribe((resp: any) => {
-      console.log(resp,'filetr url params');
-      if(resp){
-        this.filter=true
+      console.log(resp, 'filetr url params');
+      if (resp) {
+        this.filter = true;
       }
       this.params = resp;
-      
+
       this.getUser();
       this.searchValue = '';
     });
@@ -162,19 +162,17 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     if (event.target.value == '') {
       this.getUser();
       this.currentPage = 1;
-        this.pageSize = 10;
+      this.pageSize = 10;
     }
-    
   }
 
   loading: boolean = true;
-  isSearched:boolean=false;
+  isSearched: boolean = false;
   search() {
-    if(this.searchValue!==''){
-      this.isSearched=true;
-    }
-    else{
-      this.isSearched=false;
+    if (this.searchValue !== '') {
+      this.isSearched = true;
+    } else {
+      this.isSearched = false;
     }
     this.loading = true;
     if (this.searchValue == '') {
@@ -581,7 +579,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {});
   }
-  isFiltered:boolean=false;
+  isFiltered: boolean = false;
   openFilter() {
     const dialogRef = this.dialog.open(UserProfileFilterComponent, {
       width: '50%',
@@ -589,8 +587,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result){
-        this.isFiltered=true
+      if (result) {
+        this.isFiltered = true;
       }
     });
   }
@@ -615,18 +613,19 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result){
-        if((this.isSearched==true && this.isFiltered==false) || (this.isSearched==false && this.isFiltered==false)){
+      if (result) {
+        if (
+          (this.isSearched == true && this.isFiltered == false) ||
+          (this.isSearched == false && this.isFiltered == false)
+        ) {
           this.getUser();
-        }else{
+        } else {
           this.emit.getRefreshByFilter.subscribe((resp: any) => {
-            this.params=resp
-            console.log(resp,"filtered applied and searching");
-            
-          })
+            this.params = resp;
+            console.log(resp, 'filtered applied and searching');
+          });
         }
       }
-
     });
   }
   editForm!: FormGroup;

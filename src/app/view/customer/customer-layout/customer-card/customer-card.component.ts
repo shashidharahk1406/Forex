@@ -764,7 +764,7 @@ export class CustomerCardComponent implements OnInit {
       this._addLeadEmitter.customerFilter.next('');
       this._addLeadEmitter.customerFilterIcon.next(false);
       this._addLeadEmitter.customerFilter.next('');
-      // this._addLeadEmitter.selectedCustomerFilter.next('');
+      this._addLeadEmitter.selectedCustomerFilter.next('');
       this.getStatus();
       this.getLeadData('tabLabel');
       // this.getLeadIds()
