@@ -189,16 +189,8 @@ export class LeadCardComponent implements OnInit {
         this.getLeadData('tabLabel')
       }
     });
-    // this.dataService.dataSubject.subscribe((res:any)=>{
-    //   if(res){
-    //     this._addLeadEmitter.selectedFilter.next('')
-    //   }
-    // })
-   
+    
   }
-  
-  
- 
   
   applySearch(event:any){
     this.searchTerm = event
