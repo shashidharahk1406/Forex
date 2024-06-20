@@ -270,7 +270,10 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllCountry().subscribe(
       (res: any) => {
         if (res.results) {
-          this.countryOptions = res.results;
+          this.countryOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredCountryOptions = this.countryOptions;
         }
       },
@@ -309,7 +312,10 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllState(params).subscribe(
       (res: any) => {
         if (res.results) {
-          this.stateOptions = res.results;
+          this.stateOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredStateOptions = this.stateOptions;
           //console.log(res)
           this.getCity(lead)
@@ -351,7 +357,10 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllCity(params).subscribe(
       (res: any) => {
         if (res.results) {
-          this.cityOptions = res.results;
+          this.cityOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredCityOptions = this.cityOptions;
           this.editLeadForm.patchValue({
             cityName: lead?.city
@@ -365,7 +374,9 @@ export class CustomerEditComponent implements OnInit {
       }
     );
   }
-
+  toTitleCase(str: string): string {
+    return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
   getChannel() {
     this.api.getAllChannel().subscribe(
       (resp: any) => {
