@@ -210,11 +210,7 @@ export class CustomerCardComponent implements OnInit {
         this.getLeadData('tabLabel');
       }
     });
-    this.dataService.dataSubject.subscribe((res: any) => {
-      if (res) {
-        this._addLeadEmitter.selectedCustomerFilter.next('');
-      }
-    });
+  
   }
 
   // applySearch(event:any){

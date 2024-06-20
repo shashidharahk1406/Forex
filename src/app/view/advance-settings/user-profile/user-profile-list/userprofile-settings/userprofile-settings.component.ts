@@ -650,6 +650,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   id: any;
   user_name: any;
   openDelete(id: any, name: any) {
+    console.log(id,"user id");
+    
     this.id = id;
     this.user_name = name;
     //console.log(this.user_name,"username");
@@ -658,7 +660,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DeleteUsersComponent, {
       width: '35%',
       // data:{apiUrl,id:this.id,user_name:this.user_name}
-      data: apiUrl,
+      data:{apiUrl:apiUrl,userId:id,userName:this.user_name} ,
     });
     dialogRef.disableClose = true;
 

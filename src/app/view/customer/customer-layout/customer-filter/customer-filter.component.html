@@ -43,7 +43,7 @@
                   <mat-form-field class="mb-1" appearance="outline">
                       <mat-label>Select Counselled By</mat-label>
                       <mat-select placeholder="Select Counselors" formControlName="counselled_by" >
-                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}}</mat-option>
+                        <mat-option *ngFor="let counselled of counselled_by" [value]="counselled.id" >{{counselled.first_name}} {{counselled.last_name}}</mat-option>
                       </mat-select>
                       <button
                         mat-button
@@ -152,8 +152,8 @@
         </mat-dialog-content>
      
       <mat-dialog-actions class="d-flex">
-        <button class="mat-cancel m-1" mat-button (click)="reset()">RESET</button>
-        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial>APPLY FILTER</button>
+        <button class="mat-cancel m-1" mat-button (click)="reset()"  [disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id'] && !filterLead.value['course_id'] && !filterLead.value['source_id'] && !filterLead.value['stream_id']&& !filterLead.value['city_id']">RESET</button>
+        <button class="mat-disable m-1" mat-button (click)="onSubmit()" cdkFocusInitial [disabled]="!filterLead.value['counselled_by'] && !filterLead.value['counsellor_id'] && !filterLead.value['course_id'] && !filterLead.value['source_id'] && !filterLead.value['stream_id']&& !filterLead.value['city_id']">APPLY FILTER</button>
       </mat-dialog-actions>
     </mat-card>
      

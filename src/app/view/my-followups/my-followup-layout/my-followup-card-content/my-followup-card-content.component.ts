@@ -133,10 +133,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
       if (res) {
         // window.location.reload();
-         this.tempSearch='';
-        
-         
-         
+        this.tempSearch = '';
+
         // this.refreshFollowUps();
         // this.APICAll();
       }
@@ -184,11 +182,10 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   unsubscribe!: Subscription;
   previousSelectedTab: any;
   ngOnInit(): void {
-    
     if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
-
+    this.tempSearch = '';
     //  this.previousSelectedTab=this.dataService.getSelectedTab()
     this.selectedTab = this.dataService.getSelectedTab();
     //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
@@ -247,8 +244,6 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     //  this.clearLocalStorageOnHardRefresh();
 
     // this.getFollowupIds();
-
-   
   }
 
   expandCard(index: number) {
@@ -263,7 +258,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   }
 
   // receiveFilterCount:any=[]
-  isFilteredreset:boolean=false
+  isFilteredreset: boolean = false;
   filterFollowups() {
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
@@ -277,16 +272,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       this.currentPage = 0;
       //console.log(dataFromChild, 'dataFromChild');
       if (dataFromChild === 'Reset') {
-
         this.refreshFollowUps();
-        this.isFilteredreset=false;
+        this.isFilteredreset = false;
       } else if (
         dataFromChild === 'Submitted' ||
         dataFromChild === 'Close-ion-clicked'
       ) {
         // this.ngOnInit();
         this.gettingUrl();
-        this.isFilteredreset=true;
+        this.isFilteredreset = true;
       }
     });
   }
@@ -314,19 +308,19 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     let data = this._bottomSheet.open(EditFollowupComponent, config);
     data.afterDismissed().subscribe((dataFromChild) => {
       // //console.log(dataFromChild, 'dataFromChild');
-     
-    if(dataFromChild){
-  
-      if((this.isSearched==true&& this.isFilteredreset==false)||(this.isSearched==false && this.isFilteredreset== false)){
-        // alert(dataFromChild)
-        //pagerefrsh & all values should be reset
-        // this.ngOnInit();
-        this.refreshFollowUps();
+
+      if (dataFromChild) {
+        if (
+          (this.isSearched == true && this.isFilteredreset == false) ||
+          (this.isSearched == false && this.isFilteredreset == false)
+        ) {
+          // alert(dataFromChild)
+          //pagerefrsh & all values should be reset
+          // this.ngOnInit();
+          this.refreshFollowUps();
+          this.tempSearch = '';
+        }
       }
-      
-    }
-    
-    
     });
   }
 
@@ -709,6 +703,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         c.checked = false;
         this.checkAll = false;
       });
+    
+      // this.refreshFollowUps();
     } else {
       this.api.showWarning('Please select atleast one Followup to download');
     }
@@ -1122,14 +1118,14 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   tempSearch: any;
   isSearched: boolean = false;
   getSearchValue(data: any) {
-    if(data===''){
-      this.isSearched=false
-    }else{
-      this.isSearched=true
+    if (data === '') {
+      this.isSearched = false;
+    } else {
+      this.isSearched = true;
     }
 
     this.currentPage = 0;
- 
+
     this.loading = true;
     const apiurl: any = this.filterFollowUp.getSearch(data.target.value);
     localStorage.setItem('data.target.value', data.target.value);

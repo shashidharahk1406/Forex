@@ -6,6 +6,7 @@ import { UserProfileListComponent } from './user-profile-list/user-profile-list.
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DeleteUsersComponent } from './delete-users/delete-users.component';
 import { MaterialModule } from 'src/app/material.module';
+import { TransferLeadsComponent } from './transfer-leads/transfer-leads.component';
 
 
 
@@ -14,6 +15,7 @@ import { MaterialModule } from 'src/app/material.module';
     UserProfileComponent,
     UserProfileListComponent,
     DeleteUsersComponent,
+    TransferLeadsComponent,
   ],
   imports: [
     CommonModule,

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { ReferLeadComponent } from 'src/app/view/lead-list/lead-layout/refer-lead/refer-lead.component';
+import { TransferLeadsComponent } from '../transfer-leads/transfer-leads.component';
 
 @Component({
   selector: 'app-delete-users',
@@ -17,7 +18,7 @@ export class DeleteUsersComponent implements OnInit {
   id:any;
   user_name:any;
   // disableClose:boolean=true
-  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<DeleteUsersComponent>,private emit:EmitService,
+  constructor(private _fb:FormBuilder,private api:ApiService,public dialogRef: MatDialogRef<any>,private emit:EmitService,
     @Inject(MAT_DIALOG_DATA) public data: any, private router:Router,private dialog:MatDialog) {
       this.url=data.apiUrl;
       this.id=data.id;
@@ -25,6 +26,7 @@ export class DeleteUsersComponent implements OnInit {
       // console.log(this.url,"data from pc");
       // console.log(this.user_name,"name in delete");
       // this.url=data
+      console.log(data,"data from user-profile component");
       
       
       // this.id=id
@@ -52,10 +54,25 @@ export class DeleteUsersComponent implements OnInit {
     // 
   }
 
+
+  deleteUsers(){
+    this.api.delete(this.url).subscribe(
+        (resp:any)=>{
+          this.emit.sendRefresh(true)
+          this.dialogRef.close()
+          this.api.showSuccess(this.api.toTitleCase(resp.message))
+        },
+        (error:any)=>{
+          //console.log(error);
+           this.api.showError(this.api.toTitleCase(error.error.message))
+        }
+      )
+  }
+
   referLead(){
-    const dialogRef = this.dialog.open(ReferLeadComponent, {
+    const dialogRef = this.dialog.open(TransferLeadsComponent, {
       width:'40%',
-      data:{id:this.id,callback:this.deleteUsers.bind(this),user_name:this.user_name}
+      data:{data:this.data,callback:this.deleteUsers.bind(this)}
     });
     dialogRef.disableClose=true
   
@@ -64,17 +81,5 @@ export class DeleteUsersComponent implements OnInit {
     });
   }
 
-  deleteUsers(){
-    this.api.delete(this.url).subscribe(
-        (resp:any)=>{
-          this.emit.sendRefresh(true)
-          this.dialogRef.close()
-          // this.api.showSuccess(this.api.toTitleCase(resp.message))
-        },
-        (error:any)=>{
-          //console.log(error);
-           this.api.showError(this.api.toTitleCase(error.error.message))
-        }
-      )
-  }
+
 }

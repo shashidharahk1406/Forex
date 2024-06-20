@@ -70,11 +70,11 @@ export class CustomerToolbarComponent implements OnInit {
      )
      this.dataService.dataSubject.subscribe((res:any)=>{
       if(res){
-        this.filtered=false
+        // this.filtered=false
       }
       this.dataService.filterAndSearchCustomerRefreshdataSubject.subscribe((res:any)=>{
         if(res==true){
-          this.filtered=true
+          // this.filtered=true
         }
       })
 
