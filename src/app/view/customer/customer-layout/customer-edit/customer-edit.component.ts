@@ -100,7 +100,9 @@ export class CustomerEditComponent implements OnInit {
               courseId = this.lead.course_looking_for.map((m: any) => m.id);
             }
             this.getState(this.lead)
-            this.getCity(this.lead);
+            if(this.leadData.state){
+              this.getCity(this.lead);
+            }
             this.editLeadForm.patchValue({
               firstName: this.lead.user_data.first_name,
               mobile: this.lead.user_data.mobile_number,
@@ -110,7 +112,7 @@ export class CustomerEditComponent implements OnInit {
               state: this.lead.state,
               zone: this.lead.zone,
               course: this.lead.stream,
-              cityName: this.lead.city,
+              //cityName: this.lead.city,
               pincode: this.lead.pincode,
               countryId: this.lead.country,
               referenceName: this.lead.reference_name,
@@ -268,7 +270,10 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllCountry().subscribe(
       (res: any) => {
         if (res.results) {
-          this.countryOptions = res.results;
+          this.countryOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredCountryOptions = this.countryOptions;
         }
       },
@@ -307,7 +312,10 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllState(params).subscribe(
       (res: any) => {
         if (res.results) {
-          this.stateOptions = res.results;
+          this.stateOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredStateOptions = this.stateOptions;
           //console.log(res)
           this.getCity(lead)
@@ -349,8 +357,14 @@ export class CustomerEditComponent implements OnInit {
     this.api.getAllCity(params).subscribe(
       (res: any) => {
         if (res.results) {
-          this.cityOptions = res.results;
+          this.cityOptions = res.results.map((item: any) => ({
+            ...item,
+            name: this.toTitleCase(item.name)
+          })).sort((a: any, b: any) => a.name.localeCompare(b.name));
           this.filteredCityOptions = this.cityOptions;
+          this.editLeadForm.patchValue({
+            cityName: lead?.city
+          })
         } else {
           this.api.showError('ERROR');
         }
@@ -360,7 +374,9 @@ export class CustomerEditComponent implements OnInit {
       }
     );
   }
-
+  toTitleCase(str: string): string {
+    return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+  }
   getChannel() {
     this.api.getAllChannel().subscribe(
       (resp: any) => {
@@ -636,11 +652,12 @@ export class CustomerEditComponent implements OnInit {
         .subscribe(
           (res: any) => {
            if (res) {
-            this.addLead.emit('ADD')
-              this.api.showSuccess(res.message);
+              this.addLead.emit('ADD')
+              this.api.showSuccess('Customer details updated successfully');
               this._bottomSheetRef.dismiss('yes');
               // this._addLeadEmitter.customerFiltertriggerGet();
               this.dataService.dataSubject.next(true)
+              
             }
           },
           (error) => {
