@@ -118,7 +118,7 @@
     
 </mat-dialog-content>
 <div mat-dialog-actions >
-  <button class="mat-cancel" mat-button (click)="reset()">RESET</button>
-  <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>APPLY</button>
+  <button class="mat-cancel" mat-button (click)="reset()" [class.cl-disabled]="!filterUser.value['template_category_id'] && !filterUser.value['status']"  [disabled]="!filterUser.value['template_category_id'] && !filterUser.value['status']">RESET</button>
+  <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial [class.cl-disabled]="!filterUser.value['template_category_id'] && !filterUser.value['status']"   [disabled]="!filterUser.value['template_category_id'] && !filterUser.value['status']">APPLY</button>
 </div>
 </mat-card>

@@ -18,3 +18,9 @@ mat-card{
     margin: 0;
     padding: 0;
 }
+
+
+.cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

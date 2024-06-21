@@ -9,3 +9,9 @@ mat-card{
     opacity: 0.6;
     pointer-events: none;
    }
+
+
+   .search-bar{
+    border-bottom: 1px solid #dfdbdb;
+    padding: 15px;
+  }

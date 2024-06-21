@@ -50,6 +50,7 @@ export class CourseListComponent implements AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getCourse(); 
+          this.searchValue=''
         }
       }
     )

@@ -2,3 +2,9 @@ mat-card{
     box-shadow: none !important;
     overflow: hidden;
 }
+
+
+.search-bar{
+    border-bottom: 1px solid #dfdbdb;
+    padding: 15px;
+  }

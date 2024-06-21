@@ -82,6 +82,9 @@ export class TransferLeadsComponent implements OnInit {
             'transferring leads '
           );
           this.api.showSuccess(res.message);
+          if(this.data.callback){
+            this.data.callback();
+          }
           this.dialogRef.close();
         },
         (error: any) => {

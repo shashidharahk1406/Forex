@@ -27,7 +27,7 @@ export class CustomerEmailComponent implements OnInit {
     private addEmit:AddLeadEmitterService,
     private bottomSheet:MatBottomSheet) {
 
-     // console.log(data,"data lead email")
+     console.log(data,"data lead email")
     }
 
   ngOnInit(): void {
@@ -57,7 +57,7 @@ export class CustomerEmailComponent implements OnInit {
     else{
       const fd = this.emailForm.value;
       let emailFormVal:any = {}
-      if(this.data.checked){
+      if(this.data.allChecked){
          emailFormVal ={
           all_users: true, 
           subject: fd.subject,

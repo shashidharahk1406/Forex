@@ -154,7 +154,18 @@
                     <mat-form-field class="mb-1" appearance="outline">
                         <mat-label>Select City</mat-label>
                         <mat-select placeholder="Select City" formControlName="city_id">
-                          <mat-option *ngFor="let citys of cityList" [value]="citys.id">{{citys.name}}</mat-option>
+                          <div *ngIf="filteredCityOptions.length >0">
+                            <input type="text" matInput  (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 search-bar">
+                          </div>
+                          
+
+                          <ng-container *ngIf="filteredCityOptions.length >0">
+                            <mat-option *ngFor="let citys of filteredCityOptions" [value]="citys.id">{{citys.name}}</mat-option>
+                           
+                          </ng-container>
+                            <ng-container *ngIf="filteredCityOptions.length ===0">
+                              <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                            </ng-container>
                         </mat-select>
                         <button
                           mat-button

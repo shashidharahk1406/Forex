@@ -36,6 +36,8 @@ export class DeleteUsersComponent implements OnInit {
   }
   delete(){
    //console.log(this.url,"URL")
+   
+   
    this.referLead()
 
 //   this.api.delete(this.url).subscribe(

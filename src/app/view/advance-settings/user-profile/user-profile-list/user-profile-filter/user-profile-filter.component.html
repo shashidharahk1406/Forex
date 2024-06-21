@@ -186,8 +186,8 @@
         </mat-dialog-content>
       </div>
     <mat-dialog-actions align="end">
-      <button class="mat-cancel" mat-button (click)="reset()">RESET</button>
-      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial>APPLY</button>
+      <button class="mat-cancel" mat-button (click)="reset()" [class.cl-disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && !filterForm.value['reporting_to_ids']"  [disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && !filterForm.value['reporting_to_ids']">RESET</button>
+      <button class="mat-disable" mat-button (click)="submit()" cdkFocusInitial  [class.cl-disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && !filterForm.value['reporting_to_ids']"  [disabled]="!filterForm.value['role_id'] && !filterForm.value['is_active'] && !filterForm.value['designation'] && !filterForm.value['reporting_to_ids']">APPLY</button>
     </mat-dialog-actions>
     
     

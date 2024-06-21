@@ -143,11 +143,15 @@ export class MyFollowupFilterComponent implements OnInit {
       }
     );
   }
+  cityOptions: any = [];
   getCity() {
     this.api.getAllCity().subscribe(
       (res: any) => {
         if (res.results) {
           this.cityList = res.results;
+
+          this.cityOptions = res.results;
+          this.filteredCityOptions = this.cityOptions
         } else {
           this.api.showError('ERROR');
         }
@@ -156,6 +160,35 @@ export class MyFollowupFilterComponent implements OnInit {
         this.api.showError(this.api.toTitleCase(error.error.message));
       }
     );
+  }
+
+  filteredCityOptions: any = [];
+
+  filterCountries(event:any,type:any,countryOptions:any){
+    let searchTerm:any = '';
+    if(event){
+       searchTerm = event.target.value.toLowerCase();
+
+       
+       if(searchTerm === '' && type === 'city'){
+        this.filteredCityOptions = countryOptions
+        return this.filteredCityOptions
+       }
+    
+      let filteredCountries = countryOptions.filter((option:any) =>{
+       const name:any = option.name.toLowerCase()
+       return name.includes(searchTerm)
+       });
+
+       if(!filteredCountries.length){
+        filteredCountries = [{name: `No ${type} found`}]
+       }
+   
+       if(type === 'city'){
+        this.filteredCityOptions = filteredCountries
+       }
+       
+  }
   }
 
   getCounselledBy() {

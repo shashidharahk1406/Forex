@@ -40,10 +40,10 @@ export class WhatsappFilterComponent implements OnInit {
     status: [''],
     // createdBy: [''],
     // updatedBy: [''],
-    from_date: [''],
-    to_date: [''],
-    from_updated_date: [''],
-    to_updated_date: [''],
+    // from_date: [''],
+    // to_date: [''],
+    // from_updated_date: [''],
+    // to_updated_date: [''],
     
   });
   this.setValue();

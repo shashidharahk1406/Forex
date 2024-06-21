@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm-12 col-md-6 col-lg-4">
       <div class="input-group z-s">
-        <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search Priority Name">
+        <input (input)="applyFilter($event)" type="search"  class="form-control" placeholder="Search Priority Name" [(ngModel)]="searchValue">
         <button (click)="search()" class="btn btn-outline-secondary" type="button">
           <i class="bi bi-search"></i>
         </button>

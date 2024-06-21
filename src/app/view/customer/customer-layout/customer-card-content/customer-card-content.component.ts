@@ -140,9 +140,13 @@ export class CustomerCardContentComponent implements OnInit {
     });
   }
   openEmailChat(selectedData: any) {
+    if(this.checkAll===false){
+        this.selectedCheckboxIds=[]
+    }
     const config: MatBottomSheetConfig = {
       panelClass: 'lead-bottom-sheet',
       disableClose: true,
+      
       data: {
         selectedData: selectedData,
         bulkIds: this.selectedCheckboxIds,
@@ -277,7 +281,7 @@ export class CustomerCardContentComponent implements OnInit {
   }
   checkBoxData() {
     for (const selectedId of this.selectedCheckboxIds) {
-      const leadItem = this.leadData2.find(
+      const leadItem = this.leadData2?.find(
         (item: any) => item.user_data.id === selectedId
       );
 

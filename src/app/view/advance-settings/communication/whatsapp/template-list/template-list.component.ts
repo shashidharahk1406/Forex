@@ -63,6 +63,7 @@ export class TemplateListComponent implements AfterViewInit  {
       (resp:any)=>{
       
           this.params=resp
+          
           localStorage.removeItem('whatsappFilter')
           this.getTemplate(); 
 

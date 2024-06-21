@@ -51,6 +51,7 @@ export class StreamListComponent implements OnInit {
       (resp:any)=>{
         if(resp==true){
           this.getCourse(); 
+          this.searchValue=''
         }
       }
     )

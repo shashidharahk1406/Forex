@@ -44,6 +44,7 @@ export class CountryIdListComponent implements AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getCountry(); 
+          this.searchValue=''
         }
       }
     )

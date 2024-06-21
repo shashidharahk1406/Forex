@@ -11,3 +11,9 @@
 
 .myMatOptions{  position: absolute; }
 ::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+.cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

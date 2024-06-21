@@ -45,6 +45,7 @@ export class LevelOfProgramListComponent implements AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getLevel(); 
+          this.searchValue=''
         }
       }
     )

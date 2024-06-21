@@ -55,7 +55,7 @@ export let browserRefresh = false;
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
+export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterViewInit {
   filterFollowUp = new FilterFollowUp();
   subscription!: Subscription;
   selectedDate: any = null;
@@ -130,25 +130,9 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
     this.counsellors_ids = localStorage.getItem('counsellor_ids');
     // //console.log(this.role, 'roleeeeeeeeeeeeeee');
 
-    this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
-      if (res) {
-        // window.location.reload();
-        this.tempSearch = '';
-
-        // this.refreshFollowUps();
-        // this.APICAll();
-      }
-    });
-
-    // //console.log(data, 'data');
-
-    // if (window.performance) {
-
-    //   if (performance.navigation.type === 1) {
-    //     // This means the page is being hard refreshed
-    //     // this.localStorageService.clearLocalStorage();
-    //     localStorage.removeItem('followUpFilter')
-    //   }}
+  
+    this.tempSearch = '';
+    
 
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -214,6 +198,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
         //   //   `${this.api_url}/api/follow-up/?page=1&page_size=5`
         //   // );
         // }
+      });
+      this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
+        if (res) {
+          // window.location.reload();
+          this.tempSearch = '';
+  
+          // this.refreshFollowUps();
+          // this.APICAll();
+        }
       });
 
     // var data: any =this.dataService.getfiletredFormValues();
@@ -699,15 +692,28 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
       this.exportReference = `${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
+    this.updateAPIURL=''
       this.renderingData.forEach((c: any) => {
         c.checked = false;
         this.checkAll = false;
+      
       });
+      if(this.isSearched==true){
+        this.refreshFollowUps();
+      }
+  // this.allPaginator.pageIndex=0
+  // this.currentPage=1 
+  // this.allPaginator.pageSize=5;
+ 
+  
     
-      // this.refreshFollowUps();
     } else {
       this.api.showWarning('Please select atleast one Followup to download');
     }
+  }
+  
+  ngAfterViewInit() {
+    this.refreshFollowUps()
   }
 
   bulkVideoCall() {
@@ -757,15 +763,29 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
 
     bottomSheetRef.afterDismissed().subscribe((res: any) => {
       //console.log(res,"pop closed");
-
-      if (res == true) {
+let filterRes=this.filtered
+      if (res == true && filterRes==false) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
+        this.selectedCheckboxIds=[]
+        if(res == true && this.filtered==true){
+          this.APICAll();
+          this.selectedCheckboxIds=[]
+          this.checkAll=false;
+          this.renderingData.forEach((c: any) => {
+            c.checked = false;
+            this.checkAll = false;
+          });
+        
+       
+         
+        }
       }
     });
+   
   }
   onClickLink(data: any) {
     this.addCount();
@@ -793,15 +813,23 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy {
       data: { data: this.selectedCheckboxIds, name: 'BULK' },
     });
     dialogRef.disableClose = true;
-
+let res=this.filtered
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')
-      if (result) {
+      if (result==true&&this.filtered==false) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
+      }
+      if (result==true&&res==true) {
+        this.APICAll();
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.checkAll = false;
+        });
+        this.selectedCheckboxIds=[]
       }
     });
   }

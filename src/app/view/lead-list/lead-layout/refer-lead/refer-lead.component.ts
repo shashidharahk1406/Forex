@@ -113,9 +113,7 @@ export class ReferLeadComponent implements OnInit {
         if(res){
           this.api.showSuccess(res.message)
           this._addLeadEmitter.triggerGet();
-          if(this.data.callback){
-            this.data.callback();
-          }
+       
           
           this.dialogRef.close()
         }

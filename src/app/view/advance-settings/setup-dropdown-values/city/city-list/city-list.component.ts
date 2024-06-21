@@ -43,6 +43,7 @@ export class CityListComponent implements AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getCity(); 
+          this.searchValue=''
         }
       }
     )
@@ -62,7 +63,10 @@ export class CityListComponent implements AfterViewInit {
   }
   search(){
     if(this.searchValue?.length>0){
-      this.api.getCitySearch(this.searchValue,this.pageSize,this.currentPage).subscribe((resp:any)=>{
+      this.allCity=[]
+      this.dataSource = new MatTableDataSource<any>(this.allCity=[]);
+      this.totalPageLength=0
+      this.api.getCitySearch(this.searchValue,this.pageSize,this.currentPage=1).subscribe((resp:any)=>{
         this.allCity= resp.results;
         this.dataSource = new MatTableDataSource<any>(this.allCity);
         this.totalPageLength=resp.total_no_of_record

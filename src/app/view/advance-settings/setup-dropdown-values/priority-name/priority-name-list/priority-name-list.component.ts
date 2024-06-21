@@ -41,6 +41,7 @@ export class PriorityNameListComponent implements AfterViewInit {
       (resp:any)=>{
         if(resp==true){
           this.getPriority(); 
+          this.searchValue=''
         }
       }
     )
@@ -56,8 +57,10 @@ export class PriorityNameListComponent implements AfterViewInit {
   applyFilter(event: any) {
     this.searchValue=event.target.value
     if(event.target.value==''){
-      this.getPriority()
+      this.getPriority();
+      this.searchValue=''
     }
+   
    
   }
   search(){
