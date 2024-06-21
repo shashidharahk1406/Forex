@@ -120,7 +120,7 @@ export class CustomerCardComponent implements OnInit {
 
   onChangeSorting(event: any) {
     this.sorting = true;
-    this.sortingType = event.target.innerText;
+    this.sortingType = event;
     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`;
     if (['counsellor', 'counselor'].includes(this.user_role) === true) {
       this.query += `&counsellor_id=${this.user_id}`;

@@ -82,7 +82,7 @@ export class LeadCardComponent implements OnInit {
   }
   onChangeSorting(event:any){
     this.sorting = true
-     this.sortingType = event.target.innerText
+     this.sortingType = event
     
     //  this.query = (this.user_role === 'counsellor')
     //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`

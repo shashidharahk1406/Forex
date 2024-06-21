@@ -8,8 +8,9 @@
 			
 					<mat-list #dateType >
 						
-						<mat-list-item *ngFor="let dateType of typesOfDate"   (click)="onChange($event)" ngbDropdownToggle >
-							<i mat-list-icon class="bi bi-calendar-week-fill more-inner-icon" ></i>
+						<mat-list-item *ngFor="let dateType of typesOfDate"   (click)="onChange(dateType)" ngbDropdownToggle >
+							
+							<i mat-list-icon class="bi bi-calendar-week-fill more-inner-icon" (click)="onChange(dateType)"></i>
 							
 							<div mat-line class="app-list">{{dateType}}</div>
 						</mat-list-item>
