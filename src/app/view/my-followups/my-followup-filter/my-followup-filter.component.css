@@ -2,3 +2,10 @@ mat-card{
     box-shadow: none !important;
     overflow: hidden;
 }
+
+
+
+.cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

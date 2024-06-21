@@ -15,6 +15,7 @@ import { UserProfilePermissionsComponent } from './user-profile-permissions/user
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
+import { TranferCounsellorsComponent } from './tranfer-counsellors/tranfer-counsellors.component';
 
 
 
@@ -30,6 +31,7 @@ import { MatTableModule } from '@angular/material/table';
     EditUserProfileListComponent,
     PauseUserComponent,
     UserProfilePermissionsComponent,
+    TranferCounsellorsComponent,
 
   ],
   imports: [

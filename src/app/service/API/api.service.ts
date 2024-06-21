@@ -895,4 +895,18 @@ getLeadFollowUpIdsForCounsellor(status:any,id:any){
 getLeadFollowUpIdsForAdmin(status:any){
   return this.http.get(`${this.baseurl}/api/get-lead-ids/?follow_up=true&status=${status}`)
 }
+
+counsellorToAdmin(data:any){
+  return this.http.post(`${this.baseurl}/api/role-change/`,data)
+}
+getCounsellorIds(id:any){
+return this.http.get(`${this.baseurl}/api/role-change/?user_id=${id}`)
+}
+
+adminToCounsellor(data:any){
+  return this.http.post(`${this.baseurl}/api/role-change/`,data)
+}
+transferDeleteAdminAndCounsellor(data:any){
+  return this.http.post(`${this.baseurl}/api/delete-admin-counsellor/`,data)
+}
 }

@@ -17,7 +17,9 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
-import { log } from 'util';
+import { error } from 'console';
+import { TranferCounsellorsComponent } from '../tranfer-counsellors/tranfer-counsellors.component';
+
 @Component({
   selector: 'app-edit-user-profile-list',
   templateUrl: './edit-user-profile-list.component.html',
@@ -39,6 +41,7 @@ export class EditUserProfileListComponent implements OnInit {
   id: any;
   min: Date;
   role: any;
+
   constructor(
     public dialogRef: MatDialogRef<EditUserProfileListComponent>,
     private api: ApiService,
@@ -120,10 +123,16 @@ export class EditUserProfileListComponent implements OnInit {
     this.is_allow_for_app = event.checked;
   }
   newArrFromApi: any = [];
+  userId: any;
+  user_name:any;
   getUserbyId() {
     this.api.getUserById(this.id).subscribe(
       (resp: any) => {
-        // console.log(resp,"resp");
+        console.log(resp, 'resp');
+        this.userId = resp.result[0].id;
+        this.user_name=resp.result[0].first_name;
+        console.log(this.userId, 'userid');
+
         if (resp.result[0].role_id === 3) {
           this.isReportingToUser = true;
         } else {
@@ -156,6 +165,7 @@ export class EditUserProfileListComponent implements OnInit {
         // this.editForm.patchValue({department_id:resp.result[0].department_id})
         this.editForm.patchValue({ password: resp.result[0].password });
         this.editForm.patchValue({ created_by: resp.result[0].created_by });
+        this.getCounselloIdsForAdmin();
       },
       (error: any) => {}
     );
@@ -303,10 +313,11 @@ export class EditUserProfileListComponent implements OnInit {
     //console.log(this.editForm.value,"edit form submission");
 
     // this.editForm.patchValue({reporting_to_ids:this.newArr})
-    if(this.isReportingToUser==false && this.roleId === 6){
-      this.newArr=[]
-      this.newArrFromApi=[]
-      this.editForm.patchValue({ reporting_to_ids:{}});
+    if (this.isReportingToUser == false && this.roleId === 6) {
+      this.newArr = [];
+      this.newArrFromApi = [];
+      this.editForm.patchValue({ reporting_to_ids: {} });
+      this.roleChangeFromCounsellorToAdmin();
     }
     if (this.newArrFromApi.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArr });
@@ -335,8 +346,14 @@ export class EditUserProfileListComponent implements OnInit {
   isReportingToUser: boolean = false;
   onRoleChange(id: any) {
     this.roleId = id;
-    //console.log(this.roleId,"roleId");
+    console.log(this.roleId, 'roleId');
     // this.allUser=[]
+    if (
+      (this.roleId === 3 || this.roleId === 7) &&
+      this.counsellorIds.length > 0
+    ) {
+      this.openTransferCounsellorsComponent();
+    }
     if (this.roleId === 3) {
       this.isReportingToUser = true;
       this.allUser = this.allUser.filter((ele: any) => {
@@ -344,7 +361,51 @@ export class EditUserProfileListComponent implements OnInit {
       });
     } else if (this.roleId === 6) {
       this.isReportingToUser = false;
-     
     }
+  }
+
+  roleChangeFromCounsellorToAdmin() {
+    const data = {
+      user_id: this.userId,
+      role_change_to: 'admin',
+    };
+
+    this.api.counsellorToAdmin(data).subscribe(
+      (res: any) => {
+        console.log(res, 'counsellor to admin role has been changed');
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  counsellorIds: any;
+  getCounselloIdsForAdmin() {
+    this.api.getCounsellorIds(this.userId).subscribe(
+      (res: any) => {
+        console.log(res.results, 'ids under a admin');
+        this.counsellorIds = res.results;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+  openTransferCounsellorsComponent() {
+    const dialogRef = this.dialog.open(TranferCounsellorsComponent, {
+      width: '45%',
+      data: {
+        counsellorIds: this.counsellorIds,
+        userId: this.userId,
+        roleId: this.roleId,
+        userName:this.user_name
+      },
+    });
+
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {});
   }
 }
