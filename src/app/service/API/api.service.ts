@@ -909,4 +909,8 @@ adminToCounsellor(data:any){
 transferDeleteAdminAndCounsellor(data:any){
   return this.http.post(`${this.baseurl}/api/delete-admin-counsellor/`,data)
 }
+
+getLeadsIdsTodeleteAdminCounsellor(id:any){
+  return this.http.get(`${this.baseurl}/api/delete-admin-counsellor/?user_id=${id}`)
+}
 }

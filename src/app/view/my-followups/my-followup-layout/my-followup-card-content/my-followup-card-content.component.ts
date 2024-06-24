@@ -55,7 +55,9 @@ export let browserRefresh = false;
   templateUrl: './my-followup-card-content.component.html',
   styleUrls: ['./my-followup-card-content.component.css'],
 })
-export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterViewInit {
+export class MyFollowupCardContentComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   filterFollowUp = new FilterFollowUp();
   subscription!: Subscription;
   selectedDate: any = null;
@@ -93,6 +95,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
   query!: string;
   followUpsData2: any;
   filtered: boolean = false;
+  filterFlag: boolean = false;
 
   allFollowUpDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
@@ -130,9 +133,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
     this.counsellors_ids = localStorage.getItem('counsellor_ids');
     // //console.log(this.role, 'roleeeeeeeeeeeeeee');
 
-  
     this.tempSearch = '';
-    
 
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -145,8 +146,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
       if (data != null) {
         // //console.log(data);
         // this.refreshFollowUps();
-        this.filtered = data;
-
+        // this.filtered = data;
         // this.APICAll();
       }
     });
@@ -177,6 +177,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
     this.dataService.followUpdataSubject.subscribe((res: any) => {
       console.log(res, 'dataUpdated');
       this.filtered = res;
+      this.filterFlag = res;
     });
 
     this.unsubscribe = this.dataService.resettingFilter
@@ -199,15 +200,15 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
         //   // );
         // }
       });
-      this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
-        if (res) {
-          // window.location.reload();
-          this.tempSearch = '';
-  
-          // this.refreshFollowUps();
-          // this.APICAll();
-        }
-      });
+    this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
+      if (res) {
+        // window.location.reload();
+        this.tempSearch = '';
+
+        // this.refreshFollowUps();
+        // this.APICAll();
+      }
+    });
 
     // var data: any =this.dataService.getfiletredFormValues();
     // // var resp: any = JSON.parse(data);
@@ -311,7 +312,8 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
           //pagerefrsh & all values should be reset
           // this.ngOnInit();
           this.refreshFollowUps();
-          this.tempSearch = '';
+
+          this.searchValue = '';
         }
       }
     });
@@ -544,6 +546,7 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
     this.filtered = false;
     this.tempSearch = '';
     this.renderingData = [];
+    this.dataService.setSelectedTabData('All');
     localStorage.removeItem('followUpFilter');
     localStorage.removeItem('data.target.value');
     // //console.log("updateAPIURL==>", this.updateAPIURL);
@@ -688,32 +691,64 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
       this.api.showWarning('Please select atleast one Followup');
     }
   }
-
+  defaultPage: any = 1;
+  defaultPageSize: any = 5;
   downloadLead() {
     if (this.selectedCheckboxIds.length > 0) {
-      this.exportReference = `${environment.export_leads}?ids=${this.selectedCheckboxIds}`;
-    this.updateAPIURL=''
+      this.exportReference = `${environment.export_leads}?ids=${[
+        ...this.selectedCheckboxIds,
+      ]}`;
+
+      const tempurl = new URL(this.updateAPIURL);
+      const page: any = 'page';
+      const page_size: any = 'page_size';
+      tempurl.searchParams.set(page, this.defaultPage);
+      tempurl.searchParams.set(page_size, this.defaultPageSize);
+      this.updateAPIURL = tempurl.toString().replace(/%26/g, '&');
+      this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
+      this.APICAll();
       this.renderingData.forEach((c: any) => {
         c.checked = false;
         this.checkAll = false;
-      
       });
-      if(this.isSearched==true){
-        this.refreshFollowUps();
+
+      this.selectedCheckboxIds = [];
+
+      this.allPaginator.pageIndex = 0;
+
+      this.allPaginator.pageSize = 5;
+      if (this.isSearched == true && this.filterFlag == false) {
+        this.searchValue = '';
+        const tempurl = new URL(
+          `${this.api_url}/api/follow-up/?page=1&page_size=5`
+        );
+        const page: any = 'page';
+        const page_size: any = 'page_size';
+        tempurl.searchParams.set(page, this.defaultPage);
+        tempurl.searchParams.set(page_size, this.defaultPageSize);
+        this.updateAPIURL = tempurl.toString().replace(/%26/g, '&');
+        this.dataService.setFilteredFollowUpURL(
+          `${this.api_url}/api/follow-up/?page=1&page_size=5`
+        );
+        this.APICAll();
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.checkAll = false;
+        });
+
+        this.selectedCheckboxIds = [];
+
+        this.allPaginator.pageIndex = 0;
+
+        this.allPaginator.pageSize = 5;
       }
-  // this.allPaginator.pageIndex=0
-  // this.currentPage=1 
-  // this.allPaginator.pageSize=5;
- 
-  
-    
     } else {
       this.api.showWarning('Please select atleast one Followup to download');
     }
   }
-  
+
   ngAfterViewInit() {
-    this.refreshFollowUps()
+    // this.refreshFollowUps()
   }
 
   bulkVideoCall() {
@@ -763,29 +798,24 @@ export class MyFollowupCardContentComponent implements OnInit, OnDestroy,AfterVi
 
     bottomSheetRef.afterDismissed().subscribe((res: any) => {
       //console.log(res,"pop closed");
-let filterRes=this.filtered
-      if (res == true && filterRes==false) {
+      let filterRes = this.filterFlag;
+      if (res == true && filterRes == false) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
-        this.selectedCheckboxIds=[]
-        if(res == true && this.filtered==true){
-          this.APICAll();
-          this.selectedCheckboxIds=[]
-          this.checkAll=false;
-          this.renderingData.forEach((c: any) => {
-            c.checked = false;
-            this.checkAll = false;
-          });
-        
-       
-         
-        }
+      }
+
+      if (res == true && this.filterFlag == true) {
+        this.APICAll();
+        this.renderingData.forEach((c: any) => {
+          c.checked = false;
+          this.checkAll = false;
+        });
+        this.selectedCheckboxIds = [];
       }
     });
-   
   }
   onClickLink(data: any) {
     this.addCount();
@@ -813,23 +843,23 @@ let filterRes=this.filtered
       data: { data: this.selectedCheckboxIds, name: 'BULK' },
     });
     dialogRef.disableClose = true;
-let res=this.filtered
+    let res = this.filterFlag;
     dialogRef.afterClosed().subscribe((result: any) => {
       // this.refresh.emit('event')
-      if (result==true&&this.filtered==false) {
+      if (result == true && this.filtered == false) {
         this.refreshFollowUps();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
       }
-      if (result==true&&res==true) {
+      if (result == true && res == true) {
         this.APICAll();
         this.renderingData.forEach((c: any) => {
           c.checked = false;
           this.checkAll = false;
         });
-        this.selectedCheckboxIds=[]
+        this.selectedCheckboxIds = [];
       }
     });
   }

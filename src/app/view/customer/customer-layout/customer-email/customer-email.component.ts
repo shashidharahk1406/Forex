@@ -60,6 +60,7 @@ export class CustomerEmailComponent implements OnInit {
       if(this.data.allChecked){
          emailFormVal ={
           all_users: true, 
+          lead_list_ids: this.data.bulkIds,
           subject: fd.subject,
           message: fd.followupComment,
           template_id: fd.emailTemplate,

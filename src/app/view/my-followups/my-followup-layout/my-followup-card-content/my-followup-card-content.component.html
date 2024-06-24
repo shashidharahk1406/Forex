@@ -141,7 +141,7 @@
                 *ngIf="selectedCheckboxIds.length > 0"
                 [href]="exportReference"
                 target="_blank"
-                (click)="downloadLead()"
+                
               >
                 <!-- <mat-icon >save_alt</mat-icon> -->
                 <!-- <i class="bi bi-download"></i> -->
@@ -195,14 +195,14 @@
                   width: 20%;
                   font-size: 18px !important;
                 "
-                *ngIf="!filtered"
+                *ngIf="!filterFlag"
               ></i>
               <!-- <img src="./assets/images/filter.png" alt="" width="19" height="19" *ngIf="!filtered">
               <img src="./assets/images/filter.png" alt="" width="19" height="19" matBadge="{{ filterCount }}" *ngIf="filtered"> -->
               <i
                 style="color: palevioletred !important"
                 class="bi bi-funnel-fill"
-                *ngIf="filtered"
+                *ngIf="filterFlag"
               
               ></i>
               <!-- <mat-icon
@@ -921,7 +921,7 @@
             type="search"
             class="form-control icon-rtl"
             placeholder="Search by Name/Mobile"
-            [(ngModel)]="tempSearch"
+            [(ngModel)]="searchValue"
             (input)="getSearchValue($event)"
           
           />
@@ -933,6 +933,8 @@
           [minDate]="minDate"
         >
         </mat-calendar>
+
+      
 
           <!-- <button  class="btn btn-outline-secondary" type="button">
     <i class="bi bi-search"></i>

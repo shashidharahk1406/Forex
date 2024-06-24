@@ -119,6 +119,8 @@ export class CustomerCardComponent implements OnInit {
   // }
 
   onChangeSorting(event: any) {
+    // console.log(event,"sorting");
+    
     this.sorting = true;
     this.sortingType = event;
     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`;
@@ -295,8 +297,9 @@ export class CustomerCardComponent implements OnInit {
   //   });
   // }
   // }
-
+isSearched:boolean=false
   applySearch(event: any) {
+    this.isSearched=true
     this.searchTerm = event;
     if (event !== '') {
       let query: string;
@@ -769,6 +772,7 @@ export class CustomerCardComponent implements OnInit {
       this.leadCards = [];
       this.totalNumberOfRecords = [];
       this.allLeadCardsDataSource = [];
+      this.searchTerm=''
     }
     else{
       
@@ -776,7 +780,10 @@ export class CustomerCardComponent implements OnInit {
       if (res) {
         //  console.log(res, "RES");
         this.leadFilter = true;
+      
         this.filterLeads(res);
+       this.searchTerm=''
+        
       } else {
         this.getLeadData('tabLabel');
       }
