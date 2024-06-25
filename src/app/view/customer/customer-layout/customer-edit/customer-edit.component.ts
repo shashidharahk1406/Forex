@@ -655,7 +655,7 @@ export class CustomerEditComponent implements OnInit {
               this.addLead.emit('ADD')
               this.api.showSuccess('Customer details updated successfully');
               this._bottomSheetRef.dismiss('yes');
-              // this._addLeadEmitter.customerFiltertriggerGet();
+              this._addLeadEmitter.customerFiltertriggerGet();
               this.dataService.dataSubject.next(true)
               
             }
