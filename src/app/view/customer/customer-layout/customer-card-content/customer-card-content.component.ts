@@ -301,7 +301,7 @@ export class CustomerCardContentComponent implements OnInit {
     });
   }
   deleteBulk() {
-    this.emit2.deleteAll.subscribe((res: any) => {
+    this.emit2.deleteAllCustomer.subscribe((res: any) => {
       if (res === true) {
         let data = {
           lead_ids: this.selectedCheckboxIds,
