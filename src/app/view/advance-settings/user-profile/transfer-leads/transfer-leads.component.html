@@ -21,7 +21,7 @@
   
                 [multiple]="admins.length > 1 ? true :false" 
               >
-                <mat-option *ngFor="let referer of admins" [value]="referer.id"
+                <mat-option *ngFor="let referer of admins" [value]="referer.id"  [ngStyle]="{'display':referer.id==userId?'none':''}"
                   >{{ referer?.first_name | titlecase }}
                   {{ referer?.last_name }}</mat-option
                 >
@@ -37,7 +37,7 @@
                 <mat-icon>clear</mat-icon>
               </button>
               <mat-error *ngIf="f['lead_owner_ids'].hasError('required')">
-              Lead Owners IDs are Required.
+              Lead Owner is Required.
               </mat-error>
             </mat-form-field>
           </div>

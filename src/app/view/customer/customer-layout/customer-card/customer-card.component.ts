@@ -543,6 +543,9 @@ isSearched:boolean=false
       if (this.assigned_counsellor_ids) {
         apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
+      else{
+        apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
+      }
     }
 
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {

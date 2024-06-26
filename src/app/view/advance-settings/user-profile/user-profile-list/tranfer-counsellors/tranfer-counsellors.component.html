@@ -20,7 +20,7 @@
 
               [multiple]="admins.length > 1 ? true :false" 
             >
-              <mat-option *ngFor="let referer of admins" [value]="referer.id"
+              <mat-option *ngFor="let referer of admins" [value]="referer.id"  [ngStyle]="{'display':referer.id==data.userId?'none':''}"
                 >{{ referer?.first_name | titlecase }}
                 {{ referer?.last_name }}</mat-option
               >
@@ -36,7 +36,7 @@
               <mat-icon>clear</mat-icon>
             </button>
             <mat-error *ngIf="f['transfer_to_ids'].hasError('required')">
-              Transfer To Is Required.
+             Admin Is Required.
             </mat-error>
           </mat-form-field>
         </div>

@@ -8,3 +8,8 @@ mat-card{
     border-bottom: 1px solid #dfdbdb;
     padding: 15px;
   }
+
+  .cl-disabled{
+    opacity: 0.6;
+    pointer-events: none;
+   }

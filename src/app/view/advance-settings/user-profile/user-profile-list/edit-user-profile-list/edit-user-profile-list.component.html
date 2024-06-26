@@ -172,9 +172,9 @@
                 <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
                   <mat-form-field  appearance="outline">
                     <mat-label>Select User Role</mat-label>
-                    <mat-select  formControlName="role_id">
+                    <mat-select  formControlName="role_id" [disabled]="roleName===7">
                       <mat-option *ngFor="let item of allRole" [value]="item.id"  
-                      (click)="onRoleChange(item.id)"   >{{item.name}}</mat-option>
+                      (click)="onRoleChange(item.id)"  >{{item.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   <mat-error *ngIf="f['role_id'].invalid && f['role_id'].touched">

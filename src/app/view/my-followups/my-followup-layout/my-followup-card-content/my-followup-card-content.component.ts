@@ -166,6 +166,9 @@ export class MyFollowupCardContentComponent
   unsubscribe!: Subscription;
   previousSelectedTab: any;
   ngOnInit(): void {
+
+    
+
     if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
@@ -565,6 +568,7 @@ export class MyFollowupCardContentComponent
     this.selectedCheckboxIds = [];
     this.checkAll = false;
     this.selectedDate = null;
+   
     // this.filtered = true;
     this.tempSearch = '';
     this.renderingData = [];

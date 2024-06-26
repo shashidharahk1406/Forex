@@ -10,6 +10,8 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { ReferLeadComponent } from 'src/app/view/lead-list/lead-layout/refer-lead/refer-lead.component';
 import { TransferLeadsComponent } from '../transfer-leads/transfer-leads.component';
+import { TranferCounsellorsComponent } from '../user-profile-list/tranfer-counsellors/tranfer-counsellors.component';
+import { resolve } from 'path';
 
 @Component({
   selector: 'app-delete-users',
@@ -21,6 +23,7 @@ export class DeleteUsersComponent implements OnInit {
   id: any;
   user_name: any;
   leadIds: any = [];
+  roleName:any
   // disableClose:boolean=true
   constructor(
     private _fb: FormBuilder,
@@ -33,7 +36,8 @@ export class DeleteUsersComponent implements OnInit {
   ) {
     this.url = data.apiUrl;
     this.id = data.id;
-    this.user_name = data.user_name;
+    this.user_name = data.userName;
+    this.roleName=data.roleName
     // console.log(this.url,"data from pc");
     // console.log(this.user_name,"name in delete");
     // this.url=data
@@ -43,14 +47,26 @@ export class DeleteUsersComponent implements OnInit {
   }
   ngOnInit() {
     this.getIds();
+    this.getCounselloIdsForAdmin();
   }
-  delete() {
+  async delete() {
     //console.log(this.url,"URL")
     this.dialogRef.close();
-    if(this.leadIds.length>0){
-      this.transferLead();
+let istransfer:boolean=true
+    if(this.roleName=='Admin'&&this.counsellorIds.length>0){
+      istransfer=false
+    await this.openTransferCounsellorsComponent(istransfer)
     }
-    else{
+    if(this.roleName=='Admin'&&this.leadIds.length>0&&istransfer==true){
+      istransfer=false
+
+     await this.transferLead(istransfer);
+    }
+    if(this.roleName=='counsellor'&&this.leadIds.length>0&&istransfer==true){
+      istransfer=false
+    await  this.transferLead(istransfer);
+    }
+    if(istransfer==true){
       this.deleteUsers();
     }
 
@@ -86,16 +102,24 @@ export class DeleteUsersComponent implements OnInit {
     );
   }
 
-  transferLead() {
-    const dialogRef = this.dialog.open(TransferLeadsComponent, {
+  transferLead(istransfer:boolean) {
+
+  return new Promise((resolve:any,reject:any)=>{
+   const dialogRef = this.dialog.open(TransferLeadsComponent, {
       width: '40%',
       data: { data: this.data, callback: this.deleteUsers.bind(this) },
     });
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
+     if(result==true){
+          istransfer=true
+        }
+        resolve(true)
       //console.log('The dialog was closed');
     });
+  })
+   
   }
 
   getIds() {
@@ -106,5 +130,42 @@ export class DeleteUsersComponent implements OnInit {
         this.leadIds = res.result[0].map((item: any) => item.lead);
         console.log(this.leadIds, 'leadids');
       });
+  }
+
+
+  openTransferCounsellorsComponent(istransfer:boolean) {
+    return new Promise((resolve:any,reject:any)=>{
+      const dialogRef = this.dialog.open(TranferCounsellorsComponent, {
+        width: '45%',
+        data: {
+          counsellorIds: this.counsellorIds,
+          userId: this.data.userId,
+          userName:this.user_name
+        },
+      });
+  
+      dialogRef.disableClose = true;
+  
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if(result==true){
+          istransfer=true
+        }
+        resolve(true)
+      });
+    })
+   
+  }
+
+  counsellorIds: any;
+  getCounselloIdsForAdmin() {
+    this.api.getCounsellorIds(this.data.userId).subscribe(
+      (res: any) => {
+        console.log(res.results, 'ids under a admin');
+        this.counsellorIds = res.results;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
 }

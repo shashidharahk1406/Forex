@@ -125,6 +125,7 @@ export class EditUserProfileListComponent implements OnInit {
   newArrFromApi: any = [];
   userId: any;
   user_name:any;
+  roleName:any;
   getUserbyId() {
     this.api.getUserById(this.id).subscribe(
       (resp: any) => {
@@ -133,6 +134,7 @@ export class EditUserProfileListComponent implements OnInit {
         this.user_name=resp.result[0].first_name;
         console.log(this.userId, 'userid');
 
+        this.roleName=resp.result[0].role_id;
         if (resp.result[0].role_id === 3) {
           this.isReportingToUser = true;
         } else {

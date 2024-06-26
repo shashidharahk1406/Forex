@@ -114,6 +114,8 @@ export class UserProfileFilterComponent implements OnInit {
     // var data:any=localStorage.getItem('userFilter')
     // var resp:any= JSON.parse(data)
     var data: any = this.dataService.getUsersfiletredFormValues();
+    // console.log(this.dataService.getUsersfiletredFormValues(),"this.dataService.getUsersfiletredFormValues()");
+    
     var resp: any = data;
     if (resp) {
       //console.log(resp.reporting_to_ids);
@@ -130,25 +132,25 @@ export class UserProfileFilterComponent implements OnInit {
       this.filterForm.patchValue({ is_active: resp?.is_active });
       this.filterForm.patchValue({ designation: resp?.designation });
       this.filterForm.patchValue({ reporting_to_ids: this.selectedArray });
-      this.filterForm.patchValue({ level_of_program: resp?.level_of_program });
-      this.filterForm.patchValue({ department: resp?.department });
-      this.filterForm.patchValue({ role_id: resp?.role_id });
-      this.filterForm.patchValue({
-        created_date_time_before: resp?.created_date_time_before,
-      });
-      this.filterForm.patchValue({
-        created_date_time_after: resp?.created_date_time_after,
-      });
-      this.filterForm.patchValue({
-        last_login_before: resp?.last_login_before,
-      });
-      this.filterForm.patchValue({ last_login_after: resp?.last_login_after });
-      this.filterForm.patchValue({
-        updated_date_time_before: resp?.updated_date_time_before,
-      });
-      this.filterForm.patchValue({
-        updated_date_time_after: resp?.updated_date_time_after,
-      });
+      // this.filterForm.patchValue({ level_of_program: resp?.level_of_program });
+      // this.filterForm.patchValue({ department: resp?.department });
+      // this.filterForm.patchValue({ role_id: resp?.role_id });
+      // this.filterForm.patchValue({
+      //   created_date_time_before: resp?.created_date_time_before,
+      // });
+      // this.filterForm.patchValue({
+      //   created_date_time_after: resp?.created_date_time_after,
+      // });
+      // this.filterForm.patchValue({
+      //   last_login_before: resp?.last_login_before,
+      // });
+      // this.filterForm.patchValue({ last_login_after: resp?.last_login_after });
+      // this.filterForm.patchValue({
+      //   updated_date_time_before: resp?.updated_date_time_before,
+      // });
+      // this.filterForm.patchValue({
+      //   updated_date_time_after: resp?.updated_date_time_after,
+      // });
     }
   }
   getAllRole() {
@@ -214,6 +216,8 @@ export class UserProfileFilterComponent implements OnInit {
 
       // Create an array of query parameters with non-empty values
       const queryParams = [];
+      console.log(this.filterForm.value,"user filter values");
+      
       for (const key in formValues) {
         const value = formValues[key];
         if (value !== '' && value !== undefined) {
@@ -229,8 +233,10 @@ export class UserProfileFilterComponent implements OnInit {
                 queryParams.push(`${key}=${values}`);
               }
             }
-          } else {
-            queryParams.push(`${key}=${value}`);
+          // } else {
+          //   queryParams.push(`${key}=${value||''}`);
+          //   console.log(queryParams,"in else block");
+            
           }
         }
       }
@@ -247,7 +253,7 @@ export class UserProfileFilterComponent implements OnInit {
       //console.log(apiUrl, 'apiurl in users filetr');
 
       this.emit.sendRefreshbyFilter(apiUrl);
-      this.dataService.setFilteredUrl(apiUrl)
+      // this.dataService.setFilteredUrl(apiUrl)
       this.dataService.dataUpdated.emit(true);
 
       this.dialogRef.close(true);
@@ -255,7 +261,7 @@ export class UserProfileFilterComponent implements OnInit {
     }
   }
   reset() {
-    localStorage.removeItem('userFilter');
+    // localStorage.removeItem('userFilter');
     this.filterForm.reset();
     this.filterForm.updateValueAndValidity();
     this.dataService.resetUserFilterForm()
@@ -272,4 +278,5 @@ export class UserProfileFilterComponent implements OnInit {
   //     localStorage.removeItem('userFilter')
   //   }
   // }
+
 }

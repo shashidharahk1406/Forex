@@ -100,16 +100,22 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       //console.log(resp,"response in ng oniinit ");
 
       if (resp == true) {
+        if(this.filter==true && this.searchValue!==''&&this.isSearched){
+          this.params=this.dataService.getFilteredUrl()
+          this.searchValue=''
+        }
         this.getUser();
-        this.searchValue = '';
+       
       }
     });
     this.emit.getRefreshByFilter.subscribe((resp: any) => {
+      this.dataService.setFilteredUrl(resp)
       console.log(resp, 'filetr url params');
       if (resp) {
         this.filter = true;
       }
       this.params = resp;
+
 
       this.getUser();
       this.searchValue = '';
@@ -649,18 +655,20 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   baseurl = environment.live_url;
   id: any;
   user_name: any;
-  openDelete(id: any, name: any) {
+  roleName:any;
+  openDelete(id: any, name: any,roleName:any) {
     console.log(id,"user id");
     
     this.id = id;
     this.user_name = name;
+    this.roleName=roleName
     //console.log(this.user_name,"username");
 
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
     const dialogRef = this.dialog.open(DeleteUsersComponent, {
       width: '35%',
       // data:{apiUrl,id:this.id,user_name:this.user_name}
-      data:{apiUrl:apiUrl,userId:id,userName:this.user_name} ,
+      data:{apiUrl:apiUrl,userId:id,userName:this.user_name,roleName:this.roleName} ,
     });
     dialogRef.disableClose = true;
 

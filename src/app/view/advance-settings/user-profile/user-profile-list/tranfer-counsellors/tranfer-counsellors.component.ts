@@ -21,7 +21,7 @@ export class TranferCounsellorsComponent implements OnInit {
   ) {
     console.log(data, 'data from edit user-profile');
   }
-  admins: any;
+  admins: any=[];
 
   transferCounsellorsForm!: FormGroup;
 
@@ -75,7 +75,7 @@ export class TranferCounsellorsComponent implements OnInit {
         formData = {
           user_id: this.data.userId,
           counsellor_ids: res,
-          transfer_to_ids: f.transfer_to_ids,
+          transfer_to_ids:[ f.transfer_to_ids],
           role_change_to:this.data.roleId===3? 'counsellor':'superadmin',
         };
       }
@@ -87,7 +87,7 @@ export class TranferCounsellorsComponent implements OnInit {
             'res for changing the role from admin to counsellor'
           );
           this.api.showSuccess(res.message);
-          this.dialogRef.close();
+          this.dialogRef.close(true);
         },
         (error: any) => {
           console.log(error);
@@ -96,6 +96,6 @@ export class TranferCounsellorsComponent implements OnInit {
     }
   }
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
