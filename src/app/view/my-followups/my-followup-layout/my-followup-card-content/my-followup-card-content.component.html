@@ -48,13 +48,7 @@
           </p>
         </div>
 
-        <!-- <div class="col d-flex ">
-            <p style="margin-right: 10px;color: blue;" (click)="selectTab('All')"  [class.active_tab]="selectedTab==='All'">All <span>({{(countData?.All)}})</span> </p>
-            <p style="margin-right: 10px;color: rgb(208, 203, 62);" (click)="selectTab('Upcoming')" [class.active_tab]="selectedTab==='Upcoming'"> Upcoming ({{(countData?.Upcoming)}})</p>
-            <p style="margin-right: 10px;color: green;" (click)="selectTab('Done')" [class.active_tab]="selectedTab==='Done'"> Done  ({{(countData?.Done)}})</p>
-            <p style="margin-right: 10px;color: red;" (click)="selectTab('Missed')" [class.active_tab]="selectedTab==='Missed'"> Missed ({{(countData?.Missed)}}) </p>
-
-        </div> -->
+     
       </div>
       <div class="row" style="">
         <div class="col-sm-0 col-md-0 col-lg-6">
@@ -197,26 +191,16 @@
                 "
                 *ngIf="!filterFlag"
               ></i>
-              <!-- <img src="./assets/images/filter.png" alt="" width="19" height="19" *ngIf="!filtered">
-              <img src="./assets/images/filter.png" alt="" width="19" height="19" matBadge="{{ filterCount }}" *ngIf="filtered"> -->
+             
               <i
                 style="color: palevioletred !important"
                 class="bi bi-funnel-fill"
                 *ngIf="filterFlag"
               
               ></i>
-              <!-- <mat-icon
-                *ngIf="filtered"
-                style="color: palevioletred"
-                matBadgeColor="pink"
-                (click)="refreshFollowUps()"
-                style="margin-right: 10px; margin-top: -25px"
-                >close</mat-icon
-              > -->
+            
 
-              <!-- <mat-icon *ngIf="filtered" matBadge="15" matBadgeColor="warn">filter</mat-icon> -->
-              <!-- <div matBadge="{renderingData.totalNumberOfRecords}" matBadgeOverlap="false" class="demo-section" *ngIf="filtered">{{ renderingData.totalNumberOfRecords }}</div> -->
-              <!-- <span class="alightColor badge student-badge">{{ renderingData.totalNumberOfRecords }}</span> -->
+              
             </div>
           </div>
         </div>
@@ -239,11 +223,7 @@
           <span class="mx-2 ">({{totalNumberOfRecords}})</span> 
         </div>
       </div>
-      <!-- <div class="col" *ngIf="filtered && renderingData.length === 0">
-        <button mat-raised-button (click)="refreshFollowUps()" class="go-back">
-          <i class="bi bi-arrow-left-circle-fill"></i> GO BACK
-        </button>
-      </div> -->
+    
     </mat-card>
    
     <!-- {{renderingData.length}} -->
@@ -269,7 +249,7 @@
     ></app-nodata>
 
     <div
-      class="row" style="height: 50%;overflow-y: auto;padding-bottom: 30px;"
+      class="row" style="height: 50%;overflow-y: auto;padding-bottom: 400px;"
       *ngIf="
         (renderingData | filter : followupSearch)?.length > 0;
         else noResultsSection
@@ -302,13 +282,7 @@
                   ></mat-checkbox>
                 </div>
 
-                <!-- <div class="col">
-              <div class="row">
-                <div class="col-6 text-muted">{{ followUp.id }} 
-                 
-                </div>
-              </div>
-            </div> -->
+               
                 <div class="col">
                   <div class="row text-start" >
                     <div
@@ -320,7 +294,7 @@
                     <div class="col-12 text-muted my-1" style="font-size: 10px">
                       <b>{{ followUp.lead_mobile_number }}</b>
                     </div>
-                    <!-- <span class="alightColor badge student-badge">{{ leadData.badgeCount }}</span> -->
+                  
                   </div>
                 </div>
               </div>
@@ -339,79 +313,16 @@
                   <b> {{ followUp.follow_up_status_name | uppercase }}</b>
                 </div>
 
-                <!-- <div class="col-12 text-muted">{{ followUp.leadStatus }}</div> -->
               </div>
             </div>
             <div class="col"></div>
-            <!-- <div class="col-sm-12 col-md-6 col-lg-3 border-r">
-          <div class="row">
-            <div class="col p-0 text-center">
-              <i class="bi bi-telephone"></i><span class="ps-1"></span> 
-            </div>
-            <div class="col p-0 text-center">
-              <i class="bi bi-chat-left"></i><span class="ps-1"></span> 
-            </div>
-            <div class="col p-0 text-center">
-              <i class="bi bi-envelope"></i> <span class="ps-1"></span> 
-            </div>
-            <div class="col p-0 text-center">
-              <i class="bi bi-chat-left-text"></i><span class="ps-1"></span> 
-            </div>
-          </div>
-        </div> -->
-            <!-- <div class="col-sm-12 col-md-6 col-lg-1">
-          <div class="row"> -->
-            <!-- <div class="col p-0 text-center position-rel">
-              <i class="bi bi-person" title="Counselor Activities"></i><span class="badge clr-person-1" title="Counselor Activities">{{ leadData.personCounts[0] }}</span>
-            </div>
-            <div class="col p-0 text-center  position-rel">
-              <i class="bi bi-person" title="Lead Responses"></i><span class="badge clr-person-2" title="Lead Responses">{{ leadData.personCounts[1] }}</span>
-            </div>
-            <div class="col p-0 text-center  position-rel">
-              <i class="bi bi-person" title="Lead Re-inquired Count"></i><span class="badge clr-person-3" title="Lead Re-inquired Count">{{ leadData.personCounts[2] }}</span>
-            </div> -->
-            <!-- <div class="col p-0 text-center viewAll m-auto" (click)="openViewAll(leadData.name)">View All</div> -->
-            <!-- </div>
-        </div> -->
+         
             <div class="col-sm-0 col-md-0 col-lg-1"></div>
             <div class="col-sm-12 col-md-6 col-lg-3 p-ct my-0 py-0 gy-0 mx-0">
               <div class="row">
                 <div class="col p-0">
                   <div ngbDropdown class="d-inline-block lead-dropdown my-1">
-                    <!-- <mat-icon
-                      class="common-class"
-                      id="dropdownBasic1"
-                      ngbDropdownToggle
-                      (click)="openMorePanel()"
-                      >more_vert</mat-icon
-                    > -->
-                    <!-- <div
-                      ngbDropdownMenu
-                      aria-labelledby="dropdownBasic1"
-                      class="more-dropdown"
-                      style="cursor: pointer"
-                    >
-                      <div
-                        class="app-list"
-                        ngbDropdownToggle
-                        (click)="EditFollowups(followUp.id)"
-                      >
-                        <i class="bi bi-pencil-square"></i> &nbsp;Edit
-                        <img
-                          src="./assets/images/edit-icon.png"
-                          alt=""
-                          width="18"
-                          height="18"
-                        /> 
-                        <span class="mx-1 my-2">Edit</span>
-                      </div>
-                      <div class="app-list" ngbDropdownToggle routerLink="../createEnterpriseTemplate">
-                    <i style="color: red;" class="bi bi-circle-fill"></i> followUp
-                  </div>
-                  <div class="app-list" ngbDropdownToggle routerLink="../createEnterpriseTemplate">
-                    <i style="color: rgb(208, 203, 62);" class="bi bi-circle-fill"></i> Planned
-                  </div>
-                    </div> -->
+                  
                   </div>
                 </div>
 
@@ -421,7 +332,7 @@
                 (click)="EditFollowups(followUp.id)"
                 title="Edit Followup"
               >
-                <!-- <i class="bi bi-camera-video"></i> -->
+               
                 <img
                           src="./assets/images/edit-icon.png"
                           alt=""
@@ -551,13 +462,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="col">
-                  <div class="row">
-                      <div class="col-12 pannel-label text-start">Campaign Name</div>
-                      <div class="col-12" *ngIf="!followUp.campaign_name">{{'NA'}}</div>
-                      <div class="col-12" *ngIf="followUp.campaign_name">{{followUp.campaign_name}}</div>
-                  </div>
-              </div> -->
+                 
                   <div class="col">
                     <div class="row text-start">
                       <div class="col-12 pannel-label">Source</div>
@@ -580,20 +485,7 @@
                   </div>
                 </div>
                 <div class="row my-2">
-                  <!-- <div class="col">
-                <div class="row text-start">
-                    <div class="col-12 pannel-label">Channel</div>
-                    <div class="col-12" *ngIf="!followUp.communication_channel">{{'NA'}}</div>
-                    <div class="col-12" *ngIf="followUp.communication_channel">{{followUp.communication_channel}}</div>
-                </div>
-              </div> -->
-                  <!-- <div class="col">
-                  <div class="row text-start">
-                      <div class="col-12 pannel-label">Medium</div>
-                      <div class="col-12" *ngIf="!followUp.medium_name">{{'NA'}}</div>
-                      <div class="col-12"  *ngIf="followUp.medium_name">{{followUp.medium_name}}</div>
-                  </div>
-              </div> -->
+              
 
                   <div class="col">
                     <div class="row text-start">
@@ -623,9 +515,7 @@
                   <div class="col">
                     <div class="row text-start">
                       <div class="col-12 pannel-label">Lead Owner</div>
-                      <!-- <div class="col-12" *ngIf="!followUp.counsellor">
-                  {{ "NA" }}
-                </div> -->
+                
 
                       <div class="col-12">
                         {{ followUp.counsellor_first_name }}
@@ -693,13 +583,7 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="col">
-                <div class="row text-start">
-                    <div class="col-12 pannel-label">Status</div>  
-                    <div class="col-12" *ngIf="!followUp.status">NA</div>
-                    <div class="col-12">{{followUp?.status}}</div>
-                </div>
-              </div> -->
+                
                   <div class="col">
                     <div class="row text-start">
                       <div class="col-12 pannel-label">Course Looking For</div>
@@ -722,165 +606,19 @@
                   </div>
               
                 </div>
-                <!-- <div class="col ">
-                <div class="row text-start">
-                    <div class="col-12 pannel-label">
-                       Action Date Time
-                    </div>
-                    <div class="col-12">{{followUp.action_date_time |date:"medium"}}</div>
-                </div>
-            </div> -->
-
-                <!-- <div class="col">
-              <div class="row text-start">
-                  <div class="col-12 pannel-label">Age</div>
-                  <div class="col-12">{{followUp.counsellor}}</div>
-              </div>
-          </div> -->
-                <!-- <div class="col">
-            <div class="row text-start">
-                <div class="col-12 pannel-label">Campaign Name</div>
-                <div class="col-12">{{followUp.counsellor}}</div>
-            </div>
-        </div> -->
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Created By</div>
-                    <div class="col-12">{{followUp.created_by}}</div>
-                </div>
-            </div> -->
+               
+             
               </div>
               <div class="row mb-1">
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Followup Type</div>
-                    <div class="col-12">{{followUp.follow_up_type}}</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Followup Text</div>
-                    <div class="col-12">{{followUp.follow_up_text}}</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Lead Status</div>
-                    <div class="col-12">{{followUp.lead_status}}</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Department</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div> -->
+               
               </div>
               <div class="row mb-1">
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Sub Status</div>
-                    <div class="col-12">Fresh Lead</div>
-                </div>
-            </div> -->
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Medium</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div> -->
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Lead Creation Date</div>
-                    <div class="col-12">{{followUp.created_datetime}}</div>
-                </div>
-            </div> -->
+               
 
-                <!-- <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Lead Modification Date</div>
-                    <div class="col-12">Aug 13,2023 1:29 PM</div>
-                </div>
-            </div> -->
+             
               </div>
-              <!-- <div class="row mb-1">
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Push To ERP Update Date</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Referred To Update Date</div>
-                    <div class="col-12">Aug 30,2023 5:34 PM</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Automated Updated Date</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Next Action Date</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-          </div>  -->
-              <!-- <div class="row mb-1">
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Previous Lead Owner</div>
-                    <div class="col-12">Abhijeeth</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Lead Owner</div>
-                    <div class="col-12">Sudip Gupta</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Last Updated By</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Registration Date</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-          </div>  -->
-              <!-- <div class="row mb-1">
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">First Login Date-Time</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Last Active Date-Time</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div>
-             <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Activity Type</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div> 
-          <div class="col">
-                <div class="row">
-                    <div class="col-12 pannel-label">Activity Created By</div>
-                    <div class="col-12">-</div>
-                </div>
-            </div> 
-          </div>   -->
+             
+           
             </mat-card>
          
           </ng-container>
@@ -891,7 +629,7 @@
 
     <mat-paginator *ngIf="!loading"
     [length]="totalNumberOfRecords"
-    [pageSizeOptions]="[5, 10, 25, 100]"
+    [pageSizeOptions]="[5, 10]"
     aria-label="Select page"
     (page)="onPageChangeNew($event)"
     [pageIndex]="currentPage"
@@ -907,11 +645,7 @@
   <div class="col" style="padding: 45px;position: sticky;top: 0;">
     <div class="col d-flex"></div>
 
-    <!-- <div class="col-12"></div> -->
-
-    <!-- <button  class="btn btn-outline-secondary" type="button">
-    <i class="bi bi-search"></i>
-  </button> -->
+   
 
     <div class="input-group z-s m-auto m-2" id="calender-col">
       <div class="col-12">
@@ -925,7 +659,7 @@
             (input)="getSearchValue($event)"
           
           />
-<p>{{selectedDate}}</p>
+
           <mat-calendar
           class="custom-calendar shadow-lg my-5"
           [(selected)]="selectedDate"
@@ -936,43 +670,6 @@
 
       
 
-          <!-- <button  class="btn btn-outline-secondary" type="button">
-    <i class="bi bi-search"></i>
-  </button> -->
-          <!-- <div
-            class="row reset-calender"
-            *ngIf="selectedDate !== null || undefined"
-          >
-            <button
-              style="outline: none !important; border: none !important"
-              class="btn btn text-right py-3"
-              type="button"
-              title="Reset Calender"
-              (click)="refreshFollowUps()"
-            >
-              <img
-                src="./assets/images/refresh.svg"
-                alt=""
-                height="25"
-                width="25"
-              />
-            </button>
-          </div> -->
-
-          <!-- <button class="btn btn-outline-primary" type="button">
-            
-            <i class="bi bi-search"></i>
-          </button> -->
-
-        
-
-          <!-- <button
-            class="btn btn-outline-primary my-2 mx-3"
-            type="button"
-            (click)="refreshFollowUps()"
-          >
-            Reset Filter
-          </button> -->
         </mat-card>
       </div>
     </div>

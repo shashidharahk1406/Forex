@@ -20,6 +20,8 @@ export class TranferCounsellorsComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     console.log(data, 'data from edit user-profile');
+    console.log(data.isDelete,"data from delete component");
+    
   }
   admins: any=[];
 
@@ -66,7 +68,24 @@ export class TranferCounsellorsComponent implements OnInit {
     } else {
       let formData: any = {};
       const f = this.transferCounsellorsForm.value;
-      if (this.data.counsellorIds) {
+      console.log(this.data.isDelete,"this.data.isDelete");
+      
+      if (this.data.counsellorIds&&this.data.isDelete) {
+     
+        let res=this.data.counsellorIds.map((item:any)=>item.id)
+        console.log(res,"cids in an array");
+        
+      
+        formData = {
+          user_id: this.data.userId,
+          counsellor_ids: res,
+          transfer_to_ids:[ f.transfer_to_ids],
+          role_change_to:this.data.roleId===6? 'admin':'',
+        };
+
+        
+      }
+      if (this.data.counsellorIds&&!this.data.isDelete) {
      
         let res=this.data.counsellorIds.map((item:any)=>item.id)
         console.log(res,"cids in an array");
@@ -78,6 +97,8 @@ export class TranferCounsellorsComponent implements OnInit {
           transfer_to_ids:[ f.transfer_to_ids],
           role_change_to:this.data.roleId===3? 'counsellor':'superadmin',
         };
+
+        
       }
       this.api.adminToCounsellor(formData).subscribe(
         (res: any) => {

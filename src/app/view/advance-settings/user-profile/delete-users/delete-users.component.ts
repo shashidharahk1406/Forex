@@ -140,7 +140,9 @@ let istransfer:boolean=true
         data: {
           counsellorIds: this.counsellorIds,
           userId: this.data.userId,
-          userName:this.user_name
+          userName:this.user_name,
+          isDelete:true,
+          roleId:this.data.roleId
         },
       });
   

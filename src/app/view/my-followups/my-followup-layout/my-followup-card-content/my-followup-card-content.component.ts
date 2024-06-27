@@ -31,7 +31,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { EditFollowupComponent } from '../../edit-followup/edit-followup.component';
 import { CalenderModalComponent } from '../../calender-modal/calender-modal.component';
 import { DatePipe } from '@angular/common';
-import { error } from 'console';
+
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 import { BaseServiceService } from 'src/app/service/base-service.service';
@@ -49,6 +49,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterFollowUp } from 'src/app/filter/filter';
 import { NavigationStart, Router } from '@angular/router';
 export let browserRefresh = false;
+
 
 @Component({
   selector: 'app-my-followup-card-content',
@@ -165,10 +166,10 @@ export class MyFollowupCardContentComponent
   updateAPIURLOnlyForFilter: any;
   unsubscribe!: Subscription;
   previousSelectedTab: any;
+
+
   ngOnInit(): void {
-
-    
-
+    // this.selectedDate=this.dataService.getDate()
     if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
@@ -178,7 +179,7 @@ export class MyFollowupCardContentComponent
     //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
 
     this.dataService.followUpdataSubject.subscribe((res: any) => {
-      console.log(res, 'dataUpdated');
+      // console.log(res, 'dataUpdated');
       this.filtered = res;
       this.filterFlag = res;
     });
@@ -283,10 +284,10 @@ export class MyFollowupCardContentComponent
   }
 
   gettingUrl() {
-    console.log(
-      'Before =============>',
-      this.dataService.getFollowupfilterURL().url
-    );
+    // console.log(
+    //   'Before =============>',
+    //   this.dataService.getFollowupfilterURL().url
+    // );
 
     this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
 
@@ -567,35 +568,29 @@ export class MyFollowupCardContentComponent
   ngOnDestroy(): void {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
-    this.selectedDate = null;
-   
-    // this.filtered = true;
+    if (this.selectedDate !== null) {
+      const urlObj = new URL(this.updateAPIURL);
+      const searchParams = urlObj.searchParams;
+      searchParams.delete('action_datetime');
+      this.dataService.setFilteredFollowUpURL(
+        `${this.api_url}/api/follow-up/?page=1&page_size=5`
+      );
+      this.APICAll();
+    }
     this.tempSearch = '';
     this.renderingData = [];
     if (this.isSearched === true) {
       this.dataService.setFilteredFollowUpURL(
         `${this.api_url}/api/follow-up/?page=1&page_size=5`
       );
-      // this.selectedTab=this.previousSelectedTab;
     }
-
-    // this.allPaginator.pageIndex = 0;
-
-    // this.allPaginator.pageSize = 5;
-    // this.ngOnInit();
-    // this.selectedTab = 'All';
   }
 
   addCount() {
-    // console.log(this.data,"data in add count");
-    // console.log(this.checkAll,"checkall");
-
-    // console.log(this.selectedCheckboxIds.length,"checkall");
     if (this.checkAll) {
       this.data = 'All';
     } else {
       this.data = this.selectedCheckboxIds.length;
-      // //console.log(this.selectedCheckboxIds, 'this.selectedCheckBoxesId');
     }
   }
 
@@ -611,7 +606,7 @@ export class MyFollowupCardContentComponent
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkVideoCall();
-          //  this.refreshLead('event')
+        
           this.refreshFollowUps();
         }
       });
@@ -698,6 +693,8 @@ export class MyFollowupCardContentComponent
   defaultPage: any = 1;
   defaultPageSize: any = 5;
   downloadLead() {
+    
+    
     if (this.selectedCheckboxIds.length > 0) {
       this.exportReference = `${environment.export_leads}?ids=${[
         ...this.selectedCheckboxIds,
@@ -753,6 +750,7 @@ export class MyFollowupCardContentComponent
 
   ngAfterViewInit() {
     // this.refreshFollowUps()
+    this.APICAll()
   }
 
   bulkVideoCall() {
@@ -870,7 +868,7 @@ export class MyFollowupCardContentComponent
 
   // ============================================================================
 
-  renderingData: any;
+  renderingData: any=[];
   countDataValue: any = {};
   loading: boolean = true;
 
@@ -975,8 +973,10 @@ export class MyFollowupCardContentComponent
       // })
 
       if (this.dataService.getFollowupfilterURL().is_filtered) {
-      } else {
+      } else if (this.counsellors_ids) {
         this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
+      } else {
+        this.updateAPIURL += `&admin_id=${this.user_id}&counsellor_id=0`;
       }
 
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
@@ -1143,12 +1143,12 @@ export class MyFollowupCardContentComponent
 
     // this.APICAll();
     this.ngOnInit();
-    console.log('new==>', this.updateAPIURL);
+    // console.log('new==>', this.updateAPIURL);
   }
 
   selectDate(data: any) {
     const date = this.datePipe.transform(data, 'yyyy-MM-dd');
-
+    this.dataService.setDate(this.datePipe.transform(data));
     const apiurl: any = this.filterFollowUp.getFilteredDate(date);
     // //console.log('apiurl', apiurl);
 

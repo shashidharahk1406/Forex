@@ -177,4 +177,15 @@ export class DataService {
   getFilteredUrl() {
     return this.filterUrl;
   }
+
+
+
+  selectedDate:any;
+  setDate(date: any) {
+    this.selectedDate = date;
+    console.log(date,"setDate");
+  }
+  getDate() {
+    return this.selectedDate;
+  }
 }
