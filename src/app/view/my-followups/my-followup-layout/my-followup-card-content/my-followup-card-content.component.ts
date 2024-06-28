@@ -693,12 +693,18 @@ export class MyFollowupCardContentComponent
   defaultPage: any = 1;
   defaultPageSize: any = 5;
   downloadLead() {
-    
-    
     if (this.selectedCheckboxIds.length > 0) {
       this.exportReference = `${environment.export_leads}?ids=${[
         ...this.selectedCheckboxIds,
       ]}`;
+
+      const anchorEle = document.createElement('a');
+      anchorEle.target='_blank'
+      anchorEle.href = this.exportReference;
+      document.body.appendChild(anchorEle);
+      anchorEle.click();
+      document.body.removeChild(anchorEle);
+      // delete anchorEle;
 
       const tempurl = new URL(this.updateAPIURL);
       const page: any = 'page';

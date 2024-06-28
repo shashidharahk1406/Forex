@@ -131,10 +131,8 @@
               />
             </div>
             <div class="col p-0" (click)="downloadLead()" title="Download">
-              <a
+              <div
                 *ngIf="selectedCheckboxIds.length > 0"
-                [href]="exportReference"
-                target="_blank"
                 
               >
                 <!-- <mat-icon >save_alt</mat-icon> -->
@@ -145,7 +143,7 @@
                   height="18"
                   width="18"
                 />
-              </a>
+            </div>
               <a
                 *ngIf="selectedCheckboxIds.length === 0"
                 target="_blank"

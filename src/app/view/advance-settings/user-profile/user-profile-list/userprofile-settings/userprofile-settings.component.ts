@@ -104,6 +104,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           this.params=this.dataService.getFilteredUrl()
           this.searchValue=''
         }
+        this.searchValue=''
         this.getUser();
        
       }
