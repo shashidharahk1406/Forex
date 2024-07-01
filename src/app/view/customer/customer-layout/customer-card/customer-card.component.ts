@@ -774,6 +774,7 @@ isSearched:boolean=false
     console.log(event,"event");
     
     if(event){
+      this.pageSize=10
       this._addLeadEmitter.customerFilter.next('');
       this._addLeadEmitter.customerFilterIcon.next(false);
       this._addLeadEmitter.customerFilter.next('');
@@ -787,6 +788,7 @@ isSearched:boolean=false
       this.totalNumberOfRecords = [];
       this.allLeadCardsDataSource = [];
       this.searchTerm=''
+     
     }
     else{
       
