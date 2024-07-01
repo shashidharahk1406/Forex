@@ -103,3 +103,11 @@ mat-card{
 
     .myMatOptions{  position: absolute; }
 ::ng-deep .cdk-overlay-pane {  transform:none !important;}
+
+
+#edit-remove-imge{
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate3d(25px, 33px, 140px)!important;
+}

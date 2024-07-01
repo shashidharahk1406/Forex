@@ -166,6 +166,9 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   searchValue: any;
   applyFilter(event: any) {
     this.searchValue = event.target.value;
+    if(this.filter==true && event.target.value == ''&&this.isSearched){
+      this.params=this.dataService.getFilteredUrl()
+    }
     if (event.target.value == '') {
       this.getUser();
       this.currentPage = 1;
