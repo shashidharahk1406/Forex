@@ -255,9 +255,20 @@ export class CustomerToolbarComponent implements OnInit {
         this.refresh.emit(false);
 
         // this.refreshLead('event')
-      } else {
+      } 
+
+      if(res==false&&this.isFiltered==true){
+
+      }
+      if(res==false&&this.isFiltered==false){
+
+      }
+      if(res==true&&this.isFiltered==false){
         this.refresh.emit(true);
       }
+      // else {
+      //   this.refresh.emit(true);
+      // }
     });
   }
   openEmailChat(selectedData?: any) {
@@ -288,12 +299,20 @@ export class CustomerToolbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: any) => {
       //console.log('The dialog was closed');
       //this.refreshLead('event')
-      if (result && this.isFiltered == true) {
-        this.refresh.emit(false);
+      if (result==true && this.isFiltered == true) {
         this.selectedLeads = [];
+        this.refresh.emit(false);
 
         // this.refreshLead('event')
-      } else {
+      } 
+
+      if(result==false&&this.isFiltered==true){
+
+      }
+      if(result==false&&this.isFiltered==false){
+
+      }
+      if(result==true&&this.isFiltered==false){
         this.refresh.emit(true);
       }
     });
@@ -405,12 +424,21 @@ export class CustomerToolbarComponent implements OnInit {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result&&this.isFiltered==true) {
+      if (result==true && this.isFiltered == true) {
+        this.selectedLeads = [];
         this.refresh.emit(false);
-        this.selectedLeads=[]
+
+        // this.refreshLead('event')
+      } 
+
+      if(result==false&&this.isFiltered==true){
+
       }
-      else{
-        this.refresh.emit(true)
+      if(result==false&&this.isFiltered==false){
+
+      }
+      if(result==true&&this.isFiltered==false){
+        this.refresh.emit(true);
       }
     });
   }

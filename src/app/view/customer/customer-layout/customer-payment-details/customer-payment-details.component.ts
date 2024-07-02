@@ -90,8 +90,8 @@ export class CustomerPaymentDetailsComponent implements OnInit {
           }
           
           this.emitService.paymentLink()
-          this.refresh.emit(true)
-          this.emit.customerFiltertriggerGet();
+          this.refresh.emit('event')
+          // this.emit.customerFiltertriggerGet();
         }
       },(error:any)=>{
         this.api.showError(error.error.message)
