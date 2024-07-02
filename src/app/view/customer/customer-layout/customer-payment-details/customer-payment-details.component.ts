@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { CommonServiceService } from 'src/app/service/common-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
 
@@ -29,11 +30,20 @@ export class CustomerPaymentDetailsComponent implements OnInit {
     private api:ApiService,
     private emitService:EmitService,
     private emit:AddLeadEmitterService,
-    private _commonService:CommonServiceService){}
+    private _commonService:CommonServiceService,
+  private dataService:DataService ){}
     @Output()refresh = new EventEmitter()
+    isFiltered:any
   ngOnInit(): void {
     this.initForm()
     this.user_id = localStorage.getItem('user_id')
+
+
+    this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
+      console.log(res, 'filter');
+
+      this.isFiltered = res;
+    });
   }
  initForm(){
   this.paymentForm = this.fb.group({
@@ -42,7 +52,7 @@ export class CustomerPaymentDetailsComponent implements OnInit {
   })
  }
   closePopup(){
-    this.dialogRef.close()
+    this.dialogRef.close(false)
   }
   get f() {
     return this.paymentForm.controls;
@@ -75,8 +85,12 @@ export class CustomerPaymentDetailsComponent implements OnInit {
           this.api.showSuccess(res.message)
           // this.closePopup()
           this.dialogRef.close(true)
-          this.refresh.emit('event')
+          if(this.isFiltered==true){
+            this.refresh.emit(false)
+          }
+          
           this.emitService.paymentLink()
+          this.refresh.emit(true)
           this.emit.customerFiltertriggerGet();
         }
       },(error:any)=>{

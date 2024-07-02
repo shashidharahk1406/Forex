@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -22,13 +23,14 @@ export class CustomerReferLeadComponent implements OnInit {
   user_id: any;
   user_role:any;
   counsellorLastname: any;
+  @Output()refresh = new EventEmitter()
   constructor(
     public dialogRef: MatDialogRef<CustomerReferLeadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _fb:FormBuilder,
     private _baseService:BaseServiceService,
     private api:ApiService,
-    private _addLeadEmitter:AddLeadEmitterService) {
+    private _addLeadEmitter:AddLeadEmitterService,private dataService:DataService) {
       this.user_id = localStorage.getItem('user_id')
       this.user_role = localStorage.getItem('user_role')?.toUpperCase();
       this.initForm()
@@ -109,8 +111,20 @@ export class CustomerReferLeadComponent implements OnInit {
        this._baseService.postData(`${environment.lead_refer}`,formData).subscribe((res:any)=>{
         if(res){
           this.api.showSuccess(res.message)
-          this._addLeadEmitter.customerFiltertriggerGet();
+          if(this.isFiltered==true){
+            this.refresh.emit(false)
+          }
+          else{
+            this._addLeadEmitter.customerFiltertriggerGet();
+            this.refresh.emit(true)
+          }
+          
+          
           this.dialogRef.close(true)
+
+          
+         
+          
         }
        },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
@@ -118,10 +132,17 @@ export class CustomerReferLeadComponent implements OnInit {
       }
       
     }
+    isFiltered:any
     
     ngOnInit(): void {
       this.getReferLead()
       this.getCounselor()
+
+      this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
+        console.log(res, 'filter');
+  
+        this.isFiltered = res;
+      });
     }
    
     initForm(){
@@ -131,7 +152,7 @@ export class CustomerReferLeadComponent implements OnInit {
       })
     }
     close(){
-      this.dialogRef.close()
+      this.dialogRef.close(false)
     }
 
 }

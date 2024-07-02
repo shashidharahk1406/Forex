@@ -1,3 +1,4 @@
+import { AnimationStyleMetadata } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
@@ -120,9 +121,10 @@ export class CustomerCardComponent implements OnInit {
 
   onChangeSorting(event: any) {
     // console.log(event,"sorting");
-    
+    let prevQuery:any
     this.sorting = true;
     this.sortingType = event;
+   
     this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=customers`;
     if (['counsellor', 'counselor'].includes(this.user_role) === true) {
       this.query += `&counsellor_id=${this.user_id}`;
@@ -147,7 +149,10 @@ export class CustomerCardComponent implements OnInit {
       this.query = '';
       this._addLeadEmitter.customerFilter.subscribe((res) => {
         if (res) {
-          this.query = `${res}&filter_by=${this.sortingType}&user_type=customers`;
+          console.log(res.split('?')[1],"c filer url");
+          prevQuery=res
+          
+          this.query = `?${res.split('?')[1]}&filter_by=${this.sortingType}`;
           if (['counsellor', 'counselor'].includes(this.user_role) === true) {
             this.query += `&counsellor_id=${this.user_id}`;
           } else if (
@@ -165,6 +170,10 @@ export class CustomerCardComponent implements OnInit {
           }
         }
       });
+    }  
+    if(this.searchTerm){
+    
+      this.query+=`&key=${this.searchTerm}`
     }
     this._baseService
       .getData(`${environment.lead_list}${this.query}`)
@@ -299,6 +308,7 @@ export class CustomerCardComponent implements OnInit {
   //   });
   // }
   // }
+ 
 isSearched:boolean=false
   applySearch(event: any) {
     this.isSearched=true
@@ -323,8 +333,12 @@ isSearched:boolean=false
             query += `&admin_id=${this.user_id}&counsellor_id=0`;
           }
         }
+        
+
       }
+    
       if (this.sorting) {
+
         query += `&filter_by=${this.sortingType}`;
       } else {
         if (this.leadFilter) {
@@ -793,16 +807,17 @@ isSearched:boolean=false
     else{
       
     this._addLeadEmitter.customerFilter.subscribe((res: any) => {
-      if (res) {
+      if (res&&event==false) {
         //  console.log(res, "RES");
         this.leadFilter = true;
       
         this.filterLeads(res);
        this.searchTerm=''
         
-      } else {
-        this.getLeadData('tabLabel');
-      }
+      } 
+      // else {
+      //   this.getLeadData('tabLabel');
+      // }
     });
 
 

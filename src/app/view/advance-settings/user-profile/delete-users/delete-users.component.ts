@@ -51,7 +51,7 @@ export class DeleteUsersComponent implements OnInit {
   }
   async delete() {
     //console.log(this.url,"URL")
-    this.dialogRef.close();
+    // this.dialogRef.close();
 let istransfer:boolean=true
     if(this.roleName=='Admin'&&this.counsellorIds.length>0){
       istransfer=false

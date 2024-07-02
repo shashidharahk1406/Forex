@@ -111,7 +111,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });
     this.emit.getRefreshByFilter.subscribe((resp: any) => {
       this.dataService.setFilteredUrl(resp)
-      console.log(resp, 'filetr url params');
+      // console.log(resp, 'filetr url params');
       if (resp) {
         this.filter = true;
       }
@@ -122,14 +122,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.searchValue = '';
     });
 
-    console.log(
-      this.dataService.getUsersfiletredFormValues(),
-      ' this.dataService.getfiletredFormValues()'
-    );
-
+    
     this.dataService.dataUpdated.subscribe((res: any) => {
       console.log(res, 'filtered');
+      this.currentPage=1
       this.filter = res;
+      this.pageSize=10;
+      
     });
 
     var data: any = this.dataService.getUsersfiletredFormValues();
@@ -364,10 +363,15 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
   getUser() {
     // console.log("Hello", this.params);
+    this.totalPageLength=0;
+      this.allUser=[];
+      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+      this.loading=true
     if (this.role === 'Admin') {
+
       if (this.params != null || this.userId) {
         this.api
-          .getUser(this.pageSize, this.currentPage, this.userId, this.params)
+          .getUser(this.pageSize, this.currentPage=1, this.userId, this.params)
           .subscribe(
             (resp: any) => {
               //console.log(resp.results,"users response");
@@ -391,13 +395,17 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     // }
     else if (this.role === 'counsellor') {
+      this.totalPageLength=0;
+      this.allUser=[];
+      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+      this.loading=true
       try {
         // if()
         //console.log("coming to else", this.params);
 
         if (this.params != null || this.userId) {
           this.api
-            .getUser(this.pageSize, this.currentPage, this.userId, this.params)
+            .getUser(this.pageSize, this.currentPage=1, this.userId, this.params)
             .subscribe(
               (resp: any) => {
                 //   console.log("==>>",resp.results);
@@ -422,8 +430,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       }
     } else {
       //  if(this.params!=null)
+        this.totalPageLength=0;
+      this.allUser=[];
+      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+      this.loading=true
+
       this.api
-        .getUser(this.pageSize, this.currentPage, null, this.params)
+        .getUser(this.pageSize, this.currentPage=1, null, this.params)
         .subscribe(
           (resp: any) => {
             //console.log("==>>",resp.results);
@@ -497,7 +510,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
               }
             );
         }
-      } else {
+      } else
+      this.totalPageLength=0;
+      this.allUser=[];
+      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
+      
+      {
         this.api
           .getUser(this.pageSize, this.currentPage, null, this.params)
           .subscribe(

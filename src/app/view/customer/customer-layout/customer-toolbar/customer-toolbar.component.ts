@@ -250,7 +250,7 @@ export class CustomerToolbarComponent implements OnInit {
     _bottomSheetRef.afterDismissed().subscribe((res: any) => {
       // console.log(res,"res from email bottom,sheet");
 
-      if (res && this.isFiltered == true) {
+      if (res==true && this.isFiltered == true) {
         this.selectedLeads = [];
         this.refresh.emit(false);
 
