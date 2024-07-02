@@ -408,6 +408,10 @@ export class EditUserProfileListComponent implements OnInit {
 
     dialogRef.disableClose = true;
 
-    dialogRef.afterClosed().subscribe((result: any) => {});
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if(result==false){
+        this.dialogRef.close();
+      }
+    });
   }
 }
