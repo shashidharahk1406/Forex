@@ -4,6 +4,7 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheet, MatBottomSheetRef } from '@angul
 import { ApiService } from 'src/app/service/API/api.service';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { BaseServiceService } from 'src/app/service/base-service.service';
+import { DataService } from 'src/app/service/data.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -25,14 +26,21 @@ export class CustomerEmailComponent implements OnInit {
     private api:ApiService,
     private _baseService:BaseServiceService,
     private addEmit:AddLeadEmitterService,
-    private bottomSheet:MatBottomSheet) {
+    private bottomSheet:MatBottomSheet,
+  private dataService:DataService) {
 
      console.log(data,"data lead email")
     }
-
+    isFiltered:any
   ngOnInit(): void {
     this.initForm();
     this.getTemplate()
+
+    this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
+      console.log(res, 'filter');
+
+      this.isFiltered = res;
+    });
   }
  
   initForm(){
@@ -94,8 +102,15 @@ export class CustomerEmailComponent implements OnInit {
          
           this.api.showSuccess(res.message)
           this._bottomSheetRef.dismiss(true)
-          this.refresh.emit('event')
-          this.addEmit.customerFiltertriggerGet()
+
+          if(this.isFiltered==true){
+            this.refresh.emit(false)
+          }
+          else{
+            this.refresh.emit('event')
+          }
+         
+          // this.addEmit.customerFiltertriggerGet()
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))

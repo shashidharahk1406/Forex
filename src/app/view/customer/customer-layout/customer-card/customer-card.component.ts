@@ -793,6 +793,7 @@ isSearched:boolean=false
       this._addLeadEmitter.customerFilterIcon.next(false);
       this._addLeadEmitter.customerFilter.next('');
       this._addLeadEmitter.selectedCustomerFilter.next('');
+      this.dataService.filterCustomerRefreshdataSubject.next(false)
       this.getStatus();
       this.getLeadData('tabLabel');
       // this.getLeadIds()
