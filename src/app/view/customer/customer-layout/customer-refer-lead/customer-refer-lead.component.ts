@@ -148,7 +148,7 @@ export class CustomerReferLeadComponent implements OnInit {
     initForm(){
       this.referLeadForm = this._fb.group({
         referTo:['',Validators.required],
-        comment:['',Validators.required]
+        comment:['',]
       })
     }
     close(){
