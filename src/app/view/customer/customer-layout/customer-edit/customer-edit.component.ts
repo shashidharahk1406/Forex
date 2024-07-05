@@ -73,8 +73,16 @@ export class CustomerEditComponent implements OnInit {
 
     this.min = new Date('1900-01-01');
   }
-
+  isFiltered:any;
+  @Output()refresh = new EventEmitter()
   ngOnInit(): void {
+
+
+    this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
+      console.log(res, 'filter');
+
+      this.isFiltered = res;
+    });
     this.max = new Date();
     this.editLeadForm.get('countryId')?.valueChanges.subscribe((value:any) => {
       if (value) {
@@ -655,7 +663,13 @@ export class CustomerEditComponent implements OnInit {
               this.addLead.emit('ADD')
               this.api.showSuccess('Customer details updated successfully');
               this._bottomSheetRef.dismiss('yes');
-              this._addLeadEmitter.customerFiltertriggerGet();
+              if(this.isFiltered==true){
+                this.refresh.emit(false)
+              }
+              else{
+                this.refresh.emit('event')
+              }
+              // this._addLeadEmitter.customerFiltertriggerGet();
               this.dataService.dataSubject.next(true)
               
             }

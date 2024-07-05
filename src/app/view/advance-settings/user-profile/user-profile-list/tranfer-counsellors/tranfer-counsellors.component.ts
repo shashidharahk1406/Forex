@@ -23,7 +23,7 @@ export class TranferCounsellorsComponent implements OnInit {
     console.log(data.isDelete,"data from delete component");
     
   }
-  admins: any=[];
+  admins: any;
 
   transferCounsellorsForm!: FormGroup;
 
@@ -32,7 +32,7 @@ export class TranferCounsellorsComponent implements OnInit {
 
     this.transferCounsellorsForm = this._fb.group({
       // counsellor_ids: ['', Validators.required],
-      transfer_to_ids: ['', Validators.required],
+      transfer_to_ids: [[], Validators.required],
       // user_id: ['', Validators.required],
       // role_change_to: ['counsellor'],
     });

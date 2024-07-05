@@ -361,7 +361,7 @@ export class EditUserProfileListComponent implements OnInit {
       this.allUser = this.allUser.filter((ele: any) => {
         return ele.role_name === 'Admin';
       });
-    } else if (this.roleId === 6) {
+    } else if (this.roleId === 6|| this.roleId === 7) {
       this.isReportingToUser = false;
     }
   }
