@@ -107,6 +107,9 @@ export class LeadCardComponent implements OnInit {
               }
               
             }
+            if (this.searchTerm) {
+              this.query += `&key=${this.searchTerm}`;
+            }
           }
         });
         this._baseService.getData(`${this.query}`).subscribe((res: any) => {
@@ -134,6 +137,10 @@ export class LeadCardComponent implements OnInit {
          }
          
        }
+
+       if (this.searchTerm) {
+              this.query += `&key=${this.searchTerm}`;
+        }
        this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results.data) {
           this.leadCards = res.results.data;
