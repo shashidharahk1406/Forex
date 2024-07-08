@@ -126,6 +126,8 @@ export class EditUserProfileListComponent implements OnInit {
   userId: any;
   user_name:any;
   roleName:any;
+  role_name:any;
+  showTranferCounsellor:boolean=false
   getUserbyId() {
     this.api.getUserById(this.id).subscribe(
       (resp: any) => {
@@ -135,6 +137,12 @@ export class EditUserProfileListComponent implements OnInit {
         console.log(this.userId, 'userid');
 
         this.roleName=resp.result[0].role_id;
+
+        this.role_name=resp.result[0].role_name
+
+        if (resp.result[0].role_id === 6) {
+          this.showTranferCounsellor = true;
+        } 
         if (resp.result[0].role_id === 3) {
           this.isReportingToUser = true;
         } else {
@@ -349,6 +357,12 @@ export class EditUserProfileListComponent implements OnInit {
   onRoleChange(id: any) {
     this.roleId = id;
     console.log(this.roleId, 'roleId');
+    if(id===6){
+      this.showTranferCounsellor = true;
+    }
+    else{
+      this.showTranferCounsellor = false;
+    }
     // this.allUser=[]
     if (
       (this.roleId === 3 || this.roleId === 7) &&
