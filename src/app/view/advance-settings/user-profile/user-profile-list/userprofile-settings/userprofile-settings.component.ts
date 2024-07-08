@@ -178,6 +178,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   loading: boolean = true;
   isSearched: boolean = false;
   search() {
+    
     if (this.searchValue !== '') {
       this.isSearched = true;
     } else {
@@ -188,6 +189,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.currentPage = 1;
       this.pageSize = 10;
     }
+   
     if (this.role === 'Admin') {
       if (this.searchValue?.length > 0) {
         let admin_id = this.userId;
@@ -256,6 +258,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       if (this.searchValue?.length > 0) {
         if (this.params == null || this.userId == null) {
         }
+       
         // this.params=this.userId
         // var role="Admin"
         // let admin_id=null

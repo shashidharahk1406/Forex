@@ -410,8 +410,19 @@ export class EditUserProfileListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if(result==false){
-        this.dialogRef.close();
+        // this.dialogRef.close();
       }
     });
   }
+
+  transferCounsellors(){
+    if(window.confirm("Are you sure to transfer counsellors? ")) {
+      if( this.counsellorIds.length>0){
+        this.openTransferCounsellorsComponent()
+      }
+      else{
+        this.api.showWarning('Counsellors are not available')
+      }
+  }
+}
 }
