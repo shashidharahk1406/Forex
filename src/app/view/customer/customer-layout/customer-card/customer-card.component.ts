@@ -341,7 +341,7 @@ isSearched:boolean=false
 
         query += `&filter_by=${this.sortingType}`;
       } else {
-        if (this.leadFilter) {
+        if (this.leadFilter&&this.searchTerm) {
           this._addLeadEmitter.customerFilter.subscribe((res) => {
             if (res) {
               query = '';
@@ -411,17 +411,20 @@ isSearched:boolean=false
 
         }
       }
+      if (this.searchTerm) {
+        query += `&key=${this.sortingType}`;
+      } 
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       } else {
-        if (this.leadFilter) {
+        if (this.leadFilter&&this.searchTerm) {
           this._addLeadEmitter.customerFilter.subscribe((res) => {
             if (res) {
               query = '';
               // query = (this.user_role === 'counsellor')
               // ? `${res}&counsellor_id=${this.user_id}&key=${event}`
               // : `${res}&key=${event}`;
-              query = `${res}&user_type=customers`;
+              query = `${res}&user_type=customers&key=${event}`;
               if (
                 ['counsellor', 'counselor'].includes(this.user_role) === true
               ) {
@@ -697,11 +700,15 @@ isSearched:boolean=false
     if (type === 'All') {
       query = query;
 
-      if (this.sorting) {
-        query += `&filter_by=${this.sortingType}`;
-      } else if (this.searchTerm) {
+      if (this.sorting&&this.searchTerm) {
+        query += `&filter_by=${this.sortingType}&key=${this.searchTerm}`;
+      } else if (this.searchTerm&&!this.sorting) {
         query += `&key=${this.searchTerm}`;
-      } else if (this.leadFilter) {
+      } else if (!this.searchTerm&&this.sorting) {
+        query += `&filter_by=${this.sortingType}`;
+      }
+      
+      else if (this.leadFilter) {
         this._addLeadEmitter.filterWithPageSize.subscribe((res: any) => {
           if (res) {
             query += res;
@@ -725,17 +732,24 @@ isSearched:boolean=false
           query += `&admin_id=${this.user_id}&counsellor_id=0`;
         }
       }
-      if (this.sorting) {
+      
+      if (this.sorting&&this.searchTerm) {
+        query += `&filter_by=${this.sortingType}&key=${this.searchTerm}`;
+      } else if (this.searchTerm&&!this.sorting) {
+        query += `&key=${this.searchTerm}`;
+      } else if (!this.searchTerm&&this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       } else {
-        if (this.leadFilter) {
+        if (this.leadFilter&&this.searchTerm) {
           this._addLeadEmitter.filterWithPageSize.subscribe((res: any) => {
             if (res) {
-              query += res;
+              query += `${res}&key=${this.searchTerm}`;
             }
           });
         }
       }
+
+     
     }
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
@@ -809,11 +823,13 @@ isSearched:boolean=false
       
     this._addLeadEmitter.customerFilter.subscribe((res: any) => {
       if (res&&event==false) {
+       
         //  console.log(res, "RES");
         this.leadFilter = true;
       
         this.filterLeads(res);
-       this.searchTerm=''
+        this.searchTerm=''
+      
         
       } 
       // else {

@@ -542,7 +542,7 @@ export class MyFollowupCardContentComponent
 
   filterCount: any;
   api_url: any = environment.live_url;
-
+queryUrl:any=''
   refreshFollowUps() {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
@@ -554,12 +554,27 @@ export class MyFollowupCardContentComponent
     localStorage.removeItem('followUpFilter');
     localStorage.removeItem('data.target.value');
     // //console.log("updateAPIURL==>", this.updateAPIURL);
+    if(this.role==='Admin'){
+      if (this.counsellors_ids) {
+        this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
+      } else {
+        this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=0`;
+      }
+    }else if(this.role==='counsellor'){
+      this.queryUrl+=`&counsellor_id=${this.user_id}`
+    }
+    else
+    {
+      this.queryUrl+= `${this.api_url}/api/follow-up/?page=1&page_size=5`
+    }
     this.dataService.setFilteredFollowUpURL(
-      `${this.api_url}/api/follow-up/?page=1&page_size=5`
+      `${this.api_url}/api/follow-up/?page=1&page_size=5&${this.queryUrl}`
     );
+   
     this.allPaginator.pageIndex = 0;
     this.allPaginator.pageSize = 5;
     this.ngOnInit();
+    this.APICAll();
     this.selectedTab = 'All';
     this.dataService.resetFilterForm();
     this.dataService.followUpdataSubject.next(false);

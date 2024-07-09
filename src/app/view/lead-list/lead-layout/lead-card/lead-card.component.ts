@@ -465,7 +465,7 @@ export class LeadCardComponent implements OnInit {
         if(this.leadFilter){
           this._addLeadEmitter.filterWithPageSize.subscribe((res:any) => {
             if (res) {
-              query += res
+              query += res;
               
             }
           });
