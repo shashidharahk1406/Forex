@@ -7,7 +7,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class EmitService {
 
   constructor() { }
-  
+  userRole = new BehaviorSubject('') 
+  userName = new BehaviorSubject('') 
   private refresh= new Subject<any>;
   getRefresh= this.refresh.asObservable()
   
