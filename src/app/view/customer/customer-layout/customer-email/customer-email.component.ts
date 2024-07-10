@@ -107,10 +107,11 @@ export class CustomerEmailComponent implements OnInit {
             this.refresh.emit(false)
           }
           else{
-            this.refresh.emit('event')
+            this.addEmit.customerFiltertriggerGet()
+            // this.refresh.emit(true)
           }
          
-          // this.addEmit.customerFiltertriggerGet()
+          // 
         }
       },((error:any)=>{
          this.api.showError(this.api.toTitleCase(error.error.message))
