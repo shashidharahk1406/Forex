@@ -10,7 +10,10 @@ import { IdleDetectionService } from './service/idle-detection.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private ngxService: NgxUiLoaderService,private router:Router,private idleDetectionService:IdleDetectionService){}
+  constructor(
+    private ngxService: NgxUiLoaderService,
+    private router:Router,
+    private idleDetectionService:IdleDetectionService){}
   ngOnInit(){
     this.ngxService.start(); 
     setTimeout(() => {
