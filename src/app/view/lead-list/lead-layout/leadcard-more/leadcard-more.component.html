@@ -8,7 +8,7 @@
             <!-- <div class="border-row" *ngIf="add_Followup">
                 <div class="border-cell" ngbDropdownToggle (click)="addFollowUp(item)"><i class="bi bi-flag-fill"></i>Add Followup</div>
             </div> -->
-            <div class="border-row" *ngIf="user_role==='Admin' || user_role==='SuperAdmin' || assign_allocation">
+            <div class="border-row" *ngIf="user_role==='Admin' || user_role==='SuperAdmin'">
                 <div class="border-cell" ngbDropdownToggle (click)="referLead()"><i class="bi bi-person-check-fill"></i>Assign Allocation</div>
             </div>
             <!-- <div class="border-row" *ngIf="add_Note">
