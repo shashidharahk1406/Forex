@@ -200,8 +200,9 @@ export class LeadCardComponent implements OnInit {
   }
   
   applySearch(event:any){
-    this.searchTerm = event
+    
     if(event !==''){
+    this.searchTerm = event
     let query: string;
     query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation&key=${event}`
     
@@ -259,6 +260,7 @@ export class LeadCardComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error.error.message));
     });
   }else{
+    this.searchTerm = ''
     let query: string;
     // query = (this.user_role === 'counsellor')
     // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
@@ -438,11 +440,11 @@ export class LeadCardComponent implements OnInit {
   
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
-      } else if (this.searchTerm) {
+      } if (this.searchTerm) {
         query += `&key=${this.searchTerm}`;
       }
      
-        else if(this.leadFilter){
+        if(this.leadFilter){
           this._addLeadEmitter.filterWithPageSize.subscribe((res:any) => {
             if (res) {
              
@@ -469,28 +471,27 @@ export class LeadCardComponent implements OnInit {
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       }
-        if(this.leadFilter){
-          this._addLeadEmitter.filterWithPageSize.subscribe((res:any) => {
-            if (res) {
-              query += res;
-              
-            }
-          });
-        
-      }
-      if (this.searchTerm) {
-        this.query += `&key=${this.searchTerm}`;
-      }
+      if(this.leadFilter){
+        this._addLeadEmitter.filterWithPageSize.subscribe((res:any) => {
+          if (res) {
+            query += res;
+            
+          }
+        });
+      
+    }
+    if (this.searchTerm) {
+     this.query += `&key=${this.searchTerm}`;
+    }
     }
 
-    
+   
     
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
           this.leadCards = res.results.data;
           this.leadAllIds = res.results.lead_ids;
-          console.log(this.leadAllIds,"this.leadAllIds");
           
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
           this.totalNumberOfRecords = res.total_no_of_record;
@@ -519,6 +520,7 @@ export class LeadCardComponent implements OnInit {
     this.leadFilter = false;
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.selectedFilter.next('')
+    this.searchTerm = '';
     this.getStatus()
     this.getLeadData('tabLabel')
     this._addLeadEmitter.leadRefresh.next(true)
