@@ -111,7 +111,7 @@
     color:white;
 }
 .shadow-lg {
-    box-shadow: var(--bs-box-shadow-lg) !important;
+    /* box-shadow: var(--bs-box-shadow-lg) !important; */
     padding: 18px;
     font-size: 12px;
 }
