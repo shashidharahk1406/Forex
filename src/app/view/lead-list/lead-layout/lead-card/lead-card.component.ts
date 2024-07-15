@@ -468,7 +468,7 @@ export class LeadCardComponent implements OnInit {
       }
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
-      }else{
+      }
         if(this.leadFilter){
           this._addLeadEmitter.filterWithPageSize.subscribe((res:any) => {
             if (res) {
@@ -476,7 +476,10 @@ export class LeadCardComponent implements OnInit {
               
             }
           });
-        }
+        
+      }
+      if (this.searchTerm) {
+        this.query += `&key=${this.searchTerm}`;
       }
     }
 
