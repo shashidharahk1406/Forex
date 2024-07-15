@@ -499,15 +499,20 @@ export class CustomerCardComponent implements OnInit {
 
   isFiltered = false;
   filterLeads(apiUrl: any) {
+    this.totalNumberOfRecords=0;
+    this.leadCards=[];
     if (this.sorting) {
       apiUrl += `&filter_by=${this.sortingType}`;
     }
     if(this.searchTerm){
       apiUrl+=`&key=${this.searchTerm}`
     }
+    
     this._baseService.getData(`${apiUrl}`).subscribe(
       (res: any) => {
         if (res.results.data) {
+          this.allPaginator.pageIndex=0;
+          this.allPaginator.pageSize=10
           this.isFiltered = true;
           this.dataService.filterAndSearchCustomerRefreshdataSubject.next(true);
           this.leadFilter = true;
