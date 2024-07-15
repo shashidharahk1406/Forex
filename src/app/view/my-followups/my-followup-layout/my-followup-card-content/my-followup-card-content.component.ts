@@ -542,7 +542,7 @@ export class MyFollowupCardContentComponent
 
   filterCount: any;
   api_url: any = environment.live_url;
-queryUrl:any=''
+  queryUrl:any=''
   refreshFollowUps() {
     this.selectedCheckboxIds = [];
     this.checkAll = false;
@@ -561,10 +561,10 @@ queryUrl:any=''
         this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=0`;
       }
     }else if(this.role==='counsellor'){
-      this.queryUrl+=`&counsellor_id=${this.user_id}`
+      this.queryUrl+=`&counsellor_id=${this.user_id}` 
     }
     else
-    {
+    { 
       this.queryUrl+= `${this.api_url}/api/follow-up/?page=1&page_size=5`
     }
     this.dataService.setFilteredFollowUpURL(
@@ -1109,6 +1109,7 @@ queryUrl:any=''
   }
 
   getSort(data: any) {
+    
     let sort_by = this.filterFollowUp.getSortDataBYForm(
       'filter_by',
       data.target.innerText
@@ -1116,10 +1117,21 @@ queryUrl:any=''
 
     this.updateAPIURL += sort_by['apistring'];
 
+    const tempurl = new URL(this.updateAPIURL);
+    const page :any= "page";
+    const page_size:any = "page_size";
+    tempurl.searchParams.set(page,this.defaultPage);
+    tempurl.searchParams.set(page_size,this.defaultPageSize);
+    this.updateAPIURL = tempurl.toString().replace(/%26/g,"&");
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 
+    // this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
+
     // this.APICAll();
+   
     this.ngOnInit();
+    this.allPaginator.pageIndex=0;
+   this.allPaginator.pageSize=5
   }
 
   getFilter(data: any) {
@@ -1264,7 +1276,12 @@ queryUrl:any=''
           },
         };
 
-        this._bottomSheet.open(FollowupEmailComponent, config);
+      let res=this._bottomSheet.open(FollowupEmailComponent, config);
+      res.afterDismissed().subscribe((res:any)=>{
+        if(res==true&&this.filterFlag==false){
+          this.refreshFollowUps()
+        }
+      })
       }
     });
   }
