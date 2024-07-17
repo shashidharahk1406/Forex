@@ -233,9 +233,9 @@ export class UserProfileFilterComponent implements OnInit {
                 queryParams.push(`${key}=${values}`);
               }
             }
-          // } else {
-          //   queryParams.push(`${key}=${value||''}`);
-          //   console.log(queryParams,"in else block");
+          } else {
+            queryParams.push(`${key}=${value||''}`);
+            console.log(queryParams,"in else block");
             
           }
         }

@@ -225,6 +225,8 @@ export class CustomerCardComponent implements OnInit {
         this.getLeadData('tabLabel');
       }
     });
+
+    
   }
 
   // applySearch(event:any){
@@ -405,6 +407,11 @@ export class CustomerCardComponent implements OnInit {
         } else {
           query += `&admin_id=${this.user_id}&counsellor_id=0`;
         }
+      }
+      if(this.leadFilter&&this.searchTerm==''){
+        this._addLeadEmitter.customerFilter.subscribe((res:any)=>{
+          query=`${res}`
+        })
       }
       if (this.searchTerm) {
         query += `&key=${this.searchTerm}`;
