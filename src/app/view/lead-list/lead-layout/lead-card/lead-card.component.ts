@@ -341,6 +341,10 @@ export class LeadCardComponent implements OnInit {
     this.totalNumberOfRecords = 0
     this.allLeadCardsDataSource = []
     if(!this.allLeadCardsDataSource.length){
+      console.log('apiUrl:',apiUrl)
+      if(this.sorting){
+        apiUrl += `&filter_by=${this.sortingType}`
+      }
       this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
         if(res.results.data){
         this.leadFilter = true
@@ -360,7 +364,7 @@ export class LeadCardComponent implements OnInit {
     this.leadCards = [];
     this.totalNumberOfRecords = [];
     this.allLeadCardsDataSource = [];
-    let apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation`;
+    let apiUrl = `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&user_type=allocation`;
    
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       apiUrl += `&counsellor_id=${this.user_id}`;
