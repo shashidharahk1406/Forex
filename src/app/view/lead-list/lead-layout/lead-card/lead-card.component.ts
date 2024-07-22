@@ -54,7 +54,8 @@ export class LeadCardComponent implements OnInit {
     private dataService:DataService) {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
-      this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids')
+      this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids') || 0;
+
       // this.getLeadIds();
 
       this.permissions=localStorage.getItem('decodedToken')
@@ -124,7 +125,7 @@ export class LeadCardComponent implements OnInit {
         });
 
       }else{
-        this.query = `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}&user_type=allocation`
+        this.query = `?filter_by=${this.sortingType}&page=${this.currentPage}&page_size=${this.pageSize}&user_type=allocation`
         if (['counsellor','counselor'].includes(this.user_role) === true) {
          this.query += `&counsellor_id=${this.user_id}`;
        } else if (['superadmin','super admin'].includes(this.user_role) === true) {
@@ -345,6 +346,7 @@ export class LeadCardComponent implements OnInit {
       if(this.sorting){
         apiUrl += `&filter_by=${this.sortingType}`
       }
+     
       this._baseService.getData(`${apiUrl}`).subscribe((res:any) => {
         if(res.results.data){
         this.leadFilter = true
@@ -361,9 +363,7 @@ export class LeadCardComponent implements OnInit {
  
    }
    getLeadData(tabLabel: any,filter?:any) {
-    this.leadCards = [];
-    this.totalNumberOfRecords = [];
-    this.allLeadCardsDataSource = [];
+   
     let apiUrl = `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}&user_type=allocation`;
    
     if (['counsellor','counselor'].includes(this.user_role) === true) {
@@ -381,13 +381,15 @@ export class LeadCardComponent implements OnInit {
       let tabId = this.statusArray.find((f:any)=>f.name === tabLabel.tab.textLabel)
       apiUrl += `&status=${tabId.id}`;
     }
-    this.allLeadCardsDataSource = []
-    this.leadCards = []
-    this.totalNumberOfRecords = 0
-   if(!this.allLeadCardsDataSource.length){
+  
+  //  if(this.allLeadCardsDataSource.length === 0){
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
+
         if (res.results.data) {
+          this.allLeadCardsDataSource = []
+          this.leadCards = []
+          this.totalNumberOfRecords = 0
           this.leadCards = res.results.data;
           // console.log(res.results.data,"res.results.data");
           
@@ -405,7 +407,7 @@ export class LeadCardComponent implements OnInit {
         this.api.showError(this.api.toTitleCase(error.error.message));
       }
     );
-  }
+  //}
   }
  
 
