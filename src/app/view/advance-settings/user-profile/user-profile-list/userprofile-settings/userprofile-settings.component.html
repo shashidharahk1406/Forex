@@ -9,9 +9,9 @@
       
 
       <span class="filter-container" *ngIf="role==='Admin' || role==='SuperAdmin'">
-        <i data-bs-toggle="tooltip" *ngIf="!filter" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
+        <i data-bs-toggle="tooltip" *ngIf="params==null" class="bi bi-funnel" (click)="openFilter()" title="Filter"></i>
 
-        <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="filter" class="bi bi-funnel-fill" (click)="openFilter()"></i>
+        <i  data-bs-toggle="tooltip"  title="Filter" *ngIf="params!=null" class="bi bi-funnel-fill" (click)="openFilter()"></i>
       </span>
       
      
@@ -143,5 +143,5 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator *ngIf="!loading" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]"  [pageSize]="pageSize"  aria-label="Select page of users"></mat-paginator>
+    <mat-paginator *ngIf="!loading" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]"  [pageSize]="pageSize"  aria-label="Select page of users"  [pageIndex]="pageindex"></mat-paginator>
    

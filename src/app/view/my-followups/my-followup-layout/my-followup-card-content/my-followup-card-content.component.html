@@ -631,6 +631,7 @@
     aria-label="Select page"
     (page)="onPageChangeNew($event)"
     [pageIndex]="currentPage"
+    [pageSize]="pageSize"
     #allPaginator
   >
   </mat-paginator>
@@ -663,6 +664,7 @@
           [(selected)]="selectedDate"
           (selectedChange)="selectDate($event)"
           [minDate]="minDate"
+          [(ngModel)]="selectedDate"
         >
         </mat-calendar>
 

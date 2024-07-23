@@ -134,7 +134,7 @@ export class MyFollowupCardContentComponent
     this.counsellors_ids = localStorage.getItem('counsellor_ids');
     // //console.log(this.role, 'roleeeeeeeeeeeeeee');
 
-    this.tempSearch = '';
+   
 
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -167,13 +167,14 @@ export class MyFollowupCardContentComponent
   unsubscribe!: Subscription;
   previousSelectedTab: any;
 
-
+editFollowup:any
   ngOnInit(): void {
+    this.currentPage=0
     // this.selectedDate=this.dataService.getDate()
     if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
-    this.tempSearch = '';
+ 
     //  this.previousSelectedTab=this.dataService.getSelectedTab()
     this.selectedTab = this.dataService.getSelectedTab();
     //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
@@ -205,11 +206,14 @@ export class MyFollowupCardContentComponent
         // }
       });
     this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
-      if (res) {
+      this.editFollowup=res;
+      if (res&&this.isSearched) {
+        
         // window.location.reload();
-        this.tempSearch = '';
-
-        // this.refreshFollowUps();
+        this.searchValue = '';
+      
+       
+        this.refreshFollowUps();
         // this.APICAll();
       }
     });
@@ -289,7 +293,18 @@ export class MyFollowupCardContentComponent
     //   this.dataService.getFollowupfilterURL().url
     // );
 
-    this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
+    this.dataService.EditFollowupRefreshdataSubject.subscribe((res:any)=>{
+      if(res==true){
+        this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
+       
+      }
+      else{
+        this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
+        
+      }
+    })
+
+   
 
     // console.log('updated url==>', this.updateAPIURL);
 
@@ -314,8 +329,8 @@ export class MyFollowupCardContentComponent
         ) {
           // alert(dataFromChild)
           //pagerefrsh & all values should be reset
-          // this.ngOnInit();
-          this.refreshFollowUps();
+          this.ngOnInit();
+          // this.refreshFollowUps();
 
           this.searchValue = '';
         }
@@ -544,16 +559,20 @@ export class MyFollowupCardContentComponent
   api_url: any = environment.live_url;
   queryUrl:any=''
   refreshFollowUps() {
+    this.isSearched=false
+    this.searchValue=''
+    this.totalNumberOfRecords=0;
+    this.dataService.EditFollowupRefreshdataSubject.next(false)
     this.selectedCheckboxIds = [];
     this.checkAll = false;
-    this.selectedDate = null;
+    this.selectedDate = null ;
+  
     this.filtered = false;
-    this.tempSearch = '';
+  
     this.renderingData = [];
     this.dataService.setSelectedTabData('All');
     localStorage.removeItem('followUpFilter');
     localStorage.removeItem('data.target.value');
-    // //console.log("updateAPIURL==>", this.updateAPIURL);
     if(this.role==='Admin'){
       if (this.counsellors_ids) {
         this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
@@ -570,14 +589,15 @@ export class MyFollowupCardContentComponent
     this.dataService.setFilteredFollowUpURL(
       `${this.api_url}/api/follow-up/?page=1&page_size=5&${this.queryUrl}`
     );
-   
-    this.allPaginator.pageIndex = 0;
-    this.allPaginator.pageSize = 5;
     this.ngOnInit();
     this.APICAll();
+    this.allPaginator.pageIndex = 0;
+    this.allPaginator.pageSize = 5;
     this.selectedTab = 'All';
     this.dataService.resetFilterForm();
     this.dataService.followUpdataSubject.next(false);
+    window.location.reload()
+    
   }
 
   ngOnDestroy(): void {
@@ -592,7 +612,7 @@ export class MyFollowupCardContentComponent
       );
       this.APICAll();
     }
-    this.tempSearch = '';
+    this.searchValue = '';
     this.renderingData = [];
     if (this.isSearched === true) {
       this.dataService.setFilteredFollowUpURL(
@@ -934,6 +954,7 @@ export class MyFollowupCardContentComponent
       );
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
+          
           this.totalCount = res.total_no_of_record;
           //console.log(this.totalCount,"this.totalCount for counsellor");
           // //console.log(res, 'followup api  filetr all combination');
@@ -1063,6 +1084,8 @@ export class MyFollowupCardContentComponent
           //console.log(this.allPaginator,"paginator for admin");
 
           // //console.log(res, 'followup api  filetr all combination');
+
+          
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
@@ -1098,6 +1121,7 @@ export class MyFollowupCardContentComponent
             this.checkAll = true;
           }
           this.loading = false;
+         
           // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
         },
         (error: any) => {
@@ -1180,11 +1204,14 @@ export class MyFollowupCardContentComponent
   }
 
   selectDate(data: any) {
+   
     const date = this.datePipe.transform(data, 'yyyy-MM-dd');
     this.dataService.setDate(this.datePipe.transform(data));
+    // this.selectedDate=data
     const apiurl: any = this.filterFollowUp.getFilteredDate(date);
     // //console.log('apiurl', apiurl);
-
+this.allPaginator.pageIndex=0;
+this.allPaginator.pageSize=5;
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
       { key: 'page_size', value: 5 },
@@ -1461,6 +1488,7 @@ export class MyFollowupCardContentComponent
 
     this.currentPage = event.pageIndex;
     event.pageIndex += 1;
+    this.dataService.setPage(event.pageIndex,event.pageSize,true)
     let pageDataKeyValue = [
       { key: 'page', value: event.pageIndex },
       { key: 'page_size', value: event.pageSize },

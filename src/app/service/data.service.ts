@@ -39,13 +39,11 @@ export class DataService {
   public filterAndSearchdata$ =
     this.EditFollowupRefreshdataSubject.asObservable();
 
-    filterCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
-    public filterdata$ =
-      this.filterCustomerRefreshdataSubject.asObservable();
+  filterCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
+  public filterdata$ = this.filterCustomerRefreshdataSubject.asObservable();
 
-      searchCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
-    public searhdata$ =
-      this.searchCustomerRefreshdataSubject.asObservable();
+  searchCustomerRefreshdataSubject = new BehaviorSubject<any>(false);
+  public searhdata$ = this.searchCustomerRefreshdataSubject.asObservable();
 
   followUpdataSubject = new BehaviorSubject<any>(false);
   public data1$ = this.followUpdataSubject.asObservable();
@@ -167,25 +165,46 @@ export class DataService {
     return this.selectedTab;
   }
 
-
-
-  filterUrl:any;
+  filterUrl: any;
   setFilteredUrl(data: any) {
     this.filterUrl = data;
-    console.log(data,"setFilteredUrl");
+    console.log(data, 'setFilteredUrl');
   }
   getFilteredUrl() {
     return this.filterUrl;
   }
 
-
-
-  selectedDate:any;
+  selectedDate: any;
   setDate(date: any) {
     this.selectedDate = date;
-    console.log(date,"setDate");
+    console.log(date, 'setDate');
   }
   getDate() {
     return this.selectedDate;
   }
+
+  public customerEdit = new BehaviorSubject<any>(false);
+  public customerEditData$ = this.customerEdit.asObservable();
+
+  selectedPage: any;
+  selectedPageIndex: any;
+  isPagination:boolean=false
+  setPage(page: any, index: any,isPaginationApplied:any) {
+    this.selectedPage = page;
+    this.selectedPageIndex = index;
+    this.isPagination=isPaginationApplied;
+    // console.log(this.selectedPage,this.selectedPageIndex, this.isPagination,'selectedPage', 'this.selectedPageIndex',' this.isPagination');
+  }
+  getPage() {
+    return {
+      selectedPage: this.selectedPage,
+      selectedIndex: this.selectedPageIndex,
+      isPagination:this.isPagination
+    };
+  }
+
+
+
+  public userFilter = new BehaviorSubject<any>(false);
+  public userFilterData$ = this.userFilter.asObservable();
 }

@@ -200,7 +200,7 @@ export class CustomerCardContentComponent implements OnInit {
           this.emit.customerFiltertriggerGet();
           console.log(res, 'if res from edit');
 
-          this.refresh.emit(true);
+          // this.refresh.emit(true);
         } else {
           console.log(res, 'else res from edit');
 

@@ -39,8 +39,8 @@ export class MyFollowupFilterComponent implements OnInit {
   counselled_by: any;
   role: any;
   cId: any;
-  user_id:any;
-  counsellors_ids:any;
+  user_id: any;
+  counsellors_ids: any;
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -53,21 +53,17 @@ export class MyFollowupFilterComponent implements OnInit {
   ) {
     this.role = localStorage.getItem('user_role');
     //console.log(data, 'data from card component');
-    this.user_id=localStorage.getItem('user_id')
-    this.counsellors_ids=localStorage.getItem('counsellor_ids');
+    this.user_id = localStorage.getItem('user_id');
+    this.counsellors_ids = localStorage.getItem('counsellor_ids');
     //console.log(this.counsellors_ids,"counsellor ids");
-    
 
     this.initForm();
-
-   
-
-    
 
     // this.sendData();
   }
 
   updateFilterByStatusURL: any = null;
+  updatedURL: any = null;
 
   ngOnInit(): void {
     this.updateFilterByStatusURL = this.dataService.getFollowupfilterURL().url;
@@ -151,7 +147,7 @@ export class MyFollowupFilterComponent implements OnInit {
           this.cityList = res.results;
 
           this.cityOptions = res.results;
-          this.filteredCityOptions = this.cityOptions
+          this.filteredCityOptions = this.cityOptions;
         } else {
           this.api.showError('ERROR');
         }
@@ -164,31 +160,29 @@ export class MyFollowupFilterComponent implements OnInit {
 
   filteredCityOptions: any = [];
 
-  filterCountries(event:any,type:any,countryOptions:any){
-    let searchTerm:any = '';
-    if(event){
-       searchTerm = event.target.value.toLowerCase();
+  filterCountries(event: any, type: any, countryOptions: any) {
+    let searchTerm: any = '';
+    if (event) {
+      searchTerm = event.target.value.toLowerCase();
 
-       
-       if(searchTerm === '' && type === 'city'){
-        this.filteredCityOptions = countryOptions
-        return this.filteredCityOptions
-       }
-    
-      let filteredCountries = countryOptions.filter((option:any) =>{
-       const name:any = option.name.toLowerCase()
-       return name.includes(searchTerm)
-       });
+      if (searchTerm === '' && type === 'city') {
+        this.filteredCityOptions = countryOptions;
+        return this.filteredCityOptions;
+      }
 
-       if(!filteredCountries.length){
-        filteredCountries = [{name: `No ${type} found`}]
-       }
-   
-       if(type === 'city'){
-        this.filteredCityOptions = filteredCountries
-       }
-       
-  }
+      let filteredCountries = countryOptions.filter((option: any) => {
+        const name: any = option.name.toLowerCase();
+        return name.includes(searchTerm);
+      });
+
+      if (!filteredCountries.length) {
+        filteredCountries = [{ name: `No ${type} found` }];
+      }
+
+      if (type === 'city') {
+        this.filteredCityOptions = filteredCountries;
+      }
+    }
   }
 
   getCounselledBy() {
@@ -207,24 +201,22 @@ export class MyFollowupFilterComponent implements OnInit {
   }
 
   getCounselor() {
-    let query
-    
-    if(this.role==='Admin'){
-     query =`user_id=${this.user_id}`
+    let query;
+
+    if (this.role === 'Admin') {
+      query = `user_id=${this.user_id}`;
     }
-    this._baseService
-      .getData(`${environment._user}?${query}`)
-      .subscribe(
-        (res: any) => {
-          if (res) {
-            this.counselorList = res.results;
-            ////console.log(this.counselorList, 'this.counselorList');
-          }
-        },
-        (error: any) => {
-          this.api.showError(this.api.toTitleCase(error.error.message));
+    this._baseService.getData(`${environment._user}?${query}`).subscribe(
+      (res: any) => {
+        if (res) {
+          this.counselorList = res.results;
+          ////console.log(this.counselorList, 'this.counselorList');
         }
-      );
+      },
+      (error: any) => {
+        this.api.showError(this.api.toTitleCase(error.error.message));
+      }
+    );
   }
 
   AllFollowupStatuses: any = [];
@@ -234,8 +226,19 @@ export class MyFollowupFilterComponent implements OnInit {
       this.AllFollowupStatuses = res;
     });
   }
+
   clearSelectField(fieldName: string) {
+    // console.log(fieldName, 'field name ');
+
     this.filterLead.get(fieldName)?.reset();
+    const urlObj = new URL(this.updateFilterByStatusURL);
+    if (urlObj.searchParams.has(fieldName)) {
+      urlObj.searchParams.delete(fieldName);
+    }
+    urlObj.searchParams.delete(fieldName);
+    this.updateFilterByStatusURL = urlObj.toString();
+    this.updatedURL = this.updateFilterByStatusURL;
+  
   }
   page = 1;
   pageSize = 5;
@@ -256,11 +259,10 @@ export class MyFollowupFilterComponent implements OnInit {
     });
     this.setValue();
   }
-  selectedtab:any;
+  selectedtab: any;
   setValue() {
-
     // var data: any = localStorage.getItem('followUpFilter');
-    var data:any=this.dataService.getfiletredFormValues();
+    var data: any = this.dataService.getfiletredFormValues();
     // var resp: any = JSON.parse(data);
     var resp: any = data;
     if (resp) {
@@ -273,26 +275,24 @@ export class MyFollowupFilterComponent implements OnInit {
     }
     var data1: any = localStorage.getItem('selectedTab');
     var resp1: any = JSON.parse(data1);
-    if(resp1){
-       this.selectedtab=resp1
+    if (resp1) {
+      this.selectedtab = resp1;
     }
   }
-isResetFilter:boolean=false
-
-
+  isResetFilter: boolean = false;
 
   reset() {
     // localStorage.removeItem('followUpFilter');
     this.filterLead.reset();
-    this.dataService.resetFilterForm()
+    this.dataService.resetFilterForm();
     this.filterLead.updateValueAndValidity();
     // this.filterLead.reset();
     // this.dataService.sendData(true);
-    this.dataService.resettingFilter.next(true)
+    this.dataService.resettingFilter.next(true);
     // this.isResetFilter=true;
-    this.updateFilterByStatusURL=null;
+    this.updateFilterByStatusURL = null;
     // console.log( this.updateFilterByStatusURL,"resetting filter url");
-    
+
     // this._bottomSheetRef.dismiss(this.updateFilterByStatusURL);
     // this._bottomSheetRef.dismiss('Reset');
     // this.filtered=false
@@ -304,17 +304,13 @@ isResetFilter:boolean=false
 
     // this.dialogRef.close()
   }
- 
-
-
-
 
   filterCount: any = [];
   filtered: boolean = false;
   filterFollowupValues: any;
   cName: any;
-  defaultPage:any =1;
-  defaultPageSize:any = 5;
+  defaultPage: any = 1;
+  defaultPageSize: any = 5;
   onSubmit() {
     // //console.log("updated url==>", this.updateFilterByStatusURL);
     // this.filterFollowupValues = this.filterLead.value;
@@ -339,19 +335,17 @@ isResetFilter:boolean=false
       //   JSON.stringify(this.filterLead.value)
       // );
 
-      localStorage.setItem(
-        'selectedTab',
-        JSON.stringify(this.data)
-      );
+      localStorage.setItem('selectedTab', JSON.stringify(this.data));
 
+      if (value !== null) {
+        this.updateFilterByStatusURL = this.filterFollowUp.updateUrlParameter(
+          this.updateFilterByStatusURL,
+          key,
+          value
+        );
+      }
 
-      this.updateFilterByStatusURL = this.filterFollowUp.updateUrlParameter(
-        this.updateFilterByStatusURL,
-        key,
-        value
-      );
-      console.log(this.updateFilterByStatusURL,"this.updateFilterByStatusURL");
-      
+      // console.log(this.updateFilterByStatusURL, 'this.updateFilterByStatusURL');
 
       // let data = this.filterFollowUp.updateUrlParameter(this.updateFilterByStatusURL, key, value)
 
@@ -360,17 +354,20 @@ isResetFilter:boolean=false
 
     this.dataService.setFilteredFormValues(this.filterLead.value);
     const tempurl = new URL(this.updateFilterByStatusURL);
-    const page :any= "page";
-    const page_size:any = "page_size";
-    tempurl.searchParams.set(page,this.defaultPage);
-    tempurl.searchParams.set(page_size,this.defaultPageSize);
-    this.updateFilterByStatusURL = tempurl.toString().replace(/%26/g,"&");
+    const page: any = 'page';
+    const page_size: any = 'page_size';
+    tempurl.searchParams.set(page, this.defaultPage);
+    tempurl.searchParams.set(page_size, this.defaultPageSize);
+    this.updateFilterByStatusURL = tempurl.toString().replace(/%26/g, '&');
     this.dataService.setFilteredFollowUpURL(this.updateFilterByStatusURL);
+    // if(this.isFieldReset==true){
+    //   this.dataService.setFilteredFollowUpURL(this.updatedURL);
+    // }
     this.filtered = true;
 
-    console.log('==============>>', this.updateFilterByStatusURL);
+    // console.log('==============>>', this.updateFilterByStatusURL);
 
-    // this.updateFilterByStatusURL+='' 
+    // this.updateFilterByStatusURL+=''
     this.bottomsheet.dismiss('Submitted');
 
     // this.api.FollowUpFilterApi(this.updateFilterByStatusURL).subscribe((res:any)=>{
@@ -424,16 +421,14 @@ isResetFilter:boolean=false
     this.dataService.sendData(true);
     this.dataService.setSharedData(this.filterCount, this.filtered);
     this.dataService.dataUpdated.emit(this.filtered);
-    this.dataService.followUpdataSubject.next(true)
+    this.dataService.followUpdataSubject.next(true);
     // this.dataService.dataSubject.next(false)
     // this.dataService.dataUpdated.emit(this.selectedtab);
-    
+
     // this.dataService.dataUpdated.emit(this.filtered)
 
     // }
   }
-
-
 
   closePopup() {
     this._bottomSheetRef.dismiss('Close-ion-clicked');

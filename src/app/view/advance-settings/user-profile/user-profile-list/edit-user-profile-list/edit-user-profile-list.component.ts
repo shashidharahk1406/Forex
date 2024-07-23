@@ -19,6 +19,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
 import { error } from 'console';
 import { TranferCounsellorsComponent } from '../tranfer-counsellors/tranfer-counsellors.component';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-edit-user-profile-list',
@@ -50,7 +51,8 @@ export class EditUserProfileListComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     public validationService: CommonServiceService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dataService:DataService
   ) {
     this.id = data.userdata.id;
     this.min = new Date('1900-01-01');
@@ -340,6 +342,7 @@ export class EditUserProfileListComponent implements OnInit {
     } else {
       this.api.editUser(this.id, this.editForm.value).subscribe(
         (resp: any) => {
+          this.dataService.customerEdit.next(true)
           this.emit.sendRefresh(true);
           this.dialogRef.close(true);
           this.api.showSuccess(this.api.toTitleCase(resp.message));
