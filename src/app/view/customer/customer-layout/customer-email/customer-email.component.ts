@@ -29,7 +29,7 @@ export class CustomerEmailComponent implements OnInit {
     private bottomSheet:MatBottomSheet,
   private dataService:DataService) {
 
-     console.log(data,"data lead email")
+    //  console.log(data,"data lead email")
     }
     isFiltered:any
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class CustomerEmailComponent implements OnInit {
     this.getTemplate()
 
     this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'filter');
+      // console.log(res, 'filter');
 
       this.isFiltered = res;
     });

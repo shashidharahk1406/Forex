@@ -79,7 +79,7 @@ export class CustomerEditComponent implements OnInit {
 
 
     this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'filter');
+      // console.log(res, 'filter');
 
       this.isFiltered = res;
     });
@@ -664,7 +664,7 @@ export class CustomerEditComponent implements OnInit {
               this.api.showSuccess('Customer details updated successfully');
               this._bottomSheetRef.dismiss('yes');
               this.dataService.customerEdit.next(true);
-              console.log(this.dataService.getPage().isPagination,"this.dataService.getPage().isPagination");
+              // console.log(this.dataService.getPage().isPagination,"this.dataService.getPage().isPagination");
               
               if(this.dataService.getPage().isPagination==true){
                 this.refresh.emit(false)

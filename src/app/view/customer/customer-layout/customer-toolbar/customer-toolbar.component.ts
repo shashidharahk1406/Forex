@@ -94,7 +94,7 @@ export class CustomerToolbarComponent implements OnInit {
     });
 
     this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'filter');
+      // console.log(res, 'filter');
 
       this.isFiltered = res;
     });
@@ -126,7 +126,7 @@ export class CustomerToolbarComponent implements OnInit {
   }
   isSearched = false;
   search(event: any) {
-    console.log(event.data, 'search event');
+    // console.log(event.data, 'search event');
     if (event.data == '') {
       this.isSearched = false;
     } else {

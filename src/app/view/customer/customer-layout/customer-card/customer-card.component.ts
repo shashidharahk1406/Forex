@@ -149,7 +149,7 @@ export class CustomerCardComponent implements OnInit {
       this.query = '';
       this._addLeadEmitter.customerFilter.subscribe((res) => {
         if (res) {
-          console.log(res.split('?')[1], 'c filer url');
+          // console.log(res.split('?')[1], 'c filer url');
           prevQuery = res;
 
           this.query = `?${res.split('?')[1]}&filter_by=${this.sortingType}`;
@@ -227,7 +227,7 @@ export class CustomerCardComponent implements OnInit {
       }
     });
     this.dataService.customerEdit.subscribe((res: any) => {
-      console.log(res, 'res form custo edit');
+      // console.log(res, 'res form custo edit');
 
       this.editCustomer = res;
 
@@ -810,7 +810,7 @@ export class CustomerCardComponent implements OnInit {
         this._addLeadEmitter.filterWithPageSize.subscribe((res: any) => {
           if (res) {
             this.filterLeads(res);
-            console.log(res, 'filterurls');
+            // console.log(res, 'filterurls');
 
             query += `${res}&filter_by=${this.sortingType}`;
           }
@@ -865,7 +865,7 @@ export class CustomerCardComponent implements OnInit {
   //   return this.leadAllIds
   // }
   reLoad(event: any) {
-    console.log(event, 'event');
+    // console.log(event, 'event');
 
     if (event) {
       this.pageSize = 10;
