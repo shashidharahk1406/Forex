@@ -93,6 +93,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
   ngOnInit(): void {
+
+   
     this.searchValue = '';
     this.initForm();
 
@@ -104,6 +106,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           this.params=this.dataService.getFilteredUrl()
           this.searchValue=''
         }
+
+        this.dataService.customerEdit.subscribe((res:any)=>{
+          if(res==true){
+            this.currentPage=this.dataService.getPage().selectedPage;
+            this.pageSize=this.dataService.getPage().selectedIndex
+          }
+        })
         this.searchValue=''
         this.getUser();
        
@@ -123,7 +132,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });
 
     
-    this.dataService.dataUpdated.subscribe((res: any) => {
+    this.dataService.userFilter.subscribe((res: any) => {
       console.log(res, 'filtered');
       this.currentPage=1
       this.filter = res;
@@ -151,7 +160,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     result.forEach((res: any) => {
       if (res !== '') {
-        this.params = true;
+        this.params =this.dataService.getFilteredUrl();
       } else {
         this.params = null;
       }
@@ -165,13 +174,27 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   searchValue: any;
   applyFilter(event: any) {
     this.searchValue = event.target.value;
+    
     if(this.filter==true && event.target.value == ''&&this.isSearched){
       this.params=this.dataService.getFilteredUrl()
     }
     if (event.target.value == '') {
-      this.getUser();
-      this.currentPage = 1;
-      this.pageSize = 10;
+      this.dataService.userFilter.subscribe((res:any)=>{
+        console.log(res,'filterflag');
+        console.log(this.dataService.getFilteredUrl(),"this.dataService.getFilteredUrl()");
+        
+        
+        if(res==true){
+          this.filter=res;
+          this.params=this.dataService.getFilteredUrl()
+        }
+        else{
+          this.getUser();
+        }
+      })
+      
+      // this.currentPage = 1;
+      // this.pageSize = 10;
     }
   }
 
@@ -439,7 +462,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.loading=true
 
       this.api
-        .getUser(this.pageSize, this.currentPage=1, null, this.params)
+        .getUser(this.pageSize, this.currentPage, null, this.params)
         .subscribe(
           (resp: any) => {
             //console.log("==>>",resp.results);
@@ -458,11 +481,15 @@ export class UserprofileSettingsComponent implements AfterViewInit {
         );
     }
   }
+
+  pageindex=0
   pageChanged(event: PageEvent) {
     console.log(event, 'page event');
 
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
+    this.pageindex=event.pageIndex;
+    this.dataService.setPage(this.currentPage,this.pageSize,true)
 
     if (this.searchValue?.length > 0) {
       this.search();
@@ -649,6 +676,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           (this.isSearched == true && this.isFiltered == false) ||
           (this.isSearched == false && this.isFiltered == false)
         ) {
+          this.dataService.customerEdit.subscribe((res:any)=>{
+            if(res==true){
+              this.currentPage=this.dataService.getPage().selectedPage;
+              this.pageSize=this.dataService.getPage().selectedIndex
+            }
+          })
+
           this.getUser();
         } else {
           this.emit.getRefreshByFilter.subscribe((resp: any) => {

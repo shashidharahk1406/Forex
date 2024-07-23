@@ -79,7 +79,7 @@ export class CustomerEditComponent implements OnInit {
 
 
     this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'filter');
+      // console.log(res, 'filter');
 
       this.isFiltered = res;
     });
@@ -663,11 +663,18 @@ export class CustomerEditComponent implements OnInit {
               this.addLead.emit('ADD')
               this.api.showSuccess('Customer details updated successfully');
               this._bottomSheetRef.dismiss('yes');
+              this.dataService.customerEdit.next(true);
+              // console.log(this.dataService.getPage().isPagination,"this.dataService.getPage().isPagination");
+              
+              if(this.dataService.getPage().isPagination==true){
+                this.refresh.emit(false)
+              }
               if(this.isFiltered==true){
                 this.refresh.emit(false)
               }
               else{
                 this.refresh.emit('event')
+                // this._addLeadEmitter.customerFiltertriggerGet();
               }
               // this._addLeadEmitter.customerFiltertriggerGet();
               this.dataService.dataSubject.next(true)

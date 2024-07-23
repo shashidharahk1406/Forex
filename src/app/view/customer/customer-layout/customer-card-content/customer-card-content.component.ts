@@ -65,18 +65,18 @@ export class CustomerCardContentComponent implements OnInit {
     this.deleteLead.emit(event);
   }
   ngOnInit(): void {
-    console.log(this.isFiltered, this.isSearched, 'search and filetr');
+    // console.log(this.isFiltered, this.isSearched, 'search and filetr');
 
     this.deleteBulk();
     this.selectedCheckboxIds = [];
 
     this.dataService.filterCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'filter');
+      // console.log(res, 'filter');
 
       this.isFiltered = res;
     });
     this.dataService.searchCustomerRefreshdataSubject.subscribe((res: any) => {
-      console.log(res, 'search');
+      // console.log(res, 'search');
 
       this.isSearched = res;
     });
@@ -184,25 +184,25 @@ export class CustomerCardContentComponent implements OnInit {
     };
     let data = this._bottomSheet.open(CustomerEditComponent, config);
     data.afterDismissed().subscribe((res: any) => {
-      console.log(res, 'res from edit');
+      // console.log(res, 'res from edit');
 
       if (res == 'yes') {
-        console.log(
-          this.isSearched,
-          this.isFiltered,
-          'this.isSearched==true && this.isFiltered==false'
-        );
+        // console.log(
+        //   this.isSearched,
+        //   this.isFiltered,
+        //   'this.isSearched==true && this.isFiltered==false'
+        // );
 
         if (
           (this.isSearched == true && this.isFiltered == false) ||
           (this.isSearched == false && this.isFiltered == false)
         ) {
           this.emit.customerFiltertriggerGet();
-          console.log(res, 'if res from edit');
+          // console.log(res, 'if res from edit');
 
-          this.refresh.emit(true);
+          // this.refresh.emit(true);
         } else {
-          console.log(res, 'else res from edit');
+          // console.log(res, 'else res from edit');
 
           this.refresh.emit(false);
         }

@@ -4,7 +4,7 @@
      <div class="row">
       <mat-tab label="All">
         <app-customer-card-content (selectedSort)="onChangeSorting($event)" (selectedSearch)="applySearch($event)" (refresh)="reLoad($event)" [allLeadIds]="leadAllIds" [totalCount]="totalNumberOfRecords" (deleteLead)="delete($event)" [leadData]="allLeadCardsDataSource.filteredData" [ngClass]="allLeadCardsDataSource.data?.length === 1 ? 'set-custom' : ''"></app-customer-card-content>
-        <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')" #allPaginator></mat-paginator>
+        <mat-paginator *ngIf="allLeadCardsDataSource.data?.length > 0" [length]="totalNumberOfRecords" [pageSizeOptions]="[10, 20,50]" (page)="onPageChange($event, allLeadCardsDataSource,'All')"  [pageIndex]="pageindex" [pageSize]="pageSize" #allPaginator></mat-paginator>
       </mat-tab>
       <!-- <div class="col-12" *ngFor="let items of statusArray">
         <mat-tab [label]="items.name">

@@ -255,6 +255,7 @@ export class UserProfileFilterComponent implements OnInit {
       this.emit.sendRefreshbyFilter(apiUrl);
       // this.dataService.setFilteredUrl(apiUrl)
       this.dataService.dataUpdated.emit(true);
+      this.dataService.userFilter.next(true)
 
       this.dialogRef.close(true);
       // this.api.showSuccess(this.api.toTitleCase(resp.message))

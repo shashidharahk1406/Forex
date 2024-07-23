@@ -80,7 +80,7 @@ export class TranferCounsellorsComponent implements OnInit {
           user_id: this.data?.userId,
           counsellor_ids: res,
           transfer_to_ids:f.transfer_to_ids,
-          role_change_to:this.data?.roleId===6? 'admin':'',
+          // role_change_to:this.data?.roleId===6? 'admin':'',
         };
 
         
@@ -95,7 +95,7 @@ export class TranferCounsellorsComponent implements OnInit {
           user_id: this.data?.userId,
           counsellor_ids: res,
           transfer_to_ids:f.transfer_to_ids,
-          role_change_to:this.data?.roleId===3? 'counsellor':'superadmin',
+          // role_change_to:this.data?.roleId===3? 'counsellor':'superadmin',
         };
 
         

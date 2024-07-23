@@ -19,13 +19,13 @@ import { environment } from 'src/environments/environment';
 export class CustomerCardComponent implements OnInit {
   allLeadCardsDataSource: any = new MatTableDataSource<any>([]);
   // Define paginator references for all tabs
-  @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  @ViewChild(MatPaginator) allPaginator!: MatPaginator;
 
   leadCards: any;
   displayedLeadCards!: MatTableDataSource<any>;
   query!: string;
   pageSize = 10;
-  currentPage = 1;
+  currentPage: any = 1;
   totalPageLength: any;
   totalNumberOfRecords: any;
   statusArray: any = [];
@@ -149,7 +149,7 @@ export class CustomerCardComponent implements OnInit {
       this.query = '';
       this._addLeadEmitter.customerFilter.subscribe((res) => {
         if (res) {
-          console.log(res.split('?')[1], 'c filer url');
+          // console.log(res.split('?')[1], 'c filer url');
           prevQuery = res;
 
           this.query = `?${res.split('?')[1]}&filter_by=${this.sortingType}`;
@@ -179,9 +179,9 @@ export class CustomerCardComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res.results.data) {
-            this.allPaginator.pageIndex=0;
-            this.allPaginator.pageSize=10;
-            
+            this.allPaginator.pageIndex = 0;
+            this.allPaginator.pageSize = 10;
+
             this.leadCards = res.results.data;
             this.leadAllIds = res.results.lead_ids;
             this.allLeadCardsDataSource = new MatTableDataSource<any>(
@@ -206,6 +206,7 @@ export class CustomerCardComponent implements OnInit {
 
   //   dialogRef.afterClosed().subscribe((result:any) => {});
   // }
+  editCustomer!: boolean;
   ngOnInit(): void {
     // this.getLeadIds()
     this.getStatus();
@@ -225,8 +226,16 @@ export class CustomerCardComponent implements OnInit {
         this.getLeadData('tabLabel');
       }
     });
+    this.dataService.customerEdit.subscribe((res: any) => {
+      // console.log(res, 'res form custo edit');
 
-    
+      this.editCustomer = res;
+
+      if (res == true) {
+        this.currentPage = this.dataService.getPage().selectedPage;
+        this.pageSize = this.dataService.getPage().selectedIndex;
+      }
+    });
   }
 
   // applySearch(event:any){
@@ -408,10 +417,10 @@ export class CustomerCardComponent implements OnInit {
           query += `&admin_id=${this.user_id}&counsellor_id=0`;
         }
       }
-      if(this.leadFilter&&this.searchTerm==''){
-        this._addLeadEmitter.customerFilter.subscribe((res:any)=>{
-          query=`${res}`
-        })
+      if (this.leadFilter && this.searchTerm == '') {
+        this._addLeadEmitter.customerFilter.subscribe((res: any) => {
+          query = `${res}`;
+        });
       }
       if (this.searchTerm) {
         query += `&key=${this.searchTerm}`;
@@ -506,20 +515,20 @@ export class CustomerCardComponent implements OnInit {
 
   isFiltered = false;
   filterLeads(apiUrl: any) {
-    this.totalNumberOfRecords=0;
-    this.leadCards=[];
+    this.totalNumberOfRecords = 0;
+    this.leadCards = [];
     if (this.sorting) {
       apiUrl += `&filter_by=${this.sortingType}`;
     }
-    if(this.searchTerm){
-      apiUrl+=`&key=${this.searchTerm}`
+    if (this.searchTerm) {
+      apiUrl += `&key=${this.searchTerm}`;
     }
-    
+
     this._baseService.getData(`${apiUrl}`).subscribe(
       (res: any) => {
         if (res.results.data) {
-          this.allPaginator.pageIndex=0;
-          this.allPaginator.pageSize=10
+          this.allPaginator.pageIndex = 0;
+          this.allPaginator.pageSize = 10;
           this.isFiltered = true;
           this.dataService.filterAndSearchCustomerRefreshdataSubject.next(true);
           this.leadFilter = true;
@@ -568,9 +577,18 @@ export class CustomerCardComponent implements OnInit {
 
   getLeadData(tabLabel: any, filter?: any) {
     this.leadCards = [];
-    this.totalNumberOfRecords = [];
+    this.totalNumberOfRecords = 0;
     this.allLeadCardsDataSource = [];
-    let apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=customers`;
+    let apiUrl = '';
+    if (this.editCustomer == true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined) {
+      apiUrl = `${environment.lead_list}?page=${
+        this.dataService.getPage().selectedPage
+      }&page_size=${
+        this.dataService.getPage().selectedIndex
+      }&user_type=customers`;
+    } else {
+      apiUrl = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=customers`;
+    }
 
     if (['counsellor', 'counselor'].includes(this.user_role) === true) {
       apiUrl += `&counsellor_id=${this.user_id}`;
@@ -681,14 +699,18 @@ export class CustomerCardComponent implements OnInit {
   //   );
 
   // }
-
+  pageindex: any = 0;
+  isPagination: boolean = false;
   onPageChange(event: any, dataSource: MatTableDataSource<any>, type?: any) {
     if (!event) {
       return;
     }
 
     this.currentPage = event.pageIndex + 1;
+    this.pageindex = event.pageIndex;
     this.pageSize = event.pageSize;
+    this.isPagination = true;
+    this.dataService.setPage(this.currentPage, this.pageSize, true);
 
     let query: string;
     query = `?page=${this.currentPage}&page_size=${event.pageSize}&user_type=customers`;
@@ -722,9 +744,8 @@ export class CustomerCardComponent implements OnInit {
             query += `${res}&filter_by=${this.sortingType}`;
           }
         });
-
       }
-      if(this.searchTerm&&this.leadFilter){
+      if (this.searchTerm && this.leadFilter) {
         this._addLeadEmitter.filterWithPageSize.subscribe((res: any) => {
           if (res) {
             // this.filterLeads(res)
@@ -734,7 +755,6 @@ export class CustomerCardComponent implements OnInit {
           }
         });
       }
-      
 
       if (this.sorting && this.searchTerm) {
         query += `&filter_by=${this.sortingType}&key=${this.searchTerm}`;
@@ -789,8 +809,8 @@ export class CustomerCardComponent implements OnInit {
         // query+=`&filter_by=${this.sortingType}`
         this._addLeadEmitter.filterWithPageSize.subscribe((res: any) => {
           if (res) {
-            this.filterLeads(res)
-            console.log(res, 'filterurls');
+            this.filterLeads(res);
+            // console.log(res, 'filterurls');
 
             query += `${res}&filter_by=${this.sortingType}`;
           }
@@ -845,18 +865,24 @@ export class CustomerCardComponent implements OnInit {
   //   return this.leadAllIds
   // }
   reLoad(event: any) {
-    console.log(event, 'event');
-   
+    // console.log(event, 'event');
 
     if (event) {
       this.pageSize = 10;
-      this.query='';
+
+      // if(this.editCustomer==true){
+      //   this.editCustomer=false
+      // }
+      this.dataService.customerEdit.next(false);
+      this.query = '';
       this._addLeadEmitter.customerFilter.next('');
       this._addLeadEmitter.customerFilterIcon.next(false);
       this._addLeadEmitter.customerFilter.next('');
       this._addLeadEmitter.selectedCustomerFilter.next('');
-      this.dataService.filterCustomerRefreshdataSubject.next(false);
+      // this.dataService.filterCustomerRefreshdataSubject.next(false);
+
       this.getStatus();
+      // this.dataService.setPage(this.currentPage,this.pageSize,false);
       this.getLeadData('tabLabel');
       // this.getLeadIds()
       this._addLeadEmitter.leadRefresh.next(true);
@@ -865,7 +891,11 @@ export class CustomerCardComponent implements OnInit {
       this.totalNumberOfRecords = [];
       this.allLeadCardsDataSource = [];
       this.searchTerm = '';
-      this.leadFilter=false
+      this.leadFilter = false;
+
+      this.currentPage = 0;
+
+      this.pageindex = 0;
     } else {
       this._addLeadEmitter.customerFilter.subscribe((res: any) => {
         if (res && event == false) {
@@ -884,5 +914,11 @@ export class CustomerCardComponent implements OnInit {
     }
 
     // this.query=''
+  }
+
+  async refresh() {
+    if (this.editCustomer == true) {
+      this.dataService.customerEdit.next(false);
+    }
   }
 }
