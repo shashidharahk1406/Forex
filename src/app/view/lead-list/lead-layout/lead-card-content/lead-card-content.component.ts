@@ -11,8 +11,6 @@ import { LeadEditComponent } from '../lead-edit/lead-edit.component';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { BaseServiceService } from 'src/app/service/base-service.service';
 import { ApiService } from 'src/app/service/API/api.service';
-import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { environment } from 'src/environments/environment';
