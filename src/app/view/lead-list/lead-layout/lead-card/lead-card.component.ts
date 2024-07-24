@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
-import { AddLeadComponent } from '../dummy-add/add-lead.component';
 import { LeadUploadComponent } from '../lead-upload/lead-upload.component';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/service/API/api.service';
@@ -9,9 +8,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AddLeadEmitterService } from 'src/app/service/add-lead-emitter.service';
 import { AddNewLeadComponent } from '../add-new-lead/add-new-lead.component';
-import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-lead-card',
@@ -20,7 +17,6 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class LeadCardComponent implements OnInit {
   allLeadCardsDataSource:any = new MatTableDataSource<any>([]);
-  // Define paginator references for all tabs
   @ViewChild('allPaginator') allPaginator!: MatPaginator;
   
   leadCards: any;
@@ -49,26 +45,19 @@ export class LeadCardComponent implements OnInit {
     private _baseService:BaseServiceService,
     private api:ApiService,
     private _addLeadEmitter:AddLeadEmitterService,
-    private emit:EmitService,
-    private dialog:MatDialog,
-    private dataService:DataService) {
+    private dialog:MatDialog
+  ) {
       this.user_id = localStorage.getItem('user_id');
       this.user_role = localStorage.getItem('user_role')?.toLowerCase();
       this.assigned_counsellor_ids = localStorage.getItem('counsellor_ids') || 0;
 
-      // this.getLeadIds();
-
       this.permissions=localStorage.getItem('decodedToken')
-      //console.log(this.permissions,"this.permissions");
-      
-      //console.log(JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations'),"this.permissions");
       
       let accesspermissions=JSON.parse(this.permissions).permissions.find((perm:any)=>perm.menu_name==='Allocations')
       accesspermissions?.children_status.forEach((element:any) => {
         if(element.menu_name=='Bulk Upload'){
           this.bulk_Upload=element.access_status;
-          //console.log(this.bulk_Upload,"this.bulk_Upload");
-          
+         
         }
     })}
   
@@ -85,10 +74,6 @@ export class LeadCardComponent implements OnInit {
     this.sorting = true
      this.sortingType = event
     
-    //  this.query = (this.user_role === 'counsellor')
-    //   ? `?counsellor_id=${this.user_id}&filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`
-    //   : `?filter_by=${this.sortingType}&page=1&page_size=${this.pageSize}`;
-      
       if(this.leadFilter){
         this.query  = ""
         this._addLeadEmitter.leadFilter.subscribe((res) => {
@@ -170,12 +155,10 @@ export class LeadCardComponent implements OnInit {
   }
   ngOnInit(): void {
   
-      // this.getLeadIds()
       this.getStatus()
       this._addLeadEmitter.triggerGet$.subscribe(() => {
         this.searchTerm=''
         
-        // this.getLeadIds()
         this._addLeadEmitter.leadFilter.subscribe((res) => {
           if (res) {
             this.leadFilter = true;
@@ -190,7 +173,6 @@ export class LeadCardComponent implements OnInit {
     
     this._addLeadEmitter.leadFilter.subscribe((res) => {
       if (res) {
-      //  console.log(res, "RES");
         this.leadFilter = true;
         this.filterLeads(res);
       }else{
@@ -222,7 +204,6 @@ export class LeadCardComponent implements OnInit {
       if (this.sorting) {
         query += `&filter_by=${this.sortingType}`;
       }
-      else{
         if(this.leadFilter){
           this._addLeadEmitter.leadFilter.subscribe((res) => {
             if (res) {
@@ -243,7 +224,7 @@ export class LeadCardComponent implements OnInit {
               
             }
           });
-        }
+        
       }
       this.leadCards = []
       this.allLeadCardsDataSource = []
@@ -261,72 +242,63 @@ export class LeadCardComponent implements OnInit {
        this.api.showError(this.api.toTitleCase(error.error.message));
     });
   }else{
-    this.searchTerm = ''
-    let query: string;
-    // query = (this.user_role === 'counsellor')
-    // ? `${environment.lead_list}?counsellor_id=${this.user_id}&page=${this.currentPage}&page_size=${this.pageSize}`
-    // : `${environment.lead_list}?page=${this.currentPage}&page_size=${this.pageSize}`;
-    query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation`
-    
-    if (['counsellor','counselor'].includes(this.user_role) === true) {
-      query += `&counsellor_id=${this.user_id}`;
-    } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     if(this.assigned_counsellor_ids){
-        query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
-    }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids && !this.leadFilter){
-        query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
+   
+      this.searchTerm = ''
+      let query: string;
+      query = `${environment.lead_list}?page=1&page_size=${this.pageSize}&user_type=allocation`
       
-    }
-      if (this.sorting) {
-        query += `&filter_by=${this.sortingType}`;
+      if (['counsellor','counselor'].includes(this.user_role) === true) {
+        query += `&counsellor_id=${this.user_id}`;
+      } else if (['superadmin','super admin'].includes(this.user_role) === true) {
+       if(this.assigned_counsellor_ids){
+          query += `&counsellor_id=${this.assigned_counsellor_ids}`;
+        }
+      }else if (['admin'].includes(this.user_role) === true){
+       if(this.assigned_counsellor_ids && !this.leadFilter){
+          query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
+        }
+        
       }
-      else{
-        if(this.leadFilter){
-          this._addLeadEmitter.leadFilter.subscribe((res) => {
-            if (res) {
-              query = ''
-              // query = (this.user_role === 'counsellor')
-              // ? `${res}&counsellor_id=${this.user_id}&key=${event}`
-              // : `${res}&key=${event}`;
-              query = `${res}&user_type=allocation`
-              if (['counsellor','counselor'].includes(this.user_role) === true) {
-                query += `&counsellor_id=${this.user_id}`;
-              } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-               if(this.assigned_counsellor_ids){
-                  query += ``;
-                }
-              }else if (['admin'].includes(this.user_role) === true){
-               if(this.assigned_counsellor_ids){
-                  query += ``;
-                }else{
-                  query += ``;
+        if (this.sorting) {
+          query += `&filter_by=${this.sortingType}`;
+        }
+        
+          if(this.leadFilter){
+            this._addLeadEmitter.leadFilter.subscribe((res) => {
+              if (res) {
+                query = ''
+                console.log(query)
+                query = `${res}&user_type=allocation`
+                if (['counsellor','counselor'].includes(this.user_role) === true) {
+                  query += `&counsellor_id=${this.user_id}`;
+                } else if (['superadmin','super admin'].includes(this.user_role) === true) {
+                    query += query;
+                }else if (['admin'].includes(this.user_role) === true){
+                    query += query;
                 }
                 
               }
-            }
-          });
-        }
-      }
-      this.leadCards = []
+            });
+          }
+        
+        this.leadCards = []
         this.allLeadCardsDataSource = []
         this.totalNumberOfRecords = ''
-      if(!this.allLeadCardsDataSource.length){
-    this._baseService.getData(`${query}`).subscribe((res: any) => {
-      if (res.results.data) {
-        
-        this.leadCards = res.results.data;
-        this.leadAllIds = res.results.lead_ids
-        this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-        this.totalNumberOfRecords = res.total_no_of_record
-      }
-    }, (error: any) => {
-       this.api.showError(this.api.toTitleCase(error.error.message));
-    });
-  }
-  }
+     if(!this.allLeadCardsDataSource.length)
+      this._baseService.getData(`${query}`).subscribe((res: any) => {
+        if (res.results.data) {
+          
+          this.leadCards = res.results.data;
+          this.leadAllIds = res.results.lead_ids
+          this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
+          this.totalNumberOfRecords = res.total_no_of_record
+        }
+      }, (error: any) => {
+         this.api.showError(this.api.toTitleCase(error.error.message));
+      });
+    }
+  
+  
   }
   getStatus(){
     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
@@ -382,7 +354,7 @@ export class LeadCardComponent implements OnInit {
       apiUrl += `&status=${tabId.id}`;
     }
   
-  //  if(this.allLeadCardsDataSource.length === 0){
+  
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
 
@@ -391,14 +363,10 @@ export class LeadCardComponent implements OnInit {
           this.leadCards = []
           this.totalNumberOfRecords = 0
           this.leadCards = res.results.data;
-          // console.log(res.results.data,"res.results.data");
-          
-          
+         
           this.leadAllIds = res.results.lead_ids;
-          // console.log(this.leadAllIds, res.results.lead_ids,"this.leadAllIds");
           
           this.allLeadCardsDataSource = new MatTableDataSource<any>(this.leadCards);
-          // console.log( this.allLeadCardsDataSource," this.allLeadCardsDataSource");
           
           this.totalNumberOfRecords = res.total_no_of_record;
         }
@@ -407,7 +375,7 @@ export class LeadCardComponent implements OnInit {
         this.api.showError(this.api.toTitleCase(error.error.message));
       }
     );
-  //}
+  
   }
  
 
@@ -509,10 +477,7 @@ export class LeadCardComponent implements OnInit {
     );
     
   }
-  
-  onChange(event:any){
-    //console.log(event,'EVENT')
-  }
+ 
    delete(event:any){
    if(event){
     this.getLeadData('tabLabel')
