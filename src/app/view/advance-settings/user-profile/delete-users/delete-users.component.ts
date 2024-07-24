@@ -94,9 +94,16 @@ delete() {
      if(this.roleName=='SuperAdmin'&&this.leadIds?.length>0){
       this.transferLead();
       } 
+      if(this.roleName=='SuperAdmin'&&this.leadIds?.length<=0){
+        this.deleteUsers();
+        } 
   if(this.roleName=='counsellor'&&this.leadIds?.length>0){
      this.transferLead();
       }
+      if(this.roleName=='counsellor'&&this.leadIds?.length<=0){
+        this.deleteUsers();
+      }
+      
 
      
     
