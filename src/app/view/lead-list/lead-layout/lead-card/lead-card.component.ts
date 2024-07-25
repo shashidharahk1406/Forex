@@ -110,7 +110,7 @@ export class LeadCardComponent implements OnInit {
         });
 
       }else{
-        this.query = `?filter_by=${this.sortingType}&page=${this.currentPage}&page_size=${this.pageSize}&user_type=allocation`
+        this.query = `?filter_by=${this.sortingType}&page=1&page_size=10&user_type=allocation`
         if (['counsellor','counselor'].includes(this.user_role) === true) {
          this.query += `&counsellor_id=${this.user_id}`;
        } else if (['superadmin','super admin'].includes(this.user_role) === true) {
@@ -127,6 +127,7 @@ export class LeadCardComponent implements OnInit {
        if (this.searchTerm) {
               this.query += `&key=${this.searchTerm}`;
         }
+        this.allLeadCardsDataSource = []
        this._baseService.getData(`${environment.lead_list}${this.query}`).subscribe((res: any) => {
         if (res.results.data) {
           this.leadCards = res.results.data;
@@ -486,6 +487,10 @@ export class LeadCardComponent implements OnInit {
    }
   
   reLoad(event:any){
+    this.currentPage = 1;
+    this.pageSize = 10;
+    this.totalNumberOfRecords = 0
+    this.allLeadCardsDataSource = []
     this._addLeadEmitter.leadFilter.next('')
     this._addLeadEmitter.leadFilterIcon.next('false')
     this.leadFilter = false;

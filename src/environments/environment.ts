@@ -34,7 +34,8 @@ export const environment = {
   // studying_stream:`https://fcmdev.thestorywallcafe.com/api/studying-stream/`,
   // reports:`https://fcmdev.thestorywallcafe.com/api/get-reports/`,
   // counsellor_list_report:`https://fcmdev.thestorywallcafe.com/api/get-counsellor-for-report/`,
-  // lead_bulk_delete:`https://fcmdev.thestorywallcafe.com/api/bulk-delete/`
+  // lead_bulk_delete:`https://fcmdev.thestorywallcafe.com/api/bulk-delete/`,
+  // device_token:`https://fcmdev.thestorywallcafe.com/api/device-token/`
 
  //Test
   live_url:'https://fcmtest.thestorywallcafe.com',
@@ -64,7 +65,8 @@ export const environment = {
   studying_stream:`https://fcmtest.thestorywallcafe.com/api/studying-stream/`,
   reports:`https://fcmtest.thestorywallcafe.com/api/get-reports/`,
   counsellor_list_report:`https://fcmtest.thestorywallcafe.com/api/get-counsellor-for-report/`,
-  lead_bulk_delete:`https://fcmtest.thestorywallcafe.com/api/bulk-delete/`
+  lead_bulk_delete:`https://fcmtest.thestorywallcafe.com/api/bulk-delete/`,
+   device_token:`https://fcmtest.thestorywallcafe.com/api/device-token/`
   
   //Docker
   // live_url:'http://localhost:8005',
@@ -94,7 +96,8 @@ export const environment = {
   // studying_stream:`http://localhost:8005/api/studying-stream/`,
   // reports:`http://localhost:8005/api/get-reports/`
   // counsellor_list_report:`http://localhost:8005/api/get-counsellor-for-report/`,
-  // lead_bulk_delete:`http://localhost:8005/api/bulk-delete/`
+  // lead_bulk_delete:`http://localhost:8005/api/bulk-delete/`,
+   //device_token:`http://localhost:8005/api/device-token/`
 
   //Admin
   // live_url:'https://admin.firstclassmentor.com',
@@ -124,5 +127,6 @@ export const environment = {
   // studying_stream:`https://admin.firstclassmentor.com/api/studying-stream/`,
   // reports:`https://admin.firstclassmentor.com/api/get-reports/`,
   // counsellor_list_report:`https://admin.firstclassmentor.com/api/get-counsellor-for-report/`,
-  // lead_bulk_delete:`https://admin.firstclassmentor.com/api/bulk-delete/`
+  // lead_bulk_delete:`https://admin.firstclassmentor.com/api/bulk-delete/`,
+   //device_token:`https://admin.firstclassmentor.com/api/device-token/`
 };

@@ -12,6 +12,8 @@ import { ReferLeadComponent } from 'src/app/view/lead-list/lead-layout/refer-lea
 import { TransferLeadsComponent } from '../transfer-leads/transfer-leads.component';
 import { TranferCounsellorsComponent } from '../user-profile-list/tranfer-counsellors/tranfer-counsellors.component';
 import { resolve } from 'path';
+import { BaseServiceService } from 'src/app/service/base-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-delete-users',
@@ -24,6 +26,9 @@ export class DeleteUsersComponent implements OnInit {
   user_name: any;
   leadIds: any = [];
   roleName:any
+  user_id: string | null;
+  newDeviceToken: any;
+  device_token: any;
   // disableClose:boolean=true
   constructor(
     private _fb: FormBuilder,
@@ -32,16 +37,19 @@ export class DeleteUsersComponent implements OnInit {
     private emit: EmitService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private baseService:BaseServiceService
   ) {
     this.url = data.apiUrl;
     this.id = data.id;
     this.user_name = data.userName;
-    this.roleName=data.roleName
+    this.roleName=data.roleName;
+    this.user_id = localStorage.getItem('user_id');
+    this.device_token = localStorage.getItem('device_token');
     // console.log(this.url,"data from pc");
     // console.log(this.user_name,"name in delete");
     // this.url=data
-    console.log(data, 'data from user-profile component');
+    // console.log(data, 'data from user-profile component');
 
     // this.id=id
   }
@@ -129,9 +137,26 @@ delete() {
   deleteUsers() {
     this.api.delete(this.url).subscribe(
       (resp: any) => {
-        this.emit.sendRefresh(true);
-        this.dialogRef.close();
-        this.api.showSuccess(this.api.toTitleCase(resp.message));
+        this.baseService.getData(`${environment.device_token}${this.user_id}/`).subscribe((res:any)=>{
+          if(res){
+           this.newDeviceToken = res.result[0].device_token
+           if(this.newDeviceToken != this.device_token){
+            localStorage.clear()
+            this.emit.sendRefresh(true);
+            this.dialogRef.close();
+            this.api.showSuccess(this.api.toTitleCase(resp.message));
+            this.router.navigate(['/login']);
+           }else{
+            this.emit.sendRefresh(true);
+            this.dialogRef.close();
+            this.api.showSuccess(this.api.toTitleCase(resp.message));
+           }
+           
+          }
+           })
+      
+       
+         
       },
       (error: any) => {
         //console.log(error);
