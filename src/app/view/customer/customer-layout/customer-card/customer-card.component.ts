@@ -527,8 +527,9 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(`${apiUrl}`).subscribe(
       (res: any) => {
         if (res.results.data) {
-          this.allPaginator.pageIndex = 0;
-          this.allPaginator.pageSize = 10;
+          // this.allPaginator.pageIndex = 0;
+          // this.allPaginator.pageSize = 10;
+          this.pageindex=0
           this.isFiltered = true;
           this.dataService.filterAndSearchCustomerRefreshdataSubject.next(true);
           this.leadFilter = true;
