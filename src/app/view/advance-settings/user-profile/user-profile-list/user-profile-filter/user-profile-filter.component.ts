@@ -216,7 +216,7 @@ export class UserProfileFilterComponent implements OnInit {
 
       // Create an array of query parameters with non-empty values
       const queryParams = [];
-      console.log(this.filterForm.value,"user filter values");
+      // console.log(this.filterForm.value,"user filter values");
       
       for (const key in formValues) {
         const value = formValues[key];
@@ -235,7 +235,7 @@ export class UserProfileFilterComponent implements OnInit {
             }
           } else {
             queryParams.push(`${key}=${value||''}`);
-            console.log(queryParams,"in else block");
+            // console.log(queryParams,"in else block");
             
           }
         }

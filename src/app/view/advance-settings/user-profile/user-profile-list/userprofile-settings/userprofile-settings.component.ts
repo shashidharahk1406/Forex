@@ -70,6 +70,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   counsellorId: any;
   userId: any = null;
   filter: boolean = false;
+  editUser:any;
 
   constructor(
     private dialog: MatDialog,
@@ -93,8 +94,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
   ngOnInit(): void {
-
-   
     this.searchValue = '';
     this.initForm();
 
@@ -102,42 +101,39 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       //console.log(resp,"response in ng oniinit ");
 
       if (resp == true) {
-        if(this.filter==true && this.searchValue!==''&&this.isSearched){
-          this.params=this.dataService.getFilteredUrl()
-          this.searchValue=''
+        if (this.filter == true && this.searchValue !== '' && this.isSearched) {
+          this.params = this.dataService.getFilteredUrl();
+          this.searchValue = '';
         }
 
-        this.dataService.customerEdit.subscribe((res:any)=>{
-          if(res==true){
-            this.currentPage=this.dataService.getPage().selectedPage;
-            this.pageSize=this.dataService.getPage().selectedIndex
+        this.dataService.customerEdit.subscribe((res: any) => {
+          this.editUser=res
+          if (res == true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined) {
+            this.currentPage = this.dataService.getPage().selectedPage;
+            this.pageSize = this.dataService.getPage().selectedIndex;
           }
-        })
-        this.searchValue=''
+        });
+        this.searchValue = '';
         this.getUser();
-       
       }
     });
     this.emit.getRefreshByFilter.subscribe((resp: any) => {
-      this.dataService.setFilteredUrl(resp)
+      this.dataService.setFilteredUrl(resp);
       // console.log(resp, 'filetr url params');
       if (resp) {
         this.filter = true;
       }
       this.params = resp;
 
-
       this.getUser();
       this.searchValue = '';
     });
 
-    
     this.dataService.userFilter.subscribe((res: any) => {
-      console.log(res, 'filtered');
-      this.currentPage=1
+      // console.log(res, 'filtered');
+      this.currentPage = 1;
       this.filter = res;
-      this.pageSize=10;
-      
+      this.pageSize = 10;
     });
 
     var data: any = this.dataService.getUsersfiletredFormValues();
@@ -147,11 +143,11 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     } else {
       this.filter = false;
     }
-    console.log(data, 'data users fileter');
+    // console.log(data, 'data users fileter');
 
     var resp: any = data;
     let result = Object.values(resp);
-    console.log(result, 'result');
+    // console.log(result, 'result');
     this.params = this.filterUrlConstruction(result);
 
     // console.log(result,"res from filetr");
@@ -160,7 +156,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     result.forEach((res: any) => {
       if (res !== '') {
-        this.params =this.dataService.getFilteredUrl();
+        this.params = this.dataService.getFilteredUrl();
       } else {
         this.params = null;
       }
@@ -174,25 +170,26 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   searchValue: any;
   applyFilter(event: any) {
     this.searchValue = event.target.value;
-    
-    if(this.filter==true && event.target.value == ''&&this.isSearched){
-      this.params=this.dataService.getFilteredUrl()
+
+    if (this.filter == true && event.target.value == '' && this.isSearched) {
+      this.params = this.dataService.getFilteredUrl();
     }
     if (event.target.value == '') {
-      this.dataService.userFilter.subscribe((res:any)=>{
-        console.log(res,'filterflag');
-        console.log(this.dataService.getFilteredUrl(),"this.dataService.getFilteredUrl()");
-        
-        
-        if(res==true){
-          this.filter=res;
-          this.params=this.dataService.getFilteredUrl()
-        }
-        else{
+      this.dataService.userFilter.subscribe((res: any) => {
+        // console.log(res, 'filterflag');
+        // console.log(
+        //   this.dataService.getFilteredUrl(),
+        //   'this.dataService.getFilteredUrl()'
+        // );
+
+        if (res == true) {
+          this.filter = res;
+          this.params = this.dataService.getFilteredUrl();
+        } else {
           this.getUser();
         }
-      })
-      
+      });
+
       // this.currentPage = 1;
       // this.pageSize = 10;
     }
@@ -201,7 +198,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   loading: boolean = true;
   isSearched: boolean = false;
   search() {
-    
     if (this.searchValue !== '') {
       this.isSearched = true;
     } else {
@@ -212,7 +208,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       this.currentPage = 1;
       this.pageSize = 10;
     }
-   
+
     if (this.role === 'Admin') {
       if (this.searchValue?.length > 0) {
         let admin_id = this.userId;
@@ -281,7 +277,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       if (this.searchValue?.length > 0) {
         if (this.params == null || this.userId == null) {
         }
-       
+
         // this.params=this.userId
         // var role="Admin"
         // let admin_id=null
@@ -388,16 +384,29 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   // }
 
   getUser() {
+    
+    if (this.editUser == true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined) {
+      this.currentPage = this.dataService.getPage().selectedPage;
+      this.pageSize = this.dataService.getPage().selectedIndex;
+    }
+    else{
+      this.currentPage=1;
+      this.pageSize=10;
+    }
     // console.log("Hello", this.params);
-    this.totalPageLength=0;
-      this.allUser=[];
-      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
-      this.loading=true
+    this.totalPageLength = 0;
+    this.allUser = [];
+    this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+    this.loading = true;
     if (this.role === 'Admin') {
-
       if (this.params != null || this.userId) {
         this.api
-          .getUser(this.pageSize, this.currentPage=1, this.userId, this.params)
+          .getUser(
+            this.pageSize,
+            (this.currentPage),
+            this.userId,
+            this.params
+          )
           .subscribe(
             (resp: any) => {
               //console.log(resp.results,"users response");
@@ -421,17 +430,22 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     // }
     else if (this.role === 'counsellor') {
-      this.totalPageLength=0;
-      this.allUser=[];
-      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
-      this.loading=true
+      this.totalPageLength = 0;
+      this.allUser = [];
+      this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+      this.loading = true;
       try {
         // if()
         //console.log("coming to else", this.params);
 
         if (this.params != null || this.userId) {
           this.api
-            .getUser(this.pageSize, this.currentPage=1, this.userId, this.params)
+            .getUser(
+              this.pageSize,
+              (this.currentPage),
+              this.userId,
+              this.params
+            )
             .subscribe(
               (resp: any) => {
                 //   console.log("==>>",resp.results);
@@ -456,10 +470,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       }
     } else {
       //  if(this.params!=null)
-        this.totalPageLength=0;
-      this.allUser=[];
-      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
-      this.loading=true
+      this.totalPageLength = 0;
+      this.allUser = [];
+      this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+      this.loading = true;
 
       this.api
         .getUser(this.pageSize, this.currentPage, null, this.params)
@@ -482,14 +496,16 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
 
-  pageindex=0
+  pageindex = 0;
+  page=0;
+  size:any=10
   pageChanged(event: PageEvent) {
-    console.log(event, 'page event');
+    // console.log(event, 'page event');
 
-    this.pageSize = event.pageSize;
-    this.currentPage = event.pageIndex + 1;
-    this.pageindex=event.pageIndex;
-    this.dataService.setPage(this.currentPage,this.pageSize,true)
+    this.size = event.pageSize;
+    this.page = event.pageIndex + 1;
+    this.pageindex = event.pageIndex;
+    this.dataService.setPage(this.page, this.size, true);
 
     if (this.searchValue?.length > 0) {
       this.search();
@@ -497,7 +513,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       if (this.role === 'Admin') {
         if (this.params != null || this.userId) {
           this.api
-            .getUser(this.pageSize, this.currentPage, this.userId, this.params)
+            .getUser(this.size, this.page, this.userId, this.params)
             .subscribe(
               (resp: any) => {
                 // console.log(resp.results,"users response");
@@ -524,7 +540,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
         // console.log("coming to else", this.params);
         if (this.params != null || this.userId) {
           this.api
-            .getUser(this.pageSize, this.currentPage, this.userId, this.params)
+            .getUser(this.size, this.page, this.userId, this.params)
             .subscribe(
               (resp: any) => {
                 // console.log("==>>",resp.results);
@@ -540,14 +556,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
               }
             );
         }
-      } else
-      this.totalPageLength=0;
-      this.allUser=[];
-      this.dataSource = new MatTableDataSource<any>(this.allUser=[]);
-      
+      } else this.totalPageLength = 0;
+      this.allUser = [];
+      this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+
       {
         this.api
-          .getUser(this.pageSize, this.currentPage, null, this.params)
+          .getUser(this.size, this.page, null, this.params)
           .subscribe(
             (resp: any) => {
               // console.log("==>>",resp.results);
@@ -676,18 +691,18 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           (this.isSearched == true && this.isFiltered == false) ||
           (this.isSearched == false && this.isFiltered == false)
         ) {
-          this.dataService.customerEdit.subscribe((res:any)=>{
-            if(res==true){
-              this.currentPage=this.dataService.getPage().selectedPage;
-              this.pageSize=this.dataService.getPage().selectedIndex
+          this.dataService.customerEdit.subscribe((res: any) => {
+            if (res == true) {
+              this.currentPage = this.dataService.getPage().selectedPage;
+              this.pageSize = this.dataService.getPage().selectedIndex;
             }
-          })
+          });
 
           this.getUser();
         } else {
           this.emit.getRefreshByFilter.subscribe((resp: any) => {
             this.params = resp;
-            console.log(resp, 'filtered applied and searching');
+            // console.log(resp, 'filtered applied and searching');
           });
         }
       }
@@ -700,10 +715,19 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     });
   }
   onSlideToggleChange(id: any, event: any) {
+    // console.log(event);
+    
     this.editForm.patchValue({ deactive: !event.checked });
     this.api.pauseUser(id, this.editForm.value).subscribe(
       (resp: any) => {
+        if(event.checked==false){
+          this.api.showSuccess('User has been deactivated successfully!')
+        }
+       if(event.checked==true){
+        this.api.showSuccess('User has been activated successfully!')
+       }
         this.emit.sendRefresh(true);
+
       },
       (error: any) => {
         this.api.showError(error.error.message);
@@ -714,20 +738,26 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   baseurl = environment.live_url;
   id: any;
   user_name: any;
-  roleName:any;
-  openDelete(id: any, name: any,roleName:any,role_id:any) {
-    console.log(id,"user id");
-    
+  roleName: any;
+  openDelete(id: any, name: any, roleName: any, role_id: any) {
+    // console.log(id, 'user id');
+
     this.id = id;
     this.user_name = name;
-    this.roleName=roleName
+    this.roleName = roleName;
     //console.log(this.user_name,"username");
 
     const apiUrl = `${this.baseurl}/api/user/${id}/`;
     const dialogRef = this.dialog.open(DeleteUsersComponent, {
       width: '35%',
       // data:{apiUrl,id:this.id,user_name:this.user_name}
-      data:{apiUrl:apiUrl,userId:id,userName:this.user_name,roleName:this.roleName,roleId:role_id} ,
+      data: {
+        apiUrl: apiUrl,
+        userId: id,
+        userName: this.user_name,
+        roleName: this.roleName,
+        roleId: role_id,
+      },
     });
     dialogRef.disableClose = true;
 
