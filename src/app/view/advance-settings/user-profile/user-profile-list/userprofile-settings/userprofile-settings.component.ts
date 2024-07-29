@@ -99,7 +99,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
     this.emit.getRefresh.subscribe((resp: any) => {
       //console.log(resp,"response in ng oniinit ");
-
       if (resp == true) {
         if (this.filter == true && this.searchValue !== '' && this.isSearched) {
           this.params = this.dataService.getFilteredUrl();
@@ -124,7 +123,6 @@ export class UserprofileSettingsComponent implements AfterViewInit {
         this.filter = true;
       }
       this.params = resp;
-
       this.getUser();
       this.searchValue = '';
     });

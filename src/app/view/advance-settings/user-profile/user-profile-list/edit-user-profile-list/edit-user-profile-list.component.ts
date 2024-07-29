@@ -331,6 +331,12 @@ export class EditUserProfileListComponent implements OnInit {
       this.editForm.patchValue({ reporting_to_ids: {} });
       this.roleChangeFromCounsellorToAdmin();
     }
+    if (this.isReportingToUser == false && this.roleId === 7) {
+      this.newArr = [];
+      this.newArrFromApi = [];
+      this.editForm.patchValue({ reporting_to_ids: {} });
+    
+    }
     if (this.newArrFromApi.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArr });
     } else if (this.newArr.length == 0) {
