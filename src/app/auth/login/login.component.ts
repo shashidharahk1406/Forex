@@ -113,13 +113,16 @@ export class LoginComponent implements OnInit {
 				
 				localStorage.setItem('user_role',decodedToken.user_role)
 				localStorage.setItem('username',decodedToken.username)
-				this.api.showSuccess('Login Successfull!')
+				// this.api.showSuccess('Login Successfull!');
+				this.api.showSuccess(this.api.toTitleCase(resp.message))
+				// this.api.showError(this.api.toTitleCase(resp.message))
 				this.router.navigate(['/analytics'])
 				this.resetForm()
 			}
 		   },
 			(error=>{
-			   this.api.showError(this.api.toTitleCase(error.error.message))
+			   this.api.showError(this.api.toTitleCase(error.error.message));
+			   
 			})
 		  )
 		}

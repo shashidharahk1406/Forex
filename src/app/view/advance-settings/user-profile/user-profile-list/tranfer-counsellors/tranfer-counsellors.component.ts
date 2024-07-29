@@ -19,8 +19,8 @@ export class TranferCounsellorsComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data, 'data from edit user-profile');
-    console.log(data.isDelete,"data from delete component");
+    // console.log(data, 'data from edit user-profile');
+    // console.log(data.isDelete,"data from delete component");
     
   }
   admins: any;
@@ -50,7 +50,7 @@ export class TranferCounsellorsComponent implements OnInit {
 
     this._baseService.getData(`${environment._user}${query}`).subscribe(
       (res: any) => {
-        console.log(res, 'admins');
+        // console.log(res, 'admins');
 
         if (res) {
           this.admins = res.results;
@@ -68,12 +68,12 @@ export class TranferCounsellorsComponent implements OnInit {
     } else {
       let formData: any = {};
       const f = this.transferCounsellorsForm.value;
-      console.log(this.data.isDelete,"this.data.isDelete");
+      // console.log(this.data.isDelete,"this.data.isDelete");
       
       if (this.data.counsellorIds&&this.data.isDelete) {
      
         let res=this.data.counsellorIds.map((item:any)=>item.id)
-        console.log(res,"cids in an array");
+        // console.log(res,"cids in an array");
         
       
         formData = {
@@ -88,7 +88,7 @@ export class TranferCounsellorsComponent implements OnInit {
       if (this.data.counsellorIds&&!this.data.isDelete) {
      
         let res=this.data.counsellorIds.map((item:any)=>item.id)
-        console.log(res,"cids in an array");
+        // console.log(res,"cids in an array");
         
       
         formData = {
@@ -103,10 +103,10 @@ export class TranferCounsellorsComponent implements OnInit {
       this.api.adminToCounsellor(formData).subscribe(
         (res: any) => {
 
-          console.log(
-            res,
-            'res for changing the role from admin to counsellor'
-          );
+          // console.log(
+          //   res,
+          //   'res for changing the role from admin to counsellor'
+          // );
           this.api.showSuccess(res.message);
           this.dialogRef.close(true);
         },

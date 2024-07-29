@@ -25,7 +25,7 @@ export class DeleteUsersComponent implements OnInit {
   id: any;
   user_name: any;
   leadIds: any = [];
-  roleName:any
+  roleName: any;
   user_id: string | null;
   newDeviceToken: any;
   device_token: any;
@@ -38,12 +38,12 @@ export class DeleteUsersComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private dialog: MatDialog,
-    private baseService:BaseServiceService
+    private baseService: BaseServiceService
   ) {
     this.url = data.apiUrl;
     this.id = data.id;
     this.user_name = data.userName;
-    this.roleName=data.roleName;
+    this.roleName = data.roleName;
     this.user_id = localStorage.getItem('user_id');
     this.device_token = localStorage.getItem('device_token');
     // console.log(this.url,"data from pc");
@@ -57,106 +57,102 @@ export class DeleteUsersComponent implements OnInit {
     this.getIds();
     this.getCounselloIdsForAdmin();
   }
-//   async delete() {
-//     //console.log(this.url,"URL")
-//     // this.dialogRef.close();
-// let istransfer:boolean=true
-//     if(this.roleName=='Admin'&&this.counsellorIds.length>0){
-//       istransfer=false
-//     await this.openTransferCounsellorsComponent(istransfer)
-//     }
-//     if(this.roleName=='Admin'&&this.leadIds.length>0&&istransfer==true){
-//       istransfer=false
-
-//      await this.transferLead(istransfer);
-//     }
-
-//     if(this.roleName=='SuperAdmin'&&this.leadIds.length>0&&istransfer==true){
-//       istransfer=false
-
-//      await this.transferLead(istransfer);
-//     }
-//     if(this.roleName=='counsellor'&&this.leadIds.length>0&&istransfer==true){
-//       istransfer=false
-//     await  this.transferLead(istransfer);
-//     }
-//     if(istransfer==true){
-//       this.deleteUsers();
-//     }
-
-
-delete() {
-      //console.log(this.url,"URL")
-      this.dialogRef.close();
+  //   async delete() {
+  //     //console.log(this.url,"URL")
+  //     // this.dialogRef.close();
   // let istransfer:boolean=true
+  //     if(this.roleName=='Admin'&&this.counsellorIds.length>0){
+  //       istransfer=false
+  //     await this.openTransferCounsellorsComponent(istransfer)
+  //     }
+  //     if(this.roleName=='Admin'&&this.leadIds.length>0&&istransfer==true){
+  //       istransfer=false
 
-  if(this.roleName=='Admin'&&this.leadIds?.length>0){
-    this.transferLead();
-  }
-  if(this.roleName=='Admin'&&this.leadIds?.length<=0&&this.counsellorIds?.length<=0){
-    this.deleteUsers();
-  }
-     if(this.roleName=='Admin'&&this.counsellorIds?.length>0){
-        this.openTransferCounsellorsComponent()
-      }
-     if(this.roleName=='SuperAdmin'&&this.leadIds?.length>0){
+  //      await this.transferLead(istransfer);
+  //     }
+
+  //     if(this.roleName=='SuperAdmin'&&this.leadIds.length>0&&istransfer==true){
+  //       istransfer=false
+
+  //      await this.transferLead(istransfer);
+  //     }
+  //     if(this.roleName=='counsellor'&&this.leadIds.length>0&&istransfer==true){
+  //       istransfer=false
+  //     await  this.transferLead(istransfer);
+  //     }
+  //     if(istransfer==true){
+  //       this.deleteUsers();
+  //     }
+
+  delete() {
+    //console.log(this.url,"URL")
+    this.dialogRef.close();
+    // let istransfer:boolean=true
+
+    if (this.roleName == 'Admin' && this.leadIds?.length > 0) {
       this.transferLead();
-      } 
-      if(this.roleName=='SuperAdmin'&&this.leadIds?.length<=0){
-        this.deleteUsers();
-        } 
-  if(this.roleName=='counsellor'&&this.leadIds?.length>0){
-     this.transferLead();
-      }
-      if(this.roleName=='counsellor'&&this.leadIds?.length<=0){
-        this.deleteUsers();
-      }
-      
-
-     
-    
     }
-  
+    if (
+      this.roleName == 'Admin' &&
+      this.leadIds?.length <= 0 &&
+      this.counsellorIds?.length <= 0
+    ) {
+      this.deleteUsers();
+    }
+    if (this.roleName == 'Admin' && this.counsellorIds?.length > 0) {
+      this.openTransferCounsellorsComponent();
+    }
+    if (this.roleName == 'SuperAdmin' && this.leadIds?.length > 0) {
+      this.transferLead();
+    }
+    if (this.roleName == 'SuperAdmin' && this.leadIds?.length <= 0) {
+      this.deleteUsers();
+    }
+    if (this.roleName == 'counsellor' && this.leadIds?.length > 0) {
+      this.transferLead();
+    }
+    if (this.roleName == 'counsellor' && this.leadIds?.length <= 0) {
+      this.deleteUsers();
+    }
+  }
 
-//     //   this.api.delete(this.url).subscribe(
-//     //     (resp:any)=>{
-//     //       this.emit.sendRefresh(true)
-//     //       this.dialogRef.close()
-//     //       this.api.showSuccess(this.api.toTitleCase(resp.message))
-//     //     },
-//     //     (error:any)=>{
-//     //       //console.log(error);
-//     //        this.api.showError(this.api.toTitleCase(error.error.message))
-//     //     }
-//     //   )
-//     // }
+  //     //   this.api.delete(this.url).subscribe(
+  //     //     (resp:any)=>{
+  //     //       this.emit.sendRefresh(true)
+  //     //       this.dialogRef.close()
+  //     //       this.api.showSuccess(this.api.toTitleCase(resp.message))
+  //     //     },
+  //     //     (error:any)=>{
+  //     //       //console.log(error);
+  //     //        this.api.showError(this.api.toTitleCase(error.error.message))
+  //     //     }
+  //     //   )
+  //     // }
 
-//     //
-//   }
+  //     //
+  //   }
 
   deleteUsers() {
     this.api.delete(this.url).subscribe(
       (resp: any) => {
-        this.baseService.getData(`${environment.device_token}${this.user_id}/`).subscribe((res:any)=>{
-          if(res){
-           this.newDeviceToken = res.result[0].device_token
-           if(this.newDeviceToken != this.device_token){
-            localStorage.clear()
-            this.emit.sendRefresh(true);
-            this.dialogRef.close();
-            this.api.showSuccess(this.api.toTitleCase(resp.message));
-            this.router.navigate(['/login']);
-           }else{
-            this.emit.sendRefresh(true);
-            this.dialogRef.close();
-            this.api.showSuccess(this.api.toTitleCase(resp.message));
-           }
-           
-          }
-           })
-      
-       
-         
+        this.baseService
+          .getData(`${environment.device_token}${this.user_id}/`)
+          .subscribe((res: any) => {
+            if (res) {
+              this.newDeviceToken = res.result[0].device_token;
+              if (this.newDeviceToken != this.device_token) {
+                localStorage.clear();
+                this.emit.sendRefresh(true);
+                this.dialogRef.close();
+                this.api.showSuccess(this.api.toTitleCase(resp.message));
+                this.router.navigate(['/login']);
+              } else {
+                this.emit.sendRefresh(true);
+                this.dialogRef.close();
+                this.api.showSuccess(this.api.toTitleCase(resp.message));
+              }
+            }
+          });
       },
       (error: any) => {
         //console.log(error);
@@ -182,34 +178,30 @@ delete() {
   //     //console.log('The dialog was closed');
   //   });
   // })
-   
-  // }
 
+  // }
 
   transferLead() {
     const dialogRef = this.dialog.open(TransferLeadsComponent, {
-          width: '40%',
-          data: { data: this.data, callback: this.deleteUsers.bind(this) },
-        });
-        dialogRef.disableClose = true;
-    
-        dialogRef.afterClosed().subscribe((result: any) => {
-        
-          //console.log('The dialog was closed');
-        });
-      }
-  
+      width: '40%',
+      data: { data: this.data, callback: this.deleteUsers.bind(this) },
+    });
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      //console.log('The dialog was closed');
+    });
+  }
 
   getIds() {
     this.api
       .getLeadsIdsTodeleteAdminCounsellor(this.data.userId)
       .subscribe((res: any) => {
-        console.log(res, 'lead ids for an user');
+        // console.log(res, 'lead ids for an user');
         this.leadIds = res.result[0].map((item: any) => item.lead);
-        console.log(this.leadIds, 'leadids');
+        // console.log(this.leadIds, 'leadids');
       });
   }
-
 
   // openTransferCounsellorsComponent(istransfer:boolean) {
   //   return new Promise((resolve:any,reject:any)=>{
@@ -223,9 +215,9 @@ delete() {
   //         roleId:this.data.roleId
   //       },
   //     });
-  
+
   //     dialogRef.disableClose = true;
-  
+
   //     dialogRef.afterClosed().subscribe((result: any) => {
   //       if(result==true){
   //         istransfer=true
@@ -233,35 +225,31 @@ delete() {
   //       resolve(true)
   //     });
   //   })
-   
+
   // }
 
-   openTransferCounsellorsComponent() {
+  openTransferCounsellorsComponent() {
     const dialogRef = this.dialog.open(TranferCounsellorsComponent, {
-            width: '45%',
-            data: {
-              counsellorIds: this.counsellorIds,
-              userId: this.data.userId,
-              userName:this.user_name,
-              isDelete:true,
-              roleId:this.data.roleId
-            },
-          });
-      
-          dialogRef.disableClose = true;
-      
-          dialogRef.afterClosed().subscribe((result: any) => {
-            
-          });
+      width: '45%',
+      data: {
+        counsellorIds: this.counsellorIds,
+        userId: this.data.userId,
+        userName: this.user_name,
+        isDelete: true,
+        roleId: this.data.roleId,
+      },
+    });
+
+    dialogRef.disableClose = true;
+
+    dialogRef.afterClosed().subscribe((result: any) => {});
   }
-
-
 
   counsellorIds: any;
   getCounselloIdsForAdmin() {
     this.api.getCounsellorIds(this.data.userId).subscribe(
       (res: any) => {
-        console.log(res.results, 'ids under a admin');
+        // console.log(res.results, 'ids under a admin');
         this.counsellorIds = res.results;
       },
       (error: any) => {

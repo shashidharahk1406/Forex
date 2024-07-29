@@ -168,7 +168,7 @@ export class DataService {
   filterUrl: any;
   setFilteredUrl(data: any) {
     this.filterUrl = data;
-    console.log(data, 'setFilteredUrl');
+    // console.log(data, 'setFilteredUrl');
   }
   getFilteredUrl() {
     return this.filterUrl;
@@ -177,7 +177,7 @@ export class DataService {
   selectedDate: any;
   setDate(date: any) {
     this.selectedDate = date;
-    console.log(date, 'setDate');
+    // console.log(date, 'setDate');
   }
   getDate() {
     return this.selectedDate;

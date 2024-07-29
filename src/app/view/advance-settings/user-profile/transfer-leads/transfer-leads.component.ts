@@ -8,10 +8,9 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-transfer-leads',
   templateUrl: './transfer-leads.component.html',
-  styleUrls: ['./transfer-leads.component.css']
+  styleUrls: ['./transfer-leads.component.css'],
 })
 export class TransferLeadsComponent implements OnInit {
-
   constructor(
     private _baseService: BaseServiceService,
     private api: ApiService,
@@ -19,12 +18,12 @@ export class TransferLeadsComponent implements OnInit {
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data, 'data from delete-users component');
-    this.userId=data.data.userId
-    console.log( this.userId, ' this.userId in constructor');
+    // console.log(data, 'data from delete-users component');
+    this.userId = data.data.userId;
+    // console.log(this.userId, ' this.userId in constructor');
   }
   admins: any;
-  userId:any;
+  userId: any;
 
   transferLeadsForm!: FormGroup;
 
@@ -34,7 +33,6 @@ export class TransferLeadsComponent implements OnInit {
     this.transferLeadsForm = this._fb.group({
       user_id: this.data.data.userId,
       lead_owner_ids: ['', Validators.required],
-     
     });
   }
 
@@ -50,7 +48,7 @@ export class TransferLeadsComponent implements OnInit {
 
     this._baseService.getData(`${environment._user}`).subscribe(
       (res: any) => {
-        console.log(res, 'leadowners');
+        // console.log(res, 'leadowners');
 
         if (res) {
           this.admins = res.results;
@@ -68,21 +66,17 @@ export class TransferLeadsComponent implements OnInit {
     } else {
       let formData: any = {};
       const f = this.transferLeadsForm.value;
-      console.log(this.userId," this.data.userId");
-      
+      // console.log(this.userId, ' this.data.userId');
+
       formData = {
         user_id: f.user_id,
-        lead_owner_ids:f.lead_owner_ids
+        lead_owner_ids: f.lead_owner_ids,
       };
       this.api.transferDeleteAdminAndCounsellor(formData).subscribe(
         (res: any) => {
-
-          console.log(
-            res,
-            'transferring leads '
-          );
+          // console.log(res, 'transferring leads ');
           this.api.showSuccess(res.message);
-          if(this.data.callback){
+          if (this.data.callback) {
             this.data.callback();
           }
           this.dialogRef.close();
@@ -96,5 +90,4 @@ export class TransferLeadsComponent implements OnInit {
   close() {
     this.dialogRef.close();
   }
-
 }

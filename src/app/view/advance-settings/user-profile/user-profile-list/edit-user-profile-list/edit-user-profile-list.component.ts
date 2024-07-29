@@ -17,7 +17,7 @@ import { ApiService } from 'src/app/service/API/api.service';
 import { EmitService } from 'src/app/service/emit/emit.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { DatePipe } from '@angular/common';
-import { error } from 'console';
+
 import { TranferCounsellorsComponent } from '../tranfer-counsellors/tranfer-counsellors.component';
 import { DataService } from 'src/app/service/data.service';
 
@@ -133,10 +133,10 @@ export class EditUserProfileListComponent implements OnInit {
   getUserbyId() {
     this.api.getUserById(this.id).subscribe(
       (resp: any) => {
-        console.log(resp, 'resp');
+        // console.log(resp, 'resp');
         this.userId = resp.result[0].id;
         this.user_name=resp.result[0].first_name;
-        console.log(this.userId, 'userid');
+        // console.log(this.userId, 'userid');
 
         this.roleName=resp.result[0].role_id;
 
@@ -287,7 +287,7 @@ export class EditUserProfileListComponent implements OnInit {
   }
   newArr: any = [];
   onSelectionChange(event: any): void {
-    console.log(event.value, 'selecting uusers');
+    // console.log(event.value, 'selecting uusers');
 
     this.newArrFromApi = [];
     event.value.forEach((element: any) => {
@@ -331,6 +331,12 @@ export class EditUserProfileListComponent implements OnInit {
       this.editForm.patchValue({ reporting_to_ids: {} });
       this.roleChangeFromCounsellorToAdmin();
     }
+    if (this.isReportingToUser == false && this.roleId === 7) {
+      this.newArr = [];
+      this.newArrFromApi = [];
+      this.editForm.patchValue({ reporting_to_ids: {} });
+    
+    }
     if (this.newArrFromApi.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArr });
     } else if (this.newArr.length == 0) {
@@ -359,7 +365,7 @@ export class EditUserProfileListComponent implements OnInit {
   isReportingToUser: boolean = false;
   onRoleChange(id: any) {
     this.roleId = id;
-    console.log(this.roleId, 'roleId');
+    // console.log(this.roleId, 'roleId');
     if(id===6){
       this.showTranferCounsellor = true;
     }
@@ -391,7 +397,7 @@ export class EditUserProfileListComponent implements OnInit {
 
     this.api.counsellorToAdmin(data).subscribe(
       (res: any) => {
-        console.log(res, 'counsellor to admin role has been changed');
+        // console.log(res, 'counsellor to admin role has been changed');
       },
       (error: any) => {
         console.log(error);
@@ -403,7 +409,7 @@ export class EditUserProfileListComponent implements OnInit {
   getCounselloIdsForAdmin() {
     this.api.getCounsellorIds(this.userId).subscribe(
       (res: any) => {
-        console.log(res.results, 'ids under a admin');
+        // console.log(res.results, 'ids under a admin');
         this.counsellorIds = res.results;
       },
       (error: any) => {
