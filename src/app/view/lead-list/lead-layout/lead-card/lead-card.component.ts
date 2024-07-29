@@ -114,14 +114,13 @@ export class LeadCardComponent implements OnInit {
         if (['counsellor','counselor'].includes(this.user_role) === true) {
          this.query += `&counsellor_id=${this.user_id}`;
        } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-        if(this.assigned_counsellor_ids){
+       
            this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-         }
+       
        }else if (['admin'].includes(this.user_role) === true){
-        if(this.assigned_counsellor_ids){
+       
            this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-         }
-         
+        
        }
 
        if (this.searchTerm) {
@@ -193,11 +192,11 @@ export class LeadCardComponent implements OnInit {
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     if(this.assigned_counsellor_ids){
+     
         query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
+    
     }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids && !this.leadFilter){
+     if(!this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }
       
@@ -213,13 +212,12 @@ export class LeadCardComponent implements OnInit {
               if (['counsellor','counselor'].includes(this.user_role) === true) {
                 query += `&counsellor_id=${this.user_id}`;
               } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-               if(this.assigned_counsellor_ids){
+               
                   query += ``;
-                }
+               
               }else if (['admin'].includes(this.user_role) === true){
-               if(this.assigned_counsellor_ids){
+               
                   query += ``;
-                }
                 
               }
               
@@ -250,12 +248,8 @@ export class LeadCardComponent implements OnInit {
       
       if (['counsellor','counselor'].includes(this.user_role) === true) {
         query += `&counsellor_id=${this.user_id}`;
-      } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-       if(this.assigned_counsellor_ids){
-          query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-        }
       }else if (['admin'].includes(this.user_role) === true){
-       if(this.assigned_counsellor_ids && !this.leadFilter){
+       if(!this.leadFilter){
           query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
         }
         
@@ -299,7 +293,6 @@ export class LeadCardComponent implements OnInit {
       });
     }
   
-  
   }
   getStatus(){
     this._baseService.getData(`${environment.lead_status}`).subscribe((res:any)=>{
@@ -315,7 +308,6 @@ export class LeadCardComponent implements OnInit {
     this.totalNumberOfRecords = 0
     this.allLeadCardsDataSource = []
     if(!this.allLeadCardsDataSource.length){
-      console.log('apiUrl:',apiUrl)
       if(this.sorting){
         apiUrl += `&filter_by=${this.sortingType}`
       }
@@ -344,10 +336,7 @@ export class LeadCardComponent implements OnInit {
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
      apiUrl += ``;
     }else if (['admin'].includes(this.user_role) === true){
-     if(this.assigned_counsellor_ids){
-        apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
-      }
-      
+      apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`; 
     }
     
     if (tabLabel !== 'tabLabel' && tabLabel.tab.textLabel !== 'All') {
@@ -397,9 +386,7 @@ export class LeadCardComponent implements OnInit {
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
     } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     if(this.assigned_counsellor_ids){
-        query += ``;
-      }
+      query += ``;
     }else if (['admin'].includes(this.user_role) === true){
      if(this.assigned_counsellor_ids && !this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
