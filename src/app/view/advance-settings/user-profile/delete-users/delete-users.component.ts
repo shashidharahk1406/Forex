@@ -140,13 +140,13 @@ export class DeleteUsersComponent implements OnInit {
           .subscribe((res: any) => {
             if (res) {
               this.newDeviceToken = res.result[0].device_token;
-              if (this.newDeviceToken != this.device_token) {
+              if (this.newDeviceToken !== this.device_token) {
                 localStorage.clear();
                 this.emit.sendRefresh(true);
                 this.dialogRef.close();
                 this.api.showSuccess(this.api.toTitleCase(resp.message));
                 this.router.navigate(['/login']);
-              } else {
+              //} else {
                 this.emit.sendRefresh(true);
                 this.dialogRef.close();
                 this.api.showSuccess(this.api.toTitleCase(resp.message));

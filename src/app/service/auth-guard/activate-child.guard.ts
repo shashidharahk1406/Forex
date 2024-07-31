@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ActivateChildGuard implements CanActivateChild {
   userId:any;
+  newDeviceToken: any;
   constructor(private _router: Router,  private baseService:BaseServiceService,
     private api:ApiService,
     private emit:EmitService) {}
@@ -19,12 +20,32 @@ export class ActivateChildGuard implements CanActivateChild {
     state: RouterStateSnapshot
   ): boolean {
     const isLoggedIn: boolean = localStorage.getItem('token') !== null;
+    const user_id: any = localStorage.getItem('user_id');
+    const device_token: any = localStorage.getItem('device_token');
+    if (isLoggedIn) {
 
-    if (!isLoggedIn) {
+      this.baseService.getData(`${environment.device_token}${user_id}/`).subscribe((res:any):any=>{
+        if(res){
+         this.newDeviceToken = res.result[0].device_token
+         if(this.newDeviceToken !== device_token){
+          localStorage.clear()
+           this._router.navigate(['/login']);
+          return false;
+        }else{
+          return true;
+        }
+       //  console.log(this.newDeviceToken === device_token,"TOKEN")
+        }
+      },(error:any)=>{
+        this.api.showError(error.error.status)
+        this._router.navigate(['/login']);
+        return false;
+      })
+    }else{
       this._router.navigate(['/login']);
       return false;
     }
-    
+   
     return true;
   }
   getRoleName():any{
