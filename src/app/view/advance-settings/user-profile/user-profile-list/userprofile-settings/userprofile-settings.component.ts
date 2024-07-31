@@ -390,6 +390,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     else{
       this.currentPage=1;
       this.pageSize=10;
+      this.pageindex=0
     }
     // console.log("Hello", this.params);
     this.totalPageLength = 0;

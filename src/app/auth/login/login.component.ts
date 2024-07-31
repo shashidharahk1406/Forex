@@ -100,11 +100,11 @@ export class LoginComponent implements OnInit {
 				//console.log(resp,"login responsssssssssssss",)
 				localStorage.setItem('resp',JSON.stringify(resp))
 				// this.api.showSuccess('Login Successfull !!')
-				localStorage.setItem('token',resp.token.token)
-				const decodedToken:any = jwtDecode(resp.token.token);
+				localStorage.setItem('token',resp?.token?.token)
+				const decodedToken:any = jwtDecode(resp?.token.token);
 				// console.log("==userid==",decodedToken);
 				localStorage.setItem('user_id',decodedToken.user_id);
-				localStorage.setItem('counsellor_ids',resp.counsellor_ids);
+				localStorage.setItem('counsellor_ids',resp?.counsellor_ids);
 				localStorage.setItem('user_email',decodedToken.email);
 				localStorage.setItem('decodedToken',JSON.stringify(decodedToken))
 				// localStorage.setItem('Dropdown Values',JSON.stringify(resp.permissions[1].children_status[0].access_status))
@@ -114,7 +114,9 @@ export class LoginComponent implements OnInit {
 				localStorage.setItem('user_role',decodedToken.user_role)
 				localStorage.setItem('username',decodedToken.username)
 				// this.api.showSuccess('Login Successfull!');
-				this.api.showSuccess(this.api.toTitleCase(resp.message))
+				this.api.showSuccess(this.api.toTitleCase(resp.message));
+				// console.log(resp.message,"resp.message");
+				
 				// this.api.showError(this.api.toTitleCase(resp.message))
 				this.router.navigate(['/analytics'])
 				this.resetForm()
