@@ -22,28 +22,22 @@ export class ActivateChildGuard implements CanActivateChild {
     const isLoggedIn: boolean = localStorage.getItem('token') !== null;
     const user_id: any = localStorage.getItem('user_id');
     const device_token: any = localStorage.getItem('device_token');
-    if (isLoggedIn) {
-
-      this.baseService.getData(`${environment.device_token}${user_id}/`).subscribe((res:any):any=>{
-        if(res){
-         this.newDeviceToken = res.result[0].device_token
-         if(this.newDeviceToken !== device_token){
-          localStorage.clear()
-           this._router.navigate(['/login']);
-          return false;
-        }else{
-          return true;
-        }
-       //  console.log(this.newDeviceToken === device_token,"TOKEN")
-        }
-      },(error:any)=>{
-        this.api.showError(error.error.status)
-        this._router.navigate(['/login']);
-        return false;
-      })
-    }else{
+    if (!isLoggedIn) {
       this._router.navigate(['/login']);
       return false;
+      
+    }else{
+      this.baseService.getData(`${environment.device_token}${user_id}/`).subscribe((res:any):any=>{
+        if(res.result[0].device_token){
+          return true;
+        }
+      },(error:any)=>{
+        if(error.error.status === 404){
+        this.api.showError(error.error.message)
+        this._router.navigate(['/login']);
+        }
+        return false;
+      })
     }
    
     return true;
