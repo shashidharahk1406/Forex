@@ -58,7 +58,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('allPaginator') allPaginator!: MatPaginator;
+  @ViewChild(MatPaginator) allPaginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   allUser: any = [];
   pageSize = 10;
@@ -224,7 +224,10 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           )
           .subscribe(
             (resp: any) => {
+              
               //console.log(resp,"search results");
+              this.pageindex=0;
+              this.pageSize=10;
 
               this.allUser = resp.results;
               this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -257,6 +260,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           .subscribe(
             (resp: any) => {
               // console.log(resp,"search results");
+              this.pageindex=0;
+              this.pageSize=10;
 
               this.allUser = resp.results;
               this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -292,7 +297,13 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           )
           .subscribe(
             (resp: any) => {
-              // console.log(resp,"search results");
+              
+              this.pageindex=0;
+              this.pageSize=10;
+              this.totalPageLength = 0;
+              this.allUser = [];
+              this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+             
 
               this.allUser = resp.results;
               this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -301,6 +312,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
               this.dataSource.sort = this.sort;
               this.loading = false;
+          
+           
             },
             (error: any) => {
               this.api.showError(error.error.message);
@@ -487,6 +500,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
             this.totalPageLength = resp.total_no_of_record;
             this.dataSource.sort = this.sort;
             this.loading = false;
+           
           },
           (error: any) => {
             this.api.showError(error.error.message);

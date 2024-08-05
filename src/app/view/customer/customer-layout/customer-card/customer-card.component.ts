@@ -179,6 +179,9 @@ export class CustomerCardComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res.results.data) {
+            this.leadCards = [];
+            this.allLeadCardsDataSource = [];
+            this.totalNumberOfRecords = '';
             this.allPaginator.pageIndex = 0;
             this.allPaginator.pageSize = 10;
 
@@ -322,6 +325,7 @@ export class CustomerCardComponent implements OnInit {
   // }
 
   isSearched: boolean = false;
+  loading: boolean = true;
   applySearch(event: any) {
     this.isSearched = true;
     this.searchTerm = event;
@@ -383,12 +387,22 @@ export class CustomerCardComponent implements OnInit {
       this._baseService.getData(`${query}`).subscribe(
         (res: any) => {
           if (res.results.data) {
+            this.allPaginator.pageIndex = 0;
+          this.allPaginator.pageSize = 10;
+            this.totalNumberOfRecords = 0;
+            this.leadCards = [];
+            this.allLeadCardsDataSource = [];
+            this.allLeadCardsDataSource = new MatTableDataSource<any>(
+              (this.leadCards = [])
+            );
+           
             this.leadCards = res.results.data;
             this.leadAllIds = res.results.lead_ids;
             this.allLeadCardsDataSource = new MatTableDataSource<any>(
               this.leadCards
             );
             this.totalNumberOfRecords = res.total_no_of_record;
+            this.loading = false;
           }
         },
         (error: any) => {
@@ -457,12 +471,15 @@ export class CustomerCardComponent implements OnInit {
           });
         }
       }
-      this.leadCards = [];
-      this.allLeadCardsDataSource = [];
-      this.totalNumberOfRecords = '';
+
       this._baseService.getData(`${query}`).subscribe(
         (res: any) => {
           if (res.results.data) {
+            this.allPaginator.pageIndex = 0;
+          this.allPaginator.pageSize = 10;
+            this.leadCards = [];
+            this.allLeadCardsDataSource = [];
+            this.totalNumberOfRecords = 0;
             this.leadCards = res.results.data;
             this.leadAllIds = res.results.lead_ids;
             this.allLeadCardsDataSource = new MatTableDataSource<any>(
@@ -527,9 +544,12 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(`${apiUrl}`).subscribe(
       (res: any) => {
         if (res.results.data) {
-          // this.allPaginator.pageIndex = 0;
-          // this.allPaginator.pageSize = 10;
-          this.pageindex=0
+          this.allPaginator.pageIndex = 0;
+          this.allPaginator.pageSize = 10;
+          this.leadCards = [];
+          this.allLeadCardsDataSource = [];
+          this.totalNumberOfRecords = 0;
+          this.pageindex = 0;
           this.isFiltered = true;
           this.dataService.filterAndSearchCustomerRefreshdataSubject.next(true);
           this.leadFilter = true;
@@ -581,7 +601,11 @@ export class CustomerCardComponent implements OnInit {
     this.totalNumberOfRecords = 0;
     this.allLeadCardsDataSource = [];
     let apiUrl = '';
-    if (this.editCustomer == true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined) {
+    if (
+      this.editCustomer == true &&
+      this.dataService.getPage().selectedPage != undefined &&
+      this.dataService.getPage().selectedIndex != undefined
+    ) {
       apiUrl = `${environment.lead_list}?page=${
         this.dataService.getPage().selectedPage
       }&page_size=${
@@ -617,6 +641,10 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(apiUrl).subscribe(
       (res: any) => {
         if (res.results.data) {
+          this.loading = false;
+          this.leadCards = [];
+          this.allLeadCardsDataSource = [];
+          this.totalNumberOfRecords = '';
           this.leadCards = res.results.data;
           // console.log(res.results.data,"res.results.data");
 
@@ -821,6 +849,9 @@ export class CustomerCardComponent implements OnInit {
     this._baseService.getData(`${environment.lead_list}${query}`).subscribe(
       (res: any) => {
         if (res.results) {
+          this.leadCards = [];
+          this.allLeadCardsDataSource = [];
+          this.totalNumberOfRecords = '';
           this.leadCards = res.results.data;
           this.leadAllIds = res.results.lead_ids;
           // console.log(this.leadAllIds,"this.leadAllIds");

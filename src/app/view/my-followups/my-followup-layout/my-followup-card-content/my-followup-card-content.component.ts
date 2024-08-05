@@ -283,6 +283,9 @@ editFollowup:any
         // this.ngOnInit();
         this.gettingUrl();
         this.isFilteredreset = true;
+        this.allPaginator.pageIndex = 0;
+
+        this.allPaginator.pageSize = 5;
       }
     });
   }
@@ -294,7 +297,7 @@ editFollowup:any
     // );
 
     this.dataService.EditFollowupRefreshdataSubject.subscribe((res:any)=>{
-      if(res==true){
+      if(res==true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined){
         this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
        
       }
@@ -1084,6 +1087,7 @@ editFollowup:any
           //console.log(this.allPaginator,"paginator for admin");
 
           // //console.log(res, 'followup api  filetr all combination');
+          
 
           
           this.followUpsData2 = res.results.data;
@@ -1200,6 +1204,9 @@ editFollowup:any
 
     // this.APICAll();
     this.ngOnInit();
+    this.allPaginator.pageIndex = 0;
+
+    this.allPaginator.pageSize = 5;
     // console.log('new==>', this.updateAPIURL);
   }
 
