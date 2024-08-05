@@ -60,5 +60,11 @@ strong{
 }
 .search-bar{
   border-bottom: 1px solid #dfdbdb;
-  padding: 15px;
+  padding: 10px 15px;
+}
+.c-w{
+  width: 80%;
+}
+.m-ref-icon{
+ font-size: 18px;
 }

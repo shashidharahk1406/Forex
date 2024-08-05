@@ -81,11 +81,7 @@ export class LeadCardComponent implements OnInit {
             this.query = `${res}&filter_by=${this.sortingType}`
             if (['counsellor','counselor'].includes(this.user_role) === true) {
               this.query += `&counsellor_id=${this.user_id}`;
-            } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-             if(this.assigned_counsellor_ids){
-                this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-              }
-            }else if (['admin'].includes(this.user_role) === true){
+            } else if (['admin'].includes(this.user_role) === true){
              if(this.assigned_counsellor_ids){
                 this.query += ``;
               }else{
@@ -113,11 +109,7 @@ export class LeadCardComponent implements OnInit {
         this.query = `?filter_by=${this.sortingType}&page=1&page_size=10&user_type=allocation`
         if (['counsellor','counselor'].includes(this.user_role) === true) {
          this.query += `&counsellor_id=${this.user_id}`;
-       } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-       
-           this.query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-       
-       }else if (['admin'].includes(this.user_role) === true){
+       } else if (['admin'].includes(this.user_role) === true){
        
            this.query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
         
@@ -191,11 +183,7 @@ export class LeadCardComponent implements OnInit {
     
     if (['counsellor','counselor'].includes(this.user_role) === true) {
       query += `&counsellor_id=${this.user_id}`;
-    } else if (['superadmin','super admin'].includes(this.user_role) === true) {
-     
-        query += `&counsellor_id=${this.assigned_counsellor_ids}`;
-    
-    }else if (['admin'].includes(this.user_role) === true){
+    } else if (['admin'].includes(this.user_role) === true){
      if(!this.leadFilter){
         query += `&admin_id=${this.user_id}&counsellor_id=${this.assigned_counsellor_ids}`;
       }

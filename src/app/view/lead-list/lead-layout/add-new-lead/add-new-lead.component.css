@@ -59,11 +59,17 @@ font-weight: 500;
   top: 49%;
   transform: translateY(-50%); 
 }
-.search-bar{
-  border-bottom: 1px solid #dfdbdb;
-  padding: 15px;
-}
 .add-icon-disabled {
   opacity: 0.5 !important;
   pointer-events: none !important;
+}
+.search-bar{
+  border-bottom: 1px solid #dfdbdb;
+  padding: 10px 15px;
+}
+.c-w{
+  width: 80%;
+}
+.m-ref-icon{
+ font-size: 18px;
 }
