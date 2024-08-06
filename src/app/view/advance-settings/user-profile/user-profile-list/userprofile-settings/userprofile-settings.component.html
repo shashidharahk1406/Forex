@@ -143,5 +143,5 @@
   </div>
      
     <!-- Add pagination -->
-    <mat-paginator  *ngIf="!loading" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]"  [pageSize]="pageSize"  aria-label="Select page of users"  [pageIndex]="pageindex" #allPaginator></mat-paginator>
+    <mat-paginator  *ngIf="dataSource.filteredData.length>0" [length]="totalPageLength"  (page)="pageChanged($event)"  [pageSizeOptions]="[10, 25, 100]"  [pageSize]="pageSize"  aria-label="Select page of users"  [pageIndex]="pageindex" #allPaginator></mat-paginator>
    

@@ -52,7 +52,7 @@ export class EditUserProfileListComponent implements OnInit {
     private dialog: MatDialog,
     public validationService: CommonServiceService,
     private fb: FormBuilder,
-    private dataService:DataService
+    private dataService: DataService
   ) {
     this.id = data.userdata.id;
     this.min = new Date('1900-01-01');
@@ -126,25 +126,25 @@ export class EditUserProfileListComponent implements OnInit {
   }
   newArrFromApi: any = [];
   userId: any;
-  user_name:any;
-  roleName:any;
-  role_name:any;
-  showTranferCounsellor:boolean=false
+  user_name: any;
+  roleName: any;
+  role_name: any;
+  showTranferCounsellor: boolean = false;
   getUserbyId() {
     this.api.getUserById(this.id).subscribe(
       (resp: any) => {
         // console.log(resp, 'resp');
         this.userId = resp.result[0].id;
-        this.user_name=resp.result[0].first_name;
+        this.user_name = resp.result[0].first_name;
         // console.log(this.userId, 'userid');
 
-        this.roleName=resp.result[0].role_id;
+        this.roleName = resp.result[0].role_id;
 
-        this.role_name=resp.result[0].role_name
+        this.role_name = resp.result[0].role_name;
 
         if (resp.result[0].role_id === 6) {
           this.showTranferCounsellor = true;
-        } 
+        }
         if (resp.result[0].role_id === 3) {
           this.isReportingToUser = true;
         } else {
@@ -322,6 +322,12 @@ export class EditUserProfileListComponent implements OnInit {
   }
 
   async submit() {
+    if (this.roleId === 7 && this.counsellorIds.length < 0) {
+      this.newArr = [];
+      this.newArrFromApi = [];
+      this.editForm.patchValue({ reporting_to_ids: {} });
+    }
+
     //console.log(this.editForm.value,"edit form submission");
 
     // this.editForm.patchValue({reporting_to_ids:this.newArr})
@@ -331,24 +337,30 @@ export class EditUserProfileListComponent implements OnInit {
       this.editForm.patchValue({ reporting_to_ids: {} });
       this.roleChangeFromCounsellorToAdmin();
     }
-    if (this.isReportingToUser == false && this.roleId === 7) {
-      this.newArr = [];
-      this.newArrFromApi = [];
-      this.editForm.patchValue({ reporting_to_ids: {} });
-    
-    }
+    // if (this.isReportingToUser == false && this.roleId === 7) {
+    //   this.newArr = [];
+    //   this.newArrFromApi = [];
+    //   this.editForm.patchValue({ reporting_to_ids: {} });
+
+    // }
     if (this.newArrFromApi.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArr });
     } else if (this.newArr.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArrFromApi });
     }
 
-    if (this.editForm.invalid) {
+    if (
+      this.editForm.invalid ||
+      (this.roleId === 3 && this.counsellorIds > 0) ||
+      (this.roleId === 7 && this.counsellorIds.length > 0)
+    ) {
+      this.openTransferCounsellorsComponent();
+
       this.editForm.markAllAsTouched();
     } else {
       this.api.editUser(this.id, this.editForm.value).subscribe(
         (resp: any) => {
-          this.dataService.customerEdit.next(true)
+          this.dataService.customerEdit.next(true);
           this.emit.sendRefresh(true);
           this.dialogRef.close(true);
           this.api.showSuccess(this.api.toTitleCase(resp.message));
@@ -365,11 +377,10 @@ export class EditUserProfileListComponent implements OnInit {
   isReportingToUser: boolean = false;
   onRoleChange(id: any) {
     this.roleId = id;
-    // console.log(this.roleId, 'roleId');
-    if(id===6){
+    console.log(this.roleId, 'roleId');
+    if (id === 6) {
       this.showTranferCounsellor = true;
-    }
-    else{
+    } else {
       this.showTranferCounsellor = false;
     }
     // this.allUser=[]
@@ -384,7 +395,7 @@ export class EditUserProfileListComponent implements OnInit {
       this.allUser = this.allUser.filter((ele: any) => {
         return ele.role_name === 'Admin';
       });
-    } else if (this.roleId === 6|| this.roleId === 7) {
+    } else if (this.roleId === 6 || this.roleId === 7) {
       this.isReportingToUser = false;
     }
   }
@@ -425,27 +436,26 @@ export class EditUserProfileListComponent implements OnInit {
         counsellorIds: this.counsellorIds,
         userId: this.userId,
         roleId: this.roleId,
-        userName:this.user_name
+        userName: this.user_name,
       },
     });
 
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if(result==false){
+      if (result == false) {
         // this.dialogRef.close();
       }
     });
   }
 
-  transferCounsellors(){
-    if(window.confirm("Are you sure to transfer counsellors? ")) {
-      if( this.counsellorIds.length>0){
-        this.openTransferCounsellorsComponent()
+  transferCounsellors() {
+    if (window.confirm('Are you sure to transfer counsellors? ')) {
+      if (this.counsellorIds.length > 0) {
+        this.openTransferCounsellorsComponent();
+      } else {
+        this.api.showWarning('Counsellors are not available');
       }
-      else{
-        this.api.showWarning('Counsellors are not available')
-      }
+    }
   }
-}
 }
