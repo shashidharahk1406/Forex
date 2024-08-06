@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +20,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-new-lead.component.css']
 })
 export class AddNewLeadComponent implements OnInit {
-  
+  @ViewChild('countryInput') countryInput!: ElementRef;
+  @ViewChild('stateInput') stateInput!: ElementRef;
+  @ViewChild('cityInput') cityInput!: ElementRef;
   step: number = 0;
   countryOptions: any = [];
   stateOptions: any = [];
@@ -51,6 +53,7 @@ export class AddNewLeadComponent implements OnInit {
   selectedCountry: any;
   filteredStateOptions: any = [];
   filteredCityOptions: any = [];
+  searchText:any = "";
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<any>,
     private _commonService:CommonServiceService,
@@ -370,7 +373,6 @@ export class AddNewLeadComponent implements OnInit {
 
        if(searchTerm === '' && type === 'country'){
         this.filteredCountryOptions = countryOptions
-        this.addLeadForm
         return this.filteredCountryOptions
        }if(searchTerm === '' && type === 'state'){
         this.filteredStateOptions = countryOptions
@@ -398,6 +400,21 @@ export class AddNewLeadComponent implements OnInit {
        
   }
   }
+ 
+  onSelect(type:any):any {
+      if(type === 'country'){
+        this.countryInput.nativeElement.value = ''; 
+        return this.filteredCountryOptions = [...this.countryOptions]; 
+      }else if(type === 'state'){
+        this.stateInput.nativeElement.value = ''; 
+        return this.filteredStateOptions = [...this.stateOptions];
+      }else if(type === 'city'){
+        this.cityInput.nativeElement.value = ''; 
+        return this.filteredCityOptions = [...this.cityOptions];
+      }
+     // Clear the search text when closing
+  }
+  
   getStream(){
     this._baseService.getData(`${environment.studying_stream}`).subscribe((resp:any)=>{
     if(resp){

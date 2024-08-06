@@ -103,7 +103,7 @@
                        <mat-datepicker #dateOfBirth></mat-datepicker>
                      </mat-form-field>
              
-                     <div class="row">
+                     <!-- <div class="row">
                       <div class="col-11">
                         <mat-form-field class="mb-1" appearance="outline">
                           <mat-label>Select Country </mat-label>
@@ -194,6 +194,127 @@
                        
                       </div>
                       <div class="col-1">
+                        <mat-icon class="icon-clr" title="Add City" (click)="openAddCity()" [class.add-icon-disabled]="!f['state'].value">add</mat-icon>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                      <div class="col-11">
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>Select Country </mat-label>
+                          <mat-select formControlName="countryId" placeholder="Select Country" (selectionChange)="getState();onSelect('country')" (openedChange)="onSelect('country')">
+                            <div *ngIf="filteredCountryOptions.length >0" class="search-bar">
+                              <input type="text" matInput  #countryInput (input)="filterCountries($event,'country',countryOptions)" placeholder="Search" class="my-2 c-w">
+                              <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="onSelect('country')"
+                              *ngIf="countryInput.value"
+                            >
+                            <mat-icon class="m-ref-icon">replay</mat-icon>
+                            </button>
+                            </div>
+                            <ng-container *ngIf="filteredCountryOptions.length >0">
+                            <mat-option *ngFor="let option of filteredCountryOptions" [value]="option.id">{{ option.name }}</mat-option>
+                          </ng-container>
+                            <ng-container *ngIf="filteredCountryOptions.length ===0">
+                              <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                          <button
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="clearSelectField('countryId');resetVal();"
+                            *ngIf="f['countryId']?.value"
+                          >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </mat-form-field>
+                    
+                      </div>
+                      <div class="col-1">
+                        <mat-icon class="icon-clr" title="Add Country" (click)="openAddCountry()">add</mat-icon>
+                        </div>
+                    </div>
+                   
+                    <div class="row">
+                      <div class="col-11">
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>State</mat-label>
+                          <mat-select formControlName="state" placeholder="Select State" (selectionChange)="getCity();onSelect('state')" (openedChange)="onSelect('state')">
+                            <div *ngIf="filteredStateOptions.length >0" class="search-bar">
+                              <input type="text" matInput #stateInput (input)="filterCountries($event,'state',stateOptions)" placeholder="Search" class="my-2 c-w">
+                              <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="onSelect('state')"
+                              *ngIf="stateInput.value"
+                              >
+                              <mat-icon class="m-ref-icon">replay</mat-icon>
+                            </button>
+                            </div>
+                            <ng-container *ngIf="filteredStateOptions.length >0" >
+                              <mat-option  *ngFor="let option of filteredStateOptions" [value]="option.id">{{ option.name }}</mat-option>
+                            </ng-container>
+                            <ng-container *ngIf="filteredStateOptions.length ===0">
+                              <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                            </ng-container>
+                          </mat-select>
+                          <button
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="clearSelectField('state');resetVal2()"
+                            *ngIf="f['state']?.value"
+                            >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-1">
+                        <mat-icon class="icon-clr" title="Add State" (click)="openAddState()" [class.add-icon-disabled]="!f['countryId'].value">add</mat-icon>
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                      <div class="col-11">
+                        <mat-form-field class="mb-1" appearance="outline">
+                          <mat-label>City Name</mat-label>
+                          <mat-select formControlName="cityName" placeholder="Select City" (selectionChange)="onSelect('city')" (openedChange)="onSelect('city')">
+                            <div *ngIf="filteredCityOptions.length >0" class="my-2 search-bar">
+                              <input type="text"  matInput #cityInput (input)="filterCountries($event,'city',cityOptions)" placeholder="Search" class="my-2 c-w">
+                              <button
+                              matSuffix
+                              mat-icon-button
+                              aria-label="Clear"
+                              (click)="onSelect('city')"
+                              *ngIf="cityInput.value"
+                              >
+                              <mat-icon class="m-ref-icon">replay</mat-icon>
+                             </button>
+                            </div>
+                            <ng-container *ngIf="filteredCityOptions.length >0">
+                              <mat-option *ngFor="let option of filteredCityOptions" [value]="option.id">{{ option.name}}</mat-option>  
+                            </ng-container>
+                              <ng-container *ngIf="filteredCityOptions.length ===0">
+                                <mat-option  [value]="" selected>{{ 'No Records Found' }}</mat-option>
+                              </ng-container>
+                            </mat-select>
+                          <button
+                            matSuffix
+                            mat-icon-button
+                            aria-label="Clear"
+                            (click)="clearSelectField('cityName')"
+                            *ngIf="f['cityName']?.value"
+                          >
+                            <mat-icon>clear</mat-icon>
+                          </button>
+                        </mat-form-field>
+                       
+                      </div>
+                      <div class="col-1" >
                         <mat-icon class="icon-clr" title="Add City" (click)="openAddCity()" [class.add-icon-disabled]="!f['state'].value">add</mat-icon>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -24,6 +24,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./customer-edit.component.css'],
 })
 export class CustomerEditComponent implements OnInit {
+  @ViewChild('countryInput') countryInput!: ElementRef;
+  @ViewChild('stateInput') stateInput!: ElementRef;
+  @ViewChild('cityInput') cityInput!: ElementRef;
   step: number = 0;
   countryOptions: any = [];
   stateOptions: any = [];
@@ -565,6 +568,19 @@ export class CustomerEditComponent implements OnInit {
       }
     }
   }
+  onSelect(type:any):any {
+    if(type === 'country'){
+      this.countryInput.nativeElement.value = ''; 
+      return this.filteredCountryOptions = [...this.countryOptions]; 
+    }else if(type === 'state'){
+      this.stateInput.nativeElement.value = ''; 
+      return this.filteredStateOptions = [...this.stateOptions];
+    }else if(type === 'city'){
+      this.cityInput.nativeElement.value = ''; 
+      return this.filteredCityOptions = [...this.cityOptions];
+    }
+   // Clear the search text when closing
+}
   onSubmit() {
     const formData = this.editLeadForm.value;
     const data = {
