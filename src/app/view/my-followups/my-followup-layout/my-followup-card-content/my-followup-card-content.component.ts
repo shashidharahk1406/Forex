@@ -300,6 +300,9 @@ editFollowup:any
       if(res==true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined){
         this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
        
+      } else if(this.isSearched==true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined){
+        this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
+       
       }
       else{
         this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
