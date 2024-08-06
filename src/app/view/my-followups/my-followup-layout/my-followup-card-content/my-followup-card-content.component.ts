@@ -50,7 +50,6 @@ import { FilterFollowUp } from 'src/app/filter/filter';
 import { NavigationStart, Router } from '@angular/router';
 export let browserRefresh = false;
 
-
 @Component({
   selector: 'app-my-followup-card-content',
   templateUrl: './my-followup-card-content.component.html',
@@ -134,8 +133,6 @@ export class MyFollowupCardContentComponent
     this.counsellors_ids = localStorage.getItem('counsellor_ids');
     // //console.log(this.role, 'roleeeeeeeeeeeeeee');
 
-   
-
     this.subscription = router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         browserRefresh = !router.navigated;
@@ -167,14 +164,14 @@ export class MyFollowupCardContentComponent
   unsubscribe!: Subscription;
   previousSelectedTab: any;
 
-editFollowup:any
+  editFollowup: any;
   ngOnInit(): void {
-    this.currentPage=0
+    this.currentPage = 0;
     // this.selectedDate=this.dataService.getDate()
     if (this.unsubscribe) {
       this.unsubscribe.unsubscribe();
     }
- 
+
     //  this.previousSelectedTab=this.dataService.getSelectedTab()
     this.selectedTab = this.dataService.getSelectedTab();
     //  console.log( this.dataService.getfiletredFormValues()," this.dataService.getfiletredFormValues()");
@@ -206,13 +203,11 @@ editFollowup:any
         // }
       });
     this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
-      this.editFollowup=res;
-      if (res&&this.isSearched) {
-        
+      this.editFollowup = res;
+      if (res && this.isSearched) {
         // window.location.reload();
         this.searchValue = '';
-      
-       
+
         this.refreshFollowUps();
         // this.APICAll();
       }
@@ -296,21 +291,27 @@ editFollowup:any
     //   this.dataService.getFollowupfilterURL().url
     // );
 
-    this.dataService.EditFollowupRefreshdataSubject.subscribe((res:any)=>{
-      if(res==true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined){
-        this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
-       
-      } else if(this.isSearched==true&&this.dataService.getPage().selectedPage!=undefined&&this.dataService.getPage().selectedIndex!=undefined){
-        this.updateAPIURL=`${this.api_url}/api/follow-up/?page=${this.dataService.getPage().selectedPage}&page_size=${this.dataService.getPage().selectedIndex}`
-       
-      }
-      else{
+    this.dataService.EditFollowupRefreshdataSubject.subscribe((res: any) => {
+      if (
+        res == true &&
+        this.dataService.getPage().selectedPage != undefined &&
+        this.dataService.getPage().selectedIndex != undefined
+      ) {
+        this.updateAPIURL = `${this.api_url}/api/follow-up/?page=${
+          this.dataService.getPage().selectedPage
+        }&page_size=${this.dataService.getPage().selectedIndex}`;
+      } else if (
+        this.isSearched == true &&
+        this.dataService.getPage().selectedPage != undefined &&
+        this.dataService.getPage().selectedIndex != undefined
+      ) {
+        this.updateAPIURL = `${this.api_url}/api/follow-up/?page=${
+          this.dataService.getPage().selectedPage
+        }&page_size=${this.dataService.getPage().selectedIndex}`;
+      } else {
         this.updateAPIURL = this.dataService.getFollowupfilterURL().url;
-        
       }
-    })
-
-   
+    });
 
     // console.log('updated url==>', this.updateAPIURL);
 
@@ -563,34 +564,32 @@ editFollowup:any
 
   filterCount: any;
   api_url: any = environment.live_url;
-  queryUrl:any=''
+  queryUrl: any = '';
   refreshFollowUps() {
-    this.isSearched=false
-    this.searchValue=''
-    this.totalNumberOfRecords=0;
-    this.dataService.EditFollowupRefreshdataSubject.next(false)
+    this.isSearched = false;
+    this.searchValue = '';
+    this.totalNumberOfRecords = 0;
+    this.dataService.EditFollowupRefreshdataSubject.next(false);
     this.selectedCheckboxIds = [];
     this.checkAll = false;
-    this.selectedDate = null ;
-  
+    this.selectedDate = null;
+
     this.filtered = false;
-  
+
     this.renderingData = [];
     this.dataService.setSelectedTabData('All');
     localStorage.removeItem('followUpFilter');
     localStorage.removeItem('data.target.value');
-    if(this.role==='Admin'){
+    if (this.role === 'Admin') {
       if (this.counsellors_ids) {
         this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
       } else {
         this.queryUrl += `&admin_id=${this.user_id}&counsellor_id=0`;
       }
-    }else if(this.role==='counsellor'){
-      this.queryUrl+=`&counsellor_id=${this.user_id}` 
-    }
-    else
-    { 
-      this.queryUrl+= `${this.api_url}/api/follow-up/?page=1&page_size=5`
+    } else if (this.role === 'counsellor') {
+      this.queryUrl += `&counsellor_id=${this.user_id}`;
+    } else {
+      this.queryUrl += `${this.api_url}/api/follow-up/?page=1&page_size=5`;
     }
     this.dataService.setFilteredFollowUpURL(
       `${this.api_url}/api/follow-up/?page=1&page_size=5&${this.queryUrl}`
@@ -602,8 +601,7 @@ editFollowup:any
     this.selectedTab = 'All';
     this.dataService.resetFilterForm();
     this.dataService.followUpdataSubject.next(false);
-    window.location.reload()
-    
+    window.location.reload();
   }
 
   ngOnDestroy(): void {
@@ -647,7 +645,7 @@ editFollowup:any
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result === 'yes') {
           this.bulkVideoCall();
-        
+
           this.refreshFollowUps();
         }
       });
@@ -740,7 +738,7 @@ editFollowup:any
       ]}`;
 
       const anchorEle = document.createElement('a');
-      anchorEle.target='_blank'
+      anchorEle.target = '_blank';
       anchorEle.href = this.exportReference;
       document.body.appendChild(anchorEle);
       anchorEle.click();
@@ -797,7 +795,7 @@ editFollowup:any
 
   ngAfterViewInit() {
     // this.refreshFollowUps()
-    this.APICAll()
+    this.APICAll();
   }
 
   bulkVideoCall() {
@@ -915,7 +913,7 @@ editFollowup:any
 
   // ============================================================================
 
-  renderingData: any=[];
+  renderingData: any = [];
   countDataValue: any = {};
   loading: boolean = true;
 
@@ -960,7 +958,6 @@ editFollowup:any
       );
       this.api.FollowUpFilterApi(this?.updateAPIURL).subscribe(
         (res: any) => {
-          
           this.totalCount = res.total_no_of_record;
           //console.log(this.totalCount,"this.totalCount for counsellor");
           // //console.log(res, 'followup api  filetr all combination');
@@ -1090,9 +1087,7 @@ editFollowup:any
           //console.log(this.allPaginator,"paginator for admin");
 
           // //console.log(res, 'followup api  filetr all combination');
-          
 
-          
           this.followUpsData2 = res.results.data;
           this.totalNumberOfRecords = res.total_no_of_record;
           //console.log(this.totalNumberOfRecords," this.totalNumberOfRecords for admin");
@@ -1128,7 +1123,7 @@ editFollowup:any
             this.checkAll = true;
           }
           this.loading = false;
-         
+
           // //console.log(this.renderingData,"sssssssssssssssssssssssssssss");
         },
         (error: any) => {
@@ -1140,7 +1135,6 @@ editFollowup:any
   }
 
   getSort(data: any) {
-    
     let sort_by = this.filterFollowUp.getSortDataBYForm(
       'filter_by',
       data.target.innerText
@@ -1149,20 +1143,20 @@ editFollowup:any
     this.updateAPIURL += sort_by['apistring'];
 
     const tempurl = new URL(this.updateAPIURL);
-    const page :any= "page";
-    const page_size:any = "page_size";
-    tempurl.searchParams.set(page,this.defaultPage);
-    tempurl.searchParams.set(page_size,this.defaultPageSize);
-    this.updateAPIURL = tempurl.toString().replace(/%26/g,"&");
+    const page: any = 'page';
+    const page_size: any = 'page_size';
+    tempurl.searchParams.set(page, this.defaultPage);
+    tempurl.searchParams.set(page_size, this.defaultPageSize);
+    this.updateAPIURL = tempurl.toString().replace(/%26/g, '&');
     this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 
     // this.dataService.setFilteredFollowUpURL(this.updateAPIURL);
 
     // this.APICAll();
-   
+
     this.ngOnInit();
-    this.allPaginator.pageIndex=0;
-   this.allPaginator.pageSize=5
+    this.allPaginator.pageIndex = 0;
+    this.allPaginator.pageSize = 5;
   }
 
   getFilter(data: any) {
@@ -1214,14 +1208,13 @@ editFollowup:any
   }
 
   selectDate(data: any) {
-   
     const date = this.datePipe.transform(data, 'yyyy-MM-dd');
     this.dataService.setDate(this.datePipe.transform(data));
     // this.selectedDate=data
     const apiurl: any = this.filterFollowUp.getFilteredDate(date);
     // //console.log('apiurl', apiurl);
-this.allPaginator.pageIndex=0;
-this.allPaginator.pageSize=5;
+    this.allPaginator.pageIndex = 0;
+    this.allPaginator.pageSize = 5;
     let pageDataKeyValue = [
       { key: 'page', value: 1 },
       { key: 'page_size', value: 5 },
@@ -1313,12 +1306,12 @@ this.allPaginator.pageSize=5;
           },
         };
 
-      let res=this._bottomSheet.open(FollowupEmailComponent, config);
-      res.afterDismissed().subscribe((res:any)=>{
-        if(res==true&&this.filterFlag==false){
-          this.refreshFollowUps()
-        }
-      })
+        let res = this._bottomSheet.open(FollowupEmailComponent, config);
+        res.afterDismissed().subscribe((res: any) => {
+          if (res == true && this.filterFlag == false) {
+            this.refreshFollowUps();
+          }
+        });
       }
     });
   }
@@ -1498,7 +1491,7 @@ this.allPaginator.pageSize=5;
 
     this.currentPage = event.pageIndex;
     event.pageIndex += 1;
-    this.dataService.setPage(event.pageIndex,event.pageSize,true)
+    this.dataService.setPage(event.pageIndex, event.pageSize, true);
     let pageDataKeyValue = [
       { key: 'page', value: event.pageIndex },
       { key: 'page_size', value: event.pageSize },
