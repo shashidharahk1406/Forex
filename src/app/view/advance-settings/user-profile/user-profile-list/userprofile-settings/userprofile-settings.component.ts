@@ -63,7 +63,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   allUser: any = [];
   pageSize = 10;
   currentPage = 1;
-  totalPageLength: any;
+  totalPageLength: any ;
   params: any = null;
   user: any;
   role: any;
@@ -80,6 +80,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     private baseService: BaseServiceService,
     private dataService: DataService
   ) {
+   
     this.role = localStorage.getItem('user_role');
     this.userId = localStorage.getItem('user_id');
     if (this.role !== 'counsellor') {
@@ -87,6 +88,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     }
   }
   ngOnInit(): void {
+
     this.getUser();
     this.searchValue = '';
     this.initForm();
@@ -193,6 +195,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   }
 
   search() {
+
+
     if (this.searchValue !== '') {
       this.isSearched = true;
     } else {
@@ -211,22 +215,27 @@ export class UserprofileSettingsComponent implements AfterViewInit {
       query += `&${this.params}`;
     }
 
+
     this.baseService.getData(`${query}`).subscribe(
       (res: any) => {
-        if (res) {
+        if(res){
           this.totalPageLength = 0;
           this.allUser = [];
-          this.dataSource = new MatTableDataSource<any>();
+          this.dataSource = new MatTableDataSource<any>()
           console.log(res, 'search res from new method');
-
+          
+          
           this.allUser = res.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
-
+     
+          
           this.totalPageLength = res.total_no_of_record;
-          console.log(this.totalPageLength, 'this.totalPageLength');
+          console.log(this.totalPageLength,"this.totalPageLength");
           this.dataSource.sort = this.sort;
           this.loading = false;
+
         }
+       
       },
       (error: any) => {
         this.api.showError(error.error.message);
@@ -439,18 +448,11 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   getUser() {
     let query: string;
     if (
-      this.isSearched == true ||
-      (this.dataService.getPage().selectedPage != undefined &&
-        this.dataService.getPage().selectedIndex != undefined)
-    ) {
-      query = `${environment._user}?page=${
-        this.dataService.getPage().selectedPage
-      }&page_size=${this.dataService.getPage().selectedIndex}`;
-    } else if (
       this.editUser == true &&
       this.dataService.getPage().selectedPage != undefined &&
       this.dataService.getPage().selectedIndex != undefined
     ) {
+     
       query = `${environment._user}?page=${
         this.dataService.getPage().selectedPage
       }&page_size=${this.dataService.getPage().selectedIndex}`;
@@ -467,22 +469,23 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     if (this.filter || this.params != null) {
       query += `&${this.params}`;
     }
-
+   
     this.baseService.getData(`${query}`).subscribe(
       (res: any) => {
-        if (res) {
+        if(res){
           this.totalPageLength = 0;
           this.allUser = [];
-
+          
           this.dataSource = new MatTableDataSource<any>((this.allUser = []));
           console.log(res, 'res from new method');
           this.allUser = res.results;
-
+  
           this.dataSource = new MatTableDataSource<any>(this.allUser);
           this.totalPageLength = res.total_no_of_record;
           this.dataSource.sort = this.sort;
           this.loading = false;
         }
+       
       },
       (error: any) => {
         this.api.showError(error.error.message);
@@ -644,7 +647,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength = res.total_no_of_record;
-
+        
+        
         this.dataSource.sort = this.sort;
         this.loading = false;
       },
