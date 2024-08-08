@@ -41,8 +41,7 @@ export class CustomerFilterComponent implements OnInit {
     private api: ApiService,
     private _baseService: BaseServiceService,
     private _addLeadEmitter: AddLeadEmitterService,
-    private dataService:DataService
-
+    private dataService: DataService
   ) {
     this.user_id = localStorage.getItem('user_id');
     this.role = localStorage.getItem('user_role');
@@ -124,7 +123,7 @@ export class CustomerFilterComponent implements OnInit {
       }
     );
   }
-  cityOptions:any=[]
+  cityOptions: any = [];
   getCity() {
     this.api.getAllCity().subscribe(
       (res: any) => {
@@ -132,7 +131,7 @@ export class CustomerFilterComponent implements OnInit {
           this.cityList = res.results;
 
           this.cityOptions = res.results;
-          this.filteredCityOptions = this.cityOptions
+          this.filteredCityOptions = this.cityOptions;
         } else {
           this.api.showError('ERROR');
         }
@@ -145,34 +144,30 @@ export class CustomerFilterComponent implements OnInit {
 
   filteredCityOptions: any = [];
 
-  filterCountries(event:any,type:any,countryOptions:any){
-    let searchTerm:any = '';
-    if(event){
-       searchTerm = event.target.value.toLowerCase();
+  filterCountries(event: any, type: any, countryOptions: any) {
+    let searchTerm: any = '';
+    if (event) {
+      searchTerm = event.target.value.toLowerCase();
 
-       
-       if(searchTerm === '' && type === 'city'){
-        this.filteredCityOptions = countryOptions
-        return this.filteredCityOptions
-       }
-    
-      let filteredCountries = countryOptions.filter((option:any) =>{
-       const name:any = option.name.toLowerCase()
-       return name.includes(searchTerm)
-       });
+      if (searchTerm === '' && type === 'city') {
+        this.filteredCityOptions = countryOptions;
+        return this.filteredCityOptions;
+      }
 
-       if(!filteredCountries.length){
-        filteredCountries = [{name: `No ${type} found`}]
-       }
-   
-       if(type === 'city'){
-        this.filteredCityOptions = filteredCountries
-       }
-       
+      let filteredCountries = countryOptions.filter((option: any) => {
+        const name: any = option.name.toLowerCase();
+        return name.includes(searchTerm);
+      });
+
+      if (!filteredCountries.length) {
+        filteredCountries = [{ name: `No ${type} found` }];
+      }
+
+      if (type === 'city') {
+        this.filteredCityOptions = filteredCountries;
+      }
+    }
   }
-  }
-
-
 
   getStream() {
     this._baseService.getData(`${environment.studying_stream}`).subscribe(
@@ -232,7 +227,7 @@ export class CustomerFilterComponent implements OnInit {
       this._addLeadEmitter.customerFilterIcon.next(false);
     } else {
       const formValues = this.filterLead.value;
-      //console.log(formValues,"formValues")
+      console.log(formValues, 'formValues');
       // Create an array of query parameters with non-empty values
       const queryParams = [];
       for (const key in formValues) {
@@ -253,11 +248,11 @@ export class CustomerFilterComponent implements OnInit {
 
       // Construct the API request URL with query parameters
 
+      let isFormValid = Object.keys(this.filterLead.value).some(
+        (k: any) => this.filterLead.value[k] != ''
+      );
 
-  
-     let isFormValid= Object.keys(this.filterLead.value).some((k:any) => this.filterLead.value[k]!='')
-          
-// console.log(isFormValid,"isFormValid");
+      // console.log(isFormValid,"isFormValid");
 
       //  console.log(this.role=='Admin' && !this.filterLead.invalid,"this.role==='Admin' && this.filterLead.invalid");
       if (this.role === 'Admin' && !isFormValid) {
@@ -276,18 +271,37 @@ export class CustomerFilterComponent implements OnInit {
 
       let filterParams: any;
       if (queryParams.length > 0) {
+        console.log(queryParams, 'queryparams');
+
         // console.log(this.apiUrl,"apiurl in customer filetr");
 
         this.apiUrl += `&${queryParams.join('&')}`;
         filterParams = `&${queryParams.join('&')}`;
+        if (
+          filterParams.includes('counselled_by') &&
+          this.role === 'counsellor'
+        ) {
+          this.apiUrl += `&counsellor_id=${this.user_id}`;
+        }  if (
+           filterParams.includes('counselled_by') &&
+          this.role === 'Admin' &&
+          this.counsellor_ids
+        ) {
+          this.apiUrl += `&admin_id=${this.user_id}&counsellor_id=${this.counsellor_ids}`;
+        } 
+        if(!this.counsellor_ids) {
+          this.apiUrl += `&admin_id=${this.user_id}&counsellor_id=0`;
+        }
+        console.log(filterParams, 'filterParams');
+
         this._addLeadEmitter.filterWithPageSize.next(filterParams);
       }
       this._addLeadEmitter.customerFilter.next(this.apiUrl);
       this._addLeadEmitter.selectedCustomerFilter.next(this.filterLead.value);
       this._addLeadEmitter.customerfilterTriggerFilter();
       this._addLeadEmitter.customerFilterIcon.next(true);
-      this.dataService.filterCustomerRefreshdataSubject.next(true)
-      
+      this.dataService.filterCustomerRefreshdataSubject.next(true);
+
       // Make the API request with the constructed URL
       this._bottomSheetRef.dismiss(true);
     }

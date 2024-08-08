@@ -63,7 +63,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   allUser: any = [];
   pageSize = 10;
   currentPage = 1;
-  totalPageLength: any = 0;
+  totalPageLength: any ;
   params: any = null;
   user: any;
   role: any;
@@ -215,9 +215,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     if (this.filter) {
       query += `&${this.params}`;
     }
-    this.totalPageLength = 0;
-        this.allUser = [];
-        this.dataSource = new MatTableDataSource<any>()
+
 
     this.baseService.getData(`${query}`).subscribe(
       (res: any) => {
@@ -225,7 +223,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           this.totalPageLength = 0;
           this.allUser = [];
           this.dataSource = new MatTableDataSource<any>()
-          console.log(res, 'search res from new method');
+          // console.log(res, 'search res from new method');
+          
           
           this.allUser = res.results;
           this.dataSource = new MatTableDataSource<any>(this.allUser);
@@ -450,15 +449,12 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   getUser() {
     let query: string;
     if (
-      this.editUser == true &&
-      this.dataService.getPage().selectedPage != undefined &&
-      this.dataService.getPage().selectedIndex != undefined
+      this.editUser == true 
     ) {
-      this.currentPage = this.dataService.getPage().selectedPage;
-      this.pageSize = this.dataService.getPage().selectedIndex;
+     
       query = `${environment._user}?page=${
-        this.dataService.getPage().selectedPage
-      }&page_size=${this.dataService.getPage().selectedIndex}`;
+        this.page
+      }&page_size=${this.size}`;
     } else {
       query = `${environment._user}?page=1&page_size=10`;
     }
@@ -472,9 +468,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     if (this.filter || this.params != null) {
       query += `&${this.params}`;
     }
-    this.totalPageLength = 0;
-    this.allUser = [];
-    this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+   
     this.baseService.getData(`${query}`).subscribe(
       (res: any) => {
         this.totalPageLength = 0;
