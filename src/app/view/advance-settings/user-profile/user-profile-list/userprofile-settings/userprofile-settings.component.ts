@@ -58,8 +58,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<any>();
   @ViewChild('myDropdown') myDropdown!: NgbDropdown;
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatPaginator) allPaginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  // @ViewChild(MatPaginator) allPaginator!: MatPaginator;
+  // @ViewChild(MatSort) sort!: MatSort;
   allUser: any = [];
   pageSize = 10;
   currentPage = 1;
@@ -71,7 +71,8 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   userId: any = null;
   filter: boolean = false;
   editUser: any;
-
+  page = 1;
+  size: any = 10;
   constructor(
     private dialog: MatDialog,
     private api: ApiService,
@@ -101,17 +102,17 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           this.searchValue = '';
         }
 
-        this.dataService.customerEdit.subscribe((res: any) => {
-          this.editUser = res;
-          if (
-            res == true &&
-            this.dataService.getPage().selectedPage != undefined &&
-            this.dataService.getPage().selectedIndex != undefined
-          ) {
-            this.currentPage = this.dataService.getPage().selectedPage;
-            this.pageSize = this.dataService.getPage().selectedIndex;
-          }
-        });
+        // this.dataService.customerEdit.subscribe((res: any) => {
+        //   this.editUser = res;
+        //   if (
+        //     res == true &&
+        //     this.dataService.getPage().selectedPage != undefined &&
+        //     this.dataService.getPage().selectedIndex != undefined
+        //   ) {
+        //     this.currentPage = this.dataService.getPage().selectedPage;
+        //     this.pageSize = this.dataService.getPage().selectedIndex;
+        //   }
+        // });
         this.searchValue = '';
         this.getUser();
       }
@@ -232,7 +233,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           
           this.totalPageLength = res.total_no_of_record;
           console.log(this.totalPageLength,"this.totalPageLength");
-          this.dataSource.sort = this.sort;
+          // this.dataSource.sort = this.sort;
           this.loading = false;
 
         }
@@ -484,7 +485,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
 
         this.dataSource = new MatTableDataSource<any>(this.allUser);
         this.totalPageLength = res.total_no_of_record;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.sort = this.sort;
         this.loading = false;
       },
       (error: any) => {
@@ -608,20 +609,15 @@ export class UserprofileSettingsComponent implements AfterViewInit {
   //   }
   // }
 
-  pageindex = 0;
-  page = 0;
-  size: any = 10;
+  // pageindex = 0;
+  
   pageChanged(event: PageEvent) {
-    // console.log(event, 'page event');
-
     this.size = event.pageSize;
     this.page = event.pageIndex + 1;
-    this.pageindex = event.pageIndex;
-    this.dataService.setPage(this.page, this.size, true);
-
+    
     let query: string;
 
-    query = `${environment._user}?page=${this.page}&page_size=${event.pageSize}`;
+    query = `${environment._user}?page=${this.page}&page_size=${this.size}`;
     if (this.role === 'Admin') {
       query += `&user_id=${this.userId}`;
     }
@@ -634,9 +630,9 @@ export class UserprofileSettingsComponent implements AfterViewInit {
     if (this.isSearched == true) {
       query += `&key=${this.searchValue}`;
     }
-    this.totalPageLength = 0;
-    this.allUser = [];
-    this.dataSource = new MatTableDataSource<any>((this.allUser = []));
+    // this.totalPageLength = 0;
+    // this.allUser = [];
+    // this.dataSource = new MatTableDataSource<any>((this.allUser = []));
     this.baseService.getData(`${query}`).subscribe(
       (res: any) => {
         this.totalPageLength = 0;
@@ -649,7 +645,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
         this.totalPageLength = res.total_no_of_record;
         
         
-        this.dataSource.sort = this.sort;
+        // this.dataSource.sort = this.sort;
         this.loading = false;
       },
       (error: any) => {
@@ -836,12 +832,14 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           (this.isSearched == true && this.isFiltered == false) ||
           (this.isSearched == false && this.isFiltered == false)
         ) {
-          this.dataService.customerEdit.subscribe((res: any) => {
-            if (res == true) {
-              this.currentPage = this.dataService.getPage().selectedPage;
-              this.pageSize = this.dataService.getPage().selectedIndex;
-            }
-          });
+          this.currentPage = this.page
+          this.pageSize = this.size
+          // this.dataService.customerEdit.subscribe((res: any) => {
+          //   if (res == true) {
+          //     this.currentPage = this.page
+          //     this.pageSize = this.size
+          //   }
+          // });
 
           this.getUser();
         } else {
