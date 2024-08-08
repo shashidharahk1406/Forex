@@ -352,6 +352,30 @@ export class MyFollowupFilterComponent implements OnInit {
       // //console.log("data==>", data);
     });
 
+
+
+    // if (
+    //   nonEmptyKeys.includes('counselled_by') &&
+    //   this.role === 'counsellor'
+    // ) {
+    //   this.updateFilterByStatusURL += `&counsellor_id=${this.user_id}`;
+
+    // }  
+    
+    if (
+      nonEmptyKeys.includes('counselled_by') &&
+      this.role === 'Admin' &&
+      this.counsellors_ids
+    ) {
+      this.updateFilterByStatusURL += `&admin_id=${this.user_id}&counsellor_id=${this.counsellors_ids}`;
+    } 
+    if(this.role === 'Admin'&&!this.counsellors_ids) {
+      this.updateFilterByStatusURL += `&admin_id=${this.user_id}&counsellor_id=0`;
+    }
+
+    // console.log(this.updateFilterByStatusURL,"lastfilurl");
+    
+
     this.dataService.setFilteredFormValues(this.filterLead.value);
     const tempurl = new URL(this.updateFilterByStatusURL);
     const page: any = 'page';

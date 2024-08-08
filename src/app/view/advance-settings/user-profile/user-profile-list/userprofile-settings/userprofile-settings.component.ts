@@ -222,7 +222,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
           this.totalPageLength = 0;
           this.allUser = [];
           this.dataSource = new MatTableDataSource<any>()
-          console.log(res, 'search res from new method');
+          // console.log(res, 'search res from new method');
           
           
           this.allUser = res.results;
@@ -230,7 +230,7 @@ export class UserprofileSettingsComponent implements AfterViewInit {
      
           
           this.totalPageLength = res.total_no_of_record;
-          console.log(this.totalPageLength,"this.totalPageLength");
+          // console.log(this.totalPageLength,"this.totalPageLength");
           this.dataSource.sort = this.sort;
           this.loading = false;
 

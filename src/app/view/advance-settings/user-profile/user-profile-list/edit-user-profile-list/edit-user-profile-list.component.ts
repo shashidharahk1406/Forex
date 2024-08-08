@@ -61,6 +61,7 @@ export class EditUserProfileListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+ 
   }
   users: string[] = ['User 1', 'User 2', 'User 3'];
   levels: string[] = ['Level 1', 'Level 2', 'Level 3'];
@@ -337,12 +338,12 @@ export class EditUserProfileListComponent implements OnInit {
       this.editForm.patchValue({ reporting_to_ids: {} });
       this.roleChangeFromCounsellorToAdmin();
     }
-    // if (this.isReportingToUser == false && this.roleId === 7) {
-    //   this.newArr = [];
-    //   this.newArrFromApi = [];
-    //   this.editForm.patchValue({ reporting_to_ids: {} });
+    if (this.isReportingToUser == false && this.roleId === 7) {
+      this.newArr = [];
+      this.newArrFromApi = [];
+      this.editForm.patchValue({ reporting_to_ids: {} });
 
-    // }
+    }
     if (this.newArrFromApi.length == 0) {
       this.editForm.patchValue({ reporting_to_ids: this.newArr });
     } else if (this.newArr.length == 0) {
@@ -351,10 +352,13 @@ export class EditUserProfileListComponent implements OnInit {
 
     if (
       this.editForm.invalid ||
-      (this.roleId === 3 && this.counsellorIds > 0) ||
+      (this.roleId === 3 && this.counsellorIds.length > 0) ||
       (this.roleId === 7 && this.counsellorIds.length > 0)
     ) {
       this.openTransferCounsellorsComponent();
+      
+      // console.log(this.counsellorIds,"cl");
+      
 
       this.editForm.markAllAsTouched();
     } else {
@@ -377,7 +381,7 @@ export class EditUserProfileListComponent implements OnInit {
   isReportingToUser: boolean = false;
   onRoleChange(id: any) {
     this.roleId = id;
-    console.log(this.roleId, 'roleId');
+    // console.log(this.roleId, 'roleId');
     if (id === 6) {
       this.showTranferCounsellor = true;
     } else {
@@ -443,8 +447,9 @@ export class EditUserProfileListComponent implements OnInit {
     dialogRef.disableClose = true;
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result == false) {
+      if (result == true) {
         // this.dialogRef.close();
+        this.getCounselloIdsForAdmin();
       }
     });
   }

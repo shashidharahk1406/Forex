@@ -222,7 +222,7 @@ export class CustomerCardComponent implements OnInit {
 
     this._addLeadEmitter.customerFilter.subscribe((res: any) => {
       if (res) {
-        //  console.log(res, "RES");
+         console.log(res, "RES filterrrrrrrrrrrr");
         this.leadFilter = true;
         this.filterLeads(res);
       } else {
